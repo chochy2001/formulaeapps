@@ -1,0 +1,100 @@
+services:
+  landing:
+    build: ./landing
+    container_name: formulaeapps-landing
+    restart: unless-stopped
+    networks: [web_proxy]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web_proxy"
+      - "traefik.http.middlewares.formulae-www-redirect.redirectregex.regex=^https?://www\\.formulaeapps\\.com/(.*)"
+      - "traefik.http.middlewares.formulae-www-redirect.redirectregex.replacement=https://formulaeapps.com/$${1}"
+      - "traefik.http.middlewares.formulae-www-redirect.redirectregex.permanent=true"
+      - "traefik.http.routers.formulae-landing-http.rule=Host(`formulaeapps.com`) || Host(`www.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-landing-http.entrypoints=web"
+      - "traefik.http.routers.formulae-landing-http.middlewares=cl-redirect-https@file"
+      - "traefik.http.routers.formulae-landing.rule=Host(`formulaeapps.com`)"
+      - "traefik.http.routers.formulae-landing.entrypoints=websecure"
+      - "traefik.http.routers.formulae-landing.tls=true"
+      - "traefik.http.routers.formulae-landing.tls.certresolver=myresolver"
+      - "traefik.http.routers.formulae-landing.tls.domains[0].main=formulaeapps.com"
+      - "traefik.http.routers.formulae-landing.tls.domains[0].sans=www.formulaeapps.com"
+      - "traefik.http.routers.formulae-landing.middlewares=frontend-headers@file,gzip-compress@file"
+      - "traefik.http.services.formulae-landing.loadbalancer.server.port=80"
+      - "traefik.http.routers.formulae-www.rule=Host(`www.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-www.entrypoints=websecure"
+      - "traefik.http.routers.formulae-www.tls=true"
+      - "traefik.http.routers.formulae-www.tls.certresolver=myresolver"
+      - "traefik.http.routers.formulae-www.middlewares=formulae-www-redirect"
+      - "traefik.http.routers.formulae-www.service=formulae-landing"
+
+  pro:
+    build:
+      context: ./pro
+      args:
+        JWT_SHARED_SECRET: ${JWT_SHARED_SECRET}
+        FORMULAE_BFF_CHAT_URL: ${FORMULAE_BFF_CHAT_URL}
+    container_name: formulaeapps-pro
+    restart: unless-stopped
+    networks: [web_proxy]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web_proxy"
+      - "traefik.http.routers.formulae-pro-http.rule=Host(`app.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-pro-http.entrypoints=web"
+      - "traefik.http.routers.formulae-pro-http.middlewares=cl-redirect-https@file"
+      - "traefik.http.routers.formulae-pro.rule=Host(`app.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-pro.entrypoints=websecure"
+      - "traefik.http.routers.formulae-pro.tls=true"
+      - "traefik.http.routers.formulae-pro.tls.certresolver=myresolver"
+      - "traefik.http.routers.formulae-pro.middlewares=frontend-headers@file,gzip-compress@file"
+      - "traefik.http.services.formulae-pro.loadbalancer.server.port=80"
+
+  bff:
+    build: ./bff
+    container_name: formulaeapps-bff
+    restart: unless-stopped
+    env_file: [.env]
+    networks: [web_proxy, bff_internal]
+    secrets:
+      - apple_p8
+      - google_sa
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web_proxy"
+      - "traefik.http.routers.formulae-bff-http.rule=Host(`api.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-bff-http.entrypoints=web"
+      - "traefik.http.routers.formulae-bff-http.middlewares=cl-redirect-https@file"
+      - "traefik.http.routers.formulae-bff.rule=Host(`api.formulaeapps.com`)"
+      - "traefik.http.routers.formulae-bff.entrypoints=websecure"
+      - "traefik.http.routers.formulae-bff.tls=true"
+      - "traefik.http.routers.formulae-bff.tls.certresolver=myresolver"
+      - "traefik.http.routers.formulae-bff.middlewares=security-headers@file,api-ratelimit@file,gzip-compress@file"
+      - "traefik.http.services.formulae-bff.loadbalancer.server.port=3000"
+
+networks:
+  web_proxy:
+    external: true
+  bff_internal:
+    driver: bridge
+
+secrets:
+  apple_p8:
+    file: /opt/infrastructure/secrets/formulaeapps-docker/apple_p8.txt
+  google_sa:
+    file: /opt/infrastructure/secrets/formulaeapps-docker/google_sa.json
