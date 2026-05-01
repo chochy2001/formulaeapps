@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "511624060011",
+    "project_id": "formulae-calculo",
+    "storage_bucket": "formulae-calculo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511624060011:android:45c7491813067f7bbaa52e",
+        "android_client_info": {
+          "package_name": "capdesis.formulae"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511624060011-2tubk27rj744jeatovgslttalp04dk8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_8QK4NsfIkxFL2pbxj26cEo_Qzy312gU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511624060011-2tubk27rj744jeatovgslttalp04dk8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

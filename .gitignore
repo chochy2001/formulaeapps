@@ -9,53 +9,57 @@ Thumbs.db
 !.vscode/settings.json
 *.swp
 
+# Env files (any subproject)
+**/.env
+**/.env.local
+**/.env.production
+**/.env.*.local
+
 # === Astro · landing/ ===
 landing/node_modules/
 landing/dist/
 landing/.astro/
-landing/.env
-landing/.env.local
-landing/.env.production
 landing/*.log
 landing/.ftp-deploy-sync-state.json
 
-# === Flutter · frontend/ ===
-frontend/.dart_tool/
-frontend/.flutter-plugins
-frontend/.flutter-plugins-dependencies
-frontend/.packages
-frontend/.pub-cache/
-frontend/.pub/
-frontend/build/
-frontend/coverage/
-frontend/web.zip
-
-# Android
-frontend/android/.gradle/
-frontend/android/captures/
-frontend/android/local.properties
-frontend/android/key.properties
-frontend/android/**/GeneratedPluginRegistrant.java
-frontend/**/*.keystore
-frontend/**/*.jks
-
-# iOS / macOS
-frontend/ios/Pods/
-frontend/ios/.symlinks/
-frontend/ios/Flutter/App.framework
-frontend/ios/Flutter/Flutter.framework
-frontend/ios/Flutter/Flutter.podspec
-frontend/ios/Flutter/Generated.xcconfig
-frontend/ios/Flutter/ephemeral
-frontend/ios/Flutter/flutter_export_environment.sh
-frontend/ios/Runner/GeneratedPluginRegistrant.*
-frontend/macos/Pods/
-frontend/macos/Flutter/ephemeral/
-
-# Linux / Windows
-frontend/linux/flutter/ephemeral/
-frontend/windows/flutter/ephemeral/
-
-# Generic safety nets
+# === Flutter (covers pro/ and community/) ===
 **/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
 **/build/
+**/coverage/
+**/web.zip
+
+# Flutter / Android
+**/android/.gradle/
+**/android/captures/
+**/android/local.properties
+**/android/key.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/*.keystore
+**/*.jks
+
+# Flutter / iOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral*
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Flutter / macOS / Linux / Windows
+**/macos/Pods/
+**/macos/Flutter/ephemeral*
+**/linux/flutter/ephemeral*
+**/windows/flutter/ephemeral*
+
+# Finder duplicates ("X 2", "X copy")
+* 2
+* copy
+* copy [0-9]*

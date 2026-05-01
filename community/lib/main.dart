@@ -1,0 +1,116 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+import '../../../constantes/export_constantes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:formulae/menu.dart';
+import 'package:formulae/routes.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../chat_gpt/chats_provider.dart';
+import '../chat_gpt/models_provider.dart';
+import '../models/task_data.dart';
+import 'dart:ui' as ui;
+
+import 'package:formulae/screens_personalizados/configuracion.dart';
+
+import 'l10n/l10n.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  MobileAds.instance.initialize();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  final favoritesNotifier = await FavoritesNotifier.loadFavorites();
+  final deviceLocale =
+      ui.PlatformDispatcher.instance.locale; // obtén el locale del sistema
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LocaleProvider>(
+            create: (context) => LocaleProvider(deviceLocale)),
+        ChangeNotifierProvider<ModelsProvider>(
+          create: (context) => ModelsProvider(),
+        ),
+        ChangeNotifierProvider<ChatProvider>(
+          create: (context) => ChatProvider(),
+        ),
+        ChangeNotifierProvider<TaskData>(
+          create: (context) => TaskData(),
+        ),
+        // Usa el favoritesNotifier que ya has inicializado y cargado
+        ChangeNotifierProvider<FavoritesNotifier>.value(
+            value: favoritesNotifier),
+      ],
+      child: MyApp(favoritesNotifier: favoritesNotifier),
+    ),
+  );
+  FlutterNativeSplash.remove();
+}
+
+class MyApp extends StatefulWidget {
+  final FavoritesNotifier favoritesNotifier;
+
+  const MyApp({Key? key, required this.favoritesNotifier}) : super(key: key);
+
+  static MyAppState? _myAppState;
+
+  static void restartApp() {
+    _myAppState?.restartApp();
+  }
+
+  @override
+  MyAppState createState() => _myAppState = MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      key: key,
+      navigatorKey: navigatorKey,
+      title: 'Formulae Pro',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: Provider.of<LocaleProvider>(context).locale,
+      supportedLocales: L10n.all,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+            //Menu Icon color changed to white
+            iconTheme: IconThemeData(color: Colors.white)),
+        fontFamily: 'Poppins',
+        primarySwatch: PaletaColores.kFondo,
+        scaffoldBackgroundColor: kColorFondo,
+        primaryColor: kColorFondo,
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: kColorFondo,
+          primaryColor: kColorFondo,
+          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Poppins')),
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: getApplicationRoutes(),
+      onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
+        builder: (BuildContext context) => const Menu(),
+      ),
+    );
+  }
+}

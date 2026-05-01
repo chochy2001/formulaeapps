@@ -1,0 +1,16 @@
+export '../calculo_multivariable/area_bajo_la_curva.dart';
+export '../calculo_multivariable/area_de_una_superficie_de_revolucion.dart';
+export '../calculo_multivariable/cambio_de_variables.dart';
+export '../calculo_multivariable/derivadas_direccionales.dart';
+export '../calculo_multivariable/derivadas_parciales.dart';
+export '../calculo_multivariable/diferencial_total.dart';
+export '../calculo_multivariable/funciones_vectoriales/derivada_funciones_vectoriales.dart';
+export '../calculo_multivariable/funciones_vectoriales/limite_derivada_integral_funciones_vectoriales.dart';
+export '../calculo_multivariable/gradiente_de_una_funcion.dart';
+export '../calculo_multivariable/identidades_vectoriales.dart';
+export '../calculo_multivariable/integral_en_coordenadas_cilindricas.dart';
+export '../calculo_multivariable/integrales_de_linea.dart';
+export '../calculo_multivariable/longitud_de_arco.dart';
+export '../calculo_multivariable/operadores_diferenciales.dart';
+export '../calculo_multivariable/teorema_de_fubini.dart';
+export '../calculo_multivariable/teorema_integrales.dart';

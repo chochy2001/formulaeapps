@@ -1,0 +1,9 @@
+export '../matematicas_discretas/bicondicional.dart';
+export '../matematicas_discretas/condicional.dart';
+export '../matematicas_discretas/conectores_logicos.dart';
+export '../matematicas_discretas/conjuncion.dart';
+export '../matematicas_discretas/disyuncion.dart';
+export '../matematicas_discretas/leyes_de_la_logica_proposicional.dart';
+export '../matematicas_discretas/leyes_de_la_teoria_de_conjuntos.dart';
+export '../matematicas_discretas/leyes_del_algebra_de_boole.dart';
+export '../matematicas_discretas/negacion.dart';

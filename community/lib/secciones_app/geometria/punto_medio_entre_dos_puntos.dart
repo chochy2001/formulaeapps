@@ -1,0 +1,383 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../../../constantes/export_constantes.dart';
+
+class PuntoMedioEntreDosPuntosGeometria extends StatefulWidget {
+  @override
+  _PuntoMedioEntreDosPuntosGeometriaState createState() =>
+      _PuntoMedioEntreDosPuntosGeometriaState();
+}
+
+class _PuntoMedioEntreDosPuntosGeometriaState
+    extends State<PuntoMedioEntreDosPuntosGeometria> {
+  static final AdRequest request = AdMobConfig.defaultRequest;
+
+  double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
+  static const int maxFailedLoadAttempts = 3;
+
+  late BannerAd myBanner;
+  late InterstitialAd? _interstitialAd;
+  int _numInterstitialLoadAttempts = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _createInterstitialAd();
+    myBanner = BannerAd(
+      adUnitId: AdMobConfig.bannerAdUnitId,
+      size: AdSize.banner,
+      request: AdMobConfig.defaultRequest,
+      listener: BannerAdListener(
+        onAdLoaded: (Ad ad) {
+          setState(() {
+            // Update adContainer with the correct width and height.
+            adContainer = Container(
+              alignment: Alignment.center,
+              child: AdWidget(ad: myBanner),
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+            );
+          });
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          // Dispose the ad here to free resources.
+          ad.dispose();
+          print('Ad failed to load: $error');
+        },
+        onAdOpened: (Ad ad) => print('Ad opened.'),
+        onAdClosed: (Ad ad) => print('Ad closed.'),
+        onAdImpression: (Ad ad) => print('Ad impression.'),
+      ),
+    );
+    myBanner.load();
+  }
+
+  void _createInterstitialAd() {
+    InterstitialAd.load(
+        adUnitId: AdMobConfig.interstitialAdUnitId,
+        request: request,
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (InterstitialAd ad) {
+            print('$ad loaded');
+            _interstitialAd = ad;
+            _numInterstitialLoadAttempts = 0;
+            _interstitialAd?.setImmersiveMode(true);
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            print('InterstitialAd failed to load: $error.');
+            _numInterstitialLoadAttempts += 1;
+            _interstitialAd = null;
+            if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+              _createInterstitialAd();
+            }
+          },
+        ));
+  }
+
+  Container adContainer = Container(
+    alignment: Alignment.center,
+    child: SizedBox(
+      width: AdSize.banner.width.toDouble(),
+      height: AdSize.banner.height.toDouble(),
+    ),
+  );
+
+  @override
+  void dispose() {
+    super.dispose();
+    _interstitialAd?.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppBarHome(),
+      body: SafeArea(
+        child: ListView(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TituloPersonalizado(
+                    AppLocalizations.of(context)!.puntoMedioEntreDosPuntos,
+                  ),
+                  adContainer,
+                  Consumer<FavoritesNotifier>(
+                    builder: (context, favoritesNotifier, child) {
+                      bool isFavorite = favoritesNotifier.isFavorite(
+                        Favorite(
+                            title: AppLocalizations.of(context)!
+                                .puntoMedioEntreDosPuntos,
+                            widgetName: kWidgetPuntoMedioEntreDosPuntos),
+                      );
+                      return IconButton(
+                        icon: isFavorite
+                            ? const Icon(Icons.favorite)
+                            : const Icon(Icons.favorite_border),
+                        color: isFavorite ? Colors.white : Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            if (isFavorite) {
+                              favoritesNotifier.removeFavorite(
+                                Favorite(
+                                    title: AppLocalizations.of(context)!
+                                        .puntoMedioEntreDosPuntos,
+                                    widgetName:
+                                        kWidgetPuntoMedioEntreDosPuntos),
+                              );
+                            } else {
+                              favoritesNotifier.addFavorite(
+                                Favorite(
+                                    title: AppLocalizations.of(context)!
+                                        .puntoMedioEntreDosPuntos,
+                                    widgetName:
+                                        kWidgetPuntoMedioEntreDosPuntos),
+                              );
+                            }
+                          });
+                        },
+                      );
+                    },
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Latex(
+                      formulaText:
+                          r"M=\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2},\frac{z_1+z_2}{2}\right)"),
+
+                  const SizedBox(height: kEspacioEntreBotones),
+                  Theme(
+                    data: ThemeData(
+                      primaryColor: Colors.white,
+                      primaryColorDark: Colors.white,
+                      hintColor: Colors.white,
+                      inputDecorationTheme: const InputDecorationTheme(
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    child: TextField(
+                      style: kTextoBotones,
+                      cursorColor: Colors.white,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      decoration: InputDecoration(
+                        hintText: "5",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        labelText: 'x1',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          x1 = double.parse(valor);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+
+                  Theme(
+                    data: ThemeData(
+                      primaryColor: Colors.white,
+                      primaryColorDark: Colors.white,
+                      hintColor: Colors.white,
+                      inputDecorationTheme: const InputDecorationTheme(
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    child: TextField(
+                      style: kTextoBotones,
+                      cursorColor: Colors.white,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      decoration: InputDecoration(
+                        hintText: "5",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        labelText: 'y1',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          y1 = double.parse(valor);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  Theme(
+                    data: ThemeData(
+                      primaryColor: Colors.white,
+                      primaryColorDark: Colors.white,
+                      hintColor: Colors.white,
+                      inputDecorationTheme: const InputDecorationTheme(
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    child: TextField(
+                      style: kTextoBotones,
+                      cursorColor: Colors.white,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      decoration: InputDecoration(
+                        hintText: "5",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        labelText: 'x2',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          x2 = double.parse(valor);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  Theme(
+                    data: ThemeData(
+                      primaryColor: Colors.white,
+                      primaryColorDark: Colors.white,
+                      hintColor: Colors.white,
+                      inputDecorationTheme: const InputDecorationTheme(
+                        hintStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    child: TextField(
+                      style: kTextoBotones,
+                      cursorColor: Colors.white,
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: true, decimal: true),
+                      decoration: InputDecoration(
+                        hintText: "5",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        labelText: 'y2',
+                      ),
+                      onChanged: (valor) {
+                        setState(() {
+                          y2 = double.parse(valor);
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+
+                  Math.tex(
+                      "(${implementFraction(x1)},${implementFraction(y1)}),(${implementFraction(x2)},${implementFraction(y2)})",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas),
+                  _solucionPuntoMedio(x1, x2, y1, y2),
+                  //Boton para acceder al formulario en PDF
+                  const VerPDF(
+                    url: kWidgetPuntoMedioEntreDosPuntos,
+                  ),
+                  //Descargar PDF
+                  const DescargarPDF(
+                    url: kWidgetPuntoMedioEntreDosPuntos,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: kColorBotones,
+                      border: Border.all(
+                        color: kColorFondo,
+                        width: 8,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        const Notas(),
+                        TextoEcuaciones(
+                            '${AppLocalizations.of(context)!.encuentraPuntoMedioEntre}\n( –2, 5 )  y  ( 7, 7 ).'),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        const Latex(
+                            formulaText:
+                                r"\left(\frac{-2+7}{2},\frac{5+7}{2}\right)"),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(
+                          AppLocalizations.of(context)!.simplificando,
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                            formulaText:
+                                r"\left(\frac{5}{2},\frac{12}{2}\right)"),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                            formulaText:
+                                r"\left(\frac{5}{2},\frac{6}{1}\right)"),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(formulaText: r"(2.5,6)"),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const CapdesisLatex(),
+                        const SizedBox(height: kEspacioEntreBotones),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _solucionPuntoMedio(x1, x2, y1, y2) {
+    double puntoX = ((x1 + x2) / 2);
+    double puntoY = ((y1 + y2) / 2);
+
+    return Container(
+      color: kColorBotones,
+      child: ListTile(
+        title: Text(
+          '${AppLocalizations.of(context)!.puntoMedio}=\n(${implementFraction(puntoX)},${implementFraction(puntoY)})',
+          style: kEstiloTextoMenus,
+        ),
+      ),
+    );
+  }
+}
