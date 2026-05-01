@@ -1,0 +1,78 @@
+---
+/**
+ * Layout base. Cada página lo usa pasando título, descripción, imagen OG.
+ *
+ * Uso típico:
+ *   <BaseLayout title="..." description="..." pathname="/pro">
+ *     <main>...</main>
+ *   </BaseLayout>
+ */
+import '../styles/global.css';
+import SEO from '../components/seo/SEO.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import { SITE, type Locale } from '../consts';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  /** Path sin prefijo de locale, p. ej. "/pro" — sirve para hreflang. */
+  pathname?: string;
+  /** Variante de schema.org a inyectar */
+  schema?: 'pro' | 'community' | 'both';
+  /** Páginas legales NO deberían tener MobileApplication schema */
+  legal?: boolean;
+  /** Solo home: inyecta VideoObject schema del demo. */
+  includeVideo?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  noindex,
+  pathname,
+  schema,
+  legal = false,
+  includeVideo = false,
+} = Astro.props;
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+---
+
+<!doctype html>
+<html lang={locale === 'es' ? 'es-ES' : 'en-US'}>
+  <head>
+    <SEO {title} {description} {image} {imageAlt} {noindex} {pathname} />
+    <JsonLd variant={schema} includeApp={!legal} includeVideo={includeVideo} />
+
+    <!-- Preconnects estratégicos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sriracha&display=swap"
+      rel="stylesheet"
+    />
+
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary-600 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Saltar al contenido
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

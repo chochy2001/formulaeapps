@@ -1,0 +1,67 @@
+---
+import { SITE, type Locale } from '../../consts';
+import { useTranslations } from '../../i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+
+const navLinks = [
+  { href: getRelativeLocaleUrl(locale, '/'), label: t('nav.home') },
+  { href: getRelativeLocaleUrl(locale, '/pro'), label: t('nav.pro') },
+  {
+    href: getRelativeLocaleUrl(locale, locale === 'es' ? '/gratuita' : '/free'),
+    label: t('nav.community'),
+  },
+  { href: getRelativeLocaleUrl(locale, '/soporte'), label: t('nav.support') },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-ink-100 bg-white/80 backdrop-blur-md">
+  <div
+    class="mx-auto flex h-16 max-w-[var(--container-wide)] items-center justify-between px-4 md:px-6"
+  >
+    <a
+      href={getRelativeLocaleUrl(locale, '/')}
+      class="flex items-center gap-2 font-display text-xl text-primary-700"
+      aria-label={SITE.name}
+    >
+      <span aria-hidden="true">∑</span>
+      <span>{SITE.name}</span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex items-center gap-6 text-sm font-medium text-ink-700">
+        {
+          navLinks.map(({ href, label }) => (
+            <li>
+              <a
+                href={href}
+                class="transition-colors hover:text-primary-600"
+                aria-current={Astro.url.pathname === href ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <LanguageSwitcher />
+      <a
+        href={SITE.appUrl}
+        rel="noopener"
+        target="_blank"
+        class="hidden items-center gap-1.5 rounded-full bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-primary-700 sm:inline-flex"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7" />
+        </svg>
+        {t('nav.openApp')}
+      </a>
+    </div>
+  </div>
+</header>

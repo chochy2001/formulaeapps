@@ -1,0 +1,21 @@
+node_modules
+dist
+.astro
+.git
+.gitignore
+.github
+.vscode
+.idea
+.DS_Store
+.env
+.env.local
+.env.production
+.env.*.local
+*.log
+npm-debug.log*
+.ftp-deploy-sync-state.json
+README.md
+.prettierrc.json
+.dockerignore
+Dockerfile
+# nginx.conf NO se ignora: el Dockerfile lo copia al runtime stage

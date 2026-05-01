@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Features from '../components/home/Features.astro';
+import DownloadCTA from '../components/home/DownloadCTA.astro';
+import { useTranslations } from '../i18n/ui';
+import { STORES, type Locale } from '../consts';
+
+const locale: Locale = 'es';
+const t = useTranslations(locale);
+
+const title = 'Formulae Pro — Sin anuncios, con asistente IA';
+const description =
+  'Formulae Pro es la versión sin anuncios de Formulae. Incluye exportación a PDF, lista de tareas, asistente con ChatGPT y más. Disponible para iOS, Android, Windows, macOS y Linux.';
+---
+
+<BaseLayout {title} {description} pathname="/pro" schema="pro">
+  <Container as="section" class="py-16 md:py-24">
+    <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">Formulae Pro</p>
+    <h1 class="mt-3 max-w-3xl font-display text-4xl text-ink-900 md:text-5xl">
+      Toda la potencia de Formulae, sin anuncios y con IA.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-ink-700">
+      {t('comparison.pro.tagline')}
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href={STORES.pro.playStore}
+        rel="noopener"
+        target="_blank"
+        class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-primary-700"
+      >
+        {t('comparison.pro.cta')}
+      </a>
+      <a
+        href={STORES.pro.appStore}
+        rel="noopener"
+        target="_blank"
+        class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-primary-400 hover:text-primary-700"
+      >
+        {t('download.appStore')}
+      </a>
+    </div>
+  </Container>
+
+  <Features />
+  <DownloadCTA variant="pro" />
+</BaseLayout>

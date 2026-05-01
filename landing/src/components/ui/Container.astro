@@ -1,0 +1,17 @@
+---
+/**
+ * Wrapper centrado con max-width consistente. Evita repetir
+ * `mx-auto max-w-* px-4 md:px-6` en cada sección.
+ */
+interface Props {
+  size?: 'narrow' | 'wide';
+  as?: 'section' | 'div' | 'article' | 'header' | 'footer';
+  class?: string;
+}
+const { size = 'wide', as: Tag = 'section', class: className = '' } = Astro.props;
+const max = size === 'narrow' ? 'max-w-[var(--container-narrow)]' : 'max-w-[var(--container-wide)]';
+---
+
+<Tag class:list={['mx-auto px-4 md:px-6', max, className]}>
+  <slot />
+</Tag>

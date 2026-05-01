@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { SITE } from '../../consts';
+
+const title = 'Terms and conditions — Formulae';
+const description =
+  'Terms of use for the Formulae Pro and Formulae Community apps published by CAPDESIS.';
+const lastUpdated = '2026-04-30';
+---
+
+<BaseLayout {title} {description} pathname="/terms" legal>
+  <Container as="article" class="prose prose-slate max-w-3xl py-16 md:py-24" size="narrow">
+    <h1 class="font-display text-4xl text-ink-900">Terms and conditions</h1>
+    <p class="text-sm text-ink-500">Last updated: {lastUpdated}</p>
+
+    <h2>1. Acceptance</h2>
+    <p>
+      By downloading, installing or using Formulae Pro or Formulae Community you accept these
+      terms. If you do not agree, please do not use the apps.
+    </p>
+
+    <h2>2. License</h2>
+    <p>
+      CAPDESIS grants you a personal, non-transferable, non-exclusive license to use the apps
+      on your devices. You may not redistribute, decompile or resell the software.
+    </p>
+
+    <h2>3. In-app purchases</h2>
+    <p>
+      Premium features are sold through the corresponding platform (Apple, Google, Microsoft
+      or Huawei). Each platform's refund policy applies.
+    </p>
+
+    <h2>4. Educational content</h2>
+    <p>
+      Formulas, exercises, videos and images are provided for educational purposes. While we
+      strive to keep the content accurate, we cannot be held responsible for the academic or
+      professional use that is made of it.
+    </p>
+
+    <h2>5. Limitation of liability</h2>
+    <p>
+      The apps are provided "as is". CAPDESIS shall not be liable for indirect, incidental or
+      consequential damages, lost profits or data loss arising from the use of the apps.
+    </p>
+
+    <h2>6. Changes</h2>
+    <p>
+      We may update these terms. The latest version will always be available at {SITE.url}/en/terms.
+    </p>
+
+    <h2>7. Contact</h2>
+    <p>
+      Reach us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </Container>
+</BaseLayout>

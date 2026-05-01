@@ -1,0 +1,91 @@
+---
+/**
+ * Badge visual de tienda. SVG inline para no añadir requests
+ * y para permitir cambio de color con currentColor.
+ *
+ * Las imágenes oficiales (Apple/Google/Microsoft/Huawei) tienen
+ * guidelines estrictas: si quieres usar las oficiales, descárgalas
+ * desde sus sites y reemplaza el SVG inline por <Image>.
+ */
+import { useTranslations } from '../../i18n/ui';
+import type { Locale } from '../../consts';
+
+interface Props {
+  store: 'appStore' | 'googlePlay' | 'microsoftStore' | 'huawei';
+  href: string;
+  locale: Locale;
+}
+
+const { store, href, locale } = Astro.props;
+const t = useTranslations(locale);
+
+const config = {
+  appStore: {
+    label: t('download.appStore'),
+    sub: t('download.appStoreSubtitle'),
+    icon: '',
+  },
+  googlePlay: {
+    label: t('download.googlePlay'),
+    sub: t('download.googlePlaySubtitle'),
+    icon: '',
+  },
+  microsoftStore: {
+    label: t('download.microsoftStore'),
+    sub: t('download.microsoftStoreSubtitle'),
+    icon: '',
+  },
+  huawei: {
+    label: t('download.huawei'),
+    sub: t('download.huaweiSubtitle'),
+    icon: '',
+  },
+}[store];
+---
+
+<a
+  href={href}
+  rel="noopener"
+  target="_blank"
+  class="group inline-flex items-center gap-3 rounded-xl border border-ink-200 bg-ink-900 px-4 py-3 text-white shadow-soft transition-all hover:scale-[1.02] hover:border-primary-400 hover:shadow-glow"
+  aria-label={`${config.sub} ${config.label}`}
+>
+  {
+    store === 'appStore' && (
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
+      </svg>
+    )
+  }
+  {
+    store === 'googlePlay' && (
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#00d4ff" />
+        <path d="M16.81 15.013 6.05 21.85l9.74-9.733zM20.16 10.81l-2.58-1.49-2.93 2.93 2.93 2.93 2.58-1.49a1.495 1.495 0 0 0 0-2.88z" fill="#ffce00" />
+        <path d="m6.05 2.15 10.76 6.84-2.96 2.96L4.27 1.81z" fill="#00f076" />
+        <path d="m4.27 22.19 9.58-10.14 2.96 2.96L6.05 21.85z" fill="#ff3a44" />
+      </svg>
+    )
+  }
+  {
+    store === 'microsoftStore' && (
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="8.5" height="8.5" fill="#f25022" />
+        <rect x="12.5" y="3" width="8.5" height="8.5" fill="#7fba00" />
+        <rect x="3" y="12.5" width="8.5" height="8.5" fill="#00a4ef" />
+        <rect x="12.5" y="12.5" width="8.5" height="8.5" fill="#ffb900" />
+      </svg>
+    )
+  }
+  {
+    store === 'huawei' && (
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2 4 8.5v7L12 22l8-6.5v-7L12 2zm0 2.5L18.5 9 12 13.5 5.5 9 12 4.5z" />
+      </svg>
+    )
+  }
+  <span class="flex flex-col text-left leading-tight">
+    <span class="text-[10px] uppercase tracking-wider text-ink-300">{config.sub}</span>
+    <span class="text-sm font-semibold">{config.label}</span>
+  </span>
+</a>

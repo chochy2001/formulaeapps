@@ -1,0 +1,99 @@
+---
+/**
+ * Galería de capturas reales de la app.
+ *
+ * Las imágenes vienen de src/assets/images/screenshots/screenshot-01..10.png
+ * y son MARKETING ASSETS (ya traen título amarillo y composición de tarjetas
+ * inclinadas). Por eso NO las encerramos en marcos de teléfono — preservar
+ * la composición original es lo que las hace ricas visualmente.
+ *
+ * Layout:
+ *   - mobile  : scroll horizontal con snap, una captura visible + peek
+ *   - md+     : grid 2 columnas
+ *   - lg+     : grid 5 columnas (2 filas de 5 — perfecto para 10 capturas)
+ *
+ * El orden 01..10 corresponde a las features en `FEATURES` (consts.ts):
+ *   01 Fórmulas · 02 Buscador · 03 Tareas · 04 Favoritos · 05 Imágenes
+ *   06 Vídeos   · 07 Ejercicios · 08 PDFs · 09 ChatGPT · 10 Practica
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { FEATURES, SITE, type Locale } from '../../consts';
+import { useTranslations, type UIKey } from '../../i18n/ui';
+import Container from '../ui/Container.astro';
+
+// Vite glob: importa todas las capturas de una vez con sus metadatos.
+// `import: 'default'` desempaqueta el default export de cada módulo,
+// por eso el tipo del glob es ImageMetadata directo (no { default: ... }).
+const all = import.meta.glob<ImageMetadata>(
+  '/src/assets/images/screenshots/screenshot-*.png',
+  { eager: true, import: 'default' }
+);
+
+const screenshots = Object.entries(all)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, img], index) => ({
+    img,
+    feature: FEATURES[index] ?? null,
+    path,
+  }));
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+
+function altFor(featureId: string | undefined): string {
+  if (!featureId) return locale === 'es' ? 'Captura de la app Formulae' : 'Formulae app screenshot';
+  const title = t(`features.${featureId}.title` as UIKey);
+  return locale === 'es'
+    ? `Captura de Formulae: ${title.toLowerCase()}`
+    : `Formulae screenshot: ${title.toLowerCase()}`;
+}
+---
+
+<Container as="section" class="py-16 md:py-24">
+  <div class="mb-12 text-center">
+    <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">
+      {t('screenshots.eyebrow')}
+    </p>
+    <h2 class="mt-3 font-display text-3xl text-ink-900 md:text-4xl">
+      {t('screenshots.title')}
+    </h2>
+    <p class="mx-auto mt-4 max-w-2xl text-ink-700">
+      {t('screenshots.subtitle')}
+    </p>
+  </div>
+
+  <div
+    class="-mx-4 overflow-x-auto pb-6 md:mx-0 md:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    <ul
+      class="flex snap-x snap-mandatory gap-4 px-4 md:grid md:grid-cols-2 md:snap-none md:gap-5 md:px-0 lg:grid-cols-5 lg:gap-6"
+      role="list"
+    >
+      {
+        screenshots.map(({ img, feature }, i) => (
+          <li class="w-60 shrink-0 snap-center sm:w-64 md:w-auto">
+            <figure class="group relative">
+              <div class="absolute inset-0 -z-10 rounded-[1.75rem] bg-gradient-to-br from-primary-300/50 via-primary-200/30 to-accent-400/30 opacity-0 blur-2xl transition duration-500 group-hover:opacity-70" />
+              <div class="overflow-hidden rounded-[1.5rem] bg-ink-900 shadow-soft ring-1 ring-ink-900/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-glow">
+                <Image
+                  src={img}
+                  alt={altFor(feature?.id)}
+                  widths={[240, 360, 480, 640]}
+                  sizes="(max-width: 768px) 60vw, (max-width: 1024px) 45vw, 220px"
+                  class="block aspect-[9/16] w-full object-cover"
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </div>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <p class="mt-4 text-center text-xs text-ink-500 md:hidden">
+    {t('screenshots.scrollHint')}
+  </p>
+</Container>

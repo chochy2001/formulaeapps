@@ -1,0 +1,61 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+
+# === Astro · landing/ ===
+landing/node_modules/
+landing/dist/
+landing/.astro/
+landing/.env
+landing/.env.local
+landing/.env.production
+landing/*.log
+landing/.ftp-deploy-sync-state.json
+
+# === Flutter · frontend/ ===
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+frontend/.pub-cache/
+frontend/.pub/
+frontend/build/
+frontend/coverage/
+frontend/web.zip
+
+# Android
+frontend/android/.gradle/
+frontend/android/captures/
+frontend/android/local.properties
+frontend/android/key.properties
+frontend/android/**/GeneratedPluginRegistrant.java
+frontend/**/*.keystore
+frontend/**/*.jks
+
+# iOS / macOS
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+frontend/ios/Flutter/App.framework
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Flutter/ephemeral
+frontend/ios/Flutter/flutter_export_environment.sh
+frontend/ios/Runner/GeneratedPluginRegistrant.*
+frontend/macos/Pods/
+frontend/macos/Flutter/ephemeral/
+
+# Linux / Windows
+frontend/linux/flutter/ephemeral/
+frontend/windows/flutter/ephemeral/
+
+# Generic safety nets
+**/.dart_tool/
+**/build/

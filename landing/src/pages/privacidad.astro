@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import { SITE } from '../consts';
+
+const title = 'Política de privacidad — Formulae';
+const description =
+  'Política de privacidad de las aplicaciones Formulae Pro y Formulae Community publicadas por CAPDESIS.';
+
+const lastUpdated = '2026-04-30';
+---
+
+<BaseLayout {title} {description} pathname="/privacidad" legal>
+  <Container as="article" class="prose prose-slate max-w-3xl py-16 md:py-24" size="narrow">
+    <h1 class="font-display text-4xl text-ink-900">Política de privacidad</h1>
+    <p class="text-sm text-ink-500">Última actualización: {lastUpdated}</p>
+
+    <h2>1. Responsable del tratamiento</h2>
+    <p>
+      El responsable del tratamiento de los datos recogidos a través de las aplicaciones
+      Formulae Pro y Formulae Community y de la web {SITE.domain} es <strong>CAPDESIS</strong>.
+      Para cualquier cuestión relacionada con esta política puedes contactarnos en
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>2. Datos que recogemos</h2>
+    <p>
+      Las aplicaciones Formulae están diseñadas para minimizar la recogida de datos personales.
+      Los datos que se procesan incluyen:
+    </p>
+    <ul>
+      <li>
+        <strong>Preferencias locales</strong> (idioma, modo oscuro, favoritos, tareas): se
+        almacenan en el dispositivo del usuario y no se envían a nuestros servidores.
+      </li>
+      <li>
+        <strong>Compras dentro de la aplicación</strong>: gestionadas por las plataformas de
+        Apple y Google. CAPDESIS recibe únicamente confirmaciones anónimas del estado de
+        compra para activar las funcionalidades Pro.
+      </li>
+      <li>
+        <strong>Identificadores publicitarios</strong> (solo en la versión Community): Google
+        Mobile Ads usa estos identificadores para mostrar publicidad. Puedes restablecerlos o
+        desactivarlos desde los ajustes de tu sistema operativo.
+      </li>
+      <li>
+        <strong>Consultas al asistente de IA</strong> (solo en Pro): el texto de tus mensajes
+        al asistente se envía a OpenAI para generar la respuesta y se procesa según su
+        política de privacidad. No almacenamos el contenido de tus consultas.
+      </li>
+    </ul>
+
+    <h2>3. Finalidades</h2>
+    <p>
+      Tratamos los datos descritos para: (a) operar la aplicación, (b) personalizar la
+      experiencia, (c) procesar pagos, (d) mostrar publicidad en la versión gratuita y (e)
+      ofrecer respuestas a través del asistente de IA.
+    </p>
+
+    <h2>4. Tus derechos</h2>
+    <p>
+      Puedes ejercer en cualquier momento los derechos de acceso, rectificación, supresión,
+      oposición, limitación y portabilidad escribiendo a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>5. Terceros</h2>
+    <p>
+      Las aplicaciones se distribuyen a través de App Store, Google Play, Microsoft Store y
+      AppGallery, e integran SDKs de Google Mobile Ads (Community) y OpenAI (Pro). Cada
+      plataforma cuenta con su propia política de privacidad.
+    </p>
+
+    <h2>6. Cambios en esta política</h2>
+    <p>
+      Podemos actualizar esta política para reflejar cambios legales o funcionales. La fecha
+      de la última actualización siempre figurará al inicio de este documento.
+    </p>
+  </Container>
+</BaseLayout>

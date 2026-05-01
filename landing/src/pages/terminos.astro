@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import { SITE } from '../consts';
+
+const title = 'Términos y condiciones — Formulae';
+const description =
+  'Términos de uso de las aplicaciones Formulae Pro y Formulae Community publicadas por CAPDESIS.';
+const lastUpdated = '2026-04-30';
+---
+
+<BaseLayout {title} {description} pathname="/terminos" legal>
+  <Container as="article" class="prose prose-slate max-w-3xl py-16 md:py-24" size="narrow">
+    <h1 class="font-display text-4xl text-ink-900">Términos y condiciones</h1>
+    <p class="text-sm text-ink-500">Última actualización: {lastUpdated}</p>
+
+    <h2>1. Aceptación</h2>
+    <p>
+      Al descargar, instalar o usar Formulae Pro o Formulae Community aceptas estos términos.
+      Si no estás de acuerdo, no utilices las aplicaciones.
+    </p>
+
+    <h2>2. Licencia de uso</h2>
+    <p>
+      CAPDESIS te concede una licencia personal, intransferible y no exclusiva para usar las
+      aplicaciones en tus dispositivos. No puedes redistribuir, descompilar ni revender el
+      software.
+    </p>
+
+    <h2>3. Compras dentro de la aplicación</h2>
+    <p>
+      Las funcionalidades premium se ofrecen mediante compras gestionadas por la plataforma
+      correspondiente (Apple, Google, Microsoft o Huawei). Las políticas de devolución de cada
+      plataforma son las que aplican.
+    </p>
+
+    <h2>4. Contenido educativo</h2>
+    <p>
+      Las fórmulas, ejercicios, vídeos e imágenes se ofrecen con fines educativos. Pese a
+      nuestro esfuerzo por mantener la información actualizada, no nos hacemos responsables
+      del uso académico o profesional que se haga del contenido.
+    </p>
+
+    <h2>5. Limitación de responsabilidad</h2>
+    <p>
+      Las aplicaciones se ofrecen «tal cual». CAPDESIS no será responsable de daños
+      indirectos, lucro cesante o pérdida de datos derivados del uso de la aplicación.
+    </p>
+
+    <h2>6. Modificaciones</h2>
+    <p>
+      Podemos actualizar estos términos. La versión vigente siempre estará publicada en {SITE.url}/terminos.
+    </p>
+
+    <h2>7. Contacto</h2>
+    <p>
+      Para cualquier cuestión: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </Container>
+</BaseLayout>

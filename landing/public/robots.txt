@@ -1,0 +1,5 @@
+# Este archivo se sobreescribe en runtime por src/pages/robots.txt.ts
+# Sirve solo como respaldo si el endpoint dinámico fallara.
+User-agent: *
+Allow: /
+Sitemap: https://formulaeapps.com/sitemap-index.xml

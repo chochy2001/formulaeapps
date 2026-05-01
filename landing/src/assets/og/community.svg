@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="55%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#a5b4fc" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="#a5b4fc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g opacity="0.18" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-style="italic">
+    <text x="980" y="190" font-size="180" text-anchor="middle">&#8721;</text>
+    <text x="930" y="380" font-size="120" text-anchor="middle">&#960;</text>
+    <text x="1070" y="430" font-size="140" text-anchor="middle">&#8747;</text>
+    <text x="1010" y="540" font-size="80" text-anchor="middle">&#8730;</text>
+  </g>
+
+  <!-- Pill "GRATIS" -->
+  <g>
+    <rect x="80" y="90" width="160" height="40" rx="20" fill="#ffffff" fill-opacity="0.95"/>
+    <text x="160" y="118" fill="#312e81" font-family="-apple-system, system-ui, sans-serif" font-size="22" font-weight="800" text-anchor="middle">GRATIS</text>
+  </g>
+
+  <text x="80" y="245" fill="#ffffff" font-family="-apple-system, system-ui, sans-serif" font-size="86" font-weight="800">Formulae Community</text>
+
+  <text x="80" y="335" fill="#e0e7ff" font-family="-apple-system, system-ui, sans-serif" font-size="40" font-weight="500">
+    <tspan x="80" dy="0">Cat&#225;logo completo de f&#243;rmulas,</tspan>
+    <tspan x="80" dy="56">gratis para todos.</tspan>
+  </text>
+
+  <text x="80" y="560" fill="#a5b4fc" font-family="-apple-system, system-ui, sans-serif" font-size="26" font-weight="600">formulaeapps.com/gratuita</text>
+
+  <rect x="80" y="585" width="80" height="4" rx="2" fill="#a5b4fc"/>
+</svg>

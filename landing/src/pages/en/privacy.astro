@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { SITE } from '../../consts';
+
+const title = 'Privacy policy — Formulae';
+const description =
+  'Privacy policy for the Formulae Pro and Formulae Community apps published by CAPDESIS.';
+const lastUpdated = '2026-04-30';
+---
+
+<BaseLayout {title} {description} pathname="/privacy" legal>
+  <Container as="article" class="prose prose-slate max-w-3xl py-16 md:py-24" size="narrow">
+    <h1 class="font-display text-4xl text-ink-900">Privacy policy</h1>
+    <p class="text-sm text-ink-500">Last updated: {lastUpdated}</p>
+
+    <h2>1. Data controller</h2>
+    <p>
+      The data controller for the Formulae Pro and Formulae Community apps and the website
+      {SITE.domain} is <strong>CAPDESIS</strong>. For any matters related to this policy
+      contact us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>2. Data we collect</h2>
+    <ul>
+      <li>
+        <strong>Local preferences</strong> (language, dark mode, favorites, tasks): stored on
+        your device, never sent to our servers.
+      </li>
+      <li>
+        <strong>In-app purchases</strong>: handled by Apple and Google. CAPDESIS only receives
+        anonymous purchase confirmations to unlock Pro features.
+      </li>
+      <li>
+        <strong>Advertising identifiers</strong> (Community version only): used by Google
+        Mobile Ads to serve ads. You can reset or disable them in your OS settings.
+      </li>
+      <li>
+        <strong>AI assistant queries</strong> (Pro only): the text of your messages is sent to
+        OpenAI to generate the response. We do not store the contents of your queries.
+      </li>
+    </ul>
+
+    <h2>3. Purposes</h2>
+    <p>
+      We process the data above to (a) operate the app, (b) personalise the experience, (c)
+      process payments, (d) serve ads in the free version and (e) provide answers via the AI
+      assistant.
+    </p>
+
+    <h2>4. Your rights</h2>
+    <p>
+      You may exercise your rights of access, rectification, erasure, objection, restriction
+      and portability at any time by emailing <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>5. Third parties</h2>
+    <p>
+      The apps are distributed through App Store, Google Play, Microsoft Store and AppGallery,
+      and integrate Google Mobile Ads (Community) and OpenAI (Pro). Each platform has its own
+      privacy policy.
+    </p>
+
+    <h2>6. Changes</h2>
+    <p>
+      We may update this policy. The latest revision date will always be shown at the top of
+      this page.
+    </p>
+  </Container>
+</BaseLayout>

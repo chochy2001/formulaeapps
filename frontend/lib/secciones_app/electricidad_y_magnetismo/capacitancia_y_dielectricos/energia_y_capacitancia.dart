@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+
+import '../../../constantes/export_constantes.dart';
+import '../../../widgets_personalizados/export_widgets_personalizados.dart';
+
+class EnergiaYCapacitancia extends StatefulWidget {
+  const EnergiaYCapacitancia({Key? key}) : super(key: key);
+
+  @override
+  State<EnergiaYCapacitancia> createState() => _EnergiaYCapacitanciaState();
+}
+
+class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppBarHome(),
+      body: SafeArea(
+        child: ListView(
+          children: [
+            ChatGPTButton(
+              child: TituloPersonalizado(
+                AppLocalizations.of(context)!.energiaCapacitancia,
+              ),
+            ),
+            Consumer<FavoritesNotifier>(
+              builder: (context, favoritesNotifier, child) {
+                bool isFavorite = favoritesNotifier.isFavorite(
+                  Favorite(
+                      title: AppLocalizations.of(context)!.energiaCapacitancia,
+                      widgetName: kWidgetEnergiaYCapacitancia),
+                );
+                return IconButton(
+                  icon: isFavorite
+                      ? const Icon(Icons.favorite)
+                      : const Icon(Icons.favorite_border),
+                  color: isFavorite ? Colors.white : Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      if (isFavorite) {
+                        favoritesNotifier.removeFavorite(
+                          Favorite(
+                              title: AppLocalizations.of(context)!
+                                  .energiaCapacitancia,
+                              widgetName: kWidgetEnergiaYCapacitancia),
+                        );
+                      } else {
+                        favoritesNotifier.addFavorite(
+                          Favorite(
+                              title: AppLocalizations.of(context)!
+                                  .energiaCapacitancia,
+                              widgetName: kWidgetEnergiaYCapacitancia),
+                        );
+                      }
+                    });
+                  },
+                );
+              },
+            ),
+
+            Column(
+              children: <Widget>[
+                const SizedBox(height: 30.0),
+                TextoEcuaciones(
+                  AppLocalizations.of(context)!.capacitancia,
+                ),
+                const SizedBox(height: 20.0),
+                const Latex(formulaText: r"C = \frac{Q}{V}"),
+                ZoomImagePersonalizado(
+                    urlImagen:
+                        getImageUrlById(context, kImagenEnergiaYCapacitancia) ??
+                            kUrlImagenEnergiaYCapacitancia),
+                TextoEcuaciones(
+                  AppLocalizations.of(context)!
+                      .energiaPotencialElectricaDiferenciaPotencial,
+                ),
+                const SizedBox(height: 20.0),
+                const Latex(formulaText: r"V = \frac{u}{q}"),
+                const SizedBox(height: 20.0),
+                const Latex(formulaText: r"u = qV"),
+                const SizedBox(height: 20.0),
+                const Latex(formulaText: r"du = dqV"),
+                const SizedBox(height: 20.0),
+                const Latex(formulaText: r"V = \frac{q}{C}"),
+                const SizedBox(height: 20.0),
+                const SizedBox(height: 40.0),
+                const Latex(
+                    formulaText: r"\int_o^U du  = \int_0^Q \frac{q}{C}dq"),
+                const SizedBox(height: 40.0),
+                const Latex(
+                    formulaText:
+                        r"U = \frac{1}{2} \frac{Q^2}{C} = \frac{1}{2}CV^2 = \frac{1}{2}QV"),
+                const SizedBox(height: 20.0),
+              ],
+            ),
+
+            //Boton para acceder al formulario en PDF
+            const Column(
+              children: [
+                VerPDF(
+                  url: kWidgetEnergiaYCapacitancia,
+                ),
+                //Descargar PDF
+                DescargarPDF(
+                  url: kWidgetEnergiaYCapacitancia,
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

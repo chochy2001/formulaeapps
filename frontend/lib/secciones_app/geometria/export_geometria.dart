@@ -1,0 +1,15 @@
+export '../geometria/angulos_en_un_poligono.dart';
+export '../geometria/areas/area_y_perimetro_de_cuadrilateros.dart';
+export '../geometria/areas/area_y_perimetro_de_triangulos.dart';
+export '../geometria/areas/area_y_perimetro_del_circulo.dart';
+export '../geometria/circunferencia.dart';
+export '../geometria/distancia_de_un_punto_a_una_recta.dart';
+export '../geometria/distancia_entre_dos_puntos.dart';
+export '../geometria/ecuacion_de_la_recta.dart';
+export '../geometria/elipse_con_centro_diferente_del_origen.dart';
+export '../geometria/elipse_con_centro_en_el_origen.dart';
+export '../geometria/hiperbola.dart';
+export '../geometria/parabola_con_vertice_diferente_del_origen.dart';
+export '../geometria/parabola_con_vertice_en_el_origen.dart';
+export '../geometria/punto_medio_entre_dos_puntos.dart';
+export '../geometria/volumen_de_cuerpos_geometricos.dart';

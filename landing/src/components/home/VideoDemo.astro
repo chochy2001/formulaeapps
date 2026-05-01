@@ -1,0 +1,45 @@
+---
+/**
+ * Video demostrativo de Formulae embebido desde YouTube (nocookie).
+ *
+ * Usa youtube-nocookie.com para no plantar cookies de tracking hasta
+ * que el usuario haga play, y `loading="lazy"` para no descargar el
+ * iframe hasta que entre en viewport.
+ *
+ * Diferencia frente al sitio actual: aquí NO autoplay, NO mute=0 —
+ * deja al usuario decidir. La mayoría de browsers bloquean autoplay
+ * con audio de todas formas.
+ */
+import { VIDEO, SITE, type Locale } from '../../consts';
+import { useTranslations } from '../../i18n/ui';
+import Container from '../ui/Container.astro';
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+---
+
+<Container as="section" class="py-12 md:py-16" size="narrow">
+  <div class="mb-8 text-center">
+    <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">
+      {t('video.eyebrow')}
+    </p>
+    <h2 class="mt-3 font-display text-3xl text-ink-900 md:text-4xl">
+      {t('video.title')}
+    </h2>
+  </div>
+
+  <div
+    class="relative overflow-hidden rounded-[var(--radius-card)] bg-ink-900 shadow-glow"
+    style="aspect-ratio: 16 / 9;"
+  >
+    <iframe
+      src={VIDEO.embedUrl}
+      title={t('video.title')}
+      loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"
+      class="absolute inset-0 h-full w-full border-0"
+    ></iframe>
+  </div>
+</Container>

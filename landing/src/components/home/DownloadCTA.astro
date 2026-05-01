@@ -1,0 +1,73 @@
+---
+import { SITE, STORES, LINKTREE, type Locale } from '../../consts';
+import { useTranslations } from '../../i18n/ui';
+import Container from '../ui/Container.astro';
+import StoreBadge from '../ui/StoreBadge.astro';
+
+interface Props {
+  /** Mostrar badges de Pro, Community o ambos. */
+  variant?: 'pro' | 'community' | 'both';
+}
+const { variant = 'both' } = Astro.props;
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+
+const showPro = variant === 'pro' || variant === 'both';
+const showCommunity = variant === 'community' || variant === 'both';
+---
+
+<Container as="section" class="py-16 md:py-24">
+  <div
+    class="rounded-[var(--radius-card)] bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 px-6 py-12 text-center text-white md:px-12 md:py-16"
+  >
+    <h2 class="font-display text-3xl md:text-4xl">{t('download.title')}</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-sm text-primary-100 md:text-base">
+      {t('download.subtitle')}
+    </p>
+
+    {
+      showPro && (
+        <div class="mt-10">
+          <p class="mb-4 text-xs font-bold uppercase tracking-wider text-accent-400">
+            Formulae Pro
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <StoreBadge store="appStore" href={STORES.pro.appStore} locale={locale} />
+            <StoreBadge store="googlePlay" href={STORES.pro.playStore} locale={locale} />
+            <StoreBadge
+              store="microsoftStore"
+              href={STORES.pro.microsoftStore}
+              locale={locale}
+            />
+            <StoreBadge store="huawei" href={STORES.pro.huawei} locale={locale} />
+          </div>
+        </div>
+      )
+    }
+
+    {
+      showCommunity && (
+        <div class="mt-10">
+          <p class="mb-4 text-xs font-bold uppercase tracking-wider text-primary-200">
+            Formulae Community
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <StoreBadge store="appStore" href={STORES.community.appStore} locale={locale} />
+            <StoreBadge store="googlePlay" href={STORES.community.playStore} locale={locale} />
+            <StoreBadge store="huawei" href={STORES.community.huawei} locale={locale} />
+          </div>
+        </div>
+      )
+    }
+
+    <a
+      href={LINKTREE}
+      rel="noopener"
+      target="_blank"
+      class="mt-10 inline-flex items-center gap-2 text-sm text-primary-100 underline-offset-4 hover:text-white hover:underline"
+    >
+      {t('download.linktree')} ↗
+    </a>
+  </div>
+</Container>

@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations } from '../../i18n/ui';
+import { SITE, LINKTREE, type Locale } from '../../consts';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Container from '../ui/Container.astro';
+import heroShot from '../../assets/images/screenshots/screenshot-01.png';
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+---
+
+<Container as="section" class="relative overflow-hidden py-16 md:py-24">
+  <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">
+        {SITE.publisher} · {SITE.name}
+      </p>
+      <h1
+        class="mt-4 font-display text-4xl leading-tight text-ink-900 md:text-5xl lg:text-6xl"
+      >
+        {t('hero.title')}
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-ink-700">
+        {t('hero.subtitle')}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={LINKTREE}
+          rel="noopener"
+          target="_blank"
+          class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-primary-700"
+        >
+          {t('hero.cta.primary')}
+        </a>
+        <a
+          href={getRelativeLocaleUrl(locale, '/pro')}
+          class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-primary-400 hover:text-primary-700"
+        >
+          {t('hero.cta.secondary')}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-[320px] lg:mx-0 lg:max-w-[380px]">
+      <!-- Glow ambiente detrás del teléfono -->
+      <div
+        class="absolute -inset-10 -z-10 rounded-full bg-gradient-to-br from-primary-300/60 via-primary-200/40 to-accent-400/30 blur-3xl"
+        aria-hidden="true"
+      ></div>
+      <Image
+        src={heroShot}
+        alt={t('hero.imageAlt')}
+        widths={[280, 380, 560, 760]}
+        sizes="(max-width: 1024px) 80vw, 380px"
+        loading="eager"
+        fetchpriority="high"
+        class="relative block w-full rounded-[2rem] bg-ink-900 shadow-glow ring-1 ring-ink-900/10"
+      />
+    </div>
+  </div>
+</Container>

@@ -1,0 +1,95 @@
+---
+/**
+ * Genera JSON-LD structured data. Google entiende `MobileApplication`
+ * y `Organization` y los muestra como rich cards en resultados de búsqueda.
+ *
+ * Por defecto inyecta los dos schemas relevantes para una landing de apps.
+ */
+import { SITE, SOCIAL, STORES, VIDEO } from '../../consts';
+
+interface Props {
+  /** Si se pasa "pro" o "community", inyecta solo ese MobileApplication. */
+  variant?: 'pro' | 'community' | 'both';
+  /** Páginas legales pasan "false" para no inyectar el schema de app. */
+  includeApp?: boolean;
+  /** Inyectar el VideoObject del demo (solo en home). */
+  includeVideo?: boolean;
+}
+
+const { variant = 'both', includeApp = true, includeVideo = false } = Astro.props;
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.publisher,
+  legalName: SITE.publisherLegal,
+  url: SITE.url,
+  logo: new URL('/favicon-512.png', SITE.url).toString(),
+  email: SITE.email,
+  sameAs: [SOCIAL.facebook, SOCIAL.instagram].filter(Boolean),
+};
+
+const proApp = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: 'Formulae Pro',
+  operatingSystem: 'iOS, Android, Windows, macOS, Linux',
+  applicationCategory: 'EducationApplication',
+  description:
+    'Una aplicación de pago para ayudarte en tus estudios de matemáticas y ciencias. Ofrece videos y imágenes explicativas, un buscador de fórmulas y una lista de tareas para no olvidar lo que debes hacer.',
+  inLanguage: ['es', 'en'],
+  author: { '@type': 'Organization', name: SITE.publisher, url: SITE.url },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  downloadUrl: STORES.pro.playStore,
+  installUrl: STORES.pro.playStore,
+};
+
+const communityApp = {
+  '@context': 'https://schema.org',
+  '@type': 'MobileApplication',
+  name: 'Formulae Community',
+  operatingSystem: 'iOS, Android',
+  applicationCategory: 'EducationApplication',
+  description:
+    'Una aplicación gratuita para ayudarte en tus estudios de matemáticas y ciencias. Ofrece videos y imágenes explicativas, un buscador de fórmulas y una lista de tareas para no olvidar lo que debes hacer.',
+  inLanguage: ['es', 'en'],
+  author: { '@type': 'Organization', name: SITE.publisher, url: SITE.url },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  downloadUrl: STORES.community.playStore,
+};
+
+const demoVideo = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Mira Formulae en acción',
+  description: 'Demo en vídeo de Formulae: catálogo de fórmulas, buscador, tareas y más.',
+  thumbnailUrl: VIDEO.thumbnailUrl,
+  contentUrl: VIDEO.watchUrl,
+  embedUrl: VIDEO.embedUrl,
+  uploadDate: '2023-05-01',
+  publisher: { '@type': 'Organization', name: SITE.publisher, url: SITE.url },
+};
+
+const schemas: Record<string, unknown>[] = [organization];
+if (includeApp) {
+  if (variant === 'pro' || variant === 'both') schemas.push(proApp);
+  if (variant === 'community' || variant === 'both') schemas.push(communityApp);
+}
+if (includeVideo) schemas.push(demoVideo);
+---
+
+{
+  schemas.map((schema) => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))
+}

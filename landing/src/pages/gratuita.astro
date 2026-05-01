@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Features from '../components/home/Features.astro';
+import DownloadCTA from '../components/home/DownloadCTA.astro';
+import { useTranslations } from '../i18n/ui';
+import { STORES, type Locale } from '../consts';
+
+const locale: Locale = 'es';
+const t = useTranslations(locale);
+
+const title = 'Formulae Community — Versión gratuita';
+const description =
+  'Formulae Community es la versión gratuita de Formulae. Catálogo completo de fórmulas matemáticas y científicas con vídeos e imágenes explicativas, financiada con publicidad.';
+---
+
+<BaseLayout {title} {description} pathname="/gratuita" schema="community">
+  <Container as="section" class="py-16 md:py-24">
+    <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">
+      Formulae Community
+    </p>
+    <h1 class="mt-3 max-w-3xl font-display text-4xl text-ink-900 md:text-5xl">
+      Aprende matemáticas y ciencias gratis.
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg text-ink-700">
+      {t('comparison.community.tagline')}
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a
+        href={STORES.community.playStore}
+        rel="noopener"
+        target="_blank"
+        class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-primary-700"
+      >
+        {t('comparison.community.cta')}
+      </a>
+      <a
+        href={STORES.community.appStore}
+        rel="noopener"
+        target="_blank"
+        class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-primary-400 hover:text-primary-700"
+      >
+        {t('download.appStore')}
+      </a>
+    </div>
+
+    <p class="mt-10 max-w-2xl text-sm text-ink-500">
+      ¿Prefieres usarla sin anuncios y con asistente IA? <a
+        href="/pro"
+        class="font-semibold text-primary-600 hover:underline">Conoce Formulae Pro</a
+      >.
+    </p>
+  </Container>
+
+  <Features />
+  <DownloadCTA variant="community" />
+</BaseLayout>
