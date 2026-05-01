@@ -1,21 +1,30 @@
-node_modules
-dist
-.astro
-.git
-.gitignore
-.github
+# OS / editor
+.DS_Store
+Thumbs.db
 .vscode
 .idea
-.DS_Store
-.env
-.env.local
-.env.production
-.env.*.local
-*.log
+*.swp
+
+# Source control
+.git
+.gitignore
+
+# Node — se reinstala en el builder
+node_modules
 npm-debug.log*
-.ftp-deploy-sync-state.json
+
+# Build output — se regenera en el builder
+dist
+.astro
+
+# Variables de entorno — NUNCA dentro de la imagen
+.env
+.env.*
+
+# Docs / metadata — no aporta al build
 README.md
 .prettierrc.json
-.dockerignore
+
+# Docker self-references — pero NO nginx.conf (lo necesita el runtime)
 Dockerfile
-# nginx.conf NO se ignora: el Dockerfile lo copia al runtime stage
+.dockerignore
