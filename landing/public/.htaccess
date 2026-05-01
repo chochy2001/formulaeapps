@@ -9,7 +9,12 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # /app/ es una SPA Flutter — tiene su propio .htaccess, no aplicar reglas aquí
+  # /app/* en el dominio apex → redirige al subdominio (Flutter está
+  # construido con base-href / y solo funciona en app.formulaeapps.com)
+  RewriteCond %{HTTP_HOST} ^(www\.)?formulaeapps\.com$ [NC]
+  RewriteRule ^app(/.*)?$ https://app.formulaeapps.com$1 [R=301,L]
+
+  # /app/ es una SPA Flutter — su propio .htaccess maneja deep links
   RewriteRule ^app(/|$) - [L]
 
   # /index.html → /

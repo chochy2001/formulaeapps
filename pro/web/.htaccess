@@ -1,0 +1,40 @@
+# Servir Flutter Pro Web detrás de:
+#   - app.formulaeapps.com  (subdominio raíz)
+#   - formulaeapps.com/app/ (subpath, redirected upstream)
+#
+# Sin RewriteBase explícito → mod_rewrite usa la dir del .htaccess
+# como prefijo correcto para ambos casos.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # No hacer SPA fallback para assets ni archivos con extensión:
+  # si Flutter pide algo que no existe, queremos 404 real.
+  RewriteCond %{REQUEST_URI} (assets|canvaskit|icons|version)/ [OR]
+  RewriteCond %{REQUEST_URI} \.(json|wasm|js|css|map|woff2?|ttf|otf|png|jpe?g|webp|avif|svg|ico|bin|txt)$
+  RewriteRule ^ - [L]
+
+  # SPA fallback: rutas inexistentes → index.html (deep links del router)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^.*$ index.html [L]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/wasm .wasm
+  AddType application/javascript .js
+  AddType application/json .json
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "public, max-age=300, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|wasm|css|woff2|ttf|otf)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>
