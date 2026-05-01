@@ -4,9 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://formulaeapps.com',
-  trailingSlash: 'never',
+  trailingSlash: 'ignore',
   build: {
-    format: 'file',
+    format: 'directory',
     inlineStylesheets: 'auto',
     assets: '_assets',
   },
