@@ -1,9 +1,10 @@
-# Servir Flutter Pro Web detrás de:
-#   - app.formulaeapps.com  (subdominio raíz)
-#   - formulaeapps.com/app/ (subpath, redirected upstream)
+# /public_html/app/.htaccess — servido por Hostinger en dos rutas:
+#   - app.formulaeapps.com/  (subdominio, document root = /public_html/app/)
+#   - formulaeapps.com/app/  (subpath del apex)
 #
-# Sin RewriteBase explícito → mod_rewrite usa la dir del .htaccess
-# como prefijo correcto para ambos casos.
+# Como el build de Flutter Pro usa --base-href="/" (necesario para que el
+# subdominio funcione), las rutas relativas SOLO resuelven correctamente
+# desde el subdominio. Por eso, si llegas vía apex, redirigimos ahí.
 
 Options -Indexes
 DirectoryIndex index.html
@@ -11,13 +12,16 @@ DirectoryIndex index.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # No hacer SPA fallback para assets ni archivos con extensión:
-  # si Flutter pide algo que no existe, queremos 404 real.
+  # 1. Apex/www → 301 al subdominio (preserva path completo)
+  RewriteCond %{HTTP_HOST} ^(www\.)?formulaeapps\.com$ [NC]
+  RewriteRule ^(.*)$ https://app.formulaeapps.com/$1 [R=301,L]
+
+  # 2. Assets reales: NO SPA-fallback (404 real si falta el archivo)
   RewriteCond %{REQUEST_URI} (assets|canvaskit|icons|version)/ [OR]
   RewriteCond %{REQUEST_URI} \.(json|wasm|js|css|map|woff2?|ttf|otf|png|jpe?g|webp|avif|svg|ico|bin|txt)$
   RewriteRule ^ - [L]
 
-  # SPA fallback: rutas inexistentes → index.html (deep links del router)
+  # 3. Resto (rutas SPA del router de Flutter) → /index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^.*$ index.html [L]
