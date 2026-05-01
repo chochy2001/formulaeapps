@@ -9,6 +9,9 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # /app/ es una SPA Flutter — tiene su propio .htaccess, no aplicar reglas aquí
+  RewriteRule ^app(/|$) - [L]
+
   # /index.html → /
   RewriteCond %{THE_REQUEST} \s/+index\.html[\s?]
   RewriteRule ^index\.html$ / [R=301,L]
