@@ -64,27 +64,45 @@ formulaeapps/
 
 `~/Documents/Apps/FormulaeApps/formulae-landing/` **no es un repo git** (sin `.git/`). Es solo el árbol de archivos donde inicialmente desarrollé la landing en Astro antes de pushearla al monorepo. Ya no se usa. Su contenido fue absorbido por `monorepo/landing/`.
 
-### 1.4 Resumen visual del estado
+### 1.4 Resumen visual del estado (2026-05-01, post-cleanup)
 
 ```
 GitHub                                  Local (~/Documents/Apps/FormulaeApps/)
 ──────                                  ──────────────────────────────────────
 
 CAPDESIS/formulaeapps    ←──→  formulaeapps-monorepo/   (clon, 9 commits atrás)
-                                  ⚠ pull pendiente
-                                  ⚠ cambios uncommitted en pro/
+  (ACTIVO)                        ⚠ pull pendiente cuando termines tu sesión
+                                  ⚠ cambios uncommitted en pro/ por revisar
 
-CAPDESIS/FormulaePro     ←─?─  FormulaePro/             (zombie con WIP)
-  congelado 2026-04-16            ⚠ 1 commit local sin push
-                                  ⚠ 27+ archivos sin commit
+CAPDESIS/FormulaePro     ←─×─  FormulaePro/             (clon huérfano)
+  🔒 ARCHIVED                     ⚠ commits locales rebasados (mismo contenido
+  read-only                          que ya está en monorepo, distintos hashes)
+                                  ⚠ 27+ archivos uncommitted (WIP a auditar)
 
-CAPDESIS/FormulaeCommunity ←?─ FormulaeCommunity/        (zombie con WIP)
-  congelado 2025-10-29            ⚠ 1 commit local sin push
-                                  ⚠ 14+ archivos sin commit
+CAPDESIS/FormulaeCommunity ←×─ FormulaeCommunity/        (clon huérfano)
+  🔒 ARCHIVED                     ⚠ commit local cuyo contenido YA está en
+  read-only                          monorepo + 14+ archivos uncommitted
+                                  ⚠ WIP a auditar
 
-(no en GitHub)            ←─    formulae-landing/         (deprecated, no es git)
-                                  contenido ya en monorepo
+(no en GitHub)            ─×─   formulae-landing/         (deprecated, no es git)
+                                  contenido absorbido en monorepo
 ```
+
+**Acción ejecutada el 2026-05-01:**
+- ✅ `gh repo archive CAPDESIS/FormulaePro` — archivado, todo el historial preservado.
+- ✅ `gh repo archive CAPDESIS/FormulaeCommunity` — archivado, todo el historial preservado.
+- ✅ Verificado que las correcciones de seguridad de los commits locales (`.gitignore`
+  para keystore en Pro, `String.fromEnvironment` para OpenAI key en Community)
+  **YA están reflejadas en el monorepo**, así que no quedaron pendientes de migrar.
+- ⏸️ Las copias locales de los zombies se dejan intactas para que tú audites
+  las modificaciones uncommitted antes de borrarlas. Comandos en sección 5.
+
+**Lo que hace `archived` en GitHub:**
+- El repo queda visible para siempre en el historial de la organización.
+- Cualquiera con permisos sigue pudiendo `git clone` y leer todo el historial.
+- No se aceptan PRs, issues nuevos, ni `git push`.
+- Aparece un banner amarillo "This repository has been archived".
+- Se puede des-archivar en cualquier momento desde Settings.
 
 ---
 
@@ -115,7 +133,9 @@ CAPDESIS/FormulaeCommunity ←?─ FormulaeCommunity/        (zombie con WIP)
 - El monorepo tiene `docker-compose.yml`, `pro/Dockerfile`, `landing/Dockerfile`, `landing/nginx.conf` listos para deploy via Docker.
 - El Deploy 0 al VPS se inició y se detuvo por un bug en Flutter Pro (no se llegó a finalizar la construcción de imágenes en el server).
 - Mientras se resuelve, producción se sirve por FTP en Hostinger. El VPS sigue contratado pero ocioso.
-- Para retomar VPS algún día: pull del monorepo, `docker compose up --build`, ajustar Cloudflare DNS apex de `31.170.161.105` (Hostinger) a la IP del VPS.
+- **Acceso SSH**: tu `~/.ssh/config` tiene aliases `vps-old`, `ancare`, `capmenu-vps` pero **no `vps`** (el de Contabo donde corre el Agente VPS). Esa gestión vive solo en tu máquina/sesión — los agentes IA no tenemos acceso. Cuando quieras shutdown, cleanup o resume del VPS, tienes que entrar tú directamente con tu SSH config personalizada o las credenciales de Contabo.
+- **Para retomar VPS algún día**: pull del monorepo, `docker compose up --build`, ajustar Cloudflare DNS apex de `31.170.161.105` (Hostinger) a la IP del VPS, y purgar cache CF.
+- **Para apagarlo permanentemente** (si decides quedarte solo con Hostinger): cancela el contrato Contabo, borra la IP del DNS Cloudflare, elimina `docker-compose.yml` del monorepo (pero el repo conserva el historial). Reversible si después cambias de opinión.
 
 ### 2.3 BFF (api.formulaeapps.com) — no deployado
 
@@ -327,23 +347,17 @@ git stash pop   # recupera los cambios; resuelve conflictos si los hay
 
 (O mejor: muévelo a `~/Code/formulaeapps` y trabaja desde ahí.)
 
-### Paso 3 — Archivar repos zombies en GitHub (preserva historial sin que estorben)
+### Paso 3 — Archivar repos zombies en GitHub ✅ HECHO 2026-05-01
 
-GitHub permite marcar repos como "archived" (read-only, indica claramente que no se usa). El historial completo permanece accesible.
+Ambos repos ya están marcados como `archived=true` en la API de GitHub.
+Cualquiera de la organización CAPDESIS puede seguir leyendo el historial completo;
+nadie puede hacer commits/PRs/issues nuevos sin des-archivar primero.
 
-**Vía CLI:**
 ```bash
-gh repo archive CAPDESIS/FormulaePro
-gh repo archive CAPDESIS/FormulaeCommunity
+# Para reabrir (si algún día lo necesitas):
+gh repo unarchive CAPDESIS/FormulaePro
+gh repo unarchive CAPDESIS/FormulaeCommunity
 ```
-
-**Vía web:** Settings → General → Danger Zone → "Archive this repository".
-
-Después de archivar:
-- Los repos siguen visibles, todo el historial accesible.
-- Aparece un banner amarillo "This repository has been archived".
-- No se pueden hacer commits/PRs/issues nuevos.
-- Puedes des-archivar si algún día los necesitas.
 
 ### Paso 4 — Limpiar el árbol local
 
