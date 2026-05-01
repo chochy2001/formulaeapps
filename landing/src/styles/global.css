@@ -48,6 +48,7 @@
 
 /* Tipografía base */
 html {
+  color-scheme: light;
   font-family: var(--font-sans);
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -68,12 +69,5 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* Modo oscuro automático según preferencias del sistema */
-@media (prefers-color-scheme: dark) {
-  body {
-    @apply bg-ink-900 text-ink-100;
   }
 }
