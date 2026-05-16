@@ -6,7 +6,7 @@ on:
 
 jobs:
   check-format:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, global]
 
     steps:
       - name: Checkout code
@@ -16,6 +16,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.2'
+          cache: true
 
       - name: Install dependencies
         run: flutter pub get
