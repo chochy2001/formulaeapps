@@ -9,6 +9,7 @@
     "start": "bun run src/index.ts",
     "build": "bun build src/index.ts --outdir dist --target bun",
     "build:openapi": "bun run scripts/export-openapi.ts",
+    "probe:allowlist": "bun run scripts/probe-allowlist.ts",
     "test": "bun test",
     "test:watch": "bun test --watch",
     "lint": "bunx tsc --noEmit",
