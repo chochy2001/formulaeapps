@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
 
 import 'api_consts.dart';
 import 'auth_service.dart';
@@ -12,16 +12,25 @@ export '../chat_gpt/api_consts.dart';
 export '../chat_gpt/chat_model.dart';
 export '../chat_gpt/models_model.dart';
 
-/// `ApiService` — thin client around the FormulaeApps BFF chat endpoint.
+/// `ApiService` — thin adapter around the generated `ChatApi` from the
+/// BFF OpenAPI codegen (`packages/formulaeapps_bff_client`).
 ///
-/// - Bearer auth is obtained from `AuthService.getToken()` (BFF-issued JWT,
-///   replaces the old FE-self-signed pattern in `jwt_service.dart` per FR-005).
-/// - System prompts live server-side (`bff/src/schemas/prompts.ts`); the client
-///   sends only the user's message (spec §FR-019 + SC-009 — prompts updates
-///   ship without app-store releases).
-/// - The response shape matches the BFF contract `ChatResponse` (data-model §E5).
-/// - If the BFF emits an `X-Auth-Refresh` header, the rotated token is adopted
-///   automatically (research §R4).
+/// Why an adapter and not the raw client?
+/// - The UI in `chats_provider.dart`, `chat_widget.dart`, `chat_screen.dart`
+///   consumes `ChatModel { msg, chatIndex }` — a UI struct with `chatIndex`
+///   distinguishing user (0) and assistant (1) messages. This concern has no
+///   backend representation, so it stays local even though the BFF contract
+///   is now the source of truth for payloads.
+/// - The generated `openaiChatPost` returns a typed `Response<ChatResponse>`
+///   from Dio. We unwrap that and translate to `ChatModel` so the UI is
+///   unchanged.
+///
+/// Behavior:
+/// - Bearer auth via `AuthService.getToken()` (BFF-issued JWT, FR-005).
+/// - System prompts live server-side (`bff/src/schemas/prompts.ts`).
+/// - Reads `X-Auth-Refresh` from the Dio response headers and adopts a
+///   rotated token (research §R4 + FR-005).
+/// - Maps `DioException` to `HttpException` with redacted summary.
 class ApiService {
   /// Stub list — the BFF contract v1.0.0 does not expose `/openai/models`.
   /// Kept for backward compatibility with the existing `models_provider.dart`
@@ -30,88 +39,89 @@ class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     return [
       ModelsModel(
-        id: 'gpt-3.5-turbo',
+        id: 'openai/gpt-4o-mini',
         created: 0,
         root: 'formulae-bff',
       ),
     ];
   }
 
-  /// Sends a chat message through the BFF.
+  /// Sends a chat message through the BFF using the generated `ChatApi`.
   ///
-  /// On success: returns a list with one `ChatModel` carrying the assistant's
-  /// reply. On failure: throws `HttpException` with a redacted error summary.
-  ///
-  /// `modelId` is passed to the BFF as the `model_id` request field; the BFF
-  /// enforces an allowlist server-side (research §R1) and may default to its
-  /// configured `gpt-4o-mini` if the value is rejected — see contract `ChatRequest`.
+  /// `modelId` is forwarded as the OpenRouter `provider/model` selector (the
+  /// BFF allowlist gates it, see `bff/src/services/openrouter-proxy.ts`).
+  /// Callers may pass legacy bare model ids like `'gpt-3.5-turbo'`; the
+  /// underlying allowlist will reject them with a 4xx — that's an explicit
+  /// signal that the allowlist needs updating, not a silent fallback.
   static Future<List<ChatModel>> sendMessage({
     required String message,
     required String modelId,
-    http.Client? client,
+    BaseOptions? dioOptionsOverride,
   }) async {
-    final httpClient = client ?? http.Client();
-    final token = await AuthService.getToken(client: httpClient);
+    final token = await AuthService.getToken();
+
+    final client = FormulaeappsBffClient(
+      basePathOverride: bffBaseUrl,
+      dio: Dio(
+        dioOptionsOverride ??
+            BaseOptions(
+              baseUrl: bffBaseUrl,
+              connectTimeout: const Duration(seconds: 10),
+              receiveTimeout: const Duration(seconds: 60),
+            ),
+      ),
+    );
+    client.setBearerAuth('bearerAuth', token);
 
     try {
-      final response = await httpClient.post(
-        Uri.parse(bffChatUrl),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'message': message,
-          'model_id': modelId,
-        }),
-      );
+      final response = await client.getChatApi().openaiChatPost(
+            chatRequest: ChatRequest(
+              (b) => b
+                ..message = message
+                ..modelId = modelId,
+            ),
+          );
 
-      // Adopt rotated JWT if the BFF surfaced one (research §R4 + spec FR-005).
-      final rotated = response.headers['x-auth-refresh'];
+      // Adopt rotated JWT if the BFF surfaced one (research §R4 + FR-005).
+      final rotated = response.headers.value('x-auth-refresh');
       if (rotated != null && rotated.isNotEmpty) {
         AuthService.adoptRotatedToken(rotated);
       }
 
-      final decodedBody = utf8.decode(response.bodyBytes, allowMalformed: true);
-      final Map<String, dynamic> jsonResponse =
-          jsonDecode(decodedBody) as Map<String, dynamic>;
-
-      if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw HttpException(
-          'BFF ${response.statusCode}: ${_errorEnvelopeMessage(jsonResponse)}',
-        );
-      }
-
-      // Contract ChatResponse: { message, model_id, usage, prompts_version, conversation_id? }
-      final assistant = jsonResponse['message'];
-      if (assistant is! String || assistant.isEmpty) {
-        throw HttpException('BFF returned no message content');
+      final data = response.data;
+      if (data == null || data.message.isEmpty) {
+        throw const HttpException('BFF returned no message content');
       }
 
       return [
-        ChatModel(msg: assistant, chatIndex: 1),
+        ChatModel(msg: data.message, chatIndex: 1),
       ];
-    } catch (e) {
-      rethrow;
+    } on DioException catch (e) {
+      throw HttpException(
+        'BFF ${e.response?.statusCode ?? "??"}: ${_summarizeDioError(e)}',
+      );
     }
   }
 
   // ─────────────────────── helpers ───────────────────────
 
-  /// Extracts the human-readable message from the contract's ErrorEnvelope
-  /// shape: `{ error: { kind, message, code?, request_id } }`. Falls back to
-  /// older shapes for forward-compat with hand-edited BFFs.
-  static String _errorEnvelopeMessage(Map<String, dynamic> jsonResponse) {
-    final err = jsonResponse['error'];
-    if (err is Map) {
-      final msg = err['message'];
-      if (msg is String) return msg;
-      final reason = err.toString();
-      return reason;
+  /// Extracts a short, redacted summary from a `DioException`. The BFF emits
+  /// an `ErrorEnvelope { error: { kind, message, code?, request_id } }` shape
+  /// on 4xx/5xx; older shapes fall through to a generic message.
+  static String _summarizeDioError(DioException e) {
+    final data = e.response?.data;
+    if (data is Map) {
+      final err = data['error'];
+      if (err is Map) {
+        final msg = err['message'];
+        if (msg is String) return msg;
+      }
+      final topMsg = data['message'];
+      if (topMsg is String) return topMsg;
     }
-    if (err is String) return err;
-    final topMessage = jsonResponse['message'];
-    if (topMessage is String) return topMessage;
-    return 'BFF request failed';
+    if (data is String && data.isNotEmpty) {
+      return data.length > 200 ? '${data.substring(0, 197)}...' : data;
+    }
+    return e.message ?? 'BFF request failed';
   }
 }

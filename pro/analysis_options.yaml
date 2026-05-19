@@ -11,7 +11,13 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - lib/generated/**
+    # The generated BFF client lives at packages/formulaeapps_bff_client/
+    # as a path-dep. We exclude it from Pro's analyzer because dart-dio
+    # emits a few unused_import warnings that are harmless for generated
+    # code; the generator's own analysis_options.yaml handles its lints.
+    - "packages/**"
+    - "**.g.dart"
+    - "**.freezed.dart"
 
 linter:
   # The lint rules applied to this project can be customized in the

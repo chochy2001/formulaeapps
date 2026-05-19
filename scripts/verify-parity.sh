@@ -5,7 +5,7 @@
 #
 # Algorithm:
 #   1. Re-run `bun run build:openapi` in bff/ → regenerates contracts/bff.openapi.yaml.
-#   2. Re-run scripts/generate-bff-types.sh → regenerates pro/lib/generated/bff/ + community/lib/generated/bff/.
+#   2. Re-run scripts/generate-bff-types.sh → regenerates pro/packages/formulaeapps_bff_client/ + community/packages/formulaeapps_bff_client/.
 #   3. `git diff --exit-code` on the regenerated paths.
 #      - Exit 0: no drift; the committed contract and generated Dart match the Zod source.
 #      - Exit non-zero: drift detected; the diff is the proof. The PR author must either
@@ -39,8 +39,8 @@ fi
 # 3. Diff against tracked state
 PATHS=(
   "contracts"
-  "pro/lib/generated/bff"
-  "community/lib/generated/bff"
+  "pro/packages/formulaeapps_bff_client"
+  "community/packages/formulaeapps_bff_client"
 )
 
 # Surface any drift (both staged and unstaged)

@@ -1,4 +1,10 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
-    - lib/generated/**
+    # Generated BFF client lives at packages/formulaeapps_bff_client/ via
+    # path-dep; the generator emits a few unused_import warnings that are
+    # harmless for codegen output. The generator's own analysis_options.yaml
+    # handles its lints.
+    - "packages/**"
+    - "**.g.dart"
+    - "**.freezed.dart"

@@ -3,15 +3,19 @@
 #
 # Per specs/002-formulae-fe-be-sync/research.md § R2 and tasks.md T102.
 # Reads contracts/bff.openapi.yaml (generated from BFF Zod schemas) and emits
-# Dart client + model files into pro/lib/generated/bff/ and
-# community/lib/generated/bff/.
+# a self-contained Dart package into each app at
+# pro/packages/formulaeapps_bff_client/ and community/packages/formulaeapps_bff_client/.
+# Each app's pubspec.yaml references it via a path-dep so the generated
+# `package:formulaeapps_bff_client/...` imports resolve.
 #
 # Generator: openapi-generator-cli v7.x, target dart-dio.
 # Java required (>= 11). Bunx fetches the npm wrapper on first run and caches.
 #
-# Output policy: only the generator's lib/ portion is copied into each app
-# (the rest — pubspec, README, .gitignore — is discarded). pro/community
-# already have their own Flutter pubspec.yaml.
+# Output policy: the FULL generator output (pubspec.yaml, README.md,
+# analysis_options.yaml, lib/) is copied as a real Dart package. The package
+# name is `formulaeapps_bff_client`; transitive deps (dio, built_value,
+# built_collection, one_of, one_of_serializer) are resolved by `flutter pub
+# get` in the consuming app.
 #
 # Verified manually via specs/002-formulae-fe-be-sync/audit/codegen-pipeline-verified.md.
 
@@ -39,7 +43,7 @@ fi
 
 generate_for_app() {
   local app="$1"
-  local dest="$ROOT/$app/lib/generated/bff"
+  local dest="$ROOT/$app/packages/formulaeapps_bff_client"
   local tmp
   tmp=$(mktemp -d)
   trap "rm -rf '$tmp'" EXIT INT TERM
@@ -54,11 +58,17 @@ generate_for_app() {
     --additional-properties=pubName=formulaeapps_bff_client,pubLibrary=formulaeapps_bff_client.api,pubAuthor=CAPDESIS,pubVersion=1.0.0,nullSafe=true,nullableFields=true \
     --global-property=apiTests=false,modelTests=false,apiDocs=false,modelDocs=false
 
-  # Wipe destination + copy only generator's lib/ contents (skip pubspec, README, etc.)
+  # Wipe destination + copy FULL package output (pubspec.yaml, lib/, README, analysis_options.yaml)
+  # so the consuming app can reference it via `path: packages/formulaeapps_bff_client`.
   rm -rf "$dest"
   mkdir -p "$dest"
   if [ -d "$tmp/lib" ]; then
-    cp -R "$tmp/lib/." "$dest/"
+    # Copy pubspec.yaml, README.md, analysis_options.yaml, lib/
+    for entry in pubspec.yaml README.md analysis_options.yaml lib; do
+      if [ -e "$tmp/$entry" ]; then
+        cp -R "$tmp/$entry" "$dest/"
+      fi
+    done
   else
     echo "ERROR: generator did not produce lib/ for $app (check $tmp)" >&2
     exit 1
@@ -66,6 +76,19 @@ generate_for_app() {
 
   rm -rf "$tmp"
   trap - EXIT INT TERM
+
+  # dart-dio uses built_value: each model emits an abstract class with
+  # `part 'model.g.dart';`. Without the .g.dart companions, the consuming
+  # app's `flutter analyze` reports 460+ undefined-class errors. Run
+  # build_runner inside the generated package to materialize them.
+  if command -v flutter >/dev/null 2>&1; then
+    echo "→ Running build_runner inside $dest to emit .g.dart files"
+    ( cd "$dest" && flutter pub get >/dev/null 2>&1 && dart run build_runner build >/dev/null 2>&1 ) || {
+      echo "WARN: build_runner failed for $app — generated .g.dart files may be stale" >&2
+    }
+  else
+    echo "WARN: flutter not on PATH — skipping build_runner; run it manually under $dest" >&2
+  fi
 }
 
 for app in pro community; do
@@ -74,4 +97,4 @@ done
 
 echo "✓ Generated FE types for: pro, community"
 echo "  Source contract: $CONTRACT"
-echo "  Outputs: pro/lib/generated/bff/, community/lib/generated/bff/"
+echo "  Outputs: pro/packages/formulaeapps_bff_client/, community/packages/formulaeapps_bff_client/"
