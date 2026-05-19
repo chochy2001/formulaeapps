@@ -10,70 +10,77 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('builds a generated PDF for a formula widget', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    final notifier = FavoritesNotifier();
-    Uint8List? pdfBytes;
-    Object? capturedError;
-    late BuildContext capturedContext;
+  testWidgets(
+    'builds a generated PDF for a formula widget',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final notifier = FavoritesNotifier();
+      Uint8List? pdfBytes;
+      Object? capturedError;
+      late BuildContext capturedContext;
 
-    await tester.pumpWidget(
-      ChangeNotifierProvider<FavoritesNotifier>.value(
-        value: notifier,
-        child: MaterialApp(
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: L10n.all,
-          home: Builder(
-            builder: (context) {
-              capturedContext = context;
-              return const SizedBox.shrink();
-            },
+      await tester.pumpWidget(
+        ChangeNotifierProvider<FavoritesNotifier>.value(
+          value: notifier,
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: L10n.all,
+            home: Builder(
+              builder: (context) {
+                capturedContext = context;
+                return const SizedBox.shrink();
+              },
+            ),
           ),
         ),
-      ),
-    );
+      );
 
-    final favorite = Favorite(
-      title: 'Teorema del rotacional',
-      widgetName: kWidgetTeoremaDelRotacional,
-    );
+      final favorite = Favorite(
+        title: 'Teorema del rotacional',
+        widgetName: kWidgetTeoremaDelRotacional,
+      );
 
-    final contentFuture = FavoritesPdfGenerator.extractFavoriteFormulaContent(
-      context: capturedContext,
-      favorite: favorite,
-    );
-    await tester.pump();
-    final content = await contentFuture;
+      // extractFavoriteFormulaContent uses Overlay.insert + WidgetsBinding.endOfFrame;
+      // pumpAndSettle keeps pumping until all frames + timers + futures clear.
+      final contentFuture = FavoritesPdfGenerator.extractFavoriteFormulaContent(
+        context: capturedContext,
+        favorite: favorite,
+      );
+      await tester.pumpAndSettle();
+      final content = await contentFuture;
 
-    expect(
-      content.blocks.where(
-        (block) => block.type == FormulaPdfBlockType.formula,
-      ),
-      isNotEmpty,
-    );
-    expect(
-      content.blocks.any((block) => block.text.contains(r'\vec{F}')),
-      isTrue,
-    );
+      expect(
+        content.blocks.where(
+          (block) => block.type == FormulaPdfBlockType.formula,
+        ),
+        isNotEmpty,
+      );
+      expect(
+        content.blocks.any((block) => block.text.contains(r'\vec{F}')),
+        isTrue,
+      );
 
-    final pdfFuture = FavoritesPdfGenerator.buildFavoritePdfBytes(
-      context: capturedContext,
-      favorite: favorite,
-      folderName: 'General',
-    ).catchError((error) {
-      capturedError = error;
-      return Uint8List(0);
-    });
-    await tester.pump();
-    pdfBytes = await pdfFuture;
+      final pdfFuture = FavoritesPdfGenerator.buildFavoritePdfBytes(
+        context: capturedContext,
+        favorite: favorite,
+        folderName: 'General',
+      ).catchError((error) {
+        capturedError = error;
+        return Uint8List(0);
+      });
+      await tester.pumpAndSettle();
+      pdfBytes = await pdfFuture;
 
-    expect(capturedError, isNull);
-    expect(pdfBytes, isNotNull);
-    expect(String.fromCharCodes(pdfBytes.take(4)), '%PDF');
-  });
+      expect(capturedError, isNull);
+      expect(pdfBytes, isNotNull);
+      expect(String.fromCharCodes(pdfBytes.take(4)), '%PDF');
+    },
+    // Cap the test at 60s so a real hang fails fast (vs the 10-min default).
+    timeout: const Timeout(Duration(seconds: 60)),
+  );
 }
