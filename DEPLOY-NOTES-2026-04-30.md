@@ -5,6 +5,70 @@ Notas operativas del deploy FTP a Hostinger ejecutado esta sesión.
 
 ---
 
+## ⚠️ R13 UPDATE 2026-05-19 — READ BEFORE USING THE LFTP COMMANDS BELOW
+
+The lftp scripts in this file use `cd public_html/app` and `cd public_html` (lines 149, 180). **Those commands assume an unchrooted FTP session.** The current Hostinger FTP user `u226095507.formulaeapps.com@31.170.161.105` is **chrooted to `public_html/`** — `pwd` after login returns `/` (which IS `public_html/` from the unchrooted view).
+
+If you copy-paste the `cd public_html/...` patterns into a new lftp session, **`cd` silently fails** (lftp doesn't abort on cd-fail by default) and `mirror --reverse --delete` then operates on the chroot root, wiping the landing. **This bit Round 13 on 2026-05-19** — recovery took 2 lftp passes and ~5 min outage window.
+
+### Canonical R13-correct lftp pattern (use these instead)
+
+```bash
+# Upload Pro Web to subdomain dir (creates /app/ if missing)
+cd /Users/jorge/Code/formulaeapps/pro
+flutter build web --release -t lib/main_pro.dart --base-href "/" \
+  --dart-define=FLAVOR=pro \
+  --dart-define=JWT_SHARED_SECRET="$JWT_REAL" \
+  --dart-define=FORMULAE_BFF_CHAT_URL=https://api.formulaeapps.com/openai/chat \
+  --dart-define=FORMULAE_BUILD_NONCE=$(openssl rand -hex 16) \
+  --dart-define=FORMULAE_APP_VERSION=1.0.0 \
+  --no-source-maps --no-web-resources-cdn
+
+FTPPW='<password>'
+lftp -u "u226095507.formulaeapps.com,$FTPPW" 31.170.161.105 -e "
+set ftp:passive on
+set ftp:ssl-allow yes
+set ssl:verify-certificate no
+mkdir -p app
+cd app
+mirror --reverse --verbose=1 --parallel=4 build/web/ ./
+bye
+"
+unset FTPPW
+
+# Re-upload landing to apex, preserving /app/
+cd /Users/jorge/Code/formulaeapps/landing
+npm ci --no-audit --no-fund
+PUBLIC_SITE_URL=https://formulaeapps.com PUBLIC_APP_URL=https://app.formulaeapps.com npm run build
+
+FTPPW='<password>'
+lftp -u "u226095507.formulaeapps.com,$FTPPW" 31.170.161.105 -e "
+set ftp:passive on
+set ftp:ssl-allow yes
+set ssl:verify-certificate no
+mirror --reverse --verbose=1 --delete --parallel=4 \
+  --exclude '^app/' \
+  --exclude '^cgi-bin/' \
+  --exclude '^\.well-known/' \
+  --exclude '^\.user\.ini\$' \
+  --exclude '^error_log\$' \
+  dist/ ./
+bye
+"
+unset FTPPW
+```
+
+### What changed about the deploy since 2026-04-30
+
+- BFF is now LIVE at `api.formulaeapps.com` (Bun + Hono container on Contabo `ancare`, R12 + R13 commits on `main`).
+- Pro Web is now built with **real `JWT_SHARED_SECRET`** (pulled from VPS `.env` via `ssh chochy@100.77.243.93`) — chat works end-to-end.
+- The OpenRouter-allowlist drift footgun is now caught by `bun run probe:allowlist` (R12 CI gate). Don't manually edit `bff/src/lib/env.ts` allowlist without re-running the probe.
+- The `docker compose restart bff` footgun (does NOT re-read env_file) is fleet-wide; **always** use `docker compose up -d --force-recreate bff` after editing `.env`. See `specs/002-formulae-fe-be-sync/audit/fleet-restart-footgun-2026-05-19.md` for the 51 documented instances across the workspace.
+
+Full R13 deploy + recovery runbook lives at `specs/002-formulae-fe-be-sync/audit/r13-deploy-2026-05-19.md`. **Read that file before any future Hostinger deploy.**
+
+---
+
 ## TL;DR
 
 - ✅ **Landing y App Pro están subidos a Hostinger y funcionando en el origen** (`31.170.161.105`).

@@ -103,11 +103,11 @@ Client readiness: **Partial — refactor wired, release validation pending Flutt
 - Old `lib/chat_gpt/jwt_service.dart` deleted; replaced by `lib/chat_gpt/auth_service.dart` (BFF-issued JWT).
 - Old `lib/chat_gpt/api_service.dart` direct-OpenAI client rewritten to call the BFF; prompts moved server-side per FR-019.
 
-### Open items pending US2-full
+### US2 closeout (post-R13 2026-05-19)
 
-- `lib/chat_gpt/chat_model.dart` and `lib/chat_gpt/models_model.dart` still exist (T089 deferred until T109 lands and the generated DTOs become the consumed shape).
-- `pubspec.yaml` still uses `http: ^1.1.0`; `dio` + path dep not yet declared (T087 pending).
-- Empty `test/` directory — no chat-flow tests. Optional follow-up.
+- `lib/chat_gpt/chat_model.dart` and `lib/chat_gpt/models_model.dart` were **deleted in R13** (T089 done). Types inlined into `lib/chat_gpt/api_service.dart`, mirror of Pro T074/T075. Same consumers reach them through `export_chat_gpt.dart`'s re-export chain. Commit `e5a4bdd`. flutter analyze green (2998 infos unchanged from R12 baseline, 0 errors / 0 warnings); flutter test not runnable (no `test/` directory, acceptable per T096).
+- `pubspec.yaml` consumes the path-dep `packages/formulaeapps_bff_client` (T109 landed).
+- Empty `test/` directory remains; chat-flow coverage lives at the BFF integration-test layer (`bff/tests/integration/chat-flow.test.ts`). Adding Community-side `AuthService` HMAC tests is an optional follow-up.
 
 ## Known Limits and Risks
 

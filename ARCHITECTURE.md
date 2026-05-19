@@ -1,8 +1,35 @@
 # Formulae Apps — Arquitectura y operaciones
 
-**Fecha del análisis:** 2026-05-01
+**Fecha del análisis original:** 2026-05-01
+**Última actualización topológica:** 2026-05-19 (R13)
 **Documento autoritativo.** Cualquier decisión operativa parte de aquí.
 Actualiza este archivo cada vez que cambie la topología.
+
+---
+
+## ⚡ STATUS UPDATE 2026-05-19 (R13) — supersedes stale claims below
+
+The 2026-05-01 body that follows describes the **pre-feature-002 state**. Read it for *historical context*, not current truth. Today's reality:
+
+| Layer | Pre-feat-002 (2026-05-01) | **Now (2026-05-19 R13)** |
+|---|---|---|
+| BFF code location | "lives elsewhere, probably another team's repo" | ✅ Lives at `bff/` in this monorepo (commits `3b26d08`, `c30a3dc`, `e5a4bdd` on `main`) |
+| BFF deployment | "VPS Contabo paused — Deploy 0 Flutter bug" | ✅ Live on Contabo `ancare` (212.28.180.4) at `https://api.formulaeapps.com` — Bun + Hono container, healthy, 35/35 tests passing |
+| BFF routes | "compose declares 4 routes, none implemented" | ✅ All 4 routes implemented + tested: `/health`, `/auth/token` (HMAC-validated), `/openai/chat` (OpenRouter proxy with 6-model allowlist), `/iap/validate` (R12 hardening returns clean 503 when secrets missing) |
+| Pro Web | "shipped with PLACEHOLDER_DEV_NOT_FOR_PROD JWT — chat broken" | ✅ Re-deployed R13 with real `JWT_SHARED_SECRET` + `FORMULAE_BFF_CHAT_URL=https://api.formulaeapps.com/openai/chat`. End-to-end chat live (Gemini Flash Lite, ~1.16 s) |
+| `api.formulaeapps.com` DNS | "Hostinger proxy, no content" | ✅ Cloudflare → Traefik (ancare VPS), TLS via Let's Encrypt R12 DNS-01, valid through Aug 17 2026 |
+| `JWT_SHARED_SECRET` | "PLACEHOLDER" | ✅ Real 64-hex secret in `/opt/infrastructure/formulaeapps/.env` on ancare |
+| OpenAI key | "still in `community/lib/chat_gpt/api_consts.dart`" | ✅ Removed; community uses `String.fromEnvironment(...)`. BFF holds the real OpenRouter key in `.env`. Probe-allowlist CI gate detects future model drift |
+| `/iap/validate` IAP secrets | "compose mounts apple_p8.txt + google_sa.json, files don't exist" | 🟡 Directory `/opt/infrastructure/secrets/formulaeapps-docker/` created with empty placeholder files; R12 hardening returns 503 + `E_IAP_VALIDATION_UNAVAILABLE` until user drops real Apple p8 + Google SA (sole remaining T061) |
+| `Deploy 0` Flutter bug | "blocks VPS resume" | ✅ Isolated — BFF deploy doesn't invoke Flutter on VPS. Image built on VPS via `docker compose build bff` (Bun runtime only) |
+| UI structs `ChatModel` + `ModelsModel` | "hand-rolled files in `pro/lib/chat_gpt/`" | ✅ Files deleted (R13); types inlined into `api_service.dart` with re-export chain preserved |
+| Local zombie clones (`FormulaePro/`, `FormulaeCommunity/`) | "27+ and 14+ uncommitted files" | Same WIP still in working trees (US1 deferred per spec); not blocking |
+
+Feature 002 phase progress: **132 / 133 done (99.2 %)**. Only T061 (Apple + Google IAP secrets drop) remains; verification runbook in `specs/002-formulae-fe-be-sync/audit/deploy-handoff-2026-05-19.md` Step 7.
+
+Related session memories: [[project-formulae-2026-05-19]] (full state), [[handoff-session-20260519]] (session handoff), [[hostinger-ftp-chroot]] (R13 FTP deploy lesson), [[flutter-ipa-vs-ios-release-build]] (T086 alternate path), [[openrouter-silent-model-drift]] (R12 probe-gate rationale).
+
+The pre-2026-05-19 body below remains for historical context. Update individual section claims as they're touched in future work.
 
 ---
 

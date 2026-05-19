@@ -109,10 +109,11 @@ Client readiness: **Partial — local build verified; release-mode validation de
 - Old `lib/chat_gpt/jwt_service.dart` (FE-self-signed JWT pattern) was deleted; replaced by `lib/chat_gpt/auth_service.dart` (BFF-issued JWT). Evidence: `audit/us2-narrow-2026-05-18.md § Pro`.
 - Old `lib/chat_gpt/api_service.dart` direct-OpenAI client (with 18 hardcoded system prompts) was rewritten to call the BFF; prompts moved to `bff/src/schemas/prompts.ts` per FR-019. Evidence: `audit/us2-narrow-2026-05-18.md § T078`.
 
-### Open items pending US2-full
+### US2 closeout (post-R13 2026-05-19)
 
-- `lib/chat_gpt/chat_model.dart` and `lib/chat_gpt/models_model.dart` still exist (T074/T075 deferred until T108 lands and the generated DTOs become the consumed shape).
-- `pubspec.yaml` still uses `http: ^1.1.0`; `dio` + generated-package path dep not yet declared (T072 pending).
+- `lib/chat_gpt/chat_model.dart` and `lib/chat_gpt/models_model.dart` were **deleted in R13** (T074/T075 done). The two UI-only types (`ChatModel`, `ModelsModel`) are now inlined into `lib/chat_gpt/api_service.dart`; consumers (`chats_provider.dart`, `chat_widget.dart`, `chat_screen.dart`, `models_provider.dart`, `drop_down.dart`) reach them through the re-export chain in `export_chat_gpt.dart`. Vestigial `.fromJson` factories were dropped (zero callers — leftovers from pre-BFF era). Commit `e5a4bdd`. flutter analyze + test green; iOS release build via `flutter build ipa --no-codesign` verified arm64 Runner.app in xcarchive.
+- `pubspec.yaml` consumes the path-dep `packages/formulaeapps_bff_client` (T108 landed) — the generated `ChatApi` is the chat client. `dio` + `built_value` are transitive deps.
+- Pro Web shipped to `app.formulaeapps.com` in R13 with real `JWT_SHARED_SECRET` + `FORMULAE_BFF_CHAT_URL=https://api.formulaeapps.com/openai/chat`. End-to-end chat verified live (Gemini Flash Lite, 1.16 s HTTP 200).
 
 ## Known Limits and Risks
 

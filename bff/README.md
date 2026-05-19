@@ -138,7 +138,42 @@ bun test tests/unit/      # unit only
 bun test tests/integration/  # integration only
 ```
 
-Coverage target: every route added in US6 has at least one success-path and one primary-failure-path test (SC-011).
+Coverage target: every route added in US6 has at least one success-path and one primary-failure-path test (SC-011). **Current: 35/35 pass** (R12 added 3 IAP-availability integration tests).
+
+## R12+R13 additions (2026-05-19)
+
+### `probe-allowlist` — OpenRouter catalog drift detector
+
+```bash
+bun run probe:allowlist
+```
+
+Queries `https://openrouter.ai/api/v1/models` and exits non-zero if any model in `OPENROUTER_MODEL_ALLOWLIST` is missing from the live catalog. Caught two silent removals from OpenRouter during R11+R12 (`google/gemini-2.0-flash-exp`, `anthropic/claude-3.5-sonnet`).
+
+CI gate at `.github/workflows/probe-allowlist.yml` runs on push/PR to `src/lib/env.ts` or `scripts/probe-allowlist.ts`, plus monthly cron, plus `workflow_dispatch`. Bun pin `1.3.9`, GitHub-hosted `ubuntu-latest` (not self-hosted — see memory `feedback_runner_scope_capdesis`).
+
+### `iap-availability` service + startup check
+
+`src/services/iap-availability.ts` (R12) detects placeholder env vars + missing/empty/malformed secret files. The `/iap/validate` handler calls it at the top of every request; on `!available` it returns HTTP 503 + ErrorEnvelope `code: 'E_IAP_VALIDATION_UNAVAILABLE'` instead of letting the Apple/Google SDK construction fail with cryptic messages.
+
+Startup emits one warn line per platform check:
+
+```
+[iap] startup check: apple=ok|missing(<reason>) google=ok|missing(<reason>)
+```
+
+Reason tokens: `apple_issuer_id_placeholder`, `apple_key_id_placeholder`, `apple_p8_file_missing`, `apple_p8_file_empty`, `apple_p8_file_not_pkcs8`, `google_sa_missing`, `google_sa_invalid_json`, `google_sa_missing_client_email`, `google_package_name_placeholder`. The integration test suite at `tests/integration/iap-availability.test.ts` covers the 503 path for both platforms.
+
+### Production state (2026-05-19)
+
+| Endpoint | Status |
+|---|---|
+| `https://api.formulaeapps.com/health` | 200 (Bun + Hono on Contabo `ancare`, image rebuilt from R13 source via rsync + `docker compose build bff`) |
+| `https://api.formulaeapps.com/auth/token` | Mints valid JWTs after HMAC `client_proof` verification |
+| `https://api.formulaeapps.com/openai/chat` | Real OpenRouter roundtrip (Gemini Flash Lite ~1.16 s; 6 models allowlisted) |
+| `https://api.formulaeapps.com/iap/validate` | 503 + `E_IAP_VALIDATION_UNAVAILABLE` until real Apple/Google secrets dropped (T061) |
+| TLS | Let's Encrypt via Traefik DNS-01 (Cloudflare token) |
+| CORS | Exact-match `https://app.formulaeapps.com` + `https://formulaeapps.com` (no wildcards) |
 
 ## Related docs
 
