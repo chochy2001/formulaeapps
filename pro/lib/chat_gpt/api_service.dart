@@ -5,12 +5,33 @@ import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
 
 import 'api_consts.dart';
 import 'auth_service.dart';
-import 'chat_model.dart';
-import 'models_model.dart';
 
 export '../chat_gpt/api_consts.dart';
-export '../chat_gpt/chat_model.dart';
-export '../chat_gpt/models_model.dart';
+
+/// UI handoff struct produced by [ApiService.sendMessage] and consumed by
+/// chats_provider.dart + chat_widget.dart + chat_screen.dart. [chatIndex]
+/// is a UI-only flag distinguishing user (0) vs assistant (1) messages —
+/// no backend representation. The BFF's generated `ChatResponse` only
+/// carries the message text and has no role enum, so the speaker concern
+/// stays here.
+class ChatModel {
+  final String msg;
+  final int chatIndex;
+
+  ChatModel({required this.msg, required this.chatIndex});
+}
+
+/// Dropdown option for the model selector in drop_down.dart. The BFF
+/// contract v1.0.0 has no `/openai/models` route, so the list is populated
+/// from a hardcoded stub in [ApiService.getModels]. [id] is forwarded to
+/// the BFF as the OpenRouter `provider/model` selector.
+class ModelsModel {
+  final String id;
+  final int created;
+  final String root;
+
+  ModelsModel({required this.id, required this.created, required this.root});
+}
 
 /// `ApiService` — thin adapter around the generated `ChatApi` from the
 /// BFF OpenAPI codegen (`packages/formulaeapps_bff_client`).
