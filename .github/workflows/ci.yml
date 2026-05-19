@@ -9,8 +9,7 @@ on:
 # Constitution gates:
 #   - Principle VI  (Backend↔FE Route Coverage): verify-routes job below.
 #   - Principle VII (Model Parity):              verify-parity job below.
-#   - Principle VIII (Build Integrity):          bff-test job below;
-#                                                Flutter analyze/test jobs added by US2.
+#   - Principle VIII (Build Integrity):          bff-test + pro-test + community-test jobs below.
 #   - Principle IX  (Multi-App Infra):           infra-validate job added in US5 T126
 #                                                under .github/workflows/release.yml.
 
@@ -86,3 +85,63 @@ jobs:
           name: route-coverage-report
           path: coverage.json
           retention-days: 30
+
+  pro-test:
+    name: Pro — flutter analyze + test (Principle VIII)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: pro
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.1'
+          channel: stable
+          cache: true
+      # Path-dep package (packages/formulaeapps_bff_client) must pub-get first so
+      # built_value transitive deps + .g.dart files resolve before main pub get.
+      - name: pub get path-dep package
+        working-directory: pro/packages/formulaeapps_bff_client
+        run: flutter pub get
+      - name: pub get main app
+        run: flutter pub get
+      # --no-fatal-infos because Pro has ~356 pre-existing info-level findings
+      # (use_super_parameters, use_build_context_synchronously) tracked separately
+      # as tech debt; --fatal-warnings is the real gate.
+      - name: analyze
+        run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+      - name: test
+        run: flutter test --no-pub --reporter compact
+
+  community-test:
+    name: Community — flutter analyze + test (Principle VIII)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: community
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.1'
+          channel: stable
+          cache: true
+      - name: pub get path-dep package
+        working-directory: community/packages/formulaeapps_bff_client
+        run: flutter pub get
+      - name: pub get main app
+        run: flutter pub get
+      - name: analyze
+        run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+      # Community has no test/ directory yet (T096 audit noted "Test directory
+      # \"test\" not found"). Skip test step until first test lands.
+      - name: test (skipped — no test/ dir yet)
+        run: |
+          if [ -d test ]; then
+            flutter test --no-pub --reporter compact
+          else
+            echo "Skipping: community/test/ does not exist yet."
+          fi
