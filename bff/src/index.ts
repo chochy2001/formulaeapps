@@ -7,6 +7,7 @@ import { healthRoute, healthHandler } from './routes/health';
 import { authTokenRoute, authTokenHandler } from './routes/auth';
 import { chatRoute, chatHandler } from './routes/chat';
 import { iapValidateRoute, iapValidateHandler } from './routes/iap';
+import { checkIapAvailability, formatAvailability } from './services/iap-availability';
 import { env } from './lib/env';
 
 export const app = createApp();
@@ -49,6 +50,21 @@ app.openAPIRegistry.registerComponent('securitySchemes', 'bearerAuth', {
   bearerFormat: 'JWT',
   description: 'HS256-signed JWT issued by POST /auth/token.',
 });
+
+// One-shot startup probe — surfaces missing/placeholder IAP secrets in the
+// logs at boot so ops can spot a misconfigured deploy without waiting for the
+// first /iap/validate call. Non-fatal: BFF must boot regardless (other routes
+// keep working). See src/services/iap-availability.ts for the rules.
+void (async (): Promise<void> => {
+  const [apple, google] = await Promise.all([
+    checkIapAvailability('apple'),
+    checkIapAvailability('google'),
+  ]);
+  // eslint-disable-next-line no-console
+  console.warn(
+    `[iap] startup check: apple=${formatAvailability(apple)} google=${formatAvailability(google)}`,
+  );
+})();
 
 // Bun-native server config — runs only when bun runs this file as entry point.
 export default {

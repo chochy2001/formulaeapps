@@ -1,0 +1,165 @@
+import { env } from '../lib/env';
+
+/**
+ * Runtime check for Apple/Google IAP secret availability.
+ *
+ * Spec §FR-024 + Research §R5. In production the BFF needs:
+ *   Apple:  APPLE_P8_FILE (path) + APPLE_ISSUER_ID + APPLE_KEY_ID + APPLE_BUNDLE_ID
+ *   Google: GOOGLE_SA_FILE (path) + GOOGLE_PACKAGE_NAME
+ *
+ * When secrets haven't been dropped yet (T061 pending), placeholder env values
+ * like "changeme" or "replace-with-issuer-uuid" cause the upstream SDKs
+ * (jsonwebtoken, googleapis) to fail at construction with ugly errors. This
+ * helper detects the unhealthy state at request time so /iap/validate can
+ * return a clean 503 envelope, and at boot time so ops sees one warning line.
+ *
+ * Semantics:
+ *  - If the relevant env vars are entirely undefined: returns { available: true }.
+ *    This preserves the existing dev/test path where the factory falls back to
+ *    a stub validator that responds 200 + valid=false. Tests rely on this.
+ *  - If env vars are set but match a placeholder pattern, or files are
+ *    missing/empty/malformed: returns { available: false, reason: '...' }.
+ */
+
+export type IapPlatform = 'apple' | 'google';
+
+export type IapAvailability =
+  | { available: true }
+  | { available: false; reason: string };
+
+// Case-insensitive substrings that, when found in an env var value, indicate
+// the value is a placeholder rather than a real secret. Combines workspace
+// conventions (PLACEHOLDER_DEV_NOT_FOR_PROD, replace-with-*, replace-me) with
+// common docker/compose templates (changeme, your_*_here, <your...>).
+const PLACEHOLDER_SUBSTRINGS = [
+  'changeme',
+  'placeholder',
+  'replace-me',
+  'replace_me',
+  'replace-with',
+  'your_',
+  '_here',
+  '<your',
+];
+
+function isPlaceholder(value: string | undefined): boolean {
+  if (value === undefined) return false;
+  const trimmed = value.trim();
+  if (trimmed.length === 0) return true;
+  const lower = trimmed.toLowerCase();
+  return PLACEHOLDER_SUBSTRINGS.some((p) => lower.includes(p));
+}
+
+async function readFileText(path: string): Promise<string | undefined> {
+  try {
+    const file = Bun.file(path);
+    if (!(await file.exists())) return undefined;
+    return await file.text();
+  } catch {
+    return undefined;
+  }
+}
+
+async function checkApple(): Promise<IapAvailability> {
+  const issuerId = env.APPLE_ISSUER_ID;
+  const keyId = env.APPLE_KEY_ID;
+  const bundleId = env.APPLE_BUNDLE_ID;
+  const p8Path = env.APPLE_P8_FILE;
+
+  const noneConfigured =
+    issuerId === undefined &&
+    keyId === undefined &&
+    bundleId === undefined &&
+    p8Path === undefined;
+  if (noneConfigured) return { available: true };
+
+  if (issuerId === undefined || issuerId.trim().length === 0)
+    return { available: false, reason: 'apple_issuer_id_missing' };
+  if (isPlaceholder(issuerId))
+    return { available: false, reason: 'apple_issuer_id_placeholder' };
+
+  if (keyId === undefined || keyId.trim().length === 0)
+    return { available: false, reason: 'apple_key_id_missing' };
+  if (isPlaceholder(keyId))
+    return { available: false, reason: 'apple_key_id_placeholder' };
+
+  if (bundleId === undefined || bundleId.trim().length === 0)
+    return { available: false, reason: 'apple_bundle_id_missing' };
+  if (isPlaceholder(bundleId))
+    return { available: false, reason: 'apple_bundle_id_placeholder' };
+
+  if (p8Path === undefined || p8Path.trim().length === 0)
+    return { available: false, reason: 'apple_p8_path_missing' };
+
+  const p8Contents = await readFileText(p8Path);
+  if (p8Contents === undefined)
+    return { available: false, reason: 'apple_p8_file_missing' };
+  if (p8Contents.trim().length === 0)
+    return { available: false, reason: 'apple_p8_file_empty' };
+  // Apple p8 keys are PKCS#8 PEM blocks; sanity-check the header so we don't
+  // hand jsonwebtoken a placeholder string and let it crash later.
+  if (!p8Contents.includes('-----BEGIN PRIVATE KEY-----'))
+    return { available: false, reason: 'apple_p8_file_invalid' };
+
+  return { available: true };
+}
+
+async function checkGoogle(): Promise<IapAvailability> {
+  const saPath = env.GOOGLE_SA_FILE;
+  const packageName = env.GOOGLE_PACKAGE_NAME;
+
+  const noneConfigured = saPath === undefined && packageName === undefined;
+  if (noneConfigured) return { available: true };
+
+  if (packageName === undefined || packageName.trim().length === 0)
+    return { available: false, reason: 'google_package_name_missing' };
+  if (isPlaceholder(packageName))
+    return { available: false, reason: 'google_package_name_placeholder' };
+
+  if (saPath === undefined || saPath.trim().length === 0)
+    return { available: false, reason: 'google_sa_path_missing' };
+
+  const saContents = await readFileText(saPath);
+  if (saContents === undefined)
+    return { available: false, reason: 'google_sa_missing' };
+  if (saContents.trim().length === 0)
+    return { available: false, reason: 'google_sa_empty' };
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(saContents);
+  } catch {
+    return { available: false, reason: 'google_sa_invalid_json' };
+  }
+  if (
+    !parsed ||
+    typeof parsed !== 'object' ||
+    typeof (parsed as { client_email?: unknown }).client_email !== 'string' ||
+    ((parsed as { client_email: string }).client_email).trim().length === 0
+  ) {
+    return { available: false, reason: 'google_sa_missing_client_email' };
+  }
+
+  return { available: true };
+}
+
+/**
+ * Returns whether the named IAP platform is configured well enough that the
+ * upstream SDK can be safely constructed. Cheap on the happy path (a few env
+ * reads + at most one file stat/read). Called per-request from the handler
+ * AND once at boot from src/index.ts.
+ */
+export async function checkIapAvailability(
+  platform: IapPlatform,
+): Promise<IapAvailability> {
+  if (platform === 'apple') return checkApple();
+  return checkGoogle();
+}
+
+/**
+ * Convenience used by the startup banner. Renders a single token like
+ * "ok" or "missing(apple_p8_file_missing)" — short, greppable in logs.
+ */
+export function formatAvailability(result: IapAvailability): string {
+  return result.available ? 'ok' : `missing(${result.reason})`;
+}

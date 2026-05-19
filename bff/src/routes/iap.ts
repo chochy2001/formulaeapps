@@ -1,9 +1,10 @@
 import { createRoute } from '@hono/zod-openapi';
 import type { AppContext } from '../lib/openapi';
 import { IapValidateRequestSchema, IapValidateResponseSchema } from '../schemas/iap';
-import { ErrorEnvelopeSchema } from '../schemas/error';
+import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
 import { createAppleIapValidator } from '../services/apple-iap';
 import { createGoogleIapValidator } from '../services/google-iap';
+import { checkIapAvailability } from '../services/iap-availability';
 import { issueToken, shouldRefresh } from '../lib/jwt';
 import { randomUUID } from 'node:crypto';
 
@@ -38,11 +39,32 @@ export const iapValidateRoute = createRoute({
     429: { description: 'Rate limited', content: { 'application/json': { schema: ErrorEnvelopeSchema } } },
     502: { description: 'Upstream error', content: { 'application/json': { schema: ErrorEnvelopeSchema } } },
     500: { description: 'Internal error', content: { 'application/json': { schema: ErrorEnvelopeSchema } } },
+    503: {
+      description: 'IAP validation not configured on this BFF instance',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
   },
 });
 
 export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
   const body = (c.req as unknown as { valid: (t: 'json') => { platform: 'apple' | 'google'; product_id: string; transaction_id: string; receipt_data: string; subscription: boolean } }).valid('json');
+
+  // Detect missing-or-placeholder secrets BEFORE constructing the SDK so the
+  // client gets a clean envelope instead of a leaked jsonwebtoken / googleapis
+  // construction error. See src/services/iap-availability.ts for the rules.
+  const availability = await checkIapAvailability(body.platform);
+  if (!availability.available) {
+    const requestId = c.get('request_id') ?? randomUUID();
+    return c.json(
+      errorEnvelope(
+        'internal_error',
+        `IAP validation unavailable for ${body.platform}: ${availability.reason}`,
+        requestId,
+        'E_IAP_VALIDATION_UNAVAILABLE',
+      ),
+      503,
+    );
+  }
 
   const validator =
     body.platform === 'apple'
