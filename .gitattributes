@@ -1,0 +1,21 @@
+# Mark generated artifacts as linguist-generated so GitHub renders diffs collapsed
+# and they're excluded from language statistics.
+#
+# Manual edits in these directories are detected by scripts/verify-parity.sh
+# and will fail CI. To change generated content, edit the Zod schemas under
+# bff/src/schemas/ and rerun the generators.
+
+pro/lib/generated/** linguist-generated=true
+community/lib/generated/** linguist-generated=true
+contracts/*.yaml linguist-generated=true
+
+# Bun lockfile (Bun 1.2+ uses text format bun.lock; older bun.lockb was binary)
+bun.lock text
+bun.lockb binary
+
+# Normalize line endings
+* text=auto eol=lf
+
+# Force LF on shell scripts even on Windows checkouts
+*.sh text eol=lf
+*.bash text eol=lf

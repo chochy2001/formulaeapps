@@ -1,0 +1,442 @@
+openapi: 3.1.0
+info:
+  title: FormulaeApps BFF
+  version: 1.0.0
+  description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
+servers:
+  - url: https://api.formulaeapps.com
+    description: Production (VPS Contabo)
+  - url: http://localhost:3000
+    description: Local dev
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: HS256-signed JWT issued by POST /auth/token.
+  schemas:
+    HealthStatus:
+      type: string
+      enum:
+        - ok
+        - degraded
+        - unhealthy
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/HealthStatus"
+        version:
+          type: string
+          description: BFF build version (semver).
+          example: 0.1.0
+        prompts_version:
+          type: string
+          example: 1.0.0
+        uptime_seconds:
+          type: number
+          minimum: 0
+          description: Seconds since BFF process start.
+      required:
+        - status
+        - version
+        - prompts_version
+        - uptime_seconds
+    AuthTokenResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Compact JWS (HS256). 60-min max lifetime.
+          example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIuLi4iLCJleHAiOjEyMzR9.sig
+        expires_at:
+          type: string
+          format: date-time
+          description: ISO-8601 UTC token expiry.
+          example: 2026-05-18T16:00:00.000Z
+        refresh_after:
+          type: string
+          format: date-time
+          description: ISO-8601 UTC hint for proactive refresh.
+          example: 2026-05-18T15:50:00.000Z
+        prompts_version:
+          type: string
+          description: Semver of system prompts in use.
+          example: 1.0.0
+      required:
+        - token
+        - expires_at
+        - refresh_after
+        - prompts_version
+    ErrorKind:
+      type: string
+      enum:
+        - unauthorized
+        - forbidden
+        - not_found
+        - bad_request
+        - upstream_error
+        - rate_limited
+        - internal_error
+    ErrorEnvelope:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            kind:
+              $ref: "#/components/schemas/ErrorKind"
+            message:
+              type: string
+              maxLength: 200
+              description: Short user-presentable message in ES (default) or _en. No secrets.
+              example: JWT inválido
+            code:
+              type: string
+              pattern: ^E_[A-Z0-9_]+$
+              description: Stable error code for client branching.
+              example: E_INVALID_JWT
+            request_id:
+              type: string
+              format: uuid
+              description: Matches the request_id in BFF logs.
+          required:
+            - kind
+            - message
+            - request_id
+      required:
+        - error
+    AuthTokenRequest:
+      type: object
+      properties:
+        client_id:
+          type: string
+          format: uuid
+          description: Per-install client identifier, stable across launches.
+          example: 550e8400-e29b-41d4-a716-446655440000
+        client_proof:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          description: HMAC-SHA256(JWT_SHARED_SECRET, client_id || build_nonce) hex (64 chars).
+          example: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        build_nonce:
+          type: string
+          pattern: ^[a-f0-9]{32}$
+          description: Per-build constant baked into the app bundle (32 hex chars).
+          example: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        platform:
+          type: string
+          enum:
+            - web
+            - android
+            - ios
+            - macos
+          description: Client platform identifier.
+          example: web
+        app_version:
+          type: string
+          pattern: ^\d+\.\d+\.\d+
+          description: Client app version (semver-ish).
+          example: 3.7.2
+      required:
+        - client_id
+        - client_proof
+        - build_nonce
+        - platform
+        - app_version
+    ChatUsage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          minimum: 0
+        completion_tokens:
+          type: integer
+          minimum: 0
+        total_tokens:
+          type: integer
+          minimum: 0
+      required:
+        - prompt_tokens
+        - completion_tokens
+        - total_tokens
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Assistant's text.
+          example: La energía cinética es E_c = (1/2) m v^2 ...
+        model_id:
+          type: string
+          description: Echo of the model that produced the response (`provider/model` format).
+          example: openai/gpt-4o-mini
+        usage:
+          $ref: "#/components/schemas/ChatUsage"
+        conversation_id:
+          type: string
+          format: uuid
+          description: Echo of request conversation_id if supplied.
+        prompts_version:
+          type: string
+          example: 1.0.0
+      required:
+        - message
+        - model_id
+        - usage
+        - prompts_version
+    ChatRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          minLength: 1
+          maxLength: 4000
+          description: User's question. Trimmed before validation.
+          example: ¿Cuál es la fórmula de la energía cinética?
+        model_id:
+          type: string
+          description: Optional OpenRouter model selector (`provider/model` format) from the BFF's allowlist. If absent, BFF default applies. See https://openrouter.ai/models.
+          example: openai/gpt-4o-mini
+        conversation_id:
+          type: string
+          format: uuid
+          description: Optional thread correlation id.
+          example: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      required:
+        - message
+    IapValidateResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+          description: true if the provider confirms the receipt.
+        expires_at:
+          type: string
+          format: date-time
+          description: ISO-8601 UTC. Present for subscriptions.
+          example: 2026-06-18T00:00:00.000Z
+        product_id:
+          type: string
+        transaction_id:
+          type: string
+        environment:
+          type: string
+          enum:
+            - sandbox
+            - production
+          description: IAP environment that produced the receipt.
+          example: production
+        provider_reason:
+          type: string
+          maxLength: 200
+          description: Short reason when valid=false. Does not leak the raw provider body.
+      required:
+        - valid
+        - product_id
+        - transaction_id
+        - environment
+    IapValidateRequest:
+      type: object
+      properties:
+        platform:
+          type: string
+          enum:
+            - apple
+            - google
+          description: IAP provider.
+          example: apple
+        product_id:
+          type: string
+          description: Provider's product identifier.
+          example: com.capdesis.formulae.pro_monthly
+        transaction_id:
+          type: string
+          description: Provider's transaction id.
+          example: "1000000123456789"
+        receipt_data:
+          type: string
+          maxLength: 16384
+          description: Base64-encoded receipt (Apple) or purchase token (Google). Max 16 KB.
+        subscription:
+          type: boolean
+          description: true for subscriptions, false for one-time purchases.
+          example: true
+      required:
+        - platform
+        - product_id
+        - transaction_id
+        - receipt_data
+        - subscription
+  parameters: {}
+paths:
+  /health:
+    get:
+      tags:
+        - health
+      summary: Liveness and version probe
+      description: Used by Docker compose healthcheck (every 30s) and the infra validator. No auth required.
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+  /auth/token:
+    post:
+      tags:
+        - auth
+      summary: Issue a session JWT
+      description: Verifies the client_proof HMAC and issues a short-lived (≤60min) HS256 JWT. Called by the FE at app cold start and again when the previous token expires.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthTokenRequest"
+      responses:
+        "200":
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokenResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          description: Invalid client_proof
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /openai/chat:
+    post:
+      tags:
+        - chat
+      summary: Proxy a chat completion through OpenRouter
+      description: Verifies the JWT, assembles the chat request server-side (system prompts live in bff/src/schemas/prompts.ts), forwards to OpenRouter, returns the response. Routing via OpenRouter lets the FE switch models per task and adopt new ones without a BFF redeploy.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+      responses:
+        "200":
+          description: Chat completion successful
+          headers:
+            X-Auth-Refresh:
+              schema:
+                type: string
+              description: Optional. If present, a rotated JWT the FE should adopt.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "502":
+          description: Upstream error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /iap/validate:
+    post:
+      tags:
+        - iap
+      summary: Validate an Apple or Google IAP receipt server-side
+      description: Uses the official Apple/Google SDKs with secrets mounted at runtime. Returns a normalized result without leaking the raw provider response.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IapValidateRequest"
+      responses:
+        "200":
+          description: Validation completed
+          headers:
+            X-Auth-Refresh:
+              schema:
+                type: string
+              description: Optional rotated JWT.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IapValidateResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "500":
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "502":
+          description: Upstream error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+webhooks: {}

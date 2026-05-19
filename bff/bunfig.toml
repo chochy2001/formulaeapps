@@ -1,0 +1,14 @@
+# Bun runtime configuration for FormulaeApps BFF
+# Reference: https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Reproducible installs — fail if lockfile out of sync
+exact = false
+auto = "fallback"
+# Frozen-lockfile semantics for CI; comment out for dev
+# frozen = true
+
+[test]
+# Bun built-in test runner (used by `bun test`)
+# Test files: *.test.ts under tests/
+preload = ["./tests/setup.ts"]

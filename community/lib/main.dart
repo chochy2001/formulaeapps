@@ -1,12 +1,14 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../../constantes/export_constantes.dart';
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formulae/menu.dart';
 import 'package:formulae/routes.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../chat_gpt/api_consts.dart' as bff_consts;
 import '../chat_gpt/chats_provider.dart';
 import '../chat_gpt/models_provider.dart';
 import '../models/task_data.dart';
@@ -16,9 +18,28 @@ import 'package:formulae/screens_personalizados/configuracion.dart';
 
 import 'l10n/l10n.dart';
 
+// Placeholder values rejected at startup in --release mode per spec §FR-006.
+const _placeholderSecrets = <String>{
+  '',
+  'PLACEHOLDER_DEV_NOT_FOR_PROD',
+  'replace-with-real-hex-secret',
+};
+
+void _assertBffSecretsConfigured() {
+  if (!kReleaseMode) return;
+  if (_placeholderSecrets.contains(bff_consts.jwtSharedSecret)) {
+    throw StateError(
+      'BFF JWT_SHARED_SECRET is a placeholder value in --release mode. '
+      'Provide a real secret via --dart-define=JWT_SHARED_SECRET=<hex32>.',
+    );
+  }
+}
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // Spec §FR-006: refuse to launch a release build with placeholder JWT secret.
+  _assertBffSecretsConfigured();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([

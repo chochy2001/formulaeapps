@@ -1,0 +1,46 @@
+# Local dev override for docker-compose.yml. NOT committed-to-prod.
+#
+# Why: docker-compose.yml is wired for the VPS Contabo target — it references
+# secrets under /opt/infrastructure/secrets/formulaeapps-docker/ (production
+# paths) and the `web_proxy` external network. On a local dev machine those
+# don't exist. This override:
+#   - Redirects secrets to bff/secrets/ (local, gitignored)
+#   - Removes the external-network requirement (uses default bridge)
+#   - Strips Traefik labels (unnecessary locally)
+#   - Disables landing + pro services (we want BFF-only for dev)
+#
+# Usage: `docker compose up -d bff` automatically picks up override.
+# Production (VPS) MUST NOT have this file present — only docker-compose.yml.
+
+services:
+  bff:
+    labels: []         # strip Traefik labels for local
+    networks:
+      - default
+    ports:
+      - "3001:3000"
+    env_file: []
+    environment:
+      BFF_ENV: development
+      BFF_PORT: "3000"
+      JWT_SHARED_SECRET: "${JWT_SHARED_SECRET:-local-dev-secret-replace-this-please-32chars-min}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-sk-local-dev-replace-me}"
+      CORS_ALLOWED_ORIGINS: "https://app.formulaeapps.com,https://formulaeapps.com,http://localhost:8080,http://localhost:4321"
+      LOG_LEVEL: info
+
+  # Disable landing + pro in local dev — bring them up explicitly if needed
+  landing:
+    profiles: ["full"]
+  pro:
+    profiles: ["full"]
+
+networks:
+  default:
+    driver: bridge
+
+# Local secret file paths instead of /opt/infrastructure/...
+secrets:
+  apple_p8:
+    file: ./bff/secrets/apple_p8.txt
+  google_sa:
+    file: ./bff/secrets/google_sa.json

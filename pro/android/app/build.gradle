@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "com.capdesis.formulae_pro.formulae_calculo_pro"
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 34
         versionCode 59
         versionName '3.3.8'

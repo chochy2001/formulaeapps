@@ -45,7 +45,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         manifestPlaceholders = [
-            adMobApplicationId: project.findProperty('ADMOB_ANDROID_APP_ID') ?: 'ca-app-pub-3940256099942544~3347511713'
+            adMobApplicationId: project.findProperty('ADMOB_ANDROID_APP_ID') ?: 'ca-app-pub-3940256099942544~3347511713',
+            applicationName: "android.app.Application"
         ]
     }
 

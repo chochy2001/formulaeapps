@@ -1,0 +1,59 @@
+name: Release Gate
+
+# Runs the production-mode infrastructure validator before a release is
+# declared green. Per specs/002-formulae-fe-be-sync/tasks.md T126 + Principle IX.
+#
+# Triggers:
+#   - workflow_dispatch (manual, before any release)
+#   - push to tags matching v*.* (release tagging)
+
+on:
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: 'Verbose output'
+        required: false
+        type: boolean
+        default: false
+  push:
+    tags:
+      - 'v*.*'
+
+concurrency:
+  group: release-gate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  infra-validate-production:
+    name: Multi-App Infra Validation (Principle IX)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+
+      - name: Install BFF deps (infra-validate.ts imports `yaml`)
+        run: cd bff && bun install --frozen-lockfile
+
+      - name: Run infra-validate in production mode
+        run: |
+          set +e
+          bash scripts/infra-validate.sh > infra-report.json
+          EXIT=$?
+          set -e
+          echo "::group::Infra validation report"
+          cat infra-report.json
+          echo "::endgroup::"
+          exit $EXIT
+
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: infra-validate-report-${{ github.sha }}
+          path: infra-report.json
+          retention-days: 90

@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formulae/app/flavor_config.dart';
@@ -7,12 +8,32 @@ import 'package:formulae/screens_personalizados/configuracion.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
 
 import '../../../constantes/export_constantes.dart';
+import '../chat_gpt/api_consts.dart' as bff_consts;
 import '../chat_gpt/chats_provider.dart';
 import '../chat_gpt/models_provider.dart';
 import 'menus/menu.dart';
 import '../routes.dart';
 import 'l10n/l10n.dart';
 import 'package:timezone/data/latest.dart' as tz;
+
+// Placeholder values rejected at startup in --release mode per spec §FR-006.
+const _placeholderSecrets = <String>{
+  '',
+  'PLACEHOLDER_DEV_NOT_FOR_PROD',
+  'replace-with-real-hex-secret',
+};
+
+/// Guard against shipping release builds with an unconfigured JWT_SHARED_SECRET.
+/// Throws at startup so the failure mode is loud + early — never silent.
+void _assertBffSecretsConfigured() {
+  if (!kReleaseMode) return;
+  if (_placeholderSecrets.contains(bff_consts.jwtSharedSecret)) {
+    throw StateError(
+      'BFF JWT_SHARED_SECRET is a placeholder value in --release mode. '
+      'Provide a real secret via --dart-define=JWT_SHARED_SECRET=<hex32>.',
+    );
+  }
+}
 
 // Define flutterLocalNotificationsPlugin y navigatorKey como variables globales
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -23,6 +44,8 @@ Future<void> main() => bootstrap(FormulaeConfig.current);
 
 Future<void> bootstrap(FormulaeConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Spec §FR-006: refuse to launch a release build with placeholder JWT secret.
+  _assertBffSecretsConfigured();
   tz.initializeTimeZones();
 
   SystemChrome.setPreferredOrientations([

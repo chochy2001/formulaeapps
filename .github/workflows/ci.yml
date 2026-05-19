@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Constitution gates:
+#   - Principle VI  (Backend↔FE Route Coverage): verify-routes job below.
+#   - Principle VII (Model Parity):              verify-parity job below.
+#   - Principle VIII (Build Integrity):          bff-test job below;
+#                                                Flutter analyze/test jobs added by US2.
+#   - Principle IX  (Multi-App Infra):           infra-validate job added in US5 T126
+#                                                under .github/workflows/release.yml.
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bff-test:
+    name: BFF — typecheck + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: bff
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+      - name: Install deps
+        run: bun install --frozen-lockfile
+      - name: Typecheck
+        run: bun run typecheck
+      - name: Unit + integration tests
+        run: bun test
+
+  verify-parity:
+    name: Contract ↔ Dart parity (Principle VII)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+      - name: Setup Java (required by openapi-generator-cli)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install BFF deps
+        run: cd bff && bun install --frozen-lockfile
+      - name: Re-export OpenAPI + regenerate Dart + diff
+        run: bash scripts/verify-parity.sh
+
+  verify-routes:
+    name: Backend ↔ FE route coverage (Principle VI)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+      - name: Install BFF deps (route-coverage.ts imports `yaml`)
+        run: cd bff && bun install --frozen-lockfile
+      - name: Scan for orphan routes / dead calls
+        run: |
+          set +e
+          bash scripts/route-coverage.sh > coverage.json
+          EXIT=$?
+          set -e
+          cat coverage.json
+          exit $EXIT
+      - name: Upload coverage report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: route-coverage-report
+          path: coverage.json
+          retention-days: 30
