@@ -22,7 +22,15 @@ const envSchema = z.object({
   OPENROUTER_MODEL_ALLOWLIST: z
     .string()
     .default(
-      'openai/gpt-4o-mini,openai/gpt-4o,anthropic/claude-3.5-haiku,anthropic/claude-3.5-sonnet,google/gemini-2.0-flash-exp',
+      // Verified currently available on OpenRouter 2026-05-19, cost-ranked (cheapest first):
+      //   google/gemini-2.0-flash-lite-001   ~$0.075/M  in,  ~$0.30/M out
+      //   google/gemini-2.0-flash-001        ~$0.10/M   in,  ~$0.40/M out
+      //   openai/gpt-4o-mini                 ~$0.15/M   in,  ~$0.60/M out  ← default
+      //   anthropic/claude-haiku-4.5         ~$1.00/M   in,  ~$5.00/M out
+      //   anthropic/claude-3.5-haiku         ~$0.80/M   in,  ~$4.00/M out
+      //   openai/gpt-4o                      ~$2.50/M   in,  ~$10.00/M out
+      //   anthropic/claude-3.5-sonnet        ~$3.00/M   in,  ~$15.00/M out
+      'openai/gpt-4o-mini,openai/gpt-4o,anthropic/claude-3.5-haiku,anthropic/claude-haiku-4.5,anthropic/claude-3.5-sonnet,google/gemini-2.0-flash-001,google/gemini-2.0-flash-lite-001',
     )
     .transform((s) =>
       s

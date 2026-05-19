@@ -91,7 +91,7 @@ describe('openrouter-proxy', () => {
     expect(result.conversation_id).toBe('7c9e6679-7425-40de-944b-e07fc1f90ae7');
   });
 
-  test('routes to alternate models when allowed (e.g., anthropic/claude-3.5-haiku)', async () => {
+  test('routes to alternate models when allowed (e.g., google/gemini-2.0-flash-lite-001)', async () => {
     let capturedModel = '';
     const fetchImpl: FetchLike = async (_url, init) => {
       const body = JSON.parse(init?.body as string) as { model: string };
@@ -104,8 +104,8 @@ describe('openrouter-proxy', () => {
         { status: 200, headers: { 'Content-Type': 'application/json' } },
       );
     };
-    const result = await proxyChat({ message: 'x', model_id: 'anthropic/claude-3.5-haiku' }, { fetchImpl });
-    expect(capturedModel).toBe('anthropic/claude-3.5-haiku');
-    expect(result.model_id).toBe('anthropic/claude-3.5-haiku');
+    const result = await proxyChat({ message: 'x', model_id: 'google/gemini-2.0-flash-lite-001' }, { fetchImpl });
+    expect(capturedModel).toBe('google/gemini-2.0-flash-lite-001');
+    expect(result.model_id).toBe('google/gemini-2.0-flash-lite-001');
   });
 });
