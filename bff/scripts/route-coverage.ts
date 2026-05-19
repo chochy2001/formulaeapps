@@ -22,6 +22,14 @@ const CONTRACT_PATH = resolve(ROOT, 'contracts', 'bff.openapi.yaml');
 // Routes considered infrastructure — no FE consumer required.
 const INFRA_ROUTES = new Set<string>(['/health']);
 
+// Routes that are deliberately uncovered today per spec § Edge Cases. The
+// report still surfaces them (under intentional_orphan_routes) so they're
+// visible, but they don't fail the exit code. Each entry MUST have a rationale
+// in `audit/route-coverage-post.md` so the gate isn't quietly weakened.
+const INTENTIONAL_ORPHAN_ROUTES = new Set<string>([
+  '/iap/validate', // pending product decision: wire FE IAP server-validation OR remove from contract
+]);
+
 function fatal(msg: string): never {
   process.stderr.write(`ERROR: ${msg}\n`);
   process.exit(2);
@@ -114,11 +122,13 @@ for (const fc of feContents) {
 // ── 4. Build the per-route coverage list + orphans ─────────────────────────
 type RouteReport = { method: string; path: string; status: 'COVERED'; consumers: Array<{ file: string; line: number }> };
 type OrphanReport = { method: string; path: string; status: 'ORPHAN' };
+type IntentionalOrphanReport = { method: string; path: string; status: 'INTENTIONAL_ORPHAN' };
 type InfraReport = { method: string; path: string; status: 'INFRASTRUCTURE' };
 type DeadCallReport = { file: string; line: number; called_path: string; reason: string };
 
 const routes: RouteReport[] = [];
 const orphan_routes: OrphanReport[] = [];
+const intentional_orphan_routes: IntentionalOrphanReport[] = [];
 const infrastructure_routes: InfraReport[] = [];
 
 for (const r of contractRoutes) {
@@ -140,7 +150,11 @@ for (const r of contractRoutes) {
   }
 
   if (consumers.length === 0) {
-    orphan_routes.push({ method: r.method, path: r.path, status: 'ORPHAN' });
+    if (INTENTIONAL_ORPHAN_ROUTES.has(r.path)) {
+      intentional_orphan_routes.push({ method: r.method, path: r.path, status: 'INTENTIONAL_ORPHAN' });
+    } else {
+      orphan_routes.push({ method: r.method, path: r.path, status: 'ORPHAN' });
+    }
   } else {
     routes.push({ method: r.method, path: r.path, consumers, status: 'COVERED' });
   }
@@ -166,6 +180,9 @@ for (const m of bffUrlMatches) {
 }
 
 // ── 6. Emit report + exit ───────────────────────────────────────────────────
+// Only "real" orphans (NOT in INTENTIONAL_ORPHAN_ROUTES) and dead-calls fail the gate.
+// Intentional orphans are surfaced in the report but never fail CI; they exist as
+// documented exceptions per audit/route-coverage-post.md.
 const exit_status: 'PASS' | 'FAIL' = orphan_routes.length === 0 && dead_calls.length === 0 ? 'PASS' : 'FAIL';
 
 const report = {
@@ -173,6 +190,7 @@ const report = {
   contract_version: CONTRACT_VERSION,
   infrastructure_routes,
   routes,
+  intentional_orphan_routes,
   orphan_routes,
   dead_calls,
   exit_status,
