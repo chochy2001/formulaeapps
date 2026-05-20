@@ -26,7 +26,7 @@ concurrency:
 jobs:
   infra-validate-production:
     name: Multi-App Infra Validation (Principle IX)
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, test-light]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4

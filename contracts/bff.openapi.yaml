@@ -439,4 +439,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorEnvelope"
+        "503":
+          description: IAP validation not configured on this BFF instance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
 webhooks: {}

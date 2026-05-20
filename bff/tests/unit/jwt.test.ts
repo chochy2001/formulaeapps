@@ -37,8 +37,14 @@ describe('jwt issue + verify', () => {
       app_version: '3.7.2',
       jti: randomUUID(),
     });
-    // Tamper the last char of the signature
-    const tampered = result.token.slice(0, -1) + (result.token.endsWith('A') ? 'B' : 'A');
+    // Tamper the signature by altering multiple characters in the middle/end
+    const parts = result.token.split('.');
+    const signature = parts[2];
+    if (!signature) {
+      throw new Error('Expected signature part in issued token');
+    }
+    parts[2] = signature.slice(0, -4) + 'xyz1';
+    const tampered = parts.join('.');
     await expect(verifyToken(tampered)).rejects.toThrow();
   });
 
