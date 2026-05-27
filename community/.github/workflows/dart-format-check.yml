@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-format:
-    runs-on: [self-hosted, global]
+    runs-on: [self-hosted, ci-runner-node, test-light]
 
     steps:
       - name: Checkout code
