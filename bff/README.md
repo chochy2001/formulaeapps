@@ -2,7 +2,7 @@
 
 Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), validates Apple/Google IAP receipts server-side, and issues short-lived session JWTs to the FE clients.
 
-> **Status**: implementation complete locally (Phase 4 US6 T021–T071, except VPS cutover T060–T068). 32/32 unit + integration tests pass via `bun test` (was 31 pre-OpenRouter migration; +1 multi-provider test). `bun run typecheck` clean. Docker image builds, `docker compose up -d bff` reports healthy in < 60s. VPS Contabo cutover is the remaining gating step.
+> **Status**: deployed to production at `https://api.formulaeapps.com` (tag `v1.0.0-bff`, cutover 2026-05-19). All four OpenAPI routes implemented; 35/35 unit + integration tests pass via `bun test`. CI gates: `bff-test`, `verify-parity`, `verify-routes`. Remaining follow-up: `/iap/validate` is an intentional orphan (no FE consumer); real Apple/Google validators are stubbed pending product decision.
 
 ## Stack
 
@@ -33,7 +33,7 @@ cp .env.example .env
 # 3. Run in dev (live reload)
 bun run dev                       # http://localhost:3000
 
-# 4. Test (32 tests, ~100ms)
+# 4. Test (35 tests, ~260ms)
 bun test                          # unit + integration
 bun test --watch                  # TDD loop
 

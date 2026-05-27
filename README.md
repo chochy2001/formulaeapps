@@ -18,9 +18,9 @@ formulaeapps/
 | Componente | Stack | Despliegue | Estado |
 | ---------- | ----- | ---------- | ------ |
 | `landing/` | Astro 5.7 + Tailwind 4 | Hostinger (FTP) — `formulaeapps.com`, `www.formulaeapps.com` | ✅ producción |
-| `pro/` | Flutter 3.41, Dart 3, http + crypto + shared_preferences | Hostinger (FTP) — `app.formulaeapps.com` (web); App Store + Play (mobile) | ✅ producción (chat AI pendiente de BFF deploy) |
-| `community/` | Flutter, Dart 2 (tech debt) | Play Store + App Store (con ads) | ✅ producción (chat AI pendiente de BFF deploy) |
-| `bff/` | Bun + Hono + Zod-OpenAPI + jose | VPS Contabo — `api.formulaeapps.com` | 🟡 implementado localmente · cutover Cloudflare DNS pendiente |
+| `pro/` | Flutter 3.41, Dart 3, http + crypto + shared_preferences | Hostinger (FTP) — `app.formulaeapps.com` (web); App Store + Play (mobile) | ✅ producción |
+| `community/` | Flutter, Dart 2 (tech debt) | Play Store + App Store (con ads) | ✅ producción |
+| `bff/` | Bun + Hono + Zod-OpenAPI + jose | VPS Contabo — `api.formulaeapps.com` | ✅ producción (tag `v1.0.0-bff`, cutover 2026-05-19) |
 | `contracts/` | OpenAPI 3.1 (generated) | n/a — artifact | ✅ |
 | `scripts/` | Bash + Bun TS | n/a — dev tooling | ✅ |
 
@@ -31,27 +31,24 @@ formulaeapps/
 - **Chat AI server-side**: las apps Pro y Community ya NO embeben la OpenAI API key. Llaman al BFF en `api.formulaeapps.com/openai/chat` con un JWT corto firmado por el BFF.
 - **JWT emitido por BFF**: el cliente obtiene su JWT vía `POST /auth/token` (no firma su propio JWT). Rotación automática vía `X-Auth-Refresh` header.
 - **System prompts BFF-side**: los 22 system prompts viven en `bff/src/schemas/prompts.ts` con versionado semver. Actualizaciones de prompts NO requieren release a App Store.
-- **Generación de tipos automática**: cambios en `bff/src/schemas/*.ts` (Zod) regeneran `contracts/bff.openapi.yaml` (vía `bun run build:openapi`) y los tipos Dart en `pro/lib/generated/bff/` + `community/lib/generated/bff/` (vía `bash scripts/generate-bff-types.sh`).
+- **Generación de tipos automática**: cambios en `bff/src/schemas/*.ts` (Zod) regeneran `contracts/bff.openapi.yaml` (vía `bun run build:openapi`) y los clientes Dart en `pro/packages/formulaeapps_bff_client/` + `community/packages/formulaeapps_bff_client/` (vía `bash scripts/generate-bff-types.sh`).
 - **CI gates** (`.github/workflows/ci.yml`):
-  - `bff-test` — 31/31 tests en 63 ms (typecheck + unit + integration).
+  - `bff-test` — 35/35 tests (typecheck + unit + integration).
   - `verify-parity` — falla si Zod, OpenAPI o tipos Dart drifean.
   - `verify-routes` — falla si hay rutas huérfanas o llamadas muertas.
 - **Build-time guards** (Pro + Community `main.dart`): release builds con `JWT_SHARED_SECRET` placeholder son rechazados al startup.
 
 ## Límites conocidos
 
-- **BFF no deployado todavía** en `api.formulaeapps.com`. El chat AI no funciona en producción real hasta el cutover Cloudflare DNS (feature 002 US6 T060-T068).
-- **`/iap/validate` orphan**: la ruta de validación server-side de IAP existe en el BFF pero los clientes todavía no la consumen. Decisión de producto pendiente: o se conecta el flujo FE de IAP, o se elimina la ruta + secrets del compose.
-- **Pro `flutter analyze` + `flutter test`** todavía no se han corrido contra el código refactorizado en esta máquina. Wired en CI pero la validación local se difirió a US2-full (deps + build_runner).
+- **`/iap/validate` orphan**: la ruta de validación server-side de IAP existe en el BFF pero los clientes todavía no la consumen. Los validadores reales (Apple/Google SDK) están stubbed; producción devuelve 503 si los secrets montados son placeholders. Decisión de producto pendiente: wire-up FE o remover la ruta.
 - **Community en Dart 2** sigue siendo deuda técnica. La migración a Dart 3 está fuera del alcance de feature 002.
-- **Pro Web en producción se compiló con `JWT_SHARED_SECRET=PLACEHOLDER_DEV_NOT_FOR_PROD`** — chat AI roto hasta que se rebuildee con secret real + BFF deployado.
+- **Pro Web rebuild**: si el build en Hostinger aún usa `JWT_SHARED_SECRET=PLACEHOLDER_DEV_NOT_FOR_PROD`, el chat AI fallará hasta un rebuild con secret real apuntando a `api.formulaeapps.com`.
 
 ## Próximos pasos
 
-1. **VPS Contabo cutover** (feature 002 US6 T060-T068): provisionar secrets Apple/Google, verificar Traefik middlewares, repuntar DNS `api.formulaeapps.com`. Bloquea el chat AI en producción.
-2. **US2 full**: agregar deps (`dio`, `built_value`, `build_runner`) a Pro+Community, generar `.g.dart`, correr `flutter analyze` + `flutter test` + release builds.
-3. **US1 zombie reconciliation**: archivar los working trees `FormulaeApps/{FormulaePro,FormulaeCommunity,formulae-landing,formulaeapps-monorepo}/` que duplican código canónico.
-4. **Decisión `/iap/validate`**: wire-up o remover.
+1. **Decisión `/iap/validate`**: wire-up FE + validadores reales, o remover ruta y secrets del compose.
+2. **US1 zombie reconciliation**: archivar los working trees `FormulaeApps/{FormulaePro,FormulaeCommunity,formulae-landing,formulaeapps-monorepo}/` que duplican código canónico en este monorepo.
+3. **Community test coverage**: ampliar suite iniciada en #17 (`community/test/COVERAGE_TODO.md`).
 
 ## Desarrollo local
 
@@ -110,7 +107,7 @@ make verify-all
 bash scripts/verify-parity.sh      # Zod ↔ OpenAPI ↔ Dart drift
 bash scripts/route-coverage.sh     # rutas huérfanas / llamadas muertas
 bash scripts/infra-validate.sh --local   # compose + CORS + Traefik
-cd bff && bun test                 # 31 unit + integration tests
+cd bff && bun test                 # 35 unit + integration tests
 ```
 
 ## Despliegue
@@ -119,7 +116,7 @@ cd bff && bun test                 # 31 unit + integration tests
 - **Pro Web**: Hostinger vía FTP en subdominio `app.formulaeapps.com`. Build: `flutter build web --release --base-href "/" -t lib/main_pro.dart --dart-define=...`.
 - **Pro Mobile**: `flutter build apk --release` / `flutter build ipa --release`. Distribución por App Store + Play.
 - **Community**: similar a Pro Mobile.
-- **BFF**: VPS Contabo vía `docker compose up -d bff`. Cutover Cloudflare DNS `api.formulaeapps.com` → VPS IP. Detalle paso-a-paso en `specs/002-formulae-fe-be-sync/research.md` § R7.
+- **BFF**: VPS Contabo vía `docker compose up -d bff` en `api.formulaeapps.com` (Traefik routers `formulae-bff`). Health check: `curl https://api.formulaeapps.com/health`. Cutover documentado en feature 002 audit (`round-10-production-cutover-2026-05-19`, `round-11-chat-live-2026-05-19`).
 
 ## Documentación detallada
 
