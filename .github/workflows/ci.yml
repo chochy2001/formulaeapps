@@ -136,12 +136,5 @@ jobs:
         run: flutter pub get
       - name: analyze
         run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
-      # Community has no test/ directory yet (T096 audit noted "Test directory
-      # \"test\" not found"). Skip test step until first test lands.
-      - name: test (skipped — no test/ dir yet)
-        run: |
-          if [ -d test ]; then
-            flutter test --no-pub --reporter compact
-          else
-            echo "Skipping: community/test/ does not exist yet."
-          fi
+      - name: test
+        run: flutter test --no-pub --reporter compact
