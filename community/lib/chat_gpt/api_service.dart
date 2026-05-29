@@ -58,19 +58,23 @@ class ApiService {
     required String message,
     required String modelId,
     BaseOptions? dioOptionsOverride,
+    Dio? dioForTest,
   }) async {
     final token = await AuthService.getToken();
 
+    final dio = dioForTest ??
+        Dio(
+          dioOptionsOverride ??
+              BaseOptions(
+                baseUrl: bffBaseUrl,
+                connectTimeout: const Duration(seconds: 10),
+                receiveTimeout: const Duration(seconds: 60),
+              ),
+        );
+
     final client = FormulaeappsBffClient(
       basePathOverride: bffBaseUrl,
-      dio: Dio(
-        dioOptionsOverride ??
-            BaseOptions(
-              baseUrl: bffBaseUrl,
-              connectTimeout: const Duration(seconds: 10),
-              receiveTimeout: const Duration(seconds: 60),
-            ),
-      ),
+      dio: dio,
     );
     client.setBearerAuth('bearerAuth', token);
 

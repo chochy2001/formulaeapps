@@ -27,6 +27,10 @@ jobs:
         working-directory: bff
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Node (required by bunx tsc)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -48,6 +52,10 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.9
+      - name: Setup Node (bunx/tsc on self-hosted runners)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Setup Java (required by openapi-generator-cli)
         uses: actions/setup-java@v4
         with:
@@ -68,6 +76,10 @@ jobs:
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.3.9
+      - name: Setup Node (bunx/tsc on self-hosted runners)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
       - name: Install BFF deps (route-coverage.ts imports `yaml`)
         run: cd bff && bun install --frozen-lockfile
       - name: Scan for orphan routes / dead calls
@@ -88,8 +100,8 @@ jobs:
 
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
-    timeout-minutes: 20
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: pro
@@ -118,7 +130,7 @@ jobs:
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
     runs-on: [self-hosted, ci-runner-node, test-light]
-    timeout-minutes: 20
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: community
