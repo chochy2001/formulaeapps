@@ -3,8 +3,34 @@ name: CI
 on:
   pull_request:
     branches: [main]
+    paths:
+      - '.github/workflows/ci.yml'
+      - 'bff/**'
+      - 'community/**'
+      - 'contracts/**'
+      - 'docker-compose*.yml'
+      - 'landing/**'
+      - 'openapitools.json'
+      - 'pro/**'
+      - 'scripts/**'
   push:
     branches: [main]
+    paths:
+      - '.github/workflows/ci.yml'
+      - 'bff/**'
+      - 'community/**'
+      - 'contracts/**'
+      - 'docker-compose*.yml'
+      - 'landing/**'
+      - 'openapitools.json'
+      - 'pro/**'
+      - 'scripts/**'
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 # Constitution gates:
 #   - Principle VI  (Backend↔FE Route Coverage): verify-routes job below.
@@ -30,7 +56,7 @@ jobs:
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.22.3'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -55,7 +81,7 @@ jobs:
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.22.3'
       - name: Setup Java (required by openapi-generator-cli)
         uses: actions/setup-java@v4
         with:
@@ -79,7 +105,7 @@ jobs:
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22.22.3'
       - name: Install BFF deps (route-coverage.ts imports `yaml`)
         run: cd bff && bun install --frozen-lockfile
       - name: Scan for orphan routes / dead calls
@@ -111,7 +137,7 @@ jobs:
         with:
           flutter-version: '3.41.1'
           channel: stable
-          cache: true
+          cache: false
       # Path-dep package (packages/formulaeapps_bff_client) must pub-get first so
       # built_value transitive deps + .g.dart files resolve before main pub get.
       - name: pub get path-dep package
@@ -140,7 +166,7 @@ jobs:
         with:
           flutter-version: '3.41.1'
           channel: stable
-          cache: true
+          cache: false
       - name: pub get path-dep package
         working-directory: community/packages/formulaeapps_bff_client
         run: flutter pub get

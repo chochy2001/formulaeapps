@@ -17,5 +17,5 @@ jobs:
     uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@main
     with:
       enforce: false
-      runner-label: test-light
+      runner-label: policy-light
       production-day: monday
