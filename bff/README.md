@@ -123,8 +123,36 @@ The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yam
 
 ## Security
 
-- JWT shared secret lives ONLY in env / compose secrets — never committed.
-- OpenAI key lives ONLY in BFF env — never in client builds.
+- **Two distinct secrets** guard session auth:
+  - `JWT_SHARED_SECRET` is the **client-shared** key used for the `client_proof`
+    HMAC. It is baked into the Flutter client bundles (`--dart-define`) and is
+    therefore recoverable from a deployed web bundle / APK — treat it as a
+    deterrent, not a strong identity proof.
+  - `JWT_SIGNING_SECRET` is the **server-only** key used to sign/verify session
+    JWTs (HS256). It never ships in any client build, so a leaked
+    `JWT_SHARED_SECRET` cannot be used to forge valid session tokens.
+  - When `JWT_SIGNING_SECRET` is unset, JWT signing falls back to
+    `JWT_SHARED_SECRET` (zero-downtime compat); production logs a boot warning
+    until a dedicated value is set.
+  - **Operator rollout (no client rebuild needed):** add
+    `JWT_SIGNING_SECRET=$(openssl rand -hex 32)` to the VPS `.env`, then
+    `docker compose up -d --force-recreate bff`. Existing client builds keep
+    working because clients only send `client_proof` (computed from
+    `JWT_SHARED_SECRET`) and never sign JWTs themselves.
+- OpenAI / OpenRouter key lives ONLY in BFF env — never in client builds.
+- `/auth/token` uses a constant-time (`crypto.timingSafeEqual`) `client_proof`
+  comparison. Because the request contract is fixed (deployed Pro/Community
+  clients send exactly `HMAC(client_id + build_nonce)` with no timestamp/nonce —
+  changing that would 401 every live install), replay is bounded by an
+  in-memory **per-proof throttle**: the same valid proof may mint at most a few
+  tokens per short window (a legitimate install re-mints ~once per ~55 min and
+  never approaches it; a captured proof replayed at volume trips it with `429`
+  `E_PROOF_REPLAY`). Stronger, fully replay-proof identity (device attestation /
+  asymmetric tokens) is tracked as future work — see the PR description.
+- **In-process rate limiting** (defense-in-depth under the Traefik
+  `api-ratelimit@file` edge middleware) caps `/auth/token` and `/openai/chat`
+  per client IP; a tripped limit returns `429` + `rate_limited` with a
+  `Retry-After` header.
 - Apple p8 / Google SA via compose secret file mounts at `/run/secrets/{apple_p8,google_sa}` (production) or `bff/secrets/` (development).
 - Placeholder secret values (e.g., `PLACEHOLDER_DEV_NOT_FOR_PROD`, empty string) are rejected at runtime in production mode.
 - CORS allowlist is exact-match; no wildcards in production.

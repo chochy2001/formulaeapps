@@ -36,6 +36,9 @@ services:
   pro:
     build:
       context: ./pro
+      # Only the client-shared secret is passed to the client build (it is
+      # baked into the bundle for the client_proof HMAC). The server-only
+      # JWT_SIGNING_SECRET must NEVER be passed here — it stays on the bff.
       args:
         JWT_SHARED_SECRET: ${JWT_SHARED_SECRET}
         FORMULAE_BFF_CHAT_URL: ${FORMULAE_BFF_CHAT_URL}
@@ -64,6 +67,9 @@ services:
     build: ./bff
     container_name: formulaeapps-bff
     restart: unless-stopped
+    # Reads JWT_SHARED_SECRET, JWT_SIGNING_SECRET (server-only, optional),
+    # OPENROUTER_API_KEY, etc. from .env. See bff/.env.example for the rollout
+    # steps to set a dedicated JWT_SIGNING_SECRET without a client rebuild.
     env_file: [.env]
     networks: [web_proxy, bff_internal]
     secrets:

@@ -13,7 +13,23 @@ const envSchema = z.object({
   BFF_ENV: z.enum(['development', 'staging', 'production']).default('development'),
   BFF_PORT: z.coerce.number().int().min(1).max(65535).default(3000),
 
+  // Client-shared secret. Baked into the Flutter Pro/Community bundles via
+  // --dart-define and used by both BFF and clients to compute the client_proof
+  // HMAC. It is therefore extractable from a deployed web bundle / APK, so it
+  // MUST NOT be the only thing protecting session-JWT signing — see
+  // JWT_SIGNING_SECRET below.
   JWT_SHARED_SECRET: z.string().min(1, 'JWT_SHARED_SECRET is required'),
+
+  // Server-only secret used to sign/verify session JWTs (HS256). Never ships in
+  // any client build. When unset, JWT signing falls back to JWT_SHARED_SECRET
+  // so existing deploys keep working with zero downtime; production logs a
+  // warning at boot until a dedicated secret is set. Once set, a leaked
+  // JWT_SHARED_SECRET can no longer be used to forge valid session JWTs.
+  JWT_SIGNING_SECRET: z
+    .string()
+    .optional()
+    .transform((v) => (v !== undefined && v.length > 0 ? v : undefined)),
+
   OPENROUTER_API_KEY: z.string().min(1, 'OPENROUTER_API_KEY is required'),
 
   // model_id is OpenRouter's `provider/model` format. Update the allowlist when
@@ -67,6 +83,15 @@ const envSchema = z.object({
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 
   BFF_VERSION: z.string().default('0.1.0'),
+
+  // In-process rate limiting (defense-in-depth under the Traefik
+  // api-ratelimit@file edge middleware). Per-IP fixed-window limits. Defaults
+  // are well above human-paced bursts (app cold-start token mint, chat usage)
+  // and below abusive-loop volumes; tune via env without a code change. Set the
+  // limit to 0 to disable a given limiter.
+  RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().min(1).max(3600).default(60),
+  RATE_LIMIT_AUTH_MAX: z.coerce.number().int().min(0).max(100000).default(30),
+  RATE_LIMIT_CHAT_MAX: z.coerce.number().int().min(0).max(100000).default(60),
 });
 
 export type Env = z.infer<typeof envSchema>;
@@ -87,11 +112,27 @@ function parseEnv(): Env {
           `Provide a real secret (openssl rand -hex 32).`,
       );
     }
+    if (env.JWT_SIGNING_SECRET !== undefined && isPlaceholder(env.JWT_SIGNING_SECRET)) {
+      throw new Error(
+        `JWT_SIGNING_SECRET appears to be a placeholder in ${env.BFF_ENV} environment. ` +
+          `Provide a real secret (openssl rand -hex 32) or unset it to fall back to JWT_SHARED_SECRET.`,
+      );
+    }
     if (isPlaceholder(env.OPENROUTER_API_KEY)) {
       throw new Error(
         `OPENROUTER_API_KEY appears to be a placeholder in ${env.BFF_ENV} environment.`,
       );
     }
+  }
+
+  if (env.BFF_ENV === 'production' && env.JWT_SIGNING_SECRET === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      '[env] JWT_SIGNING_SECRET is not set — session JWTs are signed with the ' +
+        'client-shared JWT_SHARED_SECRET, which is extractable from client bundles. ' +
+        'Set a server-only JWT_SIGNING_SECRET (openssl rand -hex 32) and recreate ' +
+        'the bff container to make session JWTs unforgeable.',
+    );
   }
 
   return env;

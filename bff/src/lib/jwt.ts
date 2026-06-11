@@ -17,8 +17,25 @@ export type SessionClaims = {
   exp: number;
 };
 
+/**
+ * Resolve the secret used to sign/verify session JWTs. Prefers the server-only
+ * JWT_SIGNING_SECRET; falls back to the client-shared JWT_SHARED_SECRET when
+ * unset so existing deploys keep working (zero-downtime compat).
+ *
+ * JWT_SHARED_SECRET is baked into client builds for the client_proof HMAC and
+ * is therefore extractable from a deployed web bundle / APK. Once
+ * JWT_SIGNING_SECRET is set, that leaked shared secret can no longer be used to
+ * forge valid session JWTs. Exported for unit tests.
+ */
+export function resolveSigningSecret(e: {
+  JWT_SIGNING_SECRET?: string;
+  JWT_SHARED_SECRET: string;
+}): string {
+  return e.JWT_SIGNING_SECRET ?? e.JWT_SHARED_SECRET;
+}
+
 function secretBytes(): Uint8Array {
-  return new TextEncoder().encode(env.JWT_SHARED_SECRET);
+  return new TextEncoder().encode(resolveSigningSecret(env));
 }
 
 export async function issueToken(args: {

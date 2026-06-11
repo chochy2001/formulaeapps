@@ -16,3 +16,10 @@ process.env['CORS_ALLOWED_ORIGINS'] =
   'https://app.formulaeapps.com,https://formulaeapps.com';
 process.env['LOG_LEVEL'] = 'error'; // quiet logs during tests
 process.env['BFF_VERSION'] = '0.0.0-test';
+
+// Disable the in-process rate limiters for the shared-app integration suites
+// (every test hits the same 'unknown' IP bucket; a low default would cause
+// cross-test interference). Dedicated rate-limit tests construct their own
+// limiter instances with explicit low limits.
+process.env['RATE_LIMIT_AUTH_MAX'] = '0';
+process.env['RATE_LIMIT_CHAT_MAX'] = '0';

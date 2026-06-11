@@ -3,6 +3,7 @@ import { loggerMiddleware } from './middleware/logger';
 import { corsMiddleware } from './middleware/cors';
 import { jwtAuthMiddleware } from './middleware/jwt-auth';
 import { errorHandler } from './middleware/error';
+import { authRateLimiter, chatRateLimiter } from './middleware/limiters';
 import { healthRoute, healthHandler } from './routes/health';
 import { authTokenRoute, authTokenHandler } from './routes/auth';
 import { chatRoute, chatHandler } from './routes/chat';
@@ -17,12 +18,18 @@ app.use('*', loggerMiddleware);
 app.use('*', corsMiddleware);
 app.onError(errorHandler);
 
+// Per-IP rate limiting (defense-in-depth under Traefik api-ratelimit@file).
+// Auth limiter runs on the public token route; chat limiter runs after the JWT
+// middleware so it can key on the authenticated sub.
+app.use('/auth/token', authRateLimiter.middleware);
+
 // Public routes (no JWT required)
 app.openapi(healthRoute, healthHandler as never);
 app.openapi(authTokenRoute, authTokenHandler as never);
 
 // Auth-gated routes — JWT middleware applied before route handlers
 app.use('/openai/*', jwtAuthMiddleware);
+app.use('/openai/*', chatRateLimiter.middleware);
 app.use('/iap/*', jwtAuthMiddleware);
 app.openapi(chatRoute, chatHandler as never);
 app.openapi(iapValidateRoute, iapValidateHandler as never);
