@@ -12,7 +12,11 @@ export const AuthTokenRequestSchema = z
       }),
     client_proof: z
       .string()
-      .regex(/^[a-f0-9]{64}$/i)
+      // Case-insensitive hex expressed in the char class (NOT the /i flag): the
+      // /i flag leaks a literal "/i" into the exported OpenAPI `pattern`, an
+      // invalid ECMA-262 regex. [a-fA-F0-9] keeps the constant-time compare's
+      // case-insensitive acceptance while exporting a valid pattern.
+      .regex(/^[a-fA-F0-9]{64}$/)
       .openapi({
         example: 'a'.repeat(64),
         description:
@@ -20,7 +24,7 @@ export const AuthTokenRequestSchema = z
       }),
     build_nonce: z
       .string()
-      .regex(/^[a-f0-9]{32}$/i)
+      .regex(/^[a-fA-F0-9]{32}$/)
       .openapi({
         example: 'b'.repeat(32),
         description: 'Per-build constant baked into the app bundle (32 hex chars).',

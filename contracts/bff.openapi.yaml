@@ -117,12 +117,12 @@ components:
           example: 550e8400-e29b-41d4-a716-446655440000
         client_proof:
           type: string
-          pattern: ^[a-f0-9]{64}$
+          pattern: ^[a-fA-F0-9]{64}$
           description: HMAC-SHA256(JWT_SHARED_SECRET, client_id || build_nonce) hex (64 chars).
           example: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         build_nonce:
           type: string
-          pattern: ^[a-f0-9]{32}$
+          pattern: ^[a-fA-F0-9]{32}$
           description: Per-build constant baked into the app bundle (32 hex chars).
           example: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
         platform:

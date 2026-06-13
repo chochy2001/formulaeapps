@@ -32,8 +32,15 @@ function emit(record: LogRecord): void {
  * of secrets per spec §FR-028 and research §R9. Generates a request_id for
  * each request and propagates it via context.
  */
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function loggerMiddleware(c: AppContext, next: Next): Promise<void> {
-  const requestId = c.req.header('x-request-id') ?? randomUUID();
+  // Only trust an inbound correlation id if it is a real UUID; otherwise mint a
+  // fresh one. Prevents arbitrary client strings from leaking into structured
+  // logs (log-correlation spoofing) and keeps request_id matching the OpenAPI
+  // contract (request_id: uuid) in every emitted envelope.
+  const incoming = c.req.header('x-request-id');
+  const requestId = incoming && UUID_RE.test(incoming) ? incoming : randomUUID();
   c.set('request_id', requestId);
   c.header('X-Request-Id', requestId);
 

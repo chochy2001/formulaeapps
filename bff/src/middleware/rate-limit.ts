@@ -1,5 +1,5 @@
 import type { Next } from 'hono';
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import type { AppContext, AppMiddleware } from '../lib/openapi';
 import { errorEnvelope } from '../schemas/error';
 
@@ -98,7 +98,7 @@ export function createRateLimiter(opts: RateLimiterOptions): {
 
     if (existing.count >= opts.max) {
       const retryAfter = Math.max(1, Math.ceil((existing.resetAt - now) / 1000));
-      const requestId = c.get('request_id') ?? 'unknown';
+      const requestId = c.get('request_id') ?? randomUUID();
       c.header('Retry-After', String(retryAfter));
       return c.json(
         errorEnvelope(

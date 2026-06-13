@@ -18,7 +18,7 @@ COPY scripts ./scripts
 RUN mkdir -p /app/.openapi-out && \
     BFF_ENV=development \
     JWT_SHARED_SECRET=build-time-dummy \
-    OPENAI_API_KEY=build-time-dummy \
+    OPENROUTER_API_KEY=sk-or-v1-build-time-dummy \
     bun run scripts/export-openapi.ts || echo "OpenAPI export skipped at build time (writes outside container)"
 
 # ───────────────────── Stage 2: runtime ─────────────────────

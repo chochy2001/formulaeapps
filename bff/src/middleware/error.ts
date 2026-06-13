@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import { randomUUID } from 'node:crypto';
 import { ZodError } from 'zod';
 import { errorEnvelope, type ErrorKind } from '../schemas/error';
 import type { AppEnv } from '../lib/openapi';
@@ -9,7 +10,10 @@ import type { AppEnv } from '../lib/openapi';
  * secret material, or upstream provider bodies to the client.
  */
 export function errorHandler(err: unknown, c: Context<AppEnv>): Response {
-  const requestId = c.get('request_id') ?? 'unknown';
+  // request_id is normally set by loggerMiddleware (always a valid UUID). Fall
+  // back to a fresh UUID — never a non-UUID literal — so the emitted envelope
+  // always satisfies the contract's request_id: uuid field.
+  const requestId = c.get('request_id') ?? randomUUID();
 
   // Zod validation errors → bad_request
   if (err instanceof ZodError) {

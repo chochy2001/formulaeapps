@@ -77,9 +77,9 @@ cd bff && bun install && cd ..
 # 1. Crear bff/secrets/ placeholders (vacíos OK en dev)
 mkdir -p bff/secrets && touch bff/secrets/apple_p8.txt bff/secrets/google_sa.json
 
-# 2. Configurar JWT secret + OpenAI key
+# 2. Configurar JWT secret + OpenRouter key
 cp bff/.env.example bff/.env
-# editar bff/.env: JWT_SHARED_SECRET=$(openssl rand -hex 32), OPENAI_API_KEY=sk-...
+# editar bff/.env: JWT_SHARED_SECRET=$(openssl rand -hex 32), OPENROUTER_API_KEY=sk-or-v1-...
 
 # 3. Levantar
 docker compose up -d bff

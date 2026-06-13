@@ -24,7 +24,7 @@ services:
       BFF_ENV: development
       BFF_PORT: "3000"
       JWT_SHARED_SECRET: "${JWT_SHARED_SECRET:-local-dev-secret-replace-this-please-32chars-min}"
-      OPENAI_API_KEY: "${OPENAI_API_KEY:-sk-local-dev-replace-me}"
+      OPENROUTER_API_KEY: "${OPENROUTER_API_KEY:-sk-or-v1-local-dev-replace-me}"
       CORS_ALLOWED_ORIGINS: "https://app.formulaeapps.com,https://formulaeapps.com,http://localhost:8080,http://localhost:4321"
       LOG_LEVEL: info
 
