@@ -16,11 +16,11 @@ const description =
 
 <BaseLayout {title} {description} pathname="/pro" schema="pro">
   <Container as="section" class="py-16 md:py-24">
-    <p class="text-sm font-semibold uppercase tracking-wider text-primary-600">Formulae Pro</p>
-    <h1 class="mt-3 max-w-3xl font-display text-4xl text-ink-900 md:text-5xl">
+    <p class="text-primary-600 text-sm font-semibold tracking-wider uppercase">Formulae Pro</p>
+    <h1 class="font-display text-ink-900 mt-3 max-w-3xl text-4xl md:text-5xl">
       Toda la potencia de Formulae, sin anuncios y con IA.
     </h1>
-    <p class="mt-6 max-w-2xl text-lg text-ink-700">
+    <p class="text-ink-700 mt-6 max-w-2xl text-lg">
       {t('comparison.pro.tagline')}
     </p>
 
@@ -29,7 +29,7 @@ const description =
         href={STORES.pro.playStore}
         rel="noopener"
         target="_blank"
-        class="inline-flex items-center gap-2 rounded-full bg-primary-600 px-6 py-3 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-primary-700"
+        class="bg-primary-600 shadow-soft hover:bg-primary-700 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
       >
         {t('comparison.pro.cta')}
       </a>
@@ -37,7 +37,7 @@ const description =
         href={STORES.pro.appStore}
         rel="noopener"
         target="_blank"
-        class="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white px-6 py-3 text-sm font-semibold text-ink-800 transition-colors hover:border-primary-400 hover:text-primary-700"
+        class="border-ink-200 text-ink-800 hover:border-primary-400 hover:text-primary-700 inline-flex items-center gap-2 rounded-full border bg-white px-6 py-3 text-sm font-semibold transition-colors"
       >
         {t('download.appStore')}
       </a>

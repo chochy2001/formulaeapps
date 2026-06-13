@@ -8,15 +8,15 @@ Reemplaza el sitio actual hecho con Hostinger Website Builder (Zyro) por un proy
 
 ## Stack
 
-| Capa | Herramienta | Por qué |
-| --- | --- | --- |
-| Framework | Astro 5 | Genera HTML estático puro, 0 KB de JS por defecto |
-| Estilos | Tailwind CSS v4 (Vite plugin) | Tokens en CSS, sin `tailwind.config.js`, bundle ~5 KB |
-| i18n | Built-in de Astro 5 | Routing nativo `/` (ES) + `/en/` |
-| SEO | Componentes propios `SEO.astro` y `JsonLd.astro` | Meta + OG + Twitter + JSON-LD `MobileApplication` |
-| Sitemap | `@astrojs/sitemap` | XML automático con hreflang |
-| Tipos | TypeScript strict | Aliases `@/*`, `@components/*` |
-| Deploy | Docker multi-stage → nginx en VPS propio | Imagen ~50 MB, portátil entre proveedores |
+| Capa      | Herramienta                                      | Por qué                                               |
+| --------- | ------------------------------------------------ | ----------------------------------------------------- |
+| Framework | Astro 5                                          | Genera HTML estático puro, 0 KB de JS por defecto     |
+| Estilos   | Tailwind CSS v4 (Vite plugin)                    | Tokens en CSS, sin `tailwind.config.js`, bundle ~5 KB |
+| i18n      | Built-in de Astro 5                              | Routing nativo `/` (ES) + `/en/`                      |
+| SEO       | Componentes propios `SEO.astro` y `JsonLd.astro` | Meta + OG + Twitter + JSON-LD `MobileApplication`     |
+| Sitemap   | `@astrojs/sitemap`                               | XML automático con hreflang                           |
+| Tipos     | TypeScript strict                                | Aliases `@/*`, `@components/*`                        |
+| Deploy    | Docker multi-stage → nginx en VPS propio         | Imagen ~50 MB, portátil entre proveedores             |
 
 ---
 
@@ -118,6 +118,7 @@ Ya descargadas en `src/assets/images/screenshots/screenshot-01.png` … `screens
 import { Image } from 'astro:assets';
 import shot01 from '@/assets/images/screenshots/screenshot-01.png';
 ---
+
 <Image src={shot01} alt="Captura de Formulae mostrando el catálogo de fórmulas" />
 ```
 
@@ -260,12 +261,12 @@ curl -X POST \
 
 ## DNS recomendado en Cloudflare
 
-| Tipo | Nombre | Destino | Proxy |
-| --- | --- | --- | --- |
-| A | `@` | IP del hosting (Hostinger) | sí |
-| CNAME | `www` | `formulaeapps.com` | sí |
-| CNAME | `app` | (a definir cuando suba el build Flutter Web) | sí |
-| TXT | `@` | verificación de Google Search Console | — |
+| Tipo  | Nombre | Destino                                      | Proxy |
+| ----- | ------ | -------------------------------------------- | ----- |
+| A     | `@`    | IP del hosting (Hostinger)                   | sí    |
+| CNAME | `www`  | `formulaeapps.com`                           | sí    |
+| CNAME | `app`  | (a definir cuando suba el build Flutter Web) | sí    |
+| TXT   | `@`    | verificación de Google Search Console        | —     |
 
 ---
 

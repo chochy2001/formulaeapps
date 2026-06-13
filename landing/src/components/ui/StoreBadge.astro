@@ -47,7 +47,7 @@ const config = {
   href={href}
   rel="noopener"
   target="_blank"
-  class="group inline-flex items-center gap-3 rounded-xl border border-ink-200 bg-ink-900 px-4 py-3 text-white shadow-soft transition-all hover:scale-[1.02] hover:border-primary-400 hover:shadow-glow"
+  class="group border-ink-200 bg-ink-900 shadow-soft hover:border-primary-400 hover:shadow-glow inline-flex items-center gap-3 rounded-xl border px-4 py-3 text-white transition-all hover:scale-[1.02]"
   aria-label={`${config.sub} ${config.label}`}
 >
   {
@@ -60,8 +60,14 @@ const config = {
   {
     store === 'googlePlay' && (
       <svg class="h-7 w-7 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z" fill="#00d4ff" />
-        <path d="M16.81 15.013 6.05 21.85l9.74-9.733zM20.16 10.81l-2.58-1.49-2.93 2.93 2.93 2.93 2.58-1.49a1.495 1.495 0 0 0 0-2.88z" fill="#ffce00" />
+        <path
+          d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92z"
+          fill="#00d4ff"
+        />
+        <path
+          d="M16.81 15.013 6.05 21.85l9.74-9.733zM20.16 10.81l-2.58-1.49-2.93 2.93 2.93 2.93 2.58-1.49a1.495 1.495 0 0 0 0-2.88z"
+          fill="#ffce00"
+        />
         <path d="m6.05 2.15 10.76 6.84-2.96 2.96L4.27 1.81z" fill="#00f076" />
         <path d="m4.27 22.19 9.58-10.14 2.96 2.96L6.05 21.85z" fill="#ff3a44" />
       </svg>
@@ -85,7 +91,7 @@ const config = {
     )
   }
   <span class="flex flex-col text-left leading-tight">
-    <span class="text-[10px] uppercase tracking-wider text-ink-300">{config.sub}</span>
+    <span class="text-ink-300 text-[10px] tracking-wider uppercase">{config.sub}</span>
     <span class="text-sm font-semibold">{config.label}</span>
   </span>
 </a>

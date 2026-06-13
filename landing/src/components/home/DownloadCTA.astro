@@ -19,27 +19,23 @@ const showCommunity = variant === 'community' || variant === 'both';
 
 <Container as="section" class="py-16 md:py-24">
   <div
-    class="rounded-[var(--radius-card)] bg-gradient-to-br from-primary-700 via-primary-600 to-primary-800 px-6 py-12 text-center text-white md:px-12 md:py-16"
+    class="from-primary-700 via-primary-600 to-primary-800 rounded-[var(--radius-card)] bg-gradient-to-br px-6 py-12 text-center text-white md:px-12 md:py-16"
   >
     <h2 class="font-display text-3xl md:text-4xl">{t('download.title')}</h2>
-    <p class="mx-auto mt-3 max-w-2xl text-sm text-primary-100 md:text-base">
+    <p class="text-primary-100 mx-auto mt-3 max-w-2xl text-sm md:text-base">
       {t('download.subtitle')}
     </p>
 
     {
       showPro && (
         <div class="mt-10">
-          <p class="mb-4 text-xs font-bold uppercase tracking-wider text-accent-400">
+          <p class="text-accent-400 mb-4 text-xs font-bold tracking-wider uppercase">
             Formulae Pro
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3">
             <StoreBadge store="appStore" href={STORES.pro.appStore} locale={locale} />
             <StoreBadge store="googlePlay" href={STORES.pro.playStore} locale={locale} />
-            <StoreBadge
-              store="microsoftStore"
-              href={STORES.pro.microsoftStore}
-              locale={locale}
-            />
+            <StoreBadge store="microsoftStore" href={STORES.pro.microsoftStore} locale={locale} />
             <StoreBadge store="huawei" href={STORES.pro.huawei} locale={locale} />
           </div>
         </div>
@@ -49,7 +45,7 @@ const showCommunity = variant === 'community' || variant === 'both';
     {
       showCommunity && (
         <div class="mt-10">
-          <p class="mb-4 text-xs font-bold uppercase tracking-wider text-primary-200">
+          <p class="text-primary-200 mb-4 text-xs font-bold tracking-wider uppercase">
             Formulae Community
           </p>
           <div class="flex flex-wrap items-center justify-center gap-3">
@@ -65,7 +61,7 @@ const showCommunity = variant === 'community' || variant === 'both';
       href={LINKTREE}
       rel="noopener"
       target="_blank"
-      class="mt-10 inline-flex items-center gap-2 text-sm text-primary-100 underline-offset-4 hover:text-white hover:underline"
+      class="text-primary-100 mt-10 inline-flex items-center gap-2 text-sm underline-offset-4 hover:text-white hover:underline"
     >
       {t('download.linktree')} ↗
     </a>

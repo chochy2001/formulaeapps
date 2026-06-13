@@ -5,10 +5,10 @@
  */
 interface Props {
   size?: 'narrow' | 'wide';
-  as?: 'section' | 'div' | 'article' | 'header' | 'footer';
+  as?: string;
   class?: string;
 }
-const { size = 'wide', as: Tag = 'section', class: className = '' } = Astro.props;
+const { size = 'wide', as: Tag = 'section', class: className = '' }: Props = Astro.props;
 const max = size === 'narrow' ? 'max-w-[var(--container-narrow)]' : 'max-w-[var(--container-wide)]';
 ---
 

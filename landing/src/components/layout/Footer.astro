@@ -17,29 +17,35 @@ const productLinks = [
 ];
 
 const legalLinks = [
-  { href: getRelativeLocaleUrl(locale, locale === 'es' ? '/privacidad' : '/privacy'), label: t('nav.privacy') },
-  { href: getRelativeLocaleUrl(locale, locale === 'es' ? '/terminos' : '/terms'), label: t('nav.terms') },
+  {
+    href: getRelativeLocaleUrl(locale, locale === 'es' ? '/privacidad' : '/privacy'),
+    label: t('nav.privacy'),
+  },
+  {
+    href: getRelativeLocaleUrl(locale, locale === 'es' ? '/terminos' : '/terms'),
+    label: t('nav.terms'),
+  },
 ];
 ---
 
-<footer class="mt-16 border-t border-ink-100 bg-ink-50">
+<footer class="border-ink-100 bg-ink-50 mt-16 border-t">
   <div class="mx-auto max-w-[var(--container-wide)] px-4 py-12 md:px-6">
     <div class="grid gap-10 md:grid-cols-4">
       <div class="md:col-span-2">
-        <div class="flex items-center gap-2 font-display text-xl text-primary-700">
+        <div class="font-display text-primary-700 flex items-center gap-2 text-xl">
           <span aria-hidden="true">∑</span>
           <span>{SITE.name}</span>
         </div>
-        <p class="mt-3 max-w-sm text-sm text-ink-500">{t('footer.tagline')}</p>
+        <p class="text-ink-500 mt-3 max-w-sm text-sm">{t('footer.tagline')}</p>
       </div>
 
       <div>
-        <h2 class="text-sm font-semibold text-ink-900">{t('footer.product')}</h2>
-        <ul class="mt-3 space-y-2 text-sm text-ink-500">
+        <h2 class="text-ink-900 text-sm font-semibold">{t('footer.product')}</h2>
+        <ul class="text-ink-500 mt-3 space-y-2 text-sm">
           {
             productLinks.map(({ href, label }) => (
               <li>
-                <a href={href} class="transition-colors hover:text-primary-600">
+                <a href={href} class="hover:text-primary-600 transition-colors">
                   {label}
                 </a>
               </li>
@@ -49,12 +55,12 @@ const legalLinks = [
       </div>
 
       <div>
-        <h2 class="text-sm font-semibold text-ink-900">{t('footer.legal')}</h2>
-        <ul class="mt-3 space-y-2 text-sm text-ink-500">
+        <h2 class="text-ink-900 text-sm font-semibold">{t('footer.legal')}</h2>
+        <ul class="text-ink-500 mt-3 space-y-2 text-sm">
           {
             legalLinks.map(({ href, label }) => (
               <li>
-                <a href={href} class="transition-colors hover:text-primary-600">
+                <a href={href} class="hover:text-primary-600 transition-colors">
                   {label}
                 </a>
               </li>
@@ -62,10 +68,10 @@ const legalLinks = [
           }
         </ul>
 
-        <h2 class="mt-6 text-sm font-semibold text-ink-900">{t('footer.contact')}</h2>
-        <ul class="mt-3 space-y-2 text-sm text-ink-500">
+        <h2 class="text-ink-900 mt-6 text-sm font-semibold">{t('footer.contact')}</h2>
+        <ul class="text-ink-500 mt-3 space-y-2 text-sm">
           <li>
-            <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-primary-600">
+            <a href={`mailto:${SITE.email}`} class="hover:text-primary-600 transition-colors">
               {SITE.email}
             </a>
           </li>
@@ -74,7 +80,7 @@ const legalLinks = [
               href={SOCIAL.whatsapp}
               rel="noopener"
               target="_blank"
-              class="transition-colors hover:text-primary-600"
+              class="hover:text-primary-600 transition-colors"
             >
               WhatsApp
             </a>
@@ -103,8 +109,9 @@ const legalLinks = [
       </div>
     </div>
 
-    <div class="mt-10 border-t border-ink-200 pt-6 text-center text-xs text-ink-500">
-      © {year} {SITE.publisher}. {t('footer.copyright')}
+    <div class="border-ink-200 text-ink-500 mt-10 border-t pt-6 text-center text-xs">
+      © {year}
+      {SITE.publisher}. {t('footer.copyright')}
     </div>
   </div>
 </footer>

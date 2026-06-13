@@ -66,11 +66,7 @@ const alternates = pathname
 
 <!-- Canonical y alternates -->
 <link rel="canonical" href={canonical} />
-{
-  alternates.map((alt) => (
-    <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
-  ))
-}
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
 {
   pathname && (
     <link

@@ -1,5 +1,16 @@
-# Este archivo se sobreescribe en runtime por src/pages/robots.txt.ts
-# Sirve solo como respaldo si el endpoint dinámico fallara.
 User-agent: *
 Allow: /
+
+# Sitemap
 Sitemap: https://formulaeapps.com/sitemap-index.xml
+
+# Bloqueo crawlers de IA si NO quieres entrenamiento sobre este contenido.
+# Comenta estas líneas si prefieres permitir indexación por LLMs.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /

@@ -18,6 +18,9 @@ export const ui = {
     'nav.terms': 'Términos',
     'nav.download': 'Descargar',
     'nav.openApp': 'Abrir App Web',
+    'nav.primaryLabel': 'Principal',
+    'nav.menuLabel': 'Menú',
+    'nav.mobileLabel': 'Móvil',
 
     'hero.title': 'Mejora tus habilidades en matemáticas y ciencias',
     'hero.subtitle':
@@ -51,8 +54,7 @@ export const ui = {
     'features.favorites.desc':
       'Guarda tus fórmulas favoritas para acceder a ellas fácilmente en el futuro.',
     'features.images.title': 'Imágenes',
-    'features.images.desc':
-      'Comprende mejor los conceptos con nuestras imágenes explicativas.',
+    'features.images.desc': 'Comprende mejor los conceptos con nuestras imágenes explicativas.',
     'features.videos.title': 'Vídeos',
     'features.videos.desc': 'Aprende de forma interactiva con nuestros vídeos explicativos.',
     'features.exercises.title': 'Ejercicios',
@@ -84,6 +86,7 @@ export const ui = {
     'comparison.feature.tasks': 'Tareas y recordatorios',
     'comparison.feature.formulas': 'Catálogo de fórmulas',
     'comparison.feature.videos': 'Vídeos explicativos',
+    'comparison.recommended': 'Recomendado',
 
     'download.title': 'Descarga la App',
     'download.subtitle': 'Disponible en App Store, Google Play, Microsoft Store y AppGallery',
@@ -107,14 +110,14 @@ export const ui = {
     'terms.title': 'Términos y condiciones',
     'legal.lastUpdated': 'Última actualización',
 
-    'footer.tagline':
-      'Aplicaciones para aprender matemáticas y ciencias creadas por CAPDESIS.',
+    'footer.tagline': 'Aplicaciones para aprender matemáticas y ciencias creadas por CAPDESIS.',
     'footer.product': 'Producto',
     'footer.legal': 'Legal',
     'footer.contact': 'Contacto',
     'footer.copyright': 'Todos los derechos reservados.',
 
     'language.switcher.label': 'Idioma',
+    'a11y.skipToContent': 'Saltar al contenido',
     '404.title': 'Página no encontrada',
     '404.subtitle': 'La página que buscas no existe o se ha movido.',
     '404.cta': 'Volver al inicio',
@@ -129,6 +132,9 @@ export const ui = {
     'nav.terms': 'Terms',
     'nav.download': 'Download',
     'nav.openApp': 'Open Web App',
+    'nav.primaryLabel': 'Primary navigation',
+    'nav.menuLabel': 'Menu',
+    'nav.mobileLabel': 'Mobile navigation',
 
     'hero.title': 'Improve your skills in maths and science',
     'hero.subtitle':
@@ -189,6 +195,7 @@ export const ui = {
     'comparison.feature.tasks': 'Tasks & reminders',
     'comparison.feature.formulas': 'Formula catalog',
     'comparison.feature.videos': 'Explanatory videos',
+    'comparison.recommended': 'Recommended',
 
     'download.title': 'Download the App',
     'download.subtitle': 'Available on App Store, Google Play, Microsoft Store and AppGallery',
@@ -219,6 +226,7 @@ export const ui = {
     'footer.copyright': 'All rights reserved.',
 
     'language.switcher.label': 'Language',
+    'a11y.skipToContent': 'Skip to content',
     '404.title': 'Page not found',
     '404.subtitle': 'The page you are looking for does not exist or has moved.',
     '404.cta': 'Back to home',

@@ -55,7 +55,7 @@ html {
 }
 
 body {
-  @apply bg-white text-ink-800 antialiased;
+  @apply text-ink-800 bg-white antialiased;
 }
 
 /* Reduce motion para accesibilidad */

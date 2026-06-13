@@ -38,7 +38,13 @@ export function translatePath(currentPath: string, target: Locale): string {
 }
 
 function stripLocale(pathname: string): string {
-  if (pathname === '/en' || pathname === '/en/') return '/';
-  if (pathname.startsWith('/en/')) return pathname.replace('/en', '') || '/';
-  return pathname || '/';
+  // Normalize a trailing slash before matching: the build emits paths with a
+  // trailing slash (format: 'directory', e.g. "/soporte/") while ROUTE_MAP
+  // entries have none ("/soporte"), so without this findEntry() never matched
+  // and every ES↔EN toggle on a renamed page 404'd. trailingSlash: 'ignore'
+  // means the returned path works with or without the slash.
+  const path = pathname.replace(/\/+$/, '') || '/';
+  if (path === '/en') return '/';
+  if (path.startsWith('/en/')) return path.replace('/en', '') || '/';
+  return path;
 }

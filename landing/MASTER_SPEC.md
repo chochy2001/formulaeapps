@@ -93,15 +93,15 @@ Landing does NOT have:
 
 ## Validation Evidence
 
-| scope | command | status | reason | next_action |
-|-------|---------|--------|--------|-------------|
-| docs | `manual-review` | pass | This file traces every claim to source. | none |
-| astro | `bun install` | not-run-this-session | Last verified in `audit/baseline-before.md` (2026-05-18). | Re-run on next landing change. |
-| astro | `bun run build` | not-run-this-session | Last verified clean in `audit/baseline-before.md`. | Re-run on next landing change. |
-| astro | `bun run check && bun run lint` | not-run-this-session | Astro type-check + Prettier. | Re-run on next landing change. |
-| infra | `curl -I https://formulaeapps.com/` | **pass** | HTTP 200, valid LE TLS (expires 2026-07-30), Cloudflare-proxied. Evidence: `audit/infra-validate-pre.md` 2026-05-19. | Monitored continuously. |
-| infra | `curl -I https://www.formulaeapps.com/` | **pass** | Same as above. | Same. |
-| infra | `curl -I https://app.formulaeapps.com/` | **pass** | Same — Pro Web served from `/app/` path. | Same. |
+| scope | command                                 | status               | reason                                                                                                               | next_action                    |
+| ----- | --------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| docs  | `manual-review`                         | pass                 | This file traces every claim to source.                                                                              | none                           |
+| astro | `bun install`                           | not-run-this-session | Last verified in `audit/baseline-before.md` (2026-05-18).                                                            | Re-run on next landing change. |
+| astro | `bun run build`                         | not-run-this-session | Last verified clean in `audit/baseline-before.md`.                                                                   | Re-run on next landing change. |
+| astro | `bun run check && bun run lint`         | not-run-this-session | Astro type-check + Prettier.                                                                                         | Re-run on next landing change. |
+| infra | `curl -I https://formulaeapps.com/`     | **pass**             | HTTP 200, valid LE TLS (expires 2026-07-30), Cloudflare-proxied. Evidence: `audit/infra-validate-pre.md` 2026-05-19. | Monitored continuously.        |
+| infra | `curl -I https://www.formulaeapps.com/` | **pass**             | Same as above.                                                                                                       | Same.                          |
+| infra | `curl -I https://app.formulaeapps.com/` | **pass**             | Same — Pro Web served from `/app/` path.                                                                             | Same.                          |
 
 ## Documentation Drift Findings
 
