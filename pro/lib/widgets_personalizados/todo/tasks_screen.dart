@@ -94,6 +94,7 @@ class TasksScreen extends StatelessWidget {
 
                               // Si el usuario seleccionó opciones y presionó "Aceptar", genera el PDF y lo guarda
                               if (options != null) {
+                                if (!context.mounted) return;
                                 await generatePdfAndSave(
                                     tasks, context, options);
                               }
@@ -290,8 +291,12 @@ class TasksScreen extends StatelessWidget {
         'assets/images/icono_app_nuevo.png'); // Necesitas reemplazar 'ruta_a_la_imagen' con la ruta actual a tu imagen
     final imageProvider = pw.MemoryImage(imageData);
 
-    // Obtener la localización aquí antes de iniciar la operación asíncrona
-    final appLocalization = AppLocalizations.of(flutterContext);
+    // Obtener la localización aquí antes de iniciar la operación asíncrona.
+    // AppLocalizations.of devuelve nullable; con un MaterialApp + delegates
+    // configurados nunca es null en este punto (y el mounted guard ya corrió),
+    // así que se afirma non-null una sola vez en la asignación.
+    if (!flutterContext.mounted) return;
+    final appLocalization = AppLocalizations.of(flutterContext)!;
 
     pdf.addPage(
       pw.Page(
@@ -301,7 +306,7 @@ class TasksScreen extends StatelessWidget {
                 width: 80,
                 height: 80,
                 fit: pw.BoxFit.scaleDown), // Imagen ajustada
-            pw.Text(appLocalization!.formulaePro), // Texto adicional
+            pw.Text(appLocalization.formulaePro), // Texto adicional
             pw.SizedBox(height: 10),
             ...tasks.map((task) {
               String taskText = task.name;
@@ -310,11 +315,11 @@ class TasksScreen extends StatelessWidget {
               }
               if (options.includeReminderDate) {
                 taskText +=
-                    ' - ${AppLocalizations.of(flutterContext)!.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : AppLocalizations.of(flutterContext)!.noAsignado}';
+                    ' - ${appLocalization.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : appLocalization.noAsignado}';
               }
               if (options.includeDueDate) {
                 taskText +=
-                    ' - ${AppLocalizations.of(flutterContext)!.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : AppLocalizations.of(flutterContext)!.noAsignado}';
+                    ' - ${appLocalization.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : appLocalization.noAsignado}';
               }
               return pw.Text(taskText);
             }), // Un espacio entre el texto y las tareas
@@ -324,7 +329,7 @@ class TasksScreen extends StatelessWidget {
     );
 
     final output = await getTemporaryDirectory();
-    final file = io.File("${output.path}/${appLocalization!.tareasPDF}");
+    final file = io.File("${output.path}/${appLocalization.tareasPDF}");
     await file.writeAsBytes(await pdf.save());
 
     // comparte el archivoX

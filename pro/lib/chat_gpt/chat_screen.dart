@@ -190,14 +190,16 @@ class _ChatScreenState extends State<ChatScreen>
         _isTyping = false;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: kColorBotones,
-          content: TextWidget(
-            label: e.toString(),
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: kColorBotones,
+            content: TextWidget(
+              label: e.toString(),
+            ),
           ),
-        ),
-      );
+        );
+      }
     } finally {
       setState(() {
         scrollToBottom();

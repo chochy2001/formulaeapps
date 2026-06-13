@@ -81,6 +81,7 @@ class TasksList extends StatelessWidget {
                     lastDate: DateTime(2100),
                   );
                   if (date != null) {
+                    if (!context.mounted) return currentValue;
                     final time = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(
@@ -169,6 +170,7 @@ class TasksList extends StatelessWidget {
                       ),
                     );
                   }
+                  if (!context.mounted) return;
                   Navigator.of(context).pop();
                 },
               ),
@@ -181,61 +183,65 @@ class TasksList extends StatelessWidget {
     return Consumer<TaskData>(
       builder: (context, taskData, child) {
         void editTask(Task task, BuildContext context) async {
-          TextEditingController taskNameController =
+          final TextEditingController taskNameController =
               TextEditingController(text: task.name);
-          await showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                backgroundColor: kColorBotones,
-                title: Text(
-                  AppLocalizations.of(context)!.editarTarea,
-                  style: kTextoBotones,
-                ),
-                content: TextField(
-                  style: const TextStyle(color: kColorBlanco),
-                  controller: taskNameController,
-                  decoration: InputDecoration(
-                    fillColor: kColorBlanco,
-                    labelText: AppLocalizations.of(context)!.nombreTarea,
-                    labelStyle: kTexto,
+          try {
+            await showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      AppLocalizations.of(context)!.cancelar,
-                      style: kTextoCerrar,
+                  backgroundColor: kColorBotones,
+                  title: Text(
+                    AppLocalizations.of(context)!.editarTarea,
+                    style: kTextoBotones,
+                  ),
+                  content: TextField(
+                    style: const TextStyle(color: kColorBlanco),
+                    controller: taskNameController,
+                    decoration: InputDecoration(
+                      fillColor: kColorBlanco,
+                      labelText: AppLocalizations.of(context)!.nombreTarea,
+                      labelStyle: kTexto,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      // Obtén la instancia de TaskData del Provider
-                      TaskData taskData =
-                          Provider.of<TaskData>(context, listen: false);
-                      taskData.deleteTask(task);
-                      // Crea una nueva tarea con el nombre editado y las fechas existentes
-                      Task newTask = Task(
-                        name: taskNameController.text,
-                        reminderDateTime: task.reminderDateTime,
-                        dueDate: task.dueDate,
-                      );
-                      taskData.addTask(newTask);
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.guardar,
-                      style: kTexto,
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text(
+                        AppLocalizations.of(context)!.cancelar,
+                        style: kTextoCerrar,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
+                    TextButton(
+                      onPressed: () {
+                        // Obtén la instancia de TaskData del Provider
+                        TaskData taskData =
+                            Provider.of<TaskData>(context, listen: false);
+                        taskData.deleteTask(task);
+                        // Crea una nueva tarea con el nombre editado y las fechas existentes
+                        Task newTask = Task(
+                          name: taskNameController.text,
+                          reminderDateTime: task.reminderDateTime,
+                          dueDate: task.dueDate,
+                        );
+                        taskData.addTask(newTask);
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.guardar,
+                        style: kTexto,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          } finally {
+            taskNameController.dispose();
+          }
         }
 
         return taskData.taskCount == 0
