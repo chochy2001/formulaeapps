@@ -16,12 +16,6 @@ components:
       bearerFormat: JWT
       description: HS256-signed JWT issued by POST /auth/token.
   schemas:
-    HealthStatus:
-      type: string
-      enum:
-        - ok
-        - degraded
-        - unhealthy
     HealthResponse:
       type: object
       properties:
@@ -29,8 +23,8 @@ components:
           $ref: "#/components/schemas/HealthStatus"
         version:
           type: string
-          description: BFF build version (semver).
           example: 0.1.0
+          description: BFF build version (semver).
         prompts_version:
           type: string
           example: 1.0.0
@@ -43,42 +37,38 @@ components:
         - version
         - prompts_version
         - uptime_seconds
+    HealthStatus:
+      type: string
+      enum:
+        - ok
+        - degraded
+        - unhealthy
     AuthTokenResponse:
       type: object
       properties:
         token:
           type: string
-          description: Compact JWS (HS256). 60-min max lifetime.
           example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIuLi4iLCJleHAiOjEyMzR9.sig
+          description: Compact JWS (HS256). 60-min max lifetime.
         expires_at:
           type: string
           format: date-time
-          description: ISO-8601 UTC token expiry.
           example: 2026-05-18T16:00:00.000Z
+          description: ISO-8601 UTC token expiry.
         refresh_after:
           type: string
           format: date-time
-          description: ISO-8601 UTC hint for proactive refresh.
           example: 2026-05-18T15:50:00.000Z
+          description: ISO-8601 UTC hint for proactive refresh.
         prompts_version:
           type: string
-          description: Semver of system prompts in use.
           example: 1.0.0
+          description: Semver of system prompts in use.
       required:
         - token
         - expires_at
         - refresh_after
         - prompts_version
-    ErrorKind:
-      type: string
-      enum:
-        - unauthorized
-        - forbidden
-        - not_found
-        - bad_request
-        - upstream_error
-        - rate_limited
-        - internal_error
     ErrorEnvelope:
       type: object
       properties:
@@ -90,13 +80,13 @@ components:
             message:
               type: string
               maxLength: 200
-              description: Short user-presentable message in ES (default) or _en. No secrets.
               example: JWT inválido
+              description: Short user-presentable message in ES (default) or _en. No secrets.
             code:
               type: string
               pattern: ^E_[A-Z0-9_]+$
-              description: Stable error code for client branching.
               example: E_INVALID_JWT
+              description: Stable error code for client branching.
             request_id:
               type: string
               format: uuid
@@ -107,24 +97,34 @@ components:
             - request_id
       required:
         - error
+    ErrorKind:
+      type: string
+      enum:
+        - unauthorized
+        - forbidden
+        - not_found
+        - bad_request
+        - upstream_error
+        - rate_limited
+        - internal_error
     AuthTokenRequest:
       type: object
       properties:
         client_id:
           type: string
           format: uuid
-          description: Per-install client identifier, stable across launches.
           example: 550e8400-e29b-41d4-a716-446655440000
+          description: Per-install client identifier, stable across launches.
         client_proof:
           type: string
           pattern: ^[a-fA-F0-9]{64}$
-          description: HMAC-SHA256(JWT_SHARED_SECRET, client_id || build_nonce) hex (64 chars).
           example: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          description: HMAC-SHA256(JWT_SHARED_SECRET, client_id || build_nonce) hex (64 chars).
         build_nonce:
           type: string
           pattern: ^[a-fA-F0-9]{32}$
-          description: Per-build constant baked into the app bundle (32 hex chars).
           example: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+          description: Per-build constant baked into the app bundle (32 hex chars).
         platform:
           type: string
           enum:
@@ -132,19 +132,44 @@ components:
             - android
             - ios
             - macos
-          description: Client platform identifier.
           example: web
+          description: Client platform identifier.
         app_version:
           type: string
           pattern: ^\d+\.\d+\.\d+
-          description: Client app version (semver-ish).
           example: 3.7.2
+          description: Client app version (semver-ish).
       required:
         - client_id
         - client_proof
         - build_nonce
         - platform
         - app_version
+    ChatResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: La energía cinética es E_c = (1/2) m v^2 ...
+          description: Assistant's text.
+        model_id:
+          type: string
+          example: openai/gpt-4o-mini
+          description: Echo of the model that produced the response (`provider/model` format).
+        usage:
+          $ref: "#/components/schemas/ChatUsage"
+        conversation_id:
+          type: string
+          format: uuid
+          description: Echo of request conversation_id if supplied.
+        prompts_version:
+          type: string
+          example: 1.0.0
+      required:
+        - message
+        - model_id
+        - usage
+        - prompts_version
     ChatUsage:
       type: object
       properties:
@@ -161,31 +186,6 @@ components:
         - prompt_tokens
         - completion_tokens
         - total_tokens
-    ChatResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Assistant's text.
-          example: La energía cinética es E_c = (1/2) m v^2 ...
-        model_id:
-          type: string
-          description: Echo of the model that produced the response (`provider/model` format).
-          example: openai/gpt-4o-mini
-        usage:
-          $ref: "#/components/schemas/ChatUsage"
-        conversation_id:
-          type: string
-          format: uuid
-          description: Echo of request conversation_id if supplied.
-        prompts_version:
-          type: string
-          example: 1.0.0
-      required:
-        - message
-        - model_id
-        - usage
-        - prompts_version
     ChatRequest:
       type: object
       properties:
@@ -193,17 +193,17 @@ components:
           type: string
           minLength: 1
           maxLength: 4000
-          description: User's question. Trimmed before validation.
           example: ¿Cuál es la fórmula de la energía cinética?
+          description: User's question. Trimmed before validation.
         model_id:
           type: string
-          description: Optional OpenRouter model selector (`provider/model` format) from the BFF's allowlist. If absent, BFF default applies. See https://openrouter.ai/models.
           example: openai/gpt-4o-mini
+          description: Optional OpenRouter model selector (`provider/model` format) from the BFF's allowlist. If absent, BFF default applies. See https://openrouter.ai/models.
         conversation_id:
           type: string
           format: uuid
-          description: Optional thread correlation id.
           example: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+          description: Optional thread correlation id.
       required:
         - message
     IapValidateResponse:
@@ -215,8 +215,8 @@ components:
         expires_at:
           type: string
           format: date-time
-          description: ISO-8601 UTC. Present for subscriptions.
           example: 2026-06-18T00:00:00.000Z
+          description: ISO-8601 UTC. Present for subscriptions.
         product_id:
           type: string
         transaction_id:
@@ -226,8 +226,8 @@ components:
           enum:
             - sandbox
             - production
-          description: IAP environment that produced the receipt.
           example: production
+          description: IAP environment that produced the receipt.
         provider_reason:
           type: string
           maxLength: 200
@@ -245,24 +245,24 @@ components:
           enum:
             - apple
             - google
-          description: IAP provider.
           example: apple
+          description: IAP provider.
         product_id:
           type: string
-          description: Provider's product identifier.
           example: com.capdesis.formulae.pro_monthly
+          description: Provider's product identifier.
         transaction_id:
           type: string
-          description: Provider's transaction id.
           example: "1000000123456789"
+          description: Provider's transaction id.
         receipt_data:
           type: string
           maxLength: 16384
           description: Base64-encoded receipt (Apple) or purchase token (Google). Max 16 KB.
         subscription:
           type: boolean
-          description: true for subscriptions, false for one-time purchases.
           example: true
+          description: true for subscriptions, false for one-time purchases.
       required:
         - platform
         - product_id

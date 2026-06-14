@@ -24,6 +24,7 @@
 
     "types": ["bun-types"],
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["src/*"]
     }
