@@ -63,3 +63,13 @@ landing/.ftp-deploy-sync-state.json
 * 2
 * copy
 * copy [0-9]*
+
+# Generated BFF Dart client lockfiles.
+# pubspec.lock here is produced by `flutter pub get` (via
+# scripts/generate-bff-types.sh), NOT by the version-pinned OpenAPI codegen.
+# It resolves transitive Dart dev-deps (test, test_api, test_core) against the
+# live pub.dev registry, so it floats with upstream patch releases independently
+# of the Zod source. It is excluded from scripts/verify-parity.sh; keeping it
+# untracked stops non-deterministic churn from re-entering the parity surface.
+pro/packages/formulaeapps_bff_client/pubspec.lock
+community/packages/formulaeapps_bff_client/pubspec.lock
