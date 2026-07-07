@@ -153,8 +153,17 @@ jobs:
       # as tech debt; --fatal-warnings is the real gate.
       - name: analyze
         run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+      # JWT_SHARED_SECRET is a compile-time const String.fromEnvironment in
+      # lib/chat_gpt/api_consts.dart (defaults to ''); the auth_service tests
+      # exercise the real token-minting path and require a non-empty value via
+      # --dart-define, mirroring pro/Dockerfile and pro/build_web.sh. The value
+      # here is a non-secret CI test constant that only gates these unit tests.
       - name: test
-        run: flutter test --no-pub --reporter compact
+        run: |
+          flutter test --no-pub --reporter compact \
+            --dart-define=JWT_SHARED_SECRET=test-shared-secret \
+            --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+            --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)

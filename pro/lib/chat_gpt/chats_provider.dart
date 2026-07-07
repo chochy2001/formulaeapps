@@ -2,7 +2,16 @@ import 'package:flutter/cupertino.dart';
 
 import '../chat_gpt/export_chat_gpt.dart';
 
+typedef ChatMessageSender = Future<List<ChatModel>> Function({
+  required String message,
+  required String modelId,
+});
+
 class ChatProvider with ChangeNotifier {
+  ChatProvider({ChatMessageSender? sendMessage})
+      : _sendMessage = sendMessage ?? ApiService.sendMessage;
+
+  final ChatMessageSender _sendMessage;
   List<ChatModel> chatList = [];
 
   List<ChatModel> get getChatList {
@@ -16,7 +25,7 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> sendMessageAndGetAnswers(
       {required String msg, required String chosenModelId}) async {
-    chatList.addAll(await ApiService.sendMessage(
+    chatList.addAll(await _sendMessage(
       message: msg,
       modelId: chosenModelId,
     ));

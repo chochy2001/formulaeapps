@@ -33,6 +33,9 @@ class ModelsModel {
   ModelsModel({required this.id, required this.created, required this.root});
 }
 
+typedef ChatTokenProvider = Future<String> Function();
+typedef RotatedTokenHandler = void Function(String token);
+
 /// `ApiService` — thin adapter around the generated `ChatApi` from the
 /// BFF OpenAPI codegen (`packages/formulaeapps_bff_client`).
 ///
@@ -78,19 +81,23 @@ class ApiService {
     required String message,
     required String modelId,
     BaseOptions? dioOptionsOverride,
+    Dio? dioOverride,
+    ChatTokenProvider? tokenProvider,
+    RotatedTokenHandler? rotatedTokenHandler,
   }) async {
-    final token = await AuthService.getToken();
+    final token = await (tokenProvider ?? AuthService.getToken)();
 
     final client = FormulaeappsBffClient(
       basePathOverride: bffBaseUrl,
-      dio: Dio(
-        dioOptionsOverride ??
-            BaseOptions(
-              baseUrl: bffBaseUrl,
-              connectTimeout: const Duration(seconds: 10),
-              receiveTimeout: const Duration(seconds: 60),
-            ),
-      ),
+      dio: dioOverride ??
+          Dio(
+            dioOptionsOverride ??
+                BaseOptions(
+                  baseUrl: bffBaseUrl,
+                  connectTimeout: const Duration(seconds: 10),
+                  receiveTimeout: const Duration(seconds: 60),
+                ),
+          ),
     );
     client.setBearerAuth('bearerAuth', token);
 
@@ -106,7 +113,7 @@ class ApiService {
       // Adopt rotated JWT if the BFF surfaced one (research §R4 + FR-005).
       final rotated = response.headers.value('x-auth-refresh');
       if (rotated != null && rotated.isNotEmpty) {
-        AuthService.adoptRotatedToken(rotated);
+        (rotatedTokenHandler ?? AuthService.adoptRotatedToken)(rotated);
       }
 
       final data = response.data;
