@@ -1,31 +1,11 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - '.github/workflows/ci.yml'
-      - 'bff/**'
-      - 'community/**'
-      - 'contracts/**'
-      - 'docker-compose*.yml'
-      - 'landing/**'
-      - 'openapitools.json'
-      - 'pro/**'
-      - 'scripts/**'
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/ci.yml'
-      - 'bff/**'
-      - 'community/**'
-      - 'contracts/**'
-      - 'docker-compose*.yml'
-      - 'landing/**'
-      - 'openapitools.json'
-      - 'pro/**'
-      - 'scripts/**'
-
+  workflow_dispatch:
+  schedule:
+    # Local-first policy: PR/push validation runs on the developer machine.
+    # Remote CI is manual or staggered nightly to avoid runner bottlenecks.
+    - cron: '20 8 * * 4'
 permissions:
   contents: read
 
