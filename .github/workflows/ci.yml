@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   schedule:
     # Local-first policy: PR/push validation runs on the developer machine.
-    # Remote CI is manual or staggered nightly to avoid runner bottlenecks.
-    - cron: '20 8 * * 4'
+    # Remote CI is manual or staggered daily (validation only — no production deploy).
+    - cron: '10 8 * * *'
 permissions:
   contents: read
 
