@@ -13,7 +13,7 @@ import '../../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../main.dart';
 
 class TasksList extends StatelessWidget {
-  const TasksList({Key? key}) : super(key: key);
+  const TasksList({super.key});
 
   @override
   Widget build(BuildContext context) {

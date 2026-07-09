@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionGeometrica extends StatefulWidget {
-  const DistribucionGeometrica({Key? key}) : super(key: key);
+  const DistribucionGeometrica({super.key});
 
   @override
   DistribucionGeometricaState createState() => DistribucionGeometricaState();

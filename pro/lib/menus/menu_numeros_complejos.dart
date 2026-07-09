@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class NumerosComplejos extends StatefulWidget {
-  const NumerosComplejos({Key? key}) : super(key: key);
+  const NumerosComplejos({super.key});
 
   @override
   NumerosComplejosState createState() => NumerosComplejosState();

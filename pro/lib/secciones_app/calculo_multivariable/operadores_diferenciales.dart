@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class OperadoresDiferenciales extends StatefulWidget {
-  const OperadoresDiferenciales({Key? key}) : super(key: key);
+  const OperadoresDiferenciales({super.key});
 
   @override
   OperadoresDiferencialesState createState() => OperadoresDiferencialesState();

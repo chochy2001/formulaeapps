@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class GradienteDeUnaFuncion extends StatefulWidget {
-  const GradienteDeUnaFuncion({Key? key}) : super(key: key);
+  const GradienteDeUnaFuncion({super.key});
 
   @override
   GradienteDeUnaFuncionState createState() => GradienteDeUnaFuncionState();

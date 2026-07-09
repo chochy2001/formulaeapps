@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TransformadaDeFourier extends StatefulWidget {
-  const TransformadaDeFourier({Key? key}) : super(key: key);
+  const TransformadaDeFourier({super.key});
 
   @override
   TransformadaDeFourierState createState() => TransformadaDeFourierState();

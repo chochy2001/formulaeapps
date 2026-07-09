@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class NomenclaturaBasicaEmpleadaEnCircuitos extends StatefulWidget {
-  const NomenclaturaBasicaEmpleadaEnCircuitos({Key? key}) : super(key: key);
+  const NomenclaturaBasicaEmpleadaEnCircuitos({super.key});
 
   @override
   State<NomenclaturaBasicaEmpleadaEnCircuitos> createState() =>

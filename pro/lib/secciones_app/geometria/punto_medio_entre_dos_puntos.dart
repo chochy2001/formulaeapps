@@ -6,7 +6,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PuntoMedioEntreDosPuntos extends StatefulWidget {
-  const PuntoMedioEntreDosPuntos({Key? key}) : super(key: key);
+  const PuntoMedioEntreDosPuntos({super.key});
 
   @override
   PuntoMedioEntreDosPuntosState createState() =>

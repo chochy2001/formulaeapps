@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaSumatorias extends StatefulWidget {
-  const TeoremaSumatorias({Key? key}) : super(key: key);
+  const TeoremaSumatorias({super.key});
 
   @override
   TeoremaSumatoriasState createState() => TeoremaSumatoriasState();

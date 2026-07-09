@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CargaDeUnCapacitor extends StatefulWidget {
-  const CargaDeUnCapacitor({Key? key}) : super(key: key);
+  const CargaDeUnCapacitor({super.key});
 
   @override
   State<CargaDeUnCapacitor> createState() => _CargaDeUnCapacitorState();

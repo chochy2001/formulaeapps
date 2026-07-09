@@ -15,7 +15,7 @@ import 'models_provider.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -98,11 +98,10 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void _initializePurchaseDetails() {
-    // Touch the injectable platform so production still registers the store
-    // facade before listening (same eager-init as the old inAppPurchase getter).
-    _inAppPurchaseManager.platform;
+    // Use the public alias (not @visibleForTesting `platform`) so production
+    // UI can refresh on purchase updates without analyzer warnings.
     purchaseSubscription =
-        _inAppPurchaseManager.platform.purchaseStream.listen((purchases) {
+        _inAppPurchaseManager.inAppPurchase.purchaseStream.listen((purchases) {
       _inAppPurchaseManager.handlePurchaseUpdates(purchases);
       setState(() {});
     });

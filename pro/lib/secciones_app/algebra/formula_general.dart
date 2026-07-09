@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FormulaGeneral extends StatefulWidget {
-  const FormulaGeneral({Key? key}) : super(key: key);
+  const FormulaGeneral({super.key});
 
   @override
   FormulaGeneralState createState() => FormulaGeneralState();

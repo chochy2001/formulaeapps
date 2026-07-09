@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InductanciaMutuaEntreDosSolenoidesCoaxiales extends StatefulWidget {
-  const InductanciaMutuaEntreDosSolenoidesCoaxiales({Key? key})
-      : super(key: key);
+  const InductanciaMutuaEntreDosSolenoidesCoaxiales({super.key});
 
   @override
   State<InductanciaMutuaEntreDosSolenoidesCoaxiales> createState() =>

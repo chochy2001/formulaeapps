@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Circunferencia extends StatefulWidget {
-  const Circunferencia({Key? key}) : super(key: key);
+  const Circunferencia({super.key});
 
   @override
   CircunferenciaState createState() => CircunferenciaState();

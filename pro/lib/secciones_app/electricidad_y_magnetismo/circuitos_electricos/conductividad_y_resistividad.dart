@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConductividadYResistividad extends StatefulWidget {
-  const ConductividadYResistividad({Key? key}) : super(key: key);
+  const ConductividadYResistividad({super.key});
 
   @override
   State<ConductividadYResistividad> createState() =>

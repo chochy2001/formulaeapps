@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DiferencialTotal extends StatefulWidget {
-  const DiferencialTotal({Key? key}) : super(key: key);
+  const DiferencialTotal({super.key});
 
   @override
   DiferencialTotalState createState() => DiferencialTotalState();

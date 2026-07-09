@@ -113,10 +113,10 @@ class MyApp extends StatefulWidget {
   final FormulaeConfig config;
 
   const MyApp({
-    Key? key,
+    super.key,
     required this.favoritesNotifier,
     required this.config,
-  }) : super(key: key);
+  });
 
   static MyAppState? _myAppState;
 
@@ -125,11 +125,25 @@ class MyApp extends StatefulWidget {
   }
 
   @override
-  MyAppState createState() => _myAppState = MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
   Key key = UniqueKey();
+
+  @override
+  void initState() {
+    super.initState();
+    MyApp._myAppState = this;
+  }
+
+  @override
+  void dispose() {
+    if (identical(MyApp._myAppState, this)) {
+      MyApp._myAppState = null;
+    }
+    super.dispose();
+  }
 
   void restartApp() {
     setState(() {

@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LimiteDerivadaIntegralFuncionesVectoriales extends StatefulWidget {
-  const LimiteDerivadaIntegralFuncionesVectoriales({Key? key})
-      : super(key: key);
+  const LimiteDerivadaIntegralFuncionesVectoriales({super.key});
 
   @override
   LimiteDerivadaIntegralFuncionesVectorialesState createState() =>

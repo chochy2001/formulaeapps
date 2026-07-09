@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaDelRotacional extends StatefulWidget {
-  const TeoremaDelRotacional({Key? key}) : super(key: key);
+  const TeoremaDelRotacional({super.key});
 
   @override
   State<TeoremaDelRotacional> createState() => _TeoremaDelRotacionalState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PropiedadesRadicales extends StatefulWidget {
-  const PropiedadesRadicales({Key? key}) : super(key: key);
+  const PropiedadesRadicales({super.key});
 
   @override
   PropiedadesRadicalesState createState() => PropiedadesRadicalesState();

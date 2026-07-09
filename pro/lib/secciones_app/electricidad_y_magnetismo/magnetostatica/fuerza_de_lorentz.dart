@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuerzaDeLorentz extends StatefulWidget {
-  const FuerzaDeLorentz({Key? key}) : super(key: key);
+  const FuerzaDeLorentz({super.key});
 
   @override
   State<FuerzaDeLorentz> createState() => _FuerzaDeLorentzState();

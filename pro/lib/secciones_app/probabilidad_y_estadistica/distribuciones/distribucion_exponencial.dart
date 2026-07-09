@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionExponencial extends StatefulWidget {
-  const DistribucionExponencial({Key? key}) : super(key: key);
+  const DistribucionExponencial({super.key});
 
   @override
   DistribucionExponencialState createState() => DistribucionExponencialState();

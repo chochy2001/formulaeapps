@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDiferencialHomogenea extends StatefulWidget {
-  const EcuacionDiferencialHomogenea({Key? key}) : super(key: key);
+  const EcuacionDiferencialHomogenea({super.key});
 
   @override
   EcuacionDiferencialHomogeneaState createState() =>

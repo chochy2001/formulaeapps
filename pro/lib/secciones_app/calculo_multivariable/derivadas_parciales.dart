@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DerivadasParciales extends StatefulWidget {
-  const DerivadasParciales({Key? key}) : super(key: key);
+  const DerivadasParciales({super.key});
 
   @override
   DerivadasParcialesState createState() => DerivadasParcialesState();

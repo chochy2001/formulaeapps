@@ -5,12 +5,11 @@ import '../constantes/constantes_codigo.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
-      {Key? key,
+      {super.key,
       required this.label,
       this.fontSize = 18,
       this.color,
-      this.fontWeight})
-      : super(key: key);
+      this.fontWeight});
 
   final String label;
   final double fontSize;

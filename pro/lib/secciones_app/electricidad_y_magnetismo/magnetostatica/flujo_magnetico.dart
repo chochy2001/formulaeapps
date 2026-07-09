@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FlujoMagnetico extends StatefulWidget {
-  const FlujoMagnetico({Key? key}) : super(key: key);
+  const FlujoMagnetico({super.key});
 
   @override
   State<FlujoMagnetico> createState() => _FlujoMagneticoState();

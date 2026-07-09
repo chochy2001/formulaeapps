@@ -8,7 +8,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
   final Color? color;
   final bool? visible;
 
-  const AppBarHome({Key? key, this.color, this.visible}) : super(key: key);
+  const AppBarHome({super.key, this.color, this.visible});
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class GraficaDeCapacitancia extends StatefulWidget {
-  const GraficaDeCapacitancia({Key? key}) : super(key: key);
+  const GraficaDeCapacitancia({super.key});
 
   @override
   State<GraficaDeCapacitancia> createState() => _GraficaDeCapacitanciaState();

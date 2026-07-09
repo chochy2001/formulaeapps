@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConexionEnSerieCapacitor extends StatefulWidget {
-  const ConexionEnSerieCapacitor({Key? key}) : super(key: key);
+  const ConexionEnSerieCapacitor({super.key});
 
   @override
   State<ConexionEnSerieCapacitor> createState() =>

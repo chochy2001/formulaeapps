@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Polarizacion extends StatefulWidget {
-  const Polarizacion({Key? key}) : super(key: key);
+  const Polarizacion({super.key});
 
   @override
   State<Polarizacion> createState() => _PolarizacionState();

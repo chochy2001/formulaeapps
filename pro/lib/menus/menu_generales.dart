@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Generales extends StatefulWidget {
-  const Generales({Key? key}) : super(key: key);
+  const Generales({super.key});
 
   @override
   GeneralesState createState() => GeneralesState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IntegralesExtraIntegral extends StatefulWidget {
-  const IntegralesExtraIntegral({Key? key}) : super(key: key);
+  const IntegralesExtraIntegral({super.key});
 
   @override
   IntegralesExtraIntegralState createState() => IntegralesExtraIntegralState();

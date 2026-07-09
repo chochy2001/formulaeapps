@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class GradienteDePotencialElectrico extends StatefulWidget {
-  const GradienteDePotencialElectrico({Key? key}) : super(key: key);
+  const GradienteDePotencialElectrico({super.key});
 
   @override
   State<GradienteDePotencialElectrico> createState() =>

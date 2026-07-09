@@ -6,7 +6,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../constantes/nombres_videos.dart';
 
 class FuncionesTrigonometricasGenerales extends StatefulWidget {
-  const FuncionesTrigonometricasGenerales({Key? key}) : super(key: key);
+  const FuncionesTrigonometricasGenerales({super.key});
 
   @override
   FuncionesTrigonometricasGeneralesState createState() =>

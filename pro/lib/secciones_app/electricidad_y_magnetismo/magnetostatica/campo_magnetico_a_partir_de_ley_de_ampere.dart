@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CampoMagneticoAPartirDeLeyDeAmpere extends StatefulWidget {
-  const CampoMagneticoAPartirDeLeyDeAmpere({Key? key}) : super(key: key);
+  const CampoMagneticoAPartirDeLeyDeAmpere({super.key});
 
   @override
   State<CampoMagneticoAPartirDeLeyDeAmpere> createState() =>

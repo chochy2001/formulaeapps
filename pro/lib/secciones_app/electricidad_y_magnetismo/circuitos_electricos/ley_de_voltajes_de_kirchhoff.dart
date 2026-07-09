@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeVoltajesDeKirchhoff extends StatefulWidget {
-  const LeyDeVoltajesDeKirchhoff({Key? key}) : super(key: key);
+  const LeyDeVoltajesDeKirchhoff({super.key});
 
   @override
   State<LeyDeVoltajesDeKirchhoff> createState() =>

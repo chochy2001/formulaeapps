@@ -8,11 +8,10 @@ class AlertEjercicios extends StatelessWidget {
   final Column ejercicioEjemplo;
 
   const AlertEjercicios(
-      {Key? key,
+      {super.key,
       required this.textoEjercicio,
       required this.ejercicioEjemplo,
-      required this.ruta})
-      : super(key: key);
+      required this.ruta});
 
   @override
   Widget build(BuildContext context) {

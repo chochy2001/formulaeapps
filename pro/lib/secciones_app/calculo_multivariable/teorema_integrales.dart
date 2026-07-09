@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaIntegrales extends StatefulWidget {
-  const TeoremaIntegrales({Key? key}) : super(key: key);
+  const TeoremaIntegrales({super.key});
 
   @override
   TeoremaIntegralesState createState() => TeoremaIntegralesState();

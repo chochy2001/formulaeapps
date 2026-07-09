@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuncionUnitariaDeHeaviside extends StatefulWidget {
-  const FuncionUnitariaDeHeaviside({Key? key}) : super(key: key);
+  const FuncionUnitariaDeHeaviside({super.key});
 
   @override
   FuncionUnitariaDeHeavisideState createState() =>

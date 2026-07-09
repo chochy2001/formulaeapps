@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class RotacionalDelCampoElectrostatico extends StatefulWidget {
-  const RotacionalDelCampoElectrostatico({Key? key}) : super(key: key);
+  const RotacionalDelCampoElectrostatico({super.key});
 
   @override
   State<RotacionalDelCampoElectrostatico> createState() =>

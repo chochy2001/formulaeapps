@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ExponencialyLogaritmoIntegral extends StatefulWidget {
-  const ExponencialyLogaritmoIntegral({Key? key}) : super(key: key);
+  const ExponencialyLogaritmoIntegral({super.key});
 
   @override
   ExponencialyLogaritmoIntegralState createState() =>

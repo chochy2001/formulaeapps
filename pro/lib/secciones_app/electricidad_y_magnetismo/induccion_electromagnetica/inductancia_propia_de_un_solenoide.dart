@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InductanciaPropiaDeUnSolenoide extends StatefulWidget {
-  const InductanciaPropiaDeUnSolenoide({Key? key}) : super(key: key);
+  const InductanciaPropiaDeUnSolenoide({super.key});
 
   @override
   State<InductanciaPropiaDeUnSolenoide> createState() =>

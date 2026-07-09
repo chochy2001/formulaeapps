@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ReglasParaLVKyLCK extends StatefulWidget {
-  const ReglasParaLVKyLCK({Key? key}) : super(key: key);
+  const ReglasParaLVKyLCK({super.key});
 
   @override
   State<ReglasParaLVKyLCK> createState() => _ReglasParaLVKyLCKState();

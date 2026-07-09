@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InteresCompuesto extends StatefulWidget {
-  const InteresCompuesto({Key? key}) : super(key: key);
+  const InteresCompuesto({super.key});
 
   @override
   InteresCompuestoState createState() => InteresCompuestoState();

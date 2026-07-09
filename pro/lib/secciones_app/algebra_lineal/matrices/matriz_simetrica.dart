@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MatrizSimetrica extends StatefulWidget {
-  const MatrizSimetrica({Key? key}) : super(key: key);
+  const MatrizSimetrica({super.key});
 
   @override
   MatrizSimetricaState createState() => MatrizSimetricaState();

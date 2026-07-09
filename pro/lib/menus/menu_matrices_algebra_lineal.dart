@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuMatricesLineal extends StatefulWidget {
-  const MenuMatricesLineal({Key? key}) : super(key: key);
+  const MenuMatricesLineal({super.key});
 
   @override
   MenuMatricesLinealState createState() => MenuMatricesLinealState();

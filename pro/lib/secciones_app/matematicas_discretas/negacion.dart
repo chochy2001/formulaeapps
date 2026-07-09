@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Negacion extends StatefulWidget {
-  const Negacion({Key? key}) : super(key: key);
+  const Negacion({super.key});
 
   @override
   NegacionState createState() => NegacionState();

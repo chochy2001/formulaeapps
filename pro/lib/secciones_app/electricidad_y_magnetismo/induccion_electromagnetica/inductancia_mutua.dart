@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InductanciaMutua extends StatefulWidget {
-  const InductanciaMutua({Key? key}) : super(key: key);
+  const InductanciaMutua({super.key});
 
   @override
   State<InductanciaMutua> createState() => _InductanciaMutuaState();

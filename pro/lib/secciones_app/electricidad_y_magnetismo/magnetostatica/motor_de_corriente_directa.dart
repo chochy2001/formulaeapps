@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MotorDeCorrienteDirecta extends StatefulWidget {
-  const MotorDeCorrienteDirecta({Key? key}) : super(key: key);
+  const MotorDeCorrienteDirecta({super.key});
 
   @override
   State<MotorDeCorrienteDirecta> createState() =>

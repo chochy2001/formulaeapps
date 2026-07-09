@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SerieYCoeficientesDeFourier extends StatefulWidget {
-  const SerieYCoeficientesDeFourier({Key? key}) : super(key: key);
+  const SerieYCoeficientesDeFourier({super.key});
 
   @override
   SerieYCoeficientesDeFourierState createState() =>

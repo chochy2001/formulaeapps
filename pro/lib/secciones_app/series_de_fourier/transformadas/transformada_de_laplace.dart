@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TransformadaDeLaplace extends StatefulWidget {
-  const TransformadaDeLaplace({Key? key}) : super(key: key);
+  const TransformadaDeLaplace({super.key});
 
   @override
   TransformadaDeLaplaceState createState() => TransformadaDeLaplaceState();

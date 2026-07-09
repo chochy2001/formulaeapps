@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FlujoDeUnCampoVectorial extends StatefulWidget {
-  const FlujoDeUnCampoVectorial({Key? key}) : super(key: key);
+  const FlujoDeUnCampoVectorial({super.key});
 
   @override
   State<FlujoDeUnCampoVectorial> createState() =>

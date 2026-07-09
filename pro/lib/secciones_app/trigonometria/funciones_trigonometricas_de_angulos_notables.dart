@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuncionesTrigonometricasDeAngulosNotables extends StatefulWidget {
-  const FuncionesTrigonometricasDeAngulosNotables({Key? key}) : super(key: key);
+  const FuncionesTrigonometricasDeAngulosNotables({super.key});
 
   @override
   FuncionesTrigonometricasDeAngulosNotablesState createState() =>

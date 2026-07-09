@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConstantesDeIntegracion extends StatefulWidget {
-  const ConstantesDeIntegracion({Key? key}) : super(key: key);
+  const ConstantesDeIntegracion({super.key});
 
   @override
   ConstantesDeIntegracionState createState() => ConstantesDeIntegracionState();

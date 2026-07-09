@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TiposDeCorrienteElectrica extends StatefulWidget {
-  const TiposDeCorrienteElectrica({Key? key}) : super(key: key);
+  const TiposDeCorrienteElectrica({super.key});
 
   @override
   State<TiposDeCorrienteElectrica> createState() =>

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DescuentoSimple extends StatefulWidget {
-  const DescuentoSimple({Key? key}) : super(key: key);
+  const DescuentoSimple({super.key});
 
   @override
   DescuentoSimpleState createState() => DescuentoSimpleState();

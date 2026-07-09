@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LongitudDeArco extends StatefulWidget {
-  const LongitudDeArco({Key? key}) : super(key: key);
+  const LongitudDeArco({super.key});
 
   @override
   LongitudDeArcoState createState() => LongitudDeArcoState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaDelSeno extends StatefulWidget {
-  const TeoremaDelSeno({Key? key}) : super(key: key);
+  const TeoremaDelSeno({super.key});
 
   @override
   TeoremaDelSenoState createState() => TeoremaDelSenoState();

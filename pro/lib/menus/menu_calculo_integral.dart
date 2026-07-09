@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CalculoIntegral extends StatefulWidget {
-  const CalculoIntegral({Key? key}) : super(key: key);
+  const CalculoIntegral({super.key});
 
   @override
   CalculoIntegralState createState() => CalculoIntegralState();

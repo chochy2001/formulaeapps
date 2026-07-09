@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SaldoInsoluto extends StatefulWidget {
-  const SaldoInsoluto({Key? key}) : super(key: key);
+  const SaldoInsoluto({super.key});
 
   @override
   SaldoInsolutoState createState() => SaldoInsolutoState();

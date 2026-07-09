@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistanciaDeUnPuntoAUnaRecta extends StatefulWidget {
-  const DistanciaDeUnPuntoAUnaRecta({Key? key}) : super(key: key);
+  const DistanciaDeUnPuntoAUnaRecta({super.key});
 
   @override
   DistanciaDeUnPuntoAUnaRectaState createState() =>

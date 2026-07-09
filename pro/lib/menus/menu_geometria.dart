@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuGeometria extends StatefulWidget {
-  const MenuGeometria({Key? key}) : super(key: key);
+  const MenuGeometria({super.key});
 
   @override
   MenuGeometriaState createState() => MenuGeometriaState();

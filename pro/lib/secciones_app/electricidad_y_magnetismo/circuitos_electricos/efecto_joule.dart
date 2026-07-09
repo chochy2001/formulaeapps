@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EfectoJoule extends StatefulWidget {
-  const EfectoJoule({Key? key}) : super(key: key);
+  const EfectoJoule({super.key});
 
   @override
   State<EfectoJoule> createState() => _EfectoJouleState();

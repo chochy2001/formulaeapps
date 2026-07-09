@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InductoresEnSerie extends StatefulWidget {
-  const InductoresEnSerie({Key? key}) : super(key: key);
+  const InductoresEnSerie({super.key});
 
   @override
   State<InductoresEnSerie> createState() => _InductoresEnSerieState();

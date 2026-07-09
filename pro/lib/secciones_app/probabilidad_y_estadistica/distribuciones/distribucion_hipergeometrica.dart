@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionHipergeometrica extends StatefulWidget {
-  const DistribucionHipergeometrica({Key? key}) : super(key: key);
+  const DistribucionHipergeometrica({super.key});
 
   @override
   DistribucionHipergeometricaState createState() =>

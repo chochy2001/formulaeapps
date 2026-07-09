@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PolarizacionYCargaInducida extends StatefulWidget {
-  const PolarizacionYCargaInducida({Key? key}) : super(key: key);
+  const PolarizacionYCargaInducida({super.key});
 
   @override
   State<PolarizacionYCargaInducida> createState() =>

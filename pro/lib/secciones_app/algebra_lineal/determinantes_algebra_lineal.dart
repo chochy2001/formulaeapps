@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DeterminantesAlgebraLineal extends StatefulWidget {
-  const DeterminantesAlgebraLineal({Key? key}) : super(key: key);
+  const DeterminantesAlgebraLineal({super.key});
 
   @override
   DeterminantesAlgebraLinealState createState() =>

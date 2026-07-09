@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDiferencialDeRectasNoParalelas extends StatefulWidget {
-  const EcuacionDiferencialDeRectasNoParalelas({Key? key}) : super(key: key);
+  const EcuacionDiferencialDeRectasNoParalelas({super.key});
 
   @override
   EcuacionDiferencialDeRectasNoParalelasState createState() =>

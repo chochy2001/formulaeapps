@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeAmpereEnFormaDiferencial extends StatefulWidget {
-  const LeyDeAmpereEnFormaDiferencial({Key? key}) : super(key: key);
+  const LeyDeAmpereEnFormaDiferencial({super.key});
 
   @override
   State<LeyDeAmpereEnFormaDiferencial> createState() =>

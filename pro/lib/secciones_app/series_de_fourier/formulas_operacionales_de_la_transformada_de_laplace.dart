@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FormulasOperacionalesDeLaTransformadaDeLaplace extends StatefulWidget {
-  const FormulasOperacionalesDeLaTransformadaDeLaplace({Key? key})
-      : super(key: key);
+  const FormulasOperacionalesDeLaTransformadaDeLaplace({super.key});
 
   @override
   FormulasOperacionalesDeLaTransformadaDeLaplaceState createState() =>

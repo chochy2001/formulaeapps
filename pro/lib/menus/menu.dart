@@ -10,7 +10,7 @@ import '../widgets_personalizados/widgets_intermedios/menu_principal.dart';
 import '../widgets_personalizados/widgets_intermedios/todo_list_intermedio.dart';
 
 class Menu extends StatefulWidget {
-  const Menu({Key? key}) : super(key: key);
+  const Menu({super.key});
 
   @override
   MenuState createState() => MenuState();

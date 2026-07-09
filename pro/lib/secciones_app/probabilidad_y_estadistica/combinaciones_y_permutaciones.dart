@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CombinacionesYPermutaciones extends StatefulWidget {
-  const CombinacionesYPermutaciones({Key? key}) : super(key: key);
+  const CombinacionesYPermutaciones({super.key});
 
   @override
   CombinacionesYPermutacionesState createState() =>

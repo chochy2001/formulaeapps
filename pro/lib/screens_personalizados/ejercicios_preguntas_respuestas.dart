@@ -8,8 +8,7 @@ class PreguntasEjercicios extends StatelessWidget {
   final Widget pregunta;
 
   const PreguntasEjercicios(
-      {Key? key, required this.texto, required this.pregunta})
-      : super(key: key);
+      {super.key, required this.texto, required this.pregunta});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +32,7 @@ class RespuestaEjercicios extends StatelessWidget {
   final Widget respuesta;
 
   const RespuestaEjercicios(
-      {Key? key, required this.texto, required this.respuesta})
-      : super(key: key);
+      {super.key, required this.texto, required this.respuesta});
 
   @override
   Widget build(BuildContext context) {

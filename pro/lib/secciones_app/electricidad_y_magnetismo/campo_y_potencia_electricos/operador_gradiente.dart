@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class OperadorGradiente extends StatefulWidget {
-  const OperadorGradiente({Key? key}) : super(key: key);
+  const OperadorGradiente({super.key});
 
   @override
   State<OperadorGradiente> createState() => _OperadorGradienteState();

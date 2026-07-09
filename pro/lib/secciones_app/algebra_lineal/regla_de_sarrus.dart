@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ReglaDeSarrus extends StatefulWidget {
-  const ReglaDeSarrus({Key? key}) : super(key: key);
+  const ReglaDeSarrus({super.key});
 
   @override
   ReglaDeSarrusState createState() => ReglaDeSarrusState();

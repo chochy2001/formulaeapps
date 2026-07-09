@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ElementosCapacitorYResistor extends StatefulWidget {
-  const ElementosCapacitorYResistor({Key? key}) : super(key: key);
+  const ElementosCapacitorYResistor({super.key});
 
   @override
   State<ElementosCapacitorYResistor> createState() =>

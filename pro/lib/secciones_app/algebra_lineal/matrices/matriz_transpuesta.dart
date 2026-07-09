@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MatrizTranspuesta extends StatefulWidget {
-  const MatrizTranspuesta({Key? key}) : super(key: key);
+  const MatrizTranspuesta({super.key});
 
   @override
   MatrizTranspuestaState createState() => MatrizTranspuestaState();

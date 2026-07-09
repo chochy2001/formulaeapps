@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PortadoresDeCargaLibre extends StatefulWidget {
-  const PortadoresDeCargaLibre({Key? key}) : super(key: key);
+  const PortadoresDeCargaLibre({super.key});
 
   @override
   State<PortadoresDeCargaLibre> createState() => _PortadoresDeCargaLibreState();

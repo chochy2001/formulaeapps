@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Capacitor extends StatefulWidget {
-  const Capacitor({Key? key}) : super(key: key);
+  const Capacitor({super.key});
 
   @override
   State<Capacitor> createState() => _CapacitorState();

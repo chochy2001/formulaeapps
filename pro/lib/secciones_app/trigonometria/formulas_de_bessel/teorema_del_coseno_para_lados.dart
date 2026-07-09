@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaDelCosenoParaLados extends StatefulWidget {
-  const TeoremaDelCosenoParaLados({Key? key}) : super(key: key);
+  const TeoremaDelCosenoParaLados({super.key});
 
   @override
   TeoremaDelCosenoParaLadosState createState() =>

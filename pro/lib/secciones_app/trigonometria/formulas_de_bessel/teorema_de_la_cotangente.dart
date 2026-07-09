@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaDeLaCotangente extends StatefulWidget {
-  const TeoremaDeLaCotangente({Key? key}) : super(key: key);
+  const TeoremaDeLaCotangente({super.key});
 
   @override
   TeoremaDeLaCotangenteState createState() => TeoremaDeLaCotangenteState();

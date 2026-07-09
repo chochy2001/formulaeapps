@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class RigidezDielectrica extends StatefulWidget {
-  const RigidezDielectrica({Key? key}) : super(key: key);
+  const RigidezDielectrica({super.key});
 
   @override
   State<RigidezDielectrica> createState() => _RigidezDielectricaState();

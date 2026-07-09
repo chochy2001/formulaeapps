@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ResistividadYTemperatura extends StatefulWidget {
-  const ResistividadYTemperatura({Key? key}) : super(key: key);
+  const ResistividadYTemperatura({super.key});
 
   @override
   State<ResistividadYTemperatura> createState() =>

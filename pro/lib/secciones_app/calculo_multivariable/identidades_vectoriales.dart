@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IdentidadesVectoriales extends StatefulWidget {
-  const IdentidadesVectoriales({Key? key}) : super(key: key);
+  const IdentidadesVectoriales({super.key});
 
   @override
   IdentidadesVectorialesState createState() => IdentidadesVectorialesState();

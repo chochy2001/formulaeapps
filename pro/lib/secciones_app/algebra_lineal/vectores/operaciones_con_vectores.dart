@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class OperacionesConVectores extends StatefulWidget {
-  const OperacionesConVectores({Key? key}) : super(key: key);
+  const OperacionesConVectores({super.key});
 
   @override
   OperacionesConVectoresState createState() => OperacionesConVectoresState();

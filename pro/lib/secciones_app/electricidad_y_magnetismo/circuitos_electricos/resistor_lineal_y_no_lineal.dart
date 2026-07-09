@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ResistorLinealYNoLineal extends StatefulWidget {
-  const ResistorLinealYNoLineal({Key? key}) : super(key: key);
+  const ResistorLinealYNoLineal({super.key});
 
   @override
   State<ResistorLinealYNoLineal> createState() =>

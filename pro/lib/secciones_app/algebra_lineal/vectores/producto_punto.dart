@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ProductoPunto extends StatefulWidget {
-  const ProductoPunto({Key? key}) : super(key: key);
+  const ProductoPunto({super.key});
 
   @override
   ProductoPuntoState createState() => ProductoPuntoState();

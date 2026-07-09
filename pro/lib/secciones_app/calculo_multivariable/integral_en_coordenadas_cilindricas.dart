@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IntegralEnCoordenadasCilindricas extends StatefulWidget {
-  const IntegralEnCoordenadasCilindricas({Key? key}) : super(key: key);
+  const IntegralEnCoordenadasCilindricas({super.key});
 
   @override
   IntegralEnCoordenadasCilindricasState createState() =>

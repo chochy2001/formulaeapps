@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ParabolaConVerticeDiferenteDelOrigen extends StatefulWidget {
-  const ParabolaConVerticeDiferenteDelOrigen({Key? key}) : super(key: key);
+  const ParabolaConVerticeDiferenteDelOrigen({super.key});
 
   @override
   ParabolaConVerticeDiferenteDelOrigenState createState() =>

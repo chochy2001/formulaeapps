@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuInduccionElectromagnetica extends StatelessWidget {
-  const MenuInduccionElectromagnetica({Key? key}) : super(key: key);
+  const MenuInduccionElectromagnetica({super.key});
 
   @override
   Widget build(BuildContext context) {

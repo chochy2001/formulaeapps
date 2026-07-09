@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuProbabilidadYEstadistica extends StatefulWidget {
-  const MenuProbabilidadYEstadistica({Key? key}) : super(key: key);
+  const MenuProbabilidadYEstadistica({super.key});
 
   @override
   MenuProbabilidadYEstadisticaState createState() =>

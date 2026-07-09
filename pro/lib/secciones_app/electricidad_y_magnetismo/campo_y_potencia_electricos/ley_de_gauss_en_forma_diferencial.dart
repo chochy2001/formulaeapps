@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeGaussEnFormaDiferencial extends StatefulWidget {
-  const LeyDeGaussEnFormaDiferencial({Key? key}) : super(key: key);
+  const LeyDeGaussEnFormaDiferencial({super.key});
 
   @override
   State<LeyDeGaussEnFormaDiferencial> createState() =>

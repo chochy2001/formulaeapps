@@ -5,8 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente
     extends StatefulWidget {
-  const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente({Key? key})
-      : super(key: key);
+  const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente({super.key});
 
   @override
   State<MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente> createState() =>

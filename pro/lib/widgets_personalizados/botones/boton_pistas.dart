@@ -5,7 +5,7 @@ import '../../../../constantes/export_constantes.dart';
 class VerPistas extends StatelessWidget {
   final Widget latex;
 
-  const VerPistas(this.latex, {Key? key}) : super(key: key);
+  const VerPistas(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class VerPistas extends StatelessWidget {
 class BotonVerPistas extends StatelessWidget {
   final Widget latex;
 
-  const BotonVerPistas(this.latex, {Key? key}) : super(key: key);
+  const BotonVerPistas(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class BotonVerPistas extends StatelessWidget {
 class BotonVerRespuesta extends StatelessWidget {
   final Widget latex;
 
-  const BotonVerRespuesta(this.latex, {Key? key}) : super(key: key);
+  const BotonVerRespuesta(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {

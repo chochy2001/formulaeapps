@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ParabolaConVerticeEnElOrigen extends StatefulWidget {
-  const ParabolaConVerticeEnElOrigen({Key? key}) : super(key: key);
+  const ParabolaConVerticeEnElOrigen({super.key});
 
   @override
   ParabolaConVerticeEnElOrigenState createState() =>

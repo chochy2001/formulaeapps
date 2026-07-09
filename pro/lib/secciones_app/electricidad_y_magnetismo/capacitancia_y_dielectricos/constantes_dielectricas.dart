@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConstantesDielectricas extends StatefulWidget {
-  const ConstantesDielectricas({Key? key}) : super(key: key);
+  const ConstantesDielectricas({super.key});
 
   @override
   State<ConstantesDielectricas> createState() => _ConstantesDielectricasState();

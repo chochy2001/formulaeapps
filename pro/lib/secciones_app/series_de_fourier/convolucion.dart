@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Convolucion extends StatefulWidget {
-  const Convolucion({Key? key}) : super(key: key);
+  const Convolucion({super.key});
 
   @override
   ConvolucionState createState() => ConvolucionState();

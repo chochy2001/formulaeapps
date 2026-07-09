@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MatrizOrtogonal extends StatefulWidget {
-  const MatrizOrtogonal({Key? key}) : super(key: key);
+  const MatrizOrtogonal({super.key});
 
   @override
   MatrizOrtogonalState createState() => MatrizOrtogonalState();

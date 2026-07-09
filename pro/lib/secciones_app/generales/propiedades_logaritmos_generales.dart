@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../constantes/nombres_videos.dart';
 
 class PropiedadesLogaritmosGenerales extends StatefulWidget {
-  const PropiedadesLogaritmosGenerales({Key? key}) : super(key: key);
+  const PropiedadesLogaritmosGenerales({super.key});
 
   @override
   PropiedadesLogaritmosGeneralesState createState() =>

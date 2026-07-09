@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DefinicionDeCapacitancia extends StatefulWidget {
-  const DefinicionDeCapacitancia({Key? key}) : super(key: key);
+  const DefinicionDeCapacitancia({super.key});
 
   @override
   State<DefinicionDeCapacitancia> createState() =>

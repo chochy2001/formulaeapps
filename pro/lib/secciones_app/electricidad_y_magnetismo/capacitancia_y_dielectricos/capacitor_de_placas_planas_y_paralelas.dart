@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CapacitorDePlacasPlanasYParalelas extends StatefulWidget {
-  const CapacitorDePlacasPlanasYParalelas({Key? key}) : super(key: key);
+  const CapacitorDePlacasPlanasYParalelas({super.key});
 
   @override
   State<CapacitorDePlacasPlanasYParalelas> createState() =>

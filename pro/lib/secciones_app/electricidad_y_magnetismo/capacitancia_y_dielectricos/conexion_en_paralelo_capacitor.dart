@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConexionEnParaleloCapacitor extends StatefulWidget {
-  const ConexionEnParaleloCapacitor({Key? key}) : super(key: key);
+  const ConexionEnParaleloCapacitor({super.key});
 
   @override
   State<ConexionEnParaleloCapacitor> createState() =>

@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Informacion extends StatelessWidget {
-  const Informacion({Key? key}) : super(key: key);
+  const Informacion({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MedidasDeTendenciaCentralParaDatosNoAgrupados extends StatefulWidget {
-  const MedidasDeTendenciaCentralParaDatosNoAgrupados({Key? key})
-      : super(key: key);
+  const MedidasDeTendenciaCentralParaDatosNoAgrupados({super.key});
 
   @override
   MedidasDeTendenciaCentralParaDatosNoAgrupadosState createState() =>

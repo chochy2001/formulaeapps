@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TrigonometricasInversasIntegral extends StatefulWidget {
-  const TrigonometricasInversasIntegral({Key? key}) : super(key: key);
+  const TrigonometricasInversasIntegral({super.key});
 
   @override
   TrigonometricasInversasIntegralState createState() =>

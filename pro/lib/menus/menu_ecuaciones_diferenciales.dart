@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuEcuacionesDiferenciales extends StatefulWidget {
-  const MenuEcuacionesDiferenciales({Key? key}) : super(key: key);
+  const MenuEcuacionesDiferenciales({super.key});
 
   @override
   MenuEcuacionesDiferencialesState createState() =>

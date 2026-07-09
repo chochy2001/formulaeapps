@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TasaDeInteresGlobal extends StatefulWidget {
-  const TasaDeInteresGlobal({Key? key}) : super(key: key);
+  const TasaDeInteresGlobal({super.key});
 
   @override
   TasaDeInteresGlobalState createState() => TasaDeInteresGlobalState();

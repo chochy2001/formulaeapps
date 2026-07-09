@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class BicondicionalMatematicasDiscretas extends StatefulWidget {
-  const BicondicionalMatematicasDiscretas({Key? key}) : super(key: key);
+  const BicondicionalMatematicasDiscretas({super.key});
 
   @override
   BicondicionalMatematicasDiscretasState createState() =>

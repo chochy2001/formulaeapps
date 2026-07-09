@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CargaProtonElectron extends StatefulWidget {
-  const CargaProtonElectron({Key? key}) : super(key: key);
+  const CargaProtonElectron({super.key});
 
   @override
   State<CargaProtonElectron> createState() => _CargaProtonElectronState();

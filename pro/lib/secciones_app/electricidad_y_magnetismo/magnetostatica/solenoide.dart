@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Solenoide extends StatefulWidget {
-  const Solenoide({Key? key}) : super(key: key);
+  const Solenoide({super.key});
 
   @override
   State<Solenoide> createState() => _SolenoideState();

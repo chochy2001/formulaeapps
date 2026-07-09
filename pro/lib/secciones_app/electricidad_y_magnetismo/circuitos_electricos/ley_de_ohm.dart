@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeOhm extends StatefulWidget {
-  const LeyDeOhm({Key? key}) : super(key: key);
+  const LeyDeOhm({super.key});
 
   @override
   State<LeyDeOhm> createState() => _LeyDeOhmState();

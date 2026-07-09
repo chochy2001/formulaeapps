@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Busqueda extends StatefulWidget {
-  const Busqueda({Key? key}) : super(key: key);
+  const Busqueda({super.key});
 
   @override
   State<Busqueda> createState() => _BusquedaState();

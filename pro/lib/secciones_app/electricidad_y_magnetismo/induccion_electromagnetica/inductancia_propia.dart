@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InductanciaPropia extends StatefulWidget {
-  const InductanciaPropia({Key? key}) : super(key: key);
+  const InductanciaPropia({super.key});
 
   @override
   State<InductanciaPropia> createState() => _InductanciaPropiaState();

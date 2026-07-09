@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MatrizInversa extends StatefulWidget {
-  const MatrizInversa({Key? key}) : super(key: key);
+  const MatrizInversa({super.key});
 
   @override
   MatrizInversaState createState() => MatrizInversaState();

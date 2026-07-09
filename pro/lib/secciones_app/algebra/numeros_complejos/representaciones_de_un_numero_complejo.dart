@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class RepresentacionesDeNumerosComplejos extends StatefulWidget {
-  const RepresentacionesDeNumerosComplejos({Key? key}) : super(key: key);
+  const RepresentacionesDeNumerosComplejos({super.key});
 
   @override
   RepresentacionesDeNumerosComplejosState createState() =>

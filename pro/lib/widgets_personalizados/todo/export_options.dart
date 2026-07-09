@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constantes/export_constantes.dart';
 
 class ExportOptionsDialog extends StatefulWidget {
-  const ExportOptionsDialog({Key? key}) : super(key: key);
+  const ExportOptionsDialog({super.key});
 
   @override
   ExportOptionsDialogState createState() => ExportOptionsDialogState();

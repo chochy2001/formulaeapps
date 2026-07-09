@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SimbologiaCapacitores extends StatefulWidget {
-  const SimbologiaCapacitores({Key? key}) : super(key: key);
+  const SimbologiaCapacitores({super.key});
 
   @override
   State<SimbologiaCapacitores> createState() => _SimbologiaCapacitoresState();

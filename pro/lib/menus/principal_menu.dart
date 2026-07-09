@@ -6,8 +6,8 @@ import '../constantes/contantes_rutas.dart';
 
 class PrincipalMenu extends StatefulWidget {
   const PrincipalMenu({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<PrincipalMenu> createState() => _PrincipalMenuState();

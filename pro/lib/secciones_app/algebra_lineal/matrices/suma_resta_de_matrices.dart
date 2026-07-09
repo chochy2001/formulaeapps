@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SumaRestaDeMatrices extends StatefulWidget {
-  const SumaRestaDeMatrices({Key? key}) : super(key: key);
+  const SumaRestaDeMatrices({super.key});
 
   @override
   SumaRestaDeMatricesState createState() => SumaRestaDeMatricesState();

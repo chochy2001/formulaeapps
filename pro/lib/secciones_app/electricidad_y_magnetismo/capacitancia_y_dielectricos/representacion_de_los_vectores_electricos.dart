@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class RepresentacionDeLosVectoresElectricos extends StatefulWidget {
-  const RepresentacionDeLosVectoresElectricos({Key? key}) : super(key: key);
+  const RepresentacionDeLosVectoresElectricos({super.key});
 
   @override
   State<RepresentacionDeLosVectoresElectricos> createState() =>

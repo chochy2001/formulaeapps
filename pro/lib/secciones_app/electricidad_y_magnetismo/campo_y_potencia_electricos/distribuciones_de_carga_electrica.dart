@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionesDeCargaElectrica extends StatefulWidget {
-  const DistribucionesDeCargaElectrica({Key? key}) : super(key: key);
+  const DistribucionesDeCargaElectrica({super.key});
 
   @override
   State<DistribucionesDeCargaElectrica> createState() =>

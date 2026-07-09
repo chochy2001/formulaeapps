@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDeOhm extends StatefulWidget {
-  const EcuacionDeOhm({Key? key}) : super(key: key);
+  const EcuacionDeOhm({super.key});
 
   @override
   State<EcuacionDeOhm> createState() => _EcuacionDeOhmState();

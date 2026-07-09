@@ -4,7 +4,7 @@ import '../../../../constantes/export_constantes.dart';
 import '../../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ModuloyArgumentoNumerosComplejos extends StatefulWidget {
-  const ModuloyArgumentoNumerosComplejos({Key? key}) : super(key: key);
+  const ModuloyArgumentoNumerosComplejos({super.key});
 
   @override
   ModuloyArgumentoNumerosComplejosState createState() =>

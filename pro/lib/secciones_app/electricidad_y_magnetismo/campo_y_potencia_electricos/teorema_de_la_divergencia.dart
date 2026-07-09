@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoremaDeLaDivergencia extends StatefulWidget {
-  const TeoremaDeLaDivergencia({Key? key}) : super(key: key);
+  const TeoremaDeLaDivergencia({super.key});
 
   @override
   State<TeoremaDeLaDivergencia> createState() => _TeoremaDeLaDivergenciaState();

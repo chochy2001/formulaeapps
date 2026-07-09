@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MediaGeometrica extends StatefulWidget {
-  const MediaGeometrica({Key? key}) : super(key: key);
+  const MediaGeometrica({super.key});
 
   @override
   MediaGeometricaState createState() => MediaGeometricaState();

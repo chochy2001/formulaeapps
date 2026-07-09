@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AlgebraLinealMenu extends StatefulWidget {
-  const AlgebraLinealMenu({Key? key}) : super(key: key);
+  const AlgebraLinealMenu({super.key});
 
   @override
   AlgebraLinealMenuState createState() => AlgebraLinealMenuState();

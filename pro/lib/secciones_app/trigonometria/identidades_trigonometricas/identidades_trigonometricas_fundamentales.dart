@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IdentidadesTrigonometricasFundamentales extends StatefulWidget {
-  const IdentidadesTrigonometricasFundamentales({Key? key}) : super(key: key);
+  const IdentidadesTrigonometricasFundamentales({super.key});
 
   @override
   IdentidadesTrigonometricasFundamentalesState createState() =>

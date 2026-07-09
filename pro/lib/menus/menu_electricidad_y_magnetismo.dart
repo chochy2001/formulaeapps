@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuElectricidadYMagnetismo extends StatelessWidget {
-  const MenuElectricidadYMagnetismo({Key? key}) : super(key: key);
+  const MenuElectricidadYMagnetismo({super.key});
 
   @override
   Widget build(BuildContext context) {

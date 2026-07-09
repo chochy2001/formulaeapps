@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EstadisticaInferencial extends StatefulWidget {
-  const EstadisticaInferencial({Key? key}) : super(key: key);
+  const EstadisticaInferencial({super.key});
 
   @override
   EstadisticaInferencialState createState() => EstadisticaInferencialState();

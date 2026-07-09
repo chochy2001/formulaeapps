@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class VectoresYSuMagnitud extends StatefulWidget {
-  const VectoresYSuMagnitud({Key? key}) : super(key: key);
+  const VectoresYSuMagnitud({super.key});
 
   @override
   VectoresYSuMagnitudState createState() => VectoresYSuMagnitudState();

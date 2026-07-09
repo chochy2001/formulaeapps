@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EnergiaPotencialElectrica extends StatefulWidget {
-  const EnergiaPotencialElectrica({Key? key}) : super(key: key);
+  const EnergiaPotencialElectrica({super.key});
 
   @override
   State<EnergiaPotencialElectrica> createState() =>

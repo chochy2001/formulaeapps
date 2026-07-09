@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeGauss extends StatefulWidget {
-  const LeyDeGauss({Key? key}) : super(key: key);
+  const LeyDeGauss({super.key});
 
   @override
   State<LeyDeGauss> createState() => _LeyDeGaussState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CambioDeVariables extends StatefulWidget {
-  const CambioDeVariables({Key? key}) : super(key: key);
+  const CambioDeVariables({super.key});
 
   @override
   CambioDeVariablesState createState() => CambioDeVariablesState();

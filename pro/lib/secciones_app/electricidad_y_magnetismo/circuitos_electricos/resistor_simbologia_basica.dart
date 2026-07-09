@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ResistorSimbologiaBasica extends StatefulWidget {
-  const ResistorSimbologiaBasica({Key? key}) : super(key: key);
+  const ResistorSimbologiaBasica({super.key});
 
   @override
   State<ResistorSimbologiaBasica> createState() =>

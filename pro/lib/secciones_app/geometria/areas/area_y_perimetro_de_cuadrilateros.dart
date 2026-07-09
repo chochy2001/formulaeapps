@@ -7,7 +7,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AreaYPerimetroDeCuadrilateros extends StatefulWidget {
-  const AreaYPerimetroDeCuadrilateros({Key? key}) : super(key: key);
+  const AreaYPerimetroDeCuadrilateros({super.key});
 
   @override
   AreaYPerimetroDeCuadrilaterosState createState() =>

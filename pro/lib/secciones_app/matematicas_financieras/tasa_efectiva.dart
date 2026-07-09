@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TasaEfectiva extends StatefulWidget {
-  const TasaEfectiva({Key? key}) : super(key: key);
+  const TasaEfectiva({super.key});
 
   @override
   TasaEfectivaState createState() => TasaEfectivaState();

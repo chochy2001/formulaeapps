@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IntegralesDeLinea extends StatefulWidget {
-  const IntegralesDeLinea({Key? key}) : super(key: key);
+  const IntegralesDeLinea({super.key});
 
   @override
   IntegralesDeLineaState createState() => IntegralesDeLineaState();

@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IdentidadesTrigonometricasDeSumaYRestaDeAngulos extends StatefulWidget {
-  const IdentidadesTrigonometricasDeSumaYRestaDeAngulos({Key? key})
-      : super(key: key);
+  const IdentidadesTrigonometricasDeSumaYRestaDeAngulos({super.key});
 
   @override
   IdentidadesTrigonometricasDeSumaYRestaDeAngulosState createState() =>

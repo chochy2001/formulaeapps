@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PrincipioDeSuperposicion extends StatefulWidget {
-  const PrincipioDeSuperposicion({Key? key}) : super(key: key);
+  const PrincipioDeSuperposicion({super.key});
 
   @override
   State<PrincipioDeSuperposicion> createState() =>

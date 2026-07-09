@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyesDeLaTeoriaDeConjuntos extends StatefulWidget {
-  const LeyesDeLaTeoriaDeConjuntos({Key? key}) : super(key: key);
+  const LeyesDeLaTeoriaDeConjuntos({super.key});
 
   @override
   LeyesDeLaTeoriaDeConjuntosState createState() =>

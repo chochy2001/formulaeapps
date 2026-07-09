@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Bobina extends StatefulWidget {
-  const Bobina({Key? key}) : super(key: key);
+  const Bobina({super.key});
 
   @override
   State<Bobina> createState() => _BobinaState();

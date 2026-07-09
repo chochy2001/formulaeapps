@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TamanioMuestral extends StatefulWidget {
-  const TamanioMuestral({Key? key}) : super(key: key);
+  const TamanioMuestral({super.key});
 
   @override
   TamanioMuestralState createState() => TamanioMuestralState();

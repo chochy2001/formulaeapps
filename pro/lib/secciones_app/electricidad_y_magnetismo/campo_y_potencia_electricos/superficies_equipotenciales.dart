@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SuperficiesEquipotenciales extends StatefulWidget {
-  const SuperficiesEquipotenciales({Key? key}) : super(key: key);
+  const SuperficiesEquipotenciales({super.key});
 
   @override
   State<SuperficiesEquipotenciales> createState() =>

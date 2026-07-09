@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class InteresSimple extends StatefulWidget {
-  const InteresSimple({Key? key}) : super(key: key);
+  const InteresSimple({super.key});
 
   @override
   InteresSimpleState createState() => InteresSimpleState();

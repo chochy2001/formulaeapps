@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EspiraEnFormaDeCircunferencia extends StatefulWidget {
-  const EspiraEnFormaDeCircunferencia({Key? key}) : super(key: key);
+  const EspiraEnFormaDeCircunferencia({super.key});
 
   @override
   State<EspiraEnFormaDeCircunferencia> createState() =>

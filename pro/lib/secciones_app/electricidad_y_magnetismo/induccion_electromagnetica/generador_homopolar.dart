@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class GeneradorHomopolar extends StatefulWidget {
-  const GeneradorHomopolar({Key? key}) : super(key: key);
+  const GeneradorHomopolar({super.key});
 
   @override
   State<GeneradorHomopolar> createState() => _GeneradorHomopolarState();

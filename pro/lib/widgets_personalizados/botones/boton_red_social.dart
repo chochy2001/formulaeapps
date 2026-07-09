@@ -8,8 +8,7 @@ class BotonRedSocial extends StatelessWidget {
   final String text;
 
   const BotonRedSocial(
-      {Key? key, required this.url, required this.icon, required this.text})
-      : super(key: key);
+      {super.key, required this.url, required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {

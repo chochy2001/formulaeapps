@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuncionesHiperbolicasIntegral extends StatefulWidget {
-  const FuncionesHiperbolicasIntegral({Key? key}) : super(key: key);
+  const FuncionesHiperbolicasIntegral({super.key});
 
   @override
   FuncionesHiperbolicasIntegralState createState() =>

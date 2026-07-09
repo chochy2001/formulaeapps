@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionDePoisson extends StatefulWidget {
-  const DistribucionDePoisson({Key? key}) : super(key: key);
+  const DistribucionDePoisson({super.key});
 
   @override
   DistribucionDePoissonState createState() => DistribucionDePoissonState();

@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IdentidadesTrigonometricasDeAnguloDobleYMedio extends StatefulWidget {
-  const IdentidadesTrigonometricasDeAnguloDobleYMedio({Key? key})
-      : super(key: key);
+  const IdentidadesTrigonometricasDeAnguloDobleYMedio({super.key});
 
   @override
   IdentidadesTrigonometricasDeAnguloDobleYMedioState createState() =>

@@ -5,8 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IdentidadesTrigonometricasDeSumaAProductoYViceversa
     extends StatefulWidget {
-  const IdentidadesTrigonometricasDeSumaAProductoYViceversa({Key? key})
-      : super(key: key);
+  const IdentidadesTrigonometricasDeSumaAProductoYViceversa({super.key});
 
   @override
   IdentidadesTrigonometricasDeSumaAProductoYViceversaState createState() =>

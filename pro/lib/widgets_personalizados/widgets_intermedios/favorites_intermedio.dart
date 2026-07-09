@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../Favorites/favorites_screen.dart';
 
 class FavoritesIntermedio extends StatelessWidget {
-  const FavoritesIntermedio({Key? key}) : super(key: key);
+  const FavoritesIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {

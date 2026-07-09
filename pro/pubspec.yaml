@@ -31,6 +31,8 @@ dependencies:
   http: ^1.1.0
   animated_widgets: ^1.1.0
   in_app_purchase: ^3.1.8
+  # Direct import in lib + tests (FakeIapPlatform); keep aligned with lock 1.4.0.
+  in_app_purchase_platform_interface: ^1.4.0
   flutter_animate: ^4.2.0+1
   responsive_builder: ^0.7.0
   intl: ^0.20.2
@@ -52,7 +54,6 @@ dependencies:
   pdf: ^3.10.4
   timezone: ^0.9.2
   screenshot: ^3.0.0
-
 
 flutter_native_splash:
   background_image: assets/fondo_splash.png

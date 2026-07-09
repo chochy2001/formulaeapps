@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SolucionEcuaciones extends StatefulWidget {
-  const SolucionEcuaciones({Key? key}) : super(key: key);
+  const SolucionEcuaciones({super.key});
 
   @override
   SolucionEcuacionesState createState() => SolucionEcuacionesState();

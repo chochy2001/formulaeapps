@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeBiotSavart extends StatefulWidget {
-  const LeyDeBiotSavart({Key? key}) : super(key: key);
+  const LeyDeBiotSavart({super.key});
 
   @override
   State<LeyDeBiotSavart> createState() => _LeyDeBiotSavartState();

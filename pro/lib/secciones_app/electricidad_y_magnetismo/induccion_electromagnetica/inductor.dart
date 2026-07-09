@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Inductor extends StatefulWidget {
-  const Inductor({Key? key}) : super(key: key);
+  const Inductor({super.key});
 
   @override
   State<Inductor> createState() => _InductorState();

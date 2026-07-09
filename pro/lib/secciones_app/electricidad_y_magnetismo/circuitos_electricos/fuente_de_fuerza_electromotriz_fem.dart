@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuenteDeFuerzaElectromotrizFem extends StatefulWidget {
-  const FuenteDeFuerzaElectromotrizFem({Key? key}) : super(key: key);
+  const FuenteDeFuerzaElectromotrizFem({super.key});
 
   @override
   State<FuenteDeFuerzaElectromotrizFem> createState() =>

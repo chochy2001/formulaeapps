@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CampoElectrico extends StatefulWidget {
-  const CampoElectrico({Key? key}) : super(key: key);
+  const CampoElectrico({super.key});
 
   @override
   State<CampoElectrico> createState() => _CampoElectricoState();

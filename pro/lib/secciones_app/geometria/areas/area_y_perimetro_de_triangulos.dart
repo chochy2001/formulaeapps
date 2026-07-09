@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AreaYPerimetroDeTriangulos extends StatefulWidget {
-  const AreaYPerimetroDeTriangulos({Key? key}) : super(key: key);
+  const AreaYPerimetroDeTriangulos({super.key});
 
   @override
   AreaYPerimetroDeTriangulosState createState() =>

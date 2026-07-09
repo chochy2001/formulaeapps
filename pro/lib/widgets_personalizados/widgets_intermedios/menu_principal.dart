@@ -5,7 +5,7 @@ import 'package:universal_io/io.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuPrincipal1 extends StatelessWidget {
-  const MenuPrincipal1({Key? key}) : super(key: key);
+  const MenuPrincipal1({super.key});
 
   @override
   Widget build(BuildContext context) {

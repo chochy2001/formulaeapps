@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PreguntasFrecuentes extends StatefulWidget {
-  const PreguntasFrecuentes({Key? key}) : super(key: key);
+  const PreguntasFrecuentes({super.key});
 
   @override
   PreguntasFrecuentesState createState() => PreguntasFrecuentesState();

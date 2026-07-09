@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ProyeccionesDeVectores extends StatefulWidget {
-  const ProyeccionesDeVectores({Key? key}) : super(key: key);
+  const ProyeccionesDeVectores({super.key});
 
   @override
   ProyeccionesDeVectoresState createState() => ProyeccionesDeVectoresState();

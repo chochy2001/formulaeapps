@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ElipseConCentroEnElOrigen extends StatefulWidget {
-  const ElipseConCentroEnElOrigen({Key? key}) : super(key: key);
+  const ElipseConCentroEnElOrigen({super.key});
 
   @override
   ElipseConCentroEnElOrigenState createState() =>

@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../todo/tasks_screen.dart';
 
 class TodoListIntermedio extends StatelessWidget {
-  const TodoListIntermedio({Key? key}) : super(key: key);
+  const TodoListIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {

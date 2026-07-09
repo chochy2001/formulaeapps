@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuMagnetostatica extends StatelessWidget {
-  const MenuMagnetostatica({Key? key}) : super(key: key);
+  const MenuMagnetostatica({super.key});
 
   @override
   Widget build(BuildContext context) {

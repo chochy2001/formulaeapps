@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SimetriaDeMediaOnda extends StatefulWidget {
-  const SimetriaDeMediaOnda({Key? key}) : super(key: key);
+  const SimetriaDeMediaOnda({super.key});
 
   @override
   SimetriaDeMediaOndaState createState() => SimetriaDeMediaOndaState();

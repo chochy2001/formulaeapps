@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TransformadaSenoYCosenoDeFourier extends StatefulWidget {
-  const TransformadaSenoYCosenoDeFourier({Key? key}) : super(key: key);
+  const TransformadaSenoYCosenoDeFourier({super.key});
 
   @override
   TransformadaSenoYCosenoDeFourierState createState() =>

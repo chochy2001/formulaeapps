@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuTrigonometriaEsferica extends StatefulWidget {
-  const MenuTrigonometriaEsferica({Key? key}) : super(key: key);
+  const MenuTrigonometriaEsferica({super.key});
 
   @override
   MenuTrigonometriaEsfericaState createState() =>

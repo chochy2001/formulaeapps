@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDeLaRecta extends StatefulWidget {
-  const EcuacionDeLaRecta({Key? key}) : super(key: key);
+  const EcuacionDeLaRecta({super.key});
 
   @override
   EcuacionDeLaRectaState createState() => EcuacionDeLaRectaState();

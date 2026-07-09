@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MedicionYClasificacionDeAngulos extends StatefulWidget {
-  const MedicionYClasificacionDeAngulos({Key? key}) : super(key: key);
+  const MedicionYClasificacionDeAngulos({super.key});
 
   @override
   MedicionYClasificacionDeAngulosState createState() =>

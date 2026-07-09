@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class IntervalosDeConfianza extends StatefulWidget {
-  const IntervalosDeConfianza({Key? key}) : super(key: key);
+  const IntervalosDeConfianza({super.key});
 
   @override
   IntervalosDeConfianzaState createState() => IntervalosDeConfianzaState();

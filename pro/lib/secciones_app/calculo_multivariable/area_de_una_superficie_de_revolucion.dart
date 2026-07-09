@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AreaDeUnaSuperficieDeRevolucion extends StatefulWidget {
-  const AreaDeUnaSuperficieDeRevolucion({Key? key}) : super(key: key);
+  const AreaDeUnaSuperficieDeRevolucion({super.key});
 
   @override
   AreaDeUnaSuperficieDeRevolucionState createState() =>

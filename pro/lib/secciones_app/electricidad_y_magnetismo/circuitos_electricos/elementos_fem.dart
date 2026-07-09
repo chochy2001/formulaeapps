@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ElementosFem extends StatefulWidget {
-  const ElementosFem({Key? key}) : super(key: key);
+  const ElementosFem({super.key});
 
   @override
   State<ElementosFem> createState() => _ElementosFemState();

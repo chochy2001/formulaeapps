@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../constantes/nombres_videos.dart';
 
 class DerivacionBasicaDiferencial extends StatefulWidget {
-  const DerivacionBasicaDiferencial({Key? key}) : super(key: key);
+  const DerivacionBasicaDiferencial({super.key});
 
   @override
   DerivacionBasicaDiferencialState createState() =>

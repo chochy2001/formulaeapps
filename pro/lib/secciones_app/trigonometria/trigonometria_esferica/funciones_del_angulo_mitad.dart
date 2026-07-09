@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuncionesDelAnguloMitad extends StatefulWidget {
-  const FuncionesDelAnguloMitad({Key? key}) : super(key: key);
+  const FuncionesDelAnguloMitad({super.key});
 
   @override
   FuncionesDelAnguloMitadState createState() => FuncionesDelAnguloMitadState();

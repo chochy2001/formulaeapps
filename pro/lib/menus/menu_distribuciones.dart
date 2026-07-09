@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuDistribuciones extends StatefulWidget {
-  const MenuDistribuciones({Key? key}) : super(key: key);
+  const MenuDistribuciones({super.key});
 
   @override
   MenuDistribucionesState createState() => MenuDistribucionesState();

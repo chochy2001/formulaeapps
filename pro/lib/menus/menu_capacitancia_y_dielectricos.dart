@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuCapacitanciaYDielectricos extends StatelessWidget {
-  const MenuCapacitanciaYDielectricos({Key? key}) : super(key: key);
+  const MenuCapacitanciaYDielectricos({super.key});
 
   @override
   Widget build(BuildContext context) {

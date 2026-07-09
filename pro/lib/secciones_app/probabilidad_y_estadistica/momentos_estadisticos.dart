@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MomentosEstadisticos extends StatefulWidget {
-  const MomentosEstadisticos({Key? key}) : super(key: key);
+  const MomentosEstadisticos({super.key});
 
   @override
   MomentosEstadisticosState createState() => MomentosEstadisticosState();

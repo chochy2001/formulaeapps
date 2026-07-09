@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuMatematicasDiscretas extends StatefulWidget {
-  const MenuMatematicasDiscretas({Key? key}) : super(key: key);
+  const MenuMatematicasDiscretas({super.key});
 
   @override
   MenuMatematicasDiscretasState createState() =>

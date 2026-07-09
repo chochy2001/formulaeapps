@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeProyecciones extends StatefulWidget {
-  const LeyDeProyecciones({Key? key}) : super(key: key);
+  const LeyDeProyecciones({super.key});
 
   @override
   LeyDeProyeccionesState createState() => LeyDeProyeccionesState();

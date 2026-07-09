@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeCorrientesDeKirchhoff extends StatefulWidget {
-  const LeyDeCorrientesDeKirchhoff({Key? key}) : super(key: key);
+  const LeyDeCorrientesDeKirchhoff({super.key});
 
   @override
   State<LeyDeCorrientesDeKirchhoff> createState() =>

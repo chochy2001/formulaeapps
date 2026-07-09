@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class VectorUnitario extends StatefulWidget {
-  const VectorUnitario({Key? key}) : super(key: key);
+  const VectorUnitario({super.key});
 
   @override
   VectorUnitarioState createState() => VectorUnitarioState();

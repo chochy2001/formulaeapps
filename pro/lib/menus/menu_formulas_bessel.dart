@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuFormulasBessel extends StatefulWidget {
-  const MenuFormulasBessel({Key? key}) : super(key: key);
+  const MenuFormulasBessel({super.key});
 
   @override
   MenuFormulasBesselState createState() => MenuFormulasBesselState();

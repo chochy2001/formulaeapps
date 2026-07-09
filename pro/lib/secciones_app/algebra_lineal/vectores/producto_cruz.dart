@@ -4,7 +4,7 @@ import '../../../../constantes/export_constantes.dart';
 import '../../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ProductoCruz extends StatefulWidget {
-  const ProductoCruz({Key? key}) : super(key: key);
+  const ProductoCruz({super.key});
 
   @override
   ProductoCruzState createState() => ProductoCruzState();

@@ -7,7 +7,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AreaYPerimetroDelCirculo extends StatefulWidget {
-  const AreaYPerimetroDelCirculo({Key? key}) : super(key: key);
+  const AreaYPerimetroDelCirculo({super.key});
 
   @override
   AreaYPerimetroDelCirculoState createState() =>

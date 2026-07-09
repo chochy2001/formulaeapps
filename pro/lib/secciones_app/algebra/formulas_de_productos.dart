@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FormulasDeProductos extends StatefulWidget {
-  const FormulasDeProductos({Key? key}) : super(key: key);
+  const FormulasDeProductos({super.key});
 
   @override
   FormulasDeProductosState createState() => FormulasDeProductosState();

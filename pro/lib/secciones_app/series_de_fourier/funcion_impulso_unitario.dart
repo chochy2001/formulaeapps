@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FuncionImpulsoUnitario extends StatefulWidget {
-  const FuncionImpulsoUnitario({Key? key}) : super(key: key);
+  const FuncionImpulsoUnitario({super.key});
 
   @override
   FuncionImpulsoUnitarioState createState() => FuncionImpulsoUnitarioState();

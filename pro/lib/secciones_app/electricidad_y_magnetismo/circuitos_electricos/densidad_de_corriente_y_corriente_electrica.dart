@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DensidadDeCorrienteYCorrienteElectrica extends StatefulWidget {
-  const DensidadDeCorrienteYCorrienteElectrica({Key? key}) : super(key: key);
+  const DensidadDeCorrienteYCorrienteElectrica({super.key});
 
   @override
   State<DensidadDeCorrienteYCorrienteElectrica> createState() =>

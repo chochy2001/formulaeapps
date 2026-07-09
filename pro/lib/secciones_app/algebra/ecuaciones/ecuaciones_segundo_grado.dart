@@ -9,7 +9,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionesDeSegundoGrado extends StatefulWidget {
-  const EcuacionesDeSegundoGrado({Key? key}) : super(key: key);
+  const EcuacionesDeSegundoGrado({super.key});
 
   @override
   EcuacionesDeSegundoGradoState createState() =>

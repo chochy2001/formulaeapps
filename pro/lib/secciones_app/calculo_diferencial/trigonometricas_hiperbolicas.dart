@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TrigonometricasHiperbolicasDiferencial extends StatefulWidget {
-  const TrigonometricasHiperbolicasDiferencial({Key? key}) : super(key: key);
+  const TrigonometricasHiperbolicasDiferencial({super.key});
 
   @override
   TrigonometricasHiperbolicasDiferencialState createState() =>

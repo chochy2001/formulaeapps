@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuSimetrias extends StatefulWidget {
-  const MenuSimetrias({Key? key}) : super(key: key);
+  const MenuSimetrias({super.key});
 
   @override
   MenuSimetriasState createState() => MenuSimetriasState();

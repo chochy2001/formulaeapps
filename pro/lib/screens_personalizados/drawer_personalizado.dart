@@ -12,7 +12,7 @@ class DrawerPersonalizado extends StatelessWidget {
   final int plataform;
   static const int widthFinal = 400;
 
-  const DrawerPersonalizado(this.plataform, {Key? key}) : super(key: key);
+  const DrawerPersonalizado(this.plataform, {super.key});
 
   @override
   Widget build(BuildContext context) {

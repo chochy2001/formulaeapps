@@ -19,7 +19,6 @@ import 'package:formulae/secciones_app/geometria/areas/area_y_perimetro_de_cuadr
 import 'package:formulae/secciones_app/geometria/areas/area_y_perimetro_de_triangulos.dart';
 import 'package:formulae/widgets_personalizados/todo/add_task_screen.dart';
 import 'package:formulae/widgets_personalizados/todo/export_options.dart';
-import 'package:formulae/widgets_personalizados/todo/task.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
 import 'package:formulae/widgets_personalizados/todo/tasks_list.dart';
 import 'package:formulae/widgets_personalizados/todo/tasks_screen.dart';
@@ -126,13 +125,13 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(900, 2000));
     final screens = <Widget>[
       const FormulaGeneral(),
-      PropiedadesLogaritmosGenerales(),
-      IdentidadesTrigonometricasGenerales(),
-      DerivacionBasicaDiferencial(),
-      IntegracionBasicaIntegral(),
+      const PropiedadesLogaritmosGenerales(),
+      const IdentidadesTrigonometricasGenerales(),
+      const DerivacionBasicaDiferencial(),
+      const IntegracionBasicaIntegral(),
       const AreaYPerimetroDeCuadrilateros(),
-      AreaYPerimetroDeTriangulos(),
-      EcuacionesDeSegundoGrado(),
+      const AreaYPerimetroDeTriangulos(),
+      const EcuacionesDeSegundoGrado(),
     ];
 
     for (final screen in screens) {

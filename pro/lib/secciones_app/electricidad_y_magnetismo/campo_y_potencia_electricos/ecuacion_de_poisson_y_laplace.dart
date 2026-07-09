@@ -4,7 +4,7 @@ import '../../../../constantes/export_constantes.dart';
 import '../../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDePoissonYLaplace extends StatefulWidget {
-  const EcuacionDePoissonYLaplace({Key? key}) : super(key: key);
+  const EcuacionDePoissonYLaplace({super.key});
 
   @override
   State<EcuacionDePoissonYLaplace> createState() =>

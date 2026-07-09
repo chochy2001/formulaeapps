@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PropiedadesLimites extends StatefulWidget {
-  const PropiedadesLimites({Key? key}) : super(key: key);
+  const PropiedadesLimites({super.key});
 
   @override
   PropiedadesLimitesState createState() => PropiedadesLimitesState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Probabilidad extends StatefulWidget {
-  const Probabilidad({Key? key}) : super(key: key);
+  const Probabilidad({super.key});
 
   @override
   ProbabilidadState createState() => ProbabilidadState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyesDeKirchhoffCircuitoRC extends StatefulWidget {
-  const LeyesDeKirchhoffCircuitoRC({Key? key}) : super(key: key);
+  const LeyesDeKirchhoffCircuitoRC({super.key});
 
   @override
   State<LeyesDeKirchhoffCircuitoRC> createState() =>

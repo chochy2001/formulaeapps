@@ -16,7 +16,7 @@ import 'export_options.dart';
 import 'tasks_list.dart';
 
 class TasksScreen extends StatelessWidget {
-  const TasksScreen({Key? key}) : super(key: key);
+  const TasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class TasksScreen extends StatelessWidget {
                               },
                               label: Text(
                                 AppLocalizations.of(context)!.compartirTareas,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontFamily: 'Poppins'),
                               ),
                               icon: const Icon(
@@ -231,7 +231,7 @@ class TasksScreen extends StatelessWidget {
                               },
                               label: Text(
                                 AppLocalizations.of(context)!.agregar,
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                               icon: const Icon(
                                 Icons.add,

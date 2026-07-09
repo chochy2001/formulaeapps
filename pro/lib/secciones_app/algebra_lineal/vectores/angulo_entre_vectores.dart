@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AnguloEntreVectores extends StatefulWidget {
-  const AnguloEntreVectores({Key? key}) : super(key: key);
+  const AnguloEntreVectores({super.key});
 
   @override
   AnguloEntreVectoresState createState() => AnguloEntreVectoresState();

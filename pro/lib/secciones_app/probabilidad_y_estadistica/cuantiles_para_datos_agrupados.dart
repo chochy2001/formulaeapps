@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CuantilesParaDatosAgrupados extends StatefulWidget {
-  const CuantilesParaDatosAgrupados({Key? key}) : super(key: key);
+  const CuantilesParaDatosAgrupados({super.key});
 
   @override
   CuantilesParaDatosAgrupadosState createState() =>

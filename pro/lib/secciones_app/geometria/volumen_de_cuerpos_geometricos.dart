@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class VolumenDeCuerposGeometricos extends StatefulWidget {
-  const VolumenDeCuerposGeometricos({Key? key}) : super(key: key);
+  const VolumenDeCuerposGeometricos({super.key});
 
   @override
   VolumenDeCuerposGeometricosState createState() =>

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MultiplicacionDeMatrices extends StatefulWidget {
-  const MultiplicacionDeMatrices({Key? key}) : super(key: key);
+  const MultiplicacionDeMatrices({super.key});
 
   @override
   MultiplicacionDeMatricesState createState() =>

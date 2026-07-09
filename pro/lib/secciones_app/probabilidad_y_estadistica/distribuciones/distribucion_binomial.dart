@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DistribucionBinomial extends StatefulWidget {
-  const DistribucionBinomial({Key? key}) : super(key: key);
+  const DistribucionBinomial({super.key});
 
   @override
   DistribucionBinomialState createState() => DistribucionBinomialState();

@@ -9,7 +9,7 @@ import '../main.dart';
 import '../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Configuracion extends StatelessWidget {
-  const Configuracion({Key? key}) : super(key: key);
+  const Configuracion({super.key});
 
   @override
   Widget build(BuildContext context) {

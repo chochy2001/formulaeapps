@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SerieTaylorMaClaurin extends StatefulWidget {
-  const SerieTaylorMaClaurin({Key? key}) : super(key: key);
+  const SerieTaylorMaClaurin({super.key});
 
   @override
   SerieTaylorMaClaurinState createState() => SerieTaylorMaClaurinState();

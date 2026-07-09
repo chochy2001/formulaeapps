@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AngulosEnUnPoligono extends StatefulWidget {
-  const AngulosEnUnPoligono({Key? key}) : super(key: key);
+  const AngulosEnUnPoligono({super.key});
 
   @override
   AngulosEnUnPoligonoState createState() => AngulosEnUnPoligonoState();

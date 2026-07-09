@@ -9,12 +9,12 @@ class CapdesisLogo extends StatelessWidget {
   final bool showBackground;
 
   const CapdesisLogo({
-    Key? key,
+    super.key,
     this.height = 100.0,
     this.width = 100.0,
     this.padding = 10.0,
     this.showBackground = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,8 @@ class CapdesisLogo extends StatelessWidget {
 
 class ImagenLogoFormulae extends StatelessWidget {
   const ImagenLogoFormulae({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

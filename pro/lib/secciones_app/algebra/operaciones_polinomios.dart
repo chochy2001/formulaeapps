@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class OperacionesConPolinomios extends StatefulWidget {
-  const OperacionesConPolinomios({Key? key}) : super(key: key);
+  const OperacionesConPolinomios({super.key});
 
   @override
   OperacionesConPolinomiosState createState() =>

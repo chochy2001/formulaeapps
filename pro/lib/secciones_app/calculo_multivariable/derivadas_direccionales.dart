@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DerivadasDireccionales extends StatefulWidget {
-  const DerivadasDireccionales({Key? key}) : super(key: key);
+  const DerivadasDireccionales({super.key});
 
   @override
   DerivadasDireccionalesState createState() => DerivadasDireccionalesState();

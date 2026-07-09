@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class DerivadaFuncionesVectoriales extends StatefulWidget {
-  const DerivadaFuncionesVectoriales({Key? key}) : super(key: key);
+  const DerivadaFuncionesVectoriales({super.key});
 
   @override
   DerivadaFuncionesVectorialesState createState() =>

@@ -229,7 +229,7 @@ String? getImageUrlById(BuildContext context, String id) {
 class VerImagen extends StatelessWidget {
   final String url;
 
-  const VerImagen({Key? key, required this.url}) : super(key: key);
+  const VerImagen({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -267,7 +267,7 @@ class VerImagen extends StatelessWidget {
 class VerImagenNuevo extends StatelessWidget {
   final String imageUrl;
 
-  const VerImagenNuevo({Key? key, required this.imageUrl}) : super(key: key);
+  const VerImagenNuevo({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

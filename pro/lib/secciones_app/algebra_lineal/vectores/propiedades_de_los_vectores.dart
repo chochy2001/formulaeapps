@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PropiedadesDeLosVectores extends StatefulWidget {
-  const PropiedadesDeLosVectores({Key? key}) : super(key: key);
+  const PropiedadesDeLosVectores({super.key});
 
   @override
   PropiedadesDeLosVectoresState createState() =>

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ReglaDeCramer extends StatefulWidget {
-  const ReglaDeCramer({Key? key}) : super(key: key);
+  const ReglaDeCramer({super.key});
 
   @override
   ReglaDeCramerState createState() => ReglaDeCramerState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeCoulomb extends StatefulWidget {
-  const LeyDeCoulomb({Key? key}) : super(key: key);
+  const LeyDeCoulomb({super.key});
 
   @override
   State<LeyDeCoulomb> createState() => _LeyDeCoulombState();

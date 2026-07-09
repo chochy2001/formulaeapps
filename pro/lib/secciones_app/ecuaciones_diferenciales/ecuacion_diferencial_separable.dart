@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDiferencialSeparable extends StatefulWidget {
-  const EcuacionDiferencialSeparable({Key? key}) : super(key: key);
+  const EcuacionDiferencialSeparable({super.key});
 
   @override
   EcuacionDiferencialSeparableState createState() =>

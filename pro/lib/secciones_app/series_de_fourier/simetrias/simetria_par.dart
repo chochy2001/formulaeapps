@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SimetriaPar extends StatefulWidget {
-  const SimetriaPar({Key? key}) : super(key: key);
+  const SimetriaPar({super.key});
 
   @override
   SimetriaParState createState() => SimetriaParState();

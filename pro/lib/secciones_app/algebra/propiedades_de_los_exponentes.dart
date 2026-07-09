@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PropiedadesDeLosExponentes extends StatefulWidget {
-  const PropiedadesDeLosExponentes({Key? key}) : super(key: key);
+  const PropiedadesDeLosExponentes({super.key});
 
   @override
   PropiedadesDeLosExponentesState createState() =>

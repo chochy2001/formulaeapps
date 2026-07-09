@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionDiferencialLinealDePrimerOrden extends StatefulWidget {
-  const EcuacionDiferencialLinealDePrimerOrden({Key? key}) : super(key: key);
+  const EcuacionDiferencialLinealDePrimerOrden({super.key});
 
   @override
   EcuacionDiferencialLinealDePrimerOrdenState createState() =>

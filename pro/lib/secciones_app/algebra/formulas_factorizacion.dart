@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class FormulasDeFactorizacion extends StatefulWidget {
-  const FormulasDeFactorizacion({Key? key}) : super(key: key);
+  const FormulasDeFactorizacion({super.key});
 
   @override
   FormulasDeFactorizacionState createState() => FormulasDeFactorizacionState();

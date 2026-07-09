@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class OperacionesFraccionesAlgebraicas extends StatefulWidget {
-  const OperacionesFraccionesAlgebraicas({Key? key}) : super(key: key);
+  const OperacionesFraccionesAlgebraicas({super.key});
 
   @override
   OperacionesFraccionesAlgebraicasState createState() =>

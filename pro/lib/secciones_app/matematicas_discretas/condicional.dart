@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CondicionalMatematicasDiscretas extends StatefulWidget {
-  const CondicionalMatematicasDiscretas({Key? key}) : super(key: key);
+  const CondicionalMatematicasDiscretas({super.key});
 
   @override
   CondicionalMatematicasDiscretasState createState() =>

@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyDeInduccionDeFaradayEnergiaEnUnInductor extends StatefulWidget {
-  const LeyDeInduccionDeFaradayEnergiaEnUnInductor({Key? key})
-      : super(key: key);
+  const LeyDeInduccionDeFaradayEnergiaEnUnInductor({super.key});
 
   @override
   State<LeyDeInduccionDeFaradayEnergiaEnUnInductor> createState() =>

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constantes/export_constantes.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+  const AddTaskScreen({super.key});
 
   @override
   AddTaskScreenState createState() => AddTaskScreenState();

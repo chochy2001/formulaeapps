@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ConjuncionMatematicasDiscretas extends StatefulWidget {
-  const ConjuncionMatematicasDiscretas({Key? key}) : super(key: key);
+  const ConjuncionMatematicasDiscretas({super.key});
 
   @override
   ConjuncionMatematicasDiscretasState createState() =>

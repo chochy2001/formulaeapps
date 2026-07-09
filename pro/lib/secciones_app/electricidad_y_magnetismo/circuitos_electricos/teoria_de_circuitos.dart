@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class TeoriaDeCircuitos extends StatefulWidget {
-  const TeoriaDeCircuitos({Key? key}) : super(key: key);
+  const TeoriaDeCircuitos({super.key});
 
   @override
   State<TeoriaDeCircuitos> createState() => _TeoriaDeCircuitosState();

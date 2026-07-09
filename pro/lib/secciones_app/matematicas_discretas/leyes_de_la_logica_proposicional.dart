@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class LeyesDeLaLogicaProposicional extends StatefulWidget {
-  const LeyesDeLaLogicaProposicional({Key? key}) : super(key: key);
+  const LeyesDeLaLogicaProposicional({super.key});
 
   @override
   LeyesDeLaLogicaProposicionalState createState() =>

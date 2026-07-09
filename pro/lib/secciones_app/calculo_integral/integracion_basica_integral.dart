@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../../constantes/nombres_videos.dart';
 
 class IntegracionBasicaIntegral extends StatefulWidget {
-  const IntegracionBasicaIntegral({Key? key}) : super(key: key);
+  const IntegracionBasicaIntegral({super.key});
 
   @override
   IntegracionBasicaIntegralState createState() =>

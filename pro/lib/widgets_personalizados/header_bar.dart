@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constantes/export_constantes.dart';
 
 class HeaderBar extends StatelessWidget {
-  const HeaderBar({Key? key}) : super(key: key);
+  const HeaderBar({super.key});
 
   @override
   Widget build(BuildContext context) {

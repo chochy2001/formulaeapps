@@ -4,8 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class SuperficieDeUnTrianguloYUnPoligonoEsferico extends StatefulWidget {
-  const SuperficieDeUnTrianguloYUnPoligonoEsferico({Key? key})
-      : super(key: key);
+  const SuperficieDeUnTrianguloYUnPoligonoEsferico({super.key});
 
   @override
   SuperficieDeUnTrianguloYUnPoligonoEsfericoState createState() =>

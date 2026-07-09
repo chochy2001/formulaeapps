@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuLimites extends StatefulWidget {
-  const MenuLimites({Key? key}) : super(key: key);
+  const MenuLimites({super.key});
 
   @override
   MenuLimitesState createState() => MenuLimitesState();

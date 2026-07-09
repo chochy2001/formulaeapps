@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class ValoresDeSenoYCoseno extends StatefulWidget {
-  const ValoresDeSenoYCoseno({Key? key}) : super(key: key);
+  const ValoresDeSenoYCoseno({super.key});
 
   @override
   ValoresDeSenoYCosenoState createState() => ValoresDeSenoYCosenoState();

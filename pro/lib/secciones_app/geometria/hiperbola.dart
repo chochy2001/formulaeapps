@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class Hiperbola extends StatefulWidget {
-  const Hiperbola({Key? key}) : super(key: key);
+  const Hiperbola({super.key});
 
   @override
   HiperbolaState createState() => HiperbolaState();

@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CalculoDeDiferenciasDePotencial extends StatefulWidget {
-  const CalculoDeDiferenciasDePotencial({Key? key}) : super(key: key);
+  const CalculoDeDiferenciasDePotencial({super.key});
 
   @override
   State<CalculoDeDiferenciasDePotencial> createState() =>

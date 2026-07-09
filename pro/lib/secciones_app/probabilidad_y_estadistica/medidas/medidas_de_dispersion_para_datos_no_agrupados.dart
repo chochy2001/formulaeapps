@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MedidasDeDispersionParaDatosNoAgrupados extends StatefulWidget {
-  const MedidasDeDispersionParaDatosNoAgrupados({Key? key}) : super(key: key);
+  const MedidasDeDispersionParaDatosNoAgrupados({super.key});
 
   @override
   MedidasDeDispersionParaDatosNoAgrupadosState createState() =>

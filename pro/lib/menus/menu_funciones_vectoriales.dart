@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class MenuFuncionesVectoriales extends StatefulWidget {
-  const MenuFuncionesVectoriales({Key? key}) : super(key: key);
+  const MenuFuncionesVectoriales({super.key});
 
   @override
   MenuFuncionesVectorialesState createState() =>

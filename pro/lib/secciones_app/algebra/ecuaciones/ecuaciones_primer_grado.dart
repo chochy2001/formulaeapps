@@ -6,7 +6,7 @@ import '../../../../constantes/export_constantes.dart';
 import '../../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class EcuacionesDePrimerGrado extends StatefulWidget {
-  const EcuacionesDePrimerGrado({Key? key}) : super(key: key);
+  const EcuacionesDePrimerGrado({super.key});
 
   @override
   EcuacionesDePrimerGradoState createState() => EcuacionesDePrimerGradoState();

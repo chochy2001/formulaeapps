@@ -6,7 +6,7 @@ import '../constantes/export_constantes.dart';
 class TituloPersonalizado extends StatelessWidget {
   final String titulo;
 
-  const TituloPersonalizado(this.titulo, {Key? key}) : super(key: key);
+  const TituloPersonalizado(this.titulo, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class TituloPersonalizado extends StatelessWidget {
 class TextoEcuaciones extends StatelessWidget {
   final String texto;
 
-  const TextoEcuaciones(this.texto, {Key? key}) : super(key: key);
+  const TextoEcuaciones(this.texto, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class TextoEcuaciones extends StatelessWidget {
 class TextoBotonesDelgado extends StatelessWidget {
   final String texto;
 
-  const TextoBotonesDelgado(this.texto, {Key? key}) : super(key: key);
+  const TextoBotonesDelgado(this.texto, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class TextoBotonesDelgado extends StatelessWidget {
 class Latex extends StatelessWidget {
   final String formulaText;
 
-  const Latex({Key? key, required this.formulaText}) : super(key: key);
+  const Latex({super.key, required this.formulaText});
 
   @override
   Widget build(BuildContext context) {
@@ -96,8 +96,8 @@ class Latex extends StatelessWidget {
 
 class CapdesisLatex extends StatelessWidget {
   const CapdesisLatex({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,8 +108,8 @@ class CapdesisLatex extends StatelessWidget {
 
 class Notas extends StatelessWidget {
   const Notas({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

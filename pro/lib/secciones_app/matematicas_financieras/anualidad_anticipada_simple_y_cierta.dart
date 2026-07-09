@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class AnualidadAnticipadaSimpleYCierta extends StatefulWidget {
-  const AnualidadAnticipadaSimpleYCierta({Key? key}) : super(key: key);
+  const AnualidadAnticipadaSimpleYCierta({super.key});
 
   @override
   AnualidadAnticipadaSimpleYCiertaState createState() =>

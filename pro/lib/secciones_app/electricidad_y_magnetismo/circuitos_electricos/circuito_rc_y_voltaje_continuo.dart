@@ -4,7 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class CircuitoRCyVoltajeContinuo extends StatefulWidget {
-  const CircuitoRCyVoltajeContinuo({Key? key}) : super(key: key);
+  const CircuitoRCyVoltajeContinuo({super.key});
 
   @override
   State<CircuitoRCyVoltajeContinuo> createState() =>
