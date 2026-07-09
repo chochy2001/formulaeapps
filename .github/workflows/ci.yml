@@ -144,6 +144,11 @@ jobs:
             --dart-define=JWT_SHARED_SECRET=test-shared-secret \
             --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
             --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+      - name: BFF client contract tests
+        working-directory: pro/packages/formulaeapps_bff_client
+        run: |
+          flutter pub get
+          dart test
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
@@ -166,5 +171,34 @@ jobs:
         run: flutter pub get
       - name: analyze
         run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+      # Same dart-defines as pro-test: auth minting path needs JWT_SHARED_SECRET.
       - name: test
-        run: flutter test --no-pub --reporter compact
+        run: |
+          flutter test --no-pub --reporter compact \
+            --dart-define=JWT_SHARED_SECRET=test-shared-secret \
+            --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+            --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+      - name: BFF client contract tests
+        working-directory: community/packages/formulaeapps_bff_client
+        run: |
+          flutter pub get
+          dart test
+
+  landing-test:
+    name: Landing — vitest (Principle VIII)
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: landing
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+          no-cache: true
+      - name: Install deps
+        run: bun install --frozen-lockfile
+      - name: Unit tests
+        run: bun run test

@@ -98,9 +98,11 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void _initializePurchaseDetails() {
-    _inAppPurchaseManager.inAppPurchase;
+    // Touch the injectable platform so production still registers the store
+    // facade before listening (same eager-init as the old inAppPurchase getter).
+    _inAppPurchaseManager.platform;
     purchaseSubscription =
-        _inAppPurchaseManager.inAppPurchase.purchaseStream.listen((purchases) {
+        _inAppPurchaseManager.platform.purchaseStream.listen((purchases) {
       _inAppPurchaseManager.handlePurchaseUpdates(purchases);
       setState(() {});
     });

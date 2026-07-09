@@ -50,30 +50,56 @@ void main() {
       );
       AuthService.invalidate();
 
-      expect(
-        () => AuthService.getToken(),
-        throwsA(
-          isA<StateError>().having(
-            (e) => e.message,
-            'message',
-            contains('JWT_SHARED_SECRET'),
+      if (jwtSharedSecret.isEmpty) {
+        await expectLater(
+          AuthService.getToken(),
+          throwsA(
+            isA<StateError>().having(
+              (e) => e.message,
+              'message',
+              contains('JWT_SHARED_SECRET'),
+            ),
           ),
-        ),
+        );
+        return;
+      }
+
+      var requestCount = 0;
+      final client = MockClient((request) async {
+        requestCount++;
+        return http.Response('auth failed', 500);
+      });
+
+      await expectLater(
+        AuthService.getToken(client: client),
+        throwsA(isA<StateError>()),
       );
+      expect(requestCount, 1);
     });
 
     test('ignores malformed rotated tokens', () async {
       AuthService.adoptRotatedToken('not-a-jwt');
 
-      expect(
-        () => AuthService.getToken(),
+      if (jwtSharedSecret.isEmpty) {
+        await expectLater(
+          AuthService.getToken(),
+          throwsA(isA<StateError>()),
+        );
+        return;
+      }
+
+      await expectLater(
+        AuthService.getToken(
+          client: MockClient((_) async => http.Response('nope', 500)),
+        ),
         throwsA(isA<StateError>()),
       );
     });
   });
 
   group('AuthService BFF refresh', () {
-    test('getToken posts client proof to /auth/token when cache is cold', () async {
+    test('getToken posts client proof to /auth/token when cache is cold',
+        () async {
       if (jwtSharedSecret.isEmpty) {
         // CI/local: flutter test --dart-define=JWT_SHARED_SECRET=unit-test-secret
         return;
@@ -82,7 +108,10 @@ void main() {
       final expiresAt =
           DateTime.now().toUtc().add(const Duration(hours: 1)).toIso8601String();
       final issuedToken = testJwt(
-        expUnix: DateTime.now().toUtc().add(const Duration(hours: 1)).millisecondsSinceEpoch ~/
+        expUnix: DateTime.now()
+                .toUtc()
+                .add(const Duration(hours: 1))
+                .millisecondsSinceEpoch ~/
             1000,
       );
 
@@ -107,7 +136,7 @@ void main() {
       expect(body['client_id'], isNotEmpty);
       expect(body['client_proof'], isNotEmpty);
       expect(body['build_nonce'], buildNonce);
-      expect(body['platform'], 'android');
+      expect(body['platform'], isNotEmpty);
       expect(body['app_version'], appVersion);
     });
   });

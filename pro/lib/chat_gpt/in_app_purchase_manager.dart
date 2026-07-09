@@ -1,37 +1,60 @@
 // ignore_for_file: unnecessary_getters_setters
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'dart:async';
+import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 import 'package:universal_io/io.dart';
+
 import '../constantes/export_constantes.dart';
 import '../widgets_personalizados/textos_personalizados.dart';
 
+/// Product catalog + purchase stream handler for Pro IAP.
+///
+/// [platform] is injectable so unit tests can drive purchase updates without
+/// the real store. Production callers keep using the zero-arg constructor.
 class InAppPurchaseManager extends ChangeNotifier {
+  InAppPurchaseManager({
+    InAppPurchasePlatform? platform,
+    bool listenToPurchases = true,
+    String? platformOverride,
+  })  : _platform = platform ?? _defaultPlatform(),
+        _platformOverride = platformOverride {
+    if (listenToPurchases) {
+      _purchaseSubscription =
+          _platform.purchaseStream.listen(handlePurchaseUpdates);
+    }
+  }
+
+  /// Ensures the public [InAppPurchase] facade registers a platform first.
+  static InAppPurchasePlatform _defaultPlatform() {
+    InAppPurchase.instance;
+    return InAppPurchasePlatform.instance;
+  }
+
+  final InAppPurchasePlatform _platform;
+  final String? _platformOverride;
+  StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
+
   bool disposed = false;
   late String device;
-  late final InAppPurchase _inAppPurchase;
   bool _hasValidPurchase = false;
   List<ProductDetails> _products = [];
+
   @override
   void dispose() {
     disposed = true;
+    _purchaseSubscription?.cancel();
     super.dispose();
   }
 
-  InAppPurchaseManager() {
-    _inAppPurchase = InAppPurchase.instance;
-    _inAppPurchase.purchaseStream.listen((purchases) {
-      handlePurchaseUpdates(purchases);
-    });
-  }
+  @visibleForTesting
+  InAppPurchasePlatform get platform => _platform;
 
-  set inAppPurchase(InAppPurchase value) {
-    _inAppPurchase = value;
-  }
-
-  InAppPurchase get inAppPurchase => _inAppPurchase;
+  /// Compatibility alias for callers that previously used `inAppPurchase`.
+  InAppPurchasePlatform get inAppPurchase => _platform;
 
   bool get hasValidPurchase => _hasValidPurchase;
   List<ProductDetails> get products => _products;
@@ -45,14 +68,13 @@ class InAppPurchaseManager extends ChangeNotifier {
       if ((purchaseDetails.status == PurchaseStatus.purchased ||
               purchaseDetails.status == PurchaseStatus.restored) &&
           purchaseDetails.pendingCompletePurchase) {
-        _inAppPurchase.completePurchase(purchaseDetails);
+        _platform.completePurchase(purchaseDetails);
         if (kDebugMode) {
           print(
               'Completing purchase for product ID: ${purchaseDetails.productID}');
         }
         _hasValidPurchase = true;
 
-        // Verifica si el objeto aún existe antes de llamar a notifyListeners
         if (!disposed) {
           notifyListeners();
         }
@@ -66,7 +88,6 @@ class InAppPurchaseManager extends ChangeNotifier {
     if (kDebugMode) {
       print('Error en la compra: ${purchaseDetails.error}');
     }
-    // Aquí podrías mostrar un mensaje al usuario o realizar otro tipo de manejo de errores
   }
 
   Future<void> buyProduct(ProductDetails productDetails) async {
@@ -74,26 +95,23 @@ class InAppPurchaseManager extends ChangeNotifier {
         PurchaseParam(productDetails: productDetails);
 
     try {
-      // Inicializa la API de in_app_purchase
-      final bool available = await InAppPurchase.instance.isAvailable();
+      final bool available = await _platform.isAvailable();
       if (!available) {
-        // La tienda no está disponible, maneja este error aquí.
+        return;
       }
-      // Ahora intenta hacer la compra
-      await _inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+      await _platform.buyNonConsumable(purchaseParam: purchaseParam);
     } catch (e) {
       if (kDebugMode) {
         print('Error al comprar el producto: $e');
       }
-      // Aquí podrías mostrar un mensaje al usuario o realizar otro tipo de manejo de errores
     }
   }
 
   Future<void> getProducts() async {
-    Set<String> productIds = _getPlatformProductIds();
+    Set<String> productIds = platformProductIds();
     if (productIds.isNotEmpty) {
       final ProductDetailsResponse response =
-          await _inAppPurchase.queryProductDetails(productIds);
+          await _platform.queryProductDetails(productIds);
       if (response.notFoundIDs.isEmpty) {
         _products = response.productDetails;
         notifyListeners();
@@ -101,32 +119,42 @@ class InAppPurchaseManager extends ChangeNotifier {
     }
   }
 
-  Set<String> _getPlatformProductIds() {
-    if (Platform.isAndroid) {
+  /// Store product IDs for the current (or overridden) platform.
+  @visibleForTesting
+  Set<String> platformProductIds() {
+    final name = _platformOverride ?? _detectPlatformName();
+    if (name == 'android') {
       return {
         'chat_anual_2023',
         'android_chat_mensual_2023',
         'chat_semanal_2023',
       };
-    } else if (Platform.isIOS || Platform.isMacOS) {
+    }
+    if (name == 'ios' || name == 'macos') {
       return {
         'chat_anual_2023_01',
         'chat_mensual_2023_01',
         'chat_semanal_2023_01',
       };
-    } else {
-      return {};
     }
+    return {};
+  }
+
+  String _detectPlatformName() {
+    if (Platform.isAndroid) return 'android';
+    if (Platform.isIOS) return 'ios';
+    if (Platform.isMacOS) return 'macos';
+    if (Platform.isWindows) return 'windows';
+    return 'other';
   }
 
   void showProductsDialog(BuildContext context) {
-    if (Platform.isAndroid) {
+    final name = _platformOverride ?? _detectPlatformName();
+    if (name == 'android') {
       device = 'Google';
-    } else if (Platform.isIOS) {
+    } else if (name == 'ios' || name == 'macos') {
       device = 'Apple';
-    } else if (Platform.isMacOS) {
-      device = 'Apple';
-    } else if (Platform.isWindows) {
+    } else if (name == 'windows') {
       device = 'Microsoft';
     } else {
       device = AppLocalizations.of(context)!.tuDispositivo;
@@ -231,7 +259,7 @@ class InAppPurchaseManager extends ChangeNotifier {
                 style: kTexto,
               ),
               onPressed: () {
-                _inAppPurchase.restorePurchases();
+                _platform.restorePurchases();
                 Navigator.of(context).pop();
               },
             ),
@@ -254,7 +282,7 @@ class InAppPurchaseManager extends ChangeNotifier {
     Completer<bool> purchaseCompleter = Completer();
 
     StreamSubscription<List<PurchaseDetails>>? purchaseUpdatedSubscription;
-    purchaseUpdatedSubscription = _inAppPurchase.purchaseStream.listen(
+    purchaseUpdatedSubscription = _platform.purchaseStream.listen(
       (purchaseDetailsList) {
         for (PurchaseDetails purchaseDetails in purchaseDetailsList) {
           if (purchaseDetails.status == PurchaseStatus.restored &&
@@ -272,7 +300,7 @@ class InAppPurchaseManager extends ChangeNotifier {
     );
 
     try {
-      await _inAppPurchase.restorePurchases();
+      await _platform.restorePurchases();
     } catch (e) {
       purchaseCompleter.completeError(e);
       purchaseUpdatedSubscription.cancel();

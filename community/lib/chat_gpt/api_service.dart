@@ -33,6 +33,9 @@ class ModelsModel {
   ModelsModel({required this.id, required this.created, required this.root});
 }
 
+typedef ChatTokenProvider = Future<String> Function();
+typedef RotatedTokenHandler = void Function(String token);
+
 /// Community-side BFF chat client — adapter around the generated `ChatApi`
 /// from `packages/formulaeapps_bff_client/`. Mirror of pro/api_service.dart.
 ///
@@ -41,6 +44,8 @@ class ModelsModel {
 /// - Reads `X-Auth-Refresh` and rotates the cached token (research §R4).
 /// - Translates the generated `ChatResponse` to the local UI struct
 ///   `ChatModel { msg, chatIndex }` so chats_provider stays unchanged.
+/// - Optional [tokenProvider] / [rotatedTokenHandler] / [dioOverride] keep
+///   unit tests free of SharedPreferences + live auth minting.
 class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     // BFF contract v1.0.0 does not expose /openai/models. Stub list keeps
@@ -59,10 +64,14 @@ class ApiService {
     required String modelId,
     BaseOptions? dioOptionsOverride,
     Dio? dioForTest,
+    Dio? dioOverride,
+    ChatTokenProvider? tokenProvider,
+    RotatedTokenHandler? rotatedTokenHandler,
   }) async {
-    final token = await AuthService.getToken();
+    final token = await (tokenProvider ?? AuthService.getToken)();
 
-    final dio = dioForTest ??
+    final dio = dioOverride ??
+        dioForTest ??
         Dio(
           dioOptionsOverride ??
               BaseOptions(
@@ -89,7 +98,7 @@ class ApiService {
 
       final rotated = response.headers.value('x-auth-refresh');
       if (rotated != null && rotated.isNotEmpty) {
-        AuthService.adoptRotatedToken(rotated);
+        (rotatedTokenHandler ?? AuthService.adoptRotatedToken)(rotated);
       }
 
       final data = response.data;

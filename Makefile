@@ -4,8 +4,8 @@
 # Run `make help` for a list of targets.
 
 .PHONY: help verify-all verify-parity verify-routes verify-infra verify-infra-local \
-        build-openapi generate-types bff-test bff-build flutter-analyze landing-build \
-        compose-lint compose-up compose-down
+        build-openapi generate-types bff-test bff-build flutter-analyze flutter-test \
+        landing-build landing-test compose-lint compose-up compose-down
 
 help:
 	@echo "FormulaeApps monorepo — make targets"
@@ -25,13 +25,15 @@ help:
 	@echo "  bff-test            Run BFF test suite"
 	@echo "  bff-build           Build the BFF Docker image"
 	@echo "  flutter-analyze     Run flutter analyze in pro/ and community/"
+	@echo "  flutter-test        Run flutter test in pro/ and community/"
 	@echo "  landing-build       Build the Astro landing site"
+	@echo "  landing-test        Run landing vitest suite"
 	@echo "  compose-lint        Lint docker-compose.yml"
 	@echo "  compose-up          Bring up landing + pro + bff containers"
 	@echo "  compose-down        Stop and remove the compose stack"
 	@echo ""
 
-verify-all: verify-parity verify-routes verify-infra-local bff-test flutter-analyze landing-build compose-lint
+verify-all: verify-parity verify-routes verify-infra-local bff-test flutter-analyze flutter-test landing-test landing-build compose-lint
 	@echo "✓ All per-stack gates passed."
 
 verify-parity:
@@ -62,8 +64,25 @@ flutter-analyze:
 	cd pro && flutter analyze --no-pub --fatal-infos --fatal-warnings
 	cd community && flutter analyze --no-pub --fatal-infos --fatal-warnings
 
+# JWT_SHARED_SECRET / build nonce are compile-time consts required by auth_service
+# minting tests. Values here are non-secret CI/local test constants only.
+flutter-test:
+	cd pro && flutter test --no-pub --reporter compact \
+		--dart-define=JWT_SHARED_SECRET=test-shared-secret \
+		--dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+		--dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+	cd community && flutter test --no-pub --reporter compact \
+		--dart-define=JWT_SHARED_SECRET=test-shared-secret \
+		--dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+		--dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+	cd pro/packages/formulaeapps_bff_client && dart test
+	cd community/packages/formulaeapps_bff_client && dart test
+
 landing-build:
 	cd landing && bun install && bun run build
+
+landing-test:
+	cd landing && bun install && bun run test
 
 compose-lint:
 	docker compose config > /dev/null && echo "compose lint OK"
