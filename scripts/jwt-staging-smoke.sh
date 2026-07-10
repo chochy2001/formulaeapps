@@ -145,13 +145,19 @@ if [[ -z "$LEGACY_START" || -z "$LEGACY_CUTOFF" ]]; then
   exit 1
 fi
 
-python3 - "$JWT_SHARED_SECRET" "$tmpdir/legacy.header" <<'PY'
-import base64, hashlib, hmac, json, os, sys, time, uuid
+python3 - "$env_file" "$tmpdir/legacy.header" <<'PY'
+import base64, hashlib, hmac, json, sys, time, uuid
+from pathlib import Path
 
 def b64url(data: bytes) -> str:
     return base64.urlsafe_b64encode(data).rstrip(b'=').decode()
 
-secret = sys.argv[1]
+env = {}
+for line in Path(sys.argv[1]).read_text().splitlines():
+    if '=' in line and not line.strip().startswith('#'):
+        k, v = line.split('=', 1)
+        env[k.strip()] = v.strip()
+secret = env['JWT_SHARED_SECRET']
 now = int(time.time())
 header = b64url(json.dumps({'alg': 'HS256', 'typ': 'JWT'}, separators=(',', ':')).encode())
 payload = b64url(

@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Protocol
 
+from urllib.parse import urlparse
+
 DEFAULT_STAGING_ROOT = '/opt/staging/apps/formulaeapps'
 HOST_ROLE_MARKER = Path('/etc/capdesis-role')
 EXPECTED_HOST_ROLE = 'staging'
@@ -112,6 +114,23 @@ def validate_staging_job_window(start: str, cutoff: str, *, job_timeout_minutes:
         raise ValueError('staging legacy window must fit within deploy job timeout budget')
 
 
+def validate_legacy_window_dispatch_remaining(
+    start: str,
+    cutoff: str,
+    *,
+    min_remaining_sec: int = 900,
+    now_fn: Callable[[], datetime] | None = None,
+) -> None:
+    now = now_fn() if now_fn else datetime.now(timezone.utc)
+    start_dt = parse_utc_z(start)
+    cutoff_dt = parse_utc_z(cutoff)
+    if start_dt > now:
+        raise ValueError('legacy window start must not be in the future at dispatch')
+    remaining = (cutoff_dt - now).total_seconds()
+    if remaining < min_remaining_sec:
+        raise ValueError('legacy window must leave enough remaining time for deploy and smokes')
+
+
 def resolve_allowed_root(app_path: str, allowed_root: str = DEFAULT_STAGING_ROOT) -> Path:
     if not app_path or app_path.strip() in {'', '/'}:
         raise ValueError('app_path must be a non-empty path under the staging root')
@@ -202,15 +221,30 @@ def deployed_sha_for_release(release: Path) -> str:
     return ''
 
 
+def validate_readiness_base_url(value: str) -> str:
+    parsed = urlparse(value.strip())
+    if parsed.scheme != 'https' or not parsed.netloc:
+        raise ValueError('readiness base URL must be an https URL with a host')
+    if parsed.username or parsed.password or parsed.params or parsed.query or parsed.fragment:
+        raise ValueError('readiness base URL must not include credentials or fragments')
+    if re.search(r'[;&|`$<>]', parsed.netloc):
+        raise ValueError('readiness base URL host contains forbidden characters')
+    return value.strip().rstrip('/')
+
+
 def capture_baseline(root: Path, runner: Runner) -> dict[str, str]:
     active = current_release_dir(root)
     prior_sha = deployed_sha_for_release(active) if active else ''
     prior_release = ''
+    prior_env = ''
     if active:
         try:
             prior_release = str(active.relative_to(root))
         except ValueError:
             prior_release = str(active)
+        env_file = active / '.env'
+        if env_file.is_file():
+            prior_env = env_file.read_text()
     prior_image = ''
     if active and (active / COMPOSE_FILE).is_file():
         result = runner.run(
@@ -221,10 +255,16 @@ def capture_baseline(root: Path, runner: Runner) -> dict[str, str]:
         )
         if result.returncode == 0 and result.stdout.strip():
             prior_image = result.stdout.strip().splitlines()[-1]
+    tagged = docker_image_tag(prior_sha) if prior_sha else ''
+    if not prior_image and prior_sha:
+        inspect = runner.run(['docker', 'image', 'inspect', tagged], check=False, capture=True)
+        if inspect.returncode == 0 and inspect.stdout.strip():
+            prior_image = tagged
     return {
         'prior_sha': prior_sha,
         'prior_release': prior_release,
         'prior_image': prior_image,
+        'prior_env': prior_env,
     }
 
 
@@ -369,6 +409,8 @@ def deploy_candidate(
     runner = runner or SubprocessRunner()
     sha = normalize_sha(candidate_sha)
     validate_legacy_window(legacy_start, legacy_cutoff, max_window_ms=STAGING_MAX_WINDOW_MS)
+    if readiness_base_url:
+        readiness_base_url = validate_readiness_base_url(readiness_base_url)
     release = release_path(root, sha)
     if not release.is_dir():
         raise RuntimeError(f'candidate release directory is missing: {release}')
@@ -398,23 +440,40 @@ def deploy_candidate(
         )
     except Exception:
         if baseline.get('prior_release') and baseline.get('prior_sha'):
-            rollback_to_prior(root, runner=runner)
+            rollback_to_prior(root, runner=runner, expected_candidate_sha=sha)
         raise
+
+
+def _resolve_prior_image(prior_sha: str, prior_image: str, runner: Runner) -> str:
+    if prior_image:
+        return prior_image
+    tagged = docker_image_tag(prior_sha)
+    inspect = runner.run(['docker', 'image', 'inspect', tagged], check=False, capture=True)
+    if inspect.returncode == 0:
+        return tagged
+    raise RuntimeError('rollback refused: prior container image is missing')
 
 
 def rollback_to_prior(
     root: Path,
     *,
     runner: Runner | None = None,
+    expected_candidate_sha: str | None = None,
 ) -> None:
     runner = runner or SubprocessRunner()
     path = state_path(root)
     if not path.is_file():
         raise RuntimeError('rollback refused: no deploy state recorded outside release tree')
     state = read_json(path)
+    if expected_candidate_sha:
+        expected = normalize_sha(expected_candidate_sha)
+        state_candidate = state.get('candidate_sha', '')
+        if state_candidate != expected:
+            raise RuntimeError('rollback refused: deploy state does not match this workflow candidate')
     prior_release = state.get('prior_release', '')
     prior_sha = state.get('prior_sha', '')
     prior_image = state.get('prior_image', '')
+    prior_env = state.get('prior_env', '')
     if not prior_release or not prior_sha:
         raise RuntimeError('rollback refused: baseline prior release/SHA missing from state')
 
@@ -422,33 +481,17 @@ def rollback_to_prior(
     if not release.is_dir():
         raise RuntimeError(f'rollback refused: prior release directory missing: {release}')
 
-    signing_line = None
     env_file = release / '.env'
-    if env_file.is_file():
-        for line in env_file.read_text().splitlines():
-            if line.startswith('JWT_SIGNING_SECRET='):
-                signing_line = line
-                break
-    persistent = persistent_env_path(root)
-    if signing_line and persistent.is_file():
-        lines = [line for line in persistent.read_text().splitlines() if not line.startswith('JWT_SIGNING_SECRET=')]
-        lines.append(signing_line)
-        text = '\n'.join(lines) + '\n'
-        persistent.write_text(text)
-        chmod_sensitive(persistent)
-
-    materialize_from_persistent = persistent.read_text() if persistent.is_file() else ''
-    if materialize_from_persistent:
-        env_file.write_text(materialize_from_persistent)
+    if prior_env:
+        env_file.write_text(prior_env)
         chmod_sensitive(env_file)
 
     switch_current_release(root, release)
     (release / 'DEPLOYED_SHA').write_text(prior_sha + '\n')
     chmod_sensitive(release / 'DEPLOYED_SHA')
 
-    if prior_image:
-        tag = docker_image_tag(prior_sha)
-        runner.run(['docker', 'tag', prior_image, tag], cwd=release)
-        compose_up(release, prior_sha, runner, no_build=True)
-    else:
-        compose_up(release, prior_sha, runner)
+    image_ref = _resolve_prior_image(prior_sha, prior_image, runner)
+    tag = docker_image_tag(prior_sha)
+    if image_ref != tag:
+        runner.run(['docker', 'tag', image_ref, tag], cwd=release)
+    compose_up(release, prior_sha, runner, no_build=True)

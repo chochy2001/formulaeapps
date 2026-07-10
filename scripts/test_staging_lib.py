@@ -10,6 +10,7 @@ import sys
 import tempfile
 import unittest
 from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,7 @@ import staging_lib as lib  # noqa: E402
 class FakeRunner:
     calls: list[list[str]] = field(default_factory=list)
     images: dict[str, str] = field(default_factory=dict)
+    tagged_images: set[str] = field(default_factory=set)
     fail_actions: set[str] = field(default_factory=set)
     fail_first_actions: set[str] = field(default_factory=set)
     failed_first_actions: set[str] = field(default_factory=set)
@@ -61,6 +63,11 @@ class FakeRunner:
             image = self.images.get(str(cwd), 'sha256:built')
             stdout = f'{image}\n'
             return subprocess.CompletedProcess(args, 0, stdout, '')
+        if args[:3] == ['docker', 'image', 'inspect']:
+            tag = args[3]
+            if tag in self.tagged_images:
+                return subprocess.CompletedProcess(args, 0, '[]', '')
+            return subprocess.CompletedProcess(args, 1, '', 'missing')
         return subprocess.CompletedProcess(args, 0, '', '')
 
 
@@ -87,8 +94,12 @@ def seed_release(root: Path, sha: str, runner: FakeRunner, *, link_current: bool
     release.mkdir(parents=True)
     (release / 'bff').mkdir()
     (release / lib.COMPOSE_FILE).write_text('services:\n  bff:\n    image: test\n')
+    (release / '.env').write_text('BFF_ENV=staging\n')
     (release / 'DEPLOYED_SHA').write_text(sha + '\n')
     runner.images[str(release)] = f'sha256:prior-{sha[:8]}'
+    tagged = lib.docker_image_tag(sha)
+    runner.tagged_images.add(tagged)
+    runner.run(['docker', 'tag', runner.images[str(release)], tagged], cwd=release)
     if link_current:
         lib.switch_current_release(root, release)
     return release
@@ -102,7 +113,12 @@ class StagingLibTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             lib.validate_legacy_window('2026-07-10T00:10:00Z', '2026-07-10T00:00:00Z')
 
-    def test_staging_window_incompatible_with_timeout_rejected(self) -> None:
+    def test_dispatch_requires_remaining_smoke_budget(self) -> None:
+        now = datetime.now(timezone.utc).replace(microsecond=0)
+        start = (now + timedelta(minutes=5)).strftime('%Y-%m-%dT%H:%M:%SZ')
+        cutoff = (now + timedelta(minutes=10)).strftime('%Y-%m-%dT%H:%M:%SZ')
+        with self.assertRaises(ValueError):
+            lib.validate_legacy_window_dispatch_remaining(start, cutoff, now_fn=lambda: now)
         with self.assertRaises(ValueError):
             lib.validate_staging_job_window('2026-07-10T00:00:00Z', '2026-07-10T00:50:00Z', job_timeout_minutes=45)
 
@@ -246,11 +262,34 @@ class StagingLibTests(unittest.TestCase):
                     '2026-07-10T00:00:00Z',
                     '2026-07-10T00:05:00Z',
                     runner=runner,
-                    readiness_base_url='http://127.0.0.1:9',
+                    readiness_base_url='https://127.0.0.1:9',
                     sleep_fn=sleep_fn,
                     now_fn=now_fn,
                 )
             self.assertEqual(os.readlink(root / lib.CURRENT_LINK_NAME), f'releases/{prior}')
+
+    def test_rollback_missing_prior_image_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            runner = FakeRunner()
+            prior = 'a' * 40
+            write_env(root / lib.PERSISTENT_ENV_NAME)
+            prior_release = lib.release_path(root, prior)
+            prior_release.mkdir(parents=True)
+            (prior_release / lib.COMPOSE_FILE).write_text('services:\n  bff:\n    image: test\n')
+            lib.write_private_json(
+                root / lib.STATE_DIR_NAME / lib.STATE_FILE_NAME,
+                {
+                    'prior_sha': prior,
+                    'prior_release': str(prior_release.relative_to(root)),
+                    'prior_image': '',
+                    'prior_env': '',
+                    'candidate_sha': 'b' * 40,
+                    'candidate_release': f'releases/{"b" * 40}',
+                },
+            )
+            with self.assertRaises(RuntimeError):
+                lib.rollback_to_prior(root, runner=runner)
 
     def test_rollback_restores_prior_without_rebuild(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

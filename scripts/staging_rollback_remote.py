@@ -22,7 +22,10 @@ def main() -> int:
         return 2
     root = resolve_allowed_root(config['app_path'], DEFAULT_STAGING_ROOT)
     verify_host_role()
-    rollback_to_prior(root)
+    rollback_to_prior(
+        root,
+        expected_candidate_sha=config.get('expected_candidate_sha'),
+    )
     print('rollback: staging BFF restored')
     return 0
 

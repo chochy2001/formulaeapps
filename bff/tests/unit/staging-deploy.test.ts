@@ -53,13 +53,16 @@ describe('staging deploy hardening', () => {
   });
 
   test('staging transport JSON excludes secret field names as values', () => {
+    const start = new Date(Date.now() - 60_000).toISOString();
+    const cutoff = new Date(Date.now() + 960_000).toISOString();
     const result = runPython([
       'scripts/staging-transport.py',
       'deploy',
       'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
       '/opt/staging/apps/formulaeapps',
-      '2026-07-10T00:00:00.000Z',
-      '2026-07-10T00:05:00.000Z',
+      start,
+      cutoff,
+      'https://staging.api.formulaeapps.com',
     ]);
     expect(result.exitCode).toBe(0);
     const payload = result.stdout.toString();

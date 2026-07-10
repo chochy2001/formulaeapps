@@ -30,7 +30,7 @@ def main() -> int:
         config['legacy_verify_start'],
         config['legacy_verify_cutoff'],
         bootstrap=bool(config.get('bootstrap')),
-        readiness_base_url=os.environ.get('STAGING_READINESS_BASE_URL') or None,
+        readiness_base_url=config.get('readiness_base_url') or None,
     )
     print(f"DEPLOYED_SHA={config['candidate_sha']}")
     return 0
