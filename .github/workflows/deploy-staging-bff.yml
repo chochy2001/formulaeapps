@@ -1,0 +1,283 @@
+# FormulaeApps BFF — staging deploy + JWT migration smokes (draft)
+#
+# Targets staging-node over SSH. Does NOT deploy production.
+# Required GitHub secrets (repository): STAGING_SSH_HOST, STAGING_SSH_USER,
+# STAGING_SSH_KEY, STAGING_SSH_KNOWN_HOSTS
+# Optional: STAGING_SSH_PORT (default 2222), STAGING_BFF_BASE_URL
+# Optional repository variable: STAGING_APP_PATH (default /opt/staging/apps/formulaeapps)
+#
+# Host must provide .env.staging with BFF_ENV=staging and human-provisioned secrets.
+# The workflow checks presence/format only — never prints secret values.
+
+name: Deploy Staging BFF (JWT)
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: 'Full SHA on main to deploy (immutable artifact)'
+        required: true
+        type: string
+      legacy_verify_start:
+        description: 'JWT_LEGACY_VERIFY_START (absolute UTC ISO-8601)'
+        required: true
+        type: string
+      legacy_verify_cutoff:
+        description: 'JWT_LEGACY_VERIFY_CUTOFF (absolute UTC ISO-8601, max 2h after start)'
+        required: true
+        type: string
+      rollback:
+        description: 'Validate candidate as rollback artifact'
+        required: false
+        type: boolean
+        default: false
+      keep_signing_secret:
+        description: 'Confirm rollback retains JWT_SIGNING_SECRET'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: formulaeapps-deploy-staging-bff
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  preflight:
+    name: Preflight (gate + tests + build)
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    timeout-minutes: 20
+    outputs:
+      candidate_sha: ${{ steps.validate.outputs.candidate_sha }}
+    steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch origin/main
+        run: git fetch origin main --depth=1
+
+      - name: Validate candidate SHA and legacy window
+        id: validate
+        env:
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          LEGACY_START: ${{ inputs.legacy_verify_start }}
+          LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
+        run: |
+          set -euo pipefail
+          candidate="${CANDIDATE_SHA}"
+          if ! [[ "$candidate" =~ ^[0-9a-fA-F]{40}$ ]]; then
+            echo "::error::candidate_sha must be a full 40-character hex SHA"
+            exit 1
+          fi
+          if ! git cat-file -e "${candidate}^{commit}" 2>/dev/null; then
+            echo "::error::candidate_sha is not a valid commit"
+            exit 1
+          fi
+          full_sha="$(git rev-parse "${candidate}^{commit}")"
+          if ! git merge-base --is-ancestor "$full_sha" origin/main; then
+            echo "::error::candidate_sha $full_sha is not contained in origin/main"
+            exit 1
+          fi
+          bash scripts/validate-legacy-window.sh "$LEGACY_START" "$LEGACY_CUTOFF"
+          echo "candidate_sha=$full_sha" >> "$GITHUB_OUTPUT"
+          echo "Validated candidate_sha=$full_sha"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
+        with:
+          bun-version: 1.3.9
+          no-cache: true
+
+      - name: JWT dual-key artifact gate
+        env:
+          CANDIDATE_FULL_SHA: ${{ steps.validate.outputs.candidate_sha }}
+          IS_ROLLBACK: ${{ inputs.rollback || false }}
+          KEEP_SIGNING_SECRET: ${{ inputs.keep_signing_secret || false }}
+        run: |
+          set -euo pipefail
+          args=()
+          if [[ "$IS_ROLLBACK" == 'true' ]]; then
+            args+=(--rollback)
+          fi
+          if [[ "$KEEP_SIGNING_SECRET" == 'true' ]]; then
+            args+=(--keep-signing-secret)
+          fi
+          bash scripts/verify-jwt-release-artifact.sh "$CANDIDATE_FULL_SHA" "${args[@]}"
+
+      - name: Checkout candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ steps.validate.outputs.candidate_sha }}
+          fetch-depth: 0
+
+      - name: Setup Node (required by bunx tsc)
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.22.3'
+
+      - name: BFF install, typecheck, test, build
+        working-directory: bff
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bun run typecheck
+          bun test
+          bun run build
+
+  deploy:
+    name: SSH deploy + secret presence + smokes
+    needs: preflight
+    runs-on: [self-hosted, ci-runner-node, deploy-only]
+    environment: staging
+    timeout-minutes: 45
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.preflight.outputs.candidate_sha }}
+          fetch-depth: 0
+
+      - name: Validate staging SSH secrets
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_SSH_KNOWN_HOSTS: ${{ secrets.STAGING_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in STAGING_SSH_HOST STAGING_SSH_USER STAGING_SSH_KEY STAGING_SSH_KNOWN_HOSTS; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing secret $name"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "Deploy blocked until STAGING_SSH_* secrets exist on CAPDESIS/formulaeapps."
+            exit 1
+          fi
+
+      - name: Install SSH key
+        env:
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_SSH_KNOWN_HOSTS: ${{ secrets.STAGING_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$STAGING_SSH_KEY" > "$RUNNER_TEMP/staging_deploy_key"
+          chmod 600 "$RUNNER_TEMP/staging_deploy_key"
+          printf '%s\n' "$STAGING_SSH_KNOWN_HOSTS" > "$RUNNER_TEMP/staging_known_hosts"
+          chmod 600 "$RUNNER_TEMP/staging_known_hosts"
+
+      - name: Deploy BFF on staging-node
+        id: deploy
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          LEGACY_START: ${{ inputs.legacy_verify_start }}
+          LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
+        run: |
+          set -euo pipefail
+          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
+          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          SSH_PORT="${STAGING_SSH_PORT:-2222}"
+          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
+          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
+          SSH_OPTS=(-i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
+
+          rsync -az --delete \
+            --exclude='.git/' \
+            --exclude='.env' \
+            --exclude='.env.*' \
+            --exclude='pro/' \
+            --exclude='community/' \
+            --exclude='landing/' \
+            -e "ssh ${SSH_OPTS[*]}" \
+            ./ "$SSH_TARGET:$APP_PATH/"
+
+          python3 scripts/staging-deploy-config.py "$CANDIDATE_SHA" "$APP_PATH" "$LEGACY_START" "$LEGACY_CUTOFF" | \
+            ssh -n "${SSH_OPTS[@]}" "$SSH_TARGET" "bash $APP_PATH/scripts/staging-deploy-remote.sh"
+
+      - name: Verify deployed metadata matches candidate SHA
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+        run: |
+          set -euo pipefail
+          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
+          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          SSH_PORT="${STAGING_SSH_PORT:-2222}"
+          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
+          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
+          deployed="$(ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 "$SSH_TARGET" "cat '$APP_PATH/DEPLOYED_SHA'")"
+          deployed="${deployed//$'\n'/}"
+          if [[ "$deployed" != "$CANDIDATE_SHA" ]]; then
+            echo "::error::deployed SHA $deployed does not match candidate $CANDIDATE_SHA"
+            exit 1
+          fi
+          echo "Deployed metadata verified: $deployed"
+
+      - name: Check JWT_SIGNING_SECRET presence and format (redacted)
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+        run: |
+          set -euo pipefail
+          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
+          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          SSH_PORT="${STAGING_SSH_PORT:-2222}"
+          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
+          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
+          ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$SSH_TARGET" "cd '$APP_PATH' && python3 scripts/staging-check-env.py"
+
+      - name: JWT staging smokes
+        id: smokes
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          STAGING_BFF_BASE_URL: ${{ vars.STAGING_BFF_BASE_URL }}
+        run: |
+          set -euo pipefail
+          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
+          BASE="${STAGING_BFF_BASE_URL:-https://staging.api.formulaeapps.com}"
+          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          SSH_PORT="${STAGING_SSH_PORT:-2222}"
+          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
+          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
+          ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$SSH_TARGET" "cd '$APP_PATH' && STAGING_ENV_FILE='$APP_PATH/.env' bash scripts/jwt-staging-smoke.sh '$BASE'"
+
+      - name: Roll back staging on failure
+        if: failure() && steps.deploy.outcome == 'success'
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+        run: |
+          set -euo pipefail
+          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
+          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          SSH_PORT="${STAGING_SSH_PORT:-2222}"
+          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
+          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
+          python3 scripts/staging-rollback-config.py "$APP_PATH" | \
+            ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+              "$SSH_TARGET" "bash $APP_PATH/scripts/staging-rollback-remote.sh" || true
