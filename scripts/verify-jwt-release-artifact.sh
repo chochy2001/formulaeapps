@@ -5,11 +5,12 @@
 # candidate tree to provide the gate script.
 set -euo pipefail
 
-# First commit with exclusive JWT_SIGNING_SECRET issuance AND immutable
-# absolute UTC [start, cutoff) legacy verification. Predecessors may sign with
-# JWT_SHARED_SECRET or recompute grace from process start and are not safe
-# rollback targets. Split so secret scanners do not treat the SHA as a key.
-readonly FIRST_VALIDATED_DUAL_KEY_COMMIT="$(printf '%s%s' '5a7795f657283f1b' '47069ef026ef864d3a65f73c')"
+# Canonical squash on main with exclusive JWT_SIGNING_SECRET issuance AND
+# immutable absolute UTC [start, cutoff) legacy verification. Feature-branch
+# SHAs and pre-squash commits are not safe rollback targets even when their
+# blobs look dual-key capable. Split so secret scanners do not treat the SHA
+# as a key.
+readonly FIRST_VALIDATED_DUAL_KEY_MAIN_COMMIT="$(printf '%s%s' '6c681716b5b20e60c1cf5898c61b2719171fa94' 'f')"
 
 candidate="${1:-}"
 shift || true
@@ -33,8 +34,8 @@ if [[ -z "$candidate" ]] || ! git cat-file -e "${candidate}^{commit}" 2>/dev/nul
 fi
 
 candidate_sha="$(git rev-parse "${candidate}^{commit}")"
-if ! git merge-base --is-ancestor "$FIRST_VALIDATED_DUAL_KEY_COMMIT" "$candidate_sha"; then
-  echo "JWT artifact gate: candidate $candidate_sha predates validated fixed-window dual-key JWT support and may sign with JWT_SHARED_SECRET" >&2
+if ! git merge-base --is-ancestor "$FIRST_VALIDATED_DUAL_KEY_MAIN_COMMIT" "$candidate_sha"; then
+  echo "JWT artifact gate: candidate $candidate_sha is not descended from canonical dual-key squash on main ($FIRST_VALIDATED_DUAL_KEY_MAIN_COMMIT)" >&2
   exit 1
 fi
 
