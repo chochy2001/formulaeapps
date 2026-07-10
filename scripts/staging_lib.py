@@ -2,9 +2,11 @@
 """Immutable staging deploy/rollback helpers (testable, no secret logging)."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
+import shutil
 import stat
 import subprocess
 import time
@@ -16,8 +18,13 @@ from typing import Callable, Protocol
 from urllib.parse import urlparse
 
 DEFAULT_STAGING_ROOT = '/opt/staging/apps/formulaeapps'
+APPROVED_STAGING_BFF_BASE_URL = 'https://staging.api.formulaeapps.com'
 HOST_ROLE_MARKER = Path('/etc/capdesis-role')
 EXPECTED_HOST_ROLE = 'staging'
+SYNC_TMP_PREFIX = '.sync-'
+RSYNC_EXCLUDE_TOP_LEVEL = frozenset(
+    {'.git', '.env', '.staging-state', 'current', 'releases', 'pro', 'community', 'landing'}
+)
 STATE_DIR_NAME = '.staging-state'
 STATE_FILE_NAME = 'deploy-state.json'
 RELEASES_DIR_NAME = 'releases'
@@ -148,10 +155,11 @@ def resolve_allowed_root(app_path: str, allowed_root: str = DEFAULT_STAGING_ROOT
     return resolved
 
 
-def verify_host_role(marker_path: Path = HOST_ROLE_MARKER, expected: str = EXPECTED_HOST_ROLE) -> None:
-    if not marker_path.is_file():
-        raise RuntimeError(f'missing host role marker: {marker_path}')
-    role = marker_path.read_text().strip()
+def verify_host_role(marker_path: Path | None = None, expected: str = EXPECTED_HOST_ROLE) -> None:
+    marker = marker_path if marker_path is not None else HOST_ROLE_MARKER
+    if not marker.is_file():
+        raise RuntimeError(f'missing host role marker: {marker}')
+    role = marker.read_text().strip()
     if role != expected:
         raise RuntimeError(f'host role marker must be exactly {expected!r}, got {role!r}')
 
@@ -229,7 +237,108 @@ def validate_readiness_base_url(value: str) -> str:
         raise ValueError('readiness base URL must not include credentials or fragments')
     if re.search(r'[;&|`$<>]', parsed.netloc):
         raise ValueError('readiness base URL host contains forbidden characters')
-    return value.strip().rstrip('/')
+    normalized = f'{parsed.scheme}://{parsed.netloc}'
+    if normalized != APPROVED_STAGING_BFF_BASE_URL:
+        raise ValueError(f'readiness base URL must be exactly {APPROVED_STAGING_BFF_BASE_URL}')
+    return APPROVED_STAGING_BFF_BASE_URL
+
+
+def validate_deploy_queue_window(
+    start: str,
+    cutoff: str,
+    *,
+    now_fn: Callable[[], datetime] | None = None,
+) -> None:
+    """Revalidate legacy window at deploy job start (covers queue wait)."""
+    now = now_fn() if now_fn else datetime.now(timezone.utc)
+    cutoff_dt = parse_utc_z(cutoff)
+    if now >= cutoff_dt:
+        raise ValueError('legacy window expired during queue wait')
+    validate_legacy_window_dispatch_remaining(start, cutoff, now_fn=lambda: now)
+
+
+def _is_excluded_candidate_rel(rel: Path) -> bool:
+    if rel.parts and rel.parts[0] in RSYNC_EXCLUDE_TOP_LEVEL:
+        return True
+    if rel.name in {'.env', 'DEPLOYED_SHA'} or rel.name.startswith('.env.'):
+        return True
+    return False
+
+
+def compute_candidate_digest(root: Path) -> str:
+    entries: list[str] = []
+    for path in sorted(root.rglob('*')):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(root)
+        if _is_excluded_candidate_rel(rel):
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        entries.append(f'{rel}:{digest}')
+    return hashlib.sha256('\n'.join(entries).encode()).hexdigest()
+
+
+def sync_temp_path(root: Path, sha: str) -> Path:
+    return releases_dir(root) / f'{SYNC_TMP_PREFIX}{normalize_sha(sha)}'
+
+
+def validate_sync_guards(
+    root: Path,
+    sha: str,
+    *,
+    expected_digest: str | None = None,
+) -> dict[str, str]:
+    verify_host_role()
+    resolved = resolve_allowed_root(str(root), DEFAULT_STAGING_ROOT)
+    if resolved.is_symlink():
+        raise ValueError('app_path must not be a symlink')
+    normalized = normalize_sha(sha)
+    final = release_path(resolved, normalized)
+    temp = sync_temp_path(resolved, normalized)
+    if temp.is_symlink():
+        raise ValueError('temp sync path must not be a symlink')
+    skip_sync = 'false'
+    if final.is_dir():
+        if expected_digest and compute_candidate_digest(final) == expected_digest:
+            skip_sync = 'true'
+        else:
+            raise RuntimeError(f'release already exists with different content: {final}')
+    elif final.exists():
+        raise RuntimeError(f'release path already exists: {final}')
+    return {
+        'app_path': str(resolved),
+        'candidate_sha': normalized,
+        'release_path': str(final),
+        'temp_sync_path': str(temp),
+        'release_exists': str(final.is_dir()).lower(),
+        'skip_sync': skip_sync,
+    }
+
+
+def finalize_synced_release(root: Path, sha: str, expected_digest: str) -> None:
+    resolved = resolve_allowed_root(str(root), DEFAULT_STAGING_ROOT)
+    normalized = normalize_sha(sha)
+    temp = sync_temp_path(resolved, normalized)
+    final = release_path(resolved, normalized)
+
+    if not temp.is_dir():
+        raise RuntimeError(f'sync temp directory is missing: {temp}')
+
+    actual_digest = compute_candidate_digest(temp)
+    if actual_digest != expected_digest:
+        raise RuntimeError('sync manifest digest does not match expected value')
+
+    if final.is_dir():
+        existing_digest = compute_candidate_digest(final)
+        if existing_digest == actual_digest:
+            shutil.rmtree(temp)
+            return
+        raise RuntimeError(f'release already exists with different content: {final}')
+
+    if final.exists():
+        raise RuntimeError(f'release path already exists: {final}')
+
+    temp.rename(final)
 
 
 def capture_baseline(root: Path, runner: Runner) -> dict[str, str]:
@@ -385,12 +494,21 @@ def switch_current_release(root: Path, release: Path) -> None:
     tmp.replace(current_link(root_resolved))
 
 
-def record_deploy_state(root: Path, baseline: dict[str, str], candidate_sha: str, candidate_release: Path) -> None:
+def record_deploy_state(
+    root: Path,
+    baseline: dict[str, str],
+    candidate_sha: str,
+    candidate_release: Path,
+    *,
+    control_sha: str | None = None,
+) -> None:
     payload = {
         **baseline,
         'candidate_sha': normalize_sha(candidate_sha),
         'candidate_release': str(candidate_release.relative_to(root)),
     }
+    if control_sha:
+        payload['control_sha'] = normalize_sha(control_sha)
     write_private_json(state_path(root), payload)
 
 
@@ -403,6 +521,7 @@ def deploy_candidate(
     runner: Runner | None = None,
     bootstrap: bool = False,
     readiness_base_url: str | None = None,
+    control_sha: str | None = None,
     sleep_fn: Callable[[float], None] = time.sleep,
     now_fn: Callable[[], float] = time.time,
 ) -> None:
@@ -437,6 +556,7 @@ def deploy_candidate(
             baseline,
             sha,
             release,
+            control_sha=control_sha,
         )
     except Exception:
         if baseline.get('prior_release') and baseline.get('prior_sha'):

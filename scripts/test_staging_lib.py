@@ -262,7 +262,7 @@ class StagingLibTests(unittest.TestCase):
                     '2026-07-10T00:00:00Z',
                     '2026-07-10T00:05:00Z',
                     runner=runner,
-                    readiness_base_url='https://127.0.0.1:9',
+                    readiness_base_url='https://staging.api.formulaeapps.com',
                     sleep_fn=sleep_fn,
                     now_fn=now_fn,
                 )
@@ -346,6 +346,153 @@ class StagingLibTests(unittest.TestCase):
             text=True,
         )
         self.assertNotEqual(proc.returncode, 0)
+
+    def test_readiness_url_rejects_production_host(self) -> None:
+        with self.assertRaises(ValueError):
+            lib.validate_readiness_base_url('https://api.formulaeapps.com')
+        with self.assertRaises(ValueError):
+            lib.validate_readiness_base_url('https://evil.example.com')
+
+    def test_readiness_url_accepts_only_approved_staging_host(self) -> None:
+        self.assertEqual(
+            lib.validate_readiness_base_url('https://staging.api.formulaeapps.com'),
+            lib.APPROVED_STAGING_BFF_BASE_URL,
+        )
+
+    def test_queue_window_rejects_expired_cutoff(self) -> None:
+        now = datetime(2026, 7, 10, 12, 0, 0, tzinfo=timezone.utc)
+        with self.assertRaises(ValueError):
+            lib.validate_deploy_queue_window(
+                '2026-07-10T00:00:00Z',
+                '2026-07-10T00:10:00Z',
+                now_fn=lambda: now,
+            )
+
+    def test_finalize_rejects_stale_temp_digest(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'formulaeapps'
+            root.mkdir()
+            original_root = lib.DEFAULT_STAGING_ROOT
+            lib.DEFAULT_STAGING_ROOT = str(root)
+            try:
+                sha = 'b' * 40
+                temp = lib.sync_temp_path(root, sha)
+                temp.mkdir(parents=True)
+                (temp / 'bff').mkdir()
+                (temp / 'bff' / 'index.js').write_text('stale\n')
+                expected = lib.compute_candidate_digest(temp)
+                (temp / 'bff' / 'index.js').write_text('mutated\n')
+                with self.assertRaises(RuntimeError):
+                    lib.finalize_synced_release(root, sha, expected)
+            finally:
+                lib.DEFAULT_STAGING_ROOT = original_root
+
+    def test_finalize_rejects_preexisting_different_release(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'formulaeapps'
+            root.mkdir()
+            original_root = lib.DEFAULT_STAGING_ROOT
+            lib.DEFAULT_STAGING_ROOT = str(root)
+            try:
+                sha = 'b' * 40
+                temp = lib.sync_temp_path(root, sha)
+                final = lib.release_path(root, sha)
+                temp.mkdir(parents=True)
+                (temp / 'marker.txt').write_text('candidate\n')
+                final.mkdir(parents=True)
+                (final / 'marker.txt').write_text('different\n')
+                digest = lib.compute_candidate_digest(temp)
+                with self.assertRaises(RuntimeError):
+                    lib.finalize_synced_release(root, sha, digest)
+            finally:
+                lib.DEFAULT_STAGING_ROOT = original_root
+
+    def test_finalize_retry_same_sha_after_partial_sync(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'formulaeapps'
+            root.mkdir()
+            original_root = lib.DEFAULT_STAGING_ROOT
+            lib.DEFAULT_STAGING_ROOT = str(root)
+            try:
+                sha = 'b' * 40
+                temp = lib.sync_temp_path(root, sha)
+                temp.mkdir(parents=True)
+                (temp / 'bff').mkdir()
+                (temp / 'bff' / 'main.js').write_text('runtime\n')
+                digest = lib.compute_candidate_digest(temp)
+                lib.finalize_synced_release(root, sha, digest)
+                self.assertTrue(lib.release_path(root, sha).is_dir())
+                self.assertFalse(temp.exists())
+                temp.mkdir(parents=True)
+                (temp / 'bff').mkdir()
+                (temp / 'bff' / 'main.js').write_text('runtime\n')
+                lib.finalize_synced_release(root, sha, digest)
+                self.assertTrue(lib.release_path(root, sha).is_dir())
+            finally:
+                lib.DEFAULT_STAGING_ROOT = original_root
+
+    def test_guard_allows_byte_identical_release_retry(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'formulaeapps'
+            root.mkdir()
+            marker = Path(tmp) / 'role'
+            marker.write_text('staging\n')
+            sha = 'b' * 40
+            release = lib.release_path(root, sha)
+            release.mkdir(parents=True)
+            (release / 'bff').mkdir()
+            (release / 'bff' / 'app.js').write_text('same\n')
+            digest = lib.compute_candidate_digest(release)
+            original_marker = lib.HOST_ROLE_MARKER
+            original_root = lib.DEFAULT_STAGING_ROOT
+            lib.HOST_ROLE_MARKER = marker
+            lib.DEFAULT_STAGING_ROOT = str(root)
+            try:
+                payload = lib.validate_sync_guards(root, sha, expected_digest=digest)
+            finally:
+                lib.HOST_ROLE_MARKER = original_marker
+                lib.DEFAULT_STAGING_ROOT = original_root
+            self.assertEqual(payload['skip_sync'], 'true')
+
+    def test_guard_allows_byte_identical_release_after_deploy_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'formulaeapps'
+            root.mkdir()
+            marker = Path(tmp) / 'role'
+            marker.write_text('staging\n')
+            sha = 'b' * 40
+            release = lib.release_path(root, sha)
+            release.mkdir(parents=True)
+            (release / 'bff').mkdir()
+            (release / 'bff' / 'app.js').write_text('same\n')
+            (release / 'DEPLOYED_SHA').write_text(sha + '\n')
+            digest = lib.compute_candidate_digest(release)
+            original_marker = lib.HOST_ROLE_MARKER
+            original_root = lib.DEFAULT_STAGING_ROOT
+            lib.HOST_ROLE_MARKER = marker
+            lib.DEFAULT_STAGING_ROOT = str(root)
+            try:
+                payload = lib.validate_sync_guards(root, sha, expected_digest=digest)
+            finally:
+                lib.HOST_ROLE_MARKER = original_marker
+                lib.DEFAULT_STAGING_ROOT = original_root
+            self.assertEqual(payload['skip_sync'], 'true')
+
+    def test_record_deploy_state_includes_control_sha(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            release = root / 'releases' / ('c' * 40)
+            release.mkdir(parents=True)
+            control = 'd' * 40
+            lib.record_deploy_state(
+                root,
+                {'prior_sha': 'a' * 40},
+                'c' * 40,
+                release,
+                control_sha=control,
+            )
+            state = json.loads((root / lib.STATE_DIR_NAME / lib.STATE_FILE_NAME).read_text())
+            self.assertEqual(state['control_sha'], control)
 
 
 if __name__ == '__main__':

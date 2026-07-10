@@ -56,13 +56,19 @@ jobs:
     timeout-minutes: 20
     outputs:
       candidate_sha: ${{ steps.validate.outputs.candidate_sha }}
+      control_sha: ${{ steps.control.outputs.control_sha }}
       app_path: ${{ steps.paths.outputs.app_path }}
       release_path: ${{ steps.paths.outputs.release_path }}
+      temp_sync_path: ${{ steps.paths.outputs.temp_sync_path }}
     steps:
       - name: Checkout workflow ref
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+
+      - name: Record control SHA
+        id: control
+        run: echo "control_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Fetch origin/main
         run: git fetch origin main --depth=1
@@ -103,10 +109,14 @@ jobs:
         run: |
           set -euo pipefail
           payload="$(python3 scripts/staging-transport.py sync "$CANDIDATE_SHA" "${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}")"
-          app_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["app_path"])' "$payload")"
-          release_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["release_path"])' "$payload")"
-          echo "app_path=$app_path" >> "$GITHUB_OUTPUT"
-          echo "release_path=$release_path" >> "$GITHUB_OUTPUT"
+          {
+            app_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["app_path"])' "$payload")"
+            release_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["release_path"])' "$payload")"
+            temp_sync_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["temp_sync_path"])' "$payload")"
+            echo "app_path=$app_path"
+            echo "release_path=$release_path"
+            echo "temp_sync_path=$temp_sync_path"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
@@ -157,11 +167,37 @@ jobs:
     environment: staging
     timeout-minutes: 45
     steps:
-      - name: Checkout candidate
+      - name: Checkout control (workflow ref)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Record control SHA
+        id: control
+        run: echo "control_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Revalidate legacy window at deploy start
+        env:
+          LEGACY_START: ${{ inputs.legacy_verify_start }}
+          LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
+        run: |
+          set -euo pipefail
+          bash scripts/validate-legacy-window.sh "$LEGACY_START" "$LEGACY_CUTOFF"
+          python3 -c "import os,sys; from pathlib import Path; sys.path.insert(0, str(Path('scripts').resolve())); from staging_lib import validate_deploy_queue_window; validate_deploy_queue_window(os.environ['LEGACY_START'], os.environ['LEGACY_CUTOFF'])"
+
+      - name: Checkout candidate (BFF runtime)
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ needs.preflight.outputs.candidate_sha }}
+          path: candidate-tree
           fetch-depth: 0
+
+      - name: Compute candidate digest
+        id: digest
+        run: |
+          set -euo pipefail
+          digest="$(python3 scripts/staging-transport.py digest "${{ github.workspace }}/candidate-tree" | python3 -c 'import json,sys; print(json.load(sys.stdin)["digest"])')"
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
 
       - name: Validate staging SSH secrets
         env:
@@ -200,7 +236,7 @@ jobs:
           echo "key_file=$key_file" >> "$GITHUB_OUTPUT"
           echo "known_hosts_file=$known_hosts_file" >> "$GITHUB_OUTPUT"
 
-      - name: Verify staging host role before sync
+      - name: Upload control scripts to staging host
         env:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
@@ -211,19 +247,48 @@ jobs:
           set -euo pipefail
           ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
           ssh_port="${STAGING_SSH_PORT:-2222}"
+          remote_dir="/tmp/formulae-staging-control-${{ needs.preflight.outputs.candidate_sha }}"
           ssh -n -i "$KEY_FILE" -p "$ssh_port" \
             -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$ssh_target" "grep -qx staging /etc/capdesis-role"
+            "$ssh_target" "rm -rf '${remote_dir}' && mkdir -p '${remote_dir}' && chmod 700 '${remote_dir}'"
+          scp -i "$KEY_FILE" -P "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes \
+            scripts/staging_lib.py scripts/staging_sync_remote.py scripts/staging_deploy_remote.py scripts/staging_rollback_remote.py scripts/staging-check-env.py scripts/jwt-staging-smoke.sh \
+            "${ssh_target}:${remote_dir}/"
+          echo "remote_control_dir=$remote_dir" >> "$GITHUB_ENV"
 
-      - name: Sync immutable release directory
-        id: sync
+      - name: Remote pre-sync guards
+        id: guard
         env:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
           CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
           APP_PATH: ${{ needs.preflight.outputs.app_path }}
-          RELEASE_PATH: ${{ needs.preflight.outputs.release_path }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
+        run: |
+          set -euo pipefail
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          guard_json="$(python3 scripts/staging-transport.py guard "$CANDIDATE_SHA" "$APP_PATH" "${{ steps.digest.outputs.digest }}")"
+          guard_result="$(printf '%s' "$guard_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "python3 ${remote_control_dir}/staging_sync_remote.py")"
+          echo "$guard_result"
+          skip_sync="$(echo "$guard_result" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("skip_sync","false"))')"
+          echo "skip_sync=$skip_sync" >> "$GITHUB_OUTPUT"
+
+      - name: Sync candidate to temp release directory
+        id: sync
+        if: steps.guard.outputs.skip_sync != 'true'
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          TEMP_SYNC_PATH: ${{ needs.preflight.outputs.temp_sync_path }}
           KEY_FILE: ${{ steps.ssh.outputs.key_file }}
           KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
@@ -241,7 +306,27 @@ jobs:
             --exclude='community/' \
             --exclude='landing/' \
             -e "ssh -i ${KEY_FILE} -p ${ssh_port} -o UserKnownHostsFile=${KNOWN_HOSTS_FILE} -o StrictHostKeyChecking=yes -o ConnectTimeout=15" \
-            ./ "${ssh_target}:${RELEASE_PATH}/"
+            ./candidate-tree/ "${ssh_target}:${TEMP_SYNC_PATH}/"
+
+      - name: Finalize atomic release directory
+        if: steps.guard.outputs.skip_sync != 'true'
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          CANDIDATE_DIGEST: ${{ steps.digest.outputs.digest }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
+        run: |
+          set -euo pipefail
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          finalize_json="$(python3 scripts/staging-transport.py finalize "$CANDIDATE_SHA" "$APP_PATH" "$CANDIDATE_DIGEST")"
+          printf '%s' "$finalize_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "python3 ${remote_control_dir}/staging_sync_remote.py"
 
       - name: Deploy BFF on staging-node
         id: deploy
@@ -250,21 +335,21 @@ jobs:
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
           CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          CONTROL_SHA: ${{ steps.control.outputs.control_sha }}
           APP_PATH: ${{ needs.preflight.outputs.app_path }}
           RELEASE_PATH: ${{ needs.preflight.outputs.release_path }}
           LEGACY_START: ${{ inputs.legacy_verify_start }}
           LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
-          STAGING_BFF_BASE_URL: ${{ vars.STAGING_BFF_BASE_URL }}
           KEY_FILE: ${{ steps.ssh.outputs.key_file }}
           KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
           ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
           ssh_port="${STAGING_SSH_PORT:-2222}"
-          deploy_json="$(python3 scripts/staging-transport.py deploy "$CANDIDATE_SHA" "$APP_PATH" "$LEGACY_START" "$LEGACY_CUTOFF" "${STAGING_BFF_BASE_URL:-https://staging.api.formulaeapps.com}")"
+          deploy_json="$(python3 scripts/staging-transport.py deploy "$CANDIDATE_SHA" "$APP_PATH" "$LEGACY_START" "$LEGACY_CUTOFF" "https://staging.api.formulaeapps.com" "$CONTROL_SHA")"
           printf '%s' "$deploy_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
             -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$ssh_target" "python3 ${RELEASE_PATH}/scripts/staging_deploy_remote.py"
+            "$ssh_target" "python3 ${remote_control_dir}/staging_deploy_remote.py"
 
       - name: Verify deployed metadata matches candidate SHA
         env:
@@ -301,7 +386,7 @@ jobs:
           ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
           ssh_port="${STAGING_SSH_PORT:-2222}"
           ssh -n -i "$KEY_FILE" -p "$ssh_port" -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$ssh_target" "cd '${APP_PATH}/current' && python3 scripts/staging-check-env.py"
+            "$ssh_target" "STAGING_ENV_FILE='${APP_PATH}/current/.env' python3 ${remote_control_dir}/staging-check-env.py"
 
       - name: JWT staging smokes
         id: smokes
@@ -310,17 +395,17 @@ jobs:
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
           APP_PATH: ${{ needs.preflight.outputs.app_path }}
-          STAGING_BFF_BASE_URL: ${{ vars.STAGING_BFF_BASE_URL }}
+          REMOTE_CONTROL_DIR: /tmp/formulae-staging-control-${{ needs.preflight.outputs.candidate_sha }}
           KEY_FILE: ${{ steps.ssh.outputs.key_file }}
           KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
           ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
           ssh_port="${STAGING_SSH_PORT:-2222}"
-          smoke_json="$(python3 -c 'import json, os; print(json.dumps({"app_path": os.environ["APP_PATH"], "base_url": os.environ.get("STAGING_BFF_BASE_URL") or "https://staging.api.formulaeapps.com"}))')"
+          smoke_json="$(python3 -c 'import json, os; print(json.dumps({"env_file": os.environ["APP_PATH"] + "/current/.env", "base_url": "https://staging.api.formulaeapps.com", "control_dir": os.environ["REMOTE_CONTROL_DIR"]}))')"
           printf '%s' "$smoke_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
             -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$ssh_target" "python3 -c 'import json,sys,subprocess,os; cfg=json.load(sys.stdin); os.chdir(cfg[\"app_path\"] + \"/current\"); subprocess.run([\"bash\",\"scripts/jwt-staging-smoke.sh\",cfg[\"base_url\"]], check=True)'"
+            "$ssh_target" "python3 -c 'import json,sys,subprocess,os; cfg=json.load(sys.stdin); subprocess.run([\"bash\", cfg[\"control_dir\"] + \"/jwt-staging-smoke.sh\", cfg[\"base_url\"]], check=True, env={**os.environ, \"STAGING_ENV_FILE\": cfg[\"env_file\"]})'"
 
       - name: Roll back staging on failure
         if: failure() && steps.deploy.outcome == 'success'
@@ -340,7 +425,7 @@ jobs:
           rollback_json="$(python3 scripts/staging-transport.py rollback "$APP_PATH" "$CANDIDATE_SHA")"
           printf '%s' "$rollback_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
             -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$ssh_target" "python3 ${RELEASE_PATH}/scripts/staging_rollback_remote.py"
+            "$ssh_target" "python3 ${remote_control_dir}/staging_rollback_remote.py"
 
       - name: Clean SSH material
         if: always()

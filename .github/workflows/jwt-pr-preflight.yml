@@ -62,21 +62,39 @@ jobs:
           rm "${TARBALL}" "gitleaks_${GITLEAKS_VERSION}_checksums.txt"
           ./gitleaks version
 
+      - name: Install ShellCheck
+        run: |
+          set -euo pipefail
+          SHELLCHECK_VERSION="0.10.0"
+          TARBALL="shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          EXPECTED_SHA256="6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87"
+          BASE_URL="https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}"
+          wget -q "${BASE_URL}/${TARBALL}"
+          echo "${EXPECTED_SHA256}  ${TARBALL}" | sha256sum --check
+          tar xJf "${TARBALL}"
+          mv "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" ./shellcheck
+          chmod +x shellcheck
+          rm -rf "shellcheck-v${SHELLCHECK_VERSION}" "${TARBALL}"
+          ./shellcheck --version
+
       - name: Python compile + staging helper tests
         run: |
           set -euo pipefail
-          python3 -m py_compile scripts/staging_lib.py scripts/staging-transport.py scripts/staging_deploy_remote.py scripts/staging_rollback_remote.py scripts/staging-check-env.py
+          python3 -m py_compile scripts/staging_lib.py scripts/staging-transport.py scripts/staging_deploy_remote.py scripts/staging_rollback_remote.py scripts/staging_sync_remote.py scripts/staging-check-env.py
           python3 scripts/test_staging_lib.py
 
       - name: Shellcheck staging scripts
         run: |
           set -euo pipefail
-          shellcheck -x scripts/staging-deploy-remote.sh scripts/staging-rollback-remote.sh scripts/staging-sync-release.sh scripts/jwt-staging-smoke.sh scripts/validate-legacy-window.sh
+          ./shellcheck -x scripts/staging-deploy-remote.sh scripts/staging-rollback-remote.sh scripts/staging-sync-release.sh scripts/jwt-staging-smoke.sh scripts/validate-legacy-window.sh
 
       - name: Docker compose config (synthetic)
         env:
           CANDIDATE_SHA: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-        run: docker compose -f docker-compose.staging.yml config >/dev/null
+        run: |
+          set -euo pipefail
+          : > .env
+          docker compose -f docker-compose.staging.yml config >/dev/null
 
       - name: Frozen install
         working-directory: bff
@@ -86,6 +104,7 @@ jobs:
         working-directory: bff
         env:
           GITLEAKS_BIN: ${{ github.workspace }}/gitleaks
+          SHELLCHECK_BIN: ${{ github.workspace }}/shellcheck
         run: bun test
 
       - name: Typecheck
@@ -102,4 +121,5 @@ jobs:
           ./gitleaks dir --redact --no-banner --config .gitleaks.toml --exit-code 1 .
 
       - name: Diff check
-        run: git diff --check
+        if: github.event_name == 'pull_request'
+        run: git diff --check "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}"

@@ -31,6 +31,7 @@ def main() -> int:
         config['legacy_verify_cutoff'],
         bootstrap=bool(config.get('bootstrap')),
         readiness_base_url=config.get('readiness_base_url') or None,
+        control_sha=config.get('control_sha'),
     )
     print(f"DEPLOYED_SHA={config['candidate_sha']}")
     return 0
