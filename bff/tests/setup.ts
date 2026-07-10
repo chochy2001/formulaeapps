@@ -2,10 +2,18 @@
 // Provides deterministic env vars so env.ts doesn't throw on import.
 // Configured via bunfig.toml [test] preload entry.
 
+import { createHash } from 'node:crypto';
+
 process.env['BFF_ENV'] = 'development';
 process.env['BFF_PORT'] = '3000';
 process.env['JWT_SHARED_SECRET'] =
   'test-secret-' + 'a'.repeat(48); // 60 chars, non-placeholder pattern
+process.env['JWT_SIGNING_SECRET'] = createHash('sha256')
+  .update('formulae-bff-test-signing-key')
+  .digest('hex');
+process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
+process.env['JWT_LEGACY_VERIFY_START'] = undefined;
+process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
 process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-test-key-for-bff-unit-tests';
 process.env['OPENROUTER_DEFAULT_MODEL'] = 'openai/gpt-4o-mini';
 process.env['OPENROUTER_MODEL_ALLOWLIST'] =

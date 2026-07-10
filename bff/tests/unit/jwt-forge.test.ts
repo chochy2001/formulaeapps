@@ -5,6 +5,8 @@ import { verifyToken, resolveSigningSecret } from '../../src/lib/jwt';
 const enc = (s: string): Uint8Array => new TextEncoder().encode(s);
 const SECRET = resolveSigningSecret({
   JWT_SHARED_SECRET: process.env['JWT_SHARED_SECRET'] ?? 'test-secret-' + 'a'.repeat(48),
+  JWT_SIGNING_SECRET:
+    process.env['JWT_SIGNING_SECRET'] ?? 'test-signing-secret-' + 'b'.repeat(48),
 });
 
 describe('jwt verifyToken: invalid payload shape', () => {

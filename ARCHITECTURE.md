@@ -14,7 +14,7 @@ The 2026-05-01 body that follows describes the **pre-feature-002 state**. Read i
 | Layer | Pre-feat-002 (2026-05-01) | **Now (2026-05-19 R13)** |
 |---|---|---|
 | BFF code location | "lives elsewhere, probably another team's repo" | ✅ Lives at `bff/` in this monorepo (commits `3b26d08`, `c30a3dc`, `e5a4bdd` on `main`) |
-| BFF deployment | "VPS Contabo paused — Deploy 0 Flutter bug" | ✅ Live on Contabo `ancare` (212.28.180.4) at `https://api.formulaeapps.com` — Bun + Hono container, healthy, 35/35 tests passing |
+| BFF deployment | "VPS Contabo paused — Deploy 0 Flutter bug" | ✅ Live on Contabo `ancare` (212.28.180.4) at `https://api.formulaeapps.com` — Bun + Hono container; current branch validates 110/110 tests across 19 files (see `bff/README.md` for the live count) |
 | BFF routes | "compose declares 4 routes, none implemented" | ✅ All 4 routes implemented + tested: `/health`, `/auth/token` (HMAC-validated), `/openai/chat` (OpenRouter proxy with 6-model allowlist), `/iap/validate` (R12 hardening returns clean 503 when secrets missing) |
 | Pro Web | "shipped with PLACEHOLDER_DEV_NOT_FOR_PROD JWT — chat broken" | ✅ Re-deployed R13 with real `JWT_SHARED_SECRET` + `FORMULAE_BFF_CHAT_URL=https://api.formulaeapps.com/openai/chat`. End-to-end chat live (Gemini Flash Lite, ~1.16 s) |
 | `api.formulaeapps.com` DNS | "Hostinger proxy, no content" | ✅ Cloudflare → Traefik (ancare VPS), TLS via Let's Encrypt R12 DNS-01, valid through Aug 17 2026 |

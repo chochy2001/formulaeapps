@@ -1,5 +1,15 @@
 import { describe, test, expect } from 'bun:test';
-import { issueToken, verifyToken, shouldRefresh, JWT_CONSTANTS, resolveSigningSecret } from '../../src/lib/jwt';
+import {
+  issueToken,
+  issueTokenWithConfig,
+  verifyToken,
+  verifyTokenWithConfig,
+  shouldRefresh,
+  JWT_CONSTANTS,
+  resolveSigningSecret,
+  legacyVerificationAllowed,
+  type JwtKeyConfig,
+} from '../../src/lib/jwt';
 import { randomUUID } from 'node:crypto';
 import { SignJWT, jwtVerify } from 'jose';
 
@@ -82,48 +92,214 @@ describe('jwt issue + verify', () => {
   });
 });
 
-describe('resolveSigningSecret (audit P1: server-only signing secret)', () => {
-  test('falls back to JWT_SHARED_SECRET when JWT_SIGNING_SECRET is unset', () => {
-    expect(resolveSigningSecret({ JWT_SHARED_SECRET: 'shared-only' })).toBe('shared-only');
-    expect(
-      resolveSigningSecret({ JWT_SHARED_SECRET: 'shared-only', JWT_SIGNING_SECRET: undefined }),
-    ).toBe('shared-only');
+describe('dual-key JWT migration', () => {
+  const startMillis = 1_800_000_000_000;
+  const cutoffMillis = startMillis + 3_599_000;
+  const signingSecret = 'new-server-only-signing-secret-32bytes';
+  const legacySecret = 'legacy-client-shared-secret';
+
+  const config = (overrides: Partial<JwtKeyConfig> = {}): JwtKeyConfig => ({
+    JWT_SIGNING_SECRET: signingSecret,
+    JWT_SHARED_SECRET: legacySecret,
+    JWT_LEGACY_VERIFY_ENABLED: true,
+    JWT_LEGACY_VERIFY_START: new Date(startMillis).toISOString(),
+    JWT_LEGACY_VERIFY_CUTOFF: new Date(cutoffMillis).toISOString(),
+    ...overrides,
   });
 
-  test('prefers JWT_SIGNING_SECRET when set', () => {
-    expect(
-      resolveSigningSecret({ JWT_SHARED_SECRET: 'shared', JWT_SIGNING_SECRET: 'server-only' }),
-    ).toBe('server-only');
+  async function signSession(secret: string): Promise<string> {
+    const nowSeconds = Math.floor(startMillis / 1000);
+    return await new SignJWT({
+      sub: 'existing-session',
+      aud: 'formulaeapps-pro',
+      jti: randomUUID(),
+      platform: 'web',
+      app_version: '3.7.2',
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuer('api.formulaeapps.com')
+      .setIssuedAt(nowSeconds - 60)
+      .setExpirationTime(nowSeconds + JWT_CONSTANTS.TOKEN_LIFETIME_SECONDS)
+      .sign(new TextEncoder().encode(secret));
+  }
+
+  test('requires JWT_SIGNING_SECRET for all newly issued JWTs', () => {
+    expect(() =>
+      resolveSigningSecret({
+        JWT_SHARED_SECRET: legacySecret,
+        JWT_SIGNING_SECRET: undefined,
+      }),
+    ).toThrow('JWT_SIGNING_SECRET is required to issue session JWTs');
   });
 
-  test('a token forged with the leaked shared secret is rejected once a distinct signing secret is in effect', async () => {
-    // Simulates an attacker who extracted JWT_SHARED_SECRET from a client bundle
-    // and forged an HS256 token, while the server signs/verifies with a separate
-    // JWT_SIGNING_SECRET. Verification under the signing secret must fail.
-    const sharedSecret = 'leaked-client-shared-secret';
-    const signingSecret = 'server-only-signing-secret';
+  test('accepts a legacy token only during an explicitly enabled grace window', async () => {
+    const token = await signSession(legacySecret);
+    const claims = await verifyTokenWithConfig(token, config(), startMillis + 1);
 
-    const enc = (s: string): Uint8Array => new TextEncoder().encode(s);
+    expect(claims.sub).toBe('existing-session');
+  });
 
-    const forged = await new SignJWT({ sub: 'attacker', aud: 'formulaeapps-pro' })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setIssuer('api.formulaeapps.com')
-      .setIssuedAt()
-      .setExpirationTime('1h')
-      .sign(enc(sharedSecret));
+  test('accepts a token signed by the new server-only key', async () => {
+    const token = await signSession(signingSecret);
+    const claims = await verifyTokenWithConfig(token, config(), startMillis + 1);
 
-    // Forged token verifies under the shared secret (attacker's view)...
-    await expect(jwtVerify(forged, enc(sharedSecret))).resolves.toBeDefined();
-    // ...but NOT under the server-only signing secret.
-    await expect(jwtVerify(forged, enc(signingSecret))).rejects.toThrow();
+    expect(claims.sub).toBe('existing-session');
+  });
 
-    // A token the server signs with the signing secret verifies under it.
-    const legit = await new SignJWT({ sub: 'real', aud: 'formulaeapps-pro' })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setIssuer('api.formulaeapps.com')
-      .setIssuedAt()
-      .setExpirationTime('1h')
-      .sign(enc(signingSecret));
-    await expect(jwtVerify(legit, enc(signingSecret))).resolves.toBeDefined();
+  test('rejects a legacy token at the exact cutoff millisecond', async () => {
+    const token = await signSession(legacySecret);
+
+    await expect(verifyTokenWithConfig(token, config(), cutoffMillis)).rejects.toThrow();
+  });
+
+  test('rejects a legacy token one millisecond after cutoff', async () => {
+    const token = await signSession(legacySecret);
+
+    await expect(verifyTokenWithConfig(token, config(), cutoffMillis + 1)).rejects.toThrow();
+  });
+
+  test('honors a fractional-second cutoff using real milliseconds', () => {
+    const fractionalCutoffMillis = cutoffMillis + 500;
+    const fractionalConfig = config({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(fractionalCutoffMillis).toISOString(),
+    });
+
+    expect(legacyVerificationAllowed(fractionalConfig, fractionalCutoffMillis - 1)).toBe(true);
+    expect(legacyVerificationAllowed(fractionalConfig, fractionalCutoffMillis)).toBe(false);
+  });
+
+  test('rejects legacy tokens when the migration flag is disabled', async () => {
+    const token = await signSession(legacySecret);
+
+    await expect(
+      verifyTokenWithConfig(token, config({ JWT_LEGACY_VERIFY_ENABLED: false }), startMillis + 1),
+    ).rejects.toThrow();
+  });
+
+  test('a restart one hour later cannot extend the immutable cutoff', () => {
+    const bootConfig = config();
+    const restartedConfig = { ...bootConfig };
+    const restartMillis = startMillis + 3_600_000;
+
+    expect(legacyVerificationAllowed(bootConfig, startMillis + 1)).toBe(true);
+    expect(legacyVerificationAllowed(restartedConfig, restartMillis)).toBe(false);
+    expect(restartedConfig.JWT_LEGACY_VERIFY_CUTOFF).toBe(bootConfig.JWT_LEGACY_VERIFY_CUTOFF);
+  });
+
+  test('rollback keeps the new key and does not resume legacy signing', async () => {
+    const result = await issueTokenWithConfig(
+      {
+        sub: 'rollback-session',
+        aud: 'formulaeapps-pro',
+        platform: 'web',
+        app_version: '3.7.2',
+        jti: randomUUID(),
+      },
+      config({
+        JWT_LEGACY_VERIFY_ENABLED: false,
+        JWT_LEGACY_VERIFY_START: undefined,
+        JWT_LEGACY_VERIFY_CUTOFF: undefined,
+      }),
+      Math.floor(startMillis / 1000),
+    );
+
+    await expect(
+      jwtVerify(result.token, new TextEncoder().encode(signingSecret)),
+    ).resolves.toBeDefined();
+    await expect(
+      jwtVerify(result.token, new TextEncoder().encode(legacySecret)),
+    ).rejects.toThrow();
+    await expect(
+      verifyTokenWithConfig(
+        result.token,
+        config({
+          JWT_LEGACY_VERIFY_ENABLED: false,
+          JWT_LEGACY_VERIFY_START: undefined,
+          JWT_LEGACY_VERIFY_CUTOFF: undefined,
+        }),
+        startMillis,
+      ),
+    ).resolves.toMatchObject({ sub: 'rollback-session' });
+  });
+});
+
+describe('legacyVerificationAllowed helper (direct)', () => {
+  const startMillis = 1_800_000_000_000;
+  const twoHours = 7_200_000;
+  const twentyFourHours = 86_400_000;
+
+  const base = (overrides: Partial<JwtKeyConfig> = {}): JwtKeyConfig => ({
+    JWT_SIGNING_SECRET: 'new-server-only-signing-secret-32bytes',
+    JWT_SHARED_SECRET: 'legacy-client-shared-secret',
+    JWT_LEGACY_VERIFY_ENABLED: true,
+    JWT_LEGACY_VERIFY_START: new Date(startMillis).toISOString(),
+    JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis + twoHours).toISOString(),
+    ...overrides,
+  });
+
+  test('allows verification inside a valid 24h-request window only when duration ≤ 2h', () => {
+    // A requested 24h window is invalid and must be rejected by the helper itself.
+    const twentyFourHourConfig = base({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis + twentyFourHours).toISOString(),
+    });
+    expect(legacyVerificationAllowed(twentyFourHourConfig, startMillis + 1)).toBe(false);
+    expect(legacyVerificationAllowed(twentyFourHourConfig, startMillis + twoHours - 1)).toBe(false);
+  });
+
+  test('accepts the inclusive start and rejects the exclusive cutoff boundary', () => {
+    const cfg = base();
+    expect(legacyVerificationAllowed(cfg, startMillis)).toBe(true);
+    expect(legacyVerificationAllowed(cfg, startMillis + twoHours - 1)).toBe(true);
+    expect(legacyVerificationAllowed(cfg, startMillis + twoHours)).toBe(false);
+    expect(legacyVerificationAllowed(cfg, startMillis - 1)).toBe(false);
+  });
+
+  test('accepts an exact two-hour (7200000 ms) window', () => {
+    const cfg = base({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis + 7_200_000).toISOString(),
+    });
+    expect(legacyVerificationAllowed(cfg, startMillis + 1)).toBe(true);
+  });
+
+  test('rejects cutoff equal to start', () => {
+    const cfg = base({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis).toISOString(),
+    });
+    expect(legacyVerificationAllowed(cfg, startMillis)).toBe(false);
+  });
+
+  test('rejects cutoff before start', () => {
+    const cfg = base({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis - 1).toISOString(),
+    });
+    expect(legacyVerificationAllowed(cfg, startMillis - 1)).toBe(false);
+  });
+
+  test('rejects duration greater than 7200000 ms by one millisecond', () => {
+    const cfg = base({
+      JWT_LEGACY_VERIFY_CUTOFF: new Date(startMillis + 7_200_001).toISOString(),
+    });
+    expect(legacyVerificationAllowed(cfg, startMillis + 1)).toBe(false);
+  });
+
+  test('rejects NaN / unparseable timestamps', () => {
+    expect(
+      legacyVerificationAllowed(
+        base({ JWT_LEGACY_VERIFY_START: 'not-a-date', JWT_LEGACY_VERIFY_CUTOFF: 'also-bad' }),
+        startMillis,
+      ),
+    ).toBe(false);
+  });
+
+  test('rejects when legacy flag is disabled or bounds are missing', () => {
+    expect(legacyVerificationAllowed(base({ JWT_LEGACY_VERIFY_ENABLED: false }), startMillis + 1)).toBe(
+      false,
+    );
+    expect(
+      legacyVerificationAllowed(base({ JWT_LEGACY_VERIFY_START: undefined }), startMillis + 1),
+    ).toBe(false);
+    expect(
+      legacyVerificationAllowed(base({ JWT_LEGACY_VERIFY_CUTOFF: undefined }), startMillis + 1),
+    ).toBe(false);
   });
 });

@@ -11,16 +11,24 @@
 | OpenAPI routes implemented | ✅ | `GET /health`, `POST /auth/token`, `POST /openai/chat`, `POST /iap/validate` in `bff/src/routes/`; contract `contracts/bff.openapi.yaml` v1.0.0 |
 | Dart codegen client | ✅ | `pro/packages/formulaeapps_bff_client/`, `community/packages/formulaeapps_bff_client/`; consumed by `lib/chat_gpt/api_service.dart` in both apps |
 | VPS deploy with Traefik | ✅ | `docker-compose.yml` labels `formulae-bff` on `api.formulaeapps.com`; live `curl https://api.formulaeapps.com/health` → HTTP 200 |
-| Contract tests | ✅ | `scripts/verify-parity.sh`, `scripts/route-coverage.sh`, `bff/tests/` (35 Bun tests in CI job `bff-test`) |
+| Contract tests | ✅ | `scripts/verify-parity.sh`, `scripts/route-coverage.sh`, `bff/tests/` (**35** Bun tests at historical closure in CI job `bff-test`) |
 
 ## Validation run (2026-05-27)
 
 ```text
-bff-test:        35 pass, 0 fail
+bff-test:        35 pass, 0 fail   ← historical Issue #16 closure count
 verify-parity:   ✓ Zod ↔ OpenAPI ↔ Dart match
 verify-routes:   exit_status PASS (2 covered routes, 1 intentional orphan /iap/validate)
 prod /health:    {"status":"ok","version":"1.0.0","prompts_version":"1.0.0"}
 ```
+
+> **Do not conflate test counts.** The **35** figure above is the Issue #16
+> closure evidence from 2026-05-27. The live BFF suite has grown since then
+> (JWT dual-key migration, release gate, rate-limit, IAP, gitleaks guards,
+> etc.). At the dual-key PR baseline it was **110** passing Bun tests; after
+> the `legacyVerificationAllowed` + gitleaks hardening it is **121**. Cite
+> **35** only when discussing the historical #16 closure; cite the live
+> `bun test` total for current branch validation.
 
 ## Out of scope for #16 (follow-up issues)
 

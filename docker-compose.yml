@@ -67,9 +67,9 @@ services:
     build: ./bff
     container_name: formulaeapps-bff
     restart: unless-stopped
-    # Reads JWT_SHARED_SECRET, JWT_SIGNING_SECRET (server-only, optional),
-    # OPENROUTER_API_KEY, etc. from .env. See bff/.env.example for the rollout
-    # steps to set a dedicated JWT_SIGNING_SECRET without a client rebuild.
+    # Reads JWT_SHARED_SECRET, JWT_SIGNING_SECRET (server-only), temporary
+    # JWT_LEGACY_VERIFY_* migration controls, OPENROUTER_API_KEY, etc. from
+    # .env. See bff/README.md for the staged dual-key migration runbook.
     env_file: [.env]
     networks: [web_proxy, bff_internal]
     secrets:

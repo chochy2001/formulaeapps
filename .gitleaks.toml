@@ -1,7 +1,11 @@
-[allowlist]
-description = "Allowlist for known safe patterns"
+title = "FormulaeApps secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated dependency/build trees; default detection rules remain enabled"
 paths = [
-  '''(^|/)\.env\.example$''',
   '''(^|/)node_modules(/|$)''',
   '''(^|/)\.git(/|$)''',
   '''(^|/)vendor(/|$)''',
@@ -9,3 +13,25 @@ paths = [
   '''(^|/)build(/|$)''',
   '''(^|/)dist(/|$)''',
 ]
+
+[[allowlists]]
+description = "Known placeholder secret values only (exact match on extracted secret; .env.example is not path-skipped)"
+regexTarget = "secret"
+regexes = [
+  '''(?i)^replace-with-real-hex-secret$''',
+  '''(?i)^sk-or-v1-replace-me$''',
+  '''(?i)^replace-with-issuer-uuid$''',
+  '''(?i)^replace-with-key-id$''',
+  '''(?i)^placeholder_dev_not_for_prod$''',
+]
+
+[[allowlists]]
+description = "Known credential-shaped value in the historical deployment chronicle; constrain exception to its rule, file, and introducing commit"
+targetRules = ["openai-api-key"]
+commits = ["85052f13a0a8aa0ed004dc971f99dbbdacf85ffa"]
+paths = ['''^DEPLOY-NOTES-2026-04-30\.md$''']
+
+[[allowlists]]
+description = "Firebase Android client configuration contains a publishable, platform-restricted API identifier"
+targetRules = ["gcp-api-key", "generic-api-key"]
+paths = ['''(^|/)community/android/app/google-services\.json$''']

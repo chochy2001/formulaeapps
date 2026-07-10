@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
-import { env } from './env';
+import { env, MAX_LEGACY_WINDOW_MILLIS } from './env';
 
 const ISSUER = 'api.formulaeapps.com';
 const ALG = 'HS256';
@@ -17,35 +17,46 @@ export type SessionClaims = {
   exp: number;
 };
 
-/**
- * Resolve the secret used to sign/verify session JWTs. Prefers the server-only
- * JWT_SIGNING_SECRET; falls back to the client-shared JWT_SHARED_SECRET when
- * unset so existing deploys keep working (zero-downtime compat).
- *
- * JWT_SHARED_SECRET is baked into client builds for the client_proof HMAC and
- * is therefore extractable from a deployed web bundle / APK. Once
- * JWT_SIGNING_SECRET is set, that leaked shared secret can no longer be used to
- * forge valid session JWTs. Exported for unit tests.
- */
-export function resolveSigningSecret(e: {
+export type JwtKeyConfig = {
   JWT_SIGNING_SECRET?: string;
   JWT_SHARED_SECRET: string;
-}): string {
-  return e.JWT_SIGNING_SECRET ?? e.JWT_SHARED_SECRET;
-}
+  JWT_LEGACY_VERIFY_ENABLED?: boolean;
+  JWT_LEGACY_VERIFY_START?: string;
+  JWT_LEGACY_VERIFY_CUTOFF?: string;
+};
 
-function secretBytes(): Uint8Array {
-  return new TextEncoder().encode(resolveSigningSecret(env));
-}
-
-export async function issueToken(args: {
+type IssueTokenArgs = {
   sub: string;
   aud: 'formulaeapps-pro' | 'formulaeapps-community';
   platform: SessionClaims['platform'];
   app_version: string;
   jti: string;
-}): Promise<{ token: string; iat: number; exp: number; refresh_after: number }> {
-  const iat = Math.floor(Date.now() / 1000);
+};
+
+/**
+ * Resolve the only secret permitted for signing new session JWTs.
+ *
+ * JWT_SHARED_SECRET is baked into client builds for the client_proof HMAC and
+ * is therefore extractable from a deployed web bundle / APK. It must never be
+ * used to sign new JWTs. Exported for focused migration tests.
+ */
+export function resolveSigningSecret(e: JwtKeyConfig): string {
+  if (e.JWT_SIGNING_SECRET === undefined) {
+    throw new Error('JWT_SIGNING_SECRET is required to issue session JWTs');
+  }
+  return e.JWT_SIGNING_SECRET;
+}
+
+function secretBytes(secret: string): Uint8Array {
+  return new TextEncoder().encode(secret);
+}
+
+export async function issueTokenWithConfig(
+  args: IssueTokenArgs,
+  keyConfig: JwtKeyConfig,
+  nowSeconds = Math.floor(Date.now() / 1000),
+): Promise<{ token: string; iat: number; exp: number; refresh_after: number }> {
+  const iat = nowSeconds;
   const exp = iat + TOKEN_LIFETIME_SECONDS;
   const refresh_after = exp - REFRESH_WINDOW_SECONDS;
 
@@ -60,16 +71,72 @@ export async function issueToken(args: {
     .setIssuer(ISSUER)
     .setIssuedAt(iat)
     .setExpirationTime(exp)
-    .sign(secretBytes());
+    .sign(secretBytes(resolveSigningSecret(keyConfig)));
 
   return { token, iat, exp, refresh_after };
 }
 
-export async function verifyToken(token: string): Promise<SessionClaims> {
-  const { payload } = await jwtVerify(token, secretBytes(), {
+export async function issueToken(
+  args: IssueTokenArgs,
+): Promise<{ token: string; iat: number; exp: number; refresh_after: number }> {
+  return await issueTokenWithConfig(args, env);
+}
+
+async function verifyWithSecret(
+  token: string,
+  secret: string,
+  nowMillis: number,
+): Promise<JWTPayload> {
+  const { payload } = await jwtVerify(token, secretBytes(secret), {
     algorithms: [ALG],
     issuer: ISSUER,
+    currentDate: new Date(nowMillis),
   });
+  return payload;
+}
+
+/**
+ * Returns true only when legacy JWT verification is explicitly enabled and
+ * `nowMillis` falls in the immutable half-open interval `[start, cutoff)`.
+ *
+ * Fail-closed for invalid windows even when called directly (not via env
+ * parsing): `cutoff <= start`, duration `> MAX_LEGACY_WINDOW_MILLIS`, NaN
+ * timestamps, or missing/disabled config all return false.
+ */
+export function legacyVerificationAllowed(keyConfig: JwtKeyConfig, nowMillis: number): boolean {
+  if (
+    keyConfig.JWT_LEGACY_VERIFY_ENABLED !== true ||
+    keyConfig.JWT_LEGACY_VERIFY_START === undefined ||
+    keyConfig.JWT_LEGACY_VERIFY_CUTOFF === undefined
+  ) {
+    return false;
+  }
+  const startMillis = Date.parse(keyConfig.JWT_LEGACY_VERIFY_START);
+  const cutoffMillis = Date.parse(keyConfig.JWT_LEGACY_VERIFY_CUTOFF);
+  if (Number.isNaN(startMillis) || Number.isNaN(cutoffMillis)) {
+    return false;
+  }
+  // Reject inverted/empty windows and anything longer than the hard ceiling.
+  if (cutoffMillis <= startMillis || cutoffMillis - startMillis > MAX_LEGACY_WINDOW_MILLIS) {
+    return false;
+  }
+  return nowMillis >= startMillis && nowMillis < cutoffMillis;
+}
+
+export async function verifyTokenWithConfig(
+  token: string,
+  keyConfig: JwtKeyConfig,
+  nowMillis = Date.now(),
+): Promise<SessionClaims> {
+  let payload: JWTPayload;
+  try {
+    payload = await verifyWithSecret(token, resolveSigningSecret(keyConfig), nowMillis);
+  } catch (newKeyError) {
+    if (!legacyVerificationAllowed(keyConfig, nowMillis)) {
+      throw newKeyError;
+    }
+    payload = await verifyWithSecret(token, keyConfig.JWT_SHARED_SECRET, nowMillis);
+  }
 
   // Validate the payload shape — jose returns a generic JWTPayload.
   const p = payload as JWTPayload;
@@ -106,6 +173,10 @@ export async function verifyToken(token: string): Promise<SessionClaims> {
     iat: p.iat,
     exp: p.exp,
   };
+}
+
+export async function verifyToken(token: string): Promise<SessionClaims> {
+  return await verifyTokenWithConfig(token, env);
 }
 
 /** Returns true when the token is past its `refresh_after` boundary but still valid. */

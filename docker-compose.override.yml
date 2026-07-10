@@ -24,6 +24,12 @@ services:
       BFF_ENV: development
       BFF_PORT: "3000"
       JWT_SHARED_SECRET: "${JWT_SHARED_SECRET:-local-dev-secret-replace-this-please-32chars-min}"
+      # Public development-only default; override with an independent 64-hex
+      # value outside local development.
+      JWT_SIGNING_SECRET: "${JWT_SIGNING_SECRET:-62f2c52b785a1e711ecf75bdf981a669fcd72b43cc36bef668b6497ac44e416f}"
+      JWT_LEGACY_VERIFY_ENABLED: "false"
+      JWT_LEGACY_VERIFY_START: ""
+      JWT_LEGACY_VERIFY_CUTOFF: ""
       OPENROUTER_API_KEY: "${OPENROUTER_API_KEY:-sk-or-v1-local-dev-replace-me}"
       CORS_ALLOWED_ORIGINS: "https://app.formulaeapps.com,https://formulaeapps.com,http://localhost:8080,http://localhost:4321"
       LOG_LEVEL: info

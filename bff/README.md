@@ -2,7 +2,7 @@
 
 Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), validates Apple/Google IAP receipts server-side, and issues short-lived session JWTs to the FE clients.
 
-> **Status**: deployed to production at `https://api.formulaeapps.com` (tag `v1.0.0-bff`, cutover 2026-05-19). All four OpenAPI routes implemented; 35/35 unit + integration tests pass via `bun test`. CI gates: `bff-test`, `verify-parity`, `verify-routes`. Remaining follow-up: `/iap/validate` is an intentional orphan (no FE consumer); real Apple/Google validators are stubbed pending product decision.
+> **Status**: deployed to production at `https://api.formulaeapps.com` (tag `v1.0.0-bff`, cutover 2026-05-19). All four OpenAPI routes implemented; the current branch has 110/110 unit + integration tests passing across 19 files via `bun test`. CI gates: `bff-test`, `verify-parity`, `verify-routes`. Remaining follow-up: `/iap/validate` is an intentional orphan (no FE consumer); real Apple/Google validators are stubbed pending product decision.
 
 ## Stack
 
@@ -28,12 +28,13 @@ bun install
 # 2. Copy env (NEVER commit real values)
 cp .env.example .env
 #    edit .env: set JWT_SHARED_SECRET = `openssl rand -hex 32`,
+#              set JWT_SIGNING_SECRET = a separate `openssl rand -hex 32`,
 #              set OPENROUTER_API_KEY (get from https://openrouter.ai/keys)
 
 # 3. Run in dev (live reload)
 bun run dev                       # http://localhost:3000
 
-# 4. Test (35 tests, ~260ms)
+# 4. Test (see the verified current count in "Tests" below)
 bun test                          # unit + integration
 bun test --watch                  # TDD loop
 
@@ -131,14 +132,22 @@ The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yam
   - `JWT_SIGNING_SECRET` is the **server-only** key used to sign/verify session
     JWTs (HS256). It never ships in any client build, so a leaked
     `JWT_SHARED_SECRET` cannot be used to forge valid session tokens.
-  - When `JWT_SIGNING_SECRET` is unset, JWT signing falls back to
-    `JWT_SHARED_SECRET` (zero-downtime compat); production logs a boot warning
-    until a dedicated value is set.
-  - **Operator rollout (no client rebuild needed):** add
-    `JWT_SIGNING_SECRET=$(openssl rand -hex 32)` to the VPS `.env`, then
-    `docker compose up -d --force-recreate bff`. Existing client builds keep
-    working because clients only send `client_proof` (computed from
-    `JWT_SHARED_SECRET`) and never sign JWTs themselves.
+  - New session JWTs are signed **only** with `JWT_SIGNING_SECRET`; there is no
+    fallback to `JWT_SHARED_SECRET`. Staging and production fail closed unless
+    the signing secret is exactly 64 hexadecimal characters, differs from the
+    shared secret, and contains neither whitespace, placeholder text, nor an
+    obvious weak pattern. These are format/obviousness defenses, not a
+    mathematical proof of entropy; generate 32 random bytes with a CSPRNG.
+  - During migration only, legacy JWTs can be verified with
+    `JWT_SHARED_SECRET` when `JWT_LEGACY_VERIFY_ENABLED=true` **and** the current
+    time is within the immutable absolute UTC
+    `[JWT_LEGACY_VERIFY_START, JWT_LEGACY_VERIFY_CUTOFF)` interval. At the exact
+    cutoff millisecond, legacy verification stops. Startup validates that
+    cutoff is after start and the total fixed interval is at most two hours; it
+    never derives either instant from process start, so restarts cannot extend
+    the window.
+  - Existing client builds remain compatible because clients use
+    `JWT_SHARED_SECRET` only for `client_proof`; they never sign session JWTs.
 - OpenAI / OpenRouter key lives ONLY in BFF env — never in client builds.
 - `/auth/token` uses a constant-time (`crypto.timingSafeEqual`) `client_proof`
   comparison. Because the request contract is fixed (deployed Pro/Community
@@ -158,6 +167,66 @@ The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yam
 - CORS allowlist is exact-match; no wildcards in production.
 - Structured logs redact JWT contents, OpenAI key, IAP receipt bodies, and PII.
 
+### Zero-downtime JWT key migration runbook
+
+This is an operator procedure, not an automated deploy. Do not print either
+secret, token values, or environment-file contents in terminals or CI logs.
+
+1. Provision a strong, distinct `JWT_SIGNING_SECRET` through the approved
+   server-only secret-management path. Keep `JWT_SHARED_SECRET` unchanged
+   because deployed clients still need it for `client_proof`.
+2. Set `JWT_LEGACY_VERIFY_ENABLED=true` with immutable absolute UTC
+   `JWT_LEGACY_VERIFY_START` and `JWT_LEGACY_VERIFY_CUTOFF` values. Cutoff must
+   be after start, no more than two hours later, and late enough for the final
+   legacy token to expire. Record these values in the change ticket; never
+   regenerate them during a restart or rollback.
+3. Deploy the dual-key BFF through the normal staging-first promotion path.
+   Confirm every old instance has left service; only the dual-key version may
+   issue tokens from this point onward.
+4. Smoke `/health`, mint a session through the existing authenticated client
+   flow, and call one JWT-protected endpoint. Confirm the minted token works
+   without logging its value. Also confirm an existing pre-cutover session
+   remains accepted during the grace window.
+5. Wait at least 60 minutes plus the chosen margin after the final old instance
+   stopped issuing legacy-signed JWTs. Do not shorten the absolute cutoff.
+6. Remove legacy verification by setting `JWT_LEGACY_VERIFY_ENABLED=false` and
+   clearing both migration timestamps; do **not** remove `JWT_SHARED_SECRET`.
+   Recreate only the BFF through the approved deployment workflow.
+7. Repeat the health, token-mint, and protected-endpoint smoke. A retained
+   pre-cutover token must now receive `401`; a newly minted token must succeed.
+
+Rollback strategy: **prefer roll-forward to the last known-good dual-key
+artifact**, keeping the server-only `JWT_SIGNING_SECRET` provisioned and
+unchanged. Repeat the smoke checks without printing token or secret values.
+
+**A pre-dual-key binary is NOT a safe rollback artifact.** It cannot verify both
+legacy and newly signed sessions, and it can resume signing with the
+client-shared key. Do not deploy one during or after migration. If the current
+dual-key release is unhealthy, roll forward to a corrected dual-key artifact or
+restore a previously validated dual-key artifact; never revert the signing
+secret to `JWT_SHARED_SECRET`.
+
+Before any release or rollback, run the executable artifact gate from a
+checkout that already contains `scripts/verify-jwt-release-artifact.sh` (the
+workflow ref / current dual-key-capable head). The script inspects the
+*candidate* commit's blobs via `git show`; it does not require the candidate
+tree to provide the gate script. The earliest allowed rollback SHA is
+`5a7795f657283f1b47069ef026ef864d3a65f73c` (exclusive signing + immutable UTC
+window). Earlier dual-key SHAs that recomputed grace from process start are
+rejected. Rollback also requires explicit confirmation that the runtime keeps
+the existing server-only signing key:
+
+```bash
+bash scripts/verify-jwt-release-artifact.sh <candidate-sha>
+bash scripts/verify-jwt-release-artifact.sh <candidate-sha> \
+  --rollback --keep-signing-secret
+```
+
+The release workflow checks out the workflow ref to run this gate, then checks
+out the same `candidate_sha` for behavioral tests and infrastructure
+validation. It blocks commits predating validated fixed-window dual-key
+support or source that can fall back to signing with `JWT_SHARED_SECRET`.
+
 ## Tests
 
 ```bash
@@ -166,7 +235,7 @@ bun test tests/unit/      # unit only
 bun test tests/integration/  # integration only
 ```
 
-Coverage target: every route added in US6 has at least one success-path and one primary-failure-path test (SC-011). **Current: 35/35 pass** (R12 added 3 IAP-availability integration tests).
+Coverage target: every route added in US6 has at least one success-path and one primary-failure-path test (SC-011). **Current: 110/110 pass across 19 files** (`bun test`, including signing-key, fixed-window boundary, restart, rollback-gate, and calendar-impossible timestamp cases).
 
 ## R12+R13 additions (2026-05-19)
 

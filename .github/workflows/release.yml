@@ -6,10 +6,30 @@ name: Release Gate
 # Triggers:
 #   - workflow_dispatch (manual, before any release)
 #   - push to tags matching v*.* (release tagging)
+#
+# JWT gate coherence: one candidate_sha is validated end-to-end. The gate
+# script always runs from the workflow ref (github.sha), which must already
+# contain scripts/verify-jwt-release-artifact.sh. That script inspects the
+# candidate's blobs at candidate_sha; behavioral tests and infra validation
+# then check out the same candidate_sha.
 
 on:
   workflow_dispatch:
     inputs:
+      candidate_sha:
+        description: 'Artifact commit to validate (defaults to current SHA)'
+        required: false
+        type: string
+      rollback:
+        description: 'Validate this candidate as a rollback artifact'
+        required: false
+        type: boolean
+        default: false
+      keep_signing_secret:
+        description: 'Confirm rollback retains JWT_SIGNING_SECRET'
+        required: false
+        type: boolean
+        default: false
       verbose:
         description: 'Verbose output'
         required: false
@@ -28,14 +48,64 @@ permissions:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  CANDIDATE_SHA: ${{ inputs.candidate_sha || github.sha }}
 
 jobs:
-  infra-validate-production:
-    name: Multi-App Infra Validation (Principle IX)
+  jwt-artifact-validate:
+    name: JWT dual-key artifact gate
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout workflow ref (gate script source)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+          no-cache: true
+
+      - name: Block unsafe JWT release or rollback artifacts
+        env:
+          IS_ROLLBACK: ${{ inputs.rollback || false }}
+          KEEP_SIGNING_SECRET: ${{ inputs.keep_signing_secret || false }}
+        run: |
+          args=()
+          if [[ "$IS_ROLLBACK" == 'true' ]]; then
+            args+=(--rollback)
+          fi
+          if [[ "$KEEP_SIGNING_SECRET" == 'true' ]]; then
+            args+=(--keep-signing-secret)
+          fi
+          # Script from workflow ref; candidate blobs inspected via git show.
+          bash scripts/verify-jwt-release-artifact.sh "$CANDIDATE_SHA" "${args[@]}"
+
+      - name: Checkout candidate for behavioral suite
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          fetch-depth: 0
+
+      - name: Run JWT behavioral regression suite
+        working-directory: bff
+        run: |
+          bun install --frozen-lockfile
+          bun test tests/unit/env.test.ts tests/unit/jwt.test.ts tests/unit/jwt-release-gate.test.ts
+
+  infra-validate-production:
+    name: Multi-App Infra Validation (Principle IX)
+    needs: jwt-artifact-validate
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    timeout-minutes: 10
+    steps:
+      - name: Checkout same candidate as JWT gate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CANDIDATE_SHA }}
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -61,6 +131,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: infra-validate-report-${{ github.sha }}
+          name: infra-validate-report-${{ env.CANDIDATE_SHA }}
           path: infra-report.json
           retention-days: 90

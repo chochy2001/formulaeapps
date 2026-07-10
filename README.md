@@ -33,7 +33,7 @@ formulaeapps/
 - **System prompts BFF-side**: los 22 system prompts viven en `bff/src/schemas/prompts.ts` con versionado semver. Actualizaciones de prompts NO requieren release a App Store.
 - **Generación de tipos automática**: cambios en `bff/src/schemas/*.ts` (Zod) regeneran `contracts/bff.openapi.yaml` (vía `bun run build:openapi`) y los clientes Dart en `pro/packages/formulaeapps_bff_client/` + `community/packages/formulaeapps_bff_client/` (vía `bash scripts/generate-bff-types.sh`).
 - **CI gates** (`.github/workflows/ci.yml`):
-  - `bff-test` — 35/35 tests (typecheck + unit + integration).
+  - `bff-test` — 110/110 tests across 19 files (typecheck + unit + integration).
   - `verify-parity` — falla si Zod, OpenAPI o tipos Dart drifean.
   - `verify-routes` — falla si hay rutas huérfanas o llamadas muertas.
 - **Build-time guards** (Pro + Community `main.dart`): release builds con `JWT_SHARED_SECRET` placeholder son rechazados al startup.
@@ -107,7 +107,7 @@ make verify-all
 bash scripts/verify-parity.sh      # Zod ↔ OpenAPI ↔ Dart drift
 bash scripts/route-coverage.sh     # rutas huérfanas / llamadas muertas
 bash scripts/infra-validate.sh --local   # compose + CORS + Traefik
-cd bff && bun test                 # 35 unit + integration tests
+cd bff && bun test                 # 110 unit + integration tests (see bff/README.md for current count)
 ```
 
 ## Despliegue
