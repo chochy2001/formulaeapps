@@ -8,13 +8,15 @@ or enable daily production deploys.
 
 1. `staging` GitHub environment with required reviewers (configure in repository
    Settings → Environments).
-2. Repository secrets: `STAGING_SSH_HOST`, `STAGING_SSH_USER`, `STAGING_SSH_KEY`,
-   `STAGING_SSH_KNOWN_HOSTS`. Optional: `STAGING_SSH_PORT`.
+2. Staging environment secrets: `STAGING_SSH_HOST`, `STAGING_SSH_USER`,
+   `STAGING_SSH_KEY`, `STAGING_SSH_KNOWN_HOSTS`. Optional: `STAGING_SSH_PORT`.
 3. Repository variable: `STAGING_APP_PATH` (default
    `/opt/staging/apps/formulaeapps`).
 4. Repository variable: `STAGING_BFF_BASE_URL` (staging Traefik route, e.g.
    `https://staging.api.formulaeapps.com`).
-5. Host file `/opt/staging/apps/formulaeapps/.env.staging` with:
+5. Host marker `/etc/capdesis-role` must contain exactly `staging`.
+6. Persistent host file `/opt/staging/apps/formulaeapps/.env.staging` (outside
+   immutable releases) with:
    - `BFF_ENV=staging`
    - `JWT_SHARED_SECRET` (existing client-shared key, unchanged)
    - `JWT_SIGNING_SECRET` (new server-only 64-hex value, independently generated)
@@ -22,11 +24,27 @@ or enable daily production deploys.
    - Migration window for smokes (required):
      `JWT_LEGACY_VERIFY_ENABLED=true`,
      `JWT_LEGACY_VERIFY_START=<absolute UTC ISO-8601 Z>`,
-     `JWT_LEGACY_VERIFY_CUTOFF=<absolute UTC ISO-8601 Z>` (max 2 hours after start)
+     `JWT_LEGACY_VERIFY_CUTOFF=<absolute UTC ISO-8601 Z>` (max 20 minutes after
+     start for staging deploy jobs; production policy remains 2 hours)
 
 Never print secret values, token payloads, or full `.env` contents in terminals,
 CI logs, or tickets. Record only secret **names**, presence booleans, and
 redacted format-validation results.
+
+## Immutable release layout
+
+```
+/opt/staging/apps/formulaeapps/
+├── .env.staging                 # persistent secrets (0600), outside releases
+├── .staging-state/deploy-state.json
+├── current -> releases/<40hex>  # switched only after build + readiness
+└── releases/<40hex>/           # rsync target per candidate SHA
+```
+
+- Rsync never uses `--delete` against the active release root.
+- Rollback state lives in `.staging-state/` outside synced release trees.
+- First deploy without an existing baseline is rejected unless an explicit
+  bootstrap mode is approved separately (not enabled in this draft).
 
 ## Candidate selection
 
@@ -50,24 +68,25 @@ Inputs:
 |---|---|---|
 | `candidate_sha` | yes | Full 40-hex SHA on `main` |
 | `legacy_verify_start` | yes | Absolute UTC `Z` start of legacy verification window |
-| `legacy_verify_cutoff` | yes | Absolute UTC `Z` cutoff; must be within (0, 2h] after start |
+| `legacy_verify_cutoff` | yes | Absolute UTC `Z` cutoff; max 20m for staging jobs |
 | `rollback` | no | Set true only for rollback validation |
 | `keep_signing_secret` | no | Required with `rollback=true` |
 
 The workflow:
 
 1. Fetches `origin/main`, validates `candidate_sha` format and main membership.
-2. Validates the legacy window pair with `scripts/validate-legacy-window.sh`.
+2. Validates the legacy window pair with `scripts/validate-legacy-window.sh`
+   (`STAGING_LEGACY_MAX_MS=1200000`).
 3. Runs JWT artifact gate + BFF typecheck/tests/build on the candidate.
-4. Rsyncs the candidate to `staging-node` and deploys with
-   `docker compose -f docker-compose.staging.yml -p formulaeapps-staging` only
-   (no `docker-compose.override.yml`, no production domains/networks).
-5. Verifies `DEPLOYED_SHA` on the host matches the candidate.
-6. Checks secret **presence and format** on the host (redacted).
-7. Runs mandatory `scripts/jwt-staging-smoke.sh` on the host (mint, protected
+4. Rsyncs the candidate into `releases/<candidate_sha>/` on `staging-node`.
+5. Deploys remotely with JSON stdin transport (no secret argv), builds/tags the
+   immutable image, polls `/health`, then atomically switches `current`.
+6. Verifies `current/DEPLOYED_SHA` matches the candidate.
+7. Checks secret **presence and format** on the host (redacted).
+8. Runs mandatory `scripts/jwt-staging-smoke.sh` on the host (mint, protected
    route, legacy grace/cutoff/post-cutoff). Rejects HTTP 502.
-8. Auto-rolls back to the prior artifact on deploy/smoke failure while
-   preserving `JWT_SIGNING_SECRET`.
+9. Auto-rolls back to the exact prior release/image on any post-sync failure;
+   rollback failure keeps the workflow red.
 
 ## Smoke expectations (mandatory)
 
@@ -78,11 +97,11 @@ The workflow:
 | `/openai/chat` no JWT | HTTP 401 |
 | Mint + protected route | HTTP 200 with non-empty `message` payload |
 | Legacy token during grace | HTTP 200 inside `[start, cutoff)` |
-| Legacy token at cutoff | HTTP 401 at exact cutoff |
+| Legacy token at cutoff | HTTP 401 at cutoff boundary |
 | Legacy token after cutoff | HTTP 401 |
 
-Smokes read `JWT_SHARED_SECRET` from the host `.env` and never print bearer
-tokens or secret values.
+Smokes read secrets from the host `.env` file and never print bearer tokens or
+secret values. All curls use bounded `--connect-timeout` and `--max-time`.
 
 ## Rollback
 
@@ -91,7 +110,9 @@ tokens or secret values.
   existing `JWT_SIGNING_SECRET` unchanged.
 - **Prohibited**: rollback to pre-dual-key binaries or any artifact that resumes
   signing with `JWT_SHARED_SECRET`.
-- **Automatic**: failed deploy or smoke triggers `scripts/staging-rollback-remote.sh`.
+- **Automatic**: failed deploy/readiness/smoke triggers
+  `scripts/staging_rollback_remote.py`, restoring the prior release symlink and
+  tagged image without recompiling the candidate.
 
 ## Production promotion gate
 

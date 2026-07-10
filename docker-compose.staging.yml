@@ -5,6 +5,7 @@ name: formulaeapps-staging
 
 services:
   bff:
+    image: formulaeapps-staging-bff:${CANDIDATE_SHA:-local}
     build: ./bff
     container_name: formulaeapps-staging-bff
     restart: unless-stopped

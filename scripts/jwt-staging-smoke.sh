@@ -48,7 +48,7 @@ if [[ -z "$JWT_SHARED_SECRET" || -z "$JWT_SIGNING_SECRET" ]]; then
 fi
 
 http_code() {
-  curl -sS -o "$2" -w '%{http_code}' "$1"
+  curl --connect-timeout 10 --max-time 30 -sS -o "$2" -w '%{http_code}' "$1"
 }
 
 echo 'smoke: GET /health'
@@ -64,14 +64,14 @@ assert data.get('status') == 'ok'
 PY
 
 echo 'smoke: POST /auth/token rejects empty body'
-code="$(curl -sS -o /dev/null -w '%{http_code}' -X POST "${base}/auth/token" -H 'Content-Type: application/json' -d '{}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' -X POST "${base}/auth/token" -H 'Content-Type: application/json' -d '{}')"
 if [[ "$code" != "400" ]]; then
   echo "smoke failed: /auth/token empty body expected 400, got $code" >&2
   exit 1
 fi
 
 echo 'smoke: JWT-protected route rejects missing Authorization'
-code="$(curl -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H 'Content-Type: application/json' -d '{"message":"staging smoke ping"}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H 'Content-Type: application/json' -d '{"message":"staging smoke ping"}')"
 if [[ "$code" != "401" ]]; then
   echo "smoke failed: /openai/chat without JWT expected 401, got $code" >&2
   exit 1
@@ -107,7 +107,7 @@ json.dump(
 )
 PY
 
-code="$(curl -sS -o "$mint_body" -w '%{http_code}' -X POST "${base}/auth/token" -H 'Content-Type: application/json' --data-binary @"$mint_body")"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o "$mint_body" -w '%{http_code}' -X POST "${base}/auth/token" -H 'Content-Type: application/json' --data-binary @"$mint_body")"
 if [[ "$code" != "200" ]]; then
   echo "smoke failed: /auth/token mint expected 200, got $code" >&2
   exit 1
@@ -121,7 +121,7 @@ PY
 rm -f "$mint_body"
 
 echo 'smoke: JWT-protected route accepts minted token with real message payload'
-code="$(curl -sS -o "$chat_body" -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$header_file" -H 'Content-Type: application/json' -d '{"message":"staging smoke ping"}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o "$chat_body" -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$header_file" -H 'Content-Type: application/json' -d '{"message":"staging smoke ping"}')"
 if [[ "$code" == "502" ]]; then
   echo 'smoke failed: /openai/chat returned HTTP 502' >&2
   exit 1
@@ -175,23 +175,23 @@ open(sys.argv[2], 'w').write(f'Authorization: Bearer {token}\n')
 PY
 
 echo 'smoke: legacy token accepted during grace window'
-python3 - "$LEGACY_START" "$LEGACY_CUTOFF" <<'PY'
-import sys, time
-from datetime import datetime, timezone
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+python3 - "$LEGACY_START" "$LEGACY_CUTOFF" "$script_dir" <<'PY'
+import sys
+import time
+from pathlib import Path
 
-def parse_z(value: str) -> float:
-    if not value.endswith('Z'):
-        raise SystemExit('invalid legacy timestamp')
-    return datetime.strptime(value[:-1], '%Y-%m-%dT%H:%M:%S').replace(tzinfo=timezone.utc).timestamp()
+sys.path.insert(0, sys.argv[3])
+from staging_lib import parse_utc_z
 
-start = parse_z(sys.argv[1])
-cutoff = parse_z(sys.argv[2])
+start = parse_utc_z(sys.argv[1]).timestamp()
+cutoff = parse_utc_z(sys.argv[2]).timestamp()
 now = time.time()
 if not (start <= now < cutoff):
     raise SystemExit('current time is outside configured legacy window')
 PY
 
-code="$(curl -sS -o "$chat_body" -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy grace smoke"}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o "$chat_body" -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy grace smoke"}')"
 if [[ "$code" == "502" ]]; then
   echo 'smoke failed: legacy /openai/chat returned HTTP 502' >&2
   exit 1
@@ -201,19 +201,23 @@ if [[ "$code" != "200" ]]; then
   exit 1
 fi
 
-echo 'smoke: legacy token rejected at exact cutoff'
-python3 - "$LEGACY_CUTOFF" "$tmpdir/legacy.cutoff" <<'PY'
-import sys, time
-from datetime import datetime, timezone
+echo 'smoke: legacy token rejected at cutoff boundary'
+python3 - "$LEGACY_CUTOFF" "$tmpdir/legacy.cutoff" "$script_dir" <<'PY'
+import sys
+import time
+from pathlib import Path
 
-cutoff = datetime.strptime(sys.argv[1][:-1], '%Y-%m-%dT%H:%M:%S').replace(tzinfo=timezone.utc)
-wait = cutoff.timestamp() - time.time()
+sys.path.insert(0, sys.argv[3])
+from staging_lib import parse_utc_z
+
+cutoff = parse_utc_z(sys.argv[1]).timestamp()
+wait = cutoff - time.time()
 if wait > 0:
     time.sleep(wait)
 open(sys.argv[2], 'w').write('ready')
 PY
 
-code="$(curl -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy cutoff smoke"}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy cutoff smoke"}')"
 if [[ "$code" != "401" ]]; then
   echo "smoke failed: legacy token at cutoff expected 401, got $code" >&2
   exit 1
@@ -221,7 +225,7 @@ fi
 
 echo 'smoke: legacy token rejected after cutoff'
 sleep 1
-code="$(curl -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy post-cutoff smoke"}')"
+code="$(curl --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' -X POST "${base}/openai/chat" -H @"$tmpdir/legacy.header" -H 'Content-Type: application/json' -d '{"message":"legacy post-cutoff smoke"}')"
 if [[ "$code" != "401" ]]; then
   echo "smoke failed: legacy token after cutoff expected 401, got $code" >&2
   exit 1

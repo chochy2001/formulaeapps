@@ -1,13 +1,14 @@
 # FormulaeApps BFF — staging deploy + JWT migration smokes (draft)
 #
 # Targets staging-node over SSH. Does NOT deploy production.
-# Required GitHub secrets (repository): STAGING_SSH_HOST, STAGING_SSH_USER,
-# STAGING_SSH_KEY, STAGING_SSH_KNOWN_HOSTS
-# Optional: STAGING_SSH_PORT (default 2222), STAGING_BFF_BASE_URL
+# Required GitHub secrets in the `staging` environment:
+#   STAGING_SSH_HOST, STAGING_SSH_USER, STAGING_SSH_KEY, STAGING_SSH_KNOWN_HOSTS
+# Optional: STAGING_SSH_PORT (default 2222)
 # Optional repository variable: STAGING_APP_PATH (default /opt/staging/apps/formulaeapps)
+# Optional repository variable: STAGING_BFF_BASE_URL
 #
-# Host must provide .env.staging with BFF_ENV=staging and human-provisioned secrets.
-# The workflow checks presence/format only — never prints secret values.
+# Host must provide persistent .env.staging outside immutable releases and
+# /etc/capdesis-role == staging. The workflow checks presence/format only.
 
 name: Deploy Staging BFF (JWT)
 
@@ -23,7 +24,7 @@ on:
         required: true
         type: string
       legacy_verify_cutoff:
-        description: 'JWT_LEGACY_VERIFY_CUTOFF (absolute UTC ISO-8601, max 2h after start)'
+        description: 'JWT_LEGACY_VERIFY_CUTOFF (absolute UTC ISO-8601, max 20m for staging job)'
         required: true
         type: string
       rollback:
@@ -46,6 +47,7 @@ permissions:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  STAGING_LEGACY_MAX_MS: '1200000'
 
 jobs:
   preflight:
@@ -54,6 +56,8 @@ jobs:
     timeout-minutes: 20
     outputs:
       candidate_sha: ${{ steps.validate.outputs.candidate_sha }}
+      app_path: ${{ steps.paths.outputs.app_path }}
+      release_path: ${{ steps.paths.outputs.release_path }}
     steps:
       - name: Checkout workflow ref
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -69,6 +73,7 @@ jobs:
           CANDIDATE_SHA: ${{ inputs.candidate_sha }}
           LEGACY_START: ${{ inputs.legacy_verify_start }}
           LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
         run: |
           set -euo pipefail
           candidate="${CANDIDATE_SHA}"
@@ -86,8 +91,22 @@ jobs:
             exit 1
           fi
           bash scripts/validate-legacy-window.sh "$LEGACY_START" "$LEGACY_CUTOFF"
+          python3 scripts/staging-transport.py deploy "$full_sha" "${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}" "$LEGACY_START" "$LEGACY_CUTOFF" >/dev/null
           echo "candidate_sha=$full_sha" >> "$GITHUB_OUTPUT"
           echo "Validated candidate_sha=$full_sha"
+
+      - name: Resolve immutable release paths
+        id: paths
+        env:
+          CANDIDATE_SHA: ${{ steps.validate.outputs.candidate_sha }}
+          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+        run: |
+          set -euo pipefail
+          payload="$(python3 scripts/staging-transport.py sync "$CANDIDATE_SHA" "${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}")"
+          app_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["app_path"])' "$payload")"
+          release_path="$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["release_path"])' "$payload")"
+          echo "app_path=$app_path" >> "$GITHUB_OUTPUT"
+          echo "release_path=$release_path" >> "$GITHUB_OUTPUT"
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
@@ -155,25 +174,59 @@ jobs:
           missing=0
           for name in STAGING_SSH_HOST STAGING_SSH_USER STAGING_SSH_KEY STAGING_SSH_KNOWN_HOSTS; do
             if [ -z "${!name}" ]; then
-              echo "::error::Missing secret $name"
+              echo "::error::Missing secret $name in staging environment"
               missing=1
             fi
           done
           if [ "$missing" -ne 0 ]; then
-            echo "Deploy blocked until STAGING_SSH_* secrets exist on CAPDESIS/formulaeapps."
+            echo "Deploy blocked until STAGING_SSH_* secrets exist on CAPDESIS/formulaeapps staging environment."
             exit 1
           fi
 
       - name: Install SSH key
+        id: ssh
         env:
           STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
           STAGING_SSH_KNOWN_HOSTS: ${{ secrets.STAGING_SSH_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
-          printf '%s\n' "$STAGING_SSH_KEY" > "$RUNNER_TEMP/staging_deploy_key"
-          chmod 600 "$RUNNER_TEMP/staging_deploy_key"
-          printf '%s\n' "$STAGING_SSH_KNOWN_HOSTS" > "$RUNNER_TEMP/staging_known_hosts"
-          chmod 600 "$RUNNER_TEMP/staging_known_hosts"
+          umask 077
+          key_file="$RUNNER_TEMP/staging_deploy_key"
+          known_hosts_file="$RUNNER_TEMP/staging_known_hosts"
+          printf '%s\n' "$STAGING_SSH_KEY" > "$key_file"
+          chmod 600 "$key_file"
+          printf '%s\n' "$STAGING_SSH_KNOWN_HOSTS" > "$known_hosts_file"
+          chmod 600 "$known_hosts_file"
+          echo "key_file=$key_file" >> "$GITHUB_OUTPUT"
+          echo "known_hosts_file=$known_hosts_file" >> "$GITHUB_OUTPUT"
+
+      - name: Sync immutable release directory
+        id: sync
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          RELEASE_PATH: ${{ needs.preflight.outputs.release_path }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
+        run: |
+          set -euo pipefail
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          rsync -az \
+            --exclude='.git/' \
+            --exclude='.env' \
+            --exclude='.env.*' \
+            --exclude='.staging-state/' \
+            --exclude='current' \
+            --exclude='releases/' \
+            --exclude='pro/' \
+            --exclude='community/' \
+            --exclude='landing/' \
+            -e "ssh -i ${KEY_FILE} -p ${ssh_port} -o UserKnownHostsFile=${KNOWN_HOSTS_FILE} -o StrictHostKeyChecking=yes -o ConnectTimeout=15" \
+            ./ "${ssh_target}:${RELEASE_PATH}/"
 
       - name: Deploy BFF on staging-node
         id: deploy
@@ -181,48 +234,40 @@ jobs:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
           CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          RELEASE_PATH: ${{ needs.preflight.outputs.release_path }}
           LEGACY_START: ${{ inputs.legacy_verify_start }}
           LEGACY_CUTOFF: ${{ inputs.legacy_verify_cutoff }}
+          STAGING_BFF_BASE_URL: ${{ vars.STAGING_BFF_BASE_URL }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
-          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
-          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
-          SSH_PORT="${STAGING_SSH_PORT:-2222}"
-          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
-          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
-          SSH_OPTS=(-i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15)
-
-          rsync -az --delete \
-            --exclude='.git/' \
-            --exclude='.env' \
-            --exclude='.env.*' \
-            --exclude='pro/' \
-            --exclude='community/' \
-            --exclude='landing/' \
-            -e "ssh ${SSH_OPTS[*]}" \
-            ./ "$SSH_TARGET:$APP_PATH/"
-
-          python3 scripts/staging-deploy-config.py "$CANDIDATE_SHA" "$APP_PATH" "$LEGACY_START" "$LEGACY_CUTOFF" | \
-            ssh -n "${SSH_OPTS[@]}" "$SSH_TARGET" "bash $APP_PATH/scripts/staging-deploy-remote.sh"
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          deploy_json="$(python3 scripts/staging-transport.py deploy "$CANDIDATE_SHA" "$APP_PATH" "$LEGACY_START" "$LEGACY_CUTOFF")"
+          readiness_url="${STAGING_BFF_BASE_URL:-https://staging.api.formulaeapps.com}"
+          printf '%s' "$deploy_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "STAGING_READINESS_BASE_URL=${readiness_url} python3 ${RELEASE_PATH}/scripts/staging_deploy_remote.py"
 
       - name: Verify deployed metadata matches candidate SHA
         env:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
           CANDIDATE_SHA: ${{ needs.preflight.outputs.candidate_sha }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
-          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
-          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
-          SSH_PORT="${STAGING_SSH_PORT:-2222}"
-          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
-          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
-          deployed="$(ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 "$SSH_TARGET" "cat '$APP_PATH/DEPLOYED_SHA'")"
-          deployed="${deployed//$'\n'/}"
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          verify_json="$(python3 -c 'import json,sys; print(json.dumps({"app_path": sys.argv[1], "candidate_sha": sys.argv[2]}))' "$APP_PATH" "$CANDIDATE_SHA")"
+          deployed="$(printf '%s' "$verify_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "python3 -c 'import json,sys; from pathlib import Path; cfg=json.load(sys.stdin); print((Path(cfg[\"app_path\"])/\"current\"/\"DEPLOYED_SHA\").read_text().strip())'")"
           if [[ "$deployed" != "$CANDIDATE_SHA" ]]; then
             echo "::error::deployed SHA $deployed does not match candidate $CANDIDATE_SHA"
             exit 1
@@ -234,16 +279,15 @@ jobs:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
-          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
-          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
-          SSH_PORT="${STAGING_SSH_PORT:-2222}"
-          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
-          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
-          ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$SSH_TARGET" "cd '$APP_PATH' && python3 scripts/staging-check-env.py"
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          ssh -n -i "$KEY_FILE" -p "$ssh_port" -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "cd '${APP_PATH}/current' && python3 scripts/staging-check-env.py"
 
       - name: JWT staging smokes
         id: smokes
@@ -251,33 +295,43 @@ jobs:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
           STAGING_BFF_BASE_URL: ${{ vars.STAGING_BFF_BASE_URL }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
-          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
-          BASE="${STAGING_BFF_BASE_URL:-https://staging.api.formulaeapps.com}"
-          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
-          SSH_PORT="${STAGING_SSH_PORT:-2222}"
-          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
-          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
-          ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-            "$SSH_TARGET" "cd '$APP_PATH' && STAGING_ENV_FILE='$APP_PATH/.env' bash scripts/jwt-staging-smoke.sh '$BASE'"
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          smoke_json="$(python3 -c 'import json, os; print(json.dumps({"app_path": os.environ["APP_PATH"], "base_url": os.environ.get("STAGING_BFF_BASE_URL") or "https://staging.api.formulaeapps.com"}))')"
+          printf '%s' "$smoke_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "python3 -c 'import json,sys,subprocess,os; cfg=json.load(sys.stdin); os.chdir(cfg[\"app_path\"] + \"/current\"); subprocess.run([\"bash\",\"scripts/jwt-staging-smoke.sh\",cfg[\"base_url\"]], check=True)'"
 
       - name: Roll back staging on failure
-        if: failure() && steps.deploy.outcome == 'success'
+        if: failure() && steps.sync.outcome == 'success'
         env:
           STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
-          STAGING_APP_PATH: ${{ vars.STAGING_APP_PATH }}
+          APP_PATH: ${{ needs.preflight.outputs.app_path }}
+          RELEASE_PATH: ${{ needs.preflight.outputs.release_path }}
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
         run: |
           set -euo pipefail
-          APP_PATH="${STAGING_APP_PATH:-/opt/staging/apps/formulaeapps}"
-          SSH_TARGET="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
-          SSH_PORT="${STAGING_SSH_PORT:-2222}"
-          KEY_FILE="$RUNNER_TEMP/staging_deploy_key"
-          KNOWN_HOSTS_FILE="$RUNNER_TEMP/staging_known_hosts"
-          python3 scripts/staging-rollback-config.py "$APP_PATH" | \
-            ssh -n -i "$KEY_FILE" -p "$SSH_PORT" -o "UserKnownHostsFile=$KNOWN_HOSTS_FILE" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
-              "$SSH_TARGET" "bash $APP_PATH/scripts/staging-rollback-remote.sh" || true
+          ssh_target="${STAGING_SSH_USER}@${STAGING_SSH_HOST}"
+          ssh_port="${STAGING_SSH_PORT:-2222}"
+          rollback_json="$(python3 scripts/staging-transport.py rollback "$APP_PATH")"
+          printf '%s' "$rollback_json" | ssh -n -i "$KEY_FILE" -p "$ssh_port" \
+            -o "UserKnownHostsFile=${KNOWN_HOSTS_FILE}" -o StrictHostKeyChecking=yes -o ConnectTimeout=15 \
+            "$ssh_target" "python3 ${RELEASE_PATH}/scripts/staging_rollback_remote.py"
+
+      - name: Clean SSH material
+        if: always()
+        env:
+          KEY_FILE: ${{ steps.ssh.outputs.key_file }}
+          KNOWN_HOSTS_FILE: ${{ steps.ssh.outputs.known_hosts_file }}
+        run: |
+          set -euo pipefail
+          rm -f "${KEY_FILE:-}" "${KNOWN_HOSTS_FILE:-}"
