@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
+import EmailLink from '../components/ui/EmailLink.astro';
 import { SITE } from '../consts';
 
-const title = 'Política de privacidad — Formulae';
+const title = 'Política de privacidad | Formulae';
 const description =
   'Política de privacidad de las aplicaciones Formulae Pro y Formulae Community publicadas por CAPDESIS.';
 
@@ -20,7 +21,7 @@ const lastUpdated = '2026-04-30';
       El responsable del tratamiento de los datos recogidos a través de las aplicaciones Formulae
       Pro y Formulae Community y de la web {SITE.domain} es <strong>CAPDESIS</strong>. Para
       cualquier cuestión relacionada con esta política puedes contactarnos en
-      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      <EmailLink />.
     </p>
 
     <h2>2. Datos que recogemos</h2>
@@ -60,9 +61,7 @@ const lastUpdated = '2026-04-30';
     <h2>4. Tus derechos</h2>
     <p>
       Puedes ejercer en cualquier momento los derechos de acceso, rectificación, supresión,
-      oposición, limitación y portabilidad escribiendo a <a href={`mailto:${SITE.email}`}
-        >{SITE.email}</a
-      >.
+      oposición, limitación y portabilidad escribiendo a <EmailLink />.
     </p>
 
     <h2>5. Terceros</h2>

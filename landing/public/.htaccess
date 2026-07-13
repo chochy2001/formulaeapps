@@ -1,4 +1,4 @@
-# .htaccess — red de seguridad para Hostinger LiteSpeed.
+# .htaccess: red de seguridad para Hostinger LiteSpeed.
 # Astro genera con build.format='directory', LiteSpeed sirve index.html
 # de cada carpeta natural. Estas reglas cubren casos límite y hardening.
 

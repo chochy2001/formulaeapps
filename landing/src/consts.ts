@@ -1,10 +1,10 @@
 /**
  * Constantes del sitio. URLs y datos extraídos de la landing actual
  * en producción (formulaeapps.com) y verificados directamente contra
- * las fichas de tienda — auditoría 2026-04-30.
+ * las fichas de tienda (auditoría 2026-04-30).
  *
- *  PRO  → Apple id1666691016 — Google com.capdesis.formulae_pro.formulae_calculo_pro
- *  COMM → Apple id6445803819 — Google capdesis.formulae
+ *  PRO  → Apple id1666691016, Google com.capdesis.formulae_pro.formulae_calculo_pro
+ *  COMM → Apple id6445803819, Google capdesis.formulae
  *
  * Ambas fichas confirman developer: "CAPDESIS S.A. DE C.V.".
  *
@@ -56,7 +56,7 @@ export const VIDEO = {
  *  Pro       → id1666691016
  *  Community → id6445803819
  *
- * Apple URLs sin región — Apple redirige por geolocalización del usuario.
+ * Apple URLs sin región: Apple redirige por geolocalización del usuario.
  */
 export const STORES = {
   pro: {

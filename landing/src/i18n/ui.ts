@@ -88,6 +88,9 @@ export const ui = {
     'comparison.feature.videos': 'Vídeos explicativos',
     'comparison.recommended': 'Recomendado',
 
+    'free.upsell.text': '¿Prefieres usarla sin anuncios y con asistente de IA?',
+    'free.upsell.cta': 'Conoce Formulae Pro',
+
     'subjects.eyebrow': 'Materias',
     'subjects.title': 'Materias que cubre Formulae Pro',
     'subjects.subtitle':
@@ -217,6 +220,9 @@ export const ui = {
     'comparison.feature.formulas': 'Formula catalog',
     'comparison.feature.videos': 'Explanatory videos',
     'comparison.recommended': 'Recommended',
+
+    'free.upsell.text': 'Prefer it without ads and with an AI assistant?',
+    'free.upsell.cta': 'Discover Formulae Pro',
 
     'subjects.eyebrow': 'Subjects',
     'subjects.title': 'Subjects Formulae Pro covers',

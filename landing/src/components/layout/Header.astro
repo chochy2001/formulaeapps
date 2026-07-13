@@ -140,14 +140,13 @@ const navLinks = [
   // Los listeners se atan a `document`, que NO se reemplaza en las
   // navegaciones <ClientRouter /> (view transitions), así que persisten
   // entre páginas; `getMenu()` resuelve el <details> vigente en cada evento.
-  // Por eso basta atarlos una sola vez — el guard con dataset evita
+  // Por eso basta atarlos una sola vez: el guard con dataset evita
   // duplicarlos si el script llegara a re-ejecutarse (sin acumular un
   // listener `astro:page-load` por navegación).
   if (!document.documentElement.dataset.mobileMenuBound) {
     document.documentElement.dataset.mobileMenuBound = 'true';
 
-    const getMenu = () =>
-      document.querySelector<HTMLDetailsElement>('details[data-mobile-menu]');
+    const getMenu = () => document.querySelector<HTMLDetailsElement>('details[data-mobile-menu]');
 
     document.addEventListener('click', (e) => {
       const details = getMenu();

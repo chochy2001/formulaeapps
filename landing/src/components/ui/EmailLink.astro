@@ -1,0 +1,34 @@
+---
+/**
+ * Enlace de correo de contacto.
+ *
+ * El correo oficial de Formulae vive en SITE.email (consts.ts). Se
+ * renderiza como un mailto normal y legible.
+ *
+ * Por qué los comentarios email_off:
+ *   El dominio se sirve detras de Cloudflare, que tiene activado el
+ *   "Email Address Obfuscation" (Scrape Shield). Ese filtro reescribe
+ *   cualquier mailto y el texto del correo por un marcador
+ *   "[email protected]" mas un script que lo decodifica en el navegador.
+ *   Si el script no carga (bloqueado o error), el usuario ve el texto
+ *   roto "[email protected]" en vez del correo real.
+ *
+ *   Envolver el enlace con los marcadores HTML <!--email_off--> ...
+ *   <!--/email_off--> le indica a Cloudflare que NO ofusque esta
+ *   direccion, de modo que el correo real se sirve tal cual y siempre
+ *   es visible y clicable. Los marcadores son comentarios HTML inertes
+ *   si Cloudflare no esta presente.
+ */
+import { SITE } from '../../consts';
+
+interface Props {
+  /** Clases utilitarias opcionales para el ancla. */
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const email = SITE.email;
+---
+
+<!--email_off-->
+<a href={`mailto:${email}`} class={className}>{email}</a><!--/email_off-->
