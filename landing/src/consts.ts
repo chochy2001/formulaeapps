@@ -91,5 +91,32 @@ export const FEATURES = [
   { id: 'practice', proOnly: false },
 ] as const;
 
+/**
+ * Materias que cubre Formulae Pro. Es una lista verificable de áreas
+ * (no un conteo de fórmulas), usada por la sección "Materias" de la
+ * landing para comunicar que Pro abarca matemáticas e ingeniería, no
+ * solo matemáticas puras. El orden aquí define el orden de render; el
+ * texto de cada materia vive en i18n/ui.ts como 'subjects.<id>.label'.
+ */
+export const SUBJECTS = [
+  'algebra',
+  'linearAlgebra',
+  'trigonometry',
+  'geometry',
+  'calculus',
+  'differentialEquations',
+  'probabilityStatistics',
+  'fourier',
+  'discreteMath',
+  'financialMath',
+  'mechanics',
+  'electromagnetism',
+  'optics',
+  'thermodynamics',
+  'unitConversion',
+  'constants',
+] as const;
+
 export type Locale = (typeof SITE.locales)[number];
 export type FeatureId = (typeof FEATURES)[number]['id'];
+export type SubjectId = (typeof SUBJECTS)[number];
