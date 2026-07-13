@@ -1,0 +1,146 @@
+name: Deploy Web (landing + Pro)
+
+# Publishes the landing (formulaeapps.com) and the Pro web app
+# (app.formulaeapps.com) to Hostinger over FTP when main changes.
+#
+# Safety notes:
+#   - The FTP account is chrooted to public_html/, so after login the current
+#     directory already IS public_html. The Pro app lives in public_html/app,
+#     reached with "cd app" (NEVER "cd public_html/app": a failed cd would
+#     silently no-op and a delete would wipe the landing; this bit R13).
+#   - "set cmd:fail-exit yes" makes lftp abort if "cd app" fails, so the Pro
+#     upload can never run at the chroot root by accident.
+#   - We intentionally do NOT use "mirror --delete". Build filenames are stable
+#     (index.html, main.dart.js, flutter_bootstrap.js, flutter_service_worker.js)
+#     so a plain mirror overwrites them and the service worker updates on the
+#     next load. Not deleting means a wrong path can never wipe the live site;
+#     at worst it uploads extra files, which is recoverable.
+#   - The FTP password never appears in process args: it is written to a
+#     mode-600 .netrc in a temp HOME and removed on exit.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'landing/**'
+      - 'pro/**'
+      - '.github/workflows/deploy-web.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-web-prod
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FTP_HOST: '31.170.161.105'
+  FTP_USER: 'u226095507.formulaeapps.com'
+
+jobs:
+  build-landing:
+    name: Build landing
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.9
+      - name: Build landing
+        working-directory: landing
+        env:
+          PUBLIC_SITE_URL: https://formulaeapps.com
+          PUBLIC_APP_URL: https://app.formulaeapps.com
+        run: |
+          bun install --frozen-lockfile
+          bun run build
+      - name: Upload landing artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: landing-dist
+          path: landing/dist
+          retention-days: 1
+          if-no-files-found: error
+
+  build-pro-web:
+    name: Build Pro web
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.1'
+          channel: stable
+      - name: BFF client deps
+        working-directory: pro/packages/formulaeapps_bff_client
+        run: flutter pub get
+      - name: Build Pro web
+        working-directory: pro
+        env:
+          JWT_SHARED_SECRET: ${{ secrets.FORMULAE_JWT_SHARED_SECRET }}
+        run: |
+          if [ -z "${JWT_SHARED_SECRET:-}" ]; then
+            echo "::error::Missing repository secret FORMULAE_JWT_SHARED_SECRET"
+            exit 1
+          fi
+          bash build_web.sh --base-href "/" --no-source-maps --no-web-resources-cdn
+      - name: Verify build output
+        working-directory: pro
+        run: |
+          test -f build/web/index.html
+          grep -q '<base href="/">' build/web/index.html
+          test -f build/web/main.dart.js
+      - name: Upload Pro web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pro-web
+          path: pro/build/web
+          retention-days: 1
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to Hostinger (FTP)
+    needs: [build-landing, build-pro-web]
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    steps:
+      - name: Download landing artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: landing-dist
+          path: landing-dist
+      - name: Download Pro web artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pro-web
+          path: pro-web
+      - name: Ensure lftp is available
+        run: |
+          command -v lftp >/dev/null 2>&1 || {
+            sudo apt-get update -qq && sudo apt-get install -y lftp
+          }
+      - name: Upload to Hostinger
+        env:
+          FTP_PW: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FTP_PW:-}" ]; then
+            echo "::error::Missing repository secret FTP_PASSWORD"
+            exit 1
+          fi
+          NETRC_DIR="$(mktemp -d)"
+          trap 'rm -rf "$NETRC_DIR"' EXIT
+          umask 077
+          printf 'machine %s login %s password %s\n' "$FTP_HOST" "$FTP_USER" "$FTP_PW" > "$NETRC_DIR/.netrc"
+          chmod 600 "$NETRC_DIR/.netrc"
+
+          COMMON="set cmd:fail-exit yes; set ssl:verify-certificate no; set ftp:ssl-allow true; set net:max-retries 2; set net:timeout 20"
+
+          echo "Deploying landing to public_html (chroot root)"
+          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; mirror --reverse --parallel=4 --verbose ./landing-dist/ ./ ; bye"
+
+          echo "Deploying Pro web to public_html/app"
+          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; cd app; mirror --reverse --parallel=4 --verbose ./pro-web/ ./ ; bye"
+
+          echo "Deploy complete."
