@@ -36,7 +36,7 @@ void main() {
   group('Application routes', () {
     test('keeps the expected route table shape', () {
       final routes = getApplicationRoutes();
-      expect(routes, hasLength(300));
+      expect(routes, hasLength(427));
       expect(routes.keys.toSet(), hasLength(routes.length));
       expect(routes.keys.every((route) => route.startsWith('/')), isTrue);
     });
@@ -98,7 +98,7 @@ void main() {
 
   group('Favorites widget mapper', () {
     test('keeps the expected widget table shape', () {
-      expect(widgetTable, hasLength(261));
+      expect(widgetTable, hasLength(382));
     });
 
     testWidgets('throws for unknown widget names', (tester) async {

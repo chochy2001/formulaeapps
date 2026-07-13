@@ -4657,4 +4657,441 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eliminarCarpeta => 'Delete folder';
+
+  @override
+  String get coeficientesBinomiales =>
+      'Binomial coefficients and the binomial theorem';
+
+  @override
+  String get potenciasNEsimas => 'Sum and difference of nth powers';
+
+  @override
+  String get ecuacionCubica => 'Cubic equation (Cardano\'s method)';
+
+  @override
+  String get ecuacionCuadraticaFormaMonicaVieta =>
+      'Quadratic equation: monic form and Vieta\'s theorem';
+
+  @override
+  String get numerosComplejosFormaExponencialNumeroComplejo =>
+      'Exponential (Euler) form of a complex number';
+
+  @override
+  String get numerosComplejosRaicesEIgualdadNumerosComplejos =>
+      'Roots and equality of complex numbers';
+
+  @override
+  String get propiedadesLogaritmos2 => 'Logarithms (laws and transformations)';
+
+  @override
+  String get determinantesCramerSarrus =>
+      'Determinants and Cramer\'s / Sarrus\' rule';
+
+  @override
+  String get algebraLinealMatricesTiposDeMatrices => 'Types of matrices';
+
+  @override
+  String get algebraLinealVectoresProductosBaseCanonica =>
+      'Dot and cross products of the standard basis';
+
+  @override
+  String get algebraLinealVectoresProductoEscalarTriple =>
+      'Scalar triple product and volume';
+
+  @override
+  String get algebraLinealVectoresSumaVectoresComponentes =>
+      'Vector addition by components (polygon method)';
+
+  @override
+  String get algebraLinealVectoresLeySenosCosenos => 'Law of sines and cosines';
+
+  @override
+  String get algebraLinealVectoresRazonesTrigonometricas =>
+      'Trigonometric ratios (right triangle)';
+
+  @override
+  String get limitesTeoremasLimites => 'Limit theorems';
+
+  @override
+  String get limitesLimitesInfinitos => 'Infinite limits';
+
+  @override
+  String get limitesLimitesImportantes => 'Important limits';
+
+  @override
+  String get asintotasHorizontalesOblicuas =>
+      'Horizontal and oblique asymptotes';
+
+  @override
+  String get continuidad => 'Continuity';
+
+  @override
+  String get reglaLhopital => 'L\'Hopital\'s rule';
+
+  @override
+  String get diferenciales => 'Differentials';
+
+  @override
+  String get derivadasAlgebraicasRadicales =>
+      'Algebraic and radical derivatives';
+
+  @override
+  String get reglaCadenaFuncionInversa => 'Chain rule and inverse function';
+
+  @override
+  String get derivadasTrigonometricasComplementarias =>
+      'Complementary trigonometric derivatives (versine and in terms of the arc)';
+
+  @override
+  String get derivadasHiperbolicasInversas =>
+      'Derivatives of inverse hyperbolic functions';
+
+  @override
+  String get derivacionLogaritmica =>
+      'Logarithmic differentiation (variable powers)';
+
+  @override
+  String get razonCambioTangenteNormal =>
+      'Rate of change, tangent and normal line';
+
+  @override
+  String get aplicacionFisicaDerivada =>
+      'Physical application of the derivative';
+
+  @override
+  String get integralesInmediatasAdicionalesIntegral =>
+      'Additional immediate integrals (rational and radical forms)';
+
+  @override
+  String get potenciasReduccionTrigonometricasIntegral =>
+      'Powers of trigonometric functions and reduction formulas';
+
+  @override
+  String get trigonometricasRacionalesProductosIntegral =>
+      'Rational trigonometric integrals and products';
+
+  @override
+  String get potenciasReduccionHiperbolicasIntegral =>
+      'Powers and reduction of hyperbolic functions';
+
+  @override
+  String get hiperbolicasInversasIntegral =>
+      'Integrals of inverse hyperbolic functions';
+
+  @override
+  String get integralDefinidaPropiedadesIntegral =>
+      'Definite integral: properties and theorems';
+
+  @override
+  String get integracionNumericaIntegral => 'Numerical integration';
+
+  @override
+  String get sustitucionTrigonometricaIntegral =>
+      'Integration by trigonometric substitution';
+
+  @override
+  String get areaLongitudArcoIntegral =>
+      'Applications of the integral: area between curves and arc length';
+
+  @override
+  String get fraccionesParcialesIntegral => 'Partial fraction decomposition';
+
+  @override
+  String get constantesMatematicas => 'Mathematical constants';
+
+  @override
+  String get constantesFisicasUniversales => 'Universal physical constants';
+
+  @override
+  String get constantesElectromagneticas => 'Electromagnetic constants';
+
+  @override
+  String get constantesAtomicasMoleculares => 'Atomic and molecular constants';
+
+  @override
+  String get constantesTerrestresAstronomicas =>
+      'Terrestrial and astronomical constants';
+
+  @override
+  String get seccionConstantesMatematicas => 'Mathematical constants';
+
+  @override
+  String get longitudConversion => 'Length';
+
+  @override
+  String get superficieConversion => 'Area';
+
+  @override
+  String get volumenConversion => 'Volume';
+
+  @override
+  String get masaConversion => 'Mass';
+
+  @override
+  String get densidadConversion => 'Density';
+
+  @override
+  String get presionConversion => 'Pressure';
+
+  @override
+  String get energiaConversion => 'Energy';
+
+  @override
+  String get potenciaConversion => 'Power';
+
+  @override
+  String get seccionConversionDeUnidades => 'Unit conversion';
+
+  @override
+  String get potenciaYReactanciasEnCa => 'AC power and reactances';
+
+  @override
+  String get caValoresEficacesTransformador =>
+      'AC: RMS values, transformer and rotating machines';
+
+  @override
+  String get instrumentosDeMedicionElectrica =>
+      'Electrical measuring instruments: Wheatstone bridge, voltmeter and ammeter';
+
+  @override
+  String get circuitoLrEnSerie => 'Series LR (RL) circuit';
+
+  @override
+  String get fuerzaYTorcaMagnetica => 'Magnetic force and torque';
+
+  @override
+  String get capacitoresCilindricoYEsferico =>
+      'Capacitance of cylindrical and spherical capacitors';
+
+  @override
+  String get permeabilidadMagneticaEnMateriales =>
+      'Magnetic permeability and field intensity in materials';
+
+  @override
+  String get bateriaRealVoltajeEnTerminales =>
+      'Real source (battery): terminal voltage and internal resistance';
+
+  @override
+  String get laRectaYElTriangulo => 'The line and the triangle';
+
+  @override
+  String get tangentesYPropiedadesDeLasConicas =>
+      'Tangent lines and properties of conics';
+
+  @override
+  String get hiperbolaEquilatera => 'The equilateral (rectangular) hyperbola';
+
+  @override
+  String get laCurvaExponencial => 'The exponential curve';
+
+  @override
+  String get aceleracionYMrua =>
+      'Acceleration and Uniformly Accelerated Linear Motion';
+
+  @override
+  String get caidaLibreYTiroVertical => 'Free Fall and Vertical Throw';
+
+  @override
+  String get movimientoDeProyectiles => 'Projectile Motion';
+
+  @override
+  String get movimientoCircularUniforme => 'Uniform Circular Motion';
+
+  @override
+  String get cinematicaAngular =>
+      'Angular Kinematics (Uniformly Accelerated Rotation)';
+
+  @override
+  String get aceleracionYFuerzaCentripeta =>
+      'Centripetal Acceleration and Force';
+
+  @override
+  String get leyesDeNewton => 'Newton\'s Laws of Motion';
+
+  @override
+  String get pesoYGravedad => 'Weight and Gravity';
+
+  @override
+  String get cantidadDeMovimientoEImpulso => 'Momentum and Impulse';
+
+  @override
+  String get friccion => 'Friction';
+
+  @override
+  String get movimientoArmonicoSimple => 'Simple Harmonic Motion';
+
+  @override
+  String get penduloSimple => 'Simple Pendulum';
+
+  @override
+  String get equilibrioDeCuerposRigidos => 'Equilibrium of Rigid Bodies';
+
+  @override
+  String get momentoDeTorsion => 'Torque (Moment of Force)';
+
+  @override
+  String get eficiencia => 'Efficiency';
+
+  @override
+  String get hidrostatica => 'Hydrostatics';
+
+  @override
+  String get hidrodinamica =>
+      'Hydrodynamics (Bernoulli, Continuity, Torricelli)';
+
+  @override
+  String get seccionMecanica => 'Mechanics';
+
+  @override
+  String get axiomasDeCampoNumerosReales => 'Field axioms of the real numbers';
+
+  @override
+  String get axiomasDeOrdenYTeoremasReales =>
+      'Order axioms and theorems of the real numbers';
+
+  @override
+  String get desigualdadesTeoremasDeOrden => 'Inequalities: order theorems';
+
+  @override
+  String get conjuntosEIntervalos => 'Sets and intervals';
+
+  @override
+  String get valorAbsoluto => 'Absolute value';
+
+  @override
+  String get seccionNumerosRealesYDesigualdades =>
+      'Real numbers and inequalities';
+
+  @override
+  String get leyDeLaIluminacion => 'Law of illumination';
+
+  @override
+  String get reflexionYAumentoFormaNewtoniana =>
+      'Reflection and image magnification (Newtonian form)';
+
+  @override
+  String get ecuacionDeLasLentesFormaGaussiana =>
+      'Lens equation (Gaussian form)';
+
+  @override
+  String get refraccionDeLaLuzLeyDeSnell =>
+      'Refraction of light (Snell\'s law)';
+
+  @override
+  String get tiposDeLentesYMarchaDeRayos => 'Types of lenses and ray tracing';
+
+  @override
+  String get seccionOptica => 'Optics';
+
+  @override
+  String get axiomasDeProbabilidad =>
+      'Probability Axioms and Conditional Probability';
+
+  @override
+  String get funcionesDeMasaDensidadYAcumulada =>
+      'Mass, Density and Cumulative Distribution Functions';
+
+  @override
+  String get funcionesDeProbabilidadConjuntasYCondicionales =>
+      'Joint and Conditional Probability Functions';
+
+  @override
+  String get esperanzaMediaYVarianza => 'Expectation, Mean and Variance';
+
+  @override
+  String get distribucionesDistribucionDeBernoulli => 'Bernoulli Distribution';
+
+  @override
+  String get distribucionesDistribucionDePascal =>
+      'Pascal Distribution (Negative Binomial)';
+
+  @override
+  String get distribucionesDistribucionBeta => 'Beta Distribution';
+
+  @override
+  String get distribucionesDistribucionDeCauchy => 'Cauchy Distribution';
+
+  @override
+  String get distribucionesDistribucionDeErlang => 'Erlang Distribution';
+
+  @override
+  String get distribucionesDistribucionUniforme =>
+      'Uniform Distribution (Continuous)';
+
+  @override
+  String get regresionLineal => 'Linear Regression and Correlation';
+
+  @override
+  String get desigualdadDeChebyshevYConvergencia =>
+      'Chebyshev\'s Inequality and Stochastic Convergence';
+
+  @override
+  String get transferenciaDeCalor => 'Heat transfer';
+
+  @override
+  String get capacidadCalorificaYCalorLatente =>
+      'Heat capacity and latent heat';
+
+  @override
+  String get leyesDeLosGases => 'Gas laws';
+
+  @override
+  String get cicloDeCarnotYLeyesDeLaTermodinamica =>
+      'Carnot cycle and laws of thermodynamics';
+
+  @override
+  String get trabajoTermodinamico => 'Thermodynamic work';
+
+  @override
+  String get entalpiaYEnergiaInterna => 'Enthalpy and internal energy';
+
+  @override
+  String get dilatacionLineal => 'Linear thermal expansion';
+
+  @override
+  String get dilatacionSuperficialYVolumetrica =>
+      'Area and volumetric thermal expansion';
+
+  @override
+  String get entropiaYTeoriaCinetica => 'Entropy and kinetic theory of gases';
+
+  @override
+  String get procesosTermodinamicos => 'Thermodynamic processes';
+
+  @override
+  String get seccionTermodinamica => 'Thermodynamics';
+
+  @override
+  String get circuloUnitario => 'Unit circle';
+
+  @override
+  String get signosDeFuncionesPorCuadrante =>
+      'Signs of the trigonometric functions by quadrant';
+
+  @override
+  String get angulosNotablesGradosRadianes =>
+      'Notable angles: degrees and radians';
+
+  @override
+  String get relacionEntreFuncionesTrigonometricas =>
+      'Relationships between trigonometric functions';
+
+  @override
+  String get identidadesDeAnguloTripleYCuadruple =>
+      'Triple and quadruple angle identities';
+
+  @override
+  String get identidadesDeReduccionDePotencias => 'Power-reduction identities';
+
+  @override
+  String get identidadesFundamentalesFormasDerivadas =>
+      'Fundamental identities: derived forms';
+
+  @override
+  String get cotangenteDeSumaYRestaDeAngulos =>
+      'Cotangent of the sum and difference of angles';
+
+  @override
+  String get productoDeCosenoPorSeno =>
+      'Cosine times sine product (product to sum)';
 }

@@ -1,9 +1,15 @@
+export '../trigonometria/angulos_notables_grados_radianes.dart';
+export '../trigonometria/circulo_unitario.dart';
+export '../trigonometria/cotangente_de_suma_y_resta_de_angulos.dart';
 export '../trigonometria/formulas_de_bessel/teorema_de_la_cotangente.dart';
 export '../trigonometria/formulas_de_bessel/teorema_del_coseno_para_angulos.dart';
 export '../trigonometria/formulas_de_bessel/teorema_del_coseno_para_lados.dart';
 export '../trigonometria/formulas_de_bessel/teorema_del_seno.dart';
 export '../trigonometria/funciones_trigonometricas.dart';
 export '../trigonometria/funciones_trigonometricas_de_angulos_notables.dart';
+export '../trigonometria/identidades_de_angulo_triple_y_cuadruple.dart';
+export '../trigonometria/identidades_de_reduccion_de_potencias.dart';
+export '../trigonometria/identidades_fundamentales_formas_derivadas.dart';
 export '../trigonometria/identidades_trigonometricas/identidades_trigonometricas_de_angulo_doble_y_medio.dart';
 export '../trigonometria/identidades_trigonometricas/identidades_trigonometricas_de_suma_a_producto_y_viceversa.dart';
 export '../trigonometria/identidades_trigonometricas/identidades_trigonometricas_de_suma_y_resta_de_angulos.dart';
@@ -12,6 +18,9 @@ export '../trigonometria/identidades_trigonometricas/identidades_trigonometricas
 export '../trigonometria/ley_de_proyecciones.dart';
 export '../trigonometria/leyes_de_senos_cosenos_tangentes.dart';
 export '../trigonometria/medicion_y_clasificacion_de_angulos.dart';
+export '../trigonometria/producto_de_coseno_por_seno.dart';
+export '../trigonometria/relacion_entre_funciones_trigonometricas.dart';
+export '../trigonometria/signos_de_funciones_por_cuadrante.dart';
 export '../trigonometria/superficie_de_un_triangulo_y_un_poligono_esferico.dart';
 export '../trigonometria/teorema_de_pitagoras.dart';
 export '../trigonometria/trigonometria_esferica/analogias_de_gauss_delambre.dart';

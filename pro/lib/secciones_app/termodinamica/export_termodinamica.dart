@@ -1,0 +1,10 @@
+export '../termodinamica/capacidad_calorifica_y_calor_latente.dart';
+export '../termodinamica/ciclo_de_carnot_y_leyes_de_la_termodinamica.dart';
+export '../termodinamica/dilatacion_lineal.dart';
+export '../termodinamica/dilatacion_superficial_y_volumetrica.dart';
+export '../termodinamica/entalpia_y_energia_interna.dart';
+export '../termodinamica/entropia_y_teoria_cinetica.dart';
+export '../termodinamica/leyes_de_los_gases.dart';
+export '../termodinamica/procesos_termodinamicos.dart';
+export '../termodinamica/trabajo_termodinamico.dart';
+export '../termodinamica/transferencia_de_calor.dart';

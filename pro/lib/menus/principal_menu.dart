@@ -34,6 +34,30 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                                    BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionConstantesMatematicas,
+                    ruta: kRutaMenuConstantesMatematicas,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionConversionDeUnidades,
+                    ruta: kRutaMenuConversionDeUnidades,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionMecanica,
+                    ruta: kRutaMenuMecanica,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionNumerosRealesYDesigualdades,
+                    ruta: kRutaMenuNumerosRealesYDesigualdades,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionOptica,
+                    ruta: kRutaMenuOptica,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionTermodinamica,
+                    ruta: kRutaMenuTermodinamica,
+                  ),
                   /* Boton de Generales*/
                   BotonesMenu(
                     ruta: kRutaGenerales,
