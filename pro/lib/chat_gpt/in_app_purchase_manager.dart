@@ -10,6 +10,7 @@ import 'package:universal_io/io.dart';
 
 import '../constantes/export_constantes.dart';
 import '../widgets_personalizados/textos_personalizados.dart';
+import 'iap_validation_service.dart';
 
 /// Product catalog + purchase stream handler for Pro IAP.
 ///
@@ -74,6 +75,12 @@ class InAppPurchaseManager extends ChangeNotifier {
               'Completing purchase for product ID: ${purchaseDetails.productID}');
         }
         _hasValidPurchase = true;
+
+        if (kEnableBffIapValidation) {
+          unawaited(
+            IapValidationService().validatePurchase(purchaseDetails),
+          );
+        }
 
         if (!disposed) {
           notifyListeners();
