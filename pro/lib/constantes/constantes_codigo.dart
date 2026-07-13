@@ -76,6 +76,13 @@ const kTextoLatexFormulas = TextStyle(
   fontSize: 20.0,
 );
 
+// Variante para capturar formulas destinadas al PDF: texto oscuro y fondo
+// transparente para que sea legible sobre la pagina blanca.
+const kTextoLatexFormulasPdf = TextStyle(
+  color: Color(0xFF1A1A2E),
+  fontSize: 20.0,
+);
+
 const kTextoDelgado = TextStyle(
   color: Color(0xFFA9A9A9),
   fontSize: 15.0,

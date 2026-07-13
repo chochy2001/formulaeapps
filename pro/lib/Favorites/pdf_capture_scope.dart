@@ -21,3 +21,15 @@ class PdfCaptureScope extends InheritedWidget {
     return oldWidget.isCapturing != isCapturing;
   }
 }
+
+// RepaintBoundary etiquetado con su formula LaTeX; el generador de PDF lo
+// localiza en el arbol offscreen para capturar la formula como imagen.
+class PdfFormulaBoundary extends RepaintBoundary {
+  final String formulaText;
+
+  const PdfFormulaBoundary({
+    super.key,
+    required this.formulaText,
+    super.child,
+  });
+}

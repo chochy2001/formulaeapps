@@ -1,5 +1,8 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -22,9 +25,18 @@ class FormulaPdfBlock {
   final FormulaPdfBlockType type;
   final String text;
 
+  // Imagen PNG de la formula renderizada; si es null el PDF usa el texto
+  // como respaldo. width/height van en pixeles logicos.
+  final Uint8List? image;
+  final double imageWidth;
+  final double imageHeight;
+
   const FormulaPdfBlock({
     required this.type,
     required this.text,
+    this.image,
+    this.imageWidth = 0,
+    this.imageHeight = 0,
   });
 }
 
@@ -41,6 +53,17 @@ class FavoriteFormulaContent {
 class FavoritesPdfGenerator {
   static const Size _extractionSize = Size(760, 1100);
   static const int _formulaLineLength = 88;
+
+  // Escala de captura de formulas (nitidez de impresion) y conversion de
+  // pixeles logicos a puntos PDF (72 pt = 96 px).
+  static const double _formulaPixelRatio = 3.0;
+  static const double _formulaPointsPerPixel = 0.75;
+  static const double _formulaMaxWidth = 500;
+
+  // Solo para tests: desactiva la captura de imagenes para ejercitar el
+  // respaldo de texto.
+  @visibleForTesting
+  static bool debugDisableFormulaCapture = false;
 
   static Future<void> exportFolder({
     required BuildContext context,
@@ -168,18 +191,116 @@ class FavoritesPdfGenerator {
       await Future<void>.delayed(Duration.zero);
 
       final collector = _FormulaWidgetCollector();
+      final formulaImages = <String, _FormulaImage>{};
       final rootContext = rootKey.currentContext;
       if (rootContext != null && rootContext.mounted) {
         rootContext.visitChildElements(collector.collectFromElement);
+        final boundaries = _collectFormulaBoundaries(rootContext);
+
+        // Captura cada formula renderizada (RepaintBoundary) como PNG antes
+        // de retirar el overlay; si falla, el bloque conserva solo el texto.
+        for (final boundary in boundaries) {
+          final key = boundary.formulaText.trim();
+          if (key.isEmpty || formulaImages.containsKey(key)) {
+            continue;
+          }
+          final image = await _captureFormulaImage(boundary.renderObject);
+          if (image != null) {
+            formulaImages[key] = image;
+          }
+        }
       }
 
       return FavoriteFormulaContent(
         title: favorite.title,
-        blocks: collector.blocks,
+        blocks: collector.blocks
+            .map((block) => _attachFormulaImage(block, formulaImages))
+            .toList(),
       );
     } finally {
       entry.remove();
     }
+  }
+
+  static List<_FormulaBoundaryHandle> _collectFormulaBoundaries(
+    BuildContext rootContext,
+  ) {
+    final boundaries = <_FormulaBoundaryHandle>[];
+
+    void visit(Element element) {
+      final widget = element.widget;
+      if (widget is PdfFormulaBoundary) {
+        final renderObject = element.renderObject;
+        if (renderObject is RenderRepaintBoundary) {
+          boundaries.add(
+            _FormulaBoundaryHandle(
+              formulaText: widget.formulaText,
+              renderObject: renderObject,
+            ),
+          );
+        }
+        return;
+      }
+      element.visitChildren(visit);
+    }
+
+    rootContext.visitChildElements(visit);
+    return boundaries;
+  }
+
+  static Future<_FormulaImage?> _captureFormulaImage(
+    RenderRepaintBoundary boundary,
+  ) async {
+    if (debugDisableFormulaCapture) {
+      return null;
+    }
+
+    try {
+      final image = await boundary.toImage(pixelRatio: _formulaPixelRatio);
+      try {
+        final byteData =
+            await image.toByteData(format: ui.ImageByteFormat.png);
+        if (byteData == null || byteData.lengthInBytes == 0) {
+          return null;
+        }
+        return _FormulaImage(
+          bytes: byteData.buffer.asUint8List(
+            byteData.offsetInBytes,
+            byteData.lengthInBytes,
+          ),
+          width: image.width / _formulaPixelRatio,
+          height: image.height / _formulaPixelRatio,
+        );
+      } finally {
+        image.dispose();
+      }
+    } catch (error) {
+      // Si el renderer no soporta toImage (p.ej. HTML) se usa el texto.
+      debugPrint('Formulae PDF formula capture failed: $error');
+      return null;
+    }
+  }
+
+  static FormulaPdfBlock _attachFormulaImage(
+    FormulaPdfBlock block,
+    Map<String, _FormulaImage> formulaImages,
+  ) {
+    if (block.type != FormulaPdfBlockType.formula) {
+      return block;
+    }
+
+    final image = formulaImages[block.text.trim()];
+    if (image == null) {
+      return block;
+    }
+
+    return FormulaPdfBlock(
+      type: block.type,
+      text: block.text,
+      image: image.bytes,
+      imageWidth: image.width,
+      imageHeight: image.height,
+    );
   }
 
   static Future<Uint8List> _buildPdf({
@@ -259,7 +380,7 @@ class FavoritesPdfGenerator {
           case FormulaPdfBlockType.text:
             widgets.add(_buildTextBlock(block.text));
           case FormulaPdfBlockType.formula:
-            widgets.add(_buildFormulaBlock(block.text));
+            widgets.add(_buildFormulaBlock(block));
         }
       }
     }
@@ -290,7 +411,38 @@ class FavoritesPdfGenerator {
     );
   }
 
-  static pw.Widget _buildFormulaBlock(String formula) {
+  static pw.Widget _buildFormulaBlock(FormulaPdfBlock block) {
+    final image = block.image;
+    final pw.Widget child;
+
+    if (image != null && block.imageWidth > 0 && block.imageHeight > 0) {
+      // Escala pixeles logicos a puntos; las formulas anchas (matrices) se
+      // reducen proporcionalmente al ancho util de la pagina.
+      var width = block.imageWidth * _formulaPointsPerPixel;
+      var height = block.imageHeight * _formulaPointsPerPixel;
+      if (width > _formulaMaxWidth) {
+        height = height * _formulaMaxWidth / width;
+        width = _formulaMaxWidth;
+      }
+
+      child = pw.Center(
+        child: pw.Image(
+          pw.MemoryImage(image),
+          width: width,
+          height: height,
+          fit: pw.BoxFit.contain,
+        ),
+      );
+    } else {
+      child = pw.Text(
+        _formatFormulaForPdf(block.text),
+        style: const pw.TextStyle(
+          fontSize: 10.2,
+          lineSpacing: 3,
+        ),
+      );
+    }
+
     return pw.Container(
       width: double.infinity,
       margin: const pw.EdgeInsets.only(bottom: 9),
@@ -300,13 +452,7 @@ class FavoritesPdfGenerator {
         border: pw.Border.all(color: PdfColors.grey500, width: 0.5),
         borderRadius: pw.BorderRadius.circular(4),
       ),
-      child: pw.Text(
-        _formatFormulaForPdf(formula),
-        style: const pw.TextStyle(
-          fontSize: 10.2,
-          lineSpacing: 3,
-        ),
-      ),
+      child: child,
     );
   }
 
@@ -433,6 +579,28 @@ class FavoritesPdfGenerator {
   }
 }
 
+class _FormulaBoundaryHandle {
+  final String formulaText;
+  final RenderRepaintBoundary renderObject;
+
+  const _FormulaBoundaryHandle({
+    required this.formulaText,
+    required this.renderObject,
+  });
+}
+
+class _FormulaImage {
+  final Uint8List bytes;
+  final double width;
+  final double height;
+
+  const _FormulaImage({
+    required this.bytes,
+    required this.width,
+    required this.height,
+  });
+}
+
 class _FormulaWidgetCollector {
   final List<FormulaPdfBlock> blocks = [];
   final Set<int> _visitedWidgets = {};
@@ -458,7 +626,7 @@ class _FormulaWidgetCollector {
     }
 
     if (widget is CapdesisLatex) {
-      _addBlock(FormulaPdfBlockType.formula, r'\mathrm{CAPDESIS}');
+      _addBlock(FormulaPdfBlockType.formula, CapdesisLatex.formulaCapdesis);
       return;
     }
 
