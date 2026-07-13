@@ -1,63 +1,49 @@
-# Deploy automatico de la web (landing + Pro) al mergear a main
+# Formulae web release candidates
 
-El workflow `.github/workflows/deploy-web.yml` publica automaticamente a Hostinger
-por FTP cuando `main` cambia bajo `landing/` o `pro/` (y tambien se puede correr a
-mano con "Run workflow").
+The workflow `.github/workflows/deploy-web.yml` builds the landing and Pro web
+artifacts manually from the exact current `main` SHA. It does **not** deploy to
+production.
 
-## Que despliega
+## Current status
 
-- **Landing** (`formulaeapps.com`): build de Astro (`landing/dist/`) subido a la
-  raiz del FTP, que esta chroot-eada a `public_html/`.
-- **Pro web** (`app.formulaeapps.com`): `flutter build web` (via
-  `pro/build_web.sh`, `--base-href "/"`) subido a `public_html/app/` (con `cd app`).
+The first automatic run (`29265090762`) failed before upload:
 
-## Secretos de GitHub que hay que crear (una sola vez)
+- the landing runner used Node 20 while Astro requires Node 22.12 or newer;
+- the Pro build did not have `FORMULAE_JWT_SHARED_SECRET` configured;
+- the production upload job was skipped, so the live sites were not changed.
 
-En el repo **`CAPDESIS/formulaeapps`** -> Settings -> Secrets and variables ->
-Actions -> New repository secret. Crear estos DOS:
+The former FTP job was removed because it disabled certificate verification,
+ran on a build runner, had no protected environment, and had no exact-main,
+backup, smoke, or rollback gate. A failed build must never become a partial
+landing/Pro production update.
 
-| Nombre del secreto | Valor |
-|---|---|
-| `FTP_PASSWORD` | La contrasena del FTP de Hostinger (la del panel hPanel -> FTP Accounts). |
-| `FORMULAE_JWT_SHARED_SECRET` | El `JWT_SHARED_SECRET` REAL que usa el BFF en produccion (VPS `ancare`, `/opt/infrastructure/secrets/formulaeapps-docker/.env`). Debe ser IGUAL al que corre el BFF vivo, o el chat fallara la autenticacion. |
+## What the workflow does
 
-El host (`31.170.161.105`) y el usuario (`u226095507.formulaeapps.com`) van en el
-propio workflow como `env` (el repo es privado). Si algun dia rotas el usuario o
-el host, se editan ahi.
+1. Verifies that the selected workflow ref is the exact current `origin/main`
+   40-character SHA.
+2. Builds, lints, and tests the Astro landing with Node 22 and Bun.
+3. Builds the Pro web application only when the required build configuration is
+   present.
+4. Uploads SHA-named GitHub artifacts with a 14-day retention period.
 
-## Como probarlo (recomendado antes de confiar en el push)
+The two build jobs may run in parallel after the exact-main preflight. Neither
+job receives production FTP credentials.
 
-1. Crear los dos secretos de arriba.
-2. Actions -> "Deploy Web (landing + Pro)" -> Run workflow (rama `main`). Esto es
-   `workflow_dispatch`: corre el mismo pipeline bajo demanda.
-3. Si la contrasena FTP es correcta, el job `deploy` sube todo y termina verde. Si
-   es incorrecta, falla limpio con error de autenticacion (no toca el sitio).
-4. Verificar en vivo: `https://formulaeapps.com` (landing nueva) y
-   `https://app.formulaeapps.com` (app Pro con las secciones nuevas). Un
-   Cmd+Shift+R fuerza recarga si el service worker viejo sigue cacheado.
+## Required before production deployment is re-enabled
 
-Despues de eso, cada merge a `main` que toque `landing/` o `pro/` despliega solo.
+- Create a protected `production` GitHub environment with an explicit reviewer
+  and production-scoped credentials.
+- Use a dedicated `deploy-only` runner. Build and policy runners must not
+  receive production credentials.
+- Require FTPS with a hostname whose certificate validates. Do not disable TLS
+  certificate verification or allow plaintext fallback.
+- Promote the already-built SHA-named artifacts; do not rebuild during deploy.
+- Capture a restorable remote snapshot before mutation.
+- Make landing and Pro promotion recoverable as one release decision.
+- Run HTTP and content smokes for `formulaeapps.com` and
+  `app.formulaeapps.com` and restore the prior release automatically on failure.
+- Record the release SHA, artifact digests, deployment run, smoke result, and
+  rollback point.
 
-## Decisiones de seguridad del workflow
-
-- **Sin `mirror --delete`**: solo sube y sobrescribe. Los nombres de archivo del
-  build son estables (index.html, main.dart.js, flutter_service_worker.js), asi
-  que el sitio se actualiza sin riesgo de borrar nada. Un path equivocado, en el
-  peor caso, sube archivos de mas (recuperable), nunca borra el sitio.
-- **`cd app` con `set cmd:fail-exit yes`**: si `cd app` fallara, lftp aborta antes
-  de subir, evitando el footgun del chroot que borro la landing en R13.
-- **Contrasena fuera de los argumentos de proceso**: se escribe en un `.netrc`
-  temporal (modo 600) en un HOME temporal y se borra al terminar. GitHub Actions
-  ademas enmascara el valor del secreto en los logs.
-- Corre en runners self-hosted (`ci-runner-node`), sin depender del billing de
-  runners de GitHub.
-
-## Limitaciones / notas
-
-- El deploy usa el build como gate: si `flutter build web` o `bun run build`
-  fallan, no se sube nada. Los tests completos corren en el workflow `CI`
-  aparte (no bloquean este deploy).
-- iOS/Android (tiendas) es un flujo distinto y queda para despues.
-- Si en el futuro se quiere limpiar archivos huerfanos del servidor, se puede
-  anadir `--delete` a los `mirror`, pero solo tras confirmar los paths con una
-  corrida manual.
+Until those controls have executable evidence, production remains a separate
+manual operator procedure and this workflow is build-only.
