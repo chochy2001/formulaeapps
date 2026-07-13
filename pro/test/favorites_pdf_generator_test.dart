@@ -10,6 +10,7 @@ import 'package:formulae/Favorites/favorites_pdf_generator.dart';
 import 'package:formulae/Favorites/pdf_capture_scope.dart';
 import 'package:formulae/constantes/export_constantes.dart';
 import 'package:formulae/l10n/l10n.dart';
+import 'package:formulae/widgets_personalizados/formula_overflow.dart';
 import 'package:formulae/widgets_personalizados/textos_personalizados.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -103,23 +104,28 @@ void main() {
   );
 
   testWidgets(
-    'normal mode keeps the horizontal scroll and the on-screen white style '
-    'without a PDF capture boundary',
+    'normal mode renders the adaptive on-screen layout with the white style '
+    'and no PDF capture boundary',
     (tester) async {
       await pumpLatex(tester, _captureFormula, capturing: false);
+      // Let the intrinsic-width measurement settle so the adaptive layout
+      // picks its final mode.
+      await tester.pumpAndSettle();
 
       expect(find.byType(PdfFormulaBoundary), findsNothing);
 
-      final scrollFinder = _latexScrollView();
-      expect(scrollFinder, findsOneWidget);
-      expect(
-        tester.widget<SingleChildScrollView>(scrollFinder).scrollDirection,
-        Axis.horizontal,
-      );
+      // A short formula fits, so it is centered (fit layout) without the
+      // scrollable fade affordance and never clipped.
+      expect(find.byKey(kAdaptiveFormulaFitKey), findsOneWidget);
+      expect(find.byKey(kAdaptiveFormulaFadeKey), findsNothing);
 
+      // The on-screen style is white on the dark background (both the visible
+      // formula and the offscreen measurement copy use it).
+      final maths = tester.widgetList<Math>(find.byType(Math));
+      expect(maths, isNotEmpty);
       expect(
-        tester.widget<Math>(find.byType(Math)).textStyle,
-        kTextoLatexFormulas,
+        maths.every((math) => math.textStyle == kTextoLatexFormulas),
+        isTrue,
       );
     },
   );

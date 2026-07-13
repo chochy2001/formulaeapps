@@ -3,6 +3,7 @@ import 'package:flutter_math_fork/flutter_math.dart';
 
 import '../Favorites/pdf_capture_scope.dart';
 import '../constantes/export_constantes.dart';
+import 'formula_overflow.dart';
 
 class TituloPersonalizado extends StatelessWidget {
   final String titulo;
@@ -76,26 +77,10 @@ class Latex extends StatelessWidget {
       return _buildParaCapturaPdf(formulaText);
     }
 
-    double maxTextWidth = MediaQuery.of(context).size.width * .95;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: maxTextWidth,
-          child: Center(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Math.tex(
-                formulaText,
-                mathStyle: MathStyle.display,
-                textStyle: kTextoLatexFormulas,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+    // Presentacion en pantalla: cabe -> centra; se pasa poco -> reduce;
+    // demasiado ancha -> scroll horizontal con desvanecido en los bordes para
+    // que las formulas anchas nunca queden recortadas en silencio.
+    return AdaptiveFormula(formulaText: formulaText);
   }
 }
 
