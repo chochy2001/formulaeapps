@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formulae/app/flavor_config.dart';
+import 'package:formulae/core/observability/observability_bootstrap.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:formulae/screens_personalizados/configuracion.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
@@ -46,6 +47,14 @@ Future<void> bootstrap(FormulaeConfig config) async {
   WidgetsFlutterBinding.ensureInitialized();
   // Spec §FR-006: refuse to launch a release build with placeholder JWT secret.
   _assertBffSecretsConfigured();
+  // Fleet observability (Crashlytics + PostHog): off by default until
+  // ENABLE_* + credential dart-defines are supplied (CapGym#79 pattern).
+  // Flavor tags PostHog `app` so Pro and Community share one project cleanly.
+  await bootstrapObservability(
+    appProperty: config.isCommunity
+        ? postHogAppPropertyCommunity
+        : postHogAppPropertyPro,
+  );
   tz.initializeTimeZones();
 
   SystemChrome.setPreferredOrientations([
