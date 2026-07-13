@@ -26,7 +26,10 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               openURLNuevo('https://capdesis.com/');
             },
             child: const Center(
-              child: CapdesisLogo(height: 100.0, width: 100.0),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: ProductMark(size: 88.0),
+              ),
             ),
           ),
           Center(

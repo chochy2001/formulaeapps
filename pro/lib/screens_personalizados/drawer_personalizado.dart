@@ -36,7 +36,7 @@ class DrawerPersonalizado extends StatelessWidget {
                             top: 20.0,
                             bottom: 10.0,
                           ),
-                          child: CapdesisLogo(height: 86.0, width: 86.0),
+                          child: ProductMark(size: 72.0),
                         ),
                         Text(
                           AppLocalizations.of(context)!.formulaePro,
@@ -176,6 +176,8 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
+                      const CapdesisAttribution(),
+                      const SizedBox(height: 12.0),
                     ],
                   );
                 },
@@ -199,7 +201,7 @@ class DrawerPersonalizado extends StatelessWidget {
                   return ListView(
                     children: [
                       Column(children: [
-                        const CapdesisLogo(height: 86.0, width: 86.0),
+                        const ProductMark(size: 72.0),
                         Text(
                           AppLocalizations.of(context)!.formulaePro,
                           style: GoogleFonts.poppins(
@@ -336,6 +338,8 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
+                      const CapdesisAttribution(),
+                      const SizedBox(height: 12.0),
                     ],
                   );
                 },
@@ -360,7 +364,7 @@ class DrawerPersonalizado extends StatelessWidget {
                     return ListView(
                       children: [
                         Column(children: [
-                          const CapdesisLogo(height: 86.0, width: 86.0),
+                          const ProductMark(size: 72.0),
                           Text(
                             AppLocalizations.of(context)!.formulaePro,
                             style: GoogleFonts.poppins(
@@ -498,6 +502,8 @@ class DrawerPersonalizado extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
                         ),
+                        const CapdesisAttribution(),
+                        const SizedBox(height: 12.0),
                       ],
                     );
                   },
