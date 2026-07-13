@@ -66,4 +66,16 @@ describe('entitlements-store (bun:sqlite)', () => {
     expect(listEntitlementsForSubject('sub-b')).toHaveLength(1);
     expect(listEntitlementsForSubject('sub-c')).toHaveLength(0);
   });
+
+  test('never writes polar/web scope from grant path', () => {
+    const row = grantMobileEntitlement({
+      subject: 'sub-scope',
+      payment_source: 'app_store',
+      product_id: 'pro',
+      raw_receipt_ref: 'tx-scope',
+    });
+    expect(row.scope).toBe('mobile');
+    expect(row.scope).not.toBe('web');
+    expect(JSON.stringify(row)).not.toContain('polar');
+  });
 });

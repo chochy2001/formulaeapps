@@ -11,6 +11,7 @@ import 'package:formulaeapps_bff_client/src/auth/bearer_auth.dart';
 import 'package:formulaeapps_bff_client/src/auth/oauth.dart';
 import 'package:formulaeapps_bff_client/src/api/auth_api.dart';
 import 'package:formulaeapps_bff_client/src/api/chat_api.dart';
+import 'package:formulaeapps_bff_client/src/api/entitlement_api.dart';
 import 'package:formulaeapps_bff_client/src/api/health_api.dart';
 import 'package:formulaeapps_bff_client/src/api/iap_api.dart';
 
@@ -78,6 +79,12 @@ class FormulaeappsBffClient {
   /// by doing that all interceptors will not be executed
   ChatApi getChatApi() {
     return ChatApi(dio, serializers);
+  }
+
+  /// Get EntitlementApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  EntitlementApi getEntitlementApi() {
+    return EntitlementApi(dio, serializers);
   }
 
   /// Get HealthApi instance, base route and serializer can be overridden by a given but be careful,

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: FormulaeApps BFF
-  version: 1.0.0
+  version: 1.1.0
   description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
 servers:
   - url: https://api.formulaeapps.com

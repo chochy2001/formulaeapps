@@ -13,6 +13,10 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(ChatRequest.serializer)
       ..add(ChatResponse.serializer)
       ..add(ChatUsage.serializer)
+      ..add(EntitlementResponse.serializer)
+      ..add(EntitlementResponseScopeEnum.serializer)
+      ..add(EntitlementSource.serializer)
+      ..add(EntitlementSourcePaymentSourceEnum.serializer)
       ..add(ErrorEnvelope.serializer)
       ..add(ErrorEnvelopeError.serializer)
       ..add(ErrorKind.serializer)
@@ -21,7 +25,10 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(IapValidateRequest.serializer)
       ..add(IapValidateRequestPlatformEnum.serializer)
       ..add(IapValidateResponse.serializer)
-      ..add(IapValidateResponseEnvironmentEnum.serializer))
+      ..add(IapValidateResponseEnvironmentEnum.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(EntitlementSource)]),
+          () => ListBuilder<EntitlementSource>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

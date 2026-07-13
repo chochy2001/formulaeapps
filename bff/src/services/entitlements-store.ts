@@ -92,6 +92,20 @@ export function paymentSourceFromPlatform(platform: 'apple' | 'google'): Payment
   return platform === 'apple' ? 'app_store' : 'play_store';
 }
 
+const STORE_PAYMENT_SOURCES: ReadonlySet<string> = new Set(['app_store', 'play_store']);
+
+/**
+ * Runtime guard: IAP grants accept only store sources. Polar / web / unknown
+ * values throw — contract test for fleet §10 "IAP grant ≠ web unlock".
+ */
+export function assertStorePaymentSource(source: string): asserts source is PaymentSource {
+  if (!STORE_PAYMENT_SOURCES.has(source)) {
+    throw new Error(
+      `IAP grant rejects payment_source=${source}; only app_store|play_store (never polar/web)`,
+    );
+  }
+}
+
 /**
  * Persist a mobile entitlement grant. Rejects any attempt to write non-mobile
  * scope (defense in depth — callers must not pass Polar/web).
@@ -100,6 +114,8 @@ export function grantMobileEntitlement(input: GrantInput): EntitlementRow {
   if (!input.subject.trim()) {
     throw new Error('grantMobileEntitlement: subject is required');
   }
+  // Defense in depth: reject polar/web even if TypeScript is bypassed.
+  assertStorePaymentSource(input.payment_source as string);
   const row: EntitlementRow = {
     id: randomUUID(),
     subject: input.subject,

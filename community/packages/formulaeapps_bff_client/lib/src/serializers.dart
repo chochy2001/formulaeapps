@@ -19,6 +19,8 @@ import 'package:formulaeapps_bff_client/src/model/auth_token_response.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_request.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_response.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_usage.dart';
+import 'package:formulaeapps_bff_client/src/model/entitlement_response.dart';
+import 'package:formulaeapps_bff_client/src/model/entitlement_source.dart';
 import 'package:formulaeapps_bff_client/src/model/error_envelope.dart';
 import 'package:formulaeapps_bff_client/src/model/error_envelope_error.dart';
 import 'package:formulaeapps_bff_client/src/model/error_kind.dart';
@@ -35,6 +37,8 @@ part 'serializers.g.dart';
   ChatRequest,
   ChatResponse,
   ChatUsage,
+  EntitlementResponse,
+  EntitlementSource,
   ErrorEnvelope,
   ErrorEnvelopeError,
   ErrorKind,

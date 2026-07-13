@@ -27,17 +27,26 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 - `InAppPurchaseManager` calls the service after store purchase/restore when the flag is on; **does not** change local gating yet (no account binding).
 - Tests: `test/iap_validation_service_test.dart`.
 - **BFF WP5 step 1 (2026-07-13):** `bun:sqlite` `mobile_entitlements` store + grant on successful `POST /iap/validate` + `GET /entitlement` (`scope: "mobile"` only). Keyed by interim JWT `sub` until accounts land. Contract bump `1.0.0` → `1.1.0`.
+- **BFF fail-closed check (2026-07-13 follow-up):** `entitlement-check.ts` (`readMobileEntitlement` / `hasActiveMobileEntitlement` / `evaluateMobileIapPurchase`) + runtime reject of `polar`/`web` payment sources on grant. Export OpenAPI version follows `CONTRACT_VERSION`.
 
 ## Next implementation steps (ordered)
 
 | Step | Repo | Work |
 |------|------|------|
-| 1 | BFF | ✅ `mobile_entitlements` store + grant on `/iap/validate` + `GET /entitlement` (this slice). |
+| 1 | BFF | ✅ `mobile_entitlements` store + grant on `/iap/validate` + `GET /entitlement` + fail-closed check helper. |
 | 2 | BFF | User auth routes (email/OAuth) — extend beyond device JWT. |
 | 3 | Pro FE | `EntitlementService` → `GET /entitlement` after login. |
 | 4 | Pro FE | Paywall: check entitlement before IAP charge (mirror IngeTracker `entitlement_channel.dart`). |
 | 5 | Fleet | OpenAPI entitlement contract shared with IngeTracker (`sources`, `scope`, `since`). |
 | 6 | Product | Decide if web Polar is in scope; if yes, add Polar handler + webhook before marketing web Pro. |
+
+### Remaining checklist (post-WP5 step 1)
+
+- [ ] User accounts (email/password + Google/Apple) replace JWT `sub` as entitlement key
+- [ ] FE `EntitlementService` + paywall pre-IAP check (steps 3–4)
+- [ ] Flip `ENABLE_BFF_IAP_VALIDATION` only after accounts + real Apple/Google validators
+- [ ] Polar web products — **do not invent**; only if product decides formulaeapps.com sells Pro
+- [ ] No production BFF deploy from this slice alone
 
 ## Local validation
 

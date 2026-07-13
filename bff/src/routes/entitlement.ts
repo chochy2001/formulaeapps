@@ -2,7 +2,7 @@ import { createRoute } from '@hono/zod-openapi';
 import type { AppContext } from '../lib/openapi';
 import { EntitlementResponseSchema } from '../schemas/entitlement';
 import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
-import { listEntitlementsForSubject } from '../services/entitlements-store';
+import { readMobileEntitlement } from '../services/entitlement-check';
 import { randomUUID } from 'node:crypto';
 
 export const entitlementGetRoute = createRoute({
@@ -34,15 +34,12 @@ export const entitlementGetHandler = (c: AppContext): Response => {
     return c.json(errorEnvelope('unauthorized', 'Missing JWT subject', requestId), 401);
   }
 
-  const rows = listEntitlementsForSubject(claims.sub);
+  // Fail-closed reader: store errors → empty sources (not entitled).
+  const view = readMobileEntitlement(claims.sub);
   return c.json(
     {
-      scope: 'mobile' as const,
-      sources: rows.map((r) => ({
-        payment_source: r.payment_source,
-        product_id: r.product_id,
-        granted_at: r.granted_at,
-      })),
+      scope: view.scope,
+      sources: view.sources,
     },
     200,
   );

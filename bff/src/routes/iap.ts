@@ -84,12 +84,20 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
   // FE still gates calls with ENABLE_BFF_IAP_VALIDATION (default off).
   // Subject is interim JWT `sub` until real user_id accounts land (step 2).
   if (result.valid && claims?.sub) {
-    grantMobileEntitlement({
-      subject: claims.sub,
-      payment_source: paymentSourceFromPlatform(body.platform),
-      product_id: result.product_id,
-      raw_receipt_ref: result.transaction_id,
-    });
+    try {
+      grantMobileEntitlement({
+        subject: claims.sub,
+        payment_source: paymentSourceFromPlatform(body.platform),
+        product_id: result.product_id,
+        raw_receipt_ref: result.transaction_id,
+      });
+    } catch (err) {
+      // Persistence must not fail the validate response; FE still has local IAP.
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[entitlements] grant failed for sub=${claims.sub}: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
   }
 
   // Rotate JWT if close to expiry.
