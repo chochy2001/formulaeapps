@@ -22,7 +22,7 @@ class MenuSeriesDeFourierState extends State<MenuSeriesDeFourier> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,

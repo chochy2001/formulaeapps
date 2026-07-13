@@ -13,6 +13,7 @@ class LeyesDelAlgebraDeBoole extends StatefulWidget {
 class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: const AppBarHome(),
       body: SafeArea(
@@ -66,104 +67,66 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                   const SizedBox(
                     height: 30,
                   ),
+                  // On wide screens the ten Boolean laws read as a responsive
+                  // 2-column grid; on phones they stay a single column. Each
+                  // law block stays intact inside its own cell.
                   ZoomPersonalizado(
-                    child: Column(
+                    child: ResponsiveFormulaColumns(
                       children: [
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.dobleComplemento,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"(x')' = x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.deMorgan,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"(x+y)'=x'\times y'"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"(x\times y)'=x'+y'"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conmutativa,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+y=y+x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x\times y = y\times x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.asociativa,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"(x+y)+z=x+(y+z)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"(x\times y)\times z=x\times (y\times z)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.distributiva,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"x\times (y+z) = (x\times y)+(x \times z)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"x+ (y\times z) = (x + y)\times (x + z)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.idempotencia,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+ x = x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x \times x = x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.neutros,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+0=x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x\times 1= x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.dominacion,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+1=1"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x\times 0 = 0"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.inversos,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+x' = 1"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x\times x' = 0"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.absorcion,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x+(x\times y)= x"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(formulaText: r"x\times(x+y)=x"),
-                        const SizedBox(height: kEspacioEntreBotones),
+                        _leyGrupo(loc.dobleComplemento, const [
+                          Latex(formulaText: r"(x')' = x"),
+                        ]),
+                        _leyGrupo(loc.deMorgan, const [
+                          Latex(formulaText: r"(x+y)'=x'\times y'"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"(x\times y)'=x'+y'"),
+                        ]),
+                        _leyGrupo(loc.conmutativa, const [
+                          Latex(formulaText: r"x+y=y+x"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x\times y = y\times x"),
+                        ]),
+                        _leyGrupo(loc.asociativa, const [
+                          Latex(formulaText: r"(x+y)+z=x+(y+z)"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(
+                              formulaText:
+                                  r"(x\times y)\times z=x\times (y\times z)"),
+                        ]),
+                        _leyGrupo(loc.distributiva, const [
+                          Latex(
+                              formulaText:
+                                  r"x\times (y+z) = (x\times y)+(x \times z)"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(
+                              formulaText:
+                                  r"x+ (y\times z) = (x + y)\times (x + z)"),
+                        ]),
+                        _leyGrupo(loc.idempotencia, const [
+                          Latex(formulaText: r"x+ x = x"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x \times x = x"),
+                        ]),
+                        _leyGrupo(loc.neutros, const [
+                          Latex(formulaText: r"x+0=x"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x\times 1= x"),
+                        ]),
+                        _leyGrupo(loc.dominacion, const [
+                          Latex(formulaText: r"x+1=1"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x\times 0 = 0"),
+                        ]),
+                        _leyGrupo(loc.inversos, const [
+                          Latex(formulaText: r"x+x' = 1"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x\times x' = 0"),
+                        ]),
+                        _leyGrupo(loc.absorcion, const [
+                          Latex(formulaText: r"x+(x\times y)= x"),
+                          SizedBox(height: kEspacioEntreBotones),
+                          Latex(formulaText: r"x\times(x+y)=x"),
+                        ]),
                       ],
                     ),
                   ),
@@ -182,6 +145,21 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
           ],
         ),
       ),
+    );
+  }
+
+  /// A single Boolean-law block: its label followed by its formula(s). Kept
+  /// intact so a law is never split across responsive columns.
+  Widget _leyGrupo(String titulo, List<Widget> formulas) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: kEspacioEntreBotones),
+        TextoEcuaciones(titulo),
+        const SizedBox(height: kEspacioEntreBotones),
+        ...formulas,
+        const SizedBox(height: kEspacioEntreBotones),
+      ],
     );
   }
 }

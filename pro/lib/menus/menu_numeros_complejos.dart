@@ -21,7 +21,7 @@ class NumerosComplejosState extends State<NumerosComplejos> {
           child: ListView(
             children: [
               Center(
-                child: Column(
+                child: MenuColumn(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(

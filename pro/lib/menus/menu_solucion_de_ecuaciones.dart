@@ -20,7 +20,7 @@ class SolucionEcuacionesState extends State<SolucionEcuaciones> {
         child: ListView(
           children: [
             Center(
-              child: Column(
+              child: MenuColumn(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(

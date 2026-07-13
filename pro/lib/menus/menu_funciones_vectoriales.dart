@@ -21,7 +21,7 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,

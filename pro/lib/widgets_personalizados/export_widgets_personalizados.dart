@@ -12,6 +12,8 @@ export '../widgets_personalizados/fondo_degradado.dart';
 export '../widgets_personalizados/header_bar.dart';
 export '../widgets_personalizados/imagen_logo_formulae.dart';
 export '../menus/principal_menu.dart';
+export '../responsive/breakpoints.dart';
+export '../responsive/responsive_menu_grid.dart';
 export '../screens_personalizados/scaffold_screen.dart';
 export 'todo/task_tile.dart';
 export 'todo/tasks_list.dart';

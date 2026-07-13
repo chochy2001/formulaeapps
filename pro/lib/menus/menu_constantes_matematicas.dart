@@ -21,7 +21,7 @@ class MenuConstantesMatematicasState extends State<MenuConstantesMatematicas> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(height: 20.0),
                   TextButton(

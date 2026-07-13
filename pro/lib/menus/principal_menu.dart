@@ -31,7 +31,7 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
           ),
           Center(
             child: SingleChildScrollView(
-              child: Column(
+              child: MenuColumn(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                                     BotonesMenu(

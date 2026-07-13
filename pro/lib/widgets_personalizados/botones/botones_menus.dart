@@ -25,12 +25,10 @@ class BotonMenuState extends State<BotonMenu> {
       child: GestureDetector(
         onTap: widget.onPress,
         child: AnimatedContainer(
-          width: _isHovering
-              ? MediaQuery.of(context).size.width * 0.96
-              : MediaQuery.of(context).size.width * 0.95,
-          height: _isHovering
-              ? MediaQuery.of(context).size.height * 0.09
-              : MediaQuery.of(context).size.height * 0.08,
+          // Fill the width of whatever cell the button is placed in (a single
+          // full-width column on phones, or a grid cell on wider screens).
+          width: double.infinity,
+          height: _isHovering ? 82.0 : 74.0,
           duration: const Duration(milliseconds: 200),
           margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
@@ -86,9 +84,7 @@ class BotonesMenu extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        constraints: BoxConstraints(
-                            minHeight:
-                                MediaQuery.of(context).size.height * 0.07),
+                        constraints: const BoxConstraints(minHeight: 48.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,

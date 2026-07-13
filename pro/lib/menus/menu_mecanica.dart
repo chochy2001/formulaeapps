@@ -21,7 +21,7 @@ class MenuMecanicaState extends State<MenuMecanica> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(height: 20.0),
                   TextButton(

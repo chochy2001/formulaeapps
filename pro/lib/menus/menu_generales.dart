@@ -22,7 +22,7 @@ class GeneralesState extends State<Generales> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,

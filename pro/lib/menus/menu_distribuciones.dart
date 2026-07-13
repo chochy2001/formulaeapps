@@ -20,7 +20,7 @@ class MenuDistribucionesState extends State<MenuDistribuciones> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,

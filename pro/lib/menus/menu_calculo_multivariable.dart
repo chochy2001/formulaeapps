@@ -23,7 +23,7 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,
