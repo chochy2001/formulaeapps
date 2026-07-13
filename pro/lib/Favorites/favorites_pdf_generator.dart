@@ -86,11 +86,13 @@ class FavoritesPdfGenerator {
     );
     await downloadFavoritePdf(
       pdfBytes,
-      '${_sanitizeFileName(folder.name)}.pdf',
+      downloadFileNameForTitle(folder.name),
     );
   }
 
-  static Future<Uint8List> buildFavoritePdfBytes({
+  // Genera el PDF y devuelve tambien el titulo real de la pantalla origen para
+  // que el visor y el nombre de archivo puedan reutilizarlo.
+  static Future<({String title, Uint8List bytes})> buildFavoritePdfDocument({
     required BuildContext context,
     required Favorite favorite,
     required String folderName,
@@ -98,11 +100,27 @@ class FavoritesPdfGenerator {
     final localizations = AppLocalizations.of(context)!;
     final content = await _extractFavoriteContent(context, favorite);
 
-    return _buildPdf(
+    final bytes = await _buildPdf(
       appTitle: localizations.formulaePro,
       folderName: folderName,
       contents: [content],
     );
+
+    return (title: content.title, bytes: bytes);
+  }
+
+  static Future<Uint8List> buildFavoritePdfBytes({
+    required BuildContext context,
+    required Favorite favorite,
+    required String folderName,
+  }) async {
+    final document = await buildFavoritePdfDocument(
+      context: context,
+      favorite: favorite,
+      folderName: folderName,
+    );
+
+    return document.bytes;
   }
 
   static Future<void> exportFavorite({
@@ -110,15 +128,15 @@ class FavoritesPdfGenerator {
     required Favorite favorite,
     required String folderName,
   }) async {
-    final pdfBytes = await buildFavoritePdfBytes(
+    final document = await buildFavoritePdfDocument(
       context: context,
       favorite: favorite,
       folderName: folderName,
     );
 
     await downloadFavoritePdf(
-      pdfBytes,
-      '${_sanitizeFileName(favorite.title)}.pdf',
+      document.bytes,
+      downloadFileNameForTitle(document.title),
     );
   }
 
@@ -211,15 +229,36 @@ class FavoritesPdfGenerator {
         }
       }
 
+      final blocks = collector.blocks
+          .map((block) => _attachFormulaImage(block, formulaImages))
+          .toList();
+
       return FavoriteFormulaContent(
-        title: favorite.title,
-        blocks: collector.blocks
-            .map((block) => _attachFormulaImage(block, formulaImages))
-            .toList(),
+        title: _resolveContentTitle(blocks, favorite.title),
+        blocks: blocks,
       );
     } finally {
       entry.remove();
     }
+  }
+
+  // El titulo real de la formula proviene del encabezado que la pantalla
+  // renderiza (TituloPersonalizado). Los botones VerPDF/DescargarPDF crean un
+  // Favorite con un titulo generico ("Formulae PDF"), por lo que preferimos el
+  // primer encabezado capturado y solo caemos al titulo guardado si la pantalla
+  // no aporto uno.
+  static String _resolveContentTitle(
+    List<FormulaPdfBlock> blocks,
+    String fallbackTitle,
+  ) {
+    for (final block in blocks) {
+      if (block.type == FormulaPdfBlockType.heading &&
+          block.text.trim().isNotEmpty) {
+        return block.text.trim();
+      }
+    }
+
+    return fallbackTitle.trim();
   }
 
   static List<_FormulaBoundaryHandle> _collectFormulaBoundaries(
@@ -564,6 +603,13 @@ class FavoritesPdfGenerator {
     }
 
     return wrapped.join('\n');
+  }
+
+  // Nombre de archivo del PDF derivado del titulo de la pantalla origen. El
+  // saneado reutiliza _sanitizeFileName para producir algo como
+  // "formulae_movimiento_de_proyectiles.pdf".
+  static String downloadFileNameForTitle(String title) {
+    return '${_sanitizeFileName(title)}.pdf';
   }
 
   static String _sanitizeFileName(String folderName) {

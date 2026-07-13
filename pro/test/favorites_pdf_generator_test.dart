@@ -253,4 +253,58 @@ void main() {
     },
     timeout: const Timeout(Duration(seconds: 60)),
   );
+
+  testWidgets(
+    'the export filename is derived from the source screen title, not the '
+    'generic placeholder that the View/Download buttons pass',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      // Capture disabled keeps the offscreen extraction on the fake test clock.
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      addTearDown(() {
+        FavoritesPdfGenerator.debugDisableFormulaCapture = false;
+      });
+
+      final capturedContext = await pumpHostApp(tester, FavoritesNotifier());
+      final localizations = AppLocalizations.of(capturedContext)!;
+
+      // VerPDF/DescargarPDF build the Favorite with the generic app title; the
+      // widgetName is the only real link to the source screen.
+      const genericTitle = 'Formulae PDF placeholder';
+      final favorite = Favorite(
+        title: genericTitle,
+        widgetName: kWidgetTeoremaDelRotacional,
+      );
+
+      final contentFuture = FavoritesPdfGenerator.extractFavoriteFormulaContent(
+        context: capturedContext,
+        favorite: favorite,
+      );
+      await tester.pumpAndSettle();
+      final content = await contentFuture;
+
+      // The resolved title comes from the screen's own heading
+      // (TituloPersonalizado), never from the generic favorite title.
+      expect(content.title, localizations.teoremaRotacional);
+      expect(content.title, isNot(genericTitle));
+
+      // The download filename reuses _sanitizeFileName over that real title, so
+      // the shared/printed file is recognisable (e.g. formulae_<screen>.pdf).
+      final fileName =
+          FavoritesPdfGenerator.downloadFileNameForTitle(content.title);
+      expect(
+        fileName,
+        FavoritesPdfGenerator.downloadFileNameForTitle(
+          localizations.teoremaRotacional,
+        ),
+      );
+      expect(fileName, startsWith('formulae_'));
+      expect(fileName, endsWith('.pdf'));
+      expect(
+        fileName,
+        isNot(FavoritesPdfGenerator.downloadFileNameForTitle(genericTitle)),
+      );
+    },
+    timeout: const Timeout(Duration(seconds: 60)),
+  );
 }

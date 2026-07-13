@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../Favorites/favorites_pdf_generator.dart';
 import '../Favorites/pdf_capture_scope.dart';
 import '../../../constantes/export_constantes.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
+import 'pdf_inline_viewer.dart';
 
 bool isWebPlatform() {
   return kIsWeb;
@@ -59,7 +59,7 @@ class VerPDFState extends State<VerPDF> {
 
     final localizations = AppLocalizations.of(context)!;
     try {
-      final pdfBytes = await FavoritesPdfGenerator.buildFavoritePdfBytes(
+      final document = await FavoritesPdfGenerator.buildFavoritePdfDocument(
         context: context,
         favorite: Favorite(
           title: localizations.formulaePDF,
@@ -75,7 +75,10 @@ class VerPDFState extends State<VerPDF> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => VerPDFGenerado(pdfData: pdfBytes),
+          builder: (context) => VerPDFGenerado(
+            pdfData: document.bytes,
+            title: document.title,
+          ),
         ),
       );
     } catch (error, stackTrace) {
@@ -99,16 +102,21 @@ class VerPDFState extends State<VerPDF> {
 
 class VerPDFGenerado extends StatelessWidget {
   final Uint8List pdfData;
+  final String? title;
 
-  const VerPDFGenerado({super.key, required this.pdfData});
+  const VerPDFGenerado({super.key, required this.pdfData, this.title});
 
   @override
   Widget build(BuildContext context) {
+    final resolvedTitle = (title != null && title!.trim().isNotEmpty)
+        ? title!.trim()
+        : AppLocalizations.of(context)!.formulaePDF;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.formulaePDF),
+        title: Text(resolvedTitle),
       ),
-      body: SfPdfViewer.memory(pdfData),
+      body: buildPdfInlineViewer(pdfData),
     );
   }
 }
@@ -306,7 +314,7 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
                     ],
                   ),
                 )
-          : SfPdfViewer.memory(_pdfData!),
+          : buildPdfInlineViewer(_pdfData!),
     );
   }
 
