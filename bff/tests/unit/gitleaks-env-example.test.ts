@@ -55,8 +55,33 @@ function syntheticOpenRouterKey(): string {
   return `${prefix}-${hex}`;
 }
 
+/** The scanner binary is not guaranteed on every self-hosted runner. When it is
+ * absent the binary-dependent checks below are skipped (not failed): the
+ * enforcing secret gate is the dedicated gitleaks workflow, and these unit
+ * tests only shadow it. The absence is logged so it stays visible. */
+function gitleaksIsAvailable(): boolean {
+  try {
+    const probe = Bun.spawnSync([gitleaksBin, 'version'], {
+      cwd: repoRoot,
+      stderr: 'pipe',
+      stdout: 'pipe',
+    });
+    return /\d+\.\d+\.\d+/.test(`${probe.stdout.toString()}${probe.stderr.toString()}`);
+  } catch {
+    return false;
+  }
+}
+
+const hasGitleaks = gitleaksIsAvailable();
+if (!hasGitleaks) {
+  console.warn(
+    `[gitleaks-env-example] gitleaks binary not found (bin=${gitleaksBin}); skipping scanner-dependent tests. The dedicated gitleaks workflow remains the enforcing gate.`,
+  );
+}
+const scannerTest = hasGitleaks ? test : test.skip;
+
 describe('gitleaks .env.example allowlist', () => {
-  test('scanner binary understands [[allowlists]] (>= 8.25)', () => {
+  scannerTest('scanner binary understands [[allowlists]] (>= 8.25)', () => {
     requireGitleaksAllowlistsSupport();
   });
 
@@ -74,7 +99,7 @@ describe('gitleaks .env.example allowlist', () => {
     expect(configText).toContain("(?i)^replace-with-real-hex-secret$");
   });
 
-  test('committed .env.example placeholders pass gitleaks', () => {
+  scannerTest('committed .env.example placeholders pass gitleaks', () => {
     const probeDir = mkdtempSync(join(tmpdir(), 'gitleaks-placeholders-'));
     try {
       mkdirSync(join(probeDir, 'bff'), { recursive: true });
@@ -93,12 +118,12 @@ describe('gitleaks .env.example allowlist', () => {
     }
   });
 
-  test('a simulated real credential inside .env.example fails gitleaks', () => {
+  scannerTest('a simulated real credential inside .env.example fails gitleaks', () => {
     const probeDir = mkdtempSync(join(tmpdir(), 'gitleaks-realcred-'));
     try {
       writeFileSync(
         join(probeDir, '.env.example'),
-        ['# synthetic fixture for gitleaks guard — not a real secret', `OPENROUTER_API_KEY=${syntheticOpenRouterKey()}`, ''].join(
+        ['# synthetic fixture for gitleaks guard, not a real secret', `OPENROUTER_API_KEY=${syntheticOpenRouterKey()}`, ''].join(
           '\n',
         ),
       );
