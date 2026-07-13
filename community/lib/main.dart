@@ -4,6 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:formulae/core/observability/observability_bootstrap.dart';
 import 'package:formulae/menu.dart';
 import 'package:formulae/routes.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -40,6 +41,9 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // Spec §FR-006: refuse to launch a release build with placeholder JWT secret.
   _assertBffSecretsConfigured();
+  // Fleet observability (Crashlytics + PostHog): off by default until
+  // ENABLE_* + credential dart-defines are supplied (CapGym#79 pattern).
+  await bootstrapObservability();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([
