@@ -198,7 +198,12 @@ class Configuracion extends StatelessWidget {
                             TextButton(
                               child: Text(
                                 AppLocalizations.of(context)!.visitarWeb,
-                                style: kTexto,
+                                // Enlace: acento SECUNDARIO teal (6.56:1 sobre
+                                // navy) para senalar la afordancia interactiva.
+                                style: kTexto.copyWith(
+                                  color: kColorAcentoSecundario,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               onPressed: () {
                                 openURL(url);

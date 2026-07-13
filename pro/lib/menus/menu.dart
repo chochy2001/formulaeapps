@@ -201,8 +201,10 @@ class MenuState extends State<Menu> {
                 child: BottomNavigationBar(
                   elevation: 0,
                   currentIndex: _selectedIndex,
-                  selectedItemColor: kColorBlanco,
-                  unselectedItemColor: const Color(0xFF646D9E),
+                  // Acento PRIMARIO dorado para el destino activo; el inactivo
+                  // usa un tono con contraste AA (antes #646D9E, 2.90:1).
+                  selectedItemColor: kColorAcentoPrimario,
+                  unselectedItemColor: kColorNavInactivo,
                   onTap: _onItemTapped,
                   backgroundColor: kColorFondo,
                   type: BottomNavigationBarType.shifting,
@@ -244,14 +246,16 @@ class MenuState extends State<Menu> {
                     selectedIndex: _selectedIndex,
                     onDestinationSelected: _onItemTapped,
                     labelType: NavigationRailLabelType.all,
+                    // Acento PRIMARIO dorado para el destino activo; el inactivo
+                    // usa un tono con contraste AA (antes #646D9E, 2.90:1).
                     selectedIconTheme:
-                        const IconThemeData(color: kColorBlanco),
+                        const IconThemeData(color: kColorAcentoPrimario),
                     unselectedIconTheme:
-                        const IconThemeData(color: Color(0xFF646D9E)),
+                        const IconThemeData(color: kColorNavInactivo),
                     selectedLabelTextStyle:
-                        const TextStyle(color: kColorBlanco),
+                        const TextStyle(color: kColorAcentoPrimario),
                     unselectedLabelTextStyle:
-                        const TextStyle(color: Color(0xFF646D9E)),
+                        const TextStyle(color: kColorNavInactivo),
                     destinations: <NavigationRailDestination>[
                       for (final _ShellDestination destination in destinations)
                         NavigationRailDestination(

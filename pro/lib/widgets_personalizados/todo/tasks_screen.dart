@@ -100,9 +100,10 @@ class TasksScreen extends StatelessWidget {
                               }
                             },
                             child: FloatingActionButton.extended(
-                              extendedTextStyle:
-                                  const TextStyle(color: Colors.white),
-                              backgroundColor: kColorBotones,
+                              extendedTextStyle: const TextStyle(
+                                  color: kColorTextoSobreAcento),
+                              // Accion SECUNDARIA (compartir): acento teal.
+                              backgroundColor: kColorAcentoSecundario,
                               elevation: 9,
                               onPressed: () async {
                                 final tasks = Provider.of<TaskData>(context,
@@ -144,12 +145,14 @@ class TasksScreen extends StatelessWidget {
                               label: Text(
                                 AppLocalizations.of(context)!.compartirTareas,
                                 style: const TextStyle(
-                                    color: Colors.white, fontFamily: 'Poppins'),
+                                    color: kColorTextoSobreAcento,
+                                    fontFamily: 'Poppins'),
                               ),
                               icon: const Icon(
                                 Icons.share,
-                                color: Colors
-                                    .white, //Share Icon color changed to white to ensure contrast
+                                // Texto oscuro sobre el teal para asegurar
+                                // contraste (6.56:1).
+                                color: kColorTextoSobreAcento,
                               ),
                             ),
                           ),
@@ -210,7 +213,8 @@ class TasksScreen extends StatelessWidget {
                               }
                             },
                             child: FloatingActionButton.extended(
-                              backgroundColor: kColorBotones,
+                              // Accion PRIMARIA (agregar tarea): acento dorado.
+                              backgroundColor: kColorAcentoPrimario,
                               elevation: 9,
                               onPressed: () {
                                 showModalBottomSheet(
@@ -231,11 +235,13 @@ class TasksScreen extends StatelessWidget {
                               },
                               label: Text(
                                 AppLocalizations.of(context)!.agregar,
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(
+                                    color: kColorTextoSobreAcento),
                               ),
                               icon: const Icon(
                                 Icons.add,
-                                color: Colors.white,
+                                // Texto oscuro sobre el dorado (7.14:1).
+                                color: kColorTextoSobreAcento,
                               ),
                             ),
                           ),
