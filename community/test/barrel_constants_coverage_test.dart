@@ -2,36 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/chat_gpt/api_consts.dart';
 import 'package:formulae/chat_gpt/chat_gpt_button.dart';
 import 'package:formulae/chat_gpt/export_chat_gpt.dart';
-import 'package:formulae/constantes/constantes_codigo.dart';
-import 'package:formulae/constantes/constantes_favoritos.dart';
-import 'package:formulae/constantes/contantes_rutas.dart';
 import 'package:formulae/constantes/export_constantes.dart';
-import 'package:formulae/constantes/imagenes_nombres.dart';
-import 'package:formulae/constantes/nombres_videos.dart';
-import 'package:formulae/constantes/paleta_colores.dart';
-import 'package:formulae/constantes/urls_imagenes.dart';
-import 'package:formulae/constantes/urls_videos.dart';
-import 'package:formulae/menus/export_menus.dart';
-import 'package:formulae/screens_personalizados/export_screens_personalizados.dart';
-import 'package:formulae/secciones_app/algebra/export_algebra.dart';
-import 'package:formulae/secciones_app/algebra_lineal/export_algebra_lineal.dart';
-import 'package:formulae/secciones_app/calculo_diferencial/export_calculo_diferencial.dart';
-import 'package:formulae/secciones_app/calculo_integral/export_calculo_integral.dart';
-import 'package:formulae/secciones_app/calculo_multivariable/export_calculo_multivariable.dart';
-import 'package:formulae/secciones_app/ecuaciones_diferenciales/export_ecuaciones_diferenciales.dart';
-import 'package:formulae/secciones_app/ejercicios/export_ejercicios.dart';
-import 'package:formulae/secciones_app/electricidad_y_magnetismo/export_electricidad_y_magnetismo.dart';
-import 'package:formulae/secciones_app/generales/export_generales.dart';
-import 'package:formulae/secciones_app/geometria/export_geometria.dart';
-import 'package:formulae/secciones_app/matematicas_discretas/export_matematicas_discretas.dart';
-import 'package:formulae/secciones_app/matematicas_financieras/export_matematicas_financieras.dart';
-import 'package:formulae/secciones_app/probabilidad_y_estadistica/export_probabilidad_y_estadistica.dart';
-import 'package:formulae/secciones_app/series_de_fourier/export_series_de_fourier.dart';
-import 'package:formulae/secciones_app/trigonometria/export_trigonometria.dart';
 import 'package:formulae/widgets_intermedios/preguntas_frecuentes_intermedio.dart';
-import 'package:formulae/widgets_personalizados/export_widgets_personalizados.dart';
 
-/// Loads barrel/constant libraries so they appear in the lcov SF set.
+/// Loads the barrel/constant libraries whose symbols are asserted below so
+/// they appear in the lcov SF set. Only imports that are actually referenced
+/// are kept; unreferenced barrels are tree-shaken and never contribute
+/// coverage, so importing them only produced dead-import analyzer warnings.
 void main() {
   test('barrel and constant libraries load', () {
     expect(kWidgetFormulaGeneral, isNotEmpty);

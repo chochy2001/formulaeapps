@@ -98,11 +98,11 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void _initializePurchaseDetails() {
-    // Touch the injectable platform so production still registers the store
-    // facade before listening (same eager-init as the old inAppPurchase getter).
-    _inAppPurchaseManager.platform;
+    // Use the public alias (not @visibleForTesting `platform`) so production
+    // UI can refresh on purchase updates without analyzer warnings. The store
+    // facade is already registered eagerly in the manager constructor.
     purchaseSubscription =
-        _inAppPurchaseManager.platform.purchaseStream.listen((purchases) {
+        _inAppPurchaseManager.inAppPurchase.purchaseStream.listen((purchases) {
       _inAppPurchaseManager.handlePurchaseUpdates(purchases);
       setState(() {});
     });

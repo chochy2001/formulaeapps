@@ -32,7 +32,14 @@ jobs:
       run:
         working-directory: bff
     steps:
+      # Full history: the JWT release-artifact gate test (bun test) inspects the
+      # canonical dual-key squash commit and its main-lineage ancestors via
+      # git ancestry checks. A shallow (default depth-1) checkout omits those
+      # objects, so the gate exits early with "candidate must identify a local
+      # Git commit". Mirror the fetch-depth used by jwt-pr-preflight/release.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@v4
         with:

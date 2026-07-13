@@ -9,7 +9,6 @@ import 'package:formulae/chat_gpt/models_provider.dart';
 import 'package:formulae/constantes/constantes_favoritos.dart';
 import 'package:formulae/l10n/app_localizations.dart';
 import 'package:formulae/l10n/l10n.dart';
-import 'package:formulae/models/task.dart';
 import 'package:formulae/models/task_data.dart';
 import 'package:formulae/screens/add_task_screen.dart';
 import 'package:formulae/screens/tasks_screen.dart';

@@ -13,7 +13,6 @@ class _PuntoMedioEntreDosPuntosGeometriaState
     extends State<PuntoMedioEntreDosPuntosGeometria> {
 
   double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
-  static const int maxFailedLoadAttempts = 3;
 
   final FormulaeAdsController _ads = FormulaeAdsController();
 
