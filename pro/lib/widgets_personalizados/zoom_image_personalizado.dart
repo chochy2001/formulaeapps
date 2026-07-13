@@ -1,9 +1,19 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../Favorites/pdf_capture_scope.dart';
 import '../constantes/export_constantes.dart';
 
+/// Muestra una imagen remota (formula o diagrama) de forma robusta.
+///
+/// El host de imagenes puede responder 404 o quedarse colgado sin resolver; en
+/// ambos casos esta widget degrada con gracia en lugar de girar para siempre:
+///   * el estado de carga esta acotado por un timeout ([_ImagenRemotaRobusta]);
+///   * si la imagen falla o expira se muestra un placeholder oscuro con icono
+///     en vez de un spinner infinito o el glifo crudo de imagen rota;
+///   * conserva el zoom (InteractiveViewer) para las imagenes que SI cargan.
 class ZoomImagePersonalizado extends StatelessWidget {
   final String urlImagen;
 
@@ -15,27 +25,189 @@ class ZoomImagePersonalizado extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    bool isMobile = !kIsWeb &&
+    final bool isMobile = !kIsWeb &&
         (defaultTargetPlatform == TargetPlatform.iOS ||
             defaultTargetPlatform == TargetPlatform.android);
 
-    Widget fadeInImage = isMobile
-        ? CachedNetworkImage(
-            imageUrl: urlImagen,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+    final Widget imagen = _ImagenRemotaRobusta(
+      urlImagen: urlImagen,
+      // En escritorio conservamos el encuadre fijo previo; en movil dejamos que
+      // la imagen tome su tamano natural dentro del InteractiveViewer.
+      height: isMobile ? null : 300.0,
+      width: isMobile ? null : double.infinity,
+    );
+
+    return isMobile ? InteractiveViewer(child: imagen) : imagen;
+  }
+}
+
+/// Carga [urlImagen] mediante [CachedNetworkImage] y garantiza que el estado de
+/// carga nunca sea infinito: un timeout de respaldo convierte una peticion
+/// colgada en el placeholder de error, mientras que un 404 real cae de
+/// inmediato en el mismo placeholder a traves de `errorWidget`.
+class _ImagenRemotaRobusta extends StatefulWidget {
+  final String urlImagen;
+  final double? height;
+  final double? width;
+
+  const _ImagenRemotaRobusta({
+    required this.urlImagen,
+    this.height,
+    this.width,
+  });
+
+  @override
+  State<_ImagenRemotaRobusta> createState() => _ImagenRemotaRobustaState();
+}
+
+class _ImagenRemotaRobustaState extends State<_ImagenRemotaRobusta> {
+  // Respaldo: si la peticion se cuelga (sin 404 ni exito) mostramos el
+  // placeholder de error al vencer este tiempo, en lugar de girar sin fin.
+  static const Duration _kTimeoutCarga = Duration(seconds: 12);
+
+  Timer? _timeoutTimer;
+  bool _expiro = false;
+  bool _cargo = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _arrancarTimeout();
+  }
+
+  @override
+  void didUpdateWidget(covariant _ImagenRemotaRobusta oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.urlImagen != widget.urlImagen) {
+      _cargo = false;
+      _expiro = false;
+      _arrancarTimeout();
+    }
+  }
+
+  @override
+  void dispose() {
+    _timeoutTimer?.cancel();
+    super.dispose();
+  }
+
+  void _arrancarTimeout() {
+    _timeoutTimer?.cancel();
+    _timeoutTimer = Timer(_kTimeoutCarga, () {
+      if (mounted && !_cargo) {
+        setState(() => _expiro = true);
+      }
+    });
+  }
+
+  void _marcarCargada() {
+    _cargo = true;
+    _timeoutTimer?.cancel();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_expiro) {
+      return _PlaceholderImagen(
+        error: true,
+        height: widget.height,
+        width: widget.width,
+      );
+    }
+
+    return CachedNetworkImage(
+      imageUrl: widget.urlImagen,
+      fadeInDuration: const Duration(milliseconds: 150),
+      imageBuilder: (context, imageProvider) {
+        _marcarCargada();
+        return Image(
+          image: imageProvider,
+          fit: BoxFit.contain,
+          height: widget.height,
+          width: widget.width,
+        );
+      },
+      placeholder: (context, url) => _PlaceholderImagen(
+        error: false,
+        height: widget.height,
+        width: widget.width,
+      ),
+      errorWidget: (context, url, error) {
+        _marcarCargada();
+        return _PlaceholderImagen(
+          error: true,
+          height: widget.height,
+          width: widget.width,
+        );
+      },
+    );
+  }
+}
+
+/// Caja oscura, coherente con el tema navy (#27283D), usada tanto para el estado
+/// de carga (spinner acotado) como para el estado de error (icono + etiqueta).
+class _PlaceholderImagen extends StatelessWidget {
+  final bool error;
+  final double? height;
+  final double? width;
+
+  const _PlaceholderImagen({
+    required this.error,
+    this.height,
+    this.width,
+  });
+
+  static const Color _colorMuteado = Color(0xFF9294C0);
+  static const Color _colorBorde = Color(0xFF4B4D7A);
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isEnglish =
+        Localizations.maybeLocaleOf(context)?.languageCode == 'en';
+
+    final Widget contenido = error
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.image_not_supported_outlined,
+                size: 40,
+                color: _colorMuteado,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                isEnglish ? 'Image unavailable' : 'Imagen no disponible',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: _colorMuteado,
+                  fontSize: 13,
+                ),
+              ),
+            ],
           )
-        : FadeInImage(
-            height: 300.0,
-            width: double.infinity,
-            placeholder: const AssetImage(kUrlImagenGifCarga),
-            image: NetworkImage(urlImagen),
-            imageErrorBuilder: (context, error, stackTrace) {
-              return const SizedBox.shrink();
-            },
+        : const SizedBox(
+            height: 28,
+            width: 28,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.4,
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(kColorAmarilloCapdesis),
+            ),
           );
 
-    return isMobile ? InteractiveViewer(child: fadeInImage) : fadeInImage;
+    return Container(
+      height: height ?? 160,
+      width: width,
+      constraints: const BoxConstraints(minWidth: 160, minHeight: 96),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: kColorBotones,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _colorBorde),
+      ),
+      child: contenido,
+    );
   }
 }
 
