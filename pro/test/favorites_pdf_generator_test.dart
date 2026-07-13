@@ -307,4 +307,79 @@ void main() {
     },
     timeout: const Timeout(Duration(seconds: 60)),
   );
+
+  group('PdfFormulaSize', () {
+    test('scale grows monotonically with medium at the neutral 1.0', () {
+      expect(PdfFormulaSize.medium.scale, 1.0);
+      expect(PdfFormulaSize.small.scale, lessThan(PdfFormulaSize.medium.scale));
+      expect(PdfFormulaSize.large.scale, greaterThan(PdfFormulaSize.medium.scale));
+    });
+
+    test('storage value round-trips through the enum name', () {
+      for (final size in PdfFormulaSize.values) {
+        expect(
+          FavoritesPdfGenerator.formulaSizeFromStorage(size.storageValue),
+          size,
+        );
+      }
+    });
+
+    test('unknown or missing storage value falls back to medium', () {
+      expect(
+        FavoritesPdfGenerator.formulaSizeFromStorage(null),
+        PdfFormulaSize.medium,
+      );
+      expect(
+        FavoritesPdfGenerator.formulaSizeFromStorage('gigantic'),
+        PdfFormulaSize.medium,
+      );
+    });
+
+    test('load defaults to medium and persists the saved choice', () async {
+      SharedPreferences.setMockInitialValues({});
+      expect(
+        await FavoritesPdfGenerator.loadFormulaSize(),
+        PdfFormulaSize.medium,
+      );
+
+      await FavoritesPdfGenerator.saveFormulaSize(PdfFormulaSize.large);
+      expect(
+        await FavoritesPdfGenerator.loadFormulaSize(),
+        PdfFormulaSize.large,
+      );
+    });
+  });
+
+  testWidgets(
+    'the PDF build accepts a formula size and still produces a valid document',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      addTearDown(() {
+        FavoritesPdfGenerator.debugDisableFormulaCapture = false;
+      });
+
+      final capturedContext = await pumpHostApp(tester, FavoritesNotifier());
+      final favorite = Favorite(
+        title: 'Teorema del rotacional',
+        widgetName: kWidgetTeoremaDelRotacional,
+      );
+
+      late Future<Uint8List> pdfFuture;
+      runZoned(() {
+        pdfFuture = FavoritesPdfGenerator.buildFavoritePdfBytes(
+          context: capturedContext,
+          favorite: favorite,
+          folderName: 'General',
+          size: PdfFormulaSize.large,
+        );
+      });
+      await tester.pumpAndSettle();
+      final pdfBytes = await pdfFuture;
+
+      expect(pdfBytes, isNotEmpty);
+      expect(String.fromCharCodes(pdfBytes.take(4)), '%PDF');
+    },
+    timeout: const Timeout(Duration(seconds: 60)),
+  );
 }

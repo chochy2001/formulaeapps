@@ -8250,7 +8250,7 @@ abstract class AppLocalizations {
   /// No description provided for @mensajeError.
   ///
   /// In es, this message translates to:
-  /// **'Hubo un problema al cargar el archivo PDF. Revisa tu conexión a internet e intenta de nuevo más tarde.'**
+  /// **'Hubo un problema al generar el PDF. Intenta de nuevo.'**
   String get mensajeError;
 
   /// No description provided for @reintentar.
@@ -8504,6 +8504,42 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Eliminar carpeta'**
   String get eliminarCarpeta;
+
+  /// No description provided for @tamanoFormula.
+  ///
+  /// In es, this message translates to:
+  /// **'Tamaño de fórmula'**
+  String get tamanoFormula;
+
+  /// No description provided for @tamanoFormulaPequeno.
+  ///
+  /// In es, this message translates to:
+  /// **'Pequeño'**
+  String get tamanoFormulaPequeno;
+
+  /// No description provided for @tamanoFormulaMediano.
+  ///
+  /// In es, this message translates to:
+  /// **'Mediano'**
+  String get tamanoFormulaMediano;
+
+  /// No description provided for @tamanoFormulaGrande.
+  ///
+  /// In es, this message translates to:
+  /// **'Grande'**
+  String get tamanoFormulaGrande;
+
+  /// No description provided for @carpetaVaciaAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca el corazón en una fórmula para guardarla aquí.'**
+  String get carpetaVaciaAyuda;
+
+  /// No description provided for @crearOtraCarpetaParaMover.
+  ///
+  /// In es, this message translates to:
+  /// **'Crea otra carpeta primero para mover esta fórmula.'**
+  String get crearOtraCarpetaParaMover;
 
   /// No description provided for @coeficientesBinomiales.
   ///

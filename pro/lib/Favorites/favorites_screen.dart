@@ -13,6 +13,33 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isExporting = false;
+  PdfFormulaSize _formulaSize = PdfFormulaSize.medium;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFormulaSize();
+  }
+
+  Future<void> _loadFormulaSize() async {
+    final size = await FavoritesPdfGenerator.loadFormulaSize();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _formulaSize = size;
+    });
+  }
+
+  Future<void> _onFormulaSizeChanged(PdfFormulaSize size) async {
+    if (size == _formulaSize) {
+      return;
+    }
+    setState(() {
+      _formulaSize = size;
+    });
+    await FavoritesPdfGenerator.saveFormulaSize(size);
+  }
 
   @override
   void dispose() {
@@ -39,6 +66,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     title: localizations.favoritos,
                     isExporting: _isExporting,
                     canExport: activeFolder.favorites.isNotEmpty,
+                    formulaSize: _formulaSize,
+                    onFormulaSizeChanged: _onFormulaSizeChanged,
                     onCreateFolder: () =>
                         _showCreateFolderDialog(favoritesNotifier),
                     onExport: () => _exportFolder(activeFolder),
@@ -76,12 +105,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                         favorite.getWidget(context),
                                   ),
                                 ),
-                                onMove: favoritesNotifier.folders.length <= 1
-                                    ? null
-                                    : () => _showMoveFavoriteDialog(
-                                          favoritesNotifier,
-                                          favorite,
-                                        ),
+                                onMove: () => _handleMoveFavorite(
+                                  favoritesNotifier,
+                                  favorite,
+                                ),
                                 onDelete: () => _confirmRemoveFavorite(
                                   favoritesNotifier,
                                   favorite,
@@ -147,6 +174,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
 
     controller.dispose();
+  }
+
+  // El boton de mover siempre responde: si no hay otra carpeta destino explica
+  // que hay que crear una antes, en vez de navegar en silencio (lo que parecia
+  // que la formula se abria sola).
+  Future<void> _handleMoveFavorite(
+    FavoritesNotifier favoritesNotifier,
+    Favorite favorite,
+  ) async {
+    if (favoritesNotifier.folders.length <= 1) {
+      final localizations = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(localizations.crearOtraCarpetaParaMover)),
+        );
+      return;
+    }
+    await _showMoveFavoriteDialog(favoritesNotifier, favorite);
   }
 
   Future<void> _showMoveFavoriteDialog(
@@ -291,6 +337,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       await FavoritesPdfGenerator.exportFolder(
         context: context,
         folder: folder,
+        size: _formulaSize,
       );
       if (!mounted) {
         return;
@@ -321,6 +368,8 @@ class _Header extends StatelessWidget {
   final String title;
   final bool isExporting;
   final bool canExport;
+  final PdfFormulaSize formulaSize;
+  final ValueChanged<PdfFormulaSize> onFormulaSizeChanged;
   final VoidCallback onCreateFolder;
   final VoidCallback onExport;
   final VoidCallback? onClearAll;
@@ -329,6 +378,8 @@ class _Header extends StatelessWidget {
     required this.title,
     required this.isExporting,
     required this.canExport,
+    required this.formulaSize,
+    required this.onFormulaSizeChanged,
     required this.onCreateFolder,
     required this.onExport,
     required this.onClearAll,
@@ -348,11 +399,16 @@ class _Header extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             _ActionButton(
               icon: Icons.create_new_folder_rounded,
               label: localizations.crearCarpeta,
               onPressed: onCreateFolder,
+            ),
+            _FormulaSizeButton(
+              size: formulaSize,
+              onSelected: isExporting ? null : onFormulaSizeChanged,
             ),
             _ActionButton(
               icon: Icons.picture_as_pdf_rounded,
@@ -367,6 +423,93 @@ class _Header extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+// Selector del tamano con el que las formulas se dibujan en el PDF exportado.
+// Muestra el tamano actual y aplica la eleccion a la exportacion de la carpeta.
+class _FormulaSizeButton extends StatelessWidget {
+  final PdfFormulaSize size;
+  final ValueChanged<PdfFormulaSize>? onSelected;
+
+  const _FormulaSizeButton({required this.size, required this.onSelected});
+
+  static String _labelFor(BuildContext context, PdfFormulaSize size) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (size) {
+      case PdfFormulaSize.small:
+        return localizations.tamanoFormulaPequeno;
+      case PdfFormulaSize.medium:
+        return localizations.tamanoFormulaMediano;
+      case PdfFormulaSize.large:
+        return localizations.tamanoFormulaGrande;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final enabled = onSelected != null;
+
+    return PopupMenuButton<PdfFormulaSize>(
+      enabled: enabled,
+      tooltip: localizations.tamanoFormula,
+      initialValue: size,
+      color: kColorBotones,
+      onSelected: onSelected,
+      itemBuilder: (context) => PdfFormulaSize.values
+          .map(
+            (option) => PopupMenuItem<PdfFormulaSize>(
+              value: option,
+              child: Row(
+                children: [
+                  Icon(
+                    option == size
+                        ? Icons.radio_button_checked
+                        : Icons.radio_button_unchecked,
+                    size: 18,
+                    color: kColorBlanco,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(_labelFor(context, option), style: kTexto),
+                ],
+              ),
+            ),
+          )
+          .toList(),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+        decoration: BoxDecoration(
+          color: enabled
+              ? kColorBotones
+              : kColorBotones.withValues(alpha: 0.35),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.format_size_rounded,
+              size: 18,
+              color: enabled
+                  ? kColorBlanco
+                  : kColorBlanco.withValues(alpha: 0.45),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              '${localizations.tamanoFormula}: ${_labelFor(context, size)}',
+              style: TextStyle(
+                color: enabled
+                    ? kColorBlanco
+                    : kColorBlanco.withValues(alpha: 0.45),
+                fontFamily: 'Poppins',
+                fontSize: 13,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -508,7 +651,7 @@ class _ActiveFolderLabel extends StatelessWidget {
 class _FavoriteTile extends StatelessWidget {
   final Favorite favorite;
   final VoidCallback onOpen;
-  final VoidCallback? onMove;
+  final VoidCallback onMove;
   final VoidCallback onDelete;
 
   const _FavoriteTile({
@@ -554,8 +697,12 @@ class _FavoriteTile extends StatelessWidget {
               ),
               IconButton(
                 tooltip: AppLocalizations.of(context)!.moverACarpeta,
-                icon: const Icon(Icons.drive_file_move_rounded),
-                color: kColorBlanco,
+                // Acento dorado de marca: alto contraste sobre la tarjeta navy y
+                // se distingue del icono de eliminar.
+                icon: const Icon(
+                  Icons.drive_file_move_rounded,
+                  color: kColorAmarilloCapdesis,
+                ),
                 onPressed: onMove,
               ),
               const Icon(Icons.chevron_right_rounded, color: kColorBlanco),
@@ -596,6 +743,15 @@ class _EmptyFavorites extends StatelessWidget {
             localizations.carpetaVacia,
             style: kTexto,
             textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              localizations.carpetaVaciaAyuda,
+              style: kTextoBotonesDelgado,
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),

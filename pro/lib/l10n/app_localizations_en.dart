@@ -4530,7 +4530,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mensajeError =>
-      'There was an issue loading the PDF file. Please check your internet connection and try again later.';
+      'There was a problem generating the PDF. Please try again.';
 
   @override
   String get reintentar => 'Try again';
@@ -4657,6 +4657,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eliminarCarpeta => 'Delete folder';
+
+  @override
+  String get tamanoFormula => 'Formula size';
+
+  @override
+  String get tamanoFormulaPequeno => 'Small';
+
+  @override
+  String get tamanoFormulaMediano => 'Medium';
+
+  @override
+  String get tamanoFormulaGrande => 'Large';
+
+  @override
+  String get carpetaVaciaAyuda => 'Tap the heart on a formula to save it here.';
+
+  @override
+  String get crearOtraCarpetaParaMover =>
+      'Create another folder first to move this formula.';
 
   @override
   String get coeficientesBinomiales =>

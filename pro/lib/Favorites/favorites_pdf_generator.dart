@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../chat_gpt/chat_gpt_button.dart';
 import '../l10n/app_localizations.dart';
@@ -14,6 +16,30 @@ import '../widgets_personalizados/textos_personalizados.dart';
 import 'favorite.dart';
 import 'favorite_pdf_downloader.dart';
 import 'pdf_capture_scope.dart';
+
+// Tamano con el que las formulas se dibujan dentro del PDF. Escala el tamano
+// fisico de la imagen capturada en la pagina sin tocar la nitidez de captura
+// (pixelRatio) ni el respaldo de texto.
+enum PdfFormulaSize {
+  small,
+  medium,
+  large,
+}
+
+extension PdfFormulaSizeScale on PdfFormulaSize {
+  double get scale {
+    switch (this) {
+      case PdfFormulaSize.small:
+        return 0.78;
+      case PdfFormulaSize.medium:
+        return 1.0;
+      case PdfFormulaSize.large:
+        return 1.32;
+    }
+  }
+
+  String get storageValue => name;
+}
 
 enum FormulaPdfBlockType {
   heading,
@@ -58,16 +84,43 @@ class FavoritesPdfGenerator {
   // pixeles logicos a puntos PDF (72 pt = 96 px).
   static const double _formulaPixelRatio = 3.0;
   static const double _formulaPointsPerPixel = 0.75;
-  static const double _formulaMaxWidth = 500;
+  static const double _formulaMaxWidth = 470;
+
+  // Ancho util de una pagina A4 con margenes de 24 pt (595.28 - 48). Las
+  // formulas nunca deben superar este limite aunque el usuario elija "grande".
+  static const double _pageUsableWidth = 545;
+
+  // Clave de SharedPreferences para el tamano de formula elegido por el
+  // usuario. Se comparte entre Ver PDF, Descargar PDF y exportar carpeta.
+  static const String _formulaSizeStorageKey = 'pdfFormulaSize';
 
   // Solo para tests: desactiva la captura de imagenes para ejercitar el
   // respaldo de texto.
   @visibleForTesting
   static bool debugDisableFormulaCapture = false;
 
+  // Lee el tamano de formula persistido; por defecto medium.
+  static Future<PdfFormulaSize> loadFormulaSize() async {
+    final prefs = await SharedPreferences.getInstance();
+    return formulaSizeFromStorage(prefs.getString(_formulaSizeStorageKey));
+  }
+
+  static Future<void> saveFormulaSize(PdfFormulaSize size) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_formulaSizeStorageKey, size.storageValue);
+  }
+
+  static PdfFormulaSize formulaSizeFromStorage(String? raw) {
+    return PdfFormulaSize.values.firstWhere(
+      (size) => size.storageValue == raw,
+      orElse: () => PdfFormulaSize.medium,
+    );
+  }
+
   static Future<void> exportFolder({
     required BuildContext context,
     required FavoriteFolder folder,
+    PdfFormulaSize size = PdfFormulaSize.medium,
   }) async {
     if (folder.favorites.isEmpty) {
       throw StateError('empty-folder');
@@ -83,6 +136,7 @@ class FavoritesPdfGenerator {
       appTitle: localizations.formulaePro,
       folderName: folder.name,
       contents: contents,
+      size: size,
     );
     await downloadFavoritePdf(
       pdfBytes,
@@ -96,6 +150,7 @@ class FavoritesPdfGenerator {
     required BuildContext context,
     required Favorite favorite,
     required String folderName,
+    PdfFormulaSize size = PdfFormulaSize.medium,
   }) async {
     final localizations = AppLocalizations.of(context)!;
     final content = await _extractFavoriteContent(context, favorite);
@@ -104,6 +159,7 @@ class FavoritesPdfGenerator {
       appTitle: localizations.formulaePro,
       folderName: folderName,
       contents: [content],
+      size: size,
     );
 
     return (title: content.title, bytes: bytes);
@@ -113,11 +169,13 @@ class FavoritesPdfGenerator {
     required BuildContext context,
     required Favorite favorite,
     required String folderName,
+    PdfFormulaSize size = PdfFormulaSize.medium,
   }) async {
     final document = await buildFavoritePdfDocument(
       context: context,
       favorite: favorite,
       folderName: folderName,
+      size: size,
     );
 
     return document.bytes;
@@ -127,11 +185,13 @@ class FavoritesPdfGenerator {
     required BuildContext context,
     required Favorite favorite,
     required String folderName,
+    PdfFormulaSize size = PdfFormulaSize.medium,
   }) async {
     final document = await buildFavoritePdfDocument(
       context: context,
       favorite: favorite,
       folderName: folderName,
+      size: size,
     );
 
     await downloadFavoritePdf(
@@ -140,12 +200,31 @@ class FavoritesPdfGenerator {
     );
   }
 
-  @visibleForTesting
+  // Extrae el contenido (titulo + bloques con las formulas capturadas como
+  // imagen) de una pantalla. Lo usa el visor web para dibujar una vista previa
+  // nativa fiel del PDF sin depender del visor de PDF del navegador.
   static Future<FavoriteFormulaContent> extractFavoriteFormulaContent({
     required BuildContext context,
     required Favorite favorite,
   }) {
     return _extractFavoriteContent(context, favorite);
+  }
+
+  // Construye los bytes del PDF a partir de un contenido ya extraido, evitando
+  // volver a montar la pantalla offscreen. No depende de BuildContext para que
+  // el visor pueda regenerar con otro tamano tras un await.
+  static Future<Uint8List> buildPdfFromContents({
+    required String appTitle,
+    required String folderName,
+    required List<FavoriteFormulaContent> contents,
+    PdfFormulaSize size = PdfFormulaSize.medium,
+  }) {
+    return _buildPdf(
+      appTitle: appTitle,
+      folderName: folderName,
+      contents: contents,
+      size: size,
+    );
   }
 
   static Future<FavoriteFormulaContent> _extractFavoriteContent(
@@ -345,6 +424,7 @@ class FavoritesPdfGenerator {
     required String appTitle,
     required String folderName,
     required List<FavoriteFormulaContent> contents,
+    PdfFormulaSize size = PdfFormulaSize.medium,
   }) async {
     final logoBytes = await _readAssetBytes('assets/images/capdesis_logo.png');
     final logoImage = pw.MemoryImage(logoBytes);
@@ -376,7 +456,7 @@ class FavoritesPdfGenerator {
             style: const pw.TextStyle(fontSize: 9),
           ),
         ),
-        build: (_) => _buildPdfContent(contents),
+        build: (_) => _buildPdfContent(contents, size),
       ),
     );
 
@@ -385,6 +465,7 @@ class FavoritesPdfGenerator {
 
   static List<pw.Widget> _buildPdfContent(
     List<FavoriteFormulaContent> contents,
+    PdfFormulaSize size,
   ) {
     final widgets = <pw.Widget>[];
 
@@ -421,7 +502,7 @@ class FavoritesPdfGenerator {
           case FormulaPdfBlockType.text:
             widgets.add(_buildTextBlock(block.text));
           case FormulaPdfBlockType.formula:
-            widgets.add(_buildFormulaBlock(block));
+            widgets.add(_buildFormulaBlock(block, size));
         }
       }
     }
@@ -452,18 +533,21 @@ class FavoritesPdfGenerator {
     );
   }
 
-  static pw.Widget _buildFormulaBlock(FormulaPdfBlock block) {
+  static pw.Widget _buildFormulaBlock(FormulaPdfBlock block, PdfFormulaSize size) {
     final image = block.image;
     final pw.Widget child;
 
     if (image != null && block.imageWidth > 0 && block.imageHeight > 0) {
-      // Escala pixeles logicos a puntos; las formulas anchas (matrices) se
-      // reducen proporcionalmente al ancho util de la pagina.
-      var width = block.imageWidth * _formulaPointsPerPixel;
-      var height = block.imageHeight * _formulaPointsPerPixel;
-      if (width > _formulaMaxWidth) {
-        height = height * _formulaMaxWidth / width;
-        width = _formulaMaxWidth;
+      // Escala pixeles logicos a puntos aplicando el tamano elegido; las
+      // formulas anchas (matrices) se reducen proporcionalmente sin superar el
+      // ancho util de la pagina.
+      final pointsPerPixel = _formulaPointsPerPixel * size.scale;
+      final maxWidth = math.min(_formulaMaxWidth * size.scale, _pageUsableWidth);
+      var width = block.imageWidth * pointsPerPixel;
+      var height = block.imageHeight * pointsPerPixel;
+      if (width > maxWidth) {
+        height = height * maxWidth / width;
+        width = maxWidth;
       }
 
       child = pw.Center(
