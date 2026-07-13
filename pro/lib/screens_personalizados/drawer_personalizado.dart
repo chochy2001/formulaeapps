@@ -48,84 +48,39 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.question_mark_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.preguntasFrecuentes,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(
                               context, kRutaPreguntasFrecuentes);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.question_mark_rounded,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.preguntasFrecuentes,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.info_outline_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.informacion,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(context, kRutaInformacion);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.info_outline_rounded,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.informacion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.settings,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.configuracion,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(context, kRutaConfiguracion);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.settings,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.configuracion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
@@ -151,30 +106,15 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.share,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.compartirApp,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Share.share(
                               '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.share,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.compartirApp,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -270,84 +210,39 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.question_mark_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.preguntasFrecuentes,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(
                               context, kRutaPreguntasFrecuentes);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.question_mark_rounded,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.preguntasFrecuentes,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.info_outline_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.informacion,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(context, kRutaInformacion);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.info_outline_rounded,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.informacion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.settings,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.configuracion,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(context, kRutaConfiguracion);
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.settings,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.configuracion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -371,30 +266,15 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
-                      GestureDetector(
+                      BotonDrawerItem(
+                        icon: Icons.share,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.compartirApp,
+                        maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Share.share(
                               '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Icon(
-                              Icons.share,
-                              color: kColorBlanco,
-                              size: 30.0,
-                            ),
-                            const SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.compartirApp,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
-                            ),
-                          ],
-                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -491,94 +371,40 @@ class DrawerPersonalizado extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
                         ),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          onHover: (event) {
-                            // Aquí puedes cambiar el estado de tu botón a "hovered"
+                        BotonDrawerItem(
+                          icon: Icons.question_mark_rounded,
+                          iconSize: 30.0,
+                          text: AppLocalizations.of(context)!
+                              .preguntasFrecuentes,
+                          maxLines: isNarrow ? 2 : 1,
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, kRutaPreguntasFrecuentes);
                           },
-                          onExit: (event) {
-                            // Aquí puedes cambiar el estado de tu botón a "not hovered"
-                          },
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, kRutaPreguntasFrecuentes);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Icon(
-                                  Icons.question_mark_rounded,
-                                  color: kColorBlanco,
-                                  size: 30.0,
-                                ),
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .preguntasFrecuentes,
-                                  maxLines: isNarrow ? 2 : 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: kTextoBotonesDelgado,
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        GestureDetector(
+                        BotonDrawerItem(
+                          icon: Icons.info_outline_rounded,
+                          iconSize: 30.0,
+                          text: AppLocalizations.of(context)!.informacion,
+                          maxLines: isNarrow ? 2 : 1,
                           onTap: () {
                             Navigator.pushNamed(context, kRutaInformacion);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(
-                                Icons.info_outline_rounded,
-                                color: kColorBlanco,
-                                size: 30.0,
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.informacion,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
-                              ),
-                            ],
-                          ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        GestureDetector(
+                        BotonDrawerItem(
+                          icon: Icons.settings,
+                          iconSize: 30.0,
+                          text: AppLocalizations.of(context)!.configuracion,
+                          maxLines: isNarrow ? 2 : 1,
                           onTap: () {
                             Navigator.pushNamed(context, kRutaConfiguracion);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(
-                                Icons.settings,
-                                color: kColorBlanco,
-                                size: 30.0,
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.configuracion,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
-                              ),
-                            ],
-                          ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
@@ -602,30 +428,15 @@ class DrawerPersonalizado extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        GestureDetector(
+                        BotonDrawerItem(
+                          icon: Icons.share,
+                          iconSize: 30.0,
+                          text: AppLocalizations.of(context)!.compartirApp,
+                          maxLines: isNarrow ? 2 : 1,
                           onTap: () {
                             Share.share(
                                 '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(
-                                Icons.share,
-                                color: kColorBlanco,
-                                size: 30.0,
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.compartirApp,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
-                              ),
-                            ],
-                          ),
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,

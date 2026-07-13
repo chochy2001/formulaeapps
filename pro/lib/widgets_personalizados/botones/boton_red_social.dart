@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constantes/export_constantes.dart';
+import 'boton_drawer_item.dart';
 
 class BotonRedSocial extends StatelessWidget {
   final Function url;
@@ -12,27 +12,12 @@ class BotonRedSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return BotonDrawerItem(
+      icon: icon,
+      text: text,
       onTap: () {
         url();
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: kColorBlanco,
-            //color: Colors.white,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: kTextoBotonesDelgado,
-          ),
-        ],
-      ),
     );
   }
 }

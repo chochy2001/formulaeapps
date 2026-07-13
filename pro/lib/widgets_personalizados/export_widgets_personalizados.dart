@@ -5,6 +5,7 @@ export '../screens_personalizados/preguntas_frecuentes.dart';
 export '../widgets_personalizados/alerts_dialogs.dart';
 export 'busqueda/app_bar_busqueda.dart';
 export '../widgets_personalizados/app_bar_home.dart';
+export 'botones/boton_drawer_item.dart';
 export 'botones/boton_pistas.dart';
 export 'botones/boton_red_social.dart';
 export 'botones/botones_menus.dart';
