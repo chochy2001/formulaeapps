@@ -1,8 +1,62 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:formulae/chat_gpt/entitlement_channel.dart';
+import 'package:formulae/chat_gpt/entitlement_service.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
+import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
+import 'package:formulaeapps_bff_client/src/serializers.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 
 import 'helpers/fake_iap_platform.dart';
+
+class _StubEntitlementClient extends FormulaeappsBffClient {
+  _StubEntitlementClient(this.payload)
+      : super(
+          basePathOverride: 'http://test-bff',
+          dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
+        );
+
+  final EntitlementResponse? payload;
+
+  @override
+  EntitlementApi getEntitlementApi() => _StubEntitlementApi(this);
+}
+
+class _StubEntitlementApi extends EntitlementApi {
+  _StubEntitlementApi(this._parent) : super(_parent.dio, standardSerializers);
+
+  final _StubEntitlementClient _parent;
+
+  @override
+  Future<Response<EntitlementResponse>> entitlementGet({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    if (_parent.payload == null) {
+      throw DioException(
+        requestOptions: RequestOptions(path: '/entitlement'),
+        type: DioExceptionType.connectionError,
+      );
+    }
+    return Response<EntitlementResponse>(
+      data: _parent.payload,
+      requestOptions: RequestOptions(path: '/entitlement'),
+      statusCode: 200,
+    );
+  }
+}
+
+EntitlementService _entitlementStub(EntitlementResponse? payload) {
+  return EntitlementService(
+    tokenProvider: () async => 'token',
+    clientFactory: (_) => _StubEntitlementClient(payload),
+  );
+}
 
 void main() {
   late FakeInAppPurchasePlatform platform;
@@ -111,6 +165,111 @@ void main() {
     await manager.buyProduct(fakeProduct('chat_mensual_2023_01'));
 
     expect(platform.buyCalls, 1);
+  });
+
+  test('buyProduct skips entitlement guard when BFF flag is off', () async {
+    // Default manager has flag off — even a "owned" stub must not be consulted.
+    final guarded = InAppPurchaseManager(
+      platform: platform,
+      listenToPurchases: false,
+      platformOverride: 'ios',
+      bffIapValidationEnabled: false,
+      entitlementService: _entitlementStub(
+        EntitlementResponse(
+          (b) => b
+            ..scope = EntitlementResponseScopeEnum.mobile
+            ..sources = ListBuilder<EntitlementSource>([
+              EntitlementSource(
+                (s) => s
+                  ..paymentSource =
+                      EntitlementSourcePaymentSourceEnum.appStore
+                  ..productId = 'chat_mensual_2023_01'
+                  ..grantedAt = DateTime.utc(2026, 7, 13),
+              ),
+            ]),
+        ),
+      ),
+    );
+
+    await guarded.buyProduct(fakeProduct('chat_mensual_2023_01'));
+
+    expect(platform.buyCalls, 1);
+    expect(guarded.lastPurchaseBlockReason, isNull);
+    guarded.dispose();
+  });
+
+  test('buyProduct blocks already-owned when BFF flag is on', () async {
+    final guarded = InAppPurchaseManager(
+      platform: platform,
+      listenToPurchases: false,
+      platformOverride: 'ios',
+      bffIapValidationEnabled: true,
+      entitlementService: _entitlementStub(
+        EntitlementResponse(
+          (b) => b
+            ..scope = EntitlementResponseScopeEnum.mobile
+            ..sources = ListBuilder<EntitlementSource>([
+              EntitlementSource(
+                (s) => s
+                  ..paymentSource =
+                      EntitlementSourcePaymentSourceEnum.appStore
+                  ..productId = 'chat_mensual_2023_01'
+                  ..grantedAt = DateTime.utc(2026, 7, 13),
+              ),
+            ]),
+        ),
+      ),
+    );
+
+    await guarded.buyProduct(fakeProduct('chat_mensual_2023_01'));
+
+    expect(platform.buyCalls, 0);
+    expect(
+      guarded.lastPurchaseBlockReason,
+      MobileIapPurchaseDecision.blockAlreadyOwned,
+    );
+    guarded.dispose();
+  });
+
+  test('buyProduct fail-closed blocks when entitlement fetch fails', () async {
+    final guarded = InAppPurchaseManager(
+      platform: platform,
+      listenToPurchases: false,
+      platformOverride: 'ios',
+      bffIapValidationEnabled: true,
+      entitlementService: _entitlementStub(null),
+    );
+
+    await guarded.buyProduct(fakeProduct('chat_mensual_2023_01'));
+
+    expect(platform.buyCalls, 0);
+    expect(
+      guarded.lastPurchaseBlockReason,
+      MobileIapPurchaseDecision.blockCheckFailed,
+    );
+    guarded.dispose();
+  });
+
+  test('buyProduct allows when flag on and entitlement empty', () async {
+    final guarded = InAppPurchaseManager(
+      platform: platform,
+      listenToPurchases: false,
+      platformOverride: 'ios',
+      bffIapValidationEnabled: true,
+      entitlementService: _entitlementStub(
+        EntitlementResponse(
+          (b) => b
+            ..scope = EntitlementResponseScopeEnum.mobile
+            ..sources = ListBuilder<EntitlementSource>(),
+        ),
+      ),
+    );
+
+    await guarded.buyProduct(fakeProduct('chat_mensual_2023_01'));
+
+    expect(platform.buyCalls, 1);
+    expect(guarded.lastPurchaseBlockReason, isNull);
+    guarded.dispose();
   });
 
   test('checkValidPurchase completes true on restored entitlement', () async {

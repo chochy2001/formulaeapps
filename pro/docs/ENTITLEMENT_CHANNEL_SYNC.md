@@ -28,6 +28,7 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 - Tests: `test/iap_validation_service_test.dart`.
 - **BFF WP5 step 1 (2026-07-13):** `bun:sqlite` `mobile_entitlements` store + grant on successful `POST /iap/validate` + `GET /entitlement` (`scope: "mobile"` only). Keyed by interim JWT `sub` until accounts land. Contract bump `1.0.0` → `1.1.0`.
 - **BFF fail-closed check (2026-07-13 follow-up):** `entitlement-check.ts` (`readMobileEntitlement` / `hasActiveMobileEntitlement` / `evaluateMobileIapPurchase`) + runtime reject of `polar`/`web` payment sources on grant. Export OpenAPI version follows `CONTRACT_VERSION`.
+- **FE WP5 steps 3–4 (2026-07-13):** `EntitlementService` → `GET /entitlement`; paywall `buyProduct` fail-closed pre-IAP guard when `ENABLE_BFF_IAP_VALIDATION` is on (anti double-pay stub via `lastPurchaseBlockReason`). Flag still default **off**.
 
 ## Next implementation steps (ordered)
 
@@ -35,15 +36,15 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 |------|------|------|
 | 1 | BFF | ✅ `mobile_entitlements` store + grant on `/iap/validate` + `GET /entitlement` + fail-closed check helper. |
 | 2 | BFF | User auth routes (email/OAuth) — extend beyond device JWT. |
-| 3 | Pro FE | `EntitlementService` → `GET /entitlement` after login. |
-| 4 | Pro FE | Paywall: check entitlement before IAP charge (mirror IngeTracker `entitlement_channel.dart`). |
+| 3 | Pro FE | ✅ `EntitlementService` → `GET /entitlement` (wired; used when flag on). |
+| 4 | Pro FE | ✅ Paywall: check entitlement before IAP charge (fail-closed when flag on). |
 | 5 | Fleet | OpenAPI entitlement contract shared with IngeTracker (`sources`, `scope`, `since`). |
 | 6 | Product | Decide if web Polar is in scope; if yes, add Polar handler + webhook before marketing web Pro. |
 
-### Remaining checklist (post-WP5 step 1)
+### Remaining checklist (post FE steps 3–4)
 
 - [ ] User accounts (email/password + Google/Apple) replace JWT `sub` as entitlement key
-- [ ] FE `EntitlementService` + paywall pre-IAP check (steps 3–4)
+- [x] FE `EntitlementService` + paywall pre-IAP check (steps 3–4)
 - [ ] Flip `ENABLE_BFF_IAP_VALIDATION` only after accounts + real Apple/Google validators
 - [ ] Polar web products — **do not invent**; only if product decides formulaeapps.com sells Pro
 - [ ] No production BFF deploy from this slice alone
@@ -52,7 +53,11 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 
 ```bash
 cd Formulae/monorepo/bff && bun run test
-cd Formulae/monorepo/pro && flutter test test/iap_validation_service_test.dart
+cd Formulae/monorepo/pro && flutter test \
+  test/iap_validation_service_test.dart \
+  test/entitlement_service_test.dart \
+  test/entitlement_channel_test.dart \
+  test/in_app_purchase_manager_test.dart
 cd Formulae/monorepo/pro && flutter analyze --no-pub --fatal-infos --fatal-warnings
 ```
 
@@ -60,6 +65,6 @@ cd Formulae/monorepo/pro && flutter analyze --no-pub --fatal-infos --fatal-warni
 
 | Flag | Default | Purpose |
 |------|---------|---------|
-| `ENABLE_BFF_IAP_VALIDATION` | `false` | Opt-in wire from store purchase → BFF `/iap/validate` |
+| `ENABLE_BFF_IAP_VALIDATION` | `false` | Opt-in wire from store purchase → BFF `/iap/validate` **and** pre-purchase `GET /entitlement` fail-closed guard |
 
 Do **not** enable in production until BFF persistence + user accounts exist.
