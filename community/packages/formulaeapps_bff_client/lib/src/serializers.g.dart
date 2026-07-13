@@ -7,6 +7,9 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (Serializers().toBuilder()
+      ..add(AccountAuthResponse.serializer)
+      ..add(AccountLoginRequest.serializer)
+      ..add(AccountRegisterRequest.serializer)
       ..add(AuthTokenRequest.serializer)
       ..add(AuthTokenRequestPlatformEnum.serializer)
       ..add(AuthTokenResponse.serializer)

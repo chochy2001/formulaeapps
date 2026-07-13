@@ -16,6 +16,9 @@ export 'package:formulaeapps_bff_client/src/api/entitlement_api.dart';
 export 'package:formulaeapps_bff_client/src/api/health_api.dart';
 export 'package:formulaeapps_bff_client/src/api/iap_api.dart';
 
+export 'package:formulaeapps_bff_client/src/model/account_auth_response.dart';
+export 'package:formulaeapps_bff_client/src/model/account_login_request.dart';
+export 'package:formulaeapps_bff_client/src/model/account_register_request.dart';
 export 'package:formulaeapps_bff_client/src/model/auth_token_request.dart';
 export 'package:formulaeapps_bff_client/src/model/auth_token_response.dart';
 export 'package:formulaeapps_bff_client/src/model/chat_request.dart';

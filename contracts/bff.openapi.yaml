@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: FormulaeApps BFF
-  version: 1.1.0
+  version: 1.2.0
   description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
 servers:
   - url: https://api.formulaeapps.com
@@ -145,6 +145,59 @@ components:
         - build_nonce
         - platform
         - app_version
+    AccountAuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLi4uIn0.sig
+          description: Session JWT; future claim user_id binds entitlements.
+        expires_at:
+          type: string
+          format: date-time
+          example: 2026-07-13T18:00:00.000Z
+        user_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+          description: Stable account id — entitlement key once accounts go live.
+      required:
+        - token
+        - expires_at
+        - user_id
+    AccountRegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+          description: Account email (unique).
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+          example: correct-horse-battery
+          description: Password (min 8 chars). Never logged.
+      required:
+        - email
+        - password
+    AccountLoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          minLength: 1
+          maxLength: 128
+          example: correct-horse-battery
+          description: Password. Never logged.
+      required:
+        - email
+        - password
     ChatResponse:
       type: object
       properties:
@@ -358,6 +411,92 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "500":
           description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register an email/password account (stub)
+      description: "Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until users table + password hashing land. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountRegisterRequest"
+      responses:
+        "200":
+          description: Account created (not yet implemented)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountAuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "403":
+          description: Account auth flag off
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "503":
+          description: Stub — not implemented yet
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login with email/password (stub)
+      description: "Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until credential verification lands. See docs/ACCOUNTS_USER_ID_PLAN.md."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountLoginRequest"
+      responses:
+        "200":
+          description: Login successful (not yet implemented)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountAuthResponse"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "403":
+          description: Account auth flag off
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "503":
+          description: Stub — not implemented yet
           content:
             application/json:
               schema:

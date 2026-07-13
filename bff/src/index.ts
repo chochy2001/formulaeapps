@@ -6,6 +6,12 @@ import { errorHandler } from './middleware/error';
 import { authRateLimiter, chatRateLimiter } from './middleware/limiters';
 import { healthRoute, healthHandler } from './routes/health';
 import { authTokenRoute, authTokenHandler } from './routes/auth';
+import {
+  authRegisterRoute,
+  authRegisterHandler,
+  authLoginRoute,
+  authLoginHandler,
+} from './routes/account-auth';
 import { chatRoute, chatHandler } from './routes/chat';
 import { iapValidateRoute, iapValidateHandler } from './routes/iap';
 import { entitlementGetRoute, entitlementGetHandler } from './routes/entitlement';
@@ -23,10 +29,15 @@ app.onError(errorHandler);
 // Auth limiter runs on the public token route; chat limiter runs after the JWT
 // middleware so it can key on the authenticated sub.
 app.use('/auth/token', authRateLimiter.middleware);
+app.use('/auth/register', authRateLimiter.middleware);
+app.use('/auth/login', authRateLimiter.middleware);
 
 // Public routes (no JWT required)
 app.openapi(healthRoute, healthHandler as never);
 app.openapi(authTokenRoute, authTokenHandler as never);
+// Account stubs (fleet #86) — 403 while ENABLE_USER_ACCOUNT_AUTH is off.
+app.openapi(authRegisterRoute, authRegisterHandler as never);
+app.openapi(authLoginRoute, authLoginHandler as never);
 
 // Auth-gated routes — JWT middleware applied before route handlers
 app.use('/openai/*', jwtAuthMiddleware);

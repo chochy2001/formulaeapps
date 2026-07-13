@@ -14,6 +14,9 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:formulaeapps_bff_client/src/date_serializer.dart';
 import 'package:formulaeapps_bff_client/src/model/date.dart';
 
+import 'package:formulaeapps_bff_client/src/model/account_auth_response.dart';
+import 'package:formulaeapps_bff_client/src/model/account_login_request.dart';
+import 'package:formulaeapps_bff_client/src/model/account_register_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_response.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_request.dart';
@@ -32,6 +35,9 @@ import 'package:formulaeapps_bff_client/src/model/iap_validate_response.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AccountAuthResponse,
+  AccountLoginRequest,
+  AccountRegisterRequest,
   AuthTokenRequest,
   AuthTokenResponse,
   ChatRequest,
