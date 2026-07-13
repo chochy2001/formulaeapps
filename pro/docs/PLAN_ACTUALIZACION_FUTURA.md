@@ -14,11 +14,15 @@ multivariable, ecuaciones diferenciales, ejercicios, electricidad y magnetismo,
 generales, geometria, matematicas discretas, matematicas financieras,
 probabilidad y estadistica, series de Fourier y trigonometria.
 
-## Ya entregado en esta ronda (fotos de dos formularios impresos)
+## Ya entregado en la expansion de contenido
 
-De las 752 formulas transcritas y verificadas de dos formularios de bolsillo
-(uno de matematicas, uno de fisica), se agregaron 121 pantallas nuevas. En
-terminos del roadmap de ingenieria esto cubre parcialmente:
+El commit `ad9e863` agrego 121 pantallas nuevas. El repositorio no conserva las
+fotos, un JSON de transcripcion, el generador ni un registro que permita
+reproducir las afirmaciones historicas de "752 formulas verificadas" o "140
+erratas". Por tanto, esas cifras no se consideran evidencia de correccion. Las
+formulas corregidas despues de la expansion deben registrar una fuente o una
+derivacion verificable en `FUENTES_CONTENIDO.md`. En terminos del roadmap de
+ingenieria, la expansion cubre parcialmente:
 
 - **P0-1 Mecanica** (cinematica, dinamica, trabajo y energia, rotacional,
   momentum): seccion nueva creada.
@@ -38,7 +42,7 @@ completo, bilingue ES/EN". El competidor de referencia (Formulia, cerca de 2.4
 millones de descargas) cubre matematicas, fisica y quimica mas herramientas
 interactivas. La diferenciacion propuesta para Pro: calculadoras interactivas
 por formula, un diagrama junto a cada formula que lo amerite, y export a PDF con
-LaTeX renderizado de verdad.
+formulas renderizadas.
 
 ## Fases de contenido pendientes
 
@@ -84,7 +88,8 @@ Priorizadas por valor frente a esfuerzo (S/M/L):
 
 1. Calculadoras interactivas por formula (L) - principal diferenciador del
    mercado; Formulia y HiPER lo tienen.
-2. Export a PDF con LaTeX real (M) - en progreso en rama aparte.
+2. Export a PDF con formulas renderizadas (M) - entregado; conserva un fallback
+   de texto con fuente matematica cuando el renderer no permite capturar imagen.
 3. Diagrama junto a cada formula que lo amerite (M).
 4. Conversor de unidades transversal accesible desde cualquier pantalla (M) - la
    seccion de conversion ya entregada es la base de datos.
@@ -100,8 +105,11 @@ Priorizadas por valor frente a esfuerzo (S/M/L):
 - Verificar contra el codigo real, antes de implementar circuitos, si la seccion
   actual de electricidad y magnetismo es campos y Maxwell o ya incluye circuitos.
 - Toda formula nueva debe pasar el analyzer estricto (`--fatal-infos`) y la
-  suite; las guardas de forma de rutas y widget mapper deben actualizarse a los
-  nuevos totales cuando se agregue contenido.
+  suite. Las guardas de rutas y widget mapper deben comprobar que cada pantalla
+  nueva se construye sin excepciones; contar iteraciones despues de descartar
+  errores no constituye una prueba.
+- No declarar una formula o lote como verificado sin fuente, derivacion y prueba
+  reproducible conservadas en el repositorio.
 - Los graficos importados exigen cumplimiento de licencia; sin verificacion no se
   publican.
 - La app es dark-only hoy; cualquier grafico debe leerse sobre fondo oscuro o

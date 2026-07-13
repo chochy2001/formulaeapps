@@ -6,7 +6,8 @@ class LimitesLimitesImportantes extends StatefulWidget {
   const LimitesLimitesImportantes({super.key});
 
   @override
-  LimitesLimitesImportantesState createState() => LimitesLimitesImportantesState();
+  LimitesLimitesImportantesState createState() =>
+      LimitesLimitesImportantesState();
 }
 
 class LimitesLimitesImportantesState extends State<LimitesLimitesImportantes> {
@@ -30,7 +31,8 @@ class LimitesLimitesImportantesState extends State<LimitesLimitesImportantes> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.limitesLimitesImportantes,
+                        title: AppLocalizations.of(context)!
+                            .limitesLimitesImportantes,
                         widgetName: kWidgetLimitesLimitesImportantes,
                       ),
                     );
@@ -44,14 +46,16 @@ class LimitesLimitesImportantesState extends State<LimitesLimitesImportantes> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesLimitesImportantes,
+                                title: AppLocalizations.of(context)!
+                                    .limitesLimitesImportantes,
                                 widgetName: kWidgetLimitesLimitesImportantes,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesLimitesImportantes,
+                                title: AppLocalizations.of(context)!
+                                    .limitesLimitesImportantes,
                                 widgetName: kWidgetLimitesLimitesImportantes,
                               ),
                             );
@@ -67,9 +71,13 @@ class LimitesLimitesImportantesState extends State<LimitesLimitesImportantes> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\lim_{\theta \to 0} \frac{\cos\theta}{\theta} = \infty"),
+                  Latex(
+                      formulaText:
+                          r"\lim_{\theta \to 0} \frac{\sin\theta}{\theta} = 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^{x} = e"),
+                  Latex(
+                      formulaText:
+                          r"\lim_{x \to \infty} \left( 1 + \frac{1}{x} \right)^{x} = e"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\lim_{x \to 0} (1+x)^{1/x} = e"),
                   SizedBox(height: kEspacioEntreBotones),

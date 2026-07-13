@@ -128,3 +128,7 @@ flutter:
       fonts:
         - asset: fonts/NotoColorEmoji.ttf
           style: normal
+    - family: NotoSansMath
+      fonts:
+        - asset: fonts/NotoSansMath-Regular.ttf
+          style: normal

@@ -6,10 +6,12 @@ class ConstantesFisicasUniversales extends StatefulWidget {
   const ConstantesFisicasUniversales({super.key});
 
   @override
-  ConstantesFisicasUniversalesState createState() => ConstantesFisicasUniversalesState();
+  ConstantesFisicasUniversalesState createState() =>
+      ConstantesFisicasUniversalesState();
 }
 
-class ConstantesFisicasUniversalesState extends State<ConstantesFisicasUniversales> {
+class ConstantesFisicasUniversalesState
+    extends State<ConstantesFisicasUniversales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,8 @@ class ConstantesFisicasUniversalesState extends State<ConstantesFisicasUniversal
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.constantesFisicasUniversales,
+                        title: AppLocalizations.of(context)!
+                            .constantesFisicasUniversales,
                         widgetName: kWidgetConstantesFisicasUniversales,
                       ),
                     );
@@ -44,14 +47,16 @@ class ConstantesFisicasUniversalesState extends State<ConstantesFisicasUniversal
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesFisicasUniversales,
+                                title: AppLocalizations.of(context)!
+                                    .constantesFisicasUniversales,
                                 widgetName: kWidgetConstantesFisicasUniversales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesFisicasUniversales,
+                                title: AppLocalizations.of(context)!
+                                    .constantesFisicasUniversales,
                                 widgetName: kWidgetConstantesFisicasUniversales,
                               ),
                             );
@@ -69,15 +74,24 @@ class ConstantesFisicasUniversalesState extends State<ConstantesFisicasUniversal
                 children: [
                   Latex(formulaText: r"c = 299\,792\,458\ \mathrm{m/s}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"G = 6.672 \times 10^{-11}\ \mathrm{N\,m^2/kg^2}"),
+                  Latex(
+                      formulaText:
+                          r"G = 6.674\,30(15) \times 10^{-11}\ \mathrm{m^{3}\,kg^{-1}\,s^{-2}}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"h = 6.626 \times 10^{-34}\ \mathrm{J\cdot s}"),
+                  Latex(
+                      formulaText:
+                          r"h = 6.626 \times 10^{-34}\ \mathrm{J\cdot s}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"k = 1.380 \times 10^{-23}\ \mathrm{J/K}"),
+                  Latex(
+                      formulaText: r"k = 1.380 \times 10^{-23}\ \mathrm{J/K}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"N_A = 6.022\,14 \times 10^{23}\ \mathrm{mol^{-1}}"),
+                  Latex(
+                      formulaText:
+                          r"N_A = 6.022\,14 \times 10^{23}\ \mathrm{mol^{-1}}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma = 5.67051 \times 10^{-8}\ \mathrm{W/(m^2\,K^4)}"),
+                  Latex(
+                      formulaText:
+                          r"\sigma = 5.67051 \times 10^{-8}\ \mathrm{W/(m^2\,K^4)}"),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

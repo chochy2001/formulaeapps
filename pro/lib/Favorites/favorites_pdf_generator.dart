@@ -258,8 +258,7 @@ class FavoritesPdfGenerator {
     try {
       final image = await boundary.toImage(pixelRatio: _formulaPixelRatio);
       try {
-        final byteData =
-            await image.toByteData(format: ui.ImageByteFormat.png);
+        final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
         if (byteData == null || byteData.lengthInBytes == 0) {
           return null;
         }
@@ -311,6 +310,8 @@ class FavoritesPdfGenerator {
     final logoBytes = await _readAssetBytes('assets/images/capdesis_logo.png');
     final logoImage = pw.MemoryImage(logoBytes);
     final font = pw.Font.ttf(await rootBundle.load('fonts/Poppins-Bold.ttf'));
+    final mathFont =
+        pw.Font.ttf(await rootBundle.load('fonts/NotoSansMath-Regular.ttf'));
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -322,6 +323,7 @@ class FavoritesPdfGenerator {
           bold: font,
           italic: font,
           boldItalic: font,
+          fontFallback: [mathFont],
         ),
         header: (_) => _buildHeader(
           logoImage: logoImage,

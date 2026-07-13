@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -209,7 +210,7 @@ void main() {
   );
 
   testWidgets(
-    'buildFavoritePdfBytes returns a valid PDF document',
+    'text fallback returns a valid PDF without missing math glyphs',
     (tester) async {
       SharedPreferences.setMockInitialValues({});
       // Capture is disabled so the offscreen toImage future cannot deadlock the
@@ -226,16 +227,29 @@ void main() {
         widgetName: kWidgetTeoremaDelRotacional,
       );
 
-      final pdfFuture = FavoritesPdfGenerator.buildFavoritePdfBytes(
-        context: capturedContext,
-        favorite: favorite,
-        folderName: 'General',
+      final printed = <String>[];
+      late Future<Uint8List> pdfFuture;
+      runZoned(
+        () {
+          pdfFuture = FavoritesPdfGenerator.buildFavoritePdfBytes(
+            context: capturedContext,
+            favorite: favorite,
+            folderName: 'General',
+          );
+        },
+        zoneSpecification: ZoneSpecification(
+          print: (_, __, ___, line) => printed.add(line),
+        ),
       );
       await tester.pumpAndSettle();
       final Uint8List pdfBytes = await pdfFuture;
 
       expect(pdfBytes, isNotEmpty);
       expect(String.fromCharCodes(pdfBytes.take(4)), '%PDF');
+      expect(
+        printed.where((line) => line.contains('Unable to find a font to draw')),
+        isEmpty,
+      );
     },
     timeout: const Timeout(Duration(seconds: 60)),
   );

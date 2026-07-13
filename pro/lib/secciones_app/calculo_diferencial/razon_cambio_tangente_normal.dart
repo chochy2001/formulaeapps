@@ -6,7 +6,8 @@ class RazonCambioTangenteNormal extends StatefulWidget {
   const RazonCambioTangenteNormal({super.key});
 
   @override
-  RazonCambioTangenteNormalState createState() => RazonCambioTangenteNormalState();
+  RazonCambioTangenteNormalState createState() =>
+      RazonCambioTangenteNormalState();
 }
 
 class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
@@ -30,7 +31,8 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.razonCambioTangenteNormal,
+                        title: AppLocalizations.of(context)!
+                            .razonCambioTangenteNormal,
                         widgetName: kWidgetRazonCambioTangenteNormal,
                       ),
                     );
@@ -44,14 +46,16 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.razonCambioTangenteNormal,
+                                title: AppLocalizations.of(context)!
+                                    .razonCambioTangenteNormal,
                                 widgetName: kWidgetRazonCambioTangenteNormal,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.razonCambioTangenteNormal,
+                                title: AppLocalizations.of(context)!
+                                    .razonCambioTangenteNormal,
                                 widgetName: kWidgetRazonCambioTangenteNormal,
                               ),
                             );
@@ -69,7 +73,7 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                 children: [
                   Latex(formulaText: r"\frac{\Delta y}{\Delta x} = \tan a"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\Delta y = \tan a"),
+                  Latex(formulaText: r"\Delta y = \Delta x\tan a"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\frac{\Delta y}{\Delta x} = \tan \beta"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -81,11 +85,16 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"y - f(x_1) = f'(x_1)\,(x - x_1)"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"y - y_1 = -\frac{1}{f'(x_1)}\,(x - x_1)"),
+                  Latex(
+                      formulaText: r"y - y_1 = -\frac{1}{f'(x_1)}\,(x - x_1)"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan \theta = \frac{m_2 - m_1}{1 + m_2\cdot m_1}"),
+                  Latex(
+                      formulaText:
+                          r"\tan \theta = \frac{m_2 - m_1}{1 + m_2\cdot m_1}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\text{area} = \frac{1}{2}\left[(x_2 - x_1)(y_3 - y_1) - (x_3 - x_1)(y_2 - y_1)\right]"),
+                  Latex(
+                      formulaText:
+                          r"\text{area} = \frac{1}{2}\left[(x_2 - x_1)(y_3 - y_1) - (x_3 - x_1)(y_2 - y_1)\right]"),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
