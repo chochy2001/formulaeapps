@@ -1,0 +1,521 @@
+{
+  "cluster": "quimica_general",
+  "target_seccion": "quimica_general",
+  "es_nueva": true,
+  "pantallas": [
+    {
+      "titulo_es": "Mol y número de Avogadro",
+      "titulo_en": "Mole and Avogadro's Number",
+      "archivo": "mol_y_numero_de_avogadro.dart",
+      "formulas": [
+        {
+          "nombre_es": "Número de partículas a partir de moles",
+          "nombre_en": "Number of particles from moles",
+          "latex": "N = n \\, N_A",
+          "condiciones": "N = número de entidades elementales (átomos, moléculas, iones); n = cantidad de sustancia (mol); N_A = constante de Avogadro (ver sección de constantes: 6.022\\times10^{23}\\ \\mathrm{mol^{-1}}).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.2 (El número de Avogadro y la masa molar)"
+        },
+        {
+          "nombre_es": "Moles a partir de la masa",
+          "nombre_en": "Moles from mass",
+          "latex": "n = \\frac{m}{M}",
+          "condiciones": "n = cantidad de sustancia (mol); m = masa de la muestra (g); M = masa molar (g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.2"
+        },
+        {
+          "nombre_es": "Número de partículas a partir de la masa",
+          "nombre_en": "Number of particles from mass",
+          "latex": "N = \\frac{m}{M} \\, N_A",
+          "condiciones": "N = número de partículas; m = masa (g); M = masa molar (g/mol); N_A = constante de Avogadro (\\mathrm{mol^{-1}}).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.2"
+        },
+        {
+          "nombre_es": "Masa de una entidad elemental",
+          "nombre_en": "Mass of a single entity",
+          "latex": "m_0 = \\frac{M}{N_A}",
+          "condiciones": "m_0 = masa de una molécula o átomo (g); M = masa molar (g/mol); N_A = constante de Avogadro (\\mathrm{mol^{-1}}).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.2"
+        },
+        {
+          "nombre_es": "Unidad de masa atómica",
+          "nombre_en": "Atomic mass unit",
+          "latex": "1\\,\\mathrm{u} = \\frac{1\\,\\mathrm{g/mol}}{N_A}",
+          "condiciones": "u = unidad de masa atómica unificada (\\approx 1.6605\\times10^{-24}\\ \\mathrm{g}); N_A = constante de Avogadro. Define la escala de masas atómicas relativa al ^{12}C.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.1 (Masa atómica)"
+        },
+        {
+          "nombre_es": "Cantidad de sustancia por conteo de entidades",
+          "nombre_en": "Amount of substance from entity count",
+          "latex": "n = \\frac{N}{N_A}",
+          "condiciones": "n = cantidad de sustancia (mol); N = número de entidades; N_A = constante de Avogadro (\\mathrm{mol^{-1}}).",
+          "referencia": "IUPAC, Green Book (definición de mol, redefinición SI 2019)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Masa molar y composición porcentual",
+      "titulo_en": "Molar Mass and Percent Composition",
+      "archivo": "masa_molar_y_composicion_porcentual.dart",
+      "formulas": [
+        {
+          "nombre_es": "Masa molar de un compuesto",
+          "nombre_en": "Molar mass of a compound",
+          "latex": "M = \\sum_{i} a_i \\, A_i",
+          "condiciones": "M = masa molar del compuesto (g/mol); a_i = número de átomos del elemento i en la fórmula; A_i = masa atómica del elemento i (g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.3 (Masa molecular)"
+        },
+        {
+          "nombre_es": "Composición porcentual en masa de un elemento",
+          "nombre_en": "Percent composition by mass of an element",
+          "latex": "\\%_i = \\frac{a_i \\, A_i}{M} \\times 100\\%",
+          "condiciones": "\\%_i = porcentaje en masa del elemento i; a_i = número de átomos del elemento i en la fórmula; A_i = masa atómica del elemento (g/mol); M = masa molar del compuesto (g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5 (Composición porcentual de los compuestos)"
+        },
+        {
+          "nombre_es": "Masa de un elemento en una muestra",
+          "nombre_en": "Mass of an element in a sample",
+          "latex": "m_i = \\frac{\\%_i}{100\\%} \\, m",
+          "condiciones": "m_i = masa del elemento i en la muestra (g); \\%_i = porcentaje en masa del elemento; m = masa total de la muestra (g).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5"
+        },
+        {
+          "nombre_es": "Masa molar de un gas por densidad (gas ideal)",
+          "nombre_en": "Molar mass of a gas from density (ideal gas)",
+          "latex": "M = \\frac{\\rho R T}{P}",
+          "condiciones": "M = masa molar (g/mol o kg/mol según R); \\rho = densidad del gas; R = constante de los gases (ver sección de constantes); T = temperatura absoluta (K); P = presión.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.4 (La ecuación del gas ideal)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Fórmula empírica y molecular",
+      "titulo_en": "Empirical and Molecular Formula",
+      "archivo": "formula_empirica_y_molecular.dart",
+      "formulas": [
+        {
+          "nombre_es": "Moles de cada elemento por porcentaje",
+          "nombre_en": "Moles of each element from percent",
+          "latex": "n_i = \\frac{\\%_i}{A_i}",
+          "condiciones": "n_i = moles relativos del elemento i (tomando 100 g de muestra); \\%_i = porcentaje en masa del elemento; A_i = masa atómica (g/mol). Los subíndices de la fórmula empírica se obtienen dividiendo cada n_i entre el menor.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5 (Determinación de fórmulas empíricas)"
+        },
+        {
+          "nombre_es": "Factor de la fórmula molecular",
+          "nombre_en": "Molecular formula multiple",
+          "latex": "k = \\frac{M}{M_{emp}}",
+          "condiciones": "k = número entero de unidades empíricas por molécula; M = masa molar (molecular) real (g/mol); M_{emp} = masa de la fórmula empírica (g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5 (Determinación de fórmulas moleculares)"
+        },
+        {
+          "nombre_es": "Fórmula molecular a partir de la empírica",
+          "nombre_en": "Molecular formula from empirical",
+          "latex": "(\\text{Fórmula molecular}) = (\\text{Fórmula empírica})_k",
+          "condiciones": "k = M / M_{emp} = número entero de unidades empíricas; cada subíndice de la fórmula empírica se multiplica por k.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5"
+        },
+        {
+          "nombre_es": "Masa de carbono por combustión (CO2)",
+          "nombre_en": "Carbon mass from combustion (CO2)",
+          "latex": "m_C = m_{CO_2} \\, \\frac{A_C}{M_{CO_2}}",
+          "condiciones": "m_C = masa de carbono en la muestra (g); m_{CO_2} = masa de CO_2 producida (g); A_C = masa atómica del C (12.01 g/mol); M_{CO_2} = masa molar del CO_2 (44.01 g/mol). Análisis por combustión.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5 (Análisis por combustión)"
+        },
+        {
+          "nombre_es": "Masa de hidrógeno por combustión (H2O)",
+          "nombre_en": "Hydrogen mass from combustion (H2O)",
+          "latex": "m_H = m_{H_2O} \\, \\frac{2 A_H}{M_{H_2O}}",
+          "condiciones": "m_H = masa de hidrógeno en la muestra (g); m_{H_2O} = masa de H_2O producida (g); A_H = masa atómica del H (1.008 g/mol); M_{H_2O} = masa molar del agua (18.02 g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.5 (Análisis por combustión)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Estequiometría de reacciones",
+      "titulo_en": "Reaction Stoichiometry",
+      "archivo": "estequiometria_de_reacciones.dart",
+      "formulas": [
+        {
+          "nombre_es": "Conservación de la masa (balanceo)",
+          "nombre_en": "Conservation of mass (balancing)",
+          "latex": "\\sum_{react} a_j \\, M_j = \\sum_{prod} b_k \\, M_k",
+          "condiciones": "a_j, b_k = coeficientes estequiométricos de reactivos y productos; M_j, M_k = masas molares (g/mol). La masa total de reactivos iguala la de productos (ley de Lavoisier).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.7 (Reacciones químicas y ecuaciones químicas)"
+        },
+        {
+          "nombre_es": "Relación estequiométrica entre sustancias",
+          "nombre_en": "Stoichiometric mole ratio",
+          "latex": "n_B = n_A \\, \\frac{b}{a}",
+          "condiciones": "n_A = moles de la sustancia A; n_B = moles de la sustancia B; a, b = coeficientes estequiométricos de A y B en la ecuación balanceada.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.8 (Cantidades de reactivos y productos)"
+        },
+        {
+          "nombre_es": "Masa de producto a partir de masa de reactivo",
+          "nombre_en": "Product mass from reactant mass",
+          "latex": "m_B = m_A \\, \\frac{b \\, M_B}{a \\, M_A}",
+          "condiciones": "m_A = masa del reactivo A (g); m_B = masa del producto B (g); a, b = coeficientes estequiométricos; M_A, M_B = masas molares (g/mol).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.8"
+        },
+        {
+          "nombre_es": "Volumen de gas producido (gas ideal)",
+          "nombre_en": "Volume of gas produced (ideal gas)",
+          "latex": "V_B = \\frac{n_B R T}{P}",
+          "condiciones": "V_B = volumen del gas B; n_B = moles del gas B obtenidos por estequiometría; R = constante de los gases; T = temperatura absoluta (K); P = presión.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.4 (Estequiometría de los gases)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Reactivo limitante y rendimiento",
+      "titulo_en": "Limiting Reagent and Yield",
+      "archivo": "reactivo_limitante_y_rendimiento.dart",
+      "formulas": [
+        {
+          "nombre_es": "Criterio del reactivo limitante",
+          "nombre_en": "Limiting reagent criterion",
+          "latex": "\\text{limitante} = \\min\\!\\left( \\frac{n_A}{a}, \\; \\frac{n_B}{b} \\right)",
+          "condiciones": "n_A, n_B = moles disponibles de cada reactivo; a, b = sus coeficientes estequiométricos. El reactivo con menor cociente (moles/coeficiente) es el limitante.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.9 (Reactivo limitante)"
+        },
+        {
+          "nombre_es": "Rendimiento teórico (en moles)",
+          "nombre_en": "Theoretical yield (in moles)",
+          "latex": "n_{prod}^{teo} = n_{lim} \\, \\frac{c}{\\ell}",
+          "condiciones": "n_{prod}^{teo} = moles de producto en rendimiento teórico; n_{lim} = moles del reactivo limitante; \\ell = coeficiente del limitante; c = coeficiente del producto.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.10 (Rendimiento de reacción)"
+        },
+        {
+          "nombre_es": "Porcentaje de rendimiento",
+          "nombre_en": "Percent yield",
+          "latex": "\\%\\,\\text{rend} = \\frac{\\text{rendimiento real}}{\\text{rendimiento teórico}} \\times 100\\%",
+          "condiciones": "Rendimiento real = masa (o moles) de producto obtenida experimentalmente; rendimiento teórico = máximo posible según el reactivo limitante. Adimensional (%).",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.10"
+        },
+        {
+          "nombre_es": "Reactivo en exceso remanente",
+          "nombre_en": "Excess reagent remaining",
+          "latex": "n_{exc}^{rem} = n_{exc}^{0} - n_{lim} \\, \\frac{e}{\\ell}",
+          "condiciones": "n_{exc}^{rem} = moles del reactivo en exceso que sobran; n_{exc}^{0} = moles iniciales del reactivo en exceso; n_{lim} = moles del limitante; e, \\ell = coeficientes del reactivo en exceso y del limitante.",
+          "referencia": "Chang, Química, 10a ed., Cap. 3.9"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Leyes de los gases ideales",
+      "titulo_en": "Ideal Gas Laws",
+      "archivo": "leyes_de_los_gases_ideales.dart",
+      "formulas": [
+        {
+          "nombre_es": "Ley de Boyle",
+          "nombre_en": "Boyle's law",
+          "latex": "P_1 V_1 = P_2 V_2",
+          "condiciones": "P = presión, V = volumen, estados 1 y 2; a temperatura (T) y cantidad de sustancia (n) constantes. P y V en unidades consistentes.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.3 (Las leyes de los gases)"
+        },
+        {
+          "nombre_es": "Ley de Charles",
+          "nombre_en": "Charles's law",
+          "latex": "\\frac{V_1}{T_1} = \\frac{V_2}{T_2}",
+          "condiciones": "V = volumen, T = temperatura absoluta (K); a presión (P) y n constantes.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.3"
+        },
+        {
+          "nombre_es": "Ley de Gay-Lussac",
+          "nombre_en": "Gay-Lussac's law",
+          "latex": "\\frac{P_1}{T_1} = \\frac{P_2}{T_2}",
+          "condiciones": "P = presión, T = temperatura absoluta (K); a volumen (V) y n constantes.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.3"
+        },
+        {
+          "nombre_es": "Ley de Avogadro",
+          "nombre_en": "Avogadro's law",
+          "latex": "\\frac{V_1}{n_1} = \\frac{V_2}{n_2}",
+          "condiciones": "V = volumen, n = cantidad de sustancia (mol); a P y T constantes. Volúmenes iguales de gases contienen igual número de moléculas.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.3 (Hipótesis de Avogadro)"
+        },
+        {
+          "nombre_es": "Ley combinada de los gases",
+          "nombre_en": "Combined gas law",
+          "latex": "\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}",
+          "condiciones": "P = presión, V = volumen, T = temperatura absoluta (K); a n constante. Compara dos estados de la misma muestra.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.4"
+        },
+        {
+          "nombre_es": "Ecuación del gas ideal",
+          "nombre_en": "Ideal gas equation",
+          "latex": "P V = n R T",
+          "condiciones": "P = presión, V = volumen, n = moles, T = temperatura absoluta (K), R = constante de los gases (ver sección de constantes: 8.314\\ \\mathrm{J\\,mol^{-1}K^{-1}} = 0.08206\\ \\mathrm{L\\,atm\\,mol^{-1}K^{-1}}).",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.4 (La ecuación del gas ideal)"
+        },
+        {
+          "nombre_es": "Densidad de un gas ideal",
+          "nombre_en": "Density of an ideal gas",
+          "latex": "\\rho = \\frac{P M}{R T}",
+          "condiciones": "\\rho = densidad del gas; P = presión; M = masa molar; R = constante de los gases; T = temperatura absoluta (K).",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.4"
+        },
+        {
+          "nombre_es": "Ley de Dalton de las presiones parciales",
+          "nombre_en": "Dalton's law of partial pressures",
+          "latex": "P_{tot} = \\sum_{i} P_i",
+          "condiciones": "P_{tot} = presión total de la mezcla; P_i = presión parcial del gas i. Válida para gases que no reaccionan entre sí (ideales).",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.6 (La ley de Dalton de las presiones parciales)"
+        },
+        {
+          "nombre_es": "Presión parcial por fracción molar",
+          "nombre_en": "Partial pressure from mole fraction",
+          "latex": "P_i = x_i \\, P_{tot}",
+          "condiciones": "P_i = presión parcial del gas i; x_i = fracción molar del gas i (n_i / n_{tot}); P_{tot} = presión total.",
+          "referencia": "Chang, Química, 10a ed., Cap. 5.6"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Concentraciones de disoluciones",
+      "titulo_en": "Solution Concentrations",
+      "archivo": "concentraciones_de_disoluciones.dart",
+      "formulas": [
+        {
+          "nombre_es": "Molaridad",
+          "nombre_en": "Molarity",
+          "latex": "M = \\frac{n_{sto}}{V_{sol}}",
+          "condiciones": "M = molaridad (mol/L); n_{sto} = moles de soluto; V_{sol} = volumen de la disolución (L).",
+          "referencia": "Chang, Química, 10a ed., Cap. 4.5 (Concentración de las disoluciones)"
+        },
+        {
+          "nombre_es": "Molalidad",
+          "nombre_en": "Molality",
+          "latex": "m = \\frac{n_{sto}}{m_{disolv}}",
+          "condiciones": "m = molalidad (mol/kg); n_{sto} = moles de soluto; m_{disolv} = masa del disolvente (kg).",
+          "referencia": "Chang, Química, 10a ed., Cap. 12.3 (Unidades de concentración)"
+        },
+        {
+          "nombre_es": "Normalidad",
+          "nombre_en": "Normality",
+          "latex": "N = \\frac{eq_{sto}}{V_{sol}} = M \\, z",
+          "condiciones": "N = normalidad (eq/L); eq_{sto} = equivalentes de soluto; V_{sol} = volumen (L); M = molaridad; z = número de equivalentes por mol (protones, electrones o carga intercambiados).",
+          "referencia": "Petrucci, Química General, 10a ed., Cap. 5 (Normalidad y equivalentes)"
+        },
+        {
+          "nombre_es": "Porcentaje en masa",
+          "nombre_en": "Mass percent",
+          "latex": "\\%_{m/m} = \\frac{m_{sto}}{m_{sol}} \\times 100\\%",
+          "condiciones": "\\%_{m/m} = porcentaje en masa; m_{sto} = masa de soluto; m_{sol} = masa total de la disolución (soluto + disolvente).",
+          "referencia": "Chang, Química, 10a ed., Cap. 12.3"
+        },
+        {
+          "nombre_es": "Porcentaje masa/volumen",
+          "nombre_en": "Mass/volume percent",
+          "latex": "\\%_{m/V} = \\frac{m_{sto}}{V_{sol}} \\times 100\\%",
+          "condiciones": "\\%_{m/V} = porcentaje masa/volumen; m_{sto} = masa de soluto (g); V_{sol} = volumen de la disolución (mL). Usada en química clínica y farmacia.",
+          "referencia": "Petrucci, Química General, 10a ed., Cap. 5 (Unidades de concentración)"
+        },
+        {
+          "nombre_es": "Fracción molar",
+          "nombre_en": "Mole fraction",
+          "latex": "x_i = \\frac{n_i}{\\sum_j n_j}",
+          "condiciones": "x_i = fracción molar del componente i (adimensional); n_i = moles del componente i; \\sum_j n_j = moles totales de todos los componentes. \\sum_i x_i = 1.",
+          "referencia": "Chang, Química, 10a ed., Cap. 12.3"
+        },
+        {
+          "nombre_es": "Partes por millón (masa)",
+          "nombre_en": "Parts per million (mass)",
+          "latex": "\\mathrm{ppm} = \\frac{m_{sto}}{m_{sol}} \\times 10^{6}",
+          "condiciones": "ppm = partes por millón en masa; m_{sto} = masa de soluto; m_{sol} = masa de la disolución (mismas unidades). Para disoluciones acuosas diluidas, 1 ppm \\approx 1 mg/L.",
+          "referencia": "Chang, Química, 10a ed., Cap. 12.3"
+        },
+        {
+          "nombre_es": "Dilución de disoluciones",
+          "nombre_en": "Dilution of solutions",
+          "latex": "C_1 V_1 = C_2 V_2",
+          "condiciones": "C_1, V_1 = concentración y volumen iniciales; C_2, V_2 = concentración y volumen finales. Los moles de soluto se conservan al añadir disolvente. Válida con M, N o cualquier unidad si las unidades se cancelan.",
+          "referencia": "Chang, Química, 10a ed., Cap. 4.5 (Dilución de disoluciones)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Equilibrio químico",
+      "titulo_en": "Chemical Equilibrium",
+      "archivo": "equilibrio_quimico.dart",
+      "formulas": [
+        {
+          "nombre_es": "Constante de equilibrio en concentraciones (Kc)",
+          "nombre_en": "Concentration equilibrium constant (Kc)",
+          "latex": "K_c = \\frac{[C]^{c}\\,[D]^{d}}{[A]^{a}\\,[B]^{b}}",
+          "condiciones": "Para aA + bB \\rightleftharpoons cC + dD. [\\,] = concentraciones molares en el equilibrio (mol/L); a,b,c,d = coeficientes estequiométricos. Sólidos y líquidos puros se omiten.",
+          "referencia": "Chang, Química, 10a ed., Cap. 14.1 (El concepto de equilibrio y la constante de equilibrio)"
+        },
+        {
+          "nombre_es": "Constante de equilibrio en presiones (Kp)",
+          "nombre_en": "Pressure equilibrium constant (Kp)",
+          "latex": "K_p = \\frac{P_C^{c}\\,P_D^{d}}{P_A^{a}\\,P_B^{b}}",
+          "condiciones": "P_i = presiones parciales en el equilibrio de los gases; a,b,c,d = coeficientes estequiométricos. Sólo intervienen especies gaseosas.",
+          "referencia": "Chang, Química, 10a ed., Cap. 14.2 (Escritura de las expresiones de las constantes de equilibrio)"
+        },
+        {
+          "nombre_es": "Relación entre Kp y Kc",
+          "nombre_en": "Relationship between Kp and Kc",
+          "latex": "K_p = K_c \\, (R T)^{\\Delta n}",
+          "condiciones": "\\Delta n = (moles de gas de productos) - (moles de gas de reactivos); R = constante de los gases (0.08206 L·atm·mol^{-1}·K^{-1}); T = temperatura absoluta (K).",
+          "referencia": "Chang, Química, 10a ed., Cap. 14.2"
+        },
+        {
+          "nombre_es": "Cociente de reacción",
+          "nombre_en": "Reaction quotient",
+          "latex": "Q_c = \\frac{[C]^{c}\\,[D]^{d}}{[A]^{a}\\,[B]^{b}}",
+          "condiciones": "Q_c = cociente de reacción con concentraciones en cualquier instante (no necesariamente equilibrio). Si Q_c < K_c la reacción avanza hacia productos; si Q_c > K_c hacia reactivos; si Q_c = K_c hay equilibrio.",
+          "referencia": "Chang, Química, 10a ed., Cap. 14.4 (Predicción de la dirección de una reacción)"
+        },
+        {
+          "nombre_es": "Constante de la reacción inversa",
+          "nombre_en": "Equilibrium constant of the reverse reaction",
+          "latex": "K_{inv} = \\frac{1}{K_c}",
+          "condiciones": "K_{inv} = constante de equilibrio de la reacción escrita en sentido inverso; K_c = constante de la reacción directa.",
+          "referencia": "Chang, Química, 10a ed., Cap. 14.2 (Reglas para escribir las expresiones de equilibrio)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "pH, pOH y equilibrio ácido-base",
+      "titulo_en": "pH, pOH and Acid-Base Equilibrium",
+      "archivo": "ph_poh_y_equilibrio_acido_base.dart",
+      "formulas": [
+        {
+          "nombre_es": "Definición de pH",
+          "nombre_en": "Definition of pH",
+          "latex": "\\mathrm{pH} = -\\log_{10} [H^{+}]",
+          "condiciones": "[H^{+}] = concentración molar de iones hidrógeno (hidronio, H_3O^{+}) en mol/L. Adimensional.",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.3 (El pH: una medida de la acidez)"
+        },
+        {
+          "nombre_es": "Concentración de H+ a partir del pH",
+          "nombre_en": "H+ concentration from pH",
+          "latex": "[H^{+}] = 10^{-\\mathrm{pH}}",
+          "condiciones": "[H^{+}] = concentración molar de iones hidrógeno (mol/L); pH = valor de pH (adimensional).",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.3"
+        },
+        {
+          "nombre_es": "Definición de pOH",
+          "nombre_en": "Definition of pOH",
+          "latex": "\\mathrm{pOH} = -\\log_{10} [OH^{-}]",
+          "condiciones": "[OH^{-}] = concentración molar de iones hidroxilo (mol/L). Adimensional.",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.3"
+        },
+        {
+          "nombre_es": "Producto iónico del agua",
+          "nombre_en": "Ion-product constant of water",
+          "latex": "K_w = [H^{+}][OH^{-}] = 1.0\\times10^{-14}",
+          "condiciones": "K_w = constante del producto iónico del agua a 25 °C; [H^{+}], [OH^{-}] = concentraciones molares. Unidades: (mol/L)^2.",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.2 (Autoionización del agua)"
+        },
+        {
+          "nombre_es": "Relación pH + pOH",
+          "nombre_en": "pH + pOH relationship",
+          "latex": "\\mathrm{pH} + \\mathrm{pOH} = 14.00",
+          "condiciones": "Válida en disolución acuosa a 25 °C. Se deriva de -\\log K_w = 14.00.",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.3"
+        },
+        {
+          "nombre_es": "Constante de acidez",
+          "nombre_en": "Acid dissociation constant",
+          "latex": "K_a = \\frac{[H^{+}][A^{-}]}{[HA]}",
+          "condiciones": "Para HA \\rightleftharpoons H^{+} + A^{-}. [\\,] = concentraciones molares en el equilibrio (mol/L). Mayor K_a indica ácido más fuerte.",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.5 (Ácidos débiles y la constante de ionización de un ácido)"
+        },
+        {
+          "nombre_es": "Constante de basicidad",
+          "nombre_en": "Base dissociation constant",
+          "latex": "K_b = \\frac{[BH^{+}][OH^{-}]}{[B]}",
+          "condiciones": "Para B + H_2O \\rightleftharpoons BH^{+} + OH^{-}. [\\,] = concentraciones molares en el equilibrio (mol/L).",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.6 (Bases débiles y la constante de ionización de una base)"
+        },
+        {
+          "nombre_es": "Relación Ka·Kb de un par conjugado",
+          "nombre_en": "Ka·Kb of a conjugate pair",
+          "latex": "K_a \\, K_b = K_w",
+          "condiciones": "K_a = constante de acidez del ácido; K_b = constante de basicidad de su base conjugada; K_w = producto iónico del agua (1.0\\times10^{-14} a 25 °C).",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.7 (Relación entre Ka y Kb de un par conjugado)"
+        },
+        {
+          "nombre_es": "Ecuación de Henderson-Hasselbalch",
+          "nombre_en": "Henderson-Hasselbalch equation",
+          "latex": "\\mathrm{pH} = \\mathrm{p}K_a + \\log_{10}\\frac{[A^{-}]}{[HA]}",
+          "condiciones": "pK_a = -\\log K_a; [A^{-}] = concentración de la base conjugada; [HA] = concentración del ácido débil. Para disoluciones amortiguadoras (buffer).",
+          "referencia": "Chang, Química, 10a ed., Cap. 16.2 (Disoluciones amortiguadoras)"
+        },
+        {
+          "nombre_es": "Porcentaje de ionización",
+          "nombre_en": "Percent ionization",
+          "latex": "\\%_{ion} = \\frac{[H^{+}]_{eq}}{[HA]_0} \\times 100\\%",
+          "condiciones": "[H^{+}]_{eq} = concentración de H^{+} ionizado en el equilibrio (mol/L); [HA]_0 = concentración inicial del ácido (mol/L).",
+          "referencia": "Chang, Química, 10a ed., Cap. 15.5 (Porcentaje de ionización)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Termoquímica básica",
+      "titulo_en": "Basic Thermochemistry",
+      "archivo": "termoquimica_basica.dart",
+      "formulas": [
+        {
+          "nombre_es": "Calor sensible (calorimetría)",
+          "nombre_en": "Sensible heat (calorimetry)",
+          "latex": "q = m \\, c \\, \\Delta T",
+          "condiciones": "q = calor transferido (J); m = masa (g); c = calor específico (J·g^{-1}·°C^{-1}); \\Delta T = T_{final} - T_{inicial} (°C o K).",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.5 (Calorimetría)"
+        },
+        {
+          "nombre_es": "Capacidad calorífica",
+          "nombre_en": "Heat capacity",
+          "latex": "q = C \\, \\Delta T",
+          "condiciones": "q = calor (J); C = capacidad calorífica del objeto (J/°C); \\Delta T = cambio de temperatura. C = m\\,c para una sustancia de masa m.",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.5"
+        },
+        {
+          "nombre_es": "Primera ley de la termodinámica",
+          "nombre_en": "First law of thermodynamics",
+          "latex": "\\Delta U = q + w",
+          "condiciones": "\\Delta U = cambio de energía interna del sistema (J); q = calor absorbido por el sistema; w = trabajo hecho sobre el sistema. Convención de signos IUPAC.",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.3 (Introducción a la termodinámica)"
+        },
+        {
+          "nombre_es": "Entalpía y energía interna",
+          "nombre_en": "Enthalpy and internal energy",
+          "latex": "\\Delta H = \\Delta U + \\Delta(P V)",
+          "condiciones": "\\Delta H = cambio de entalpía (J); \\Delta U = cambio de energía interna; \\Delta(PV) = cambio del producto presión-volumen. A presión constante \\Delta H = q_p.",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.4 (Entalpía de las reacciones químicas)"
+        },
+        {
+          "nombre_es": "Entalpía de reacción por entalpías de formación",
+          "nombre_en": "Reaction enthalpy from formation enthalpies",
+          "latex": "\\Delta H_{rxn}^{\\circ} = \\sum n \\, \\Delta H_f^{\\circ}(prod) - \\sum m \\, \\Delta H_f^{\\circ}(react)",
+          "condiciones": "\\Delta H_{rxn}^{\\circ} = entalpía estándar de reacción; \\Delta H_f^{\\circ} = entalpía estándar de formación (kJ/mol); n, m = coeficientes estequiométricos de productos y reactivos.",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.6 (Entalpía estándar de formación y de reacción)"
+        },
+        {
+          "nombre_es": "Ley de Hess",
+          "nombre_en": "Hess's law",
+          "latex": "\\Delta H_{rxn} = \\sum_i \\Delta H_i",
+          "condiciones": "\\Delta H_{rxn} = entalpía de la reacción global; \\Delta H_i = entalpía de cada etapa. Válida porque H es función de estado (independiente del camino).",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.6 (Ley de Hess)"
+        },
+        {
+          "nombre_es": "Calor por mol de reacción",
+          "nombre_en": "Heat per mole of reaction",
+          "latex": "\\Delta H = \\frac{q_p}{n}",
+          "condiciones": "\\Delta H = entalpía molar de reacción (J/mol o kJ/mol); q_p = calor medido a presión constante (J); n = moles de sustancia que reaccionan.",
+          "referencia": "Chang, Química, 10a ed., Cap. 6.5 (Calorimetría a presión constante)"
+        }
+      ]
+    }
+  ],
+  "referencias": [
+    "Chang, R. Química. 10a edición. McGraw-Hill. Caps. 3 (relaciones de masa), 4 (reacciones en disolución acuosa), 5 (gases), 6 (termoquímica), 12 (propiedades físicas de las disoluciones), 14 (equilibrio químico), 15-16 (ácidos, bases y equilibrio ácido-base).",
+    "Petrucci, R. H. et al. Química General. 10a edición. Pearson/Prentice Hall (normalidad, equivalentes y unidades de concentración masa/volumen).",
+    "Brown, T. L.; LeMay, H. E.; Bursten, B. E. Química: la ciencia central. 12a edición. Pearson.",
+    "IUPAC. Quantities, Units and Symbols in Physical Chemistry (Green Book); redefinición SI del mol y N_A (2019).",
+    "Chemistry LibreTexts, Molarity and Dilutions: https://chem.libretexts.org/Courses/Valley_City_State_University/Chem_121/Chapter_4:_Solution_Chemistry/4.5:_Molarity_and_Dilutions",
+    "Chemistry LibreTexts, Applications of the Ideal Gas Law and Partial Pressures: https://chem.libretexts.org/Courses/Oregon_Institute_of_Technology/OIT:_CHE_201_-_General_Chemistry_I_(Anthony_and_Clark)/Unit_7:_Ideal_Gas_Behavior/7.3:_Applications_of_the_Ideal_Gas_Law_and_Partial_Pressures",
+    "Chemistry LibreTexts, Calorimetry and Hess's Law: https://chem.libretexts.org/Courses/College_of_the_Canyons/Chem_201:_General_Chemistry_I_OER/08:_Thermochemistry/8.08:_Calculating_Enthalpy_of_Reactions_Using_Hess's_Law",
+    "NOTA DE COORDINACIÓN: los valores numéricos de N_A (6.022e23 /mol) y R (8.314 J/mol·K = 0.08206 L·atm/mol·K) ya viven en la sección de constantes existente; estas pantallas los referencian por símbolo y NO deben duplicar sus valores como entradas de constante."
+  ]
+}

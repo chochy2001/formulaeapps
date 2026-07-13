@@ -1,0 +1,724 @@
+{
+  "cluster": "circuitos_electricos",
+  "target_seccion": "circuitos_electricos",
+  "es_nueva": true,
+  "file": "/private/tmp/claude-501/-Users-jorge-Documents-Apps/66d69e01-1af5-4efe-ba35-ac1c90f0c14a/scratchpad/roadmap/spec-circuitos_electricos.json",
+  "nota_no_duplicacion": "La seccion existente electricidad_y_magnetismo/circuitos_electricos es de enfoque FISICO (ley de Ohm microscopica J=sigma·E, velocidad de arrastre, conductividad, efecto Joule, LVK/LCK conceptuales, transitorio RC detallado) y capacitancia_y_dielectricos/induccion_electromagnetica cubren capacitor/inductor desde electrostatica y Faraday. Esta seccion NUEVA es un formulario de ANALISIS DE CIRCUITOS (ingenieria electrica): tecnicas de resolucion (divisores, mallas, nodos, Thevenin/Norton, maxima transferencia), relaciones i-v de elementos, transitorios de primer orden RC y RL (RL NO existia), y CA con fasores (RMS, reactancia, impedancia, factor de potencia, resonancia RLC) que NO existen en la seccion de fisica. Se incluyen Ohm/potencia/serie-paralelo en forma compacta de ingenieria como base autocontenida del formulario.",
+  "pantallas": [
+    {
+      "titulo_es": "Ley de Ohm y potencia en CD",
+      "titulo_en": "Ohm's Law and DC Power",
+      "archivo": "ley_de_ohm_y_potencia_cd.dart",
+      "formulas": [
+        {
+          "nombre_es": "Ley de Ohm (voltaje)",
+          "nombre_en": "Ohm's Law (voltage)",
+          "latex": "V = I\\,R",
+          "condiciones": "V: diferencia de potencial [V]; I: corriente [A]; R: resistencia [\\Omega]. Valida para elementos ohmicos (R constante).",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 4 (Ley de Ohm)"
+        },
+        {
+          "nombre_es": "Ley de Ohm (corriente)",
+          "nombre_en": "Ohm's Law (current)",
+          "latex": "I = \\frac{V}{R}",
+          "condiciones": "I: corriente [A]; V: voltaje [V]; R: resistencia [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.2"
+        },
+        {
+          "nombre_es": "Ley de Ohm (resistencia)",
+          "nombre_en": "Ohm's Law (resistance)",
+          "latex": "R = \\frac{V}{I}",
+          "condiciones": "R: resistencia [\\Omega]; V: voltaje [V]; I: corriente [A].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.2"
+        },
+        {
+          "nombre_es": "Conductancia",
+          "nombre_en": "Conductance",
+          "latex": "G = \\frac{1}{R}",
+          "condiciones": "G: conductancia [S] (siemens); R: resistencia [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.2"
+        },
+        {
+          "nombre_es": "Potencia (voltaje y corriente)",
+          "nombre_en": "Power (voltage and current)",
+          "latex": "P = V\\,I",
+          "condiciones": "P: potencia disipada/absorbida [W]; V: voltaje [V]; I: corriente [A].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 1.5"
+        },
+        {
+          "nombre_es": "Potencia en funcion de la corriente",
+          "nombre_en": "Power in terms of current",
+          "latex": "P = I^{2}\\,R",
+          "condiciones": "P: potencia en la resistencia [W]; I: corriente [A]; R: resistencia [\\Omega].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 4 (Potencia)"
+        },
+        {
+          "nombre_es": "Potencia en funcion del voltaje",
+          "nombre_en": "Power in terms of voltage",
+          "latex": "P = \\frac{V^{2}}{R}",
+          "condiciones": "P: potencia en la resistencia [W]; V: voltaje [V]; R: resistencia [\\Omega].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 4 (Potencia)"
+        },
+        {
+          "nombre_es": "Energia electrica",
+          "nombre_en": "Electrical energy",
+          "latex": "W = P\\,t",
+          "condiciones": "W: energia [J]; P: potencia [W]; t: tiempo [s]. En kWh, W[kWh] = P[kW]·t[h].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 4 (Energia)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Resistencias en serie y paralelo",
+      "titulo_en": "Series and Parallel Resistors",
+      "archivo": "resistencias_serie_y_paralelo.dart",
+      "formulas": [
+        {
+          "nombre_es": "Resistencia equivalente en serie",
+          "nombre_en": "Equivalent series resistance",
+          "latex": "R_{eq} = \\sum_{k=1}^{n} R_k",
+          "condiciones": "R_{eq}: resistencia equivalente [\\Omega]; R_k: k-esima resistencia en serie [\\Omega]; n: numero de resistencias.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.5"
+        },
+        {
+          "nombre_es": "Misma corriente en serie",
+          "nombre_en": "Same current in series",
+          "latex": "I = I_1 = I_2 = \\cdots = I_n",
+          "condiciones": "I: corriente comun [A] que circula por todos los elementos en serie.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 5 (Circuitos en serie)"
+        },
+        {
+          "nombre_es": "Resistencia equivalente en paralelo",
+          "nombre_en": "Equivalent parallel resistance",
+          "latex": "\\frac{1}{R_{eq}} = \\sum_{k=1}^{n} \\frac{1}{R_k}",
+          "condiciones": "R_{eq}: resistencia equivalente [\\Omega]; R_k: k-esima resistencia en paralelo [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.6"
+        },
+        {
+          "nombre_es": "Dos resistencias en paralelo",
+          "nombre_en": "Two resistors in parallel",
+          "latex": "R_{eq} = \\frac{R_1\\,R_2}{R_1 + R_2}",
+          "condiciones": "R_{eq}: resistencia equivalente [\\Omega]; R_1, R_2: resistencias en paralelo [\\Omega] (regla producto sobre suma).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.6"
+        },
+        {
+          "nombre_es": "Mismo voltaje en paralelo",
+          "nombre_en": "Same voltage in parallel",
+          "latex": "V = V_1 = V_2 = \\cdots = V_n",
+          "condiciones": "V: voltaje comun [V] a todos los elementos en paralelo (mismos nodos).",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 6 (Circuitos en paralelo)"
+        },
+        {
+          "nombre_es": "n resistencias iguales en paralelo",
+          "nombre_en": "n equal resistors in parallel",
+          "latex": "R_{eq} = \\frac{R}{n}",
+          "condiciones": "R_{eq}: resistencia equivalente [\\Omega]; R: valor comun [\\Omega]; n: numero de resistencias iguales.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 6"
+        },
+        {
+          "nombre_es": "Conductancia equivalente en paralelo",
+          "nombre_en": "Equivalent parallel conductance",
+          "latex": "G_{eq} = \\sum_{k=1}^{n} G_k",
+          "condiciones": "G_{eq}: conductancia equivalente [S]; G_k: conductancia de cada rama [S].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.6"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Divisores de voltaje y corriente",
+      "titulo_en": "Voltage and Current Dividers",
+      "archivo": "divisores_de_voltaje_y_corriente.dart",
+      "formulas": [
+        {
+          "nombre_es": "Divisor de voltaje (general)",
+          "nombre_en": "Voltage divider (general)",
+          "latex": "V_x = V_s\\,\\frac{R_x}{R_1 + R_2 + \\cdots + R_n}",
+          "condiciones": "V_x: voltaje en la resistencia R_x [V]; V_s: voltaje total aplicado a la serie [V]; R_x: resistencia de interes [\\Omega]; suma: resistencia total en serie [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.6 (Division de voltaje)"
+        },
+        {
+          "nombre_es": "Divisor de voltaje (dos resistencias)",
+          "nombre_en": "Voltage divider (two resistors)",
+          "latex": "V_1 = V_s\\,\\frac{R_1}{R_1 + R_2}",
+          "condiciones": "V_1: voltaje en R_1 [V]; V_s: voltaje de la fuente en serie [V]; R_1, R_2: resistencias en serie [\\Omega].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 3.4"
+        },
+        {
+          "nombre_es": "Divisor de corriente (general)",
+          "nombre_en": "Current divider (general)",
+          "latex": "I_x = I_s\\,\\frac{G_x}{G_1 + G_2 + \\cdots + G_n}",
+          "condiciones": "I_x: corriente por la rama x [A]; I_s: corriente total que entra al arreglo en paralelo [A]; G_x=1/R_x: conductancia de la rama [S]; suma: conductancia total [S].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 2.6 (Division de corriente)"
+        },
+        {
+          "nombre_es": "Divisor de corriente (dos ramas, rama 1)",
+          "nombre_en": "Current divider (two branches, branch 1)",
+          "latex": "I_1 = I_s\\,\\frac{R_2}{R_1 + R_2}",
+          "condiciones": "I_1: corriente por R_1 [A]; I_s: corriente total [A]; R_1, R_2: resistencias en paralelo [\\Omega]. Nota: la corriente por una rama es proporcional a la resistencia de la OTRA rama.",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 3.4"
+        },
+        {
+          "nombre_es": "Divisor de corriente (dos ramas, rama 2)",
+          "nombre_en": "Current divider (two branches, branch 2)",
+          "latex": "I_2 = I_s\\,\\frac{R_1}{R_1 + R_2}",
+          "condiciones": "I_2: corriente por R_2 [A]; I_s: corriente total [A]; R_1, R_2: resistencias en paralelo [\\Omega].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 3.4"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Analisis de mallas",
+      "titulo_en": "Mesh Analysis",
+      "archivo": "analisis_de_mallas.dart",
+      "formulas": [
+        {
+          "nombre_es": "Ley de voltajes de Kirchhoff (por malla)",
+          "nombre_en": "Kirchhoff's Voltage Law (per mesh)",
+          "latex": "\\sum_{k} V_k = 0",
+          "condiciones": "Suma algebraica de las caidas/subidas de voltaje V_k [V] alrededor de una trayectoria cerrada (malla) es cero. Base del metodo de mallas.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 3.4 (Analisis de mallas)"
+        },
+        {
+          "nombre_es": "Numero de mallas independientes",
+          "nombre_en": "Number of independent meshes",
+          "latex": "l = b - n + 1",
+          "condiciones": "l: numero de ecuaciones de malla independientes; b: numero de ramas; n: numero de nodos del circuito plano.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 3.4"
+        },
+        {
+          "nombre_es": "Sistema de ecuaciones de malla (forma matricial)",
+          "nombre_en": "Mesh equations (matrix form)",
+          "latex": "[R]\\,[I] = [V]",
+          "condiciones": "[R]: matriz de resistencias (diagonal = suma de resistencias de cada malla; fuera de diagonal = -resistencias compartidas) [\\Omega]; [I]: vector de corrientes de malla [A]; [V]: vector de fuentes de voltaje [V].",
+          "referencia": "Irwin, Basic Engineering Circuit Analysis, 11a ed., cap. 3 (Analisis de lazos)"
+        },
+        {
+          "nombre_es": "Corriente de rama compartida",
+          "nombre_en": "Shared branch current",
+          "latex": "I_{rama} = I_a - I_b",
+          "condiciones": "I_{rama}: corriente real por una rama compartida [A]; I_a, I_b: corrientes de las dos mallas adyacentes que comparten esa rama [A].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 8 (Metodos de analisis)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Analisis de nodos",
+      "titulo_en": "Nodal Analysis",
+      "archivo": "analisis_de_nodos.dart",
+      "formulas": [
+        {
+          "nombre_es": "Ley de corrientes de Kirchhoff (por nodo)",
+          "nombre_en": "Kirchhoff's Current Law (per node)",
+          "latex": "\\sum_{k} I_k = 0",
+          "condiciones": "Suma algebraica de las corrientes I_k [A] que entran/salen de un nodo es cero. Base del metodo de nodos.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 3.2 (Analisis nodal)"
+        },
+        {
+          "nombre_es": "Numero de ecuaciones de nodo",
+          "nombre_en": "Number of node equations",
+          "latex": "N_{ec} = n - 1",
+          "condiciones": "N_{ec}: numero de ecuaciones de nodo independientes; n: numero de nodos totales (se toma uno como referencia/tierra).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 3.2"
+        },
+        {
+          "nombre_es": "Sistema de ecuaciones de nodo (forma matricial)",
+          "nombre_en": "Node equations (matrix form)",
+          "latex": "[G]\\,[V] = [I]",
+          "condiciones": "[G]: matriz de conductancias (diagonal = suma de conductancias en cada nodo; fuera de diagonal = -conductancias compartidas) [S]; [V]: vector de voltajes de nodo [V]; [I]: vector de fuentes de corriente [A].",
+          "referencia": "Irwin, Basic Engineering Circuit Analysis, 11a ed., cap. 3 (Analisis nodal)"
+        },
+        {
+          "nombre_es": "Corriente entre nodos por una conductancia",
+          "nombre_en": "Current between nodes through a conductance",
+          "latex": "I_{jk} = \\frac{V_j - V_k}{R_{jk}}",
+          "condiciones": "I_{jk}: corriente del nodo j al nodo k [A]; V_j, V_k: voltajes de nodo [V]; R_{jk}: resistencia entre los nodos [\\Omega].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 4.2"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Teorema de Thevenin",
+      "titulo_en": "Thevenin's Theorem",
+      "archivo": "teorema_de_thevenin.dart",
+      "formulas": [
+        {
+          "nombre_es": "Voltaje de Thevenin (circuito abierto)",
+          "nombre_en": "Thevenin voltage (open circuit)",
+          "latex": "V_{th} = V_{oc}",
+          "condiciones": "V_{th}: voltaje equivalente de Thevenin [V]; V_{oc}: voltaje medido en las terminales con la carga desconectada (circuito abierto) [V].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.5 (Teorema de Thevenin)"
+        },
+        {
+          "nombre_es": "Resistencia de Thevenin",
+          "nombre_en": "Thevenin resistance",
+          "latex": "R_{th} = \\frac{V_{oc}}{I_{sc}}",
+          "condiciones": "R_{th}: resistencia equivalente de Thevenin [\\Omega]; V_{oc}: voltaje de circuito abierto [V]; I_{sc}: corriente de corto circuito en las terminales [A]. Alternativa: R_{th} vista desde las terminales con fuentes independientes anuladas.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.5"
+        },
+        {
+          "nombre_es": "Corriente en la carga",
+          "nombre_en": "Load current",
+          "latex": "I_L = \\frac{V_{th}}{R_{th} + R_L}",
+          "condiciones": "I_L: corriente por la carga [A]; V_{th}: voltaje de Thevenin [V]; R_{th}: resistencia de Thevenin [\\Omega]; R_L: resistencia de carga [\\Omega].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 9 (Teoremas de red)"
+        },
+        {
+          "nombre_es": "Voltaje en la carga",
+          "nombre_en": "Load voltage",
+          "latex": "V_L = V_{th}\\,\\frac{R_L}{R_{th} + R_L}",
+          "condiciones": "V_L: voltaje en la carga [V]; V_{th}: voltaje de Thevenin [V]; R_{th}, R_L: resistencias de Thevenin y de carga [\\Omega].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 9"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Teorema de Norton",
+      "titulo_en": "Norton's Theorem",
+      "archivo": "teorema_de_norton.dart",
+      "formulas": [
+        {
+          "nombre_es": "Corriente de Norton (corto circuito)",
+          "nombre_en": "Norton current (short circuit)",
+          "latex": "I_N = I_{sc}",
+          "condiciones": "I_N: corriente equivalente de Norton [A]; I_{sc}: corriente de corto circuito en las terminales de salida [A].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.6 (Teorema de Norton)"
+        },
+        {
+          "nombre_es": "Resistencia de Norton",
+          "nombre_en": "Norton resistance",
+          "latex": "R_N = R_{th}",
+          "condiciones": "R_N: resistencia equivalente de Norton [\\Omega]; igual a la resistencia de Thevenin vista desde las terminales.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.6"
+        },
+        {
+          "nombre_es": "Transformacion de fuente (Thevenin-Norton)",
+          "nombre_en": "Source transformation (Thevenin-Norton)",
+          "latex": "V_{th} = I_N\\,R_N",
+          "condiciones": "Relacion entre los equivalentes: V_{th} [V] voltaje de Thevenin; I_N [A] corriente de Norton; R_N=R_{th} [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.4 (Transformacion de fuentes)"
+        },
+        {
+          "nombre_es": "Corriente en la carga (divisor)",
+          "nombre_en": "Load current (divider)",
+          "latex": "I_L = I_N\\,\\frac{R_N}{R_N + R_L}",
+          "condiciones": "I_L: corriente por la carga [A]; I_N: corriente de Norton [A]; R_N: resistencia de Norton [\\Omega]; R_L: resistencia de carga [\\Omega].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 9 (Teoremas de red)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Maxima transferencia de potencia",
+      "titulo_en": "Maximum Power Transfer",
+      "archivo": "maxima_transferencia_de_potencia.dart",
+      "formulas": [
+        {
+          "nombre_es": "Condicion de maxima transferencia (CD)",
+          "nombre_en": "Maximum transfer condition (DC)",
+          "latex": "R_L = R_{th}",
+          "condiciones": "R_L: resistencia de carga [\\Omega]; R_{th}: resistencia de Thevenin de la fuente [\\Omega]. La potencia entregada a la carga es maxima cuando son iguales.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.8 (Maxima transferencia de potencia)"
+        },
+        {
+          "nombre_es": "Potencia maxima en la carga",
+          "nombre_en": "Maximum load power",
+          "latex": "P_{max} = \\frac{V_{th}^{2}}{4\\,R_{th}}",
+          "condiciones": "P_{max}: potencia maxima entregada [W]; V_{th}: voltaje de Thevenin [V]; R_{th}: resistencia de Thevenin [\\Omega]. Valida cuando R_L=R_{th}.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 4.8"
+        },
+        {
+          "nombre_es": "Potencia en la carga (general)",
+          "nombre_en": "Load power (general)",
+          "latex": "P_L = \\left(\\frac{V_{th}}{R_{th} + R_L}\\right)^{2} R_L",
+          "condiciones": "P_L: potencia en la carga [W]; V_{th}: voltaje de Thevenin [V]; R_{th}, R_L: resistencias de Thevenin y carga [\\Omega].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 4.12"
+        },
+        {
+          "nombre_es": "Eficiencia en maxima transferencia",
+          "nombre_en": "Efficiency at maximum transfer",
+          "latex": "\\eta = \\frac{P_L}{P_{total}} = 50\\%",
+          "condiciones": "\\eta: eficiencia; en la condicion R_L=R_{th} la carga y la fuente disipan la misma potencia, por lo que \\eta=0.5.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 9 (Maxima transferencia de potencia)"
+        },
+        {
+          "nombre_es": "Condicion en CA (carga conjugada)",
+          "nombre_en": "AC condition (conjugate match)",
+          "latex": "Z_L = Z_{th}^{*}",
+          "condiciones": "Z_L: impedancia de carga [\\Omega]; Z_{th}^{*}: conjugado complejo de la impedancia de Thevenin [\\Omega]. Es decir R_L=R_{th} y X_L=-X_{th}.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.5 (Maxima transferencia en CA)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Capacitor como elemento de circuito",
+      "titulo_en": "Capacitor as a Circuit Element",
+      "archivo": "capacitor_elemento_de_circuito.dart",
+      "formulas": [
+        {
+          "nombre_es": "Definicion de capacitancia",
+          "nombre_en": "Definition of capacitance",
+          "latex": "C = \\frac{Q}{V}",
+          "condiciones": "C: capacitancia [F] (farad); Q: carga almacenada [C]; V: voltaje entre placas [V].",
+          "referencia": "Nilsson & Riedel, Electric Circuits, 10a ed., sec. 6.2"
+        },
+        {
+          "nombre_es": "Relacion corriente-voltaje del capacitor",
+          "nombre_en": "Capacitor current-voltage relation",
+          "latex": "i = C\\,\\frac{dv}{dt}",
+          "condiciones": "i: corriente [A]; C: capacitancia [F]; dv/dt: razon de cambio del voltaje [V/s]. El capacitor no permite cambios instantaneos de voltaje.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.2 (Capacitores)"
+        },
+        {
+          "nombre_es": "Voltaje del capacitor (integral)",
+          "nombre_en": "Capacitor voltage (integral)",
+          "latex": "v(t) = v(t_0) + \\frac{1}{C}\\int_{t_0}^{t} i\\,dt",
+          "condiciones": "v(t): voltaje [V]; v(t_0): voltaje inicial [V]; C: capacitancia [F]; i: corriente [A]; t: tiempo [s].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.2"
+        },
+        {
+          "nombre_es": "Energia almacenada en el capacitor",
+          "nombre_en": "Energy stored in the capacitor",
+          "latex": "W = \\frac{1}{2}\\,C\\,V^{2}",
+          "condiciones": "W: energia [J]; C: capacitancia [F]; V: voltaje entre placas [V].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.2"
+        },
+        {
+          "nombre_es": "Capacitores en serie",
+          "nombre_en": "Capacitors in series",
+          "latex": "\\frac{1}{C_{eq}} = \\sum_{k=1}^{n} \\frac{1}{C_k}",
+          "condiciones": "C_{eq}: capacitancia equivalente [F]; C_k: capacitancia de cada elemento en serie [F].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.3"
+        },
+        {
+          "nombre_es": "Capacitores en paralelo",
+          "nombre_en": "Capacitors in parallel",
+          "latex": "C_{eq} = \\sum_{k=1}^{n} C_k",
+          "condiciones": "C_{eq}: capacitancia equivalente [F]; C_k: capacitancia de cada elemento en paralelo [F].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.3"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Inductor como elemento de circuito",
+      "titulo_en": "Inductor as a Circuit Element",
+      "archivo": "inductor_elemento_de_circuito.dart",
+      "formulas": [
+        {
+          "nombre_es": "Relacion voltaje-corriente del inductor",
+          "nombre_en": "Inductor voltage-current relation",
+          "latex": "v = L\\,\\frac{di}{dt}",
+          "condiciones": "v: voltaje [V]; L: inductancia [H] (henry); di/dt: razon de cambio de la corriente [A/s]. El inductor no permite cambios instantaneos de corriente.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.4 (Inductores)"
+        },
+        {
+          "nombre_es": "Corriente del inductor (integral)",
+          "nombre_en": "Inductor current (integral)",
+          "latex": "i(t) = i(t_0) + \\frac{1}{L}\\int_{t_0}^{t} v\\,dt",
+          "condiciones": "i(t): corriente [A]; i(t_0): corriente inicial [A]; L: inductancia [H]; v: voltaje [V]; t: tiempo [s].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.4"
+        },
+        {
+          "nombre_es": "Energia almacenada en el inductor",
+          "nombre_en": "Energy stored in the inductor",
+          "latex": "W = \\frac{1}{2}\\,L\\,I^{2}",
+          "condiciones": "W: energia [J]; L: inductancia [H]; I: corriente [A].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.4"
+        },
+        {
+          "nombre_es": "Inductores en serie",
+          "nombre_en": "Inductors in series",
+          "latex": "L_{eq} = \\sum_{k=1}^{n} L_k",
+          "condiciones": "L_{eq}: inductancia equivalente [H]; L_k: inductancia de cada elemento en serie [H] (sin acoplamiento mutuo).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.5"
+        },
+        {
+          "nombre_es": "Inductores en paralelo",
+          "nombre_en": "Inductors in parallel",
+          "latex": "\\frac{1}{L_{eq}} = \\sum_{k=1}^{n} \\frac{1}{L_k}",
+          "condiciones": "L_{eq}: inductancia equivalente [H]; L_k: inductancia de cada elemento en paralelo [H] (sin acoplamiento mutuo).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 6.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Transitorios de primer orden RC y RL",
+      "titulo_en": "First-Order RC and RL Transients",
+      "archivo": "transitorios_primer_orden_rc_rl.dart",
+      "formulas": [
+        {
+          "nombre_es": "Respuesta universal de primer orden",
+          "nombre_en": "Universal first-order response",
+          "latex": "x(t) = x(\\infty) + [\\,x(0) - x(\\infty)\\,]\\,e^{-t/\\tau}",
+          "condiciones": "x(t): variable (voltaje o corriente) en el tiempo t; x(0): valor inicial; x(\\infty): valor final en estado estable; \\tau: constante de tiempo [s]; t: tiempo [s].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 7.4 (Respuesta general)"
+        },
+        {
+          "nombre_es": "Constante de tiempo RC",
+          "nombre_en": "RC time constant",
+          "latex": "\\tau = R\\,C",
+          "condiciones": "\\tau: constante de tiempo [s]; R: resistencia [\\Omega]; C: capacitancia [F].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 7.2 (Circuito RC sin fuente)"
+        },
+        {
+          "nombre_es": "Constante de tiempo RL",
+          "nombre_en": "RL time constant",
+          "latex": "\\tau = \\frac{L}{R}",
+          "condiciones": "\\tau: constante de tiempo [s]; L: inductancia [H]; R: resistencia [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 7.3 (Circuito RL sin fuente)"
+        },
+        {
+          "nombre_es": "Carga del capacitor (RC)",
+          "nombre_en": "Capacitor charging (RC)",
+          "latex": "v_C(t) = V\\left(1 - e^{-t/RC}\\right)",
+          "condiciones": "v_C(t): voltaje del capacitor [V]; V: voltaje de la fuente [V]; R: resistencia [\\Omega]; C: capacitancia [F]; t: tiempo [s]. Condicion inicial v_C(0)=0.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 10 (Capacitores)"
+        },
+        {
+          "nombre_es": "Descarga del capacitor (RC)",
+          "nombre_en": "Capacitor discharging (RC)",
+          "latex": "v_C(t) = V_0\\,e^{-t/RC}",
+          "condiciones": "v_C(t): voltaje del capacitor [V]; V_0: voltaje inicial [V]; R: resistencia [\\Omega]; C: capacitancia [F]; t: tiempo [s].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 10"
+        },
+        {
+          "nombre_es": "Crecimiento de corriente (RL)",
+          "nombre_en": "Current growth (RL)",
+          "latex": "i_L(t) = \\frac{V}{R}\\left(1 - e^{-Rt/L}\\right)",
+          "condiciones": "i_L(t): corriente del inductor [A]; V: voltaje de la fuente [V]; R: resistencia [\\Omega]; L: inductancia [H]; t: tiempo [s]. Condicion inicial i_L(0)=0.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 11 (Inductores)"
+        },
+        {
+          "nombre_es": "Decaimiento de corriente (RL)",
+          "nombre_en": "Current decay (RL)",
+          "latex": "i_L(t) = I_0\\,e^{-Rt/L}",
+          "condiciones": "i_L(t): corriente del inductor [A]; I_0: corriente inicial [A]; R: resistencia [\\Omega]; L: inductancia [H]; t: tiempo [s].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 11"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Corriente alterna: valores senoidales y RMS",
+      "titulo_en": "AC: Sinusoidal Values and RMS",
+      "archivo": "ca_valores_senoidales_y_rms.dart",
+      "formulas": [
+        {
+          "nombre_es": "Voltaje senoidal",
+          "nombre_en": "Sinusoidal voltage",
+          "latex": "v(t) = V_m\\,\\mathrm{sen}(\\omega t + \\phi)",
+          "condiciones": "v(t): voltaje instantaneo [V]; V_m: amplitud (valor pico) [V]; \\omega: frecuencia angular [rad/s]; \\phi: angulo de fase [rad]; t: tiempo [s]. sen = seno (argumento en radianes).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.2 (Senoides)"
+        },
+        {
+          "nombre_es": "Frecuencia angular",
+          "nombre_en": "Angular frequency",
+          "latex": "\\omega = 2\\pi f",
+          "condiciones": "\\omega: frecuencia angular [rad/s]; f: frecuencia [Hz].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.2"
+        },
+        {
+          "nombre_es": "Periodo",
+          "nombre_en": "Period",
+          "latex": "T = \\frac{1}{f}",
+          "condiciones": "T: periodo [s]; f: frecuencia [Hz].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 13 (Formas de onda senoidales)"
+        },
+        {
+          "nombre_es": "Valor eficaz (RMS) del voltaje senoidal",
+          "nombre_en": "RMS value of sinusoidal voltage",
+          "latex": "V_{rms} = \\frac{V_m}{\\sqrt{2}}",
+          "condiciones": "V_{rms}: valor eficaz [V]; V_m: valor pico [V]. Solo valido para onda senoidal pura.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.4 (Valor RMS)"
+        },
+        {
+          "nombre_es": "Valor eficaz (RMS) de la corriente senoidal",
+          "nombre_en": "RMS value of sinusoidal current",
+          "latex": "I_{rms} = \\frac{I_m}{\\sqrt{2}}",
+          "condiciones": "I_{rms}: valor eficaz [A]; I_m: valor pico [A]. Solo valido para onda senoidal pura.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.4"
+        },
+        {
+          "nombre_es": "Valor eficaz (RMS) general",
+          "nombre_en": "General RMS value",
+          "latex": "V_{rms} = \\sqrt{\\frac{1}{T}\\int_{0}^{T} v^{2}(t)\\,dt}",
+          "condiciones": "V_{rms}: valor eficaz [V]; T: periodo [s]; v(t): voltaje instantaneo [V]. Definicion valida para cualquier forma de onda periodica.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.4"
+        },
+        {
+          "nombre_es": "Valor medio de una senoide rectificada",
+          "nombre_en": "Average value of a rectified sinusoid",
+          "latex": "V_{med} = \\frac{2\\,V_m}{\\pi}",
+          "condiciones": "V_{med}: valor medio de una senoide rectificada de onda completa (equivale al promedio del seno sobre medio ciclo) [V]; V_m: valor pico [V]. Nota: la rectificacion de media onda daria V_m/\\pi. [corregido: redaccion previa mezclaba media onda con onda completa; el valor 2 V_m/\\pi corresponde a onda completa].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 13 (Valor promedio)"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Reactancia e impedancia (fasores)",
+      "titulo_en": "Reactance and Impedance (Phasors)",
+      "archivo": "reactancia_e_impedancia.dart",
+      "formulas": [
+        {
+          "nombre_es": "Reactancia inductiva",
+          "nombre_en": "Inductive reactance",
+          "latex": "X_L = 2\\pi f L = \\omega L",
+          "condiciones": "X_L: reactancia inductiva [\\Omega]; f: frecuencia [Hz]; \\omega: frecuencia angular [rad/s]; L: inductancia [H].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 14 (Elementos basicos en CA)"
+        },
+        {
+          "nombre_es": "Reactancia capacitiva",
+          "nombre_en": "Capacitive reactance",
+          "latex": "X_C = \\frac{1}{2\\pi f C} = \\frac{1}{\\omega C}",
+          "condiciones": "X_C: reactancia capacitiva [\\Omega]; f: frecuencia [Hz]; \\omega: frecuencia angular [rad/s]; C: capacitancia [F].",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 14"
+        },
+        {
+          "nombre_es": "Impedancia (forma rectangular)",
+          "nombre_en": "Impedance (rectangular form)",
+          "latex": "Z = R + jX",
+          "condiciones": "Z: impedancia compleja [\\Omega]; R: resistencia (parte real) [\\Omega]; X: reactancia neta X=X_L-X_C [\\Omega]; j: unidad imaginaria.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.5 (Impedancia y admitancia)"
+        },
+        {
+          "nombre_es": "Magnitud de la impedancia",
+          "nombre_en": "Impedance magnitude",
+          "latex": "|Z| = \\sqrt{R^{2} + X^{2}}",
+          "condiciones": "|Z|: magnitud de la impedancia [\\Omega]; R: resistencia [\\Omega]; X: reactancia neta [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.5"
+        },
+        {
+          "nombre_es": "Angulo de fase de la impedancia",
+          "nombre_en": "Impedance phase angle",
+          "latex": "\\theta = \\arctan\\!\\left(\\frac{X}{R}\\right)",
+          "condiciones": "\\theta: angulo de fase (voltaje respecto a corriente) [rad o grados]; X: reactancia neta [\\Omega]; R: resistencia [\\Omega].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.5"
+        },
+        {
+          "nombre_es": "Ley de Ohm fasorial",
+          "nombre_en": "Phasor Ohm's Law",
+          "latex": "\\mathbf{V} = \\mathbf{I}\\,Z",
+          "condiciones": "\\mathbf{V}: fasor de voltaje [V]; \\mathbf{I}: fasor de corriente [A]; Z: impedancia [\\Omega]. Relacion en el dominio de la frecuencia.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.5"
+        },
+        {
+          "nombre_es": "Admitancia",
+          "nombre_en": "Admittance",
+          "latex": "Y = \\frac{1}{Z} = G + jB",
+          "condiciones": "Y: admitancia [S]; Z: impedancia [\\Omega]; G: conductancia [S]; B: susceptancia [S].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 9.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Potencia en CA y factor de potencia",
+      "titulo_en": "AC Power and Power Factor",
+      "archivo": "potencia_ca_y_factor_de_potencia.dart",
+      "formulas": [
+        {
+          "nombre_es": "Potencia activa (real)",
+          "nombre_en": "Active (real) power",
+          "latex": "P = V_{rms}\\,I_{rms}\\,\\cos\\theta",
+          "condiciones": "P: potencia activa [W]; V_{rms}, I_{rms}: valores eficaces de voltaje [V] y corriente [A]; \\theta: angulo entre voltaje y corriente.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.5 (Potencia aparente y factor de potencia)"
+        },
+        {
+          "nombre_es": "Potencia reactiva",
+          "nombre_en": "Reactive power",
+          "latex": "Q = V_{rms}\\,I_{rms}\\,\\mathrm{sen}\\,\\theta",
+          "condiciones": "Q: potencia reactiva [VAR]; V_{rms}, I_{rms}: valores eficaces [V], [A]; \\theta: angulo de fase. sen = seno.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.6 (Potencia compleja)"
+        },
+        {
+          "nombre_es": "Potencia aparente",
+          "nombre_en": "Apparent power",
+          "latex": "S = V_{rms}\\,I_{rms}",
+          "condiciones": "S: potencia aparente [VA]; V_{rms}, I_{rms}: valores eficaces de voltaje [V] y corriente [A].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.5"
+        },
+        {
+          "nombre_es": "Triangulo de potencia",
+          "nombre_en": "Power triangle",
+          "latex": "S = \\sqrt{P^{2} + Q^{2}}",
+          "condiciones": "S: potencia aparente [VA]; P: potencia activa [W]; Q: potencia reactiva [VAR].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.6"
+        },
+        {
+          "nombre_es": "Potencia compleja",
+          "nombre_en": "Complex power",
+          "latex": "\\mathbf{S} = P + jQ",
+          "condiciones": "\\mathbf{S}: potencia compleja [VA]; P: potencia activa (parte real) [W]; Q: potencia reactiva (parte imaginaria) [VAR]; j: unidad imaginaria.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.6"
+        },
+        {
+          "nombre_es": "Factor de potencia",
+          "nombre_en": "Power factor",
+          "latex": "\\mathrm{fp} = \\cos\\theta = \\frac{P}{S}",
+          "condiciones": "fp: factor de potencia (adimensional, 0 a 1); \\theta: angulo de fase; P: potencia activa [W]; S: potencia aparente [VA]. En atraso (inductivo) o adelanto (capacitivo).",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 11.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Resonancia en circuitos RLC",
+      "titulo_en": "Resonance in RLC Circuits",
+      "archivo": "resonancia_en_circuitos_rlc.dart",
+      "formulas": [
+        {
+          "nombre_es": "Frecuencia de resonancia",
+          "nombre_en": "Resonant frequency",
+          "latex": "f_0 = \\frac{1}{2\\pi\\sqrt{L\\,C}}",
+          "condiciones": "f_0: frecuencia de resonancia [Hz]; L: inductancia [H]; C: capacitancia [F].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.5 (Resonancia en serie)"
+        },
+        {
+          "nombre_es": "Frecuencia angular de resonancia",
+          "nombre_en": "Resonant angular frequency",
+          "latex": "\\omega_0 = \\frac{1}{\\sqrt{L\\,C}}",
+          "condiciones": "\\omega_0: frecuencia angular de resonancia [rad/s]; L: inductancia [H]; C: capacitancia [F].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.5"
+        },
+        {
+          "nombre_es": "Condicion de resonancia",
+          "nombre_en": "Resonance condition",
+          "latex": "X_L = X_C",
+          "condiciones": "En resonancia la reactancia inductiva X_L [\\Omega] iguala a la capacitiva X_C [\\Omega]; la reactancia neta es cero y la impedancia es puramente resistiva.",
+          "referencia": "Boylestad, Introductory Circuit Analysis, 13a ed., cap. 20 (Resonancia)"
+        },
+        {
+          "nombre_es": "Factor de calidad (RLC serie)",
+          "nombre_en": "Quality factor (series RLC)",
+          "latex": "Q = \\frac{1}{R}\\sqrt{\\frac{L}{C}}",
+          "condiciones": "Q: factor de calidad (adimensional); R: resistencia [\\Omega]; L: inductancia [H]; C: capacitancia [F]. Circuito RLC serie.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.5"
+        },
+        {
+          "nombre_es": "Factor de calidad (forma alterna)",
+          "nombre_en": "Quality factor (alternate form)",
+          "latex": "Q = \\frac{\\omega_0 L}{R}",
+          "condiciones": "Q: factor de calidad; \\omega_0: frecuencia angular de resonancia [rad/s]; L: inductancia [H]; R: resistencia [\\Omega]. Equivale a Q=\\omega_0/BW_{rad}.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.5"
+        },
+        {
+          "nombre_es": "Ancho de banda",
+          "nombre_en": "Bandwidth",
+          "latex": "BW = \\frac{f_0}{Q} = \\frac{R}{2\\pi L}",
+          "condiciones": "BW: ancho de banda [Hz]; f_0: frecuencia de resonancia [Hz]; Q: factor de calidad; R: resistencia [\\Omega]; L: inductancia [H]. En rad/s: BW=\\omega_0/Q=R/L.",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.5 (Ancho de banda de media potencia)"
+        },
+        {
+          "nombre_es": "Factor de calidad (RLC paralelo)",
+          "nombre_en": "Quality factor (parallel RLC)",
+          "latex": "Q = R\\sqrt{\\frac{C}{L}}",
+          "condiciones": "Q: factor de calidad del circuito RLC paralelo; R: resistencia en paralelo [\\Omega]; C: capacitancia [F]; L: inductancia [H].",
+          "referencia": "Sadiku, Fundamentals of Electric Circuits, 6a ed., sec. 14.6 (Resonancia en paralelo)"
+        }
+      ]
+    }
+  ],
+  "referencias": [
+    "Sadiku, M. N. O. & Alexander, C. K. — Fundamentals of Electric Circuits, 6a ed. (McGraw-Hill): caps. 2 (Ohm, serie/paralelo, divisores), 3 (nodos y mallas), 4 (Thevenin, Norton, transformacion de fuentes, maxima transferencia), 6 (capacitores e inductores), 7 (transitorios RC/RL de primer orden), 9 (fasores, impedancia), 11 (potencia en CA, RMS, factor de potencia), 14 (resonancia RLC)",
+    "Boylestad, R. L. — Introductory Circuit Analysis, 13a ed. (Pearson): caps. 4 (Ohm/potencia/energia), 5-6 (serie/paralelo), 9 (teoremas de red y maxima transferencia), 10-11 (transitorios de capacitores e inductores), 13-14 (formas de onda senoidales, reactancia), 20 (resonancia)",
+    "Nilsson, J. W. & Riedel, S. A. — Electric Circuits, 10a ed. (Pearson): caps. 1 (potencia), 3-4 (divisores, analisis nodal, teoremas, maxima transferencia), 6 (capacitancia e inductancia)",
+    "Irwin, J. D. & Nelms, R. M. — Basic Engineering Circuit Analysis, 11a ed. (Wiley): cap. 3 (analisis nodal y de mallas, forma matricial)",
+    "https://www.allaboutcircuits.com/textbook/alternating-current/chpt-6/q-and-bandwidth-resonant-circuit/ (verificacion Q y ancho de banda en resonancia)",
+    "https://electricalacademia.com/basic-electrical/maximum-power-transfer-theorem/ (verificacion Pmax=Vth^2/(4 Rth) y eficiencia 50%)"
+  ]
+}
