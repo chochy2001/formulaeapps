@@ -1,38 +1,15 @@
-name: Deploy Web (landing + Pro)
+name: Build Web Release Candidate
 
-# Builds immutable release candidates from the exact origin/main SHA and, when
-# the two production secrets are set, deploys them to Hostinger over FTPS with a
-# rollback reference and a post-deploy smoke check.
-#
-# Safety gates (this replaces the earlier unguarded FTP path that #55 disabled):
-#   - exact-main SHA preflight (a candidate must equal current origin/main).
-#   - build gates: landing lint+test+build, Pro web build + AdMob-free guard.
-#   - deploy runs in the protected "production" GitHub Environment (secret scope
-#     + deployment record); add required reviewers/wait-timer there for a manual
-#     gate if desired.
-#   - FTPS is forced (control + data channel encrypted) and the certificate is
-#     verified, so credentials and data are never sent in the clear.
-#   - NO "mirror --delete": stable build filenames are overwritten in place, so a
-#     wrong path can never wipe the live site (worst case: extra files, which are
-#     recoverable). "cd app" is guarded by "set cmd:fail-exit yes".
-#   - The FTP password is written to a mode-600 .netrc in a temp HOME, never in
-#     process args, and removed on exit.
-#   - Post-deploy smoke check verifies both sites serve a valid landing and app.
-#   - Rollback: the two immutable candidate artifacts are retained 14 days;
-#     re-run this workflow at the previous good SHA (Run workflow -> that ref) to
-#     restore, since uploads overwrite by identical filename.
+# This workflow intentionally has no production deploy job. Runs 29265090762
+# and 29267520787 both failed before upload and exposed missing release gates or
+# runner/configuration blockers. Re-enable deployment only through a separate,
+# reviewed promotion workflow with executable staging, smoke, and rollback.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'landing/**'
-      - 'pro/**'
-      - '.github/workflows/deploy-web.yml'
   workflow_dispatch:
 
 concurrency:
-  group: formulae-web-deploy
+  group: formulae-web-release-candidate
   cancel-in-progress: false
 
 permissions:
@@ -67,7 +44,7 @@ jobs:
             exit 1
           fi
           echo "release_sha=$candidate" >> "$GITHUB_OUTPUT"
-          echo "::notice::Release candidate $candidate verified against origin/main."
+          echo "::notice::Production deployment is intentionally disabled; this run only builds immutable candidates."
 
   build-landing:
     name: Build landing
@@ -147,82 +124,3 @@ jobs:
           path: pro/build/web
           retention-days: 14
           if-no-files-found: error
-
-  deploy:
-    name: Deploy to production (FTPS)
-    needs: [preflight, build-landing, build-pro-web]
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
-    environment:
-      name: production
-      url: https://app.formulaeapps.com
-    env:
-      FTP_HOST: '31.170.161.105'
-      FTP_USER: 'u226095507.formulaeapps.com'
-    steps:
-      - name: Download landing candidate
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: landing-${{ needs.preflight.outputs.release_sha }}
-          path: landing-dist
-      - name: Download Pro web candidate
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-        with:
-          name: pro-web-${{ needs.preflight.outputs.release_sha }}
-          path: pro-web
-      - name: Ensure lftp is available
-        run: |
-          command -v lftp >/dev/null 2>&1 || {
-            sudo apt-get update -qq && sudo apt-get install -y lftp
-          }
-      - name: Record current live version (rollback reference)
-        run: |
-          set -euo pipefail
-          echo "Deploying release_sha=${{ needs.preflight.outputs.release_sha }}"
-          echo "Current live landing/app response (for the record):"
-          curl -fsS -m 20 -o /dev/null -w 'landing %{http_code} last-modified=%header{last-modified}\n' https://formulaeapps.com/ || true
-          curl -fsS -m 20 -o /dev/null -w 'app %{http_code} last-modified=%header{last-modified}\n' https://app.formulaeapps.com/ || true
-          echo "Rollback: re-run this workflow at the previous good SHA (candidates retained 14 days)."
-      - name: Upload over FTPS
-        env:
-          FTP_PW: ${{ secrets.FTP_PASSWORD }}
-        run: |
-          set -euo pipefail
-          if [ -z "${FTP_PW:-}" ]; then
-            echo "::error::Missing repository secret FTP_PASSWORD"
-            exit 1
-          fi
-          NETRC_DIR="$(mktemp -d)"
-          trap 'rm -rf "$NETRC_DIR"' EXIT
-          umask 077
-          printf 'machine %s login %s password %s\n' "$FTP_HOST" "$FTP_USER" "$FTP_PW" > "$NETRC_DIR/.netrc"
-          chmod 600 "$NETRC_DIR/.netrc"
-
-          # Force FTPS (encrypt control + data) and verify the server certificate
-          # is signed by a trusted CA. check-hostname is off because we connect by
-          # IP, which never matches a certificate name; the CA-chain check still
-          # rejects self-signed or untrusted certs (real MITM protection). If you
-          # switch FTP_HOST to the Hostinger FTPS hostname, set check-hostname true.
-          COMMON="set cmd:fail-exit yes; set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate true; set ssl:check-hostname false; set net:max-retries 2; set net:timeout 25"
-
-          echo "Uploading landing to public_html (chroot root)"
-          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; mirror --reverse --parallel=4 --verbose ./landing-dist/ ./ ; bye"
-
-          echo "Uploading Pro web to public_html/app"
-          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; cd app; mirror --reverse --parallel=4 --verbose ./pro-web/ ./ ; bye"
-
-          echo "Upload complete."
-      - name: Smoke test (both sites serve a valid page)
-        run: |
-          set -euo pipefail
-          fail=0
-          lc="$(curl -fsS -m 25 -o /tmp/landing.html -w '%{http_code}' https://formulaeapps.com/ || echo 000)"
-          if [ "$lc" != "200" ]; then echo "::error::landing returned HTTP $lc"; fail=1; fi
-          grep -qi 'formulae' /tmp/landing.html || { echo "::error::landing HTML missing expected content"; fail=1; }
-          ac="$(curl -fsS -m 25 -o /tmp/app.html -w '%{http_code}' https://app.formulaeapps.com/ || echo 000)"
-          if [ "$ac" != "200" ]; then echo "::error::app returned HTTP $ac"; fail=1; fi
-          grep -q 'flutter_bootstrap.js' /tmp/app.html || { echo "::error::app HTML missing flutter_bootstrap.js"; fail=1; }
-          if [ "$fail" != "0" ]; then
-            echo "::error::Smoke check failed. The site was not wiped (no delete was used); investigate the build or FTP path, then re-run at the last good SHA to roll back."
-            exit 1
-          fi
-          echo "Smoke check passed: landing and app both serve a valid page."
