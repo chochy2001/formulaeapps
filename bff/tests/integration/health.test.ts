@@ -34,5 +34,6 @@ describe('integration: GET /health', () => {
     expect(doc.paths['/auth/token']).toBeDefined();
     expect(doc.paths['/openai/chat']).toBeDefined();
     expect(doc.paths['/iap/validate']).toBeDefined();
+    expect(doc.paths['/entitlement']).toBeDefined();
   });
 });

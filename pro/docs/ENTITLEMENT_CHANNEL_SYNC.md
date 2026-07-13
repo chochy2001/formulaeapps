@@ -26,14 +26,15 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 - `lib/chat_gpt/iap_validation_service.dart` — optional BFF receipt validation behind `ENABLE_BFF_IAP_VALIDATION` (default **off**).
 - `InAppPurchaseManager` calls the service after store purchase/restore when the flag is on; **does not** change local gating yet (no account binding).
 - Tests: `test/iap_validation_service_test.dart`.
+- **BFF WP5 step 1 (2026-07-13):** `bun:sqlite` `mobile_entitlements` store + grant on successful `POST /iap/validate` + `GET /entitlement` (`scope: "mobile"` only). Keyed by interim JWT `sub` until accounts land. Contract bump `1.0.0` → `1.1.0`.
 
 ## Next implementation steps (ordered)
 
 | Step | Repo | Work |
 |------|------|------|
-| 1 | BFF | Add `mobile_entitlements` migration + grant helper on successful `/iap/validate` (scope=`mobile`). |
+| 1 | BFF | ✅ `mobile_entitlements` store + grant on `/iap/validate` + `GET /entitlement` (this slice). |
 | 2 | BFF | User auth routes (email/OAuth) — extend beyond device JWT. |
-| 3 | Pro FE | `EntitlementService` → `GET /auth/entitlement` (new BFF route) after login. |
+| 3 | Pro FE | `EntitlementService` → `GET /entitlement` after login. |
 | 4 | Pro FE | Paywall: check entitlement before IAP charge (mirror IngeTracker `entitlement_channel.dart`). |
 | 5 | Fleet | OpenAPI entitlement contract shared with IngeTracker (`sources`, `scope`, `since`). |
 | 6 | Product | Decide if web Polar is in scope; if yes, add Polar handler + webhook before marketing web Pro. |

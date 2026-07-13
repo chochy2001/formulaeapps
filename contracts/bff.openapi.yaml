@@ -269,6 +269,41 @@ components:
         - transaction_id
         - receipt_data
         - subscription
+    EntitlementResponse:
+      type: object
+      properties:
+        scope:
+          type: string
+          enum:
+            - mobile
+          description: IAP grants are mobile-only; never web/Polar from this path.
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/EntitlementSource"
+      required:
+        - scope
+        - sources
+    EntitlementSource:
+      type: object
+      properties:
+        payment_source:
+          type: string
+          enum:
+            - app_store
+            - play_store
+          example: app_store
+        product_id:
+          type: string
+          example: com.capdesis.formulae.pro_monthly
+        granted_at:
+          type: string
+          format: date-time
+          example: 2026-07-13T20:00:00.000Z
+      required:
+        - payment_source
+        - product_id
+        - granted_at
   parameters: {}
 paths:
   /health:
@@ -441,6 +476,27 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "503":
           description: IAP validation not configured on this BFF instance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /entitlement:
+    get:
+      tags:
+        - entitlement
+      summary: List mobile entitlements for the current JWT subject
+      description: Returns channel-scoped mobile entitlements persisted after successful POST /iap/validate. Keyed by interim JWT sub until user accounts land. Never returns Polar/web scope from this store.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Mobile entitlements for the subject
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EntitlementResponse"
+        "401":
+          description: Unauthorized
           content:
             application/json:
               schema:

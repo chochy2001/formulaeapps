@@ -24,6 +24,8 @@ process.env['CORS_ALLOWED_ORIGINS'] =
   'https://app.formulaeapps.com,https://formulaeapps.com';
 process.env['LOG_LEVEL'] = 'error'; // quiet logs during tests
 process.env['BFF_VERSION'] = '0.0.0-test';
+// Ephemeral entitlements DB for tests (bun:sqlite); never touch a shared file.
+process.env['ENTITLEMENTS_DB_PATH'] = ':memory:';
 
 // Disable the in-process rate limiters for the shared-app integration suites
 // (every test hits the same 'unknown' IP bucket; a low default would cause

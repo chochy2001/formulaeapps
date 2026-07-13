@@ -8,6 +8,7 @@ import { healthRoute, healthHandler } from './routes/health';
 import { authTokenRoute, authTokenHandler } from './routes/auth';
 import { chatRoute, chatHandler } from './routes/chat';
 import { iapValidateRoute, iapValidateHandler } from './routes/iap';
+import { entitlementGetRoute, entitlementGetHandler } from './routes/entitlement';
 import { checkIapAvailability, formatAvailability } from './services/iap-availability';
 import { env } from './lib/env';
 
@@ -31,8 +32,10 @@ app.openapi(authTokenRoute, authTokenHandler as never);
 app.use('/openai/*', jwtAuthMiddleware);
 app.use('/openai/*', chatRateLimiter.middleware);
 app.use('/iap/*', jwtAuthMiddleware);
+app.use('/entitlement', jwtAuthMiddleware);
 app.openapi(chatRoute, chatHandler as never);
 app.openapi(iapValidateRoute, iapValidateHandler as never);
+app.openapi(entitlementGetRoute, entitlementGetHandler as never);
 
 // OpenAPI document endpoint — also used by export-openapi.ts script
 app.doc('/openapi.json', {

@@ -28,6 +28,7 @@ const INFRA_ROUTES = new Set<string>(['/health']);
 // in `audit/route-coverage-post.md` so the gate isn't quietly weakened.
 const INTENTIONAL_ORPHAN_ROUTES = new Set<string>([
   '/iap/validate', // pending product decision: wire FE IAP server-validation OR remove from contract
+  '/entitlement', // WP5 step 1 store+route; FE EntitlementService is step 3 (no consumer yet)
 ]);
 
 function fatal(msg: string): never {

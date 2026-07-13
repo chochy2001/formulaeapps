@@ -5,6 +5,10 @@ import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
 import { createAppleIapValidator } from '../services/apple-iap';
 import { createGoogleIapValidator } from '../services/google-iap';
 import { checkIapAvailability } from '../services/iap-availability';
+import {
+  grantMobileEntitlement,
+  paymentSourceFromPlatform,
+} from '../services/entitlements-store';
 import { issueToken, shouldRefresh } from '../lib/jwt';
 import { randomUUID } from 'node:crypto';
 
@@ -73,8 +77,22 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
 
   const result = await validator.validate(body);
 
-  // Rotate JWT if close to expiry.
   const claims = c.get('jwt_claims');
+
+  // WP5 step 1: persist mobile entitlement on successful IAP validation.
+  // Scope is hardcoded `mobile` — never Polar/web from this path.
+  // FE still gates calls with ENABLE_BFF_IAP_VALIDATION (default off).
+  // Subject is interim JWT `sub` until real user_id accounts land (step 2).
+  if (result.valid && claims?.sub) {
+    grantMobileEntitlement({
+      subject: claims.sub,
+      payment_source: paymentSourceFromPlatform(body.platform),
+      product_id: result.product_id,
+      raw_receipt_ref: result.transaction_id,
+    });
+  }
+
+  // Rotate JWT if close to expiry.
   if (claims && shouldRefresh(claims)) {
     const { token } = await issueToken({
       sub: claims.sub,
