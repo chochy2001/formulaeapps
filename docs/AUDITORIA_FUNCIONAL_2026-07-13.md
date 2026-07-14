@@ -4,9 +4,10 @@ Este documento es el estado verificable de la revisión integral realizada en
 la rama `agent/formulae-image-regeneration-20260713`, iniciada sobre la base
 local `be796b1` y actualizada tras un rebase controlado sobre
 `origin/main@c79e866`. Sustituye las afirmaciones no fechadas de "producción
-lista" en la documentación histórica. La integración produjo `5a2a1b6` y el
-candidato de seguridad posterior es `8d839b2`; sus quality gates completos
-pasaron con ese SHA. Nada de este documento autoriza despliegues,
+lista" en la documentación histórica. La integración produjo `5a2a1b6`, el
+candidato de seguridad `8d839b2` y el aislamiento de pruebas posterior
+`e9d8a13`; sus quality gates completos pasaron con el último SHA. Nada de este
+documento autoriza despliegues,
 publicaciones en tiendas, promociones de hosting ni merges a `main` sin
 revalidar el SHA remoto exacto.
 
@@ -33,19 +34,23 @@ revalidar el SHA remoto exacto.
 | PDF Pro | El flujo de Pro genera bytes localmente desde la pantalla, muestra vista previa web nativa y visor móvil. Los 378 IDs de botones PDF se resuelven en `widgetTable`. Favoritos y la exportación de tareas usan el mismo exportador multiplataforma; Tareas usa `pw.MultiPage` para no truncar listas largas y su regresión cubre 180 tareas en 320, 600, 900 y 1440 px. En Linux guarda el PDF en Descargas o Documentos, sin invocar el share sheet no implementado. |
 | PDF Community | `Ver PDF` y `Descargar/Imprimir/Compartir PDF` generan una ficha de estudio local con `pdf`, validan su firma `%PDF-`, la muestran con `SfPdfViewer.memory` y la exportan mediante adaptadores condicionales de plataforma. No hacen fetch de la URL heredada. La ficha declara que es local y remite a la lección; no se presenta como el PDF histórico recuperado. |
 | Ejecución móvil y AdMob | El Debug del simulador iOS expande el ID oficial de prueba, instala y arranca sin `GADInvalidInitializationException`. Android Debug generó el APK, lo instaló y sobrevivió a un reinicio cálido en API 36.1 sin crash; su manifest fusionado contiene el ID oficial de prueba. Guardias de Xcode y Gradle rechazan Release sin un ID de aplicación real no-test; los IDs de release no están en el checkout. Las capturas de Home muestran un placeholder de imagen, consistente con el bloqueo externo de 176 URLs públicas 404. |
-| BFF | El candidato integrado eleva el contrato a `2.0.0`: register/login rechazan `client_id` público, emiten `sub=user:<user_id>` y el lector de entitlement excluye filas de sujeto ligadas a otro usuario. La antigua ayuda de vínculo dispositivo→cuenta se eliminó; sólo un grant IAP validado puede escribir `user_id` con JWT de cuenta y la flag activa. Además, una validación IAP no devuelve éxito hasta persistir su grant; los errores son `E_IAP_MISSING_SUBJECT` o `E_ENTITLEMENT_PERSISTENCE`. Sobre `8d839b2`, el suite completo pasó con 172 pruebas y 478 expectativas. Los validadores reales y la autoridad de entitlement siguen sin estar listos para producción. |
+| BFF | El candidato integrado eleva el contrato a `2.0.0`: register/login rechazan `client_id` público, emiten `sub=user:<user_id>` y el lector de entitlement excluye filas de sujeto ligadas a otro usuario. La antigua ayuda de vínculo dispositivo→cuenta se eliminó; sólo un grant IAP validado puede escribir `user_id` con JWT de cuenta y la flag activa. Además, una validación IAP no devuelve éxito hasta persistir su grant; los errores son `E_IAP_MISSING_SUBJECT` o `E_ENTITLEMENT_PERSISTENCE`. El primer preflight detectó que mocks globales podían contaminar validadores IAP entre archivos; `e9d8a13` los reemplaza por inyección aislada. Sobre ese SHA, el suite completo pasó con 173 pruebas y 481 expectativas. Los validadores reales y la autoridad de entitlement siguen sin estar listos para producción. |
 | Rutas BFF | Tras el rebase, `bash scripts/route-coverage.sh` pasó con consumidores para `/auth/token`, `/auth/register`, `/auth/login`, `/openai/chat`, `/iap/validate` y `/entitlement`; no hay rutas huérfanas ni llamadas muertas. Se repite como parte del gate del SHA final. |
 
 ## Validaciones ejecutadas
 
 Los comandos siguientes se ejecutaron durante la auditoría base, salvo cuando
-se indica que dependen de un operador o de infraestructura externa. El cierre
-local del candidato `8d839b2` repitió `make verify-all` con resultado correcto:
-contrato/paridad, `bun audit`, suite BFF (172/0, 478 expectativas), análisis y
+se indica que dependen de un operador o de infraestructura externa. El primer
+preflight GitHub de `5c65bc0` falló 170/2 por contaminación entre mocks IAP;
+`e9d8a13` la elimina mediante inyección de dependencias por router. El cierre
+local de ese candidato repitió `make verify-all` con resultado correcto:
+contrato/paridad, `bun audit`, suite BFF (173/0, 481 expectativas), análisis y
 pruebas Flutter, landing, infraestructura y tracker. Además pasaron `cd bff &&
-bun run build`, `gitleaks protect --staged --redact` y una revisión visual del
-build web de Pro en 320, 768 y escritorio, sin errores/advertencias de consola.
-Esto es evidencia de candidato local, no de staging ni producción.
+bun run build`, `gitleaks protect --staged --redact`, 10 repeticiones
+aleatorizadas de los flujos IAP (130/130) y una revisión visual del build web
+de Pro en 320, 768 y escritorio, sin errores/advertencias de consola. Falta
+comprobar el siguiente preflight de GitHub antes del merge. Esto es evidencia
+de candidato local, no de staging ni producción.
 
 ```bash
 cd bff && bun install --frozen-lockfile && bun run typecheck && bun test

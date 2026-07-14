@@ -173,19 +173,22 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P1
 - Area: Git e integración
 - Responsable: Codex
-- Proximo paso: Publicar `8d839b2` y sus commits ancestrales mediante una PR
+- Proximo paso: Publicar `e9d8a13` y sus commits ancestrales mediante una PR
   normal contra `main`; volver a comprobar el SHA remoto inmediatamente antes
   del merge.
 - Criterio de cierre: El cambio existe sobre el SHA objetivo, sin conflictos y
   con quality gates repetidos desde ese estado.
 - Evidencia: La rama se rebasó de forma controlada sobre
   `origin/main@c79e866c2ac9f55cd0231abffa69f17d716607fa`; después se creó el
-  candidato de seguridad `8d839b2`. `git fetch origin --prune` confirmó
-  `origin/main` en el mismo SHA y una divergencia `0 4`. `make verify-all`
-  pasó desde ese candidato; incluye contrato/paridad, 172 pruebas BFF (478
-  expectativas), análisis y pruebas Flutter, landing, infraestructura y
-  tickets. `bun run build` del BFF y `gitleaks protect --staged --redact`
-  también pasaron.
+  candidato de seguridad `8d839b2`; el commit de aislamiento BFF `e9d8a13`
+  lo sucede. `git fetch origin --prune` confirmó `origin/main` en el mismo
+  SHA y una divergencia `0 6`. `make verify-all` pasó desde `e9d8a13`; incluye
+  contrato/paridad, 173 pruebas BFF (481 expectativas), análisis y pruebas
+  Flutter, landing, infraestructura y tickets. `bun run build` del BFF y
+  `gitleaks protect --staged --redact` también pasaron. El preflight anterior
+  del padre `5c65bc0` detectó dos tests IAP contaminados por mocks globales;
+  `e9d8a13` los reemplaza por inyección aislada y el siguiente preflight debe
+  verificarse antes del merge.
 - Bloqueo: Ninguno local. La publicación/merge se ejecuta como paso operativo
   separado; no implica autorización ni evidencia de producción.
 
@@ -410,13 +413,15 @@ este tablero refleja ese estado y no lo sustituye.
 - Criterio de cierre: El candidato integrado no comparte mocks entre archivos,
   pasa sus pruebas BFF de forma reproducible y no incorpora el vínculo inseguro
   de `FML-117`.
-- Evidencia: Sobre `8d839b2`, `make verify-all` terminó correctamente: BFF
-  `172 pass`, `0 fail`, `478 expect()` en 30 archivos. La ejecución vuelve a
-  generar y verifica el contrato `2.0.0` y ambos clientes Dart, sin cambios
-  fuera del índice. Las regresiones cubren el rechazo de `client_id` público,
-  aislamiento de filas de entitlement por `user_id` y el fallo cerrado de
-  persistencia IAP; el antecedente de contaminación por `mock.module` no se
-  reprodujo.
+- Evidencia: El preflight de `5c65bc0` reveló dos falsos resultados `valid:true`
+  porque `mock.module` de otra prueba alteraba el singleton de IAP. `e9d8a13`
+  elimina los mocks globales, crea router/handler IAP con dependencias inyectadas
+  por prueba y añade una regresión que prueba que un 503 simulado no altera el
+  stub normal. Sobre ese SHA, `make verify-all` terminó correctamente: BFF
+  `173 pass`, `0 fail`, `481 expect()` en 30 archivos; además el grupo IAP se
+  repitió aleatoriamente 10 veces (130/130). La ejecución vuelve a generar y
+  verifica el contrato `2.0.0` y ambos clientes Dart, sin cambios fuera del
+  índice.
 - Bloqueo: Ninguno local.
 
 ### FML-119: Resiliencia y contratos seguros de OpenRouter e IAP
