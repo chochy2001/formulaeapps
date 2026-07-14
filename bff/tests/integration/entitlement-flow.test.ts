@@ -1,40 +1,35 @@
-import { describe, test, expect, mock, afterAll } from 'bun:test';
+import { describe, test, expect } from 'bun:test';
 import { createHmac, randomUUID } from 'node:crypto';
 import type { IapValidateRequest, IapValidateResponse } from '../../src/schemas/iap';
+import { createBffApp } from '../../src/index';
+import { createIapValidateHandler } from '../../src/routes/iap';
 
 /**
  * Integration: successful IAP validate persists mobile entitlement;
  * GET /entitlement reflects it; Polar/web scope is never written.
  */
-mock.module('../../src/services/iap-availability', () => ({
-  checkIapAvailability: async (): Promise<{ available: true }> => ({ available: true }),
-  formatAvailability: (): string => 'ok',
-}));
-
-mock.module('../../src/services/apple-iap', () => ({
-  createAppleIapValidator: async () => ({
-    validate: async (req: IapValidateRequest): Promise<IapValidateResponse> => ({
-      valid: true,
-      product_id: req.product_id,
-      transaction_id: req.transaction_id,
-      environment: 'sandbox',
-      expires_at: '2026-12-01T00:00:00.000Z',
+const app = createBffApp({
+  iapValidateHandler: createIapValidateHandler({
+    checkIapAvailability: async (): Promise<{ available: true }> => ({ available: true }),
+    createAppleIapValidator: async () => ({
+      validate: async (req: IapValidateRequest): Promise<IapValidateResponse> => ({
+        valid: true,
+        product_id: req.product_id,
+        transaction_id: req.transaction_id,
+        environment: 'sandbox',
+        expires_at: '2026-12-01T00:00:00.000Z',
+      }),
+    }),
+    createGoogleIapValidator: async () => ({
+      validate: async (req: IapValidateRequest): Promise<IapValidateResponse> => ({
+        valid: true,
+        product_id: req.product_id,
+        transaction_id: req.transaction_id,
+        environment: 'sandbox',
+      }),
     }),
   }),
-}));
-
-mock.module('../../src/services/google-iap', () => ({
-  createGoogleIapValidator: async () => ({
-    validate: async (req: IapValidateRequest): Promise<IapValidateResponse> => ({
-      valid: true,
-      product_id: req.product_id,
-      transaction_id: req.transaction_id,
-      environment: 'sandbox',
-    }),
-  }),
-}));
-
-const { app } = await import('../../src/index');
+});
 
 function makeProof(clientId: string, buildNonce: string): string {
   return createHmac('sha256', process.env['JWT_SHARED_SECRET']!)
@@ -62,10 +57,6 @@ async function issueTestToken(): Promise<string> {
 }
 
 describe('integration: mobile entitlements persistence (WP5)', () => {
-  afterAll(() => {
-    mock.restore();
-  });
-
   test('valid IAP validate persists mobile row; GET /entitlement returns it', async () => {
     const token = await issueTestToken();
 
