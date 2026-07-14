@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constantes/constantes_codigo.dart';
@@ -35,7 +35,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
         Visibility(
           visible: visible ?? true,
           child: IconButton(
-            icon: Icon(
+            icon: FaIcon(
               FontAwesomeIcons.houseChimneyCrack,
               color: color ?? Colors.white,
               size: 20.0,

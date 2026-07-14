@@ -49,7 +49,7 @@ void main() {
     expect(find.text('detail route'), findsOneWidget);
     expect(navigatorKey.currentState!.canPop(), isTrue);
 
-    await tester.tap(find.byIcon(FontAwesomeIcons.houseChimneyCrack));
+    await tester.tap(find.byIcon(FontAwesomeIcons.houseChimneyCrack.data));
     await tester.pumpAndSettle();
 
     expect(find.text('root route'), findsOneWidget);

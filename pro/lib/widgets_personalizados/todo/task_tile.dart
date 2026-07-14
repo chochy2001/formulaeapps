@@ -19,29 +19,32 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      //todo checar que onda con el longPress
-      onLongPress: () {
-        longPressCallback();
-      },
-      title: Text(
-        taskTitle,
-        style: GoogleFonts.roboto(
-          decoration: isChecked ? TextDecoration.lineThrough : null,
-          color: kColorBlanco,
-          fontSize: 20,
-          fontWeight: FontWeight.normal,
+    return Material(
+      type: MaterialType.transparency,
+      child: ListTile(
+        //todo checar que onda con el longPress
+        onLongPress: () {
+          longPressCallback();
+        },
+        title: Text(
+          taskTitle,
+          style: GoogleFonts.roboto(
+            decoration: isChecked ? TextDecoration.lineThrough : null,
+            color: kColorBlanco,
+            fontSize: 20,
+            fontWeight: FontWeight.normal,
+          ),
         ),
-      ),
-      trailing: Checkbox(
-        checkColor: kColorBlanco,
-        side: const BorderSide(
-          width: 2,
-          color: kColorBlanco,
+        trailing: Checkbox(
+          checkColor: kColorBlanco,
+          side: const BorderSide(
+            width: 2,
+            color: kColorBlanco,
+          ),
+          activeColor: kColorBotones,
+          value: isChecked,
+          onChanged: checkboxCallback,
         ),
-        activeColor: kColorBotones,
-        value: isChecked,
-        onChanged: checkboxCallback,
       ),
     );
   }

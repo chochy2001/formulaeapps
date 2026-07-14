@@ -43,7 +43,7 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
             child: IconButton(
-              icon: const Icon(
+              icon: const FaIcon(
                 FontAwesomeIcons.magnifyingGlass,
                 color: kColorBlanco,
                 size: 22.0,
