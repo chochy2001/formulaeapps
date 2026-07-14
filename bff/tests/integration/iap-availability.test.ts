@@ -99,6 +99,36 @@ describe('integration: POST /iap/validate — placeholder-secret 503 envelope', 
     overrides.apple = { available: true };
   });
 
+  test('returns 503 instead of a simulated valid=false response when a deployed provider is unconfigured', async () => {
+    // This is the result emitted by the real availability policy for a
+    // staging/production process with no Apple credentials. The route must
+    // stop before it can select the development-only stub validator.
+    overrides.apple = { available: false, reason: 'apple_not_configured' };
+    const token = await issueTestToken();
+    const res = await app.request('/iap/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        platform: 'apple',
+        product_id: 'com.capdesis.formulae.pro_monthly',
+        transaction_id: '1000000123456789',
+        receipt_data: 'base64==',
+        subscription: true,
+      }),
+    });
+
+    expect(res.status).toBe(503);
+    const body = (await res.json()) as {
+      error: { code: string; message: string };
+      valid?: boolean;
+    };
+    expect(body.error.code).toBe('E_IAP_VALIDATION_UNAVAILABLE');
+    expect(body.error.message).toContain('apple_not_configured');
+    expect(body.valid).toBeUndefined();
+
+    overrides.apple = { available: true };
+  });
+
   test('google: returns 503 + iap_validation_unavailable envelope when secrets are placeholders', async () => {
     overrides.google = { available: false, reason: 'google_sa_missing_client_email' };
     const token = await issueTestToken();

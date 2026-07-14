@@ -21,8 +21,10 @@ producto, pero se construyen y validan por separado.
 
 ## Estado auditado
 
-- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 125
-  pruebas en 20 archivos.
+- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 138
+  pruebas. IAP responde `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo
+  mientras no haya validadores Apple/Google reales; no es un entitlement listo
+  para producción.
 - Cobertura de rutas: `bash scripts/route-coverage.sh` pasa; el consumidor Pro
   de `/iap/validate` es opt-in y está apagado por defecto. No equivale a un
   entitlement de compras listo para producción.
@@ -35,10 +37,11 @@ producto, pero se construyen y validan por separado.
   los PDFs heredados al host. Esa ficha no pretende ser una recuperación del
   contenido histórico; restaurar ese material exacto requiere una fuente
   aprobada.
-- Community: las cargas de imagen remotas tienen fallback localizado. El
-  análisis estricto con `--fatal-infos` terminó sin diagnósticos el 2026-07-13;
-  el host público de las imágenes sigue bloqueado aparte por sus 176 respuestas
-  404.
+- Community: las cargas de imagen remotas tienen fallback localizado. Sus
+  controles revisados se localizan, el contraste de navegación es AA y la
+  cancelación de suscripción no inicializa URLs inválidas. El análisis estricto
+  terminó sin diagnósticos y la suite local pasó 100 pruebas; el host público de
+  las imágenes sigue bloqueado aparte por sus 176 respuestas 404.
 
 ## Desarrollo local
 
@@ -74,6 +77,7 @@ cd landing
 bun run lint
 bun run test
 bun run build
+bun run check:localized-marketing
 bun run check:formulae-images
 
 # Pro
@@ -84,7 +88,7 @@ flutter test --no-pub --reporter compact \
   --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
   --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
 
-# Community, igual que CI
+# Community, con los mismos dart-defines de prueba y ejecución serial local
 cd ../community
 flutter analyze --no-pub --fatal-infos --fatal-warnings
 FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
@@ -96,10 +100,20 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
 Desde la raíz, `make flutter-test` ejecuta las dos suites Flutter y los
 clientes BFF con los `dart-defines` de prueba no secretos.
 
-`make verify-all` incluye Flutter, Compose y los demás gates. Actualmente no
-puede terminar en un checkout sin el `.env` raíz y un BFF local para el smoke
-de infraestructura. Usa las validaciones individuales anteriores para separar
-fallas de código de requisitos de runtime.
+`make verify-all` incluye typecheck BFF, lint de landing, el validador de
+marketing localizado, Flutter, Compose y los demás gates. El lint de Compose
+funciona en un checkout limpio mediante `docker-compose.local.yml` explícito y no requiere un
+daemon Docker. Para probar activamente CORS, inicia un BFF local en el puerto
+3001; si no está disponible, el validador lo registra como evidencia omitida,
+no como una falla de código. Usa las validaciones individuales anteriores para
+separar fallas de código de requisitos de runtime.
+
+Para una demo local de chat, usa `make compose-up` (se enlaza sólo a
+`127.0.0.1:3001`) y proporciona ambos defines a Pro o Community:
+`FORMULAE_BFF_BASE_URL=http://localhost:3001` y
+`FORMULAE_BFF_CHAT_URL=http://localhost:3001/openai/chat`. El secreto de firma
+JWT del BFF debe ser un valor independiente generado por el operador; no hay
+uno versionado ni un `.env` local implícito para Docker.
 
 ## Contrato de imágenes
 

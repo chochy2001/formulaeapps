@@ -1,9 +1,9 @@
-# Handoff para Codex: imagenes + contenido de Formulae
+# Archivo histórico: imágenes + contenido de Formulae
 
-Documento self-contained para que Codex (que SI puede generar imagenes y
-programar) continue el trabajo sin alucinar. Leelo completo antes de empezar.
-Junto con `pro/docs/CATALOGO_PROMPTS_IMAGENES.md` es todo el contexto que
-necesitas.
+> Este archivo no es un handoff ni una instrucción operativa. Se conserva como
+> registro histórico y puede contener prioridades, comandos, estados y reglas
+> superadas. Para trabajo actual usa `../../docs/TICKETS.md`,
+> `../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`, el código y las pruebas.
 
 ## Actualización verificada, 2026-07-13
 
@@ -18,17 +18,20 @@ Esta sección prevalece sobre los pendientes históricos de este archivo.
   y las reglas de compatibilidad mediante el proceso autorizado, después repetir
   el smoke remoto.
 - Community recibió fallback localizado para todas sus cargas remotas de
-  imagen, pruebas responsive estrictas y manejo seguro del PDF remoto. El host
-  de PDFs heredados continúa indisponible: 257 IDs activos resuelven 438 URLs
-  únicas, sin un PDF recuperable en la auditoría. Se necesita restaurar
-  contenido fuente o migrar Community al generador local de Pro.
+  imagen, pruebas responsive estrictas y una ficha PDF local funcional para
+  ver/exportar. El host de PDFs heredados continúa indisponible: 257 IDs
+  activos resuelven 438 URLs únicas, sin un PDF recuperable en la auditoría.
+  Restaurar el contenido histórico exacto requiere una fuente aprobada; no hay
+  una migración pendiente para que Community pueda generar su PDF local.
 - Pro genera PDFs localmente, incluidos Favoritos y Tareas. En Linux guarda la
   exportación en Descargas o Documentos sin usar el share sheet no implementado.
 - El detalle, los comandos y los bloqueos están en
   `../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`. No declarar una liberación lista
   sin repetir sus gates sobre el SHA exacto de promoción.
 
-## 1. Contexto del workspace y el repo (NO alucinar rutas)
+## Registro histórico no operativo (no seguir como instrucciones actuales)
+
+## 1. Contexto del workspace y el repo
 
 - El workspace `/Users/jorge/Documents/Apps` es una carpeta PLANA que contiene
   repos independientes. NUNCA hagas `git init` ni `git submodule` en `/Apps`.

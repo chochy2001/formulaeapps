@@ -1,7 +1,14 @@
 # Deploy Notes — 2026-04-30
 
+> **Archivo histórico/no operativo — 2026-07-13.** No ejecutes ni reutilices
+> comandos, rutas, credenciales de ejemplo o afirmaciones de este documento para
+> una promoción actual. Consulta [`docs/DEPLOY_CI_WEB.md`](docs/DEPLOY_CI_WEB.md),
+> [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+> y [`docs/TICKETS.md`](docs/TICKETS.md); las credenciales y el procedimiento
+> protegido viven fuera del repositorio.
+
 Notas operativas del deploy FTP a Hostinger ejecutado esta sesión.
-**Para retomar mañana, lee este archivo primero.**
+Este texto se conserva sólo como contexto de la sesión histórica.
 
 ---
 

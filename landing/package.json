@@ -18,6 +18,7 @@
     "check:formulae-images": "bun scripts/validate-formulae-images.mjs --scope=all",
     "check:formulae-images:canonical": "bun scripts/validate-formulae-images.mjs --scope=canonical",
     "check:formulae-images:remote": "bun scripts/verify-formulae-image-urls.mjs --scope=all",
+    "check:localized-marketing": "node scripts/validate-localized-marketing.mjs",
     "lint": "astro check && prettier --check .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"

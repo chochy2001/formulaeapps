@@ -1,13 +1,13 @@
 # FormulaeApps BFF
 
-Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), validates Apple/Google IAP receipts server-side, and issues short-lived session JWTs to the FE clients.
+Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), exposes un endpoint de validación IAP Apple/Google que falla cerrado hasta contar con validadores reales, and issues short-lived session JWTs to the FE clients.
 
 > **Estado verificado localmente, 2026-07-13**: `bun run typecheck` y
-> `bun test` pasan con 125 pruebas en 20 archivos. CI protege `bff-test`,
-> `verify-parity` y `verify-routes`. El estado de despliegue histórico no se
-> revalidó en esta auditoría. `/iap/validate` tiene un consumidor Pro opt-in,
-> apagado por defecto; no debe describirse como entitlement productivo hasta
-> completar los validadores y la sincronización de cuentas.
+> `bun test` pasan con 138 pruebas en el checkout auditado. IAP falla cerrado
+> con `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo mientras los
+> validadores reales no estén listos. La configuración actual de GitHub no
+> exige checks verdes en `main`; por ello estos resultados no son una
+> declaración de CI, despliegue o entitlement productivo.
 
 ## Stack
 
@@ -49,13 +49,25 @@ bun run typecheck                 # tsc --noEmit, no source emit
 # 6. Regenerate OpenAPI artifact at ../contracts/bff.openapi.yaml
 bun run build:openapi
 
-# 7. Local Docker run (uses ../docker-compose.override.yml; binds host port 3001 → container 3000)
-cd .. && docker compose up -d bff
+# 7. Local Docker run (explicit overlay; binds only 127.0.0.1:3001 → container 3000)
+# bff/.env is for direct `bun run dev`; export values for Docker interpolation.
+export JWT_SHARED_SECRET="local-dev-secret-replace-this-please-32chars-min"
+export JWT_SIGNING_SECRET="$(openssl rand -hex 32)"
+export OPENROUTER_API_KEY="your-local-key" # optional unless exercising chat
+cd .. && docker compose -f docker-compose.yml -f docker-compose.local.yml up -d bff
 curl http://localhost:3001/health
-docker compose down
+docker compose -f docker-compose.yml -f docker-compose.local.yml down
 ```
 
-For local docker compose testing, see the monorepo root `docker-compose.yml` and the current root `README.md`. A root `.env` and a running local BFF are required for the infrastructure smoke; never commit those secrets.
+For local Docker Compose testing, see the monorepo root `docker-compose.yml`,
+explicit `docker-compose.local.yml`, and the current root `README.md`. The local
+overlay resets the VPS-only root `.env` and IAP secret mounts, binds the BFF to
+loopback only, and never supplies a deterministic signing secret. It also
+passes both `FORMULAE_BFF_BASE_URL=http://localhost:3001` and
+`FORMULAE_BFF_CHAT_URL=http://localhost:3001/openai/chat` to a local Pro web
+build. IAP remains on its explicit development stub (never a production
+validator). A running local BFF on port 3001 is only needed
+to actively prove the CORS preflight; never commit real secrets.
 
 ## Source layout (current state)
 
@@ -105,19 +117,25 @@ bff/
 └── README.md                   # this file
 ```
 
-## Known size note
+## Nota de tamaño por verificar
 
-Current Docker image is **~341 MB** vs the 120 MB target in `research.md` § R11. Primary cause: the official `googleapis` npm package bundles many service modules. Optimization options for future work:
+El tamaño actual de la imagen no se midió en este checkout y no debe afirmarse
+como una métrica vigente. `googleapis` puede aportar un peso significativo por
+sus muchos módulos; opciones a evaluar con una medición reproducible son:
 
 - Replace `googleapis` with `googleapis-common-types` + targeted androidpublisher client (manual fetch + service-account JWT auth). Drops ~150 MB.
 - Use Bun-native bundler (`bun build src/index.ts --target bun --outfile dist/server`) to ship a single binary with tree-shaken dependencies. Drops ~50-100 MB more.
 - Switch base image to `oven/bun:1.3-distroless` (smaller).
 
-None are blocking — the container is functional and well within the workspace's VPS Contabo disk/memory budget.
+No dar por hecho que la imagen, sus permisos o el presupuesto del VPS están
+validados hasta construirla y probarla contra el entorno de promoción.
 
 ## Deployment
 
-Target host: **VPS Contabo** (resumed from pause). The existing `../docker-compose.yml:64` already declares `build: ./bff`, so once this directory is populated, `docker compose up -d bff` works.
+El host de despliegue y su estado actual no se verificaron en este checkout.
+`../docker-compose.yml` declara el servicio BFF, pero un despliegue también
+requiere secretos autorizados, persistencia para las bases SQLite y validación
+en el VPS. No ejecutar una promoción basándose sólo en este README.
 
 The current release controls and known runtime blockers are documented in [`../docs/DEPLOY_CI_WEB.md`](../docs/DEPLOY_CI_WEB.md) and [`../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
 
@@ -165,7 +183,7 @@ The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yam
   `api-ratelimit@file` edge middleware) caps `/auth/token` and `/openai/chat`
   per client IP; a tripped limit returns `429` + `rate_limited` with a
   `Retry-After` header.
-- Apple p8 / Google SA via compose secret file mounts at `/run/secrets/{apple_p8,google_sa}` (production) or `bff/secrets/` (development).
+- Apple p8 / Google SA via compose secret file mounts at `/run/secrets/{apple_p8,google_sa}` in production. The explicit local overlay mounts neither, so IAP stays fail-closed.
 - Placeholder secret values (e.g., `PLACEHOLDER_DEV_NOT_FOR_PROD`, empty string) are rejected at runtime in production mode.
 - CORS allowlist is exact-match; no wildcards in production.
 - Structured logs redact JWT contents, OpenAI key, IAP receipt bodies, and PII.
@@ -238,7 +256,7 @@ bun test tests/unit/      # unit only
 bun test tests/integration/  # integration only
 ```
 
-Coverage target: every route has at least one success-path and one primary-failure-path test. **Última medición local, 2026-07-13: 125 pruebas en 20 archivos pasan** con `bun test`.
+Coverage target: every route has at least one success-path and one primary-failure-path test. **Última ejecución local, 2026-07-13: 138 pruebas pasan** con `bun test`; no es una medición de cobertura ni una aprobación de producción.
 
 ## R12+R13 additions (2026-05-19)
 
@@ -250,7 +268,8 @@ bun run probe:allowlist
 
 Queries `https://openrouter.ai/api/v1/models` and exits non-zero if any model in `OPENROUTER_MODEL_ALLOWLIST` is missing from the live catalog. Caught two silent removals from OpenRouter during R11+R12 (`google/gemini-2.0-flash-exp`, `anthropic/claude-3.5-sonnet`).
 
-CI gate at `.github/workflows/probe-allowlist.yml` runs on push/PR to `src/lib/env.ts` or `scripts/probe-allowlist.ts`, plus monthly cron, plus `workflow_dispatch`. Bun pin `1.3.9`, GitHub-hosted `ubuntu-latest` (not self-hosted — see memory `feedback_runner_scope_capdesis`).
+Se ejecuta manualmente o desde un workflow que se configure y verifique de
+forma explícita. No asumir un gate existente sólo por este comando.
 
 ### `iap-availability` service + startup check
 
@@ -262,15 +281,19 @@ Startup emits one warn line per platform check:
 [iap] startup check: apple=ok|missing(<reason>) google=ok|missing(<reason>)
 ```
 
-Reason tokens: `apple_issuer_id_placeholder`, `apple_key_id_placeholder`, `apple_p8_file_missing`, `apple_p8_file_empty`, `apple_p8_file_not_pkcs8`, `google_sa_missing`, `google_sa_invalid_json`, `google_sa_missing_client_email`, `google_package_name_placeholder`. The integration test suite at `tests/integration/iap-availability.test.ts` covers the 503 path for both platforms.
+Reason tokens include `apple_not_configured`, `google_not_configured`, missing/
+placeholder secret reasons and `apple_validator_not_ready` /
+`google_validator_not_ready`. The integration test suite at
+`tests/integration/iap-availability.test.ts` covers the 503 path for both
+platforms; development alone retains the explicit `valid:false` stub.
 
 ### Historical production snapshot (2026-05-19)
 
 | Endpoint | Status |
 |---|---|
-| `https://api.formulaeapps.com/health` | 200 (Bun + Hono on Contabo `ancare`, image rebuilt from R13 source via rsync + `docker compose build bff`) |
-| `https://api.formulaeapps.com/auth/token` | Mints valid JWTs after HMAC `client_proof` verification |
-| `https://api.formulaeapps.com/openai/chat` | Real OpenRouter roundtrip (Gemini Flash Lite ~1.16 s; 6 models allowlisted) |
+| `https://api.formulaeapps.com/health` | Observed HTTP 200, but reports deployed contract 1.0.0; source/artifact provenance is unverified |
+| `https://api.formulaeapps.com/auth/token` | Route exists in the deployed 1.0.0 contract; live auth behavior was not reverified in this checkout |
+| `https://api.formulaeapps.com/openai/chat` | Route exists in the deployed 1.0.0 contract; do not claim a live provider roundtrip without a protected smoke |
 | `https://api.formulaeapps.com/iap/validate` | 503 + `E_IAP_VALIDATION_UNAVAILABLE` until real Apple/Google secrets dropped (T061) |
 | TLS | Let's Encrypt via Traefik DNS-01 (Cloudflare token) |
 | CORS | Exact-match `https://app.formulaeapps.com` + `https://formulaeapps.com` (no wildcards) |

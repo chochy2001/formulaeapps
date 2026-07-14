@@ -62,6 +62,9 @@ bun run check
 # Build para producción → dist/
 bun run build
 
+# Verifica que la salida ES/EN no reintroduzca visuales o rutas localizadas
+bun run check:localized-marketing
+
 # Previsualizar el build
 bun run preview
 
@@ -79,12 +82,9 @@ formulae-landing/
 │   ├── favicon.svg
 │   ├── manifest.webmanifest
 │   ├── robots.txt                   # Respaldo (el real es dinámico, ver más abajo)
-│   └── og/default.png               # 1200x630 — TODO: reemplazar con imagen real
+│   └── og/default.png               # 1200x630 generado desde plantilla neutral
 ├── src/
-│   ├── assets/images/               # Imágenes optimizadas por astro:assets
-│   │   ├── hero/                    # TODO: descargar de zyrosite y subir aquí
-│   │   ├── features/
-│   │   └── store-badges/
+│   ├── assets/images/               # Fuentes locales y capturas históricas no renderizadas
 │   ├── components/
 │   │   ├── seo/
 │   │   │   ├── SEO.astro            # Meta tags, OG, Twitter, hreflang, canonical
@@ -95,6 +95,8 @@ formulae-landing/
 │   │   │   └── LanguageSwitcher.astro
 │   │   ├── home/
 │   │   │   ├── Hero.astro
+│   │   │   ├── FormulaePreview.astro # Preview matemático neutral reutilizable
+│   │   │   ├── AppScreenshots.astro  # Galería de previews neutrales
 │   │   │   ├── Features.astro
 │   │   │   ├── FeatureCard.astro
 │   │   │   ├── AppComparison.astro
@@ -136,20 +138,14 @@ Todas las URLs y copy provienen del landing actual en producción **excepto las 
 - 🚫 **`formulaeweb.online`** queda fuera (dominio sin DNS).
 - 🚫 **APK directo desde `assets.zyrosite.com`** queda fuera (mala práctica + cambio de host).
 
-### Capturas de pantalla
+### Capturas y previews
 
-Ya descargadas en `src/assets/images/screenshots/screenshot-01.png` … `screenshot-10.png` (PNG 1215×2160 originales). Para usarlas en componentes:
-
-```astro
----
-import { Image } from 'astro:assets';
-import shot01 from '@/assets/images/screenshots/screenshot-01.png';
----
-
-<Image src={shot01} alt="Captura de Formulae mostrando el catálogo de fórmulas" />
-```
-
-`astro:assets` las optimiza automáticamente a WebP/AVIF en el build.
+Las capturas históricas de `src/assets/images/screenshots/` se conservan como
+material fuente, pero no se renderizan en la landing: incorporan cadenas de una
+sola lengua. `Hero.astro` y `AppScreenshots.astro` usan
+`FormulaePreview.astro`, un preview SVG de fórmulas y símbolos universales. De
+este modo ES y EN comparten el mismo recurso visual y el texto accesible vive
+en el diccionario de i18n.
 
 ### Imágenes OG
 
@@ -159,7 +155,8 @@ Generadas a `public/og/{default,pro,community}.png` (1200×630) desde plantillas
 bun run og
 ```
 
-Edita los `.svg` en cualquier editor vectorial y vuelve a correr el comando.
+Edita los `.svg` conservando la regla de no incluir prosa localizada y vuelve a
+correr el comando.
 
 ---
 
@@ -196,9 +193,9 @@ docker run --rm -p 8080:80 formulae-landing:latest
 # → http://localhost:8080
 ```
 
-El build hace dos stages:
+El build histórico hace dos stages:
 
-1. `node:20-alpine` → instala deps (con cache de capas), `astro build`.
+1. `oven/bun:1.3.9-alpine` → instala deps (con cache de capas), `astro build`.
 2. `nginx:1.27-alpine` → copia `dist/` a `/usr/share/nginx/html` y monta nuestro `nginx.conf`.
 
 Imagen final ~50-60 MB.
@@ -244,7 +241,9 @@ networks:
     external: true
 ```
 
-Luego: `docker compose pull && docker compose up -d`.
+Luego, para producción explícita: `docker compose -f docker-compose.yml pull`
+y `docker compose -f docker-compose.yml up -d`. No uses el overlay local en un
+host de producción.
 
 #### C) Build directo en el VPS
 
@@ -301,15 +300,16 @@ curl -X POST \
 
 ---
 
-## TODO antes del primer deploy
+## Estado previo a una promoción controlada
 
 - [x] Descargar capturas de Zyrosite → `src/assets/images/screenshots/`
 - [x] Generar imágenes OG (`public/og/{default,pro,community}.png`)
-- [x] Verificar que `bun run build` pasa (1.1 MB en `dist/`)
-- [ ] Insertar las capturas reales en `Hero.astro` y donde haga falta (ahora hay un placeholder con gradiente)
-- [ ] Generar `public/favicon.svg`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`
+- [x] Verificar que `bun run build` y `bun run check:localized-marketing` pasan localmente
+- [x] Sustituir las capturas públicas por previews neutrales reutilizables
+- [x] Generar `public/favicon.svg`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`
 - [ ] Verificar el número real de WhatsApp (`SOCIAL.whatsapp` actualmente apunta a `https://wa.me/5561869139` extraído del sitio actual — el formato parece incompleto)
 - [ ] Confirmar `STORES.pro.huawei` y `STORES.community.huawei` (URLs heredadas del sitio anterior)
 - [ ] Construir y probar el contenedor: `docker build -t formulae-landing . && docker run --rm -p 8080:80 formulae-landing`
-- [ ] Configurar Cloudflare DNS apuntando al VPS
+- [ ] Promover `dist/` y `public/imagenes/` por el procedimiento autorizado y
+      confirmar las 176 URLs con `bun run check:formulae-images:remote`
 - [ ] Si quieres analytics, añadir GA4 o Cloudflare Web Analytics en `BaseLayout.astro`

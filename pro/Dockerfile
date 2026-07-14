@@ -15,10 +15,11 @@ COPY . .
 
 ARG BASE_HREF=/
 ARG JWT_SHARED_SECRET
+ARG FORMULAE_BFF_BASE_URL=https://api.formulaeapps.com
 ARG FORMULAE_BFF_CHAT_URL=https://api.formulaeapps.com/openai/chat
 
-RUN if [ -z "${JWT_SHARED_SECRET}" ]; then \
-      echo "ERROR: JWT_SHARED_SECRET build arg is required."; \
+RUN if [ -z "${JWT_SHARED_SECRET}" ] || [ -z "${FORMULAE_BFF_BASE_URL}" ] || [ -z "${FORMULAE_BFF_CHAT_URL}" ]; then \
+      echo "ERROR: JWT_SHARED_SECRET, FORMULAE_BFF_BASE_URL, and FORMULAE_BFF_CHAT_URL build args are required."; \
       exit 1; \
     fi; \
     flutter build web \
@@ -27,6 +28,7 @@ RUN if [ -z "${JWT_SHARED_SECRET}" ]; then \
       --base-href "${BASE_HREF}" \
       --dart-define=FLAVOR=pro \
       --dart-define=JWT_SHARED_SECRET="${JWT_SHARED_SECRET}" \
+      --dart-define=FORMULAE_BFF_BASE_URL="${FORMULAE_BFF_BASE_URL}" \
       --dart-define=FORMULAE_BFF_CHAT_URL="${FORMULAE_BFF_CHAT_URL}" \
       --optimization-level=4 \
       --no-source-maps \

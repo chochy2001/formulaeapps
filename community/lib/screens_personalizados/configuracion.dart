@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'
+    show TargetPlatform, defaultTargetPlatform, kIsWeb, visibleForTesting;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,17 +8,45 @@ import '../constantes/export_constantes.dart';
 import '../l10n/l10n.dart';
 import '../main.dart';
 
+/// Returns the store help page only where an in-app purchase can exist.
+///
+/// Web, Windows, Linux and Fuchsia do not have a supported management page in
+/// this app, so they intentionally omit the action instead of attempting to
+/// launch an uninitialized URL.
+@visibleForTesting
+String? subscriptionManagementUrl({
+  required Locale locale,
+  required TargetPlatform platform,
+  required bool isWeb,
+}) {
+  if (isWeb) return null;
+
+  final language = locale.languageCode == 'es' ? 'es' : 'en';
+  switch (platform) {
+    case TargetPlatform.android:
+      return 'https://support.google.com/googleplay/answer/7018481?hl=$language';
+    case TargetPlatform.iOS:
+    case TargetPlatform.macOS:
+      return language == 'es'
+          ? 'https://support.apple.com/es-lamr/HT202039'
+          : 'https://support.apple.com/en-us/HT202039';
+    case TargetPlatform.fuchsia:
+    case TargetPlatform.linux:
+    case TargetPlatform.windows:
+      return null;
+  }
+}
+
 class Configuracion extends StatelessWidget {
   const Configuracion({super.key});
 
   @override
   Widget build(BuildContext context) {
-    late String url;
-    if (Platform.isAndroid) {
-      url = 'https://support.google.com/googleplay/answer/7018481?hl=ES';
-    } else if (Platform.isIOS || Platform.isMacOS) {
-      url = 'https://support.apple.com/es-lamr/HT202039';
-    }
+    final subscriptionUrl = subscriptionManagementUrl(
+      locale: Localizations.localeOf(context),
+      platform: defaultTargetPlatform,
+      isWeb: kIsWeb,
+    );
     return Scaffold(
       appBar: const AppBarHome(),
       body: ListView(
@@ -165,55 +195,59 @@ class Configuracion extends StatelessWidget {
                     AppLocalizations.of(context)!.terminosUso,
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.05,
-                            vertical: MediaQuery.of(context).size.height * 0.02,
-                          ),
-                          backgroundColor: kColorBotones,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          title: Text(
-                            AppLocalizations.of(context)!.cancelarSuscripciones,
-                            style: kTexto,
-                          ),
-                          content: Text(
-                            AppLocalizations.of(context)!.instrucciones,
-                            style: kTextoBotonesDelgado,
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text(
-                                AppLocalizations.of(context)!.visitarWeb,
-                                style: kTexto,
-                              ),
-                              onPressed: () {
-                                openURL(url);
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.cancelarSuscripciones,
-                    style: kTextoBotonesDelgado.copyWith(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.white
-                            : kColorFondo),
+                if (subscriptionUrl != null) ...[
+                  const SizedBox(
+                    height: kEspacioEntreBotones,
                   ),
-                ),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.05,
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
+                            ),
+                            backgroundColor: kColorBotones,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            title: Text(
+                              AppLocalizations.of(context)!
+                                  .cancelarSuscripciones,
+                              style: kTexto,
+                            ),
+                            content: Text(
+                              AppLocalizations.of(context)!.instrucciones,
+                              style: kTextoBotonesDelgado,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  AppLocalizations.of(context)!.visitarWeb,
+                                  style: kTexto,
+                                ),
+                                onPressed: () {
+                                  openURL(subscriptionUrl);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.cancelarSuscripciones,
+                      style: kTextoBotonesDelgado.copyWith(
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : kColorFondo),
+                    ),
+                  ),
+                ],
                 const SizedBox(
                   height: kEspacioEntreBotones,
                 ),

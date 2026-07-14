@@ -10,6 +10,7 @@ import 'package:universal_io/io.dart';
 
 import '../constantes/export_constantes.dart';
 import '../widgets_personalizados/textos_personalizados.dart';
+import '../widgets_personalizados/zoom_image_personalizado.dart';
 import 'entitlement_channel.dart';
 import 'entitlement_service.dart';
 import 'iap_validation_service.dart';
@@ -242,11 +243,10 @@ class InAppPurchaseManager extends ChangeNotifier {
                     ),
                     Row(
                       children: [
-                        const FadeInImage(
+                        const ImagenRemotaRobusta(
                           height: 50.0,
                           width: 50.0,
-                          placeholder: AssetImage(kUrlImagenGifCarga),
-                          image: NetworkImage(kUrlImagenFormulae),
+                          urlImagen: kUrlImagenFormulae,
                         ),
                         Expanded(
                           child: TextoEcuaciones(

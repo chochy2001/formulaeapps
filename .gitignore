@@ -15,6 +15,9 @@ Thumbs.db
 **/.env.production
 **/.env.*.local
 
+# BFF local SQLite state (accounts and entitlements)
+bff/.data/
+
 # === Astro · landing/ ===
 landing/node_modules/
 landing/dist/

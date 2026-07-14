@@ -20,17 +20,20 @@ este tablero refleja ese estado y no lo sustituye.
 
 | Estado | Tickets | Lectura rápida |
 | --- | ---: | --- |
-| `EN_CURSO` | 0 | No queda una corrección local prioritaria sin cerrar. |
-| `PENDIENTE` | 1 | Integración sobre el SHA actual de `origin/main`. |
-| `BLOQUEADO` | 1 | Publicación de imágenes en hosting. |
-| `HECHO` | 10 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad y rendimiento. |
+| `EN_CURSO` | 0 | No queda una corrección local prioritaria en ejecución. |
+| `PENDIENTE` | 2 | Integración sobre el SHA actual y aislamiento de pruebas entrantes. |
+| `BLOQUEADO` | 3 | Hosting, controles externos y decisión/validadores de entitlement. |
+| `HECHO` | 23 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada y fallback extensible. |
+| `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
 
-1. Revalidar/integrar sobre el SHA de promoción en `FML-107` con autorización
+1. Revalidar/integrar sobre el SHA de promoción en `FML-107` y `FML-118` con autorización
    explícita para crear el commit y resolver la integración.
-2. Reintentar `FML-101` únicamente cuando exista acceso de hosting autorizado;
-   no inventar evidencia de producción.
+2. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
+   antes de activar IAP remoto o cuentas; reintentar `FML-101` y `FML-116`
+   únicamente cuando exista acceso autorizado. No inventar evidencia de
+   producción ni de controles GitHub/VPS.
 
 ## Tickets
 
@@ -71,9 +74,10 @@ este tablero refleja ese estado y no lo sustituye.
   luego ejecutar `cd landing && bun run check:formulae-images:remote`.
 - Criterio de cierre: Las 176 URLs de `https://formulaeapps.com/imagenes/`
   responden HTTP 200, MIME de imagen y decodifican correctamente.
-- Evidencia: El smoke remoto del 2026-07-13 devolvió 404 para 176 de 176 URLs;
-  los assets fuente están presentes y validados localmente. La comprobación de
-  presencia no encontró variables FTP/Hostinger ni `.env` local.
+- Evidencia: El smoke remoto se repitió tras los gates finales y devolvió 404
+  `text/html` para 176 de 176 URLs; los assets fuente están presentes y
+  validados localmente. La comprobación de presencia no encontró variables
+  FTP/Hostinger ni `.env` local.
 - Bloqueo: `docs/DEPLOY_CI_WEB.md` exige entorno protegido, FTPS validado,
   snapshot y smoke con rollback; no existen credenciales ni promoción de
   hosting disponible en este checkout.
@@ -92,7 +96,7 @@ este tablero refleja ese estado y no lo sustituye.
   locales `%PDF-`; `ver_pdf.dart` los muestra con `SfPdfViewer.memory` y el
   exportador es condicional por plataforma. `community_pdf_document_test.dart`
   y `ver_pdf_local_action_test.dart` cubren generación, exportación y que no
-  exista fallback de red; la suite completa terminó con 95 pruebas.
+  exista fallback de red; la suite completa terminó con 100 pruebas.
 - Bloqueo: Ninguno para ver/exportar la ficha local. Recuperar el contenido
   histórico exacto requiere una fuente aprobada aparte.
 
@@ -109,7 +113,7 @@ este tablero refleja ese estado y no lo sustituye.
 - Evidencia: Se eliminaron `FlutterError.onError`, drains de `takeException`,
   `warnIfMissed:false` y `catch` vacíos de las cinco suites afectadas. El
   mapeador verifica 297 rutas no nativas y 259 widgets, y la suite completa
-  terminó con 95 pruebas.
+  terminó con 100 pruebas.
 - Bloqueo: Ninguno.
 
 ### FML-104: Navegación y responsive de Community
@@ -156,7 +160,7 @@ este tablero refleja ese estado y no lo sustituye.
 - Criterio de cierre: `flutter analyze --no-pub --fatal-infos --fatal-warnings`
   pasa sin un baseline tolerado.
 - Evidencia: El comando estricto terminó con `No issues found!`; además, la
-  suite completa de Community pasó 95 pruebas con los `dart-defines` de CI.
+  suite completa de Community pasó 100 pruebas con los `dart-defines` de CI.
   El baseline inicial de 587 diagnósticos `info` fue eliminado sin suprimir el
   gate.
 - Bloqueo: Ninguno.
@@ -171,9 +175,11 @@ este tablero refleja ese estado y no lo sustituye.
   revalidar contra `origin/main` antes de abrir una promoción.
 - Criterio de cierre: El cambio existe sobre el SHA objetivo, sin conflictos y
   con quality gates repetidos desde ese estado.
-- Evidencia: Tras `git fetch origin` el 2026-07-13, `HEAD=be796b1`,
-  `origin/main=d475fc8` y `HEAD...origin/main` indicó `0 11`; el árbol tiene
-  cambios locales sin commit. La medición se debe refrescar antes de integrar.
+- Evidencia: Tras `git fetch origin` el 2026-07-13,
+  `HEAD=73773595bf100c5a54aeddb7b9545d96a5a9ca20`,
+  `origin/main=c79e866c2ac9f55cd0231abffa69f17d716607fa` y
+  `HEAD...origin/main` indicó `2 15`; el árbol tiene cambios locales sin commit.
+  La medición se debe refrescar antes de integrar.
 - Bloqueo: No hay autorización para crear commit, rebase ni merge; hacerlo con
   un árbol local pendiente mezclaría cambios sin una revisión de integración.
 
@@ -241,3 +247,308 @@ este tablero refleja ese estado y no lo sustituye.
   útil y no se usa como métrica de experiencia inicial.
 - Bloqueo: Ninguno para la medición reproducible; un perfil de hardware físico
   requiere el dispositivo correspondiente.
+
+### FML-111: Marketing localizado sin visuales dependientes del idioma
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: Landing, i18n y SEO
+- Responsable: Codex
+- Proximo paso: Ejecutar `bun run check:localized-marketing` al modificar Hero,
+  galería, enlaces localizados, JSON-LD u OG.
+- Criterio de cierre: ES y EN muestran los mismos previews matemáticos sin copy
+  incrustado, las rutas localizadas existen y las capacidades comparadas son
+  verdaderas para ambas apps.
+- Evidencia: `FormulaePreview.astro` sustituyó las capturas localizadas del Hero
+  y la galería; `/en/support` se comprobó en el navegador local, EN no incrusta
+  el video español, JSON-LD/OG quedaron localizados o neutrales y la comparación
+  ya reconoce Tareas y PDF local de Community. Build y
+  `bun run check:localized-marketing` pasaron localmente.
+- Bloqueo: Ninguno para el checkout local.
+
+### FML-112: Fallback visible de diagramas Pro ante un host remoto caído
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: Pro, resiliencia de imágenes
+- Responsable: Codex
+- Proximo paso: Mantener `ImagenRemotaRobusta` en rutas nuevas que carguen
+  diagramas desde red y conservar la regresión de fallback.
+- Criterio de cierre: Un fallo HTTP/red no deja huecos silenciosos en los puntos
+  centrales de renderizado de diagramas Pro.
+- Evidencia: `constantes_imagenes.dart` usa `ImagenRemotaRobusta` en los dos
+  caminos que usaban `Image.network` sin `errorBuilder`; la prueba
+  `ver_imagen_fallback_test.dart` pasó 5/5 y el analizador estricto de Pro no
+  informó diagnósticos.
+- Bloqueo: El asset real de producción sigue sujeto a `FML-101`; el fallback
+  evita un estado roto, no sustituye publicar las 176 imágenes.
+
+### FML-113: Controles Community localizados y seguros entre plataformas
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: Community, i18n, accesibilidad y configuración
+- Responsable: Codex
+- Proximo paso: Mantener las claves ARB y las pruebas de URL/plataforma al
+  añadir controles nuevos o soporte de plataforma.
+- Criterio de cierre: No quedan controles españoles hardcodeados en el flujo
+  revisado, la navegación cumple contraste AA y cancelar suscripción no puede
+  lanzar `LateInitializationError` en plataformas sin URL nativa.
+- Evidencia: La auditoría de UI identificó texto hardcodeado en
+  `boton_pistas.dart`, `task_tile.dart` y `alerts_dialogs.dart`, título de app
+  incorrecto, contraste 2.90:1 y una URL `late` no inicializada fuera de móvil.
+  Las correcciones usan ARB, `#8A93C4` (4.84:1) y URL segura por plataforma;
+  análisis estricto pasó, pruebas focales 11/11 y suite completa 100/100.
+- Bloqueo: Community no declara targets Web/Windows/Linux; no se generaron sin
+  decisión de producto, pero las rutas de esos casos se cubren unitariamente.
+
+### FML-114: Gates y documentación coherentes con el estado verificable
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: Documentación, Make y calidad
+- Responsable: Codex
+- Proximo paso: Mantener los comandos de la auditoría ejecutables desde el
+  directorio indicado y actualizar los conteos de tickets al cambiar estados.
+- Criterio de cierre: `verify-all` incluye typecheck BFF y lint de landing, el
+  build valida marketing localizado, y los documentos no presentan handoff ni
+  CI/despliegues históricos como estado actual.
+- Evidencia: Make añade `bff-typecheck`, `landing-lint` y
+  `check:localized-marketing`; el validador admite y contabiliza `CANCELADO`.
+  Se actualizan auditoría, README de landing/BFF/Community y el archivo
+  histórico de Pro con fuentes de verdad actuales.
+- Bloqueo: Ninguno para la documentación y los gates locales.
+
+### FML-115: Disponibilidad IAP BFF fail-closed
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: BFF, compras y CI
+- Responsable: Codex
+- Proximo paso: Mantener la disponibilidad en `false` hasta que validadores
+  reales y pruebas sandbox se entreguen en la misma revisión.
+- Criterio de cierre: Staging/producción no comunican validación disponible sin
+  un proveedor real y dev conserva solamente el stub explícito de pruebas.
+- Evidencia: `iap-availability.ts` devuelve `*_not_configured` o
+  `*_validator_not_ready` fuera de desarrollo; `/iap/validate` responde
+  `503 E_IAP_VALIDATION_UNAVAILABLE` sin campo `valid`. Typecheck pasó y la
+  suite BFF alcanzó 138/138 al integrar las regresiones.
+- Bloqueo: Los validadores Apple/Google y compras sandbox siguen en `FML-117`;
+  el aislamiento de pruebas que vive en `origin/main` se sigue en `FML-118`.
+
+### FML-116: Controles externos de promoción, GitHub y persistencia BFF
+
+- Estado: BLOQUEADO
+- Prioridad: P0
+- Area: GitHub, VPS y despliegue
+- Responsable: Operador de infraestructura, con apoyo de Codex
+- Proximo paso: Configurar required checks y permisos mínimos en `main`,
+  provisionar secretos/volumen persistente BFF y validar el candidate exacto
+  en el VPS antes de promocionarlo.
+- Criterio de cierre: `main` no acepta cambios con preflight rojo, el BFF posee
+  almacenamiento persistente escribible y la promoción usa secretos y entorno
+  protegidos sin incorporarlos al repositorio.
+- Evidencia: GitHub permitió merges con `JWT light preflight` rojo porque no hay
+  required checks ni revisión obligatoria. Los rulesets activos sólo cubren
+  borrado/non-fast-forward; el token por defecto de Actions conserva `write` y
+  puede aprobar revisiones, no existe entorno `production` protegido y secret
+  scanning, push protection y Dependabot están desactivados. `FML-121` ya
+  declara volumen/ruta localmente, pero falta verificar su uso real, backup y
+  permisos en el VPS; las 176 imágenes también siguen 404 en el hosting público.
+  Al cierre, `api.formulaeapps.com` respondió health 200 pero sigue exponiendo
+  contrato OpenAPI 1.0.0 con sólo cuatro rutas, no el contrato más reciente del
+  checkout.
+- Bloqueo: Requiere autoridad/configuración de GitHub, secretos y acceso al VPS
+  o hosting. No se deben inventar archivos `.env`, credenciales ni cambiar
+  controles remotos sin autorización explícita.
+
+### FML-117: Autoridad de entitlement y vínculo cuenta-dispositivo
+
+- Estado: BLOQUEADO
+- Prioridad: P0
+- Area: Producto, BFF y compras
+- Responsable: Producto e infraestructura, con apoyo de Codex
+- Proximo paso: Elegir la autoridad de entitlement para online/offline,
+  timeout, `503` y restauraciones; después implementar validadores sandbox,
+  persistencia y prueba de posesión antes de activar cuentas o validación BFF.
+- Criterio de cierre: Las compras sólo se conceden según una política aprobada,
+  validadores reales, persistencia durable y una cuenta/dispositivo que pruebe
+  posesión, sin poder reclamar `client_id` ajeno.
+- Evidencia: Pro actualmente concede por StoreKit/Billing local y la llamada BFF
+  es opt-in/telemetría. El código entrante de `origin/main` vincula entitlements
+  a un `client_id` UUID sin `client_proof`; forzar BFF ahora bloquearía compras
+  legítimas porque sus validadores deliberadamente no están listos.
+- Bloqueo: Requiere decisión de producto, credenciales/sandbox Apple y Google,
+  y diseño de identidad/persistencia. No es seguro escoger la política ni
+  activar una compra remota por inferencia.
+
+### FML-118: Integrar y aislar pruebas BFF de la rama entrante
+
+- Estado: PENDIENTE
+- Prioridad: P0
+- Area: Git, BFF y pruebas
+- Responsable: Codex
+- Proximo paso: Con autorización para integrar el SHA objetivo, reproducir y
+  aislar los mocks globales de IAP que aparecen en los tests de entitlements de
+  `origin/main`, luego repetir el suite completo y el contrato generado.
+- Criterio de cierre: El candidato integrado no comparte mocks entre archivos,
+  pasa sus pruebas BFF de forma reproducible y no incorpora el vínculo inseguro
+  de `FML-117`.
+- Evidencia: `origin/main@c79e866` contiene tests de entitlements que usan
+  `mock.module` global y un run remoto terminó 154 pass/2 fail; el checkout
+  actual está 15 commits detrás y no contiene todavía ese lote para corregirlo
+  sin una integración controlada.
+- Bloqueo: La integración requiere autorización de commit/rebase/merge y debe
+  resolver primero la seguridad de cuentas de `FML-117`.
+
+### FML-119: Resiliencia y contratos seguros de OpenRouter e IAP
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: BFF, seguridad y rate limiting
+- Responsable: Codex
+- Proximo paso: Mantener el timeout, el contrato de error y el límite IAP al
+  modificar proveedores o rutas protegidas.
+- Criterio de cierre: Chat no filtra mensajes/tipos de proveedor, termina por
+  timeout controlado y el 429 anunciado para IAP tiene límite real y probado.
+- Evidencia: `openrouter-proxy.ts` usa `AbortController` de 20 s y errores
+  normalizados; `error.ts` sólo confía en `BffError` y las regresiones cubren
+  timeout, abort y secretos de proveedor. `/iap/validate` limita a 10 por
+  ventana, con key hash de IP+sujeto, `429 E_RATE_LIMITED_IAP` y `Retry-After`.
+  `bun run typecheck`, `check:persistence-config` y BFF tests pasaron 138/138.
+- Bloqueo: Ninguno conocido para la corrección local.
+
+### FML-120: Eliminar fallos silenciosos de cargas remotas restantes en Pro
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: Pro, resiliencia de imágenes
+- Responsable: Codex
+- Proximo paso: Usar `ImagenRemotaRobusta` para cualquier consumidor remoto
+  nuevo y mantener las pruebas de consumidores/fallback compacto.
+- Criterio de cierre: Ningún logo, diálogo, tarea o pantalla de chat revisado
+  mantiene spinner o hueco indefinido cuando el host público devuelve 404.
+- Evidencia: Se reemplazaron los ocho `FadeInImage`/`NetworkImage` restantes
+  en información, configuración, chat, compra, diálogos, ejercicios y tareas.
+  `rg` no encuentra cargas directas en `pro/lib`; quedan sólo el cargador
+  `CachedNetworkImage` con timeout/fallback. Análisis estricto pasó y la suite
+  Pro con defines de CI pasó 88/88, incluidas 23 pruebas focales.
+- Bloqueo: La corrección visual local no publica los assets; la disponibilidad
+  de las imágenes reales sigue en `FML-101`.
+
+### FML-121: Persistencia y permisos del runtime BFF
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: BFF, Docker y datos
+- Responsable: Codex
+- Proximo paso: Al integrar los stores entrantes, conservar los paths y el
+  guardia `bun run check:persistence-config`; validar backup y recreate en el
+  VPS antes de declarar una operación productiva.
+- Criterio de cierre: Compose declara un volumen estable para ambas rutas,
+  Docker prepara `/app/.data` antes de bajar privilegios y un guardia estático
+  detecta drift de paths/permisos sin secretos ni daemon.
+- Evidencia: Docker crea/chown/chmod `/app/.data`, Compose monta
+  `formulaeapps_bff_data`, `.env.example` declara ambos paths y
+  `check:persistence-config`, typecheck y BFF tests pasaron (138/138). El
+  overlay local explícito ahora resetea realmente `.env`, secretos, red y
+  etiquetas de producción, se enlaza sólo a loopback y no contiene firmante JWT
+  determinista; su lint y el preflight CORS contra un BFF nativo temporal en
+  `localhost:3001` pasaron.
+- Bloqueo: La prueba real de volumen, permisos y backup sigue siendo parte de
+  la promoción externa `FML-116`; no hay daemon Docker ni VPS autorizado.
+
+### FML-122: Remediar advisory transitivo de BFF
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: BFF, dependencias y seguridad
+- Responsable: Codex
+- Proximo paso: Ejecutar `bun run audit` al actualizar el lockfile o SDKs de
+  proveedor y no aceptar una excepción que esconda un advisory alto.
+- Criterio de cierre: El advisory HIGH de `form-data` se resuelve con una
+  versión compatible, lockfile congelado, auditoría limpia y tests del BFF.
+- Evidencia: `@apple/app-store-server-library` traía `form-data@4.0.5` de forma
+  transitiva; `overrides.form-data=4.0.6` conserva el rango `^4.0.4` del SDK.
+  `bun pm why form-data` muestra sólo 4.0.6, `bun run audit` no reporta
+  vulnerabilidades y typecheck/tests BFF pasaron 138/138.
+- Bloqueo: Ninguno para el checkout local.
+
+### FML-123: Aislar Compose local y cablear el BFF de desarrollo
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: Docker, Pro y seguridad local
+- Responsable: Codex
+- Proximo paso: Mantener la overlay local nombrada explícitamente y exigir un
+  firmante generado por el operador antes de iniciar flujos autenticados.
+- Criterio de cierre: Un comando estándar de producción no aplica ajustes de
+  desarrollo; el BFF local sólo escucha en loopback y Pro recibe base/auth/chat
+  coherentes contra `localhost:3001`.
+- Evidencia: `docker-compose.override.yml` se sustituyó por
+  `docker-compose.local.yml`; Make y la documentación usan `-f` explícitos. El
+  guardia `infra-validate` verifica overlay, red, secretos, puerto loopback y
+  args de Pro. `docker compose -f docker-compose.yml -f
+  docker-compose.local.yml --profile full config` confirmó base
+  `http://localhost:3001` y chat `/openai/chat`; `make compose-lint` pasó.
+- Bloqueo: El arranque real de contenedor sigue requiriendo daemon Docker y un
+  `JWT_SIGNING_SECRET` independiente del operador; la evidencia de VPS queda
+  en `FML-116`.
+
+### FML-124: Hacer confiable el validador de infraestructura
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: Infraestructura y calidad
+- Responsable: Codex
+- Proximo paso: Conservar el escaneo del workspace excluyendo worktrees y
+  repositorios protegidos; ajustar la lista de hosts sólo con rutas verificables.
+- Criterio de cierre: El gate no da PASS falso por ruta de workspace errónea,
+  HTTP 4xx/null, TLS inválido o CORS de API fallido.
+- Evidencia: `infra-validate.ts` ahora ubica el workspace real, excluye
+  `worktrees`, `copilot-worktrees` y `No_tocar_repos_clientes`, agrupa clones
+  de FormulaeApps y exige endpoints 2xx/3xx, TLS válido y CORS de API. El gate
+  local pasó con 38 routers y cero colisiones Formulae; el gate de producción
+  comprobó los cuatro hosts y falló correctamente sólo por el `.env` protegido
+  ausente.
+- Bloqueo: El Compose base y la promoción/VPS siguen dependiendo de secretos y
+  acceso autorizados en `FML-116`.
+
+### FML-125: Distinguir documentación histórica de evidencia vigente
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: Documentación
+- Responsable: Codex
+- Proximo paso: Actualizar README, auditoría y tickets con evidencia nueva; no
+  reutilizar snapshots históricos para decisiones operativas.
+- Criterio de cierre: Ningún `MASTER_SPEC` o documento histórico puede
+  presentarse como autorización de release frente a la auditoría actual.
+- Evidencia: `landing/MASTER_SPEC.md`, `pro/MASTER_SPEC.md`,
+  `community/MASTER_SPEC.md`, `ARCHITECTURE.md` y
+  `DEPLOY-NOTES-2026-04-30.md` se marcaron como históricos/no operativos y
+  enlazan a README, auditoría, despliegue protegido y tracker vigentes.
+  `pro/docs/BACKLOG_REDISENO_PRO.md` también se archivó; la visión Super Plus
+  ahora declara que IAP remoto no es una autoridad productiva; `flavors.md`
+  exige los defines release; `GRAFICOS_PENDIENTES.md` hereda el contrato visual
+  sin idioma. Los README generados de los clientes eliminan enlaces `doc/*.md`
+  inexistentes e instrucciones Dart inválidas de forma determinista en
+  `scripts/generate-bff-types.sh`; sus 6+6 pruebas y el generador pasaron.
+- Bloqueo: Ninguno para la corrección documental local.
+
+### FML-126: Hacer extensible la localización de fallback y metadatos Community
+
+- Estado: HECHO
+- Prioridad: P1
+- Area: Pro, Community e i18n
+- Responsable: Codex
+- Proximo paso: Añadir cualquier copy nuevo a ARB y conservar la identidad
+  Community si se habilita Windows con una decisión de producto.
+- Criterio de cierre: El fallback de imagen de Pro no elige idioma mediante un
+  condicional ES/EN y Community no reutiliza identidad/ruta Windows de Pro.
+- Evidencia: `imagenNoDisponible` se incorporó a ARB y localizaciones generadas
+  de Pro, con pruebas ES/EN. `community/pubspec.yaml` usa Formulae Community,
+  `CAPDESIS.FormulaeCommunity` y ruta de logo relativa. Análisis estricto y
+  pruebas focales de ambas apps pasaron.
+- Bloqueo: Community sigue sin target Windows por decisión de producto; no se
+  generó plataforma nueva.

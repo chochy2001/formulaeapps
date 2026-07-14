@@ -8,6 +8,8 @@ Flutter y Dart 3 para móvil y escritorio, y cuenta con una compilación web.
 - Fórmulas, calculadoras, vídeos y diagramas pedagógicos.
 - Imágenes canónicas compartidas entre idiomas. El texto explicativo se
   localiza fuera del bitmap.
+- Todas las cargas remotas de diagramas y marca usan fallback localizado,
+  timeout y tamaño compacto seguro; un 404 no deja spinner ni hueco silencioso.
 - Favoritos, carpetas y tareas con generación local de PDF a partir del
   contenido de la pantalla.
 - Vista previa nativa en web y visor de bytes PDF en móvil.
@@ -16,6 +18,8 @@ Flutter y Dart 3 para móvil y escritorio, y cuenta con una compilación web.
   no implementado.
 - El PDF de Tareas usa páginas múltiples y tiene regresión cubierta con 180
   tareas en 320, 600, 900 y 1440 px.
+- La ayuda para cancelar suscripción se localiza por tienda en móvil y usa la
+  página de soporte Formulae en web/escritorio, sin URLs sin inicializar.
 
 El resultado de compartir puede depender de la plataforma y de que el usuario
 complete el share sheet. No se debe confundir ese resultado con la generación

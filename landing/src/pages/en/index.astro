@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/home/Hero.astro';
-import VideoDemo from '../../components/home/VideoDemo.astro';
 import Features from '../../components/home/Features.astro';
 import Subjects from '../../components/home/Subjects.astro';
 import AppScreenshots from '../../components/home/AppScreenshots.astro';
@@ -17,10 +16,8 @@ const t = useTranslations('en');
   description={t('hero.subtitle')}
   pathname="/"
   schema="both"
-  includeVideo
 >
   <Hero />
-  <VideoDemo />
   <Features />
   <AppScreenshots />
   <AppComparison />

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../constantes/export_constantes.dart';
 
 class VerPistas extends StatelessWidget {
@@ -41,7 +42,10 @@ class BotonVerPistas extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child: const Text("Pista", style: kTextoBotones),
+      child: Text(
+        AppLocalizations.of(context)!.pista,
+        style: kTextoBotones,
+      ),
       onPressed: () {
         showModalBottomSheet(
             backgroundColor: kColorBotones,
@@ -66,7 +70,10 @@ class BotonVerRespuesta extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child: const Text("Respuesta", style: kTextoBotones),
+      child: Text(
+        AppLocalizations.of(context)!.respuesta,
+        style: kTextoBotones,
+      ),
       onPressed: () {
         showModalBottomSheet(
             backgroundColor: kColorBotones,

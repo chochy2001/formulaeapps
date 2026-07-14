@@ -32,6 +32,18 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/package.json ./package.json
 
+# Account and entitlement stores use SQLite. Seed the mount point in the image
+# before dropping privileges so Docker can populate a new named volume with a
+# directory writable only by the runtime `bun` user (uid/gid 1000).
+RUN mkdir -p /app/.data && \
+    chown 1000:1000 /app/.data && \
+    chmod 0700 /app/.data
+
+# Safe defaults for `docker run`; docker-compose.yml mounts this directory as
+# the persistent bff_data named volume and pins the same paths explicitly.
+ENV ACCOUNTS_DB_PATH=/app/.data/accounts.sqlite
+ENV ENTITLEMENTS_DB_PATH=/app/.data/mobile_entitlements.sqlite
+
 EXPOSE 3000
 
 # Drop privileges — Bun official image has a `bun` user (uid 1000) pre-created

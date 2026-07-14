@@ -10,17 +10,24 @@ function makeFetch(responseInit: { ok: boolean; status: number; body: unknown; h
 }
 
 describe('openrouter-proxy: error paths', () => {
-  test('network error maps to upstream_error E_OPENROUTER_FETCH', async () => {
+  test('network error maps to a client-safe upstream error', async () => {
     const fetchImpl: FetchLike = async () => {
       throw new Error('connect ECONNREFUSED 127.0.0.1:443');
     };
 
-    await expect(
-      proxyChat({ message: 'hi' }, { fetchImpl }),
-    ).rejects.toMatchObject({
+    let thrown: unknown;
+    try {
+      await proxyChat({ message: 'hi' }, { fetchImpl });
+    } catch (error) {
+      thrown = error;
+    }
+
+    expect(thrown).toMatchObject({
       kind: 'upstream_error',
       code: 'E_OPENROUTER_FETCH',
+      message: 'The requested service is temporarily unavailable. Please try again.',
     });
+    expect((thrown as Error).message).not.toContain('ECONNREFUSED');
   });
 
   test('network error with non-Error cause', async () => {
@@ -51,34 +58,54 @@ describe('openrouter-proxy: error paths', () => {
     });
   });
 
-  test('OpenRouter error field in body maps to E_OPENROUTER_<type>', async () => {
+  test('provider error body never exposes its message or type', async () => {
     const fetchImpl = makeFetch({
       ok: true,
       status: 200,
       body: { error: { message: 'Rate limit exceeded', type: 'rate_limited' } },
     });
 
-    await expect(
-      proxyChat({ message: 'x' }, { fetchImpl }),
-    ).rejects.toMatchObject({
+    await expect(proxyChat({ message: 'x' }, { fetchImpl })).rejects.toMatchObject({
       kind: 'upstream_error',
-      code: 'E_OPENROUTER_rate_limited',
+      code: 'E_OPENROUTER_PROVIDER_ERROR',
+      message: 'The requested service is temporarily unavailable. Please try again.',
     });
   });
 
-  test('OpenRouter error without type falls back to E_OPENROUTER_ERROR', async () => {
+  test('provider error without a type uses the same normalized code', async () => {
     const fetchImpl = makeFetch({
       ok: true,
       status: 200,
       body: { error: { message: 'Internal error' } },
     });
 
+    await expect(proxyChat({ message: 'x' }, { fetchImpl })).rejects.toMatchObject({
+      kind: 'upstream_error',
+      code: 'E_OPENROUTER_PROVIDER_ERROR',
+    });
+  });
+
+  test('passes an AbortSignal to fetch and maps an elapsed timeout safely', async () => {
+    let signal: AbortSignal | null | undefined;
+    const fetchImpl: FetchLike = (_url, init) =>
+      new Promise<Response>((_resolve, reject) => {
+        signal = init?.signal;
+        signal?.addEventListener(
+          'abort',
+          () => reject(new DOMException('provider transport detail', 'AbortError')),
+          { once: true },
+        );
+      });
+
     await expect(
-      proxyChat({ message: 'x' }, { fetchImpl }),
+      proxyChat({ message: 'hi' }, { fetchImpl, timeoutMs: 1 }),
     ).rejects.toMatchObject({
       kind: 'upstream_error',
-      code: 'E_OPENROUTER_ERROR',
+      code: 'E_OPENROUTER_TIMEOUT',
+      message: 'The requested service is temporarily unavailable. Please try again.',
     });
+    expect(signal).toBeDefined();
+    expect(signal?.aborted).toBe(true);
   });
 
   test('no choices in response maps to E_OPENROUTER_NO_CHOICE', async () => {
@@ -117,7 +144,7 @@ describe('openrouter-proxy: error paths', () => {
     });
   });
 
-  test('returns NOT 502 but 200 because proxyChat throws and errorHandler maps it', async () => {
+  test('maps an upstream HTTP 503 to a stable upstream error code', async () => {
     const fetchImpl = makeFetch({
       ok: false,
       status: 503,

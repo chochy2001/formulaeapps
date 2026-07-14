@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets_personalizados/zoom_image_personalizado.dart';
 import 'export_constantes.dart';
 
 /// Canonical, language-neutral image URL for every image identifier.
@@ -96,15 +97,10 @@ class VerImagen extends StatelessWidget {
           ),
         );
       },
-      child: Image.network(
-        url_1,
-        // Puedes ajustar estas propiedades como desees
-        fit: BoxFit.cover,
+      child: ImagenRemotaRobusta(
+        urlImagen: url_1,
         height: MediaQuery.of(context).size.height * 0.4,
         width: MediaQuery.of(context).size.width * 0.4,
-        errorBuilder: (context, error, stackTrace) {
-          return const SizedBox.shrink();
-        },
       ),
     );
   }
@@ -122,15 +118,10 @@ class VerImagenNuevo extends StatelessWidget {
         title: Text(AppLocalizations.of(context)!.imagen),
       ),
       body: Center(
-        child: Image.network(
-          imageUrl,
-          // Puedes ajustar estas propiedades como desees
-          fit: BoxFit.cover,
+        child: ImagenRemotaRobusta(
+          urlImagen: imageUrl,
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width * 0.8,
-          errorBuilder: (context, error, stackTrace) {
-            return const SizedBox.shrink();
-          },
         ),
       ),
     );

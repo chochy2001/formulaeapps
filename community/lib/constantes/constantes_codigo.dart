@@ -13,6 +13,9 @@ const kColorTextoBotones = Color(0xFFE9E9E9);
 const kColorTransparente = Color(0x00ffffff);
 const kColorBlanco = Colors.white;
 
+// Contraste 4.84:1 sobre kColorFondo; apto para navegación no seleccionada.
+const kColorNavInactivo = Color(0xFF8A93C4);
+
 const kEstiloTextoMenus = TextStyle(
   color: Color(0xFFE9E9E9),
   fontSize: 30,

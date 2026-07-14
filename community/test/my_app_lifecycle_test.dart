@@ -41,7 +41,9 @@ void main() {
 
     final materialApp = find.byType(MaterialApp);
     expect(materialApp, findsOneWidget);
-    final keyBefore = tester.widget<MaterialApp>(materialApp).key;
+    final appBeforeRestart = tester.widget<MaterialApp>(materialApp);
+    expect(appBeforeRestart.title, 'Formulae Community');
+    final keyBefore = appBeforeRestart.key;
 
     MyApp.restartApp();
     await tester.pump();

@@ -1,4 +1,4 @@
-import { env } from '../lib/env';
+import { env, type Env } from '../lib/env';
 
 /**
  * Runtime check for Apple/Google IAP secret availability.
@@ -14,9 +14,13 @@ import { env } from '../lib/env';
  * return a clean 503 envelope, and at boot time so ops sees one warning line.
  *
  * Semantics:
- *  - If the relevant env vars are entirely undefined: returns { available: true }.
- *    This preserves the existing dev/test path where the factory falls back to
- *    a stub validator that responds 200 + valid=false. Tests rely on this.
+ *  - In development, if the relevant env vars are entirely undefined: returns
+ *    { available: true }. This preserves the explicit local/test path where
+ *    the factory falls back to a stub validator that responds 200 +
+ *    valid=false.
+ *  - In staging/production, an entirely absent provider configuration is
+ *    unavailable. A deployment must never make a receipt-validation request
+ *    look like a completed validation merely because it reached a local stub.
  *  - If env vars are set but match a placeholder pattern, or files are
  *    missing/empty/malformed: returns { available: false, reason: '...' }.
  */
@@ -26,6 +30,30 @@ export type IapPlatform = 'apple' | 'google';
 export type IapAvailability =
   | { available: true }
   | { available: false; reason: string };
+
+/** The IAP-relevant portion of the process environment. */
+export type IapAvailabilityRuntime = Pick<
+  Env,
+  | 'BFF_ENV'
+  | 'APPLE_P8_FILE'
+  | 'APPLE_ISSUER_ID'
+  | 'APPLE_KEY_ID'
+  | 'APPLE_BUNDLE_ID'
+  | 'GOOGLE_SA_FILE'
+  | 'GOOGLE_PACKAGE_NAME'
+>;
+
+type FileTextReader = (path: string) => Promise<string | undefined>;
+
+// Both RealValidator classes deliberately throw E_*_IAP_NOT_READY until their
+// provider integrations have been implemented and verified with sandbox
+// receipts. Keep availability fail-closed while that is true; changing either
+// value to true requires the real validation implementation and its live
+// sandbox regression evidence in the same delivery.
+const realValidatorImplemented: Readonly<Record<IapPlatform, boolean>> = {
+  apple: false,
+  google: false,
+};
 
 // Case-insensitive substrings that, when found in an env var value, indicate
 // the value is a placeholder rather than a real secret. Combines workspace
@@ -60,18 +88,36 @@ async function readFileText(path: string): Promise<string | undefined> {
   }
 }
 
-async function checkApple(): Promise<IapAvailability> {
-  const issuerId = env.APPLE_ISSUER_ID;
-  const keyId = env.APPLE_KEY_ID;
-  const bundleId = env.APPLE_BUNDLE_ID;
-  const p8Path = env.APPLE_P8_FILE;
+function missingProviderConfiguration(
+  platform: IapPlatform,
+  runtime: IapAvailabilityRuntime,
+): IapAvailability {
+  // The stub is a purposeful local-development aid only. Staging and
+  // production must communicate that no provider validation happened.
+  if (runtime.BFF_ENV === 'development') return { available: true };
+  return { available: false, reason: `${platform}_not_configured` };
+}
+
+function realValidatorAvailability(platform: IapPlatform): IapAvailability {
+  if (realValidatorImplemented[platform]) return { available: true };
+  return { available: false, reason: `${platform}_validator_not_ready` };
+}
+
+async function checkApple(
+  runtime: IapAvailabilityRuntime,
+  readFile: FileTextReader,
+): Promise<IapAvailability> {
+  const issuerId = runtime.APPLE_ISSUER_ID;
+  const keyId = runtime.APPLE_KEY_ID;
+  const bundleId = runtime.APPLE_BUNDLE_ID;
+  const p8Path = runtime.APPLE_P8_FILE;
 
   const noneConfigured =
     issuerId === undefined &&
     keyId === undefined &&
     bundleId === undefined &&
     p8Path === undefined;
-  if (noneConfigured) return { available: true };
+  if (noneConfigured) return missingProviderConfiguration('apple', runtime);
 
   if (issuerId === undefined || issuerId.trim().length === 0)
     return { available: false, reason: 'apple_issuer_id_missing' };
@@ -91,7 +137,7 @@ async function checkApple(): Promise<IapAvailability> {
   if (p8Path === undefined || p8Path.trim().length === 0)
     return { available: false, reason: 'apple_p8_path_missing' };
 
-  const p8Contents = await readFileText(p8Path);
+  const p8Contents = await readFile(p8Path);
   if (p8Contents === undefined)
     return { available: false, reason: 'apple_p8_file_missing' };
   if (p8Contents.trim().length === 0)
@@ -101,15 +147,18 @@ async function checkApple(): Promise<IapAvailability> {
   if (!p8Contents.includes('-----BEGIN PRIVATE KEY-----'))
     return { available: false, reason: 'apple_p8_file_invalid' };
 
-  return { available: true };
+  return realValidatorAvailability('apple');
 }
 
-async function checkGoogle(): Promise<IapAvailability> {
-  const saPath = env.GOOGLE_SA_FILE;
-  const packageName = env.GOOGLE_PACKAGE_NAME;
+async function checkGoogle(
+  runtime: IapAvailabilityRuntime,
+  readFile: FileTextReader,
+): Promise<IapAvailability> {
+  const saPath = runtime.GOOGLE_SA_FILE;
+  const packageName = runtime.GOOGLE_PACKAGE_NAME;
 
   const noneConfigured = saPath === undefined && packageName === undefined;
-  if (noneConfigured) return { available: true };
+  if (noneConfigured) return missingProviderConfiguration('google', runtime);
 
   if (packageName === undefined || packageName.trim().length === 0)
     return { available: false, reason: 'google_package_name_missing' };
@@ -119,7 +168,7 @@ async function checkGoogle(): Promise<IapAvailability> {
   if (saPath === undefined || saPath.trim().length === 0)
     return { available: false, reason: 'google_sa_path_missing' };
 
-  const saContents = await readFileText(saPath);
+  const saContents = await readFile(saPath);
   if (saContents === undefined)
     return { available: false, reason: 'google_sa_missing' };
   if (saContents.trim().length === 0)
@@ -140,7 +189,7 @@ async function checkGoogle(): Promise<IapAvailability> {
     return { available: false, reason: 'google_sa_missing_client_email' };
   }
 
-  return { available: true };
+  return realValidatorAvailability('google');
 }
 
 /**
@@ -149,11 +198,24 @@ async function checkGoogle(): Promise<IapAvailability> {
  * reads + at most one file stat/read). Called per-request from the handler
  * AND once at boot from src/index.ts.
  */
+export async function checkIapAvailabilityForRuntime(
+  platform: IapPlatform,
+  runtime: IapAvailabilityRuntime,
+  readFile: FileTextReader = readFileText,
+): Promise<IapAvailability> {
+  if (platform === 'apple') return checkApple(runtime, readFile);
+  return checkGoogle(runtime, readFile);
+}
+
+/**
+ * Check the current process configuration. Route handlers should use this
+ * production entrypoint; the runtime overload above is exported so the policy
+ * can be regression-tested without mutating the process environment.
+ */
 export async function checkIapAvailability(
   platform: IapPlatform,
 ): Promise<IapAvailability> {
-  if (platform === 'apple') return checkApple();
-  return checkGoogle();
+  return checkIapAvailabilityForRuntime(platform, env);
 }
 
 /**

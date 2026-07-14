@@ -36,12 +36,18 @@ Cada app promociona a las demas para crecer el ecosistema:
 La regla: la cross-promocion debe ser real y util (apps y cursos que existan), sin
 contenido inventado.
 
-## 3. Estado actual que YA existe (base para construir)
+## 3. Estado actual local y límites para construir
 
 - **BFF `api.formulaeapps.com`** (Bun + Hono) ya emite **JWT de sesion de corta
-  duracion** y ya tiene **validacion de recibos IAP** (Apple/Google). Es la base
-  natural para identidad y derechos de Formulae.
-- Las apps Flutter Pro ya consumen ese BFF (chat via OpenRouter, IAP).
+  duracion**. Su endpoint IAP existe, pero fuera de desarrollo responde
+  `503 E_IAP_VALIDATION_UNAVAILABLE`: faltan validadores Apple/Google reales,
+  pruebas sandbox y una autoridad de entitlement. No es todavía una base
+  productiva para derechos o identidad. Ver
+  [`ENTITLEMENT_CHANNEL_SYNC.md`](ENTITLEMENT_CHANNEL_SYNC.md) y `FML-117` en
+  [`../../docs/TICKETS.md`](../../docs/TICKETS.md).
+- Las apps Flutter consumen el BFF para chat. La llamada remota de IAP es
+  opt-in y está apagada por defecto; la compra/restauración local no equivale a
+  un entitlement central.
 - La separacion Pro/Community en Formulae es hoy **por carpeta** (pro/ vs
   community/), no por derechos en runtime.
 

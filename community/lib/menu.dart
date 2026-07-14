@@ -113,7 +113,7 @@ class MenuState extends State<Menu> {
                   elevation: 0,
                   currentIndex: _selectedIndex,
                   selectedItemColor: kColorBlanco,
-                  unselectedItemColor: const Color(0xFF646D9E),
+                  unselectedItemColor: kColorNavInactivo,
                   onTap: _onItemTapped,
                   backgroundColor: kColorFondo,
                   type: BottomNavigationBarType.shifting,
@@ -159,11 +159,11 @@ class MenuState extends State<Menu> {
                     labelType: NavigationRailLabelType.all,
                     selectedIconTheme: const IconThemeData(color: kColorBlanco),
                     unselectedIconTheme:
-                        const IconThemeData(color: Color(0xFF646D9E)),
+                        const IconThemeData(color: kColorNavInactivo),
                     selectedLabelTextStyle:
                         const TextStyle(color: kColorBlanco),
                     unselectedLabelTextStyle:
-                        const TextStyle(color: Color(0xFF646D9E)),
+                        const TextStyle(color: kColorNavInactivo),
                     destinations: <NavigationRailDestination>[
                       for (final _MenuDestination destination in destinations)
                         NavigationRailDestination(

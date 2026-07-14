@@ -30,12 +30,8 @@
 
   <text x="80" y="245" fill="#ffffff" font-family="-apple-system, system-ui, sans-serif" font-size="96" font-weight="800">Formulae Pro</text>
 
-  <text x="80" y="335" fill="#e0e7ff" font-family="-apple-system, system-ui, sans-serif" font-size="40" font-weight="500">
-    <tspan x="80" dy="0">Sin anuncios. Con asistente IA,</tspan>
-    <tspan x="80" dy="56">tareas y exportaci&#243;n a PDF.</tspan>
-  </text>
+  <text x="80" y="355" fill="#e0e7ff" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-style="italic">∑ · ∫ · Δ · π</text>
+  <path d="M85 433h122M85 475h82M85 517h105" stroke="#a5b4fc" stroke-width="12" stroke-linecap="round" opacity="0.9"/>
 
-  <text x="80" y="560" fill="#fbbf24" font-family="-apple-system, system-ui, sans-serif" font-size="26" font-weight="600">formulaeapps.com/pro</text>
-
-  <rect x="80" y="585" width="80" height="4" rx="2" fill="#fbbf24"/>
+  <rect x="80" y="555" width="80" height="4" rx="2" fill="#fbbf24"/>
 </svg>

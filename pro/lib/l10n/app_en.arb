@@ -483,6 +483,7 @@
   "cosecanteHiperbolica": "hyperbolic cosecant",
   "dominio": "domain",
   "imagen": "Image",
+  "imagenNoDisponible": "Image unavailable",
   "explicacionDominio": "The starting set or the set of values that the Independent Variable (x) can take, is the Domain of the Function.",
   "explicacionImagen": "The set of values that the Dependent Variable (y) or (f(x)) can take is called Image, Range or Course of the Function, it is included in the arrival set.",
   "porCofactores": "By cofactors",

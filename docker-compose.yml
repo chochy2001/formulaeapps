@@ -40,8 +40,12 @@ services:
       # baked into the bundle for the client_proof HMAC). The server-only
       # JWT_SIGNING_SECRET must NEVER be passed here — it stays on the bff.
       args:
-        JWT_SHARED_SECRET: ${JWT_SHARED_SECRET}
-        FORMULAE_BFF_CHAT_URL: ${FORMULAE_BFF_CHAT_URL}
+        # Empty defaults keep `docker compose config` usable with the explicit
+        # local overlay. Production deploy validation must provide real values;
+        # both the Dockerfile and build_web.sh reject an empty shared secret.
+        JWT_SHARED_SECRET: ${JWT_SHARED_SECRET:-}
+        FORMULAE_BFF_BASE_URL: ${FORMULAE_BFF_BASE_URL:-}
+        FORMULAE_BFF_CHAT_URL: ${FORMULAE_BFF_CHAT_URL:-}
     container_name: formulaeapps-pro
     restart: unless-stopped
     networks: [web_proxy]
@@ -71,6 +75,15 @@ services:
     # JWT_LEGACY_VERIFY_* migration controls, OPENROUTER_API_KEY, etc. from
     # .env. See bff/README.md for the staged dual-key migration runbook.
     env_file: [.env]
+    environment:
+      # Keep SQLite state outside the container writable layer. These explicit
+      # container paths override local direct-Bun defaults from .env, while the
+      # named volume survives `docker compose up --force-recreate` and `down`
+      # (unless an operator explicitly removes volumes).
+      ACCOUNTS_DB_PATH: /app/.data/accounts.sqlite
+      ENTITLEMENTS_DB_PATH: /app/.data/mobile_entitlements.sqlite
+    volumes:
+      - bff_data:/app/.data
     networks: [web_proxy, bff_internal]
     secrets:
       - apple_p8
@@ -98,6 +111,12 @@ networks:
     external: true
   bff_internal:
     driver: bridge
+
+volumes:
+  # Explicit global name prevents a compose-project rename from silently
+  # starting a fresh accounts/entitlements database.
+  bff_data:
+    name: formulaeapps_bff_data
 
 secrets:
   apple_p8:

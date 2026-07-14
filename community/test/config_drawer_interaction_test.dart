@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,6 +28,60 @@ void main() {
     AdMobConfig.adsEnabled = true;
   });
 
+  test('subscription management links are localized and platform-safe', () {
+    expect(
+      subscriptionManagementUrl(
+        locale: const Locale('es'),
+        platform: TargetPlatform.android,
+        isWeb: false,
+      ),
+      'https://support.google.com/googleplay/answer/7018481?hl=es',
+    );
+    expect(
+      subscriptionManagementUrl(
+        locale: const Locale('en'),
+        platform: TargetPlatform.android,
+        isWeb: false,
+      ),
+      'https://support.google.com/googleplay/answer/7018481?hl=en',
+    );
+    expect(
+      subscriptionManagementUrl(
+        locale: const Locale('es'),
+        platform: TargetPlatform.iOS,
+        isWeb: false,
+      ),
+      'https://support.apple.com/es-lamr/HT202039',
+    );
+    expect(
+      subscriptionManagementUrl(
+        locale: const Locale('en'),
+        platform: TargetPlatform.macOS,
+        isWeb: false,
+      ),
+      'https://support.apple.com/en-us/HT202039',
+    );
+
+    for (final platform in [TargetPlatform.windows, TargetPlatform.linux]) {
+      expect(
+        subscriptionManagementUrl(
+          locale: const Locale('es'),
+          platform: platform,
+          isWeb: false,
+        ),
+        isNull,
+      );
+    }
+    expect(
+      subscriptionManagementUrl(
+        locale: const Locale('en'),
+        platform: TargetPlatform.android,
+        isWeb: true,
+      ),
+      isNull,
+    );
+  });
+
   testWidgets('Configuracion opens privacy and terms dialogs', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 1800));
     await tester.pumpWidget(_harness(home: const Configuracion()));
@@ -35,7 +90,13 @@ void main() {
     _expectNoWidgetException(tester, 'Configuracion initial mount');
 
     final buttons = find.byType(ElevatedButton);
-    expect(buttons, findsNWidgets(4));
+    final hasSubscriptionManagement = subscriptionManagementUrl(
+          locale: const Locale('es'),
+          platform: defaultTargetPlatform,
+          isWeb: kIsWeb,
+        ) !=
+        null;
+    expect(buttons, findsNWidgets(hasSubscriptionManagement ? 4 : 3));
     // This test covers the two dialogs named in its contract. Subscription and
     // language actions have their own platform/state behavior and are not
     // asserted as if they were privacy/terms dialogs.

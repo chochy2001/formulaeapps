@@ -1,9 +1,15 @@
 # Formulae Apps — Arquitectura y operaciones
 
+> **Archivo histórico/no operativo — 2026-07-13.** Las afirmaciones de este
+> documento no autorizan un release, promoción, SSH, DNS ni un despliegue.
+> Conserva contexto de 2026-05, pero contradice evidencia actual de hosting y
+> BFF. Para el estado vigente consulta [`README.md`](README.md),
+> [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+> y [`docs/TICKETS.md`](docs/TICKETS.md); código, manifiestos, tests y runtime
+> prevalecen.
+
 **Fecha del análisis original:** 2026-05-01
-**Última actualización topológica:** 2026-05-19 (R13)
-**Documento autoritativo.** Cualquier decisión operativa parte de aquí.
-Actualiza este archivo cada vez que cambie la topología.
+**Última actualización topológica histórica:** 2026-05-19 (R13)
 
 ---
 
@@ -161,7 +167,10 @@ CAPDESIS/FormulaeCommunity ←×─ FormulaeCommunity/        (clon huérfano)
 - El Deploy 0 al VPS se inició y se detuvo por un bug en Flutter Pro (no se llegó a finalizar la construcción de imágenes en el server).
 - Mientras se resuelve, producción se sirve por FTP en Hostinger. El VPS sigue contratado pero ocioso.
 - **Acceso SSH**: tu `~/.ssh/config` tiene aliases `vps-old`, `ancare`, `capmenu-vps` pero **no `vps`** (el de Contabo donde corre el Agente VPS). Esa gestión vive solo en tu máquina/sesión — los agentes IA no tenemos acceso. Cuando quieras shutdown, cleanup o resume del VPS, tienes que entrar tú directamente con tu SSH config personalizada o las credenciales de Contabo.
-- **Para retomar VPS algún día**: pull del monorepo, `docker compose up --build`, ajustar Cloudflare DNS apex de `31.170.161.105` (Hostinger) a la IP del VPS, y purgar cache CF.
+- **Para retomar VPS algún día**: con autorización y el entorno protegido,
+  pull del monorepo y `docker compose -f docker-compose.yml up --build`; ajustar
+  Cloudflare DNS apex de `31.170.161.105` (Hostinger) a la IP del VPS, y purgar
+  cache CF.
 - **Para apagarlo permanentemente** (si decides quedarte solo con Hostinger): cancela el contrato Contabo, borra la IP del DNS Cloudflare, elimina `docker-compose.yml` del monorepo (pero el repo conserva el historial). Reversible si después cambias de opinión.
 
 ### 2.3 BFF (api.formulaeapps.com) — no deployado
@@ -335,8 +344,8 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/<ZONE_ID>/purge_cache" 
 # En el VPS:
 cd /opt/formulaeapps
 git pull
-docker compose pull   # si usas registry privado
-docker compose up -d --build
+docker compose -f docker-compose.yml pull   # si usas registry privado
+docker compose -f docker-compose.yml up -d --build
 ```
 
 Switchear DNS Cloudflare apex de `31.170.161.105` (Hostinger) a la IP del VPS y mantener `--exclude` en futuros FTP por si quieres mantener Hostinger como fallback.

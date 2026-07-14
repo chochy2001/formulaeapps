@@ -72,8 +72,8 @@ void mostrarInfo(BuildContext context, String texto) {
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text(
-                        'Cerrar',
+                      child: Text(
+                        AppLocalizations.of(context)!.cerrar,
                         style: kTextoCerrar,
                       ),
                     ),

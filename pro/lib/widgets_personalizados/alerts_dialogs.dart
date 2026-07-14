@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constantes/export_constantes.dart';
 import '../secciones_app/ejercicios/alert_ejercicios.dart';
 import '../widgets_personalizados/textos_personalizados.dart';
+import '../widgets_personalizados/zoom_image_personalizado.dart';
 
 void mostrarEjemplos(BuildContext context) {
   showDialog(
@@ -66,11 +67,10 @@ void mostrarInfo(BuildContext context, String texto) {
                   content: const Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      FadeInImage(
+                      ImagenRemotaRobusta(
                         height: 100.0,
                         width: 100.0,
-                        placeholder: AssetImage(kUrlImagenGifCarga),
-                        image: NetworkImage(kUrlImagenFormulae),
+                        urlImagen: kUrlImagenFormulae,
                       ),
                     ],
                   ),

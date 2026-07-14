@@ -1,5 +1,19 @@
 # Formulae Landing — MASTER_SPEC
 
+> **Historical / non-operational snapshot — 2026-07-13.**
+>
+> This file is preserved as historical evidence only. It is **not** the current
+> source of truth for readiness, hosting, tests, deployment, or outstanding
+> work; claims below must not authorize a release or promotion without fresh
+> verification. Use the current sources instead:
+>
+> - [`landing/README.md`](README.md) and the [workspace README](../README.md)
+> - [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+> - [`docs/TICKETS.md`](../docs/TICKETS.md)
+>
+> Source code, manifests, tests, and runtime configuration prevail over this
+> archived snapshot.
+
 **Scope**: This document records source-verified evidence for the `landing/` sub-app inside `CAPDESIS/formulaeapps`. Every capability and integration boundary points to a file under `~/Code/formulaeapps/landing/`. The landing app is intentionally OUT of the BFF integration boundary — it does not call `api.formulaeapps.com` and does not consume any FE↔BFF wire types. It is the bilingual marketing site at `formulaeapps.com` / `www.formulaeapps.com` and the static container for Pro Web at `app.formulaeapps.com`.
 
 ## Executive Summary

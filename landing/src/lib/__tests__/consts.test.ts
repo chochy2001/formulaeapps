@@ -94,7 +94,6 @@ describe('FEATURES', () => {
   it('marks correct features as proOnly', () => {
     const proOnly = FEATURES.filter((f) => f.proOnly).map((f) => f.id);
     expect(proOnly).toContain('chatgpt');
-    expect(proOnly).toContain('chatgpt');
     expect(proOnly).not.toContain('tasks');
     expect(proOnly).not.toContain('pdfs');
   });

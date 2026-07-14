@@ -245,13 +245,11 @@ class TasksList extends StatelessWidget {
         }
 
         return taskData.taskCount == 0
-            ? FadeInImage(
+            ? ImagenRemotaRobusta(
                 height: 300.0,
                 width: MediaQuery.of(context).size.width,
-                placeholder: const AssetImage(kUrlImagenGifCarga),
-                image: NetworkImage(
-                    getImageUrlById(context, kImagenAgregarTarea) ??
-                        kUrlImagenAgregarTarea),
+                urlImagen: getImageUrlById(context, kImagenAgregarTarea) ??
+                    kUrlImagenAgregarTarea,
               )
             : ListView.builder(
                 itemBuilder: (context, index) {

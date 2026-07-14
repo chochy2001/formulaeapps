@@ -3,7 +3,7 @@ import { loggerMiddleware } from './middleware/logger';
 import { corsMiddleware } from './middleware/cors';
 import { jwtAuthMiddleware } from './middleware/jwt-auth';
 import { errorHandler } from './middleware/error';
-import { authRateLimiter, chatRateLimiter } from './middleware/limiters';
+import { authRateLimiter, chatRateLimiter, iapRateLimiter } from './middleware/limiters';
 import { healthRoute, healthHandler } from './routes/health';
 import { authTokenRoute, authTokenHandler } from './routes/auth';
 import {
@@ -25,9 +25,10 @@ app.use('*', loggerMiddleware);
 app.use('*', corsMiddleware);
 app.onError(errorHandler);
 
-// Per-IP rate limiting (defense-in-depth under Traefik api-ratelimit@file).
-// Auth limiter runs on the public token route; chat limiter runs after the JWT
-// middleware so it can key on the authenticated sub.
+// In-process rate limiting (defense-in-depth under Traefik api-ratelimit@file).
+// Auth limiter runs on the public token route. Chat and IAP limiters run after
+// JWT authentication so they can use the authenticated identity without
+// storing raw PII in their bucket keys.
 app.use('/auth/token', authRateLimiter.middleware);
 app.use('/auth/register', authRateLimiter.middleware);
 app.use('/auth/login', authRateLimiter.middleware);
@@ -43,6 +44,7 @@ app.openapi(authLoginRoute, authLoginHandler as never);
 app.use('/openai/*', jwtAuthMiddleware);
 app.use('/openai/*', chatRateLimiter.middleware);
 app.use('/iap/*', jwtAuthMiddleware);
+app.use('/iap/validate', iapRateLimiter.middleware);
 app.use('/entitlement', jwtAuthMiddleware);
 app.openapi(chatRoute, chatHandler as never);
 app.openapi(iapValidateRoute, iapValidateHandler as never);
@@ -56,7 +58,8 @@ app.doc('/openapi.json', {
     version: CONTRACT_VERSION,
     description:
       'Backend-for-Frontend for FormulaeApps Pro + Community. Proxies OpenAI chat, ' +
-      'validates Apple/Google IAP receipts, issues short-lived HS256 JWTs.',
+      'exposes fail-closed Apple/Google IAP validation until provider validators are ready, ' +
+      'and issues short-lived HS256 JWTs.',
   },
   servers: [
     { url: 'https://api.formulaeapps.com', description: 'Production (VPS Contabo)' },

@@ -116,7 +116,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       key: key,
       navigatorKey: navigatorKey,
-      title: 'Formulae Pro',
+      title: 'Formulae Community',
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

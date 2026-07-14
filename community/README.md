@@ -40,6 +40,8 @@ flutter run \
 
 ```bash
 flutter analyze --no-pub --fatal-infos --fatal-warnings
+# Ejecución serial local para aislar plugins/widgets de plataforma en pruebas.
+# Conserva los mismos dart-defines no secretos del gate de CI.
 FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
   --dart-define=JWT_SHARED_SECRET=test-shared-secret \
   --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
@@ -60,17 +62,22 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub \
 ```
 
 La CI hace fatales los `info`; el análisis estricto de 2026-07-13 terminó sin
-diagnósticos. Mantén ese gate al modificar pantallas o widgets del catálogo.
+diagnósticos. La última suite local de este checkout pasó 100 pruebas. Mantén
+ese gate y las pruebas seriales locales al modificar pantallas o widgets del
+catálogo.
 
 ## Límites de plataforma
 
-Este checkout no contiene un target Flutter Web de Community; no se declara
-esa plataforma como soporte de la app. En Android e iOS el visor recibe los
-bytes del PDF local y la exportación usa el manejador de la plataforma. La
-evidencia adicional de dispositivos físicos sigue registrada en el tablero
-antes de publicar una tienda. Para repetir la medición de primer contenido
-interactivo Android en un emulador o dispositivo conectado, ejecuta desde la
-raíz `RUNS=5 make measure-community-android`.
+Este checkout no contiene targets Flutter Web, Windows o Linux de Community;
+no se declaran esas plataformas como soporte de la app ni se debe ejecutar
+`flutter create` para generarlas sin una decisión de producto. Las rutas de
+soporte para esas plataformas se cubren por pruebas unitarias y no inicializan
+una URL inválida. En Android e iOS el visor recibe los bytes del PDF local y la
+exportación usa el manejador de la plataforma. La evidencia adicional de
+dispositivos físicos sigue registrada en el tablero antes de publicar una
+tienda. Para repetir la medición de primer contenido interactivo Android en un
+emulador o dispositivo conectado, ejecuta desde la raíz
+`RUNS=5 make measure-community-android`.
 
 ## Anuncios en Release
 

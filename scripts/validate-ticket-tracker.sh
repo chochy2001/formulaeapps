@@ -65,7 +65,7 @@ done <<EOF
 $ticket_ids
 EOF
 
-summary_statuses=(EN_CURSO PENDIENTE BLOQUEADO HECHO)
+summary_statuses=(EN_CURSO PENDIENTE BLOQUEADO HECHO CANCELADO)
 for status in "${summary_statuses[@]}"; do
   count="$(grep -Ec -- "^- Estado: $status$" "$TRACKER" || true)"
   summary_counts="$(awk -F '|' -v status="$status" '

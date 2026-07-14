@@ -1,11 +1,16 @@
 # Backlog y roadmap de rediseno de Formulae Pro
 
-Fuente de verdad del esfuerzo de mejora de Formulae Pro (2026-07-12/13). Escrito
-para que ninguna sesion pierda el contexto al compactar. Todo aplica SOLO a Pro
-(Community/Free no se toca ahora). Reglas: commits en ingles autor chochy2001, sin
-referencias a IA, sin em-dashes; todo termina en main; verificar en arbol mergeado
-antes de merge; paralelo solo en archivos disjuntos, secuencial en archivos
-compartidos.
+> **Archivo histórico/no operativo — 2026-07-13.** Conserva contexto de un
+> rediseño anterior, pero no es la fuente de verdad, no autoriza commits,
+> merges, despliegues ni cambios de alcance. Para el trabajo vigente consulta
+> [`../../docs/TICKETS.md`](../../docs/TICKETS.md),
+> [`../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md),
+> el código y las pruebas. Las reglas de `AGENTS.md` prevalecen sobre cualquier
+> instrucción histórica que aparezca abajo.
+
+Registro histórico del esfuerzo de mejora de Formulae Pro (2026-07-12/13),
+conservado para contexto. Su contenido puede describir ramas, hechos o
+prioridades que ya no representan el checkout actual.
 
 ## 1. Ya hecho y en main
 

@@ -1,5 +1,19 @@
 # Formulae Community — MASTER_SPEC
 
+> **Historical / non-operational snapshot — 2026-07-13.**
+>
+> This file is preserved as historical evidence only. It is **not** the current
+> source of truth for readiness, builds, tests, entitlements, deployment, or
+> outstanding work; claims below must not authorize a release or promotion
+> without fresh verification. Use the current sources instead:
+>
+> - [`community/README.md`](README.md) and the [workspace README](../README.md)
+> - [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+> - [`docs/TICKETS.md`](../docs/TICKETS.md)
+>
+> Source code, manifests, tests, and runtime configuration prevail over this
+> archived snapshot.
+
 **Scope**: This document records source-verified evidence for the `community/` sub-app inside `CAPDESIS/formulaeapps`. Every capability, integration boundary, and validation row points to a file path under `~/Code/formulaeapps/community/`, the BFF contract at `~/Code/formulaeapps/contracts/`, or an audit artifact at `~/Documents/Apps/specs/002-formulae-fe-be-sync/audit/`. Markdown-only claims are flagged as `unresolved` if not traceable.
 
 ## Executive Summary

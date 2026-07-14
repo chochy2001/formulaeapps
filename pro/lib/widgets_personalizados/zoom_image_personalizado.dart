@@ -189,29 +189,35 @@ class _PlaceholderImagen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isEnglish =
-        Localizations.maybeLocaleOf(context)?.languageCode == 'en';
+    final bool isCompact =
+        (width != null && width! <= 120) || (height != null && height! <= 120);
 
     final Widget contenido = error
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
+        ? isCompact
+            ? const Icon(
                 Icons.image_not_supported_outlined,
-                size: 40,
+                size: 24,
                 color: _colorMuteado,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                isEnglish ? 'Image unavailable' : 'Imagen no disponible',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: _colorMuteado,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          )
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 40,
+                    color: _colorMuteado,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    AppLocalizations.of(context)!.imagenNoDisponible,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: _colorMuteado,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              )
         : const SizedBox(
             height: 28,
             width: 28,
@@ -224,9 +230,12 @@ class _PlaceholderImagen extends StatelessWidget {
     return Container(
       height: height ?? 160,
       width: width,
-      constraints: const BoxConstraints(minWidth: 160, minHeight: 96),
+      constraints: BoxConstraints(
+        minWidth: width == null ? 160 : 0,
+        minHeight: height == null ? 96 : 0,
+      ),
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(isCompact ? 4 : 12),
       decoration: BoxDecoration(
         color: kColorBotones,
         borderRadius: BorderRadius.circular(12),

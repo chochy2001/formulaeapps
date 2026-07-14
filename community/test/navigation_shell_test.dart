@@ -6,6 +6,7 @@ import 'package:formulae/Favorites/favorite.dart';
 import 'package:formulae/ads/admob_config.dart';
 import 'package:formulae/chat_gpt/chats_provider.dart';
 import 'package:formulae/chat_gpt/models_provider.dart';
+import 'package:formulae/constantes/constantes_codigo.dart';
 import 'package:formulae/l10n/app_localizations.dart';
 import 'package:formulae/l10n/l10n.dart';
 import 'package:formulae/menu.dart';
@@ -96,6 +97,16 @@ void main() {
         find.byType(BottomNavigationBar),
         expectsRail ? findsNothing : findsOneWidget,
       );
+      if (expectsRail) {
+        final rail = tester.widget<NavigationRail>(find.byType(NavigationRail));
+        expect(rail.unselectedIconTheme?.color, kColorNavInactivo);
+        expect(rail.unselectedLabelTextStyle?.color, kColorNavInactivo);
+      } else {
+        final navigation = tester.widget<BottomNavigationBar>(
+          find.byType(BottomNavigationBar),
+        );
+        expect(navigation.unselectedItemColor, kColorNavInactivo);
+      }
     }
   });
 }
