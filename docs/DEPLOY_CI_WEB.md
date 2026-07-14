@@ -56,11 +56,13 @@ job receives production FTP credentials.
   `build-heavy` and `policy-light`; do not bypass the restricted workflow
   allowlist of a laptop or move secrets to a non-approved group merely to
   drain the remaining queue.
-- Diagnose and fix the landing lint failure from CI `29302052034` before a
-  fresh exact-main candidate is dispatched; do not treat its passed unit-test
-  step as a green landing gate.
-- Correct ownership of the `test-light` runner tool cache before relying on
-  `actions/setup-node` there; the historical landing job failed with `EACCES`.
+- Landing lint on main failed when `astro check` ran under runner Node 20
+  (`29302052034` / `29324249766`). CI now installs Node `22.22.3` in the
+  landing job before lint/build; do not treat unit tests alone as the landing
+  gate.
+- Pro/Community analyze on those runs was green; jobs died mid-test when the
+  self-hosted runner lost communication under parallel Flutter load. CI now
+  runs those jobs on `build-heavy` and serializes Community after Pro.
 - Provision `FORMULAE_JWT_SHARED_SECRET` through the approved secret store and
   scope it only to the build that requires it. Never record the value in this
   repository or in workflow logs.

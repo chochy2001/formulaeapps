@@ -114,9 +114,13 @@ jobs:
           path: coverage.json
           retention-days: 30
 
+  # Flutter analyze+test is CPU/RAM heavy. Keep Pro and Community on build-heavy
+  # and serialize Community after Pro so parallel suites cannot starve the shared
+  # host (recent main failures: runner lost communication mid-test while analyze
+  # had already passed).
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 45
     defaults:
       run:
@@ -158,7 +162,8 @@ jobs:
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    needs: [pro-test]
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 45
     defaults:
       run:
@@ -199,6 +204,11 @@ jobs:
         working-directory: landing
     steps:
       - uses: actions/checkout@v4
+      # Astro 6 `astro check` requires Node >=22.12; the runner default is Node 20.
+      - name: Setup Node (required by astro check)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.3'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
