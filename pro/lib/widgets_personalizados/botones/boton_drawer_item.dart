@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constantes/export_constantes.dart';
 
 //Item del menu lateral con animacion de hover en web/escritorio.
 class BotonDrawerItem extends StatefulWidget {
-  final IconData icon;
+  /// Material [IconData] or Font Awesome [FaIconData].
+  final Object icon;
   final String text;
   final VoidCallback onTap;
   final double? iconSize;
@@ -32,6 +34,22 @@ class _BotonDrawerItemState extends State<BotonDrawerItem> {
         _hovered = value;
       });
     }
+  }
+
+  Widget _buildIcon() {
+    final Object data = widget.icon;
+    if (data is FaIconData) {
+      return FaIcon(
+        data,
+        color: kColorBlanco,
+        size: widget.iconSize,
+      );
+    }
+    return Icon(
+      data as IconData,
+      color: kColorBlanco,
+      size: widget.iconSize,
+    );
   }
 
   @override
@@ -62,11 +80,7 @@ class _BotonDrawerItemState extends State<BotonDrawerItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                  widget.icon,
-                  color: kColorBlanco,
-                  size: widget.iconSize,
-                ),
+                _buildIcon(),
                 const SizedBox(
                   width: 10,
                 ),

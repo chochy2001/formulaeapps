@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formulae/widgets_personalizados/busqueda/search_delegate.dart';
@@ -11,7 +11,7 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Activar la búsqueda automáticamente al entrar a la página
+      // Activar la bÃºsqueda automÃ¡ticamente al entrar a la pÃ¡gina
       showSearch(
           context: context,
           delegate: DataSearch(
@@ -43,8 +43,7 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
             child: IconButton(
-              icon: const Icon(
-                FontAwesomeIcons.magnifyingGlass,
+              icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
                 color: kColorBlanco,
                 size: 22.0,
               ),

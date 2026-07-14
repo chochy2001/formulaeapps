@@ -19,7 +19,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
         Visibility(
           visible: visible ?? true,
           child: IconButton(
-            icon: Icon(
+            icon: FaIcon(
               FontAwesomeIcons.houseChimneyCrack,
               color: color ?? Colors.white,
               size: 20.0,
