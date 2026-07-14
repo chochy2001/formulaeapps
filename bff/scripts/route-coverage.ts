@@ -30,6 +30,7 @@ const INFRA_ROUTES = new Set<string>(['/health']);
 const GENERATED_CLIENT_CALLS: Record<string, RegExp> = {
   '/auth/register': /\bgetAuthApi\s*\(\s*\)\s*\.\s*authRegisterPost\s*\(/,
   '/auth/login': /\bgetAuthApi\s*\(\s*\)\s*\.\s*authLoginPost\s*\(/,
+  '/auth/oauth': /\bgetAuthApi\s*\(\s*\)\s*\.\s*authOauthPost\s*\(/,
   '/iap/validate': /\bgetIapApi\s*\(\s*\)\s*\.\s*iapValidatePost\s*\(/,
   '/entitlement': /\bgetEntitlementApi\s*\(\s*\)\s*\.\s*entitlementGet\s*\(/,
 };

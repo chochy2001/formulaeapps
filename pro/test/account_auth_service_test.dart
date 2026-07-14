@@ -8,6 +8,7 @@ class _RecordingClient extends FormulaeappsBffClient {
     this.registerResponse,
     this.loginResponse,
     this.throwDio = false,
+    this.throwOauthStub = false,
   }) : super(
           basePathOverride: 'http://test-bff',
           dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
@@ -16,10 +17,13 @@ class _RecordingClient extends FormulaeappsBffClient {
   final AccountAuthResponse? registerResponse;
   final AccountAuthResponse? loginResponse;
   final bool throwDio;
+  final bool throwOauthStub;
   bool registerCalled = false;
   bool loginCalled = false;
+  bool oauthCalled = false;
   AccountRegisterRequest? lastRegister;
   AccountLoginRequest? lastLogin;
+  AccountOAuthRequest? lastOauth;
 
   @override
   AuthApi getAuthApi() => _RecordingAuthApi(this);
@@ -85,11 +89,49 @@ class _RecordingAuthApi extends AuthApi {
       statusCode: 200,
     );
   }
+
+  @override
+  Future<Response<AccountAuthResponse>> authOauthPost({
+    required AccountOAuthRequest accountOAuthRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    _parent.oauthCalled = true;
+    _parent.lastOauth = accountOAuthRequest;
+    if (_parent.throwOauthStub) {
+      throw DioException(
+        requestOptions: RequestOptions(path: '/auth/oauth'),
+        response: Response(
+          requestOptions: RequestOptions(path: '/auth/oauth'),
+          statusCode: 503,
+          data: {
+            'error': {
+              'kind': 'internal_error',
+              'code': 'E_OAUTH_NOT_IMPLEMENTED',
+              'message': 'stub',
+              'request_id': '00000000-0000-0000-0000-000000000002',
+            },
+          },
+        ),
+        type: DioExceptionType.badResponse,
+      );
+    }
+    return Response<AccountAuthResponse>(
+      data: null,
+      requestOptions: RequestOptions(path: '/auth/oauth'),
+      statusCode: 503,
+    );
+  }
 }
 
 void main() {
   group('AccountAuthService', () {
-    test('register/login return AccountAuthDisabled when flag off', () async {
+    test('register/login/oauth return AccountAuthDisabled when flag off',
+        () async {
       final recording = _RecordingClient();
       final service = AccountAuthService(
         enabled: false,
@@ -100,8 +142,36 @@ void main() {
           isA<AccountAuthDisabled>());
       expect(await service.login(email: 'a@b.com', password: 'password1'),
           isA<AccountAuthDisabled>());
+      expect(
+        await service.oauth(
+          provider: AccountOAuthRequestProviderEnum.google,
+          idToken: 'fake',
+        ),
+        isA<AccountAuthDisabled>(),
+      );
       expect(recording.registerCalled, isFalse);
       expect(recording.loginCalled, isFalse);
+      expect(recording.oauthCalled, isFalse);
+    });
+
+    test('oauth maps BFF stub 503 to AccountAuthFailure', () async {
+      final recording = _RecordingClient(throwOauthStub: true);
+      final service = AccountAuthService(
+        enabled: true,
+        clientFactory: () => recording,
+      );
+
+      final result = await service.oauth(
+        provider: AccountOAuthRequestProviderEnum.apple,
+        idToken: 'fake.jwt',
+      );
+      expect(recording.oauthCalled, isTrue);
+      expect(recording.lastOauth?.provider,
+          AccountOAuthRequestProviderEnum.apple);
+      expect(result, isA<AccountAuthFailure>());
+      final fail = result as AccountAuthFailure;
+      expect(fail.statusCode, 503);
+      expect(fail.code, 'E_OAUTH_NOT_IMPLEMENTED');
     });
 
     test('register returns success without a device-ownership field', () async {

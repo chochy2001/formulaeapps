@@ -81,3 +81,27 @@ export const AccountAuthResponseSchema = z
   .openapi('AccountAuthResponse');
 
 export type AccountAuthResponse = z.infer<typeof AccountAuthResponseSchema>;
+
+/**
+ * OAuth stub request (fleet #86 optional). Providers are accepted in the
+ * contract, but the handler never verifies id_token until Jorge configures
+ * Google/Apple OAuth clients. Flag off → 403; flag on → 503 stub.
+ */
+export const AccountOAuthRequestSchema = z
+  .object({
+    provider: z.enum(['google', 'apple']).openapi({
+      example: 'google',
+      description: 'Identity provider. Only google and apple are in scope.',
+    }),
+    id_token: z.string().min(1).max(8192).openapi({
+      example: 'eyJhbGciOiJSUzI1NiJ9...',
+      description:
+        'Provider ID token. Never logged. Stub does not verify signatures.',
+    }),
+    platform: optionalPlatform,
+    app_version: optionalAppVersion,
+  })
+  .strict()
+  .openapi('AccountOAuthRequest');
+
+export type AccountOAuthRequest = z.infer<typeof AccountOAuthRequestSchema>;

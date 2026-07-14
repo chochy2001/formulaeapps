@@ -5,11 +5,13 @@ import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
 import 'api_consts.dart';
 import 'auth_service.dart';
 
-/// Opt-in FE wire for BFF email/password accounts (fleet #86).
+/// Opt-in FE wire for BFF accounts (fleet #86).
 ///
 /// Default **off** (`ENABLE_USER_ACCOUNT_AUTH=false`). When disabled, register/
-/// login no-op with [AccountAuthDisabled]. No UI is wired yet — this is the
-/// client stub for a later account screen. See `docs/ACCOUNTS_USER_ID_PLAN.md`.
+/// login/oauth no-op with [AccountAuthDisabled]. No UI is wired yet — this is
+/// the client stub for a later account screen. OAuth calls the BFF stub which
+/// returns `E_OAUTH_NOT_IMPLEMENTED` until Jorge configures providers.
+/// See `docs/ACCOUNTS_USER_ID_PLAN.md`.
 const bool kEnableUserAccountAuth = bool.fromEnvironment(
   'ENABLE_USER_ACCOUNT_AUTH',
   defaultValue: false,
@@ -50,7 +52,7 @@ class AccountAuthFailure extends AccountAuthResult {
   final String? code;
 }
 
-/// Calls BFF `POST /auth/register` and `POST /auth/login` when the flag is on.
+/// Calls BFF `POST /auth/register`, `/auth/login`, and `/auth/oauth` when on.
 class AccountAuthService {
   AccountAuthService({
     BffAccountClientFactory? clientFactory,
@@ -118,6 +120,35 @@ class AccountAuthService {
     } catch (e) {
       if (kDebugMode) {
         debugPrint('AccountAuth: login error: $e');
+      }
+      return AccountAuthFailure(statusCode: null, message: e.toString());
+    }
+  }
+
+  /// OAuth Sign-In stub (`google` / `apple`). Flag off → [AccountAuthDisabled].
+  /// Flag on → BFF currently returns 503 `E_OAUTH_NOT_IMPLEMENTED` (no verify).
+  Future<AccountAuthResult> oauth({
+    required AccountOAuthRequestProviderEnum provider,
+    required String idToken,
+  }) async {
+    if (!_enabled) {
+      return const AccountAuthDisabled();
+    }
+    final request = AccountOAuthRequest(
+      (b) => b
+        ..provider = provider
+        ..idToken = idToken,
+    );
+    try {
+      final response = await _clientFactory().getAuthApi().authOauthPost(
+            accountOAuthRequest: request,
+          );
+      return _mapResponse(response);
+    } on DioException catch (e) {
+      return _mapDio(e);
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('AccountAuth: oauth error: $e');
       }
       return AccountAuthFailure(statusCode: null, message: e.toString());
     }

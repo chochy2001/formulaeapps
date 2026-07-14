@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 
 import 'package:formulaeapps_bff_client/src/model/account_auth_response.dart';
 import 'package:formulaeapps_bff_client/src/model/account_login_request.dart';
+import 'package:formulaeapps_bff_client/src/model/account_o_auth_request.dart';
 import 'package:formulaeapps_bff_client/src/model/account_register_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_response.dart';
@@ -65,6 +66,101 @@ class AuthApi {
     try {
       const _type = FullType(AccountLoginRequest);
       _bodyData = _serializers.serialize(accountLoginRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    AccountAuthResponse? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AccountAuthResponse),
+      ) as AccountAuthResponse;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<AccountAuthResponse>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// OAuth Sign-In stub (Google/Apple)
+  /// Reserved surface for Google/Apple Sign-In. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off. When the flag is on, returns 503 E_OAUTH_NOT_IMPLEMENTED until Jorge configures provider clients — the stub never verifies id_token. See docs/ACCOUNTS_USER_ID_PLAN.md.
+  ///
+  /// Parameters:
+  /// * [accountOAuthRequest] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [AccountAuthResponse] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<AccountAuthResponse>> authOauthPost({ 
+    required AccountOAuthRequest accountOAuthRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/auth/oauth';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(AccountOAuthRequest);
+      _bodyData = _serializers.serialize(accountOAuthRequest, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(

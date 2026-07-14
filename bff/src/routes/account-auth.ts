@@ -6,8 +6,10 @@ import { loginAccount, registerAccount } from '../services/account-auth';
 import {
   AccountAuthResponseSchema,
   AccountLoginRequestSchema,
+  AccountOAuthRequestSchema,
   AccountRegisterRequestSchema,
   type AccountLoginRequest,
+  type AccountOAuthRequest,
   type AccountRegisterRequest,
 } from '../schemas/account-auth';
 import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
@@ -18,6 +20,14 @@ const accountsDisabledResponse = (requestId: string) =>
     'User account auth is disabled (ENABLE_USER_ACCOUNT_AUTH=false)',
     requestId,
     'E_ACCOUNTS_DISABLED',
+  );
+
+const oauthNotImplementedResponse = (requestId: string) =>
+  errorEnvelope(
+    'internal_error',
+    'OAuth providers are not configured (stub only; no token verification)',
+    requestId,
+    'E_OAUTH_NOT_IMPLEMENTED',
   );
 
 export const authRegisterRoute = createRoute({
@@ -97,6 +107,46 @@ export const authLoginRoute = createRoute({
   },
 });
 
+export const authOAuthRoute = createRoute({
+  method: 'post',
+  path: '/auth/oauth',
+  tags: ['auth'],
+  summary: 'OAuth Sign-In stub (Google/Apple)',
+  description:
+    'Reserved surface for Google/Apple Sign-In. Returns 403 while ' +
+    'ENABLE_USER_ACCOUNT_AUTH is off. When the flag is on, returns 503 ' +
+    'E_OAUTH_NOT_IMPLEMENTED until Jorge configures provider clients — ' +
+    'the stub never verifies id_token. See docs/ACCOUNTS_USER_ID_PLAN.md.',
+  request: {
+    body: {
+      required: true,
+      content: { 'application/json': { schema: AccountOAuthRequestSchema } },
+    },
+  },
+  responses: {
+    200: {
+      description: 'Reserved — not returned by the stub',
+      content: { 'application/json': { schema: AccountAuthResponseSchema } },
+    },
+    400: {
+      description: 'Bad request (validation)',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
+    403: {
+      description: 'Account auth flag off',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
+    429: {
+      description: 'Rate limited',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
+    503: {
+      description: 'OAuth stub — provider verification not implemented',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
+  },
+});
+
 export const authRegisterHandler = async (c: AppContext): Promise<Response> => {
   const requestId = c.get('request_id') ?? randomUUID();
   const body = (
@@ -119,4 +169,16 @@ export const authLoginHandler = async (c: AppContext): Promise<Response> => {
   }
   const response = await loginAccount(body);
   return c.json(response, 200);
+};
+
+export const authOAuthHandler = async (c: AppContext): Promise<Response> => {
+  const requestId = c.get('request_id') ?? randomUUID();
+  // Validate body even on the stub path so unknown providers get 400.
+  (
+    c.req as unknown as { valid: (t: 'json') => AccountOAuthRequest }
+  ).valid('json');
+  if (!isUserAccountAuthEnabled()) {
+    return c.json(accountsDisabledResponse(requestId), 403);
+  }
+  return c.json(oauthNotImplementedResponse(requestId), 503);
 };

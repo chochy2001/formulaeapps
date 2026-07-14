@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: FormulaeApps BFF
-  version: 2.0.0
+  version: 2.1.0
   description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
 servers:
   - url: https://api.formulaeapps.com
@@ -227,6 +227,40 @@ components:
       required:
         - email
         - password
+      additionalProperties: false
+    AccountOAuthRequest:
+      type: object
+      properties:
+        provider:
+          type: string
+          enum:
+            - google
+            - apple
+          example: google
+          description: Identity provider. Only google and apple are in scope.
+        id_token:
+          type: string
+          minLength: 1
+          maxLength: 8192
+          example: eyJhbGciOiJSUzI1NiJ9...
+          description: Provider ID token. Never logged. Stub does not verify signatures.
+        platform:
+          type: string
+          enum:
+            - web
+            - android
+            - ios
+            - macos
+          example: web
+          description: "Client platform for the issued session JWT (default: web)."
+        app_version:
+          type: string
+          pattern: ^\d+\.\d+\.\d+
+          example: 3.7.2
+          description: "Client app version for the session JWT (default: 0.0.0)."
+      required:
+        - provider
+        - id_token
       additionalProperties: false
     ChatResponse:
       type: object
@@ -521,6 +555,49 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "429":
           description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+  /auth/oauth:
+    post:
+      tags:
+        - auth
+      summary: OAuth Sign-In stub (Google/Apple)
+      description: Reserved surface for Google/Apple Sign-In. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off. When the flag is on, returns 503 E_OAUTH_NOT_IMPLEMENTED until Jorge configures provider clients — the stub never verifies id_token. See docs/ACCOUNTS_USER_ID_PLAN.md.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountOAuthRequest"
+      responses:
+        "200":
+          description: Reserved — not returned by the stub
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountAuthResponse"
+        "400":
+          description: Bad request (validation)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "403":
+          description: Account auth flag off
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "429":
+          description: Rate limited
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "503":
+          description: OAuth stub — provider verification not implemented
           content:
             application/json:
               schema:

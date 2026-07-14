@@ -42,7 +42,9 @@ never unlocks mobile).
 4. **Device session → account pairing:** pending. If product needs to migrate
    an existing device grant, derive it from a verified session or one-time
    pairing. Do not reintroduce a public `client_id` bind.
-5. **OAuth (later):** Google/Apple Sign-In as additive providers; same `user_id` key.
+5. **OAuth (stub):** `POST /auth/oauth` accepts `google`/`apple` + `id_token`.
+   Flag off → 403; flag on → 503 `E_OAUTH_NOT_IMPLEMENTED` until Jorge wires
+   provider clients (stub never verifies tokens).
 6. ~~**FE account client stub**~~ ✅ `AccountAuthService` behind dart-define (default off).
 7. **FE account UI** (optional) gated separately; keep dart-defines off until go-live.
 
@@ -124,5 +126,6 @@ bash scripts/route-coverage.sh
 - [x] Anti-double-pay / channel rules unchanged (IAP ≠ polar/web)
 - [ ] Verified device → account pairing, only if product needs that migration
 - [ ] Flip flags only after product policy, validators, staged SHA, backup/smoke/rollback — **no deploy from this plan**
-- [ ] OAuth providers (optional follow-up)
+- [x] OAuth route stub (`POST /auth/oauth`, contract `2.1.0`) — no verification
+- [ ] OAuth provider verification (Jorge: Google/Apple client secrets)
 - [ ] Product decision on Polar web Pro

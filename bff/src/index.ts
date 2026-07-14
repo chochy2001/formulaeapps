@@ -11,6 +11,8 @@ import {
   authRegisterHandler,
   authLoginRoute,
   authLoginHandler,
+  authOAuthRoute,
+  authOAuthHandler,
 } from './routes/account-auth';
 import { chatRoute, chatHandler } from './routes/chat';
 import {
@@ -49,13 +51,15 @@ export function createBffApp(
   app.use('/auth/token', authRateLimiter.middleware);
   app.use('/auth/register', authRateLimiter.middleware);
   app.use('/auth/login', authRateLimiter.middleware);
+  app.use('/auth/oauth', authRateLimiter.middleware);
 
   // Public routes (no JWT required)
   app.openapi(healthRoute, healthHandler as never);
   app.openapi(authTokenRoute, authTokenHandler as never);
-  // Account register/login (fleet #86) — 403 while ENABLE_USER_ACCOUNT_AUTH is off.
+  // Account register/login/oauth (fleet #86) — 403 while ENABLE_USER_ACCOUNT_AUTH is off.
   app.openapi(authRegisterRoute, authRegisterHandler as never);
   app.openapi(authLoginRoute, authLoginHandler as never);
+  app.openapi(authOAuthRoute, authOAuthHandler as never);
 
   // Auth-gated routes — JWT middleware applied before route handlers
   app.use('/openai/*', jwtAuthMiddleware);
