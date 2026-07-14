@@ -6,13 +6,21 @@ production.
 
 ## Current status
 
-Two automatic runs failed before upload, and neither changed production:
+The following failures are historical; neither changed production:
 
 - run `29265090762` used an unsupported Node version for the landing and did
   not have the required Pro build configuration;
 - run `29267520787` could not write Node 22 to the test runner tool cache and
   did not have `FORMULAE_JWT_SHARED_SECRET` configured;
 - both production upload jobs were skipped.
+
+The code from PR [#79](https://github.com/CAPDESIS/formulaeapps/pull/79) is
+integrated in `main`; PR [#83](https://github.com/CAPDESIS/formulaeapps/pull/83)
+made Flutter test concurrency explicit. At the last check on 2026-07-14, CI
+`29301504493` and the build candidate `29301504487` target code SHA
+`081aa889` (the `main` SHA at dispatch), but remain queued because every Formulae-authorized
+`test-light`, `build-heavy`, or `policy-light` runner is offline. No candidate
+artifact was uploaded and no production system changed.
 
 The FTP job is disabled because the attempted promotion path still lacked an
 authenticated FTPS endpoint, a protected `production` environment, a dedicated
@@ -34,8 +42,11 @@ job receives production FTP credentials.
 
 ## Current build blockers
 
+- Restore a Formulae-authorized online runner for `test-light`, `build-heavy`
+  and `policy-light`; do not bypass the restricted workflow allowlist of a
+  laptop or move secrets to a non-approved group merely to drain the queue.
 - Correct ownership of the `test-light` runner tool cache before relying on
-  `actions/setup-node` there.
+  `actions/setup-node` there; the historical landing job failed with `EACCES`.
 - Provision `FORMULAE_JWT_SHARED_SECRET` through the approved secret store and
   scope it only to the build that requires it. Never record the value in this
   repository or in workflow logs.

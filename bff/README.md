@@ -3,11 +3,11 @@
 Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), exposes un endpoint de validación IAP Apple/Google que falla cerrado hasta contar con validadores reales, and issues short-lived session JWTs to the FE clients.
 
 > **Estado verificado localmente, 2026-07-13**: `bun run typecheck` y
-> `bun test` pasan con 138 pruebas en el checkout auditado. IAP falla cerrado
-> con `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo mientras los
-> validadores reales no estén listos. La configuración actual de GitHub no
-> exige checks verdes en `main`; por ello estos resultados no son una
-> declaración de CI, despliegue o entitlement productivo.
+> `bun test` pasan con 173 pruebas y 481 expectativas en el checkout auditado.
+> IAP falla cerrado con `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo
+> mientras los validadores reales no estén listos. La CI exacta del `main`
+> actual permanece bloqueada por runners offline; estos resultados locales no
+> son una declaración de CI, despliegue o entitlement productivo.
 
 ## Stack
 
@@ -77,11 +77,14 @@ bff/
 │   ├── index.ts                # Hono app entry, middleware + route registration
 │   ├── lib/
 │   │   ├── env.ts              # Zod-validated env parsing, placeholder-rejection in prod
+│   │   ├── feature-flags.ts    # Account/IAP feature flags, default fail-closed
 │   │   ├── openapi.ts          # @hono/zod-openapi wiring + AppEnv type
 │   │   └── jwt.ts              # jose HS256 issue/verify, shouldRefresh helper
 │   ├── schemas/                # Zod schemas — single source of truth
+│   │   ├── account-auth.ts     # Register/login requests and account sessions
 │   │   ├── auth.ts             # AuthTokenRequest/Response (E1, E2)
 │   │   ├── chat.ts             # ChatRequest/Response/Usage (E4, E5)
+│   │   ├── entitlement.ts      # GET /entitlement response
 │   │   ├── iap.ts              # IapValidate* (E6, E7)
 │   │   ├── error.ts            # ErrorEnvelope + ErrorKind enum (E8)
 │   │   ├── health.ts           # HealthResponse (E9)
@@ -90,8 +93,16 @@ bff/
 │   │   ├── jwt-auth.ts         # Bearer verification
 │   │   ├── cors.ts             # Exact-match allowlist (dev-friendly)
 │   │   ├── logger.ts           # Structured JSON logs, redacted, X-Request-Id propagation
+│   │   ├── limiters.ts         # Route-specific rate-limit configuration
+│   │   ├── rate-limit.ts       # In-memory request limiting
 │   │   └── error.ts            # ErrorEnvelope mapper + BffError throw helper
 │   ├── services/
+│   │   ├── account-auth.ts     # Flag-gated register/login and account JWTs
+│   │   ├── users-store.ts      # Account SQLite store
+│   │   ├── entitlement-check.ts # Fail-closed entitlement reader
+│   │   ├── entitlements-store.ts # Mobile entitlement SQLite store
+│   │   ├── iap-availability.ts # Validator availability envelope
+│   │   ├── iap-entitlement-persistence.ts # Persist-before-success rule
 │   │   ├── jwt-issuer.ts          # Verify client_proof HMAC; issue session JWT
 │   │   ├── openrouter-proxy.ts    # Server-side OpenRouter; injects system prompts; HTTP-Referer + X-Title attribution; allowlist-gated provider/model selection; usage invariant
 │   │   ├── apple-iap.ts           # Stub + real validator (real defers to live integration)
@@ -99,8 +110,10 @@ bff/
 │   └── routes/
 │       ├── health.ts           # GET /health
 │       ├── auth.ts             # POST /auth/token
+│       ├── account-auth.ts     # POST /auth/register and /auth/login, flag-gated
 │       ├── chat.ts             # POST /openai/chat (JWT-gated, X-Auth-Refresh rotation)
-│       └── iap.ts              # POST /iap/validate (JWT-gated)
+│       ├── iap.ts              # POST /iap/validate (JWT-gated)
+│       └── entitlement.ts      # GET /entitlement (JWT-gated)
 ├── scripts/
 │   └── export-openapi.ts       # Writes ../contracts/bff.openapi.yaml
 ├── tests/
@@ -132,16 +145,24 @@ validados hasta construirla y probarla contra el entorno de promoción.
 
 ## Deployment
 
-El host de despliegue y su estado actual no se verificaron en este checkout.
-`../docker-compose.yml` declara el servicio BFF, pero un despliegue también
-requiere secretos autorizados, persistencia para las bases SQLite y validación
-en el VPS. No ejecutar una promoción basándose sólo en este README.
+La inspección remota de 2026-07-14 observó una respuesta saludable del BFF,
+pero no un checkout Git trazable del SHA actual ni un volumen local Docker
+probado para sus SQLite. `../docker-compose.yml` declara el servicio BFF, pero
+un despliegue también requiere secretos autorizados, persistencia,
+backup/restore y validación en el VPS. No ejecutar una promoción basándose sólo
+en este README.
 
 The current release controls and known runtime blockers are documented in [`../docs/DEPLOY_CI_WEB.md`](../docs/DEPLOY_CI_WEB.md) and [`../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
 
 ## Contracts
 
-The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yaml`. It is **generated** by `bun run build:openapi` from the Zod schemas under `src/schemas/`. Never hand-edit either the YAML or the generated FE Dart types under `../pro/packages/formulaeapps_bff_client/` and `../community/packages/formulaeapps_bff_client/`; drift is detected by `../scripts/verify-parity.sh` and fails CI.
+The runtime-exported OpenAPI 3.1 document (Formulae contract version `2.0.0`)
+lives at `../contracts/bff.openapi.yaml`. It is **generated** by
+`bun run build:openapi` from the Zod schemas under `src/schemas/`. Never
+hand-edit either the YAML or the generated FE Dart types under
+`../pro/packages/formulaeapps_bff_client/` and
+`../community/packages/formulaeapps_bff_client/`; drift is detected by
+`../scripts/verify-parity.sh` and fails CI.
 
 ## Security
 
@@ -256,7 +277,7 @@ bun test tests/unit/      # unit only
 bun test tests/integration/  # integration only
 ```
 
-Coverage target: every route has at least one success-path and one primary-failure-path test. **Última ejecución local, 2026-07-13: 138 pruebas pasan** con `bun test`; no es una medición de cobertura ni una aprobación de producción.
+Coverage target: every route has at least one success-path and one primary-failure-path test. **Última ejecución local, 2026-07-13: 173 pruebas y 481 expectativas pasan** con `bun test`; no es una medición de cobertura ni una aprobación de producción.
 
 ## R12+R13 additions (2026-05-19)
 

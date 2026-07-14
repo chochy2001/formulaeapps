@@ -20,21 +20,22 @@ este tablero refleja ese estado y no lo sustituye.
 
 | Estado | Tickets | Lectura rápida |
 | --- | ---: | --- |
-| `EN_CURSO` | 1 | `FML-127` alinea la CI Flutter con el gate serial que ya pasó localmente y espera su repetición remota. |
+| `EN_CURSO` | 0 | Ninguno: el trabajo restante depende de controles y runners externos. |
 | `PENDIENTE` | 0 | Ninguno. |
-| `BLOQUEADO` | 3 | Hosting, staging/promoción, controles externos y decisión/validadores de entitlement. |
+| `BLOQUEADO` | 4 | Hosting, staging/promoción, runners/controles externos y decisión/validadores de entitlement. |
 | `HECHO` | 25 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración y aislamiento BFF. |
 | `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
 
-1. Cerrar `FML-127`: publicar el ajuste de concurrencia, repetir la CI sobre
-   el SHA exacto de `main` y no considerar el run anterior, prolongado dentro
-   de `flutter test`, como evidencia de éxito.
-2. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
-   antes de activar IAP remoto o cuentas; reintentar `FML-101` y `FML-116`
-   únicamente cuando exista staging, un SHA exacto y una ruta de rollback
-   verificable. No inventar evidencia de producción ni de controles GitHub/VPS.
+1. Resolver `FML-116`: restaurar un runner autorizado de `ci-builds`, repetir
+   CI y el candidato web sobre el SHA exacto de `main`, y registrar resultados
+   terminales antes de cerrar `FML-127`.
+2. Resolver `FML-101`: promover las imágenes únicamente mediante la ruta FTPS
+   protegida, con snapshot, smoke y rollback verificables.
+3. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
+   antes de activar IAP remoto o cuentas. No inventar evidencia de producción
+   ni de controles GitHub/VPS.
 
 ## Tickets
 
@@ -173,24 +174,22 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P1
 - Area: Git e integración
 - Responsable: Codex
-- Proximo paso: Publicar `e9d8a13` y sus commits ancestrales mediante una PR
-  normal contra `main`; volver a comprobar el SHA remoto inmediatamente antes
-  del merge.
+- Proximo paso: Mantener los gates de integración para cambios posteriores y
+  comprobar el SHA remoto antes de cualquier promoción externa.
 - Criterio de cierre: El cambio existe sobre el SHA objetivo, sin conflictos y
   con quality gates repetidos desde ese estado.
-- Evidencia: La rama se rebasó de forma controlada sobre
-  `origin/main@c79e866c2ac9f55cd0231abffa69f17d716607fa`; después se creó el
-  candidato de seguridad `8d839b2`; el commit de aislamiento BFF `e9d8a13`
-  lo sucede. `git fetch origin --prune` confirmó `origin/main` en el mismo
-  SHA y una divergencia `0 6`. `make verify-all` pasó desde `e9d8a13`; incluye
-  contrato/paridad, 173 pruebas BFF (481 expectativas), análisis y pruebas
-  Flutter, landing, infraestructura y tickets. `bun run build` del BFF y
-  `gitleaks protect --staged --redact` también pasaron. El preflight anterior
-  del padre `5c65bc0` detectó dos tests IAP contaminados por mocks globales;
-  `e9d8a13` los reemplaza por inyección aislada y el siguiente preflight debe
-  verificarse antes del merge.
-- Bloqueo: Ninguno local. La publicación/merge se ejecuta como paso operativo
-  separado; no implica autorización ni evidencia de producción.
+- Evidencia: La PR [#79](https://github.com/CAPDESIS/formulaeapps/pull/79)
+  integró el trabajo en `main` mediante
+  `4bc1c6aa0d664a36eb4b5bb400b84b0939247fbc`, tras el preflight verde
+  `29300786169` sobre `563c316`. Incluye el aislamiento BFF `e9d8a13`;
+  `make verify-all` pasó sobre ese candidato con contrato/paridad, 173 pruebas
+  BFF (481 expectativas), análisis y pruebas Flutter, landing,
+  infraestructura y tickets. `bun run build` del BFF y
+  `gitleaks protect --staged --redact` también pasaron. El preflight previo
+  del padre `5c65bc0` detectó mocks IAP contaminados; `e9d8a13` los sustituyó
+  por inyección aislada antes de la integración.
+- Bloqueo: Ninguno para la integración ya realizada. El merge no constituye
+  evidencia de staging ni de producción.
 
 ### FML-108: Validación en emulador y dispositivos móviles
 
@@ -421,7 +420,8 @@ este tablero refleja ese estado y no lo sustituye.
   `173 pass`, `0 fail`, `481 expect()` en 30 archivos; además el grupo IAP se
   repitió aleatoriamente 10 veces (130/130). La ejecución vuelve a generar y
   verifica el contrato `2.0.0` y ambos clientes Dart, sin cambios fuera del
-  índice.
+  índice. El aislamiento quedó integrado en `main` por la PR
+  [#79](https://github.com/CAPDESIS/formulaeapps/pull/79), merge `4bc1c6a`.
 - Bloqueo: Ninguno local.
 
 ### FML-119: Resiliencia y contratos seguros de OpenRouter e IAP
@@ -580,19 +580,25 @@ este tablero refleja ese estado y no lo sustituye.
 
 ### FML-127: Alinear la CI Flutter con el gate determinista
 
-- Estado: EN_CURSO
+- Estado: BLOQUEADO
 - Prioridad: P1
 - Area: CI, Pro y Community
 - Responsable: Codex
-- Proximo paso: Publicar el uso explícito de `FLUTTER_TEST_CONCURRENCY=1`,
-  repetir la CI del SHA de `main` y registrar los dos resultados Flutter junto
-  con sus pruebas de clientes BFF.
+- Proximo paso: Restaurar un runner `ci-builds` autorizado y en línea; después
+  repetir la CI y el candidato web del SHA exacto de `main` y registrar los
+  resultados Flutter y de clientes BFF.
 - Criterio de cierre: Los jobs remotos de Pro y Community ejecutan exactamente
   la misma concurrencia que `make flutter-test`, terminan sin timeout y pasan
   análisis, pruebas y contratos generados.
-- Evidencia: El gate local de `main@4bc1c6a` pasó con `make flutter-test` y el
-  YAML de Actions valida. El run remoto `29300874967` completó análisis pero
-  ambos jobs permanecían dentro de `flutter test` más de 11 minutos, mientras
-  el Makefile ya fija la concurrencia serial. El cambio de workflow conserva
-  los `dart-defines` no secretos y sólo alinea esa variable.
-- Bloqueo: Ninguno local; falta el resultado de la CI publicada.
+- Evidencia: La PR [#83](https://github.com/CAPDESIS/formulaeapps/pull/83)
+  integró `FLUTTER_TEST_CONCURRENCY=1` en `main` mediante
+  `081aa889ff95705b64e88d06b310097f6ee468ed`; `make flutter-test` ya pasó con
+  esa concurrencia y el YAML de Actions valida. Los runs exactos de ese SHA,
+  CI `29301504493` y candidato web `29301504487`, se enviaron después de
+  cancelar los runs obsoletos `29300874967` y `29300874991`. Quedaron en cola:
+  los runners elegibles de `ci-builds` (`test-light` y `build-heavy`) están
+  offline y el runner de política compatible también quedó offline. No existe
+  todavía resultado remoto terminal ni artefacto candidato para este SHA.
+- Bloqueo: Depende de `FML-116`: un operador debe restaurar capacidad de runner
+  autorizada para Formulae. No es seguro redirigir estas cargas a un runner o
+  grupo no autorizado ni afirmar CI verde mientras siguen en cola.

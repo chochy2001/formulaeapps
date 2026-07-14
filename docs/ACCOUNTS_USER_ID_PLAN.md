@@ -29,7 +29,7 @@ never unlocks mobile).
 | `GET /entitlement` merges subject + user_id rows | ✅ When flag on + claim present; rows bound to another `user_id` are excluded |
 | Device → account pairing | ❌ Pending a verified session or one-time pairing design; no automatic bind exists |
 | Polar web | ❌ Explicitly deferred (see below) |
-| Production deploy | ❌ Blocked: no staged SHA, green runner, verified FTPS rollback or VPS volume/backup evidence |
+| Production deploy | ❌ Blocked: no staged SHA, completed green CI/candidate for the code candidate, verified FTPS rollback or VPS volume/backup evidence |
 
 ## Remaining ordered steps
 
@@ -75,12 +75,15 @@ enable in production.
 ## Promotion boundary
 
 Production is blocked outside this codebase until the exact candidate has a
-green CI run and staging deployment with smoke/rollback. The current landing
-runner fails Node setup with `EACCES`; no Formulae staging SHA exists. The FTPS
-hosting route lacks a verified host/certificate, snapshot, atomic publish and
-rollback. On the VPS, `/opt/infrastructure/formulaeapps` is not a Git checkout
-and the observed BFF has `LocalVolumes=0`, so persistence, backup and restore
-are not evidenced. No flag may be flipped to work around those missing controls.
+green CI run and staging deployment with smoke/rollback. No completed green
+CI/candidate exists for code SHA `081aa889` (the `main` SHA at dispatch): its
+matching CI and web candidate runs are queued while eligible `ci-builds` runners are offline; the
+historical landing runner also failed Node setup with `EACCES`. No Formulae
+staging SHA exists. The FTPS hosting route lacks a verified host/certificate,
+snapshot, atomic publish and rollback. On the VPS,
+`/opt/infrastructure/formulaeapps` is not a Git checkout and the observed BFF
+has `LocalVolumes=0`, so persistence, backup and restore are not evidenced. No
+flag may be flipped to work around those missing controls.
 
 ### C. Polar web — deferred (product decision required)
 

@@ -33,7 +33,7 @@ cd ../..
 flutter pub get
 
 flutter analyze --no-pub --fatal-infos --fatal-warnings
-flutter test --no-pub --reporter compact \
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
   --dart-define=JWT_SHARED_SECRET=test-shared-secret \
   --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
   --dart-define=FORMULAE_APP_VERSION=0.0.0-ci

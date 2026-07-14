@@ -21,10 +21,10 @@ producto, pero se construyen y validan por separado.
 
 ## Estado auditado
 
-- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 138
-  pruebas. IAP responde `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo
-  mientras no haya validadores Apple/Google reales; no es un entitlement listo
-  para producción.
+- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 173
+  pruebas y 481 expectativas. IAP responde
+  `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo mientras no haya
+  validadores Apple/Google reales; no es un entitlement listo para producción.
 - Cobertura de rutas: `bash scripts/route-coverage.sh` pasa; el consumidor Pro
   de `/iap/validate` es opt-in y está apagado por defecto. No equivale a un
   entitlement de compras listo para producción.
@@ -83,7 +83,7 @@ bun run check:formulae-images
 # Pro
 cd ../pro
 flutter analyze --no-pub --fatal-infos --fatal-warnings
-flutter test --no-pub --reporter compact \
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
   --dart-define=JWT_SHARED_SECRET=test-shared-secret \
   --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
   --dart-define=FORMULAE_APP_VERSION=0.0.0-ci

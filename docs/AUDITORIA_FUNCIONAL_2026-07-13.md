@@ -4,12 +4,16 @@ Este documento es el estado verificable de la revisión integral realizada en
 la rama `agent/formulae-image-regeneration-20260713`, iniciada sobre la base
 local `be796b1` y actualizada tras un rebase controlado sobre
 `origin/main@c79e866`. Sustituye las afirmaciones no fechadas de "producción
-lista" en la documentación histórica. La integración produjo `5a2a1b6`, el
-candidato de seguridad `8d839b2` y el aislamiento de pruebas posterior
-`e9d8a13`; sus quality gates completos pasaron con el último SHA. Nada de este
-documento autoriza despliegues,
-publicaciones en tiendas, promociones de hosting ni merges a `main` sin
-revalidar el SHA remoto exacto.
+lista" en la documentación histórica. La PR
+[#79](https://github.com/CAPDESIS/formulaeapps/pull/79) integró el candidato
+de seguridad y el aislamiento BFF en `main` como `4bc1c6a`; su preflight
+`29300786169` fue verde. La PR
+[#83](https://github.com/CAPDESIS/formulaeapps/pull/83) alineó la concurrencia
+Flutter y dejó el candidato de código en `081aa889`. Al verificar el estado remoto el
+2026-07-14, la CI `29301504493` y el candidato web `29301504487` de ese SHA
+siguen en cola por runners elegibles offline. Nada de este documento autoriza
+despliegues, publicaciones en tiendas, promociones de hosting ni cambios de
+flags sin revalidar el SHA remoto exacto.
 
 ## Alcance revisado
 
@@ -34,8 +38,8 @@ revalidar el SHA remoto exacto.
 | PDF Pro | El flujo de Pro genera bytes localmente desde la pantalla, muestra vista previa web nativa y visor móvil. Los 378 IDs de botones PDF se resuelven en `widgetTable`. Favoritos y la exportación de tareas usan el mismo exportador multiplataforma; Tareas usa `pw.MultiPage` para no truncar listas largas y su regresión cubre 180 tareas en 320, 600, 900 y 1440 px. En Linux guarda el PDF en Descargas o Documentos, sin invocar el share sheet no implementado. |
 | PDF Community | `Ver PDF` y `Descargar/Imprimir/Compartir PDF` generan una ficha de estudio local con `pdf`, validan su firma `%PDF-`, la muestran con `SfPdfViewer.memory` y la exportan mediante adaptadores condicionales de plataforma. No hacen fetch de la URL heredada. La ficha declara que es local y remite a la lección; no se presenta como el PDF histórico recuperado. |
 | Ejecución móvil y AdMob | El Debug del simulador iOS expande el ID oficial de prueba, instala y arranca sin `GADInvalidInitializationException`. Android Debug generó el APK, lo instaló y sobrevivió a un reinicio cálido en API 36.1 sin crash; su manifest fusionado contiene el ID oficial de prueba. Guardias de Xcode y Gradle rechazan Release sin un ID de aplicación real no-test; los IDs de release no están en el checkout. Las capturas de Home muestran un placeholder de imagen, consistente con el bloqueo externo de 176 URLs públicas 404. |
-| BFF | El candidato integrado eleva el contrato a `2.0.0`: register/login rechazan `client_id` público, emiten `sub=user:<user_id>` y el lector de entitlement excluye filas de sujeto ligadas a otro usuario. La antigua ayuda de vínculo dispositivo→cuenta se eliminó; sólo un grant IAP validado puede escribir `user_id` con JWT de cuenta y la flag activa. Además, una validación IAP no devuelve éxito hasta persistir su grant; los errores son `E_IAP_MISSING_SUBJECT` o `E_ENTITLEMENT_PERSISTENCE`. El primer preflight detectó que mocks globales podían contaminar validadores IAP entre archivos; `e9d8a13` los reemplaza por inyección aislada. Sobre ese SHA, el suite completo pasó con 173 pruebas y 481 expectativas. Los validadores reales y la autoridad de entitlement siguen sin estar listos para producción. |
-| Rutas BFF | Tras el rebase, `bash scripts/route-coverage.sh` pasó con consumidores para `/auth/token`, `/auth/register`, `/auth/login`, `/openai/chat`, `/iap/validate` y `/entitlement`; no hay rutas huérfanas ni llamadas muertas. Se repite como parte del gate del SHA final. |
+| BFF | El cambio integrado por #79 eleva el contrato a `2.0.0`: register/login rechazan `client_id` público, emiten `sub=user:<user_id>` y el lector de entitlement excluye filas de sujeto ligadas a otro usuario. La antigua ayuda de vínculo dispositivo→cuenta se eliminó; sólo un grant IAP validado puede escribir `user_id` con JWT de cuenta y la flag activa. Además, una validación IAP no devuelve éxito hasta persistir su grant; los errores son `E_IAP_MISSING_SUBJECT` o `E_ENTITLEMENT_PERSISTENCE`. El primer preflight detectó que mocks globales podían contaminar validadores IAP entre archivos; `e9d8a13` los reemplaza por inyección aislada. Sobre ese SHA, el suite completo pasó con 173 pruebas y 481 expectativas. Los validadores reales y la autoridad de entitlement siguen sin estar listos para producción. |
+| Rutas BFF | Sobre el candidato integrado, `bash scripts/route-coverage.sh` pasó con consumidores para `/auth/token`, `/auth/register`, `/auth/login`, `/openai/chat`, `/iap/validate` y `/entitlement`; no hay rutas huérfanas ni llamadas muertas. Se repite como parte del gate del SHA final. |
 
 ## Validaciones ejecutadas
 
@@ -48,9 +52,11 @@ contrato/paridad, `bun audit`, suite BFF (173/0, 481 expectativas), análisis y
 pruebas Flutter, landing, infraestructura y tracker. Además pasaron `cd bff &&
 bun run build`, `gitleaks protect --staged --redact`, 10 repeticiones
 aleatorizadas de los flujos IAP (130/130) y una revisión visual del build web
-de Pro en 320, 768 y escritorio, sin errores/advertencias de consola. Falta
-comprobar el siguiente preflight de GitHub antes del merge. Esto es evidencia
-de candidato local, no de staging ni producción.
+de Pro en 320, 768 y escritorio, sin errores/advertencias de consola. El
+preflight de #79 fue verde antes del merge; #83 incorporó la concurrencia
+serial. La repetición remota exacta de `081aa889` aún no es terminal: sus
+runners requeridos están offline. Esto es evidencia local e integrada, no de
+CI exacta verde, staging ni producción.
 
 ```bash
 cd bff && bun install --frozen-lockfile && bun run typecheck && bun test
@@ -67,7 +73,7 @@ bun run check:formulae-images
 
 cd ../pro
 flutter analyze --no-pub --fatal-infos --fatal-warnings
-flutter test --no-pub --reporter compact \
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
   --dart-define=JWT_SHARED_SECRET=test-shared-secret \
   --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
   --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
@@ -99,14 +105,15 @@ errores de consola. Community pasó 100 pruebas, incluidas las regresiones
 estrictas de imagen, PDF local, derivación, ecuaciones de primer grado,
 navegación y ciclo de vida del chat. `flutter analyze --no-pub --fatal-infos
 --fatal-warnings` terminó con `No issues found!`; CI y Make ya conservan el
-gate estricto. El simulador iOS compiló, instaló y lanzó Home sin el crash de
+gate estricto y #83 hace explícita la ejecución serial de ambas suites Flutter.
+El simulador iOS compiló, instaló y lanzó Home sin el crash de
 AdMob; Android Debug compiló, se instaló y abrió Home en el AVD API 36.1. Una
 compilación Release sin configuración de AdMob falla deliberadamente con la
 guardia de configuración.
-La corrección posterior de cuentas/IAP cuenta con regresiones focales de rechazo
-de `client_id`, aislamiento por `user_id` y fallo de persistencia IAP; no se
-debe reutilizar el conteo 138 como evidencia del candidato posterior hasta que
-su suite completa finalice.
+La corrección de cuentas/IAP cuenta con regresiones de rechazo de `client_id`,
+aislamiento por `user_id` y fallo de persistencia IAP; está incluida en las 173
+pruebas BFF/481 expectativas locales. La repetición remota del SHA actual sigue
+pendiente de capacidad de runner.
 
 ## Bloqueos externos vigentes
 
@@ -135,12 +142,14 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
    contenedor BFF tiene `LocalVolumes=0`; por ello siguen faltando la evidencia
    de contenedor, volumen, recreate, backup y restore en el VPS autorizado. Los
    secretos no se agregan al repo.
-4. La rama ya se rebasó sobre `origin/main@c79e866`, pero no hay un SHA exacto
-   desplegado en staging que permita validar el candidato. El workflow de web
-   actualmente construye artefactos y no ejecuta una promoción productiva; su
-   intento de landing falló al preparar Node con `EACCES` en el toolcache del
-   runner. El servidor público sigue exponiendo OpenAPI 1.0.0 con sólo cuatro
-   rutas, no el contrato `2.0.0` del candidato local.
+4. La PR #79 ya integró el código en `main` y #83 dejó el candidato de código
+   `081aa889`, pero no hay un SHA exacto desplegado en staging que permita
+   validarlo. El workflow web construye artefactos y no ejecuta una promoción
+   productiva. Sus runs exactos actuales (`29301504493` y `29301504487`) están
+   en cola porque los runners elegibles de `ci-builds` están offline; el fallo
+   histórico de landing al preparar Node con `EACCES` tampoco está resuelto. El
+   servidor público sigue exponiendo OpenAPI 1.0.0 con sólo cuatro rutas, no el
+   contrato `2.0.0` del candidato local.
 5. Android e iOS ya se ejecutaron en emuladores. El iPhone físico sigue
    requiriendo desbloqueo y Developer Mode si se necesita esa evidencia extra.
    La medición reproducible de primera UI interactiva en el AVD Android de 1
@@ -180,8 +189,9 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
 
 ## Checklist para una promoción autorizada
 
-1. Reparar el runner de landing y obtener CI verde para el SHA exacto; desplegar
-   primero ese mismo SHA a staging y registrar smoke y rollback.
+1. Restaurar capacidad de runner autorizada para Formulae, obtener CI y
+   candidato web terminales y verdes para el SHA exacto; desplegar primero ese
+   mismo SHA a staging y registrar smoke y rollback.
 2. Con un endpoint FTPS autorizado y verificable, tomar un snapshot, promover
    atómicamente `dist/` más `public/imagenes/`, dejar marker de release y probar
    rollback antes de tocar producción.

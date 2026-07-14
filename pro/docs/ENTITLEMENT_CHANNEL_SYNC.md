@@ -53,7 +53,7 @@ not authorization to enable the related flags in staging or production.
 cd bff && bun run typecheck && bun run check:persistence-config && bun test && bun run build:openapi
 cd .. && bash scripts/generate-bff-types.sh
 cd pro && flutter analyze --no-pub --fatal-infos --fatal-warnings
-flutter test --no-pub
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub
 cd .. && bash scripts/route-coverage.sh
 ```
 
@@ -64,8 +64,11 @@ cd .. && bash scripts/route-coverage.sh
 | `ENABLE_BFF_IAP_VALIDATION` | `false` | Enables the Pro BFF validation call and pre-purchase entitlement guard. Keep off until validators, durable storage, staging and a release SHA are verified. |
 | `ENABLE_USER_ACCOUNT_AUTH` | `false` | Enables account endpoints and the Pro client stub. Keep off until product approves identity/pairing behavior, VPS storage is proven and the staged candidate passes the account-isolation regressions. |
 
-Production is currently blocked: no Formulae staging SHA or green promotion
-runner exists (the landing runner hit Node toolcache `EACCES`), the FTPS
-publication/snapshot/rollback route is not verifiable, and the observed VPS
-stack is not a Git checkout with a proven BFF volume. No deployment may flip
-either flag without the required staging, backup, smoke and rollback evidence.
+Production is currently blocked: no Formulae staging SHA or completed green
+CI/release-candidate run exists for code SHA `081aa889` (the `main` SHA at
+dispatch). The matching CI and web candidate runs are queued because eligible `ci-builds`
+runners are offline; the historical landing runner also hit Node toolcache
+`EACCES`. The FTPS publication/snapshot/rollback route is not verifiable, and
+the observed VPS stack is not a Git checkout with a proven BFF volume. No
+deployment may flip either flag without the required staging, backup, smoke and
+rollback evidence.
