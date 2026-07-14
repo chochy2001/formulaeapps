@@ -31,6 +31,7 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 - **FE WP5 steps 3–4 (2026-07-13):** `EntitlementService` → `GET /entitlement`; paywall `buyProduct` fail-closed pre-IAP guard when `ENABLE_BFF_IAP_VALIDATION` is on (anti double-pay stub via `lastPurchaseBlockReason`). Flag still default **off**.
 - **Accounts prep / fleet #86 slice (2026-07-13):** nullable `user_id` column + OpenAPI stubs `POST /auth/register` + `POST /auth/login` behind `ENABLE_USER_ACCOUNT_AUTH` (default **off** → 403). Plan: `docs/ACCOUNTS_USER_ID_PLAN.md`. Contract `1.1.0` → `1.2.0`. Polar web explicitly deferred.
 - **Accounts impl / fleet #86 slice 2 (2026-07-13):** `users` table + argon2id register/login when flag on; JWT `user_id` claim; optional `client_id` binds device entitlements; `GET /entitlement` merges user_id rows. Contract `1.2.0` → `1.3.0`. Flag still default **off**.
+- **FE account client stub / fleet #86 slice 3 (2026-07-13):** `AccountAuthService` → register/login behind dart-define `ENABLE_USER_ACCOUNT_AUTH` (default **off**). No account UI yet.
 
 ## Next implementation steps (ordered)
 
@@ -43,7 +44,8 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 | 3 | Pro FE | ✅ `EntitlementService` → `GET /entitlement` (wired; used when flag on). |
 | 4 | Pro FE | ✅ Paywall: check entitlement before IAP charge (fail-closed when flag on). |
 | 5 | Fleet | OpenAPI entitlement contract shared with IngeTracker (`sources`, `scope`, `since`). |
-| 6 | Product | Decide if web Polar is in scope; if yes, add Polar handler + webhook before marketing web Pro. |
+| 6 | Pro FE | ✅ `AccountAuthService` client stub (dart-define `ENABLE_USER_ACCOUNT_AUTH` default off). UI later. |
+| 7 | Product | Decide if web Polar is in scope; if yes, add Polar handler + webhook before marketing web Pro. |
 
 ### Remaining checklist (post FE steps 3–4 + accounts prep)
 
@@ -72,6 +74,6 @@ cd Formulae/monorepo/pro && flutter analyze --no-pub --fatal-infos --fatal-warni
 | Flag | Default | Purpose |
 |------|---------|---------|
 | `ENABLE_BFF_IAP_VALIDATION` | `false` | Opt-in wire from store purchase → BFF `/iap/validate` **and** pre-purchase `GET /entitlement` fail-closed guard |
-| `ENABLE_USER_ACCOUNT_AUTH` | `false` | Unlock register/login + persist `user_id` on entitlement grants |
+| `ENABLE_USER_ACCOUNT_AUTH` | `false` | Unlock register/login + persist `user_id` on entitlement grants (BFF env **and** Flutter dart-define for FE client stub) |
 
 Do **not** enable in production until BFF persistence + user accounts exist.

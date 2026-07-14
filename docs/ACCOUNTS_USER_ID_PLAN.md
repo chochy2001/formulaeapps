@@ -37,7 +37,8 @@ mobile).
 3. ~~**Implement register/login** behind flag~~ ✅
 4. ~~**Link device session → account** via optional `client_id`~~ ✅
 5. **OAuth (later):** Google/Apple Sign-In as additive providers; same `user_id` key.
-6. **FE account UI** (optional) gated separately; keep dart-defines off until go-live.
+6. ~~**FE account client stub**~~ ✅ `AccountAuthService` behind dart-define (default off).
+7. **FE account UI** (optional) gated separately; keep dart-defines off until go-live.
 
 ### B. Entitlement read path
 
@@ -62,7 +63,7 @@ unimplemented.
 
 | Flag | Default | Layer | Purpose |
 |------|---------|-------|---------|
-| `ENABLE_USER_ACCOUNT_AUTH` | `false` | BFF env | Unlock register/login + persist `user_id` on grants |
+| `ENABLE_USER_ACCOUNT_AUTH` | `false` | BFF env + Flutter dart-define | Unlock register/login + FE `AccountAuthService` + persist `user_id` on grants |
 | `ENABLE_BFF_IAP_VALIDATION` | `false` | Flutter dart-define | FE → BFF `/iap/validate` + fail-closed pre-IAP guard |
 
 ## Local validation
