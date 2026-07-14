@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConexionEnSerieCapacitor extends StatefulWidget {
+  const ConexionEnSerieCapacitor({super.key});
   @override
   State<ConexionEnSerieCapacitor> createState() =>
       _ConexionEnSerieCapacitorState();

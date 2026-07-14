@@ -3,17 +3,14 @@ import 'package:flutter/cupertino.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ImagenLogoFormulae extends StatelessWidget {
-  const ImagenLogoFormulae({
-    Key? key,
-  }) : super(key: key);
+  const ImagenLogoFormulae({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const FadeInImage(
+    return const ImagenRemotaRobusta(
       height: 100.0,
       width: 100.0,
-      placeholder: AssetImage(kUrlImagenGifCarga),
-      image: NetworkImage(kUrlImagenFormulae),
+      urlImagen: kUrlImagenFormulae,
     );
   }
 }

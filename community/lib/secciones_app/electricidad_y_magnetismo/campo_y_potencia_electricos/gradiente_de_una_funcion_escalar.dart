@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class GradienteDeUnaFuncionEscalar extends StatefulWidget {
+  const GradienteDeUnaFuncionEscalar({super.key});
   @override
   State<GradienteDeUnaFuncionEscalar> createState() =>
       _GradienteDeUnaFuncionEscalarState();

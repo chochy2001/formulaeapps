@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuerzaDeLorentz extends StatefulWidget {
+  const FuerzaDeLorentz({super.key});
   @override
   State<FuerzaDeLorentz> createState() => _FuerzaDeLorentzState();
 }

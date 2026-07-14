@@ -1,7 +1,6 @@
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test';
 import { isUserAccountAuthEnabled } from '../../src/lib/feature-flags';
 import {
-  bindEntitlementsUserId,
   grantMobileEntitlement,
   listEntitlementsForSubject,
   listEntitlementsForUserId,
@@ -64,17 +63,6 @@ describe('entitlements-store user_id column (flag default off)', () => {
     expect(listEntitlementsForUserId('550e8400-e29b-41d4-a716-446655440000')).toHaveLength(0);
   });
 
-  test('bindEntitlementsUserId is no-op while flag is off', () => {
-    grantMobileEntitlement({
-      subject: 'sub-a',
-      payment_source: 'app_store',
-      product_id: 'pro',
-      raw_receipt_ref: 'tx-a',
-    });
-    expect(bindEntitlementsUserId('sub-a', '550e8400-e29b-41d4-a716-446655440000')).toBe(0);
-    expect(listEntitlementsForSubject('sub-a')[0]?.user_id).toBeNull();
-  });
-
   test('flag on: grant persists user_id and listEntitlementsForUserId works', () => {
     process.env['ENABLE_USER_ACCOUNT_AUTH'] = 'true';
     const userId = '550e8400-e29b-41d4-a716-446655440000';
@@ -91,18 +79,4 @@ describe('entitlements-store user_id column (flag default off)', () => {
     expect(byUser[0]?.subject).toBe('sub-bound');
   });
 
-  test('flag on: bindEntitlementsUserId updates existing subject rows', () => {
-    process.env['ENABLE_USER_ACCOUNT_AUTH'] = 'true';
-    grantMobileEntitlement({
-      subject: 'sub-migrate',
-      payment_source: 'app_store',
-      product_id: 'pro',
-      raw_receipt_ref: 'tx-m',
-    });
-    expect(listEntitlementsForSubject('sub-migrate')[0]?.user_id).toBeNull();
-    const userId = '11111111-2222-3333-4444-555555555555';
-    expect(bindEntitlementsUserId('sub-migrate', userId)).toBe(1);
-    expect(listEntitlementsForSubject('sub-migrate')[0]?.user_id).toBe(userId);
-    expect(listEntitlementsForUserId(userId)).toHaveLength(1);
-  });
 });

@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../busqueda/busqueda.dart';
 
 class BusquedaIntermedio extends StatelessWidget {
-  const BusquedaIntermedio({Key? key}) : super(key: key);
+  const BusquedaIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {

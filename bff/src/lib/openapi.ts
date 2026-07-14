@@ -9,7 +9,9 @@ import type { SessionClaims } from './jwt';
 // - MAJOR: breaking change (field renamed, response type changed, route removed).
 // - MINOR: additive (new route, new optional field, new error code).
 // - PATCH: non-semantic (description, example, examples).
-export const CONTRACT_VERSION = '1.3.0';
+// 2.0.0 removes the unproved account register/login `client_id` field. Clients
+// must regenerate rather than silently sending a field the server now rejects.
+export const CONTRACT_VERSION = '2.0.0';
 
 export type AppEnv = {
   Variables: {

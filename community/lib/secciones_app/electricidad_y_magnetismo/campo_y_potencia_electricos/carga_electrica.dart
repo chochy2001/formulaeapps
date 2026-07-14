@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CargaElectrica extends StatefulWidget {
+  const CargaElectrica({super.key});
   @override
   State<CargaElectrica> createState() => _CargaElectricaState();
 }

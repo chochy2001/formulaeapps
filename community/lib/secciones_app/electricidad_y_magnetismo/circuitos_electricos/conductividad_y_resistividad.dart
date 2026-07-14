@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConductividadYResistividad extends StatefulWidget {
+  const ConductividadYResistividad({super.key});
   @override
   State<ConductividadYResistividad> createState() =>
       _ConductividadYResistividadState();

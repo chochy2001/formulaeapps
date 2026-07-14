@@ -90,8 +90,9 @@ export function __resetReplayWindow(): void {
 
 /**
  * Hash the raw client_id to produce the JWT `sub` claim. Never echoes the raw
- * client_id back in tokens / logs. Exported so account register/login can bind
- * device entitlements to user_id with the same subject key as /auth/token.
+ * client_id back in tokens / logs. This is only for the possession-proven
+ * device-session `/auth/token` path; account register/login deliberately use
+ * account-owned subjects and cannot adopt a device entitlement.
  */
 export function hashClientId(clientId: string): string {
   const buf = createHmac('sha256', env.JWT_SHARED_SECRET).update(clientId).digest('hex');

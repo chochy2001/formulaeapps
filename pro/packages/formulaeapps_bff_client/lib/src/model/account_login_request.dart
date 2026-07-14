@@ -16,7 +16,6 @@ part 'account_login_request.g.dart';
 /// * [password] - Password. Never logged.
 /// * [platform] - Client platform for the issued session JWT (default: web).
 /// * [appVersion] - Client app version for the session JWT (default: 0.0.0).
-/// * [clientId] - Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
 @BuiltValue()
 abstract class AccountLoginRequest implements Built<AccountLoginRequest, AccountLoginRequestBuilder> {
   @BuiltValueField(wireName: r'email')
@@ -34,10 +33,6 @@ abstract class AccountLoginRequest implements Built<AccountLoginRequest, Account
   /// Client app version for the session JWT (default: 0.0.0).
   @BuiltValueField(wireName: r'app_version')
   String? get appVersion;
-
-  /// Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
-  @BuiltValueField(wireName: r'client_id')
-  String? get clientId;
 
   AccountLoginRequest._();
 
@@ -83,13 +78,6 @@ class _$AccountLoginRequestSerializer implements PrimitiveSerializer<AccountLogi
       yield r'app_version';
       yield serializers.serialize(
         object.appVersion,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.clientId != null) {
-      yield r'client_id';
-      yield serializers.serialize(
-        object.clientId,
         specifiedType: const FullType(String),
       );
     }
@@ -143,13 +131,6 @@ class _$AccountLoginRequestSerializer implements PrimitiveSerializer<AccountLogi
             specifiedType: const FullType(String),
           ) as String;
           result.appVersion = valueDes;
-          break;
-        case r'client_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.clientId = valueDes;
           break;
         default:
           unhandled.add(key);

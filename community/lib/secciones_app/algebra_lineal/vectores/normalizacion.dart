@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Normalizacion extends StatefulWidget {
+  const Normalizacion({super.key});
   @override
-  _NormalizacionState createState() => _NormalizacionState();
+  State<Normalizacion> createState() => _NormalizacionState();
 }
 
 class _NormalizacionState extends State<Normalizacion> {

@@ -5,7 +5,7 @@
  * can toggle without reloading the module graph. All defaults are OFF.
  */
 
-/** Email/password account routes + user_id entitlement binding. Default off. */
+/** Email/password account routes + account-session IAP user_id grants. Default off. */
 export function isUserAccountAuthEnabled(): boolean {
   return process.env['ENABLE_USER_ACCOUNT_AUTH'] === 'true';
 }

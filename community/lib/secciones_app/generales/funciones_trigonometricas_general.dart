@@ -3,8 +3,9 @@ import '../../../constantes/export_constantes.dart';
 import 'package:flutter/material.dart';
 
 class FuncionesTrigonometricasGenerales extends StatefulWidget {
+  const FuncionesTrigonometricasGenerales({super.key});
   @override
-  _FuncionesTrigonometricasGeneralesState createState() =>
+  State<FuncionesTrigonometricasGenerales> createState() =>
       _FuncionesTrigonometricasGeneralesState();
 }
 

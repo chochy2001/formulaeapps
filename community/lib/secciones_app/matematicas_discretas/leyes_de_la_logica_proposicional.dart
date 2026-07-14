@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyesDeLaLogicaProposicional extends StatefulWidget {
+  const LeyesDeLaLogicaProposicional({super.key});
   @override
-  _LeyesDeLaLogicaProposicionalState createState() =>
+  State<LeyesDeLaLogicaProposicional> createState() =>
       _LeyesDeLaLogicaProposicionalState();
 }
 

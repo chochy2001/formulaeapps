@@ -3,6 +3,7 @@ import '../../../constantes/export_constantes.dart';
 import 'package:formulae/ads/formulae_ads_controller.dart';
 
 class ConstantesDielectricas extends StatefulWidget {
+  const ConstantesDielectricas({super.key});
   @override
   State<ConstantesDielectricas> createState() => _ConstantesDielectricasState();
 }

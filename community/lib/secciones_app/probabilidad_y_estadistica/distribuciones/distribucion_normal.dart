@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistribucionNormal extends StatefulWidget {
+  const DistribucionNormal({super.key});
   @override
-  _DistribucionNormalState createState() => _DistribucionNormalState();
+  State<DistribucionNormal> createState() => _DistribucionNormalState();
 }
 
 class _DistribucionNormalState extends State<DistribucionNormal> {

@@ -5,7 +5,6 @@ import 'package:formulae/chat_gpt/entitlement_channel.dart';
 import 'package:formulae/chat_gpt/entitlement_service.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
 import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
-import 'package:formulaeapps_bff_client/src/serializers.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 
 import 'helpers/fake_iap_platform.dart';
@@ -181,8 +180,7 @@ void main() {
             ..sources = ListBuilder<EntitlementSource>([
               EntitlementSource(
                 (s) => s
-                  ..paymentSource =
-                      EntitlementSourcePaymentSourceEnum.appStore
+                  ..paymentSource = EntitlementSourcePaymentSourceEnum.appStore
                   ..productId = 'chat_mensual_2023_01'
                   ..grantedAt = DateTime.utc(2026, 7, 13),
               ),
@@ -211,8 +209,7 @@ void main() {
             ..sources = ListBuilder<EntitlementSource>([
               EntitlementSource(
                 (s) => s
-                  ..paymentSource =
-                      EntitlementSourcePaymentSourceEnum.appStore
+                  ..paymentSource = EntitlementSourcePaymentSourceEnum.appStore
                   ..productId = 'chat_mensual_2023_01'
                   ..grantedAt = DateTime.utc(2026, 7, 13),
               ),

@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class NumerosComplejos extends StatefulWidget {
-  const NumerosComplejos({Key? key}) : super(key: key);
+  const NumerosComplejos({super.key});
 
   @override
   NumerosComplejosState createState() => NumerosComplejosState();

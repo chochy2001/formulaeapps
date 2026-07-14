@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/chat_gpt/entitlement_service.dart';
 import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
-import 'package:formulaeapps_bff_client/src/serializers.dart';
 
 class _RecordingClient extends FormulaeappsBffClient {
   _RecordingClient({this.response, this.throwDio = false})
@@ -21,7 +20,8 @@ class _RecordingClient extends FormulaeappsBffClient {
 }
 
 class _RecordingEntitlementApi extends EntitlementApi {
-  _RecordingEntitlementApi(this._parent) : super(_parent.dio, standardSerializers);
+  _RecordingEntitlementApi(this._parent)
+      : super(_parent.dio, standardSerializers);
 
   final _RecordingClient _parent;
 
@@ -93,7 +93,8 @@ void main() {
       expect(await service.fetchEntitlement(), isNull);
     });
 
-    test('fetchEntitlement returns null on DioException (fail-closed)', () async {
+    test('fetchEntitlement returns null on DioException (fail-closed)',
+        () async {
       final recording = _RecordingClient(throwDio: true);
       final service = EntitlementService(
         tokenProvider: () async => 'session-jwt',

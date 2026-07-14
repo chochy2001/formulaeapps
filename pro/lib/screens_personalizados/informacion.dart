@@ -25,11 +25,10 @@ class Informacion extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                const FadeInImage(
+                const ImagenRemotaRobusta(
                   height: 200.0,
                   width: 200.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
                 const SizedBox(
                   height: 20.0,

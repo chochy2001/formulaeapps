@@ -81,12 +81,12 @@ export const STORES = {
 export const FEATURES = [
   { id: 'formulas', proOnly: false },
   { id: 'search', proOnly: false },
-  { id: 'tasks', proOnly: true },
+  { id: 'tasks', proOnly: false },
   { id: 'favorites', proOnly: false },
   { id: 'images', proOnly: false },
   { id: 'videos', proOnly: false },
   { id: 'exercises', proOnly: false },
-  { id: 'pdfs', proOnly: true },
+  { id: 'pdfs', proOnly: false },
   { id: 'chatgpt', proOnly: true },
   { id: 'practice', proOnly: false },
 ] as const;

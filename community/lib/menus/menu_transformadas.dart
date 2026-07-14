@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuTransformadas extends StatefulWidget {
-  const MenuTransformadas({Key? key}) : super(key: key);
+  const MenuTransformadas({super.key});
 
   @override
   MenuTransformadasState createState() => MenuTransformadasState();

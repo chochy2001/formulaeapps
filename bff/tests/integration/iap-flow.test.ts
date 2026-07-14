@@ -1,6 +1,7 @@
-import { describe, test, expect } from 'bun:test';
+import { afterEach, beforeEach, describe, test, expect } from 'bun:test';
 import { createHmac, randomUUID } from 'node:crypto';
 import { app } from '../../src/index';
+import { IAP_RATE_LIMIT_MAX, iapRateLimiter } from '../../src/middleware/limiters';
 
 function makeProof(clientId: string, buildNonce: string): string {
   return createHmac('sha256', process.env['JWT_SHARED_SECRET']!)
@@ -28,6 +29,14 @@ async function issueTestToken(): Promise<string> {
 }
 
 describe('integration: POST /iap/validate (JWT-gated, stub validators in dev)', () => {
+  beforeEach(() => {
+    iapRateLimiter.reset();
+  });
+
+  afterEach(() => {
+    iapRateLimiter.reset();
+  });
+
   test('returns 401 without bearer token', async () => {
     const res = await app.request('/iap/validate', {
       method: 'POST',
@@ -90,5 +99,42 @@ describe('integration: POST /iap/validate (JWT-gated, stub validators in dev)', 
       body: JSON.stringify({ platform: 'martian', product_id: '', transaction_id: '', receipt_data: '', subscription: 'maybe' }),
     });
     expect(res.status).toBe(400);
+  });
+
+  test('returns the declared 429 envelope after the per-client IAP budget', async () => {
+    const token = await issueTestToken();
+    const request = async (): Promise<Response> =>
+      await app.request('/iap/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          'cf-connecting-ip': '203.0.113.80',
+        },
+        body: JSON.stringify({
+          platform: 'apple',
+          product_id: 'com.capdesis.formulae.pro_monthly',
+          transaction_id: 'rate-limit-test',
+          receipt_data: 'base64==',
+          subscription: true,
+        }),
+      });
+
+    for (let attempt = 0; attempt < IAP_RATE_LIMIT_MAX; attempt++) {
+      expect((await request()).status).toBe(200);
+    }
+
+    const throttled = await request();
+    const body = (await throttled.json()) as {
+      error: { kind: string; code?: string; request_id: string };
+    };
+
+    expect(throttled.status).toBe(429);
+    expect(throttled.headers.get('Retry-After')).toMatch(/^\d+$/);
+    expect(body.error.kind).toBe('rate_limited');
+    expect(body.error.code).toBe('E_RATE_LIMITED_IAP');
+    expect(body.error.request_id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
   });
 });

@@ -1512,6 +1512,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get imagen => 'Image';
 
   @override
+  String get imagenNoDisponible => 'Image unavailable';
+
+  @override
   String get explicacionDominio =>
       'The starting set or the set of values that the Independent Variable (x) can take, is the Domain of the Function.';
 

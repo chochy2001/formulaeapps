@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizAdjunta extends StatefulWidget {
+  const MatrizAdjunta({super.key});
   @override
-  _MatrizAdjuntaState createState() => _MatrizAdjuntaState();
+  State<MatrizAdjunta> createState() => _MatrizAdjuntaState();
 }
 
 class _MatrizAdjuntaState extends State<MatrizAdjunta> {

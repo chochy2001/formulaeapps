@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PolarizacionYCargaInducida extends StatefulWidget {
+  const PolarizacionYCargaInducida({super.key});
   @override
   State<PolarizacionYCargaInducida> createState() =>
       _PolarizacionYCargaInducidaState();

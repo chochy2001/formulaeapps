@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDelCosenoParaLados extends StatefulWidget {
+  const TeoremaDelCosenoParaLados({super.key});
   @override
-  _TeoremaDelCosenoParaLadosState createState() =>
+  State<TeoremaDelCosenoParaLados> createState() =>
       _TeoremaDelCosenoParaLadosState();
 }
 

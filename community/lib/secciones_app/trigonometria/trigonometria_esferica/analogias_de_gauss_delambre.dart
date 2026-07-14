@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AnalogiasDeGaussDelambre extends StatefulWidget {
+  const AnalogiasDeGaussDelambre({super.key});
   @override
-  _AnalogiasDeGaussDelambreState createState() =>
+  State<AnalogiasDeGaussDelambre> createState() =>
       _AnalogiasDeGaussDelambreState();
 }
 

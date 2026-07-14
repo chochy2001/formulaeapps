@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConectoresLogicos extends StatefulWidget {
+  const ConectoresLogicos({super.key});
   @override
-  _ConectoresLogicosState createState() => _ConectoresLogicosState();
+  State<ConectoresLogicos> createState() => _ConectoresLogicosState();
 }
 
 class _ConectoresLogicosState extends State<ConectoresLogicos> {

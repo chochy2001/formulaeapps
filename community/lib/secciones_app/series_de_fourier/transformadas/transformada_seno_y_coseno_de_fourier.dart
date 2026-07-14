@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TransformadaSenoYCosenoDeFourier extends StatefulWidget {
+  const TransformadaSenoYCosenoDeFourier({super.key});
   @override
-  _TransformadaSenoYCosenoDeFourierState createState() =>
+  State<TransformadaSenoYCosenoDeFourier> createState() =>
       _TransformadaSenoYCosenoDeFourierState();
 }
 

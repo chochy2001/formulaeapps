@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuSimetrias extends StatefulWidget {
-  const MenuSimetrias({Key? key}) : super(key: key);
+  const MenuSimetrias({super.key});
 
   @override
   MenuSimetriasState createState() => MenuSimetriasState();

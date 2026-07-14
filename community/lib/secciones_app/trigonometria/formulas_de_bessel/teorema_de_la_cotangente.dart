@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDeLaCotangente extends StatefulWidget {
+  const TeoremaDeLaCotangente({super.key});
   @override
-  _TeoremaDeLaCotangenteState createState() => _TeoremaDeLaCotangenteState();
+  State<TeoremaDeLaCotangente> createState() => _TeoremaDeLaCotangenteState();
 }
 
 class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {

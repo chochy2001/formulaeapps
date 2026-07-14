@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuenteDeFuerzaElectromotrizFem extends StatefulWidget {
+  const FuenteDeFuerzaElectromotrizFem({super.key});
   @override
   State<FuenteDeFuerzaElectromotrizFem> createState() =>
       _FuenteDeFuerzaElectromotrizFemState();

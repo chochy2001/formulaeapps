@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TamanioMuestral extends StatefulWidget {
+  const TamanioMuestral({super.key});
   @override
-  _TamanioMuestralState createState() => _TamanioMuestralState();
+  State<TamanioMuestral> createState() => _TamanioMuestralState();
 }
 
 class _TamanioMuestralState extends State<TamanioMuestral> {

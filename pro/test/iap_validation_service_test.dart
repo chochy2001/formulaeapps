@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/chat_gpt/iap_validation_service.dart';
 import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
-import 'package:formulaeapps_bff_client/src/serializers.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
 
 import 'helpers/fake_iap_platform.dart';

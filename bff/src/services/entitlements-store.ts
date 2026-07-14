@@ -7,10 +7,12 @@ import { isUserAccountAuthEnabled } from '../lib/feature-flags';
 /**
  * Interim mobile entitlements store (WP5 / fleet §10 step 1 + #86 prep).
  *
- * Keyed by JWT `sub` (hashed device/session client_id today). Nullable
- * `user_id` is additive: written only when ENABLE_USER_ACCOUNT_AUTH=true and
- * a user_id is supplied. Default flag off → column stays NULL; subject
- * remains the live entitlement key.
+ * Keyed by JWT `sub` (a possession-proven device session or an account-owned
+ * subject). Nullable `user_id` is additive: it is written only when
+ * ENABLE_USER_ACCOUNT_AUTH=true and a validated IAP call already carries the
+ * authenticated account claim. Default flag off → column stays NULL; subject
+ * remains the live entitlement key. Existing device rows are never adopted
+ * from a public register/login field.
  *
  * Scope is ALWAYS `mobile`. Polar / `web` grants must never be written here
  * from the IAP validate path.
@@ -22,7 +24,7 @@ export type EntitlementScope = 'mobile';
 export type EntitlementRow = {
   id: string;
   subject: string;
-  /** Nullable until accounts go live; bound only when flag on. */
+  /** Nullable until a validated account-session IAP grant is recorded. */
   user_id: string | null;
   payment_source: PaymentSource;
   product_id: string;
@@ -203,29 +205,6 @@ export function grantMobileEntitlement(input: GrantInput): EntitlementRow {
   return stored;
 }
 
-/**
- * Bind an existing subject-keyed entitlement row to a user_id.
- * No-op (returns 0) while ENABLE_USER_ACCOUNT_AUTH is off.
- */
-export function bindEntitlementsUserId(subject: string, userId: string): number {
-  if (!isUserAccountAuthEnabled()) {
-    return 0;
-  }
-  if (!subject.trim() || !userId.trim()) {
-    throw new Error('bindEntitlementsUserId: subject and userId are required');
-  }
-  const db = getEntitlementsDb();
-  const result = db
-    .query(
-      `UPDATE mobile_entitlements
-       SET user_id = $user_id
-       WHERE subject = $subject
-         AND (user_id IS NULL OR user_id = $user_id)`,
-    )
-    .run({ $subject: subject, $user_id: userId.trim() });
-  return Number(result.changes ?? 0);
-}
-
 export function listEntitlementsForSubject(subject: string): EntitlementRow[] {
   const db = getEntitlementsDb();
   return db
@@ -239,8 +218,9 @@ export function listEntitlementsForSubject(subject: string): EntitlementRow[] {
 }
 
 /**
- * List by account id. Empty while flag is off or user_id was never bound.
- * Subject listing remains the production path until accounts go live.
+ * List by account id. Empty while flag is off or no validated account-session
+ * IAP grant exists. Subject listing remains the production path until the
+ * account authority is approved.
  */
 export function listEntitlementsForUserId(userId: string): EntitlementRow[] {
   if (!isUserAccountAuthEnabled() || !userId.trim()) {

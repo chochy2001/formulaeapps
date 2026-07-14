@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuCircuitosElectricos extends StatefulWidget {
-  const MenuCircuitosElectricos({Key? key}) : super(key: key);
+  const MenuCircuitosElectricos({super.key});
 
   static const int maxFailedLoadAttempts = 3;
 

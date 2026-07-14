@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDeLaDivergencia extends StatefulWidget {
+  const TeoremaDeLaDivergencia({super.key});
   @override
   State<TeoremaDeLaDivergencia> createState() => _TeoremaDeLaDivergenciaState();
 }

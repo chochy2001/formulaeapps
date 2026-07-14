@@ -4,8 +4,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConjugadoNumerosComplejos extends StatefulWidget {
+  const ConjugadoNumerosComplejos({super.key});
   @override
-  _ConjugadoNumerosComplejosState createState() =>
+  State<ConjugadoNumerosComplejos> createState() =>
       _ConjugadoNumerosComplejosState();
 }
 

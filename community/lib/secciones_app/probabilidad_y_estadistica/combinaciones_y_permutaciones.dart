@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CombinacionesYPermutaciones extends StatefulWidget {
+  const CombinacionesYPermutaciones({super.key});
   @override
-  _CombinacionesYPermutacionesState createState() =>
+  State<CombinacionesYPermutaciones> createState() =>
       _CombinacionesYPermutacionesState();
 }
 

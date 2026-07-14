@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LimiteDerivadaIntegralFuncionesVectoriales extends StatefulWidget {
+  const LimiteDerivadaIntegralFuncionesVectoriales({super.key});
   @override
-  _LimiteDerivadaIntegralFuncionesVectorialesState createState() =>
+  State<LimiteDerivadaIntegralFuncionesVectoriales> createState() =>
       _LimiteDerivadaIntegralFuncionesVectorialesState();
 }
 

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DefinicionDeCapacitancia extends StatefulWidget {
+  const DefinicionDeCapacitancia({super.key});
   @override
   State<DefinicionDeCapacitancia> createState() =>
       _DefinicionDeCapacitanciaState();

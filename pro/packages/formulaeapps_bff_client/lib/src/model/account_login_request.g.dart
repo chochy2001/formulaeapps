@@ -88,8 +88,6 @@ class _$AccountLoginRequest extends AccountLoginRequest {
   final AccountLoginRequestPlatformEnum? platform;
   @override
   final String? appVersion;
-  @override
-  final String? clientId;
 
   factory _$AccountLoginRequest(
           [void Function(AccountLoginRequestBuilder)? updates]) =>
@@ -99,8 +97,7 @@ class _$AccountLoginRequest extends AccountLoginRequest {
       {required this.email,
       required this.password,
       this.platform,
-      this.appVersion,
-      this.clientId})
+      this.appVersion})
       : super._();
   @override
   AccountLoginRequest rebuild(
@@ -118,8 +115,7 @@ class _$AccountLoginRequest extends AccountLoginRequest {
         email == other.email &&
         password == other.password &&
         platform == other.platform &&
-        appVersion == other.appVersion &&
-        clientId == other.clientId;
+        appVersion == other.appVersion;
   }
 
   @override
@@ -129,7 +125,6 @@ class _$AccountLoginRequest extends AccountLoginRequest {
     _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jc(_$hash, platform.hashCode);
     _$hash = $jc(_$hash, appVersion.hashCode);
-    _$hash = $jc(_$hash, clientId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -140,8 +135,7 @@ class _$AccountLoginRequest extends AccountLoginRequest {
           ..add('email', email)
           ..add('password', password)
           ..add('platform', platform)
-          ..add('appVersion', appVersion)
-          ..add('clientId', clientId))
+          ..add('appVersion', appVersion))
         .toString();
   }
 }
@@ -167,10 +161,6 @@ class AccountLoginRequestBuilder
   String? get appVersion => _$this._appVersion;
   set appVersion(String? appVersion) => _$this._appVersion = appVersion;
 
-  String? _clientId;
-  String? get clientId => _$this._clientId;
-  set clientId(String? clientId) => _$this._clientId = clientId;
-
   AccountLoginRequestBuilder() {
     AccountLoginRequest._defaults(this);
   }
@@ -182,7 +172,6 @@ class AccountLoginRequestBuilder
       _password = $v.password;
       _platform = $v.platform;
       _appVersion = $v.appVersion;
-      _clientId = $v.clientId;
       _$v = null;
     }
     return this;
@@ -210,7 +199,6 @@ class AccountLoginRequestBuilder
               password, r'AccountLoginRequest', 'password'),
           platform: platform,
           appVersion: appVersion,
-          clientId: clientId,
         );
     replace(_$result);
     return _$result;

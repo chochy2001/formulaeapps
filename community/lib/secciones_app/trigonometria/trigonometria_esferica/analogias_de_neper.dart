@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AnalogiasDeNeper extends StatefulWidget {
+  const AnalogiasDeNeper({super.key});
   @override
-  _AnalogiasDeNeperState createState() => _AnalogiasDeNeperState();
+  State<AnalogiasDeNeper> createState() => _AnalogiasDeNeperState();
 }
 
 class _AnalogiasDeNeperState extends State<AnalogiasDeNeper> {

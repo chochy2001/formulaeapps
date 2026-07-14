@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuProbabilidadYEstadistica extends StatefulWidget {
-  const MenuProbabilidadYEstadistica({Key? key}) : super(key: key);
+  const MenuProbabilidadYEstadistica({super.key});
 
   @override
   MenuProbabilidadYEstadisticaState createState() =>

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class OperacionesConVectores extends StatefulWidget {
+  const OperacionesConVectores({super.key});
   @override
-  _OperacionesConVectoresState createState() => _OperacionesConVectoresState();
+  State<OperacionesConVectores> createState() => _OperacionesConVectoresState();
 }
 
 class _OperacionesConVectoresState extends State<OperacionesConVectores> {

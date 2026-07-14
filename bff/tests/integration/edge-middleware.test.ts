@@ -117,4 +117,37 @@ describe('OpenRouter: mocked upstream errors', () => {
     const body = (await res.json()) as { error: { code?: string } };
     expect(body.error.code).toBe('E_OPENROUTER_BAD_JSON');
   });
+
+  test('chat normalizes a provider error body to the public error contract', async () => {
+    globalThis.fetch = (async () =>
+      new Response(
+        JSON.stringify({
+          error: {
+            message: 'provider-only detail: capacity group 17',
+            type: 'rate_limited/private-provider-type',
+          },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      )) as unknown as typeof fetch;
+
+    const token = await issueTestToken();
+    const res = await app.request('/openai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ message: 'test' }),
+    });
+    const body = (await res.json()) as {
+      error: { kind: string; message: string; code?: string; request_id: string };
+    };
+
+    expect(res.status).toBe(502);
+    expect(body.error.kind).toBe('upstream_error');
+    expect(body.error.code).toBe('E_OPENROUTER_PROVIDER_ERROR');
+    expect(body.error.code).toMatch(/^E_[A-Z0-9_]+$/);
+    expect(body.error.message).toBe(
+      'The requested service is temporarily unavailable. Please try again.',
+    );
+    expect(body.error.message).not.toContain('provider-only detail');
+    expect(body.error.message).not.toContain('rate_limited');
+  });
 });

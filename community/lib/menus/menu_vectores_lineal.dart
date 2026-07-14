@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuVectoresLineal extends StatefulWidget {
-  const MenuVectoresLineal({Key? key}) : super(key: key);
+  const MenuVectoresLineal({super.key});
 
   @override
   MenuVectoresLinealState createState() => MenuVectoresLinealState();

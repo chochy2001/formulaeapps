@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EnergiaAlmacenadaPorUnCapacitor extends StatefulWidget {
+  const EnergiaAlmacenadaPorUnCapacitor({super.key});
   @override
   State<EnergiaAlmacenadaPorUnCapacitor> createState() =>
       _EnergiaAlmacenadaPorUnCapacitorState();

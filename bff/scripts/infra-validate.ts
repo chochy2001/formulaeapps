@@ -6,8 +6,8 @@
  *
  * Modes:
  *   --local       Compose lint + local CORS preflight + workspace Traefik router-collision scan.
- *                 No DNS/HTTP/TLS checks against production hostnames.
- *   (default)     Local checks + production hostname dig/curl/TLS + production CORS preflight.
+ *                 No HTTPS/TLS checks against production hostnames.
+ *   (default)     Local checks + production HTTPS/TLS + production CORS preflight.
  *
  * Output: structured JSON to stdout per data-model.md § E13.
  * Exit:   0 PASS, 1 FAIL, 2 setup error.
@@ -22,17 +22,23 @@ import { execFileSync } from 'node:child_process';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(here, '..', '..'); // bff/scripts → bff → monorepo root
-const WORKSPACE = resolve(ROOT, '..', '..', 'Documents', 'Apps'); // workspace doc root
+// A checkout may live directly below Apps, below Apps/worktrees, or outside
+// the workspace. Prefer the enclosing Apps directory when it has the shared
+// AGENTS.md; otherwise use the documented home workspace.
+const enclosingWorkspace = resolve(ROOT, '..', '..');
+const WORKSPACE = existsSync(resolve(enclosingWorkspace, 'AGENTS.md'))
+  ? enclosingWorkspace
+  : resolve(process.env['HOME'] ?? '/Users/jorge', 'Documents', 'Apps');
 
 const args = Bun.argv.slice(2);
 const LOCAL_MODE = args.includes('--local');
 
 // ─── Production hostnames per spec FR-014 + plan.md production topology ─────
-const PROD_HOSTS: ReadonlyArray<{ host: string; expectFleet: string; description: string }> = [
-  { host: 'formulaeapps.com', expectFleet: 'hostinger', description: 'landing apex (Hostinger LiteSpeed)' },
-  { host: 'www.formulaeapps.com', expectFleet: 'hostinger', description: 'landing www (Hostinger)' },
-  { host: 'app.formulaeapps.com', expectFleet: 'hostinger', description: 'Pro Web (Hostinger /app)' },
-  { host: 'api.formulaeapps.com', expectFleet: 'vps-contabo', description: 'BFF (VPS Contabo, post-cutover)' },
+const PROD_HOSTS: ReadonlyArray<{ host: string; path: string; description: string }> = [
+  { host: 'formulaeapps.com', path: '/', description: 'landing apex (Hostinger LiteSpeed)' },
+  { host: 'www.formulaeapps.com', path: '/', description: 'landing www (Hostinger)' },
+  { host: 'app.formulaeapps.com', path: '/', description: 'Pro Web (Hostinger /app)' },
+  { host: 'api.formulaeapps.com', path: '/health', description: 'BFF health (VPS Contabo, post-cutover)' },
 ];
 
 const LOCAL_BFF_URL = 'http://localhost:3001';
@@ -91,6 +97,95 @@ function tryExec(cmd: string, args: string[], timeoutMs = 8000): { stdout: strin
   }
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null;
+}
+
+function isEmptyComposeField(value: unknown): boolean {
+  if (value === undefined || value === null) return true;
+  if (Array.isArray(value)) return value.length === 0;
+  const record = asRecord(value);
+  return record !== null && Object.keys(record).length === 0;
+}
+
+/**
+ * `docker compose config --quiet` only validates syntax. The local overlay
+ * relies on Compose reset tags, so verify the merged BFF has actually shed its
+ * VPS-only inputs. This prevents an innocuous-looking empty list/map from
+ * silently merging the production env file, Traefik network, or secrets back.
+ */
+function lintLocalOverlayIsolation(base: string, overlay: string): ComposeLint {
+  const rendered = tryExec('docker', [
+    'compose', '-f', base, '-f', overlay, '--profile', 'full', 'config', '--format', 'json',
+  ]);
+  const file = 'docker-compose.yml + local overlay (local isolation)';
+  if (rendered.status !== 0) {
+    return {
+      result: 'FAIL',
+      warnings: [rendered.stderr.split('\n').slice(0, 3).join(' ')],
+      file,
+    };
+  }
+
+  try {
+    const root = asRecord(JSON.parse(rendered.stdout));
+    const services = root === null ? null : asRecord(root['services']);
+    const bff = services === null ? null : asRecord(services['bff']);
+    if (bff === null) {
+      return { result: 'FAIL', warnings: ['Merged local config has no bff service'], file };
+    }
+
+    const warnings: string[] = [];
+    const networks = asRecord(bff['networks']);
+    if (networks === null || Object.keys(networks).length !== 1 || !Object.hasOwn(networks, 'default')) {
+      warnings.push('BFF local config must use only the default network');
+    }
+    if (!isEmptyComposeField(bff['env_file'])) warnings.push('BFF local config still inherits env_file');
+    if (!isEmptyComposeField(bff['secrets'])) warnings.push('BFF local config still inherits IAP secrets');
+    if (!isEmptyComposeField(bff['labels'])) warnings.push('BFF local config still inherits Traefik labels');
+
+    const bffEnvironment = asRecord(bff['environment']);
+    if (process.env['JWT_SIGNING_SECRET'] === undefined && bffEnvironment?.['JWT_SIGNING_SECRET'] !== '') {
+      warnings.push('BFF local config must not embed a deterministic JWT signing secret');
+    }
+
+    const ports = Array.isArray(bff['ports']) ? bff['ports'] : [];
+    const hasLoopbackPort = ports.some((entry) => {
+      const port = asRecord(entry);
+      return port !== null &&
+        String(port['host_ip']) === '127.0.0.1' &&
+        String(port['published']) === '3001' &&
+        String(port['target']) === '3000';
+    });
+    if (!hasLoopbackPort) {
+      warnings.push('BFF local config must expose only 127.0.0.1:3001 to container port 3000');
+    }
+
+    const pro = services === null ? null : asRecord(services['pro']);
+    const build = pro === null ? null : asRecord(pro['build']);
+    const buildArgs = build === null ? null : asRecord(build['args']);
+    if (
+      buildArgs === null ||
+      buildArgs['FORMULAE_BFF_BASE_URL'] !== 'http://localhost:3001' ||
+      buildArgs['FORMULAE_BFF_CHAT_URL'] !== 'http://localhost:3001/openai/chat'
+    ) {
+      warnings.push('Pro local build must use the local BFF base URL and /openai/chat endpoint');
+    }
+
+    return warnings.length === 0
+      ? { result: 'PASS', warnings: [], file }
+      : { result: 'FAIL', warnings, file };
+  } catch (err) {
+    return {
+      result: 'FAIL',
+      warnings: [`Unable to parse merged local Compose JSON: ${err instanceof Error ? err.message : String(err)}`],
+      file,
+    };
+  }
+}
+
 function findComposeFiles(root: string, depth = 4): string[] {
   const out: string[] = [];
   if (!existsSync(root)) return out;
@@ -98,6 +193,9 @@ function findComposeFiles(root: string, depth = 4): string[] {
   const SKIP_DIRS = new Set([
     'node_modules', '.git', '.dart_tool', 'build', 'dist', '.next',
     '.tmp.driveupload', '.specify', 'imagenes_app_archivadas', 'audits',
+    // Workspace policy: generated worktrees and protected client repos are
+    // not part of fleet-wide infrastructure scans.
+    'worktrees', 'copilot-worktrees', 'No_tocar_repos_clientes',
   ]);
   while (stack.length) {
     const { dir, remaining } = stack.pop()!;
@@ -132,13 +230,15 @@ function extractRouterNames(file: string): string[] {
 }
 
 // ─── Checks ────────────────────────────────────────────────────────────────
-function lintComposes(): ComposeLint[] {
+function lintComposes(localMode: boolean): ComposeLint[] {
   const results: ComposeLint[] = [];
   const base = resolve(ROOT, 'docker-compose.yml');
-  const override = resolve(ROOT, 'docker-compose.override.yml');
+  const localOverlay = resolve(ROOT, 'docker-compose.local.yml');
 
-  // 1. Lint the base file alone — must be self-contained per spec.
-  if (existsSync(base)) {
+  // 1. The production base intentionally requires its protected `.env` and
+  //    must be self-contained in production mode. Local mode instead checks
+  //    the merged override, which deliberately resets that production input.
+  if (!localMode && existsSync(base)) {
     const lint = tryExec('docker', ['compose', '-f', base, 'config', '--quiet']);
     results.push(
       lint.status === 0
@@ -147,15 +247,22 @@ function lintComposes(): ComposeLint[] {
     );
   }
 
-  // 2. Lint base + override MERGED (docker compose's default when both present).
-  //    Override files are not self-contained by design (they extend base services).
-  if (existsSync(override)) {
-    const lint = tryExec('docker', ['compose', '-f', base, '-f', override, 'config', '--quiet']);
+  // 2. Lint base + explicit local overlay. It is intentionally not an
+  //    automatically loaded docker-compose.override.yml.
+  if (existsSync(localOverlay)) {
+    const lint = tryExec('docker', ['compose', '-f', base, '-f', localOverlay, 'config', '--quiet']);
     results.push(
       lint.status === 0
-        ? { result: 'PASS', warnings: [], file: 'docker-compose.yml + override (merged)' }
-        : { result: 'FAIL', warnings: [lint.stderr.split('\n').slice(0, 3).join(' ')], file: 'docker-compose.yml + override (merged)' },
+        ? { result: 'PASS', warnings: [], file: 'docker-compose.yml + local overlay (merged)' }
+        : { result: 'FAIL', warnings: [lint.stderr.split('\n').slice(0, 3).join(' ')], file: 'docker-compose.yml + local overlay (merged)' },
     );
+    if (localMode && lint.status === 0) results.push(lintLocalOverlayIsolation(base, localOverlay));
+  } else if (localMode) {
+    results.push({
+      result: 'FAIL',
+      warnings: ['Local validation requires docker-compose.local.yml'],
+      file: 'docker-compose.local.yml',
+    });
   }
 
   return results;
@@ -169,15 +276,24 @@ function lintComposes(): ComposeLint[] {
  * Key = first identifying segment after a known workspace root.
  */
 function projectKey(filePath: string): string {
+  // The active checkout may itself live under Apps/worktrees. It is the same
+  // FormulaeApps project as the canonical clone, not a cross-project router
+  // collision.
   const home = process.env['HOME'] ?? '';
+  if (filePath.startsWith(`${ROOT}/`)) return 'formulaeapps';
+  const rootRelative = ROOT.replace(home, '~');
+  if (filePath.startsWith(`${rootRelative}/`)) return 'formulaeapps';
+
   const rel = filePath.replace(home, '~');
   // Group by the top-level project dir:
   //   ~/Code/formulaeapps/...                           → "formulaeapps"
+  //   ~/Documents/Apps/Formulae/monorepo/... or
   //   ~/Documents/Apps/FormulaeApps/formulaeapps-monorepo/...
   //     → "formulaeapps" (this is the zombie clone of canonical,
   //        same project — US1 will retire it)
   //   ~/Documents/Apps/<Foo>/...                        → "ws:<Foo>"
   if (rel.startsWith('~/Code/formulaeapps/')) return 'formulaeapps';
+  if (rel.startsWith('~/Documents/Apps/Formulae/monorepo/')) return 'formulaeapps';
   if (rel.startsWith('~/Documents/Apps/FormulaeApps/formulaeapps-monorepo/')) return 'formulaeapps';
   const m = rel.match(/^~\/Documents\/Apps\/([^/]+)\//);
   if (m && m[1]) return `ws:${m[1]}`;
@@ -240,14 +356,14 @@ async function corsPreflightLocal(): Promise<Report['cors_preflight_local']> {
     return {
       target,
       ok: null,
-      reason: `BFF not reachable locally: ${err instanceof Error ? err.message : 'unknown'} (start with: docker compose up -d bff)`,
+      reason: `BFF not reachable locally: ${err instanceof Error ? err.message : 'unknown'} (start with: make compose-up)`,
     };
   }
 }
 
 async function checkHostnames(): Promise<HostnameResult[]> {
   const out: HostnameResult[] = [];
-  for (const { host, description } of PROD_HOSTS) {
+  for (const { host, path, description } of PROD_HOSTS) {
     const result: HostnameResult = {
       host,
       http_status: null,
@@ -257,10 +373,10 @@ async function checkHostnames(): Promise<HostnameResult[]> {
       cors_allow_origin: null,
       cors_preflight_ok: null,
       cloudflare_proxied: null,
-      notes: description,
+      notes: `${description} (${path})`,
     };
     try {
-      const head = await fetch(`https://${host}/`, {
+      const head = await fetch(`https://${host}${path}`, {
         method: 'HEAD',
         redirect: 'manual',
         signal: AbortSignal.timeout(8000),
@@ -270,7 +386,7 @@ async function checkHostnames(): Promise<HostnameResult[]> {
       const cfRay = head.headers.get('cf-ray');
       result.cloudflare_proxied = cfRay !== null;
     } catch (err) {
-      result.notes = `${description} — fetch failed: ${err instanceof Error ? err.message : 'unknown'}`;
+      result.notes = `${description} (${path}) — fetch failed: ${err instanceof Error ? err.message : 'unknown'}`;
     }
 
     // TLS expiry / issuer via openssl s_client
@@ -319,7 +435,7 @@ async function checkHostnames(): Promise<HostnameResult[]> {
 
 // ─── Main ──────────────────────────────────────────────────────────────────
 async function main() {
-  const compose_lint = lintComposes();
+  const compose_lint = lintComposes(LOCAL_MODE);
   const { collisions, total } = scanRouterCollisions();
 
   const cors_preflight_local = LOCAL_MODE ? await corsPreflightLocal() : null;
@@ -341,10 +457,18 @@ async function main() {
     }
   }
 
-  // Determine exit status — only CRITICAL findings fail this feature's gate.
+  // Determine exit status. Production hosts must have a reachable 2xx/3xx
+  // endpoint, a valid certificate, and a working BFF preflight. A null result
+  // is an unavailable/failed probe, never a passing production check.
   const composeFailed = compose_lint.some((c) => c.result === 'FAIL');
   const formulaeCollisionFailed = formulae_router_collisions.length > 0;
-  const hostnameFailed = hostnames.some((h) => h.http_status !== null && h.http_status >= 500);
+  const hostnameFailed = hostnames.some((h) =>
+    h.http_status === null ||
+    h.http_status < 200 ||
+    h.http_status >= 400 ||
+    h.tls_valid !== true ||
+    (h.host === 'api.formulaeapps.com' && h.cors_preflight_ok !== true),
+  );
   const corsFailed = cors_preflight_local !== null && cors_preflight_local.ok === false;
 
   const exit_status: 'PASS' | 'FAIL' =

@@ -4,8 +4,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistanciaEntreDosPuntos extends StatefulWidget {
+  const DistanciaEntreDosPuntos({super.key});
   @override
-  _DistanciaEntreDosPuntosState createState() =>
+  State<DistanciaEntreDosPuntos> createState() =>
       _DistanciaEntreDosPuntosState();
 }
 

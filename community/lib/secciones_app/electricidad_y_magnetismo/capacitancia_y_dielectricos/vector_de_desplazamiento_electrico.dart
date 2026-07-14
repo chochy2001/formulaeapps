@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class VectorDeDesplazamientoElectrico extends StatefulWidget {
+  const VectorDeDesplazamientoElectrico({super.key});
   @override
   State<VectorDeDesplazamientoElectrico> createState() =>
       _VectorDeDesplazamientoElectricoState();

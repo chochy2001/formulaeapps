@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionesDelAnguloMitad extends StatefulWidget {
+  const FuncionesDelAnguloMitad({super.key});
   @override
-  _FuncionesDelAnguloMitadState createState() =>
+  State<FuncionesDelAnguloMitad> createState() =>
       _FuncionesDelAnguloMitadState();
 }
 

@@ -9,7 +9,7 @@ const String testDevice = 'YOUR_DEVICE_ID';
 const int maxFailedLoadAttempts = 3;
 
 class MenuPrincipal1 extends StatefulWidget {
-  const MenuPrincipal1({Key? key}) : super(key: key);
+  const MenuPrincipal1({super.key});
   @override
   State<MenuPrincipal1> createState() => _MenuPrincipal1State();
 }

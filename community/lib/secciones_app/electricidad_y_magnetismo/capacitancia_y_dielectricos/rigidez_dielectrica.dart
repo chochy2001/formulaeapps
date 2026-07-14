@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class RigidezDielectrica extends StatefulWidget {
+  const RigidezDielectrica({super.key});
   @override
   State<RigidezDielectrica> createState() => _RigidezDielectricaState();
 }

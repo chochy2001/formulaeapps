@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview_platform_interface/flutter_inappwebview_platform_interface.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/Favorites/favorite.dart';
@@ -22,18 +23,21 @@ const _routesRequiringPlatformChannels = <String>{
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late void Function(FlutterErrorDetails details)? originalOnError;
+
+  setUpAll(() {
+    // The catalog contains embedded YouTube players. Widget tests exercise
+    // their owning screens but do not have a native WebView implementation.
+    // This explicit fake keeps the test focused on Formulae's widget tree
+    // without discarding exceptions from the screens under test.
+    InAppWebViewPlatform.instance ??= _TestInAppWebViewPlatform();
+  });
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     AdMobConfig.adsEnabled = false;
-    originalOnError = FlutterError.onError;
-    // Swallow framework noise so coverage pumps can finish.
-    FlutterError.onError = (details) {};
   });
 
   tearDown(() {
-    FlutterError.onError = originalOnError;
     AdMobConfig.adsEnabled = true;
   });
 
@@ -48,7 +52,7 @@ void main() {
       'mounts each routable screen so build() executes',
       (tester) async {
         final routes = getApplicationRoutes();
-        var mounted = 0;
+        final mountedRoutes = <String>[];
         await tester.binding.setSurfaceSize(const Size(900, 1600));
 
         for (final entry in routes.entries) {
@@ -56,30 +60,24 @@ void main() {
             continue;
           }
 
-          try {
-            await tester.pumpWidget(
-              _buildHarness(
-                favoritesNotifier: FavoritesNotifier(),
-                homeBuilder: (context) {
-                  try {
-                    return entry.value(context);
-                  } catch (_) {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-            );
-            await tester.pump();
-            await tester.pump(const Duration(milliseconds: 16));
-            await _interactWithMountedScreen(tester);
-          } catch (_) {
-            // Builder/plugin failures still leave partial coverage from imports.
-          }
-          _drainExceptions(tester);
-          mounted++;
+          await tester.pumpWidget(
+            _buildHarness(
+              favoritesNotifier: FavoritesNotifier(),
+              homeBuilder: entry.value,
+            ),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 16));
+          _expectNoWidgetException(tester, 'route ${entry.key} initial mount');
+          await _interactWithMountedScreen(tester, 'route ${entry.key}');
+          _expectNoWidgetException(tester, 'route ${entry.key} interactions');
+          mountedRoutes.add(entry.key);
         }
 
-        expect(mounted, greaterThanOrEqualTo(290));
+        expect(
+          mountedRoutes,
+          hasLength(routes.length - _routesRequiringPlatformChannels.length),
+        );
       },
       timeout: const Timeout(Duration(minutes: 45)),
     );
@@ -109,71 +107,68 @@ void main() {
     testWidgets(
       'mounts every mapped formula widget so build() executes',
       (tester) async {
-        var mounted = 0;
+        final mountedWidgets = <String>[];
         await tester.binding.setSurfaceSize(const Size(900, 1600));
 
         for (final entry in widgetTable.entries) {
-          try {
-            await tester.pumpWidget(
-              _buildHarness(
-                favoritesNotifier: FavoritesNotifier(),
-                homeBuilder: (context) {
-                  try {
-                    return entry.value(context);
-                  } catch (_) {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-            );
-            await tester.pump();
-            await tester.pump(const Duration(milliseconds: 16));
-            await _interactWithMountedScreen(tester);
-          } catch (_) {}
-          _drainExceptions(tester);
-          mounted++;
+          await tester.pumpWidget(
+            _buildHarness(
+              favoritesNotifier: FavoritesNotifier(),
+              homeBuilder: entry.value,
+            ),
+          );
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 16));
+          _expectNoWidgetException(
+            tester,
+            'widget ${entry.key} initial mount',
+          );
+          await _interactWithMountedScreen(tester, 'widget ${entry.key}');
+          _expectNoWidgetException(tester, 'widget ${entry.key} interactions');
+          mountedWidgets.add(entry.key);
         }
 
-        expect(mounted, widgetTable.length);
+        expect(mountedWidgets, hasLength(widgetTable.length));
       },
       timeout: const Timeout(Duration(minutes: 45)),
     );
   });
 }
 
-Future<void> _interactWithMountedScreen(WidgetTester tester) async {
-  try {
-    final fav = find.byIcon(Icons.favorite_border);
-    if (fav.evaluate().isNotEmpty) {
-      await tester.tap(fav.first, warnIfMissed: false);
-      await tester.pump();
-    }
-  } catch (_) {}
-  _drainExceptions(tester);
+Future<void> _interactWithMountedScreen(
+  WidgetTester tester,
+  String subject,
+) async {
+  final fav = find.byIcon(Icons.favorite_border);
+  if (fav.evaluate().isNotEmpty) {
+    await tester.ensureVisible(fav.first);
+    await tester.tap(fav.first);
+    await tester.pump();
+    _expectNoWidgetException(tester, '$subject favorite toggle');
+  }
 
-  try {
-    final scrollable = find.byType(Scrollable);
-    if (scrollable.evaluate().isNotEmpty) {
-      await tester.drag(scrollable.first, const Offset(0, -300));
-      await tester.pump();
-    }
-  } catch (_) {}
-  _drainExceptions(tester);
+  final scrollable = find.byType(Scrollable);
+  if (scrollable.evaluate().isNotEmpty) {
+    await tester.drag(scrollable.first, const Offset(0, -300));
+    await tester.pump();
+    _expectNoWidgetException(tester, '$subject scroll');
+  }
 
-  try {
-    final tiles = find.byType(ExpansionTile);
-    final n = tiles.evaluate().length;
-    for (var i = 0; i < n && i < 2; i++) {
-      await tester.ensureVisible(tiles.at(i));
-      await tester.tap(tiles.at(i), warnIfMissed: false);
-      await tester.pump();
-    }
-  } catch (_) {}
-  _drainExceptions(tester);
+  final tiles = find.byType(ExpansionTile);
+  final n = tiles.evaluate().length;
+  for (var i = 0; i < n && i < 2; i++) {
+    final tile = tiles.at(i);
+    if (tile.evaluate().isEmpty) continue;
+    await tester.ensureVisible(tile);
+    await tester.tap(tile);
+    await tester.pump();
+    _expectNoWidgetException(tester, '$subject expansion tile $i');
+  }
 }
 
-void _drainExceptions(WidgetTester tester) {
-  while (tester.takeException() != null) {}
+void _expectNoWidgetException(WidgetTester tester, String phase) {
+  expect(tester.takeException(), isNull,
+      reason: '$phase threw a widget exception');
 }
 
 Widget _buildHarness({
@@ -211,4 +206,26 @@ Widget _buildHarness({
       home: Builder(builder: homeBuilder),
     ),
   );
+}
+
+class _TestInAppWebViewPlatform extends InAppWebViewPlatform {
+  @override
+  PlatformInAppWebViewWidget createPlatformInAppWebViewWidget(
+    PlatformInAppWebViewWidgetCreationParams params,
+  ) =>
+      _TestInAppWebViewWidget(params);
+}
+
+class _TestInAppWebViewWidget extends PlatformInAppWebViewWidget {
+  _TestInAppWebViewWidget(super.params) : super.implementation();
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
+
+  @override
+  T controllerFromPlatform<T>(PlatformInAppWebViewController controller) =>
+      controller as T;
+
+  @override
+  void dispose() {}
 }

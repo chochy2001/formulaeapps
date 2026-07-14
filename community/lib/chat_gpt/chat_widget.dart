@@ -6,8 +6,7 @@ import '../chat_gpt/export_chat_gpt.dart';
 import '../constantes/constantes_codigo.dart';
 
 class ChatWidget extends StatelessWidget {
-  const ChatWidget({Key? key, required this.msg, required this.chatIndex})
-      : super(key: key);
+  const ChatWidget({super.key, required this.msg, required this.chatIndex});
   final String msg;
   final int chatIndex;
 

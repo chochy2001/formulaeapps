@@ -1,0 +1,72 @@
+# Explicit local-development overlay for docker-compose.yml.
+#
+# It is deliberately named `docker-compose.local.yml`, not
+# `docker-compose.override.yml`: Docker Compose loads the latter automatically,
+# which must never be possible for a production/VPS command.
+#
+# Why: docker-compose.yml is wired for the VPS Contabo target — it references
+# secrets under /opt/infrastructure/secrets/formulaeapps-docker/ (production
+# paths) and the `web_proxy` external network. On a local dev machine those
+# don't exist. This overlay:
+#   - Removes production secret mounts (IAP uses only its explicit development stub)
+#   - Removes the external-network requirement (uses default bridge)
+#   - Strips Traefik labels (unnecessary locally)
+#   - Disables landing + pro services (we want BFF-only for dev)
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up -d bff
+# Production/VPS commands must name only `docker-compose.yml` explicitly.
+
+services:
+  bff:
+    # Empty maps/lists merge with base Compose attributes. Reset each VPS-only
+    # attribute explicitly, otherwise a merged local Compose command still
+    # requires the external Traefik network.
+    labels: !reset []   # strip Traefik labels for local
+    networks: !reset
+      - default
+    ports:
+      # Never expose a development BFF to the LAN. The local app/browser uses
+      # localhost while a real signing secret and provider key remain scoped to
+      # the operator's shell.
+      - "127.0.0.1:3001:3000"
+    # `env_file: []` merges with the base sequence in Compose and therefore
+    # still tries to load the VPS-only root `.env`. Reset it explicitly so a
+    # clean local checkout can render/run the BFF with the development defaults
+    # below. `!reset` is a Docker Compose merge tag, not a YAML comment.
+    env_file: !reset []
+    # Local development deliberately has no Apple/Google credential mounts.
+    # Development keeps only the explicit IAP stub; it never activates a
+    # production validator without real credentials and sandbox evidence.
+    secrets: !reset []
+    environment:
+      BFF_ENV: development
+      BFF_PORT: "3000"
+      JWT_SHARED_SECRET: "${JWT_SHARED_SECRET:-local-dev-secret-replace-this-please-32chars-min}"
+      # Do not ship a deterministic signer. Export an independent 64-hex
+      # JWT_SIGNING_SECRET before running authenticated local flows.
+      JWT_SIGNING_SECRET: "${JWT_SIGNING_SECRET:-}"
+      JWT_LEGACY_VERIFY_ENABLED: "false"
+      JWT_LEGACY_VERIFY_START: ""
+      JWT_LEGACY_VERIFY_CUTOFF: ""
+      OPENROUTER_API_KEY: "${OPENROUTER_API_KEY:-sk-or-v1-local-dev-replace-me}"
+      CORS_ALLOWED_ORIGINS: "https://app.formulaeapps.com,https://formulaeapps.com,http://localhost:8080,http://localhost:4321"
+      LOG_LEVEL: info
+
+  # Disable landing + pro in local dev — bring them up explicitly if needed
+  landing:
+    profiles: ["full"]
+  pro:
+    profiles: ["full"]
+    # Compose interpolates build args even when this profile is inactive. Keep
+    # `docker compose config` deterministic in a clean checkout; these are
+    # development-only defaults and must never be used for a production build.
+    build:
+      args:
+        JWT_SHARED_SECRET: "${JWT_SHARED_SECRET:-local-dev-secret-replace-this-please-32chars-min}"
+        FORMULAE_BFF_BASE_URL: "${FORMULAE_BFF_BASE_URL:-http://localhost:3001}"
+        FORMULAE_BFF_CHAT_URL: "${FORMULAE_BFF_CHAT_URL:-http://localhost:3001/openai/chat}"
+
+networks:
+  default:
+    driver: bridge

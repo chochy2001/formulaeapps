@@ -7,9 +7,12 @@ class BotonRedSocial extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  const BotonRedSocial(
-      {Key? key, required this.url, required this.icon, required this.text})
-      : super(key: key);
+  const BotonRedSocial({
+    super.key,
+    required this.url,
+    required this.icon,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,14 @@ class BotonRedSocial extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text(
-            text,
-            style: kTextoBotonesDelgado,
+          Flexible(
+            child: Text(
+              text,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: kTextoBotonesDelgado,
+            ),
           ),
         ],
       ),

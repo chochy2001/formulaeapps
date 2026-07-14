@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class InductanciaParaUnToroide extends StatefulWidget {
+  const InductanciaParaUnToroide({super.key});
   @override
   State<InductanciaParaUnToroide> createState() =>
       _InductanciaParaUnToroideState();

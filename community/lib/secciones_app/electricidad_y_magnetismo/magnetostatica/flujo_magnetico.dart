@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FlujoMagnetico extends StatefulWidget {
+  const FlujoMagnetico({super.key});
   @override
   State<FlujoMagnetico> createState() => _FlujoMagneticoState();
 }

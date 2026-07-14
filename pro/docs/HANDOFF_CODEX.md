@@ -1,113 +1,110 @@
-# Handoff para Codex: imagenes + contenido de Formulae Pro
+# Archivo histórico: imágenes + contenido de Formulae
 
-Documento self-contained para que Codex (que SI puede generar imagenes y
-programar) continue el trabajo sin alucinar. Leelo completo antes de empezar.
-Junto con `pro/docs/CATALOGO_PROMPTS_IMAGENES.md` es todo el contexto que
-necesitas.
+> Este archivo no es un handoff ni una instrucción operativa. Se conserva como
+> registro histórico y puede contener prioridades, comandos, estados y reglas
+> superadas. Para trabajo actual usa `../../docs/TICKETS.md`,
+> `../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`, el código y las pruebas.
 
-## 1. Contexto del workspace y el repo (NO alucinar rutas)
+## Actualización verificada, 2026-07-13
+
+Esta sección prevalece sobre los pendientes históricos de este archivo.
+
+- Las 176 imágenes canónicas se generaron y auditaron localmente. Pro y
+  Community comparten exactamente las mismas rutas y no hay assets por idioma.
+  `cd landing && bun run check:formulae-images` pasa.
+- La promoción a `formulaeapps.com` sigue pendiente: el smoke
+  `bun run check:formulae-images:remote` falla 176 de 176 por HTTP 404. No
+  volver a generar assets ni inventar rutas; promover `landing/public/imagenes/`
+  y las reglas de compatibilidad mediante el proceso autorizado, después repetir
+  el smoke remoto.
+- Community recibió fallback localizado para todas sus cargas remotas de
+  imagen, pruebas responsive estrictas y una ficha PDF local funcional para
+  ver/exportar. El host de PDFs heredados continúa indisponible: 257 IDs
+  activos resuelven 438 URLs únicas, sin un PDF recuperable en la auditoría.
+  Restaurar el contenido histórico exacto requiere una fuente aprobada; no hay
+  una migración pendiente para que Community pueda generar su PDF local.
+- Pro genera PDFs localmente, incluidos Favoritos y Tareas. En Linux guarda la
+  exportación en Descargas o Documentos sin usar el share sheet no implementado.
+- El detalle, los comandos y los bloqueos están en
+  `../../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`. No declarar una liberación lista
+  sin repetir sus gates sobre el SHA exacto de promoción.
+
+## Registro histórico no operativo (no seguir como instrucciones actuales)
+
+## 1. Contexto del workspace y el repo
 
 - El workspace `/Users/jorge/Documents/Apps` es una carpeta PLANA que contiene
   repos independientes. NUNCA hagas `git init` ni `git submodule` en `/Apps`.
   Corre git DENTRO del repo especifico.
-- El repo de esto es **`CAPDESIS/formulaeapps`** (privado), clonado en
-  `/Users/jorge/Documents/Apps/Formulae/monorepo`. Es un monorepo:
-  - `pro/` = app Flutter **Formulae Pro** (la que se actualiza; es dark-only).
+- El repo de esto es **`CAPDESIS/formulaeapps`** (privado). Trabaja desde el
+  checkout o worktree activo, no asumas una ruta histórica. Es un monorepo:
+  - `pro/` = app Flutter **Formulae Pro** (dark-only).
   - `landing/` = sitio Astro de `formulaeapps.com` (deploy manual lftp a Hostinger).
-  - `community/` = app Free. **NO la toques.**
+  - `community/` = app Flutter **Formulae Community** (Free). Comparte los
+    diagramas canónicos con Pro: sus rutas de imagen deben conservar el mismo
+    contrato sin idioma, aunque no se toque contenido ajeno a ese contrato.
   - `bff/` = backend Bun/Hono.
 - Trabaja en un git worktree/rama propia; abre PR a `main`. Hay OTRAS sesiones de
   IA trabajando en paralelo en este repo (design-system, deploy). **No destruyas
   su trabajo**: trabaja solo en tu worktree, no toques ramas ajenas, y todo
   converge en `main` via PRs (que detectan conflictos).
 
-## 2. Tarea A: generar las 229 imagenes rotas (176 ES + 53 EN)
+## 2. Tarea A: conjunto visual canónico sin idioma, completada localmente
 
-Las imagenes de diagramas vivian en `capdesis.com/sistema/formulae/Imagenes/` que
-ahora da 404, asi que TODAS estan rotas. Son **229 en total** (verificado contando
-`pro/lib/constantes/urls_imagenes.dart`):
+Las imágenes históricas estaban bajo `capdesis.com`, host que hoy devuelve 404.
+Formulae Pro y Formulae Community tienen ahora **176 rutas canónicas** bajo
+`https://formulaeapps.com/imagenes/...`; la lista autoritativa está en
+`pro/lib/constantes/urls_imagenes.dart` y debe coincidir con el registro de
+Community. El GIF local `assets/images/gif/carga.gif` no se regenera.
 
-- **176 en espanol** bajo `https://formulaeapps.com/imagenes/...` (124 de
-  electricidad y magnetismo, 18 geometria, 19 FAQ, 15 discretas/raiz/trig).
-- **53 en ingles** bajo `https://formulaeapps.com/imagenes_ingles/...` (mismas
-  subcarpetas: electricidad_y_magnetismo, geometria, matematicas_discretas,
-  preguntas_frecuentes, mas algunos mockups de FAQ en la raiz). Cada una es el
-  MISMO diagrama que su equivalente en espanol, pero con etiquetas en ingles.
-
-Hoy la app muestra un placeholder (no crashea). La lista autoritativa de las 229
-URLs es `pro/lib/constantes/urls_imagenes.dart` (230 `const String`: 229 remotas +
-1 asset local `assets/images/gif/carga.gif` que NO se regenera).
-
-- **QUE generar**:
-  - Para las 176 ES: el CONTENIDO exacto de cada diagrama esta en
-    `pro/docs/CATALOGO_PROMPTS_IMAGENES.md`, con un prompt por imagen y su ruta
-    destino. Usa ESE catalogo como fuente de la descripcion tecnica.
-  - Para las 53 EN: toma el prompt del equivalente en espanol (mismo nombre de
-    archivo bajo `imagenes/`), **traduce las etiquetas a ingles** y deja el resto
-    identico. Guarda bajo `imagenes_ingles/<misma ruta>`.
-- **ESTILO/FORMATO (ver el bloque "Estilo de fondo" del catalogo, es la autoridad)**:
-  - Formato **PNG** (salvo las 2 variantes `.jpg` de Preguntas frecuentes).
-  - Fondo **por defecto: RELLENO SOLIDO navy `#27283D`** (exactamente el fondo de
-    la app, constante `kColorFondo`). Es lo recomendado y robusto: los generadores
-    suelen hornear la rejilla de ajedrez de "transparente" como pixeles reales o
-    dar alfa sucio; un relleno solido del mismo color se ve identico a transparente
-    sobre la app sin ese riesgo. Transparente REAL solo si tu herramienta da alfa
-    limpio sin rejilla. NUNCA fondo blanco. Las 2 `.jpg` van con navy solido.
-  - Trazos y etiquetas en **colores claros** que lean sobre navy: lineas
-    off-white `#E8E8F0`; acentos con moderacion: dorado `#F3A73D`, teal
-    `#3AC0C9`, rojo `#FF6B6B` (carga positiva/sentido), azul `#6BA9FF`
-    (carga negativa/campo). Etiquetas en **espanol** (set ES) o **ingles**
-    (set EN), sans-serif legible.
-  - Resolucion **1024x768** (4:3) o **1024x1024** cuadrado donde la figura lo
-    pida; exportable al doble para retina. Diagrama tecnico 2D plano, sin sombras
-    3D ni fotorrealismo.
-  - **CRITICO**: correccion tecnica (topologia de circuito, sentido de campo,
-    geometria exactos). No inventes ni pongas decoracion que confunda.
-  - Los assets de MARCA (Google Play badge, logos CAPDESIS) e iconos de UI
-    marcados como placeholder en el catalogo: **NO los generes con IA**; usa el
-    oficial o un icono del sistema.
-- **DONDE ponerlas** (hosting Hostinger, NO R2):
-  - ES: `landing/public/imagenes/<ruta>` -> se sirve en
-    `https://formulaeapps.com/imagenes/<ruta>`.
-  - EN: `landing/public/imagenes_ingles/<ruta>` -> se sirve en
-    `https://formulaeapps.com/imagenes_ingles/<ruta>`. (Esa carpeta ya existe con
-    un README; antes no habia PNGs.)
-  - Respeta subcarpetas y el nombre EXACTO que aparece en `urls_imagenes.dart`.
-  - La app Pro **ya apunta ahi**; NO cambies codigo de la app para las imagenes,
-    solo genera los PNG y colocalos.
-  - **Offline**: la app usa `cached_network_image`, asi que al ver una imagen una
-    vez se cachea en el dispositivo y queda disponible sin internet. Ya esta.
-  - **Nota de render**: en movil (iOS/Android) la imagen se dibuja con
-    `BoxFit.contain` directo sobre navy `#27283D`; en **web** hoy NO se muestra
-    (la widget retorna `SizedBox.shrink()` bajo `kIsWeb`). Por eso el fondo navy
-    solido es lo correcto.
-- **Verificacion**: tras subir a Hostinger, confirma que cada URL de
-  `urls_imagenes.dart` (imagenes/ e imagenes_ingles/) responde 200, y que se ven
-  bien sobre el fondo navy de la app.
+- **Un asset por concepto y por ruta:** todos los locales consumen la misma URL.
+  No crear, publicar ni volver a referenciar `imagenes_ingles/`.
+- **Contenido permitido dentro del bitmap:** notación matemática/científica,
+  fórmulas, variables, unidades, geometría, polaridades, flechas y valores
+  lógicos `0`/`1`. Quedan prohibidos títulos, palabras, frases, leyendas,
+  capturas de UI/OS y valores `V`/`F` o `T`/`F`.
+- **Excepción de marca:** los logotipos oficiales Formulae y CAPDESIS son
+  identidad fija, no prosa localizada; se conservan sólo en los assets cuya
+  función es mostrar la marca.
+- **Texto y accesibilidad:** los nombres, explicaciones y pasos viven en los
+  widgets y archivos ARB localizados de ambas apps Flutter. Revisa la pantalla
+  consumidora antes de regenerar un diagrama para no perder contexto pedagógico.
+- **FAQ:** sustituir capturas estáticas por pictogramas de iconos sin texto o por
+  UI Flutter real; una captura con cadenas incrustadas no es internacionalizable.
+- **Fondo y formato:** PNG, salvo las dos rutas JPG históricas; fondo opaco navy
+  `#27283D`, 1024x768 o cuadrado cuando corresponda. No transparencia con
+  rejilla ni fondo blanco. Mantener física, topología, sentido de campo y
+  geometría técnicamente correctos.
+- **Reconstrucción local:** `cd landing && bun run recover:formulae-images` toma
+  las fuentes históricas, las normaliza y aplica la neutralización determinista.
+  Esta etapa usa Tesseract para detectar prosa y reemplaza los assets FAQ por
+  pictogramas universales.
+- **Verificación:** `bun run check:formulae-images` exige las 176 rutas,
+  extensiones, decodificación, dimensiones y esquinas navy. Tras una promoción
+  manual, `bun run check:formulae-images:remote` comprueba respuestas HTTP y
+  MIME. Inspecciona muestras en móvil/web y en más de un locale antes de darlo
+  por listo.
+- **Compatibilidad:** los paths históricos `imagenes_ingles/...` redirigen
+  temporalmente a su equivalente canónico (incluido `clic_card_buy.png` hacia
+  `carrito_comprar.png`) para no romper versiones antiguas de la app. No son
+  variantes de contenido.
 
 ## 3. Tarea B: enriquecer secciones con poco contenido
 
-Hay pantallas con muy poco (0-1 formula, sin imagen). ANTES de tocarlas, verifica
-si ya usan un widget alterno (tabla, `TextoEcuaciones`, etc.) porque esas NO
-estan vacias. Candidatas reales a revisar (verificar una por una):
+La lista historica de candidatas no debe tratarse como una lista de pantallas
+vacias. La revision de codigo encontro contenido existente en todas: entre 2 y
+10 `Latex` en las candidatas de calculo multivariable y ecuaciones diferenciales,
+2 y 4 en las pantallas de Fourier, 3 en combinaciones/permutaciones (incluye una
+calculadora), y 6 en constantes fisicas. La pantalla que si tenia una sola
+formula, `transformada_de_laplace.dart`, ya incluye definicion y cinco formulas
+operacionales.
 
-- `pro/lib/secciones_app/calculo_multivariable/` : derivadas_parciales,
-  integrales_de_linea, teorema_integrales, longitud_de_arco,
-  integral_en_coordenadas_cilindricas, area_de_una_superficie_de_revolucion,
-  teorema_de_fubini, diferencial_total.
-- `pro/lib/secciones_app/ecuaciones_diferenciales/` : ecuacion_diferencial_homogenea,
-  ecuacion_diferencial_separable, ecuacion_diferencial_de_rectas_paralelas.
-- `pro/lib/secciones_app/series_de_fourier/transformadas/` : transformada_de_laplace,
-  transformada_de_fourier, transformada_seno_y_coseno_de_fourier (probablemente
-  deberian ser TABLAS de transformadas; enriquecer con la tabla completa).
-- `pro/lib/secciones_app/probabilidad_y_estadistica/combinaciones_y_permutaciones.dart`.
-- `pro/lib/secciones_app/constantes_matematicas/constantes_fisicas_universales.dart`.
-
-Como enriquecer (patron de la app): agregar las formulas faltantes como
-`Latex(formulaText: r"...")`, notas con `TextoEcuaciones(...)`, y el diagrama si
-aplica. Usa fuentes de referencia correctas; no inventes formulas. Mantiene el
-patron de pantalla existente (ver cualquier pantalla con contenido como
-`secciones_app/trigonometria/teorema_de_pitagoras.dart`).
+Antes de enriquecer otra pantalla, revisa el widget completo y su flujo real:
+una tabla, calculadora, `TextoEcuaciones`, PDF o diagrama puede aportar contenido
+aunque el conteo de formulas sea bajo. Solo agrega conocimiento matematico con
+fuente verificada, siguiendo el patron `Latex(formulaText: r"...")` y
+`TextoEcuaciones(...)`; evita duplicar contenido o afirmar que una pantalla esta
+vacia solo por una busqueda textual.
 
 ## 4. Reglas de trabajo (obligatorias)
 
@@ -116,33 +113,41 @@ patron de pantalla existente (ver cualquier pantalla con contenido como
 - **Sin ninguna referencia a IA** en commits/codigo/PRs. **Sin em-dashes ni
   en-dashes** en ningun lado (usa comas o guiones normales).
 - Usa **bun**, nunca npm/npx, para la landing.
-- Verifica SIEMPRE antes de PR (en `pro/`):
+- Verifica SIEMPRE antes de PR en cada app Flutter afectada:
   - `cd packages/formulaeapps_bff_client && flutter pub get && cd ../..` luego `flutter pub get`
   - `flutter analyze --no-pub --fatal-infos --fatal-warnings` (debe ser "No issues found")
   - `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --dart-define=JWT_SHARED_SECRET=test-shared-secret --dart-define=FORMULAE_BUILD_NONCE=ci --dart-define=FORMULAE_APP_VERSION=0.0.0`
   - `flutter build web -t lib/main_pro.dart --dart-define=FLAVOR=pro --dart-define=JWT_SHARED_SECRET=0000000000000000000000000000000000000000000000000000000000000000 --dart-define=FORMULAE_BUILD_NONCE=v --dart-define=FORMULAE_APP_VERSION=0`
-  - Si tocas la landing: `cd landing && bun install --frozen-lockfile && bun run test && bun run build`.
+  - En `community/`, la CI usa `flutter analyze --no-pub --no-fatal-infos --fatal-warnings` mientras exista el baseline documentado de infos, más las pruebas focales estrictas de imagen, PDF y responsive.
+  - Si tocas la landing: `cd landing && bun install --frozen-lockfile && bun run lint && bun run test && bun run build && bun run check:formulae-images`.
 - Si agregas rutas de contenido, hay tests de "forma" que aseveran conteos
   exactos de rutas/widget_mapper (`pro/test/routes_widget_mapper_test.dart`):
   actualizalos a los nuevos totales.
 - Todo termina en `main` via PR. No pushes directo a main.
 
-## 5. Anti-alucinacion (checklist)
+## 5. Checklist de exactitud
 
-- La lista EXACTA de las 229 URLs de imagen: `pro/lib/constantes/urls_imagenes.dart`
-  (176 en `formulaeapps.com/imagenes/` + 53 en `formulaeapps.com/imagenes_ingles/`).
-  No inventes rutas; usa exactamente esas.
-- Los prompts de las 176 ES: `pro/docs/CATALOGO_PROMPTS_IMAGENES.md`. Las 53 EN
-  reusan el prompt del equivalente ES con etiquetas en ingles.
+- La lista exacta de las 176 URLs canónicas está en
+  `pro/lib/constantes/urls_imagenes.dart`; el registro de Community debe
+  resolver las mismas rutas. No inventes rutas ni agregues ramas por locale.
+- `pro/docs/CATALOGO_PROMPTS_IMAGENES.md` describe la intención pedagógica. Su
+  regla de internacionalización prevalece sobre el texto histórico de cada
+  prompt: ninguna palabra natural puede entrar en un bitmap.
+- Revisa la pantalla Flutter que consume cada imagen, no sólo el catálogo. La
+  explicación debe vivir en ARB/widgets localizados y el diagrama conservar solo
+  notación universal técnicamente correcta.
 - Backlog y estado general del proyecto: `pro/docs/BACKLOG_REDISENO_PRO.md`.
-- El deploy web esta en solo-build por decision del gobierno del repo; publicar es
-  promocion manual. No re-habilites auto-deploy sin acuerdo.
-- No uses R2 para las imagenes; van a Hostinger via `landing/public/imagenes/` y
-  `landing/public/imagenes_ingles/`.
+- El deploy web está en solo-build por decisión del gobierno del repo; publicar
+  es promoción manual. No re-habilites auto-deploy sin acuerdo.
+- No uses R2 para las imágenes; van a Hostinger vía `landing/public/imagenes/`.
+- Los paths históricos `imagenes_ingles/...` son aliases temporales de
+  compatibilidad, no un conjunto de assets que se deba regenerar.
 
 ## 6. Que YA quedo hecho (no rehacer)
 
-Todo lo siguiente ya esta en `main` (HEAD `103f253`):
+Los siguientes elementos quedaron integrados historicamente antes de esta tarea.
+Confirma el SHA actual con `git rev-parse origin/main`, no asumas que sigue siendo
+`103f253`:
 
 - 121 pantallas / 752 formulas nuevas (140 erratas corregidas) en 14 secciones.
 - PDF con LaTeX renderizado como imagen + preview + nombre por pantalla + tamano S/M/L.
@@ -155,9 +160,10 @@ Todo lo siguiente ya esta en `main` (HEAD `103f253`):
 - Landing: seccion Materias ES/EN, email visible, copyright dinamico.
 - Docs: catalogo de imagenes, backlog, ecosistema Super Plus, modularizacion/auth, roadmap.
 
-Falta (tu trabajo + backlog): generar y colocar las 229 imagenes, enriquecer las
-pantallas delgadas, y los items del backlog (calculadoras interactivas, navegacion
-mas plana, Pro-vs-Free, 85% coverage). Ver seccion 7 para el detalle.
+Las 176 imágenes ya no son un pendiente local. El pendiente externo es su
+promoción y smoke remoto. El backlog restante incluye calculadoras interactivas,
+navegación más plana, Pro-vs-Free y cobertura honesta; antes de tomar un item,
+revisar el informe de auditoría actualizado y el estado Git del checkout.
 
 ## 7. Contexto completo de la campana (para no repetir trabajo)
 

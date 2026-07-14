@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CalculoIntegral extends StatefulWidget {
-  const CalculoIntegral({Key? key}) : super(key: key);
+  const CalculoIntegral({super.key});
 
   @override
   CalculoIntegralState createState() => CalculoIntegralState();

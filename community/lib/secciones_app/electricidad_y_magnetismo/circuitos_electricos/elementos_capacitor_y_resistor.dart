@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ElementosCapacitorYResistor extends StatefulWidget {
+  const ElementosCapacitorYResistor({super.key});
   @override
   State<ElementosCapacitorYResistor> createState() =>
       _ElementosCapacitorYResistorState();

@@ -7,7 +7,7 @@ import '../models/task_data.dart';
 import '../screens/add_task_screen.dart';
 
 class TasksScreen extends StatefulWidget {
-
+  const TasksScreen({super.key});
   static const int maxFailedLoadAttempts = 3;
 
   @override
@@ -17,14 +17,17 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   final FormulaeAdsController _ads = FormulaeAdsController();
 
+  @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(onBannerReady: () {
+      if (mounted) setState(() {});
+    });
   }
-
 
   Widget get adContainer => _ads.banner;
 
+  @override
   void dispose() {
     _ads.dispose();
     super.dispose();
@@ -158,7 +161,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           },
                           label: Text(
                             AppLocalizations.of(context)!.agregar,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white, fontFamily: "Poppins"),
                           ),
                           icon: const Icon(

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CalculoDeDiferenciasDePotencial extends StatefulWidget {
+  const CalculoDeDiferenciasDePotencial({super.key});
   @override
   State<CalculoDeDiferenciasDePotencial> createState() =>
       _CalculoDeDiferenciasDePotencialState();

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Circunferencia extends StatefulWidget {
+  const Circunferencia({super.key});
   @override
-  _CircunferenciaState createState() => _CircunferenciaState();
+  State<Circunferencia> createState() => _CircunferenciaState();
 }
 
 class _CircunferenciaState extends State<Circunferencia> {

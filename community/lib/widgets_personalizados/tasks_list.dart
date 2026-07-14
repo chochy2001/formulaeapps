@@ -4,18 +4,17 @@ import '../../../constantes/export_constantes.dart';
 import '../models/task_data.dart';
 
 class TasksList extends StatelessWidget {
-  const TasksList({Key? key}) : super(key: key);
+  const TasksList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskData>(
       builder: (context, taskData, child) {
         return taskData.taskCount == 0
-            ? FadeInImage(
+            ? ImagenRemotaRobusta(
                 height: 300.0,
                 width: MediaQuery.of(context).size.width,
-                placeholder: const AssetImage(kUrlImagenGifCarga),
-                image: const NetworkImage(kUrlImagenAgregarTarea),
+                urlImagen: kUrlImagenAgregarTarea,
               )
             : ListView.builder(
                 itemBuilder: (context, index) {

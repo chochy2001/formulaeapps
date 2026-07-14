@@ -1,4 +1,5 @@
 import { describe, test, expect } from 'bun:test';
+import { iapRateLimitKey } from '../../src/middleware/limiters';
 import { createRateLimiter, clientIpFromContext, shortHash } from '../../src/middleware/rate-limit';
 import type { AppContext } from '../../src/lib/openapi';
 
@@ -92,5 +93,22 @@ describe('createRateLimiter: custom keyFn with JWT sub', () => {
     const composite = `${ip}|${hash}`;
     expect(composite).toBe('9.9.9.9|' + hash);
     expect(composite).not.toContain('user-x');
+  });
+});
+
+describe('iapRateLimitKey', () => {
+  test('hashes the authenticated subject and forwarded IP without retaining PII', () => {
+    const { ctx } = makeCtx({ 'cf-connecting-ip': '203.0.113.51' });
+    (ctx as any).get = (key: string) => {
+      if (key === 'jwt_claims') return { sub: 'stable-subject-identifier' };
+      return 'req-id';
+    };
+
+    const key = iapRateLimitKey(ctx);
+
+    expect(key).toHaveLength(16);
+    expect(key).toMatch(/^[a-f0-9]+$/);
+    expect(key).not.toContain('203.0.113.51');
+    expect(key).not.toContain('stable-subject-identifier');
   });
 });

@@ -22,14 +22,17 @@ const CONTRACT_PATH = resolve(ROOT, 'contracts', 'bff.openapi.yaml');
 // Routes considered infrastructure — no FE consumer required.
 const INFRA_ROUTES = new Set<string>(['/health']);
 
-// Routes that are deliberately uncovered today per spec § Edge Cases. The
-// report still surfaces them (under intentional_orphan_routes) so they're
-// visible, but they don't fail the exit code. Each entry MUST have a rationale
-// in `audit/route-coverage-post.md` so the gate isn't quietly weakened.
-const INTENTIONAL_ORPHAN_ROUTES = new Set<string>([
-  '/iap/validate', // pending product decision: wire FE IAP server-validation OR remove from contract
-  '/entitlement', // WP5 step 1 store+route; FE EntitlementService is step 3 (no consumer yet)
-]);
+// Calls made through the generated Dart client do not repeat the HTTP path in
+// application code. Keep their contract-level signal explicit so coverage is
+// based on the real invocation rather than a documentation comment mentioning
+// the endpoint. Add a signal here whenever a generated client operation is
+// introduced without a literal path at its call site.
+const GENERATED_CLIENT_CALLS: Record<string, RegExp> = {
+  '/auth/register': /\bgetAuthApi\s*\(\s*\)\s*\.\s*authRegisterPost\s*\(/,
+  '/auth/login': /\bgetAuthApi\s*\(\s*\)\s*\.\s*authLoginPost\s*\(/,
+  '/iap/validate': /\bgetIapApi\s*\(\s*\)\s*\.\s*iapValidatePost\s*\(/,
+  '/entitlement': /\bgetEntitlementApi\s*\(\s*\)\s*\.\s*entitlementGet\s*\(/,
+};
 
 function fatal(msg: string): never {
   process.stderr.write(`ERROR: ${msg}\n`);
@@ -91,11 +94,71 @@ for (const f of walkDartFiles(resolve(ROOT, 'community', 'lib'))) feFiles.push(f
 //       `api.formulaeapps.com/<path>`. This avoids false-positives from
 //       Flutter Navigator route names like `/chatGPT` defined in app-routes
 //       constants files.
-type FeFileContent = { file: string; lines: string[] };
-const feContents: FeFileContent[] = feFiles.map((file) => ({
-  file: relative(ROOT, file),
-  lines: readFileSync(file, 'utf8').split('\n'),
-}));
+type FeFileContent = { file: string; codeLines: string[] };
+
+// The route contract is about executable client code. A line comment that
+// merely documents `/iap/validate` must not satisfy it. This intentionally
+// keeps strings intact (literal BFF URLs are valid consumers) while discarding
+// line comments and block comments before the scanner evaluates a line.
+function withoutDartComments(source: string): string {
+  let result = '';
+  let quote: "'" | '"' | null = null;
+  let escaped = false;
+  let inBlockComment = false;
+
+  for (let index = 0; index < source.length; index += 1) {
+    const current = source[index];
+    const next = source[index + 1];
+
+    if (inBlockComment) {
+      if (current === '*' && next === '/') {
+        inBlockComment = false;
+        index += 1;
+      } else if (current === '\n') {
+        // Preserve line numbers in the generated coverage report.
+        result += '\n';
+      }
+      continue;
+    }
+
+    if (quote !== null) {
+      result += current;
+      if (escaped) {
+        escaped = false;
+      } else if (current === '\\') {
+        escaped = true;
+      } else if (current === quote) {
+        quote = null;
+      }
+      continue;
+    }
+
+    if (current === '/' && next === '*') {
+      inBlockComment = true;
+      index += 1;
+      continue;
+    }
+
+    if (current === '/' && next === '/') {
+      while (index < source.length && source[index] !== '\n') index += 1;
+      if (index < source.length) result += '\n';
+      continue;
+    }
+
+    result += current;
+    if (current === "'" || current === '"') quote = current;
+  }
+
+  return result;
+}
+
+const feContents: FeFileContent[] = feFiles.map((file) => {
+  const source = readFileSync(file, 'utf8');
+  return {
+    file: relative(ROOT, file),
+    codeLines: withoutDartComments(source).split('\n'),
+  };
+});
 
 // Build the BFF-URL match index for dead-call detection
 const BFF_DOMAIN_RE = /https?:\/\/api\.formulaeapps\.com(\/[a-zA-Z0-9_/-]+)/g;
@@ -107,7 +170,7 @@ type FeMatch = { file: string; line: number; path: string };
 const bffUrlMatches: FeMatch[] = [];
 
 for (const fc of feContents) {
-  fc.lines.forEach((lineText, idx) => {
+  fc.codeLines.forEach((lineText, idx) => {
     BFF_DOMAIN_RE.lastIndex = 0;
     let m: RegExpExecArray | null;
     while ((m = BFF_DOMAIN_RE.exec(lineText)) !== null) {
@@ -123,13 +186,11 @@ for (const fc of feContents) {
 // ── 4. Build the per-route coverage list + orphans ─────────────────────────
 type RouteReport = { method: string; path: string; status: 'COVERED'; consumers: Array<{ file: string; line: number }> };
 type OrphanReport = { method: string; path: string; status: 'ORPHAN' };
-type IntentionalOrphanReport = { method: string; path: string; status: 'INTENTIONAL_ORPHAN' };
 type InfraReport = { method: string; path: string; status: 'INFRASTRUCTURE' };
 type DeadCallReport = { file: string; line: number; called_path: string; reason: string };
 
 const routes: RouteReport[] = [];
 const orphan_routes: OrphanReport[] = [];
-const intentional_orphan_routes: IntentionalOrphanReport[] = [];
 const infrastructure_routes: InfraReport[] = [];
 
 for (const r of contractRoutes) {
@@ -138,24 +199,20 @@ for (const r of contractRoutes) {
     continue;
   }
 
-  // COVERED: any non-generated FE file contains the path as a substring (catches
-  // both literal '/openai/chat' usage and embedded `api.formulaeapps.com/openai/chat`
-  // URLs in defaultValue strings).
+  // COVERED: executable non-generated FE code contains the path (literal or
+  // embedded BFF URL), or invokes the matching generated-client operation.
   const consumers: Array<{ file: string; line: number }> = [];
+  const generatedCall = GENERATED_CLIENT_CALLS[r.path];
   for (const fc of feContents) {
-    fc.lines.forEach((lineText, idx) => {
-      if (lineText.includes(r.path)) {
+    fc.codeLines.forEach((lineText, idx) => {
+      if (lineText.includes(r.path) || generatedCall?.test(lineText)) {
         consumers.push({ file: fc.file, line: idx + 1 });
       }
     });
   }
 
   if (consumers.length === 0) {
-    if (INTENTIONAL_ORPHAN_ROUTES.has(r.path)) {
-      intentional_orphan_routes.push({ method: r.method, path: r.path, status: 'INTENTIONAL_ORPHAN' });
-    } else {
-      orphan_routes.push({ method: r.method, path: r.path, status: 'ORPHAN' });
-    }
+    orphan_routes.push({ method: r.method, path: r.path, status: 'ORPHAN' });
   } else {
     routes.push({ method: r.method, path: r.path, consumers, status: 'COVERED' });
   }
@@ -181,9 +238,6 @@ for (const m of bffUrlMatches) {
 }
 
 // ── 6. Emit report + exit ───────────────────────────────────────────────────
-// Only "real" orphans (NOT in INTENTIONAL_ORPHAN_ROUTES) and dead-calls fail the gate.
-// Intentional orphans are surfaced in the report but never fail CI; they exist as
-// documented exceptions per audit/route-coverage-post.md.
 const exit_status: 'PASS' | 'FAIL' = orphan_routes.length === 0 && dead_calls.length === 0 ? 'PASS' : 'FAIL';
 
 const report = {
@@ -191,7 +245,6 @@ const report = {
   contract_version: CONTRACT_VERSION,
   infrastructure_routes,
   routes,
-  intentional_orphan_routes,
   orphan_routes,
   dead_calls,
   exit_status,

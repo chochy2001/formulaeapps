@@ -8,7 +8,7 @@ import '../constantes/constantes_mapa_videos.dart';
 class VideosYoutube extends StatelessWidget {
   final String videoId;
 
-  const VideosYoutube(this.videoId, {Key? key}) : super(key: key);
+  const VideosYoutube(this.videoId, {super.key});
 
   @override
   Widget build(BuildContext context) {

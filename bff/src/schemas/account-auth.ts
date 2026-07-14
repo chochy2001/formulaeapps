@@ -23,17 +23,6 @@ const optionalAppVersion = z
     description: 'Client app version for the session JWT (default: 0.0.0).',
   });
 
-const optionalClientId = z
-  .string()
-  .uuid()
-  .optional()
-  .openapi({
-    example: '550e8400-e29b-41d4-a716-446655440000',
-    description:
-      'Optional device client_id — when present, prior mobile entitlements for ' +
-      'that device subject are bound to the new user_id.',
-  });
-
 export const AccountRegisterRequestSchema = z
   .object({
     email: z.string().email().openapi({
@@ -46,8 +35,11 @@ export const AccountRegisterRequestSchema = z
     }),
     platform: optionalPlatform,
     app_version: optionalAppVersion,
-    client_id: optionalClientId,
   })
+  // Device identifiers are accepted only by /auth/token, where client_proof
+  // establishes possession. Register/login must never use an unproved
+  // client_id to adopt a device subject or its entitlements.
+  .strict()
   .openapi('AccountRegisterRequest');
 
 export type AccountRegisterRequest = z.infer<typeof AccountRegisterRequestSchema>;
@@ -63,8 +55,10 @@ export const AccountLoginRequestSchema = z
     }),
     platform: optionalPlatform,
     app_version: optionalAppVersion,
-    client_id: optionalClientId,
   })
+  // Keep this strict for the same reason as registration: account credentials
+  // alone are not proof that a caller owns a device identifier.
+  .strict()
   .openapi('AccountLoginRequest');
 
 export type AccountLoginRequest = z.infer<typeof AccountLoginRequestSchema>;

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Hiperbola extends StatefulWidget {
+  const Hiperbola({super.key});
   @override
-  _HiperbolaState createState() => _HiperbolaState();
+  State<Hiperbola> createState() => _HiperbolaState();
 }
 
 class _HiperbolaState extends State<Hiperbola> {

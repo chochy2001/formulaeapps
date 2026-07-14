@@ -81,6 +81,26 @@ generate_for_app() {
     fi
   done
 
+  # `apiDocs=false,modelDocs=false` intentionally keeps the generated package
+  # small, but the stock dart-dio README still links to doc/*.md files that do
+  # not exist. Replace those sections with the canonical OpenAPI contract so
+  # consumers never receive dead links. Keep this transformation here rather
+  # than hand-editing generated READMEs, because every parity run regenerates
+  # them from scratch.
+  if [ -f "$dest/README.md" ]; then
+    perl -0pi -e 's{## Documentation for API Endpoints\n.*?## Documentation For Models\n.*?## Documentation For Authorization}{## API contract\n\nThe canonical API surface is generated in\n[`contracts/bff.openapi.yaml`](../../../contracts/bff.openapi.yaml). API and model\nMarkdown files are intentionally not generated with this package; use the\ncontract and generated Dart source as references.\n\n## Documentation For Authorization}s' "$dest/README.md"
+
+    # The stock example leaves an invalid Dart assignment. Auth requests need a
+    # real per-install identifier and HMAC proof, so point consumers to the
+    # owning app service instead of publishing a non-compilable placeholder.
+    perl -0pi -e 's{## Getting Started\n.*?## API contract}{## Getting started\n\nImport this package from the owning app. Authentication requests require a real\nper-install client ID and HMAC client proof; use the app `AuthService` rather\nthan hardcoding example values. The canonical contract and generated APIs below\nare the reference for integrations.\n\n## API contract}s' "$dest/README.md"
+
+    if grep -Fq '](doc/' "$dest/README.md" || grep -Fq 'authTokenRequest = ;' "$dest/README.md"; then
+      echo "ERROR: generated README for $app still contains disabled doc links or an invalid example." >&2
+      exit 1
+    fi
+  fi
+
   rm -rf -- "${tmp:?}"
   trap - EXIT INT TERM
 

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ExponencialyLogaritmosDiferencial extends StatefulWidget {
+  const ExponencialyLogaritmosDiferencial({super.key});
   @override
-  _ExponencialyLogaritmosDiferencialState createState() =>
+  State<ExponencialyLogaritmosDiferencial> createState() =>
       _ExponencialyLogaritmosDiferencialState();
 }
 

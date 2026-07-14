@@ -5,9 +5,19 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 Future<void> downloadFavoritePdf(Uint8List bytes, String fileName) async {
-  final output = await getTemporaryDirectory();
+  // share_plus does not implement Share.shareXFiles on Linux. Save directly to
+  // the user's Downloads directory there so PDF export remains functional on
+  // every desktop target declared by this app.
+  final output = io.Platform.isLinux
+      ? await getDownloadsDirectory() ??
+          await getApplicationDocumentsDirectory()
+      : await getTemporaryDirectory();
   final file = io.File('${output.path}/$fileName');
   await file.writeAsBytes(bytes, flush: true);
+
+  if (io.Platform.isLinux) {
+    return;
+  }
 
   await Share.shareXFiles(
     [XFile(file.path, mimeType: 'application/pdf')],

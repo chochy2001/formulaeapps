@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ElipseConCentroEnElOrigen extends StatefulWidget {
+  const ElipseConCentroEnElOrigen({super.key});
   @override
-  _ElipseConCentroEnElOrigenState createState() =>
+  State<ElipseConCentroEnElOrigen> createState() =>
       _ElipseConCentroEnElOrigenState();
 }
 

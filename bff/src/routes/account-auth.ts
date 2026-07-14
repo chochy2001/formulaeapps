@@ -28,8 +28,9 @@ export const authRegisterRoute = createRoute({
   description:
     'Creates a users-row (argon2id password hash) and returns a JWT with ' +
     'claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off ' +
-    '(default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is ' +
-    'out of scope here.',
+    '(default). It never accepts an unproved device identifier or adopts ' +
+    'a device entitlement. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web ' +
+    'checkout is out of scope here.',
   request: {
     body: {
       required: true,
@@ -64,7 +65,8 @@ export const authLoginRoute = createRoute({
   description:
     'Verifies credentials against the users table and returns a JWT with ' +
     'claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off ' +
-    '(default). See docs/ACCOUNTS_USER_ID_PLAN.md.',
+    '(default); it does not accept an unproved device identifier. See ' +
+    'docs/ACCOUNTS_USER_ID_PLAN.md.',
   request: {
     body: {
       required: true,

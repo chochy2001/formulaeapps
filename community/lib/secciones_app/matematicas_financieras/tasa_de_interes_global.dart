@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TasaDeInteresGlobal extends StatefulWidget {
+  const TasaDeInteresGlobal({super.key});
   @override
-  _TasaDeInteresGlobalState createState() => _TasaDeInteresGlobalState();
+  State<TasaDeInteresGlobal> createState() => _TasaDeInteresGlobalState();
 }
 
 class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {

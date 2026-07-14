@@ -1524,6 +1524,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get imagen => 'Imagen';
 
   @override
+  String get imagenNoDisponible => 'Imagen no disponible';
+
+  @override
   String get explicacionDominio =>
       'El conjunto de partida o el conjunto de los valores que puede tomarla Variable Independiente (x), es el Dominio de la Función.';
 

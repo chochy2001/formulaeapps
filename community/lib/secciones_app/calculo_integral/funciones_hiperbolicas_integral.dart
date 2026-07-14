@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionesHiperbolicasIntegral extends StatefulWidget {
+  const FuncionesHiperbolicasIntegral({super.key});
   @override
-  _FuncionesHiperbolicasIntegralState createState() =>
+  State<FuncionesHiperbolicasIntegral> createState() =>
       _FuncionesHiperbolicasIntegralState();
 }
 

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizSimetrica extends StatefulWidget {
+  const MatrizSimetrica({super.key});
   @override
-  _MatrizSimetricaState createState() => _MatrizSimetricaState();
+  State<MatrizSimetrica> createState() => _MatrizSimetricaState();
 }
 
 class _MatrizSimetricaState extends State<MatrizSimetrica> {

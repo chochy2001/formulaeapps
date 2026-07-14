@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IntegralesDeLinea extends StatefulWidget {
+  const IntegralesDeLinea({super.key});
   @override
-  _IntegralesDeLineaState createState() => _IntegralesDeLineaState();
+  State<IntegralesDeLinea> createState() => _IntegralesDeLineaState();
 }
 
 class _IntegralesDeLineaState extends State<IntegralesDeLinea> {

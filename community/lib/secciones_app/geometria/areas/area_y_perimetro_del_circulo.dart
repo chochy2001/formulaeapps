@@ -4,8 +4,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AreaYPerimetroDelCirculo extends StatefulWidget {
+  const AreaYPerimetroDelCirculo({super.key});
   @override
-  _AreaYPerimetroDelCirculoState createState() =>
+  State<AreaYPerimetroDelCirculo> createState() =>
       _AreaYPerimetroDelCirculoState();
 }
 

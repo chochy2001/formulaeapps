@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDeLaRecta extends StatefulWidget {
+  const EcuacionDeLaRecta({super.key});
   @override
-  _EcuacionDeLaRectaState createState() => _EcuacionDeLaRectaState();
+  State<EcuacionDeLaRecta> createState() => _EcuacionDeLaRectaState();
 }
 
 class _EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {

@@ -4,6 +4,15 @@ Las 35 formulas listadas abajo aparecian junto a un diagrama en el
 formulario impreso. Las formulas ya estan en la app; falta el diagrama.
 Sourcing con licencia abierta (ver estrategia y plantilla al final).
 
+> **Contrato visual vigente:** este documento describe intención pedagógica,
+> no texto que deba rasterizarse. Cada activo nuevo debe usar un único bitmap
+> para todos los idiomas, fondo navy `#27283D` y sólo notación científica o
+> matemática universal: variables, fórmulas, unidades, flechas, polaridades,
+> números y geometría. No incluir palabras, títulos, leyendas, instrucciones,
+> botones ni capturas de UI. Las explicaciones viven en Flutter/ARB. Consulta
+> [`../../landing/public/imagenes/README.md`](../../landing/public/imagenes/README.md)
+> y el catálogo vigente antes de generar o publicar.
+
 Total: 35 graficos en 6 secciones.
 
 ## algebra (6)
@@ -46,7 +55,7 @@ Total: 35 graficos en 6 secciones.
 ## mecanica (11)
 
 - **Caida libre y tiro vertical** / Altura por velocidad media (tiro vertical)
-  - Diagrama: Esquema de tiro vertical: una particula (bolita solida) con trayectoria en U invertida que sube, alcanza el punto alto y regresa con una flecha larga hacia abajo, ilustrando ascenso y descenso bajo la gravedad. Leyenda g = gravedad, h = altura.
+  - Diagrama: Esquema de tiro vertical: una particula (bolita solida) con trayectoria en U invertida que sube, alcanza el punto alto y regresa con una flecha larga hacia abajo. Puede usar sólo las variables universales `g` y `h`; la explicación localizada de esos símbolos pertenece al widget.
 - **Caida libre y tiro vertical** / Altura por velocidad media (caida libre)
   - Diagrama: Flecha vertical recta hacia abajo con una bolita solida al final, representando un cuerpo que cae libremente desde el reposo (V_0 = 0).
 - **Movimiento de proyectiles (tiro parabolico)** / Alcance horizontal

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class OperacionesConPolinomios extends StatefulWidget {
+  const OperacionesConPolinomios({super.key});
   @override
-  _OperacionesConPolinomiosState createState() =>
+  State<OperacionesConPolinomios> createState() =>
       _OperacionesConPolinomiosState();
 }
 

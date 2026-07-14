@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SumaRestaDeMatrices extends StatefulWidget {
+  const SumaRestaDeMatrices({super.key});
   @override
-  _SumaRestaDeMatricesState createState() => _SumaRestaDeMatricesState();
+  State<SumaRestaDeMatrices> createState() => _SumaRestaDeMatricesState();
 }
 
 class _SumaRestaDeMatricesState extends State<SumaRestaDeMatrices> {

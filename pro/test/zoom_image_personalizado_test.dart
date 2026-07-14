@@ -9,6 +9,24 @@ import 'package:formulae/widgets_personalizados/zoom_image_personalizado.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('resolves the Formulae image origin from build configuration', () {
+    const configuredOrigin = String.fromEnvironment(
+      'FORMULAE_IMAGE_ORIGIN',
+      defaultValue: 'https://formulaeapps.com',
+    );
+
+    expect(
+      resolveFormulaeImageUrl(
+        'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/capacitor_1.png',
+      ),
+      '$configuredOrigin/imagenes/electricidad_y_magnetismo/capacitor_1.png',
+    );
+    expect(
+      resolveFormulaeImageUrl('https://example.test/diagrama.png'),
+      'https://example.test/diagrama.png',
+    );
+  });
+
   Widget harness(Widget child, {Locale locale = const Locale('es')}) {
     return MaterialApp(
       locale: locale,
@@ -24,7 +42,7 @@ void main() {
   }
 
   testWidgets(
-    'a broken remote image resolves to the placeholder, not an endless spinner',
+    'a broken remote image uses the Spanish ARB placeholder, not an endless spinner',
     (tester) async {
       await tester.pumpWidget(
         harness(
@@ -46,7 +64,7 @@ void main() {
       while (tester.takeException() != null) {}
 
       expect(find.byIcon(Icons.image_not_supported_outlined), findsOneWidget);
-      expect(find.text('Imagen no disponible'), findsOneWidget);
+      expect(find.text(_imageUnavailableLabel(tester)), findsOneWidget);
       // El spinner de carga quedo acotado: ya no hay ninguno en pantalla.
       expect(find.byType(CircularProgressIndicator), findsNothing);
       // La imagen remota rota ya no ocupa el arbol.
@@ -54,7 +72,7 @@ void main() {
     },
   );
 
-  testWidgets('the English locale shows the localized placeholder label',
+  testWidgets('the English locale uses the English ARB placeholder label',
       (tester) async {
     await tester.pumpWidget(
       harness(
@@ -71,7 +89,39 @@ void main() {
     await tester.pump(const Duration(seconds: 13));
     while (tester.takeException() != null) {}
 
-    expect(find.text('Image unavailable'), findsOneWidget);
+    expect(find.text(_imageUnavailableLabel(tester)), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
+
+  testWidgets('compact callers keep their requested size after a timeout',
+      (tester) async {
+    await tester.pumpWidget(
+      harness(
+        const SizedBox(
+          width: 50,
+          height: 50,
+          child: ImagenRemotaRobusta(
+            urlImagen: 'https://example.invalid/missing-logo.png',
+            width: 50,
+            height: 50,
+          ),
+        ),
+      ),
+    );
+
+    await tester.pump(const Duration(seconds: 13));
+
+    expect(
+      tester.getSize(find.byType(ImagenRemotaRobusta)),
+      const Size(50, 50),
+    );
+    expect(find.byIcon(Icons.image_not_supported_outlined), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(tester.takeException(), isNull);
+  });
+}
+
+String _imageUnavailableLabel(WidgetTester tester) {
+  final context = tester.element(find.byType(ImagenRemotaRobusta));
+  return AppLocalizations.of(context)!.imagenNoDisponible;
 }

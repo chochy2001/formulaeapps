@@ -186,11 +186,10 @@ class InAppPurchaseManager extends ChangeNotifier {
                     ),
                     Row(
                       children: [
-                        const FadeInImage(
+                        const ImagenRemotaRobusta(
                           height: 50.0,
                           width: 50.0,
-                          placeholder: AssetImage(kUrlImagenGifCarga),
-                          image: NetworkImage(kUrlImagenFormulae),
+                          urlImagen: kUrlImagenFormulae,
                         ),
                         Expanded(
                           child: TextoEcuaciones(

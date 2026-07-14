@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDiferencialHomogenea extends StatefulWidget {
+  const EcuacionDiferencialHomogenea({super.key});
   @override
-  _EcuacionDiferencialHomogeneaState createState() =>
+  State<EcuacionDiferencialHomogenea> createState() =>
       _EcuacionDiferencialHomogeneaState();
 }
 

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MotorDeCorrienteDirecta extends StatefulWidget {
+  const MotorDeCorrienteDirecta({super.key});
   @override
   State<MotorDeCorrienteDirecta> createState() =>
       _MotorDeCorrienteDirectaState();

@@ -24,7 +24,7 @@ class AuthApi {
   const AuthApi(this._dio, this._serializers);
 
   /// Login with email/password
-  /// Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md.
+  /// Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default); it does not accept an unproved device identifier. See docs/ACCOUNTS_USER_ID_PLAN.md.
   ///
   /// Parameters:
   /// * [accountLoginRequest] 
@@ -119,7 +119,7 @@ class AuthApi {
   }
 
   /// Register an email/password account
-  /// Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
+  /// Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). It never accepts an unproved device identifier or adopts a device entitlement. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
   ///
   /// Parameters:
   /// * [accountRegisterRequest] 

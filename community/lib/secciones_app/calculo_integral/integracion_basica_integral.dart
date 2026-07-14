@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IntegracionBasicaIntegral extends StatefulWidget {
+  const IntegracionBasicaIntegral({super.key});
   @override
-  _IntegracionBasicaIntegralState createState() =>
+  State<IntegracionBasicaIntegral> createState() =>
       _IntegracionBasicaIntegralState();
 }
 

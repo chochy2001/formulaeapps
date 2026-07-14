@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDiferencialSeparable extends StatefulWidget {
+  const EcuacionDiferencialSeparable({super.key});
   @override
-  _EcuacionDiferencialSeparableState createState() =>
+  State<EcuacionDiferencialSeparable> createState() =>
       _EcuacionDiferencialSeparableState();
 }
 

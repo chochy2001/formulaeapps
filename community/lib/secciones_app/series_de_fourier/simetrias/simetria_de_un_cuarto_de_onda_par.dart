@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SimetriaDeUnCuartoDeOndaPar extends StatefulWidget {
+  const SimetriaDeUnCuartoDeOndaPar({super.key});
   @override
-  _SimetriaDeUnCuartoDeOndaParState createState() =>
+  State<SimetriaDeUnCuartoDeOndaPar> createState() =>
       _SimetriaDeUnCuartoDeOndaParState();
 }
 

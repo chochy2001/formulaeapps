@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IdentidadesHiperbolicasGenerales extends StatefulWidget {
+  const IdentidadesHiperbolicasGenerales({super.key});
   @override
-  _IdentidadesHiperbolicasGeneralesState createState() =>
+  State<IdentidadesHiperbolicasGenerales> createState() =>
       _IdentidadesHiperbolicasGeneralesState();
 }
 

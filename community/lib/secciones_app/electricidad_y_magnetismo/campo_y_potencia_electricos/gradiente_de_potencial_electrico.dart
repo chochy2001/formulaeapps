@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class GradienteDePotencialElectrico extends StatefulWidget {
+  const GradienteDePotencialElectrico({super.key});
   @override
   State<GradienteDePotencialElectrico> createState() =>
       _GradienteDePotencialElectricoState();

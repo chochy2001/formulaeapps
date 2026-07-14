@@ -48,7 +48,8 @@ function dedupeSources(
 /**
  * Read channel-scoped mobile entitlements for a subject (and optional user_id).
  * When ENABLE_USER_ACCOUNT_AUTH is on and userId is set, merges account-keyed
- * rows with subject-keyed rows (device grants may not be bound yet).
+ * rows with subject-keyed rows (device grants may not be bound yet). A user
+ * session never receives a subject row that is already bound to another user.
  * Fail-closed: any error → empty sources / entitled=false.
  */
 export function readMobileEntitlement(
@@ -56,12 +57,19 @@ export function readMobileEntitlement(
   userId?: string,
 ): MobileEntitlementView {
   try {
-    if (!subject.trim() && !(userId && userId.trim())) {
+    const normalizedUserId = userId?.trim();
+    if (!subject.trim() && !normalizedUserId) {
       return { ...EMPTY, sources: [] };
     }
     const sources: MobileEntitlementSourceView[] = [];
     if (subject.trim()) {
-      for (const r of listEntitlementsForSubject(subject).filter((row) => row.scope === 'mobile')) {
+      for (const r of listEntitlementsForSubject(subject).filter(
+        (row) =>
+          row.scope === 'mobile' &&
+          // A legacy, unbound device grant may still be read through its own
+          // subject. Once a row names an account, only that account may see it.
+          (!normalizedUserId || row.user_id === null || row.user_id === normalizedUserId),
+      )) {
         sources.push({
           payment_source: r.payment_source,
           product_id: r.product_id,
@@ -69,8 +77,8 @@ export function readMobileEntitlement(
         });
       }
     }
-    if (isUserAccountAuthEnabled() && userId?.trim()) {
-      for (const r of listEntitlementsForUserId(userId).filter((row) => row.scope === 'mobile')) {
+    if (isUserAccountAuthEnabled() && normalizedUserId) {
+      for (const r of listEntitlementsForUserId(normalizedUserId).filter((row) => row.scope === 'mobile')) {
         sources.push({
           payment_source: r.payment_source,
           product_id: r.product_id,

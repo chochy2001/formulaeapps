@@ -10,17 +10,18 @@ class TaskTile extends StatelessWidget {
   final Function longPressCallback;
 
   const TaskTile({
-    Key? key,
+    super.key,
     required this.isChecked,
     required this.taskTitle,
     required this.checkboxCallback,
     required this.longPressCallback,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onLongPress: () {
+        final l10n = AppLocalizations.of(context)!;
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -29,21 +30,21 @@ class TaskTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               backgroundColor: kColorBotones,
-              title: const Center(
+              title: Center(
                 child: Text(
-                  'Eliminar tarea',
+                  l10n.eliminarTarea,
                   style: kTextoBotones,
                 ),
               ),
-              content: const Text(
-                '¿Está seguro que desea eliminar la tarea?',
+              content: Text(
+                l10n.confirmacionEliminarTarea,
                 style: kTexto,
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text(
-                    'Cancelar',
+                  child: Text(
+                    l10n.cancelar,
                     style: kTextoBotones2,
                   ),
                 ),
@@ -52,8 +53,8 @@ class TaskTile extends StatelessWidget {
                     Navigator.pop(context);
                     longPressCallback();
                   },
-                  child: const Text(
-                    'Eliminar',
+                  child: Text(
+                    l10n.eliminar,
                     style: kTextoCerrar,
                   ),
                 ),

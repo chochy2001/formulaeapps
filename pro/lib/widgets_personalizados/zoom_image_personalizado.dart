@@ -6,6 +6,30 @@ import 'package:flutter/material.dart';
 import '../Favorites/pdf_capture_scope.dart';
 import '../constantes/export_constantes.dart';
 
+const _kFormulaeProductionImageOrigin = 'https://formulaeapps.com';
+
+/// Permite probar visualmente los diagramas contra un servidor local sin
+/// alterar las URLs canónicas que consume la aplicación publicada.
+///
+/// Producción conserva `https://formulaeapps.com`. Por ejemplo, para una
+/// revisión local de la landing se puede inyectar
+/// `--dart-define=FORMULAE_IMAGE_ORIGIN=http://127.0.0.1:4321`.
+const _kFormulaeImageOrigin = String.fromEnvironment(
+  'FORMULAE_IMAGE_ORIGIN',
+  defaultValue: _kFormulaeProductionImageOrigin,
+);
+
+/// Reescribe exclusivamente las URLs canónicas de Formulae cuando una
+/// compilación local configura [FORMULAE_IMAGE_ORIGIN].
+String resolveFormulaeImageUrl(String url) {
+  if (_kFormulaeImageOrigin == _kFormulaeProductionImageOrigin ||
+      !url.startsWith(_kFormulaeProductionImageOrigin)) {
+    return url;
+  }
+
+  return '$_kFormulaeImageOrigin${url.substring(_kFormulaeProductionImageOrigin.length)}';
+}
+
 /// Muestra una imagen remota (formula o diagrama) de forma robusta.
 ///
 /// El host de imagenes puede responder 404 o quedarse colgado sin resolver; en
@@ -21,7 +45,7 @@ class ZoomImagePersonalizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb || PdfCaptureScope.of(context)) {
+    if (PdfCaptureScope.of(context)) {
       return const SizedBox.shrink();
     }
 
@@ -29,15 +53,17 @@ class ZoomImagePersonalizado extends StatelessWidget {
         (defaultTargetPlatform == TargetPlatform.iOS ||
             defaultTargetPlatform == TargetPlatform.android);
 
-    final Widget imagen = _ImagenRemotaRobusta(
+    final Widget imagen = ImagenRemotaRobusta(
       urlImagen: urlImagen,
-      // En escritorio conservamos el encuadre fijo previo; en movil dejamos que
-      // la imagen tome su tamano natural dentro del InteractiveViewer.
+      // En escritorio y web conservamos un encuadre estable; en movil dejamos
+      // que la imagen tome su tamano natural dentro del InteractiveViewer.
       height: isMobile ? null : 300.0,
       width: isMobile ? null : double.infinity,
     );
 
-    return isMobile ? InteractiveViewer(child: imagen) : imagen;
+    // Flutter web también debe mostrar los diagramas. El zoom mantiene las
+    // etiquetas legibles en pantallas pequeñas sin ocultar contenido.
+    return isMobile || kIsWeb ? InteractiveViewer(child: imagen) : imagen;
   }
 }
 
@@ -45,22 +71,23 @@ class ZoomImagePersonalizado extends StatelessWidget {
 /// carga nunca sea infinito: un timeout de respaldo convierte una peticion
 /// colgada en el placeholder de error, mientras que un 404 real cae de
 /// inmediato en el mismo placeholder a traves de `errorWidget`.
-class _ImagenRemotaRobusta extends StatefulWidget {
+class ImagenRemotaRobusta extends StatefulWidget {
   final String urlImagen;
   final double? height;
   final double? width;
 
-  const _ImagenRemotaRobusta({
+  const ImagenRemotaRobusta({
+    super.key,
     required this.urlImagen,
     this.height,
     this.width,
   });
 
   @override
-  State<_ImagenRemotaRobusta> createState() => _ImagenRemotaRobustaState();
+  State<ImagenRemotaRobusta> createState() => _ImagenRemotaRobustaState();
 }
 
-class _ImagenRemotaRobustaState extends State<_ImagenRemotaRobusta> {
+class _ImagenRemotaRobustaState extends State<ImagenRemotaRobusta> {
   // Respaldo: si la peticion se cuelga (sin 404 ni exito) mostramos el
   // placeholder de error al vencer este tiempo, en lugar de girar sin fin.
   static const Duration _kTimeoutCarga = Duration(seconds: 12);
@@ -76,7 +103,7 @@ class _ImagenRemotaRobustaState extends State<_ImagenRemotaRobusta> {
   }
 
   @override
-  void didUpdateWidget(covariant _ImagenRemotaRobusta oldWidget) {
+  void didUpdateWidget(covariant ImagenRemotaRobusta oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.urlImagen != widget.urlImagen) {
       _cargo = false;
@@ -116,7 +143,7 @@ class _ImagenRemotaRobustaState extends State<_ImagenRemotaRobusta> {
     }
 
     return CachedNetworkImage(
-      imageUrl: widget.urlImagen,
+      imageUrl: resolveFormulaeImageUrl(widget.urlImagen),
       fadeInDuration: const Duration(milliseconds: 150),
       imageBuilder: (context, imageProvider) {
         _marcarCargada();
@@ -162,45 +189,53 @@ class _PlaceholderImagen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isEnglish =
-        Localizations.maybeLocaleOf(context)?.languageCode == 'en';
+    final bool isCompact =
+        (width != null && width! <= 120) || (height != null && height! <= 120);
 
     final Widget contenido = error
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
+        ? isCompact
+            ? const Icon(
                 Icons.image_not_supported_outlined,
-                size: 40,
+                size: 24,
                 color: _colorMuteado,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                isEnglish ? 'Image unavailable' : 'Imagen no disponible',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: _colorMuteado,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          )
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 40,
+                    color: _colorMuteado,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    AppLocalizations.of(context)!.imagenNoDisponible,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: _colorMuteado,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              )
         : const SizedBox(
             height: 28,
             width: 28,
             child: CircularProgressIndicator(
               strokeWidth: 2.4,
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(kColorAmarilloCapdesis),
+              valueColor: AlwaysStoppedAnimation<Color>(kColorAmarilloCapdesis),
             ),
           );
 
     return Container(
       height: height ?? 160,
       width: width,
-      constraints: const BoxConstraints(minWidth: 160, minHeight: 96),
+      constraints: BoxConstraints(
+        minWidth: width == null ? 160 : 0,
+        minHeight: height == null ? 96 : 0,
+      ),
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(isCompact ? 4 : 12),
       decoration: BoxDecoration(
         color: kColorBotones,
         borderRadius: BorderRadius.circular(12),

@@ -2954,6 +2954,12 @@ abstract class AppLocalizations {
   /// **'Imagen'**
   String get imagen;
 
+  /// No description provided for @imagenNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Imagen no disponible'**
+  String get imagenNoDisponible;
+
   /// No description provided for @explicacionDominio.
   ///
   /// In es, this message translates to:

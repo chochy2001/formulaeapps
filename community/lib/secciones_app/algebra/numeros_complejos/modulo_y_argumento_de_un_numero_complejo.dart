@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ModuloyArgumentoNumerosComplejos extends StatefulWidget {
+  const ModuloyArgumentoNumerosComplejos({super.key});
   @override
-  _ModuloyArgumentoNumerosComplejosState createState() =>
+  State<ModuloyArgumentoNumerosComplejos> createState() =>
       _ModuloyArgumentoNumerosComplejosState();
 }
 

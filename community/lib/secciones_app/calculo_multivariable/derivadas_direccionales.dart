@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DerivadasDireccionales extends StatefulWidget {
+  const DerivadasDireccionales({super.key});
   @override
-  _DerivadasDireccionalesState createState() => _DerivadasDireccionalesState();
+  State<DerivadasDireccionales> createState() => _DerivadasDireccionalesState();
 }
 
 class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {

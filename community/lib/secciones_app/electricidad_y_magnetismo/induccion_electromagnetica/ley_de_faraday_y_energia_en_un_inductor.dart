@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeInduccionDeFaradayEnergiaEnUnInductor extends StatefulWidget {
+  const LeyDeInduccionDeFaradayEnergiaEnUnInductor({super.key});
   @override
   State<LeyDeInduccionDeFaradayEnergiaEnUnInductor> createState() =>
       _LeyDeInduccionDeFaradayEnergiaEnUnInductorState();

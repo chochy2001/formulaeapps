@@ -5,7 +5,7 @@ import '../chat_gpt/models_provider.dart';
 import '../constantes/export_constantes.dart';
 
 class ModelsDropDownWidget extends StatefulWidget {
-  const ModelsDropDownWidget({Key? key}) : super(key: key);
+  const ModelsDropDownWidget({super.key});
 
   @override
   State<ModelsDropDownWidget> createState() => _ModelsDropDownWidgetState();

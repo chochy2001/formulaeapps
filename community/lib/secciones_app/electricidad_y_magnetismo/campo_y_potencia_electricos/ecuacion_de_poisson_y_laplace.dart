@@ -3,7 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDePoissonYLaplace extends StatefulWidget {
-  const EcuacionDePoissonYLaplace({Key? key}) : super(key: key);
+  const EcuacionDePoissonYLaplace({super.key});
 
   @override
   State<EcuacionDePoissonYLaplace> createState() =>

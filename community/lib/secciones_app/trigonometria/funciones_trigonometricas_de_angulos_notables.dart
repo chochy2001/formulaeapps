@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionesTrigonometricasDeAngulosNotables extends StatefulWidget {
+  const FuncionesTrigonometricasDeAngulosNotables({super.key});
   @override
-  _FuncionesTrigonometricasDeAngulosNotablesState createState() =>
+  State<FuncionesTrigonometricasDeAngulosNotables> createState() =>
       _FuncionesTrigonometricasDeAngulosNotablesState();
 }
 

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeProyecciones extends StatefulWidget {
+  const LeyDeProyecciones({super.key});
   @override
-  _LeyDeProyeccionesState createState() => _LeyDeProyeccionesState();
+  State<LeyDeProyecciones> createState() => _LeyDeProyeccionesState();
 }
 
 class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {

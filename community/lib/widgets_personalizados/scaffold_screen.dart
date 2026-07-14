@@ -7,11 +7,11 @@ class ScaffoldScreen extends StatelessWidget {
   final Widget body;
 
   const ScaffoldScreen({
-    Key? key,
+    super.key,
     required this.appBar,
     required this.drawer,
     required this.body,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +59,11 @@ class ScaffoldScreen1 extends StatelessWidget {
   final Widget body;
 
   const ScaffoldScreen1({
-    Key? key,
+    super.key,
     required this.appBar,
     required this.drawer,
     required this.body,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

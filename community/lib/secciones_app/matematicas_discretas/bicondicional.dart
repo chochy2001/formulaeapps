@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class BicondicionalMatematicasDiscretas extends StatefulWidget {
+  const BicondicionalMatematicasDiscretas({super.key});
   @override
-  _BicondicionalMatematicasDiscretasState createState() =>
+  State<BicondicionalMatematicasDiscretas> createState() =>
       _BicondicionalMatematicasDiscretasState();
 }
 

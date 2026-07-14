@@ -3,7 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CirculacionDelCampoElectrostatico extends StatefulWidget {
-  const CirculacionDelCampoElectrostatico({Key? key}) : super(key: key);
+  const CirculacionDelCampoElectrostatico({super.key});
 
   @override
   State<CirculacionDelCampoElectrostatico> createState() =>

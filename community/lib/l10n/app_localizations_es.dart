@@ -1527,6 +1527,35 @@ class AppLocalizationsEs extends AppLocalizations {
   String get imagen => 'Imagen';
 
   @override
+  String get imagenNoDisponible => 'Imagen no disponible';
+
+  @override
+  String get formulaePDF => 'Formulae PDF';
+
+  @override
+  String get pdfNoDisponible => 'El PDF no está disponible en este momento.';
+
+  @override
+  String get reintentar => 'Reintentar';
+
+  @override
+  String get noSePudoAbrirPDF => 'No se pudo abrir el PDF.';
+
+  @override
+  String get pdfGeneradoLocalmente =>
+      'Este PDF se generó localmente desde Formulae Community.';
+
+  @override
+  String get consultaLaLeccionEnLaApp =>
+      'Consulta la lección dentro de la aplicación para ver el contenido completo.';
+
+  @override
+  String get pdfExportado => 'El PDF está listo para guardarse o compartirse.';
+
+  @override
+  String get noSePudoExportarPDF => 'No se pudo exportar el PDF.';
+
+  @override
   String get explicacionDominio =>
       'El conjunto de partida o el conjunto de los valores que puede tomarla Variable Independiente (x), es el Dominio de la Función.';
 

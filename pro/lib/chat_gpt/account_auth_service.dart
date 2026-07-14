@@ -54,14 +54,11 @@ class AccountAuthFailure extends AccountAuthResult {
 class AccountAuthService {
   AccountAuthService({
     BffAccountClientFactory? clientFactory,
-    Future<String> Function()? clientIdProvider,
     bool? enabled,
   })  : _clientFactory = clientFactory ?? _defaultClientFactory,
-        _clientIdProvider = clientIdProvider ?? AuthService.stableClientId,
         _enabled = enabled ?? kEnableUserAccountAuth;
 
   final BffAccountClientFactory _clientFactory;
-  final Future<String> Function() _clientIdProvider;
   final bool _enabled;
 
   static FormulaeappsBffClient _defaultClientFactory() {
@@ -73,17 +70,14 @@ class AccountAuthService {
   Future<AccountAuthResult> register({
     required String email,
     required String password,
-    bool bindDeviceClientId = true,
   }) async {
     if (!_enabled) {
       return const AccountAuthDisabled();
     }
-    final clientId = bindDeviceClientId ? await _clientIdProvider() : null;
     final request = AccountRegisterRequest(
       (b) => b
         ..email = email
-        ..password = password
-        ..clientId = clientId,
+        ..password = password,
     );
     try {
       final response = await _clientFactory().getAuthApi().authRegisterPost(
@@ -105,17 +99,14 @@ class AccountAuthService {
   Future<AccountAuthResult> login({
     required String email,
     required String password,
-    bool bindDeviceClientId = true,
   }) async {
     if (!_enabled) {
       return const AccountAuthDisabled();
     }
-    final clientId = bindDeviceClientId ? await _clientIdProvider() : null;
     final request = AccountLoginRequest(
       (b) => b
         ..email = email
-        ..password = password
-        ..clientId = clientId,
+        ..password = password,
     );
     try {
       final response = await _clientFactory().getAuthApi().authLoginPost(
