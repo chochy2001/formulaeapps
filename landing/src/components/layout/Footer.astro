@@ -2,6 +2,7 @@
 import { SITE, SOCIAL, type Locale } from '../../consts';
 import { useTranslations } from '../../i18n/ui';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { translatePath } from '../../i18n/routes';
 import EmailLink from '../ui/EmailLink.astro';
 
 const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
@@ -14,7 +15,7 @@ const productLinks = [
     href: getRelativeLocaleUrl(locale, locale === 'es' ? '/gratuita' : '/free'),
     label: t('nav.community'),
   },
-  { href: getRelativeLocaleUrl(locale, '/soporte'), label: t('nav.support') },
+  { href: translatePath('/soporte', locale), label: t('nav.support') },
 ];
 
 const legalLinks = [

@@ -1,0 +1,142 @@
+---
+import type { FeatureId } from '../../consts';
+
+interface Props {
+  kind: FeatureId;
+  label: string;
+  class?: string;
+}
+
+const { kind, label, class: className } = Astro.props;
+---
+
+<!--
+  Shared visual preview used on every locale. It intentionally contains only
+  mathematical notation and universal symbols, never localized app copy or a
+  screenshot of a particular language.
+-->
+<div
+  role="img"
+  aria-label={label}
+  class:list={[
+    'bg-ink-900 shadow-soft ring-ink-900/10 overflow-hidden rounded-[1.5rem] ring-1',
+    className,
+  ]}
+>
+  <svg viewBox="0 0 240 360" class="block h-full w-full" aria-hidden="true" focusable="false">
+    <rect width="240" height="360" fill="var(--color-ink-900)" />
+    <circle cx="194" cy="46" r="72" fill="var(--color-primary-700)" opacity="0.34" />
+    <circle cx="42" cy="318" r="84" fill="var(--color-accent-500)" opacity="0.18" />
+    <rect x="24" y="28" width="192" height="304" rx="26" fill="var(--color-ink-800)" />
+    <rect x="34" y="46" width="172" height="246" rx="17" fill="var(--color-ink-900)" />
+    <rect x="92" y="37" width="56" height="5" rx="2.5" fill="var(--color-ink-500)" />
+    <circle cx="120" cy="312" r="8" fill="var(--color-ink-700)" />
+
+    {
+      kind === 'formulas' && (
+        <>
+          <path d="M53 100h134M53 151h134M53 202h134" stroke="var(--color-ink-700)" stroke-width="2" />
+          <text x="66" y="135" fill="var(--color-accent-400)" font-size="36" font-weight="700">∑</text>
+          <text x="107" y="130" fill="var(--color-ink-100)" font-size="20" font-family="ui-monospace">f(x)=x²</text>
+          <text x="76" y="184" fill="var(--color-primary-300)" font-size="29" font-family="ui-monospace">∫ x dx</text>
+          <text x="69" y="236" fill="var(--color-ink-100)" font-size="26" font-family="ui-monospace">Δy / Δx</text>
+        </>
+      )
+    }
+    {
+      kind === 'search' && (
+        <>
+          <rect x="52" y="96" width="136" height="48" rx="20" fill="var(--color-ink-800)" stroke="var(--color-primary-300)" stroke-width="2" />
+          <circle cx="82" cy="120" r="11" fill="none" stroke="var(--color-accent-400)" stroke-width="4" />
+          <path d="m91 129 12 12" stroke="var(--color-accent-400)" stroke-width="4" stroke-linecap="round" />
+          <text x="121" y="127" fill="var(--color-ink-100)" font-size="23" font-family="ui-monospace">∫</text>
+          <path d="M59 181h122M59 211h88M59 241h108" stroke="var(--color-ink-500)" stroke-width="8" stroke-linecap="round" />
+        </>
+      )
+    }
+    {
+      kind === 'tasks' && (
+        <>
+          {[112, 166, 220].map((y, index) => (
+            <g>
+              <rect x="59" y={y - 22} width="34" height="34" rx="8" fill={index === 1 ? 'var(--color-accent-400)' : 'var(--color-primary-500)'} />
+              <path d={`m67 ${y - 5} 8 8 13-16`} fill="none" stroke="var(--color-ink-900)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d={`M109 ${y - 4}h67`} stroke="var(--color-ink-100)" stroke-width="8" stroke-linecap="round" />
+            </g>
+          ))}
+        </>
+      )
+    }
+    {
+      kind === 'favorites' && (
+        <>
+          <path d="m120 88 17 36 40 5-29 28 8 40-36-20-36 20 8-40-29-28 40-5z" fill="var(--color-accent-400)" />
+          <path d="M63 235h114M78 261h84" stroke="var(--color-primary-300)" stroke-width="8" stroke-linecap="round" />
+        </>
+      )
+    }
+    {
+      kind === 'images' && (
+        <>
+          <rect x="53" y="99" width="134" height="116" rx="13" fill="var(--color-ink-800)" stroke="var(--color-primary-300)" stroke-width="3" />
+          <circle cx="157" cy="127" r="14" fill="var(--color-accent-400)" />
+          <path d="m67 196 35-40 26 27 19-20 26 33" fill="none" stroke="var(--color-primary-400)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M74 249h92" stroke="var(--color-ink-100)" stroke-width="8" stroke-linecap="round" />
+        </>
+      )
+    }
+    {
+      kind === 'videos' && (
+        <>
+          <rect x="52" y="105" width="136" height="100" rx="17" fill="var(--color-primary-800)" />
+          <path d="m108 127 43 28-43 28z" fill="var(--color-accent-400)" />
+          <path d="M70 239c18-14 37-14 55 0s36 14 55 0" fill="none" stroke="var(--color-primary-300)" stroke-width="7" stroke-linecap="round" />
+        </>
+      )
+    }
+    {
+      kind === 'exercises' && (
+        <>
+          <circle cx="92" cy="144" r="36" fill="var(--color-primary-700)" />
+          <text x="78" y="157" fill="var(--color-ink-100)" font-size="42" font-weight="700">?</text>
+          <circle cx="150" cy="204" r="32" fill="var(--color-accent-400)" />
+          <path d="m134 204 11 11 22-27" fill="none" stroke="var(--color-ink-900)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+        </>
+      )
+    }
+    {
+      kind === 'pdfs' && (
+        <>
+          <path d="M78 89h57l29 29v137H78z" fill="var(--color-ink-100)" />
+          <path d="M135 89v29h29" fill="var(--color-primary-300)" />
+          <path d="M98 159h46M98 183h46" stroke="var(--color-primary-700)" stroke-width="7" stroke-linecap="round" />
+          <path d="M121 218v42m0 0-17-17m17 17 17-17" fill="none" stroke="var(--color-accent-500)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+        </>
+      )
+    }
+    {
+      kind === 'chatgpt' && (
+        <>
+          <path d="M55 109c0-14 12-25 27-25h44c15 0 27 11 27 25v31c0 14-12 25-27 25H99l-23 18 5-18c-15-1-26-12-26-25z" fill="var(--color-primary-600)" />
+          <circle cx="92" cy="124" r="5" fill="var(--color-ink-100)" />
+          <circle cx="108" cy="124" r="5" fill="var(--color-ink-100)" />
+          <circle cx="124" cy="124" r="5" fill="var(--color-ink-100)" />
+          <path d="M91 207c0-14 12-25 27-25h40c15 0 27 11 27 25v28c0 14-12 25-27 25h-21l-22 18 5-18c-13-2-24-12-24-25z" fill="var(--color-accent-400)" />
+          <circle cx="125" cy="220" r="5" fill="var(--color-ink-900)" />
+          <circle cx="141" cy="220" r="5" fill="var(--color-ink-900)" />
+          <circle cx="157" cy="220" r="5" fill="var(--color-ink-900)" />
+        </>
+      )
+    }
+    {
+      kind === 'practice' && (
+        <>
+          <circle cx="120" cy="159" r="61" fill="none" stroke="var(--color-primary-300)" stroke-width="11" />
+          <circle cx="120" cy="159" r="35" fill="none" stroke="var(--color-accent-400)" stroke-width="11" />
+          <circle cx="120" cy="159" r="9" fill="var(--color-primary-500)" />
+          <path d="m75 242 27-20 18 15 36-38" fill="none" stroke="var(--color-ink-100)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+        </>
+      )
+    }
+  </svg>
+</div>
