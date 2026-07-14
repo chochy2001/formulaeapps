@@ -2,10 +2,13 @@ import { createRoute } from '@hono/zod-openapi';
 import { randomUUID } from 'node:crypto';
 import type { AppContext } from '../lib/openapi';
 import { isUserAccountAuthEnabled } from '../lib/feature-flags';
+import { loginAccount, registerAccount } from '../services/account-auth';
 import {
   AccountAuthResponseSchema,
   AccountLoginRequestSchema,
   AccountRegisterRequestSchema,
+  type AccountLoginRequest,
+  type AccountRegisterRequest,
 } from '../schemas/account-auth';
 import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
 
@@ -17,24 +20,16 @@ const accountsDisabledResponse = (requestId: string) =>
     'E_ACCOUNTS_DISABLED',
   );
 
-const accountsStubResponse = (requestId: string) =>
-  errorEnvelope(
-    'internal_error',
-    'User account auth stub — register/login not implemented yet',
-    requestId,
-    'E_ACCOUNTS_STUB',
-  );
-
 export const authRegisterRoute = createRoute({
   method: 'post',
   path: '/auth/register',
   tags: ['auth'],
-  summary: 'Register an email/password account (stub)',
+  summary: 'Register an email/password account',
   description:
-    'Design stub for WP5 step 2 / fleet #86. Returns 403 while ' +
-    'ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still ' +
-    'returns 503 until users table + password hashing land. See ' +
-    'docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.',
+    'Creates a users-row (argon2id password hash) and returns a JWT with ' +
+    'claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off ' +
+    '(default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is ' +
+    'out of scope here.',
   request: {
     body: {
       required: true,
@@ -43,11 +38,11 @@ export const authRegisterRoute = createRoute({
   },
   responses: {
     200: {
-      description: 'Account created (not yet implemented)',
+      description: 'Account created; JWT includes user_id',
       content: { 'application/json': { schema: AccountAuthResponseSchema } },
     },
     400: {
-      description: 'Bad request',
+      description: 'Bad request (validation or email taken)',
       content: { 'application/json': { schema: ErrorEnvelopeSchema } },
     },
     403: {
@@ -56,10 +51,6 @@ export const authRegisterRoute = createRoute({
     },
     429: {
       description: 'Rate limited',
-      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
-    },
-    503: {
-      description: 'Stub — not implemented yet',
       content: { 'application/json': { schema: ErrorEnvelopeSchema } },
     },
   },
@@ -69,12 +60,11 @@ export const authLoginRoute = createRoute({
   method: 'post',
   path: '/auth/login',
   tags: ['auth'],
-  summary: 'Login with email/password (stub)',
+  summary: 'Login with email/password',
   description:
-    'Design stub for WP5 step 2 / fleet #86. Returns 403 while ' +
-    'ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still ' +
-    'returns 503 until credential verification lands. See ' +
-    'docs/ACCOUNTS_USER_ID_PLAN.md.',
+    'Verifies credentials against the users table and returns a JWT with ' +
+    'claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off ' +
+    '(default). See docs/ACCOUNTS_USER_ID_PLAN.md.',
   request: {
     body: {
       required: true,
@@ -83,11 +73,15 @@ export const authLoginRoute = createRoute({
   },
   responses: {
     200: {
-      description: 'Login successful (not yet implemented)',
+      description: 'Login successful; JWT includes user_id',
       content: { 'application/json': { schema: AccountAuthResponseSchema } },
     },
     400: {
       description: 'Bad request',
+      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
+    },
+    401: {
+      description: 'Invalid credentials',
       content: { 'application/json': { schema: ErrorEnvelopeSchema } },
     },
     403: {
@@ -98,28 +92,29 @@ export const authLoginRoute = createRoute({
       description: 'Rate limited',
       content: { 'application/json': { schema: ErrorEnvelopeSchema } },
     },
-    503: {
-      description: 'Stub — not implemented yet',
-      content: { 'application/json': { schema: ErrorEnvelopeSchema } },
-    },
   },
 });
 
 export const authRegisterHandler = async (c: AppContext): Promise<Response> => {
   const requestId = c.get('request_id') ?? randomUUID();
-  // Validate body so OpenAPI/Zod still runs even while stubbed.
-  (c.req as unknown as { valid: (t: 'json') => unknown }).valid('json');
+  const body = (
+    c.req as unknown as { valid: (t: 'json') => AccountRegisterRequest }
+  ).valid('json');
   if (!isUserAccountAuthEnabled()) {
     return c.json(accountsDisabledResponse(requestId), 403);
   }
-  return c.json(accountsStubResponse(requestId), 503);
+  const response = await registerAccount(body);
+  return c.json(response, 200);
 };
 
 export const authLoginHandler = async (c: AppContext): Promise<Response> => {
   const requestId = c.get('request_id') ?? randomUUID();
-  (c.req as unknown as { valid: (t: 'json') => unknown }).valid('json');
+  const body = (
+    c.req as unknown as { valid: (t: 'json') => AccountLoginRequest }
+  ).valid('json');
   if (!isUserAccountAuthEnabled()) {
     return c.json(accountsDisabledResponse(requestId), 403);
   }
-  return c.json(accountsStubResponse(requestId), 503);
+  const response = await loginAccount(body);
+  return c.json(response, 200);
 };

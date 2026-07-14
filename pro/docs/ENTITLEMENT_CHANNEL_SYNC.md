@@ -9,9 +9,9 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 |-------|--------|
 | Mobile IAP | `InAppPurchaseManager` — local StoreKit/BillingClient; `hasValidPurchase` in-memory |
 | BFF `POST /iap/validate` | Implemented + integration-tested; FE did not call it |
-| Auth | Device/session JWT via `client_proof` HMAC — **no user accounts** (stubs only) |
+| Auth | Device JWT via `client_proof` HMAC; email/password **implemented behind flag** (default off) |
 | Web Polar | None (mobile-only product today) — **deferred**, see `docs/ACCOUNTS_USER_ID_PLAN.md` |
-| Entitlement SoT | `mobile_entitlements` keyed by interim JWT `sub`; nullable `user_id` column ready |
+| Entitlement SoT | `mobile_entitlements` keyed by interim JWT `sub`; nullable `user_id` bound on account login |
 
 ## Target (IngeTracker-shaped, channel-scoped)
 
@@ -30,6 +30,7 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 - **BFF fail-closed check (2026-07-13 follow-up):** `entitlement-check.ts` (`readMobileEntitlement` / `hasActiveMobileEntitlement` / `evaluateMobileIapPurchase`) + runtime reject of `polar`/`web` payment sources on grant. Export OpenAPI version follows `CONTRACT_VERSION`.
 - **FE WP5 steps 3–4 (2026-07-13):** `EntitlementService` → `GET /entitlement`; paywall `buyProduct` fail-closed pre-IAP guard when `ENABLE_BFF_IAP_VALIDATION` is on (anti double-pay stub via `lastPurchaseBlockReason`). Flag still default **off**.
 - **Accounts prep / fleet #86 slice (2026-07-13):** nullable `user_id` column + OpenAPI stubs `POST /auth/register` + `POST /auth/login` behind `ENABLE_USER_ACCOUNT_AUTH` (default **off** → 403). Plan: `docs/ACCOUNTS_USER_ID_PLAN.md`. Contract `1.1.0` → `1.2.0`. Polar web explicitly deferred.
+- **Accounts impl / fleet #86 slice 2 (2026-07-13):** `users` table + argon2id register/login when flag on; JWT `user_id` claim; optional `client_id` binds device entitlements; `GET /entitlement` merges user_id rows. Contract `1.2.0` → `1.3.0`. Flag still default **off**.
 
 ## Next implementation steps (ordered)
 
@@ -37,7 +38,8 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 |------|------|------|
 | 1 | BFF | ✅ `mobile_entitlements` store + grant on `/iap/validate` + `GET /entitlement` + fail-closed check helper. |
 | 2a | BFF | ✅ Schema `user_id` + OpenAPI account stubs behind `ENABLE_USER_ACCOUNT_AUTH` (default off). |
-| 2b | BFF | Users table + real register/login + JWT `user_id` claim (see plan). |
+| 2b | BFF | ✅ Users table + real register/login + JWT `user_id` claim (flag default off). |
+| 2c | BFF | OAuth Google/Apple (later). |
 | 3 | Pro FE | ✅ `EntitlementService` → `GET /entitlement` (wired; used when flag on). |
 | 4 | Pro FE | ✅ Paywall: check entitlement before IAP charge (fail-closed when flag on). |
 | 5 | Fleet | OpenAPI entitlement contract shared with IngeTracker (`sources`, `scope`, `since`). |
@@ -46,11 +48,12 @@ Design + first integration step for fleet rule **§10 Polar↔IAP** in
 ### Remaining checklist (post FE steps 3–4 + accounts prep)
 
 - [x] Design + stub: email/password routes + `user_id` column behind flag (default off)
-- [ ] User accounts implemented (hash + users table) replace JWT `sub` as entitlement key
+- [x] User accounts implemented (hash + users table) behind `ENABLE_USER_ACCOUNT_AUTH`
 - [x] FE `EntitlementService` + paywall pre-IAP check (steps 3–4)
-- [ ] Flip `ENABLE_BFF_IAP_VALIDATION` / `ENABLE_USER_ACCOUNT_AUTH` only after accounts + real Apple/Google validators
+- [ ] Flip `ENABLE_BFF_IAP_VALIDATION` / `ENABLE_USER_ACCOUNT_AUTH` only after Jorge go-live + real Apple/Google validators in prod
 - [ ] Polar web products — **deferred**; only if product decides formulaeapps.com sells Pro
 - [ ] No production BFF deploy from this slice alone
+- [ ] OAuth (Google/Apple) — later
 
 ## Local validation
 
@@ -69,6 +72,6 @@ cd Formulae/monorepo/pro && flutter analyze --no-pub --fatal-infos --fatal-warni
 | Flag | Default | Purpose |
 |------|---------|---------|
 | `ENABLE_BFF_IAP_VALIDATION` | `false` | Opt-in wire from store purchase → BFF `/iap/validate` **and** pre-purchase `GET /entitlement` fail-closed guard |
-| `ENABLE_USER_ACCOUNT_AUTH` | `false` | Unlock account stubs → real register/login + persist `user_id` on entitlement grants |
+| `ENABLE_USER_ACCOUNT_AUTH` | `false` | Unlock register/login + persist `user_id` on entitlement grants |
 
 Do **not** enable in production until BFF persistence + user accounts exist.

@@ -35,7 +35,8 @@ export const entitlementGetHandler = (c: AppContext): Response => {
   }
 
   // Fail-closed reader: store errors → empty sources (not entitled).
-  const view = readMobileEntitlement(claims.sub);
+  // When account auth is on and JWT carries user_id, prefer account-keyed rows.
+  const view = readMobileEntitlement(claims.sub, claims.user_id);
   return c.json(
     {
       scope: view.scope,

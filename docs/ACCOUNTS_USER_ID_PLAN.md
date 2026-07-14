@@ -15,32 +15,34 @@ Replace interim JWT `sub` (device/session) as the entitlement key with a real
 channel rules from fleet §10 (IAP = mobile only; Polar web never unlocks
 mobile).
 
-## Landed in this slice (mergeable, flags OFF)
+## Landed slices (mergeable, flags OFF)
 
 | Item | Status |
 |------|--------|
-| OpenAPI stubs `POST /auth/register` + `POST /auth/login` | ✅ Contract `1.2.0`; handlers return **403** `E_ACCOUNTS_DISABLED` while flag off |
-| `mobile_entitlements.user_id` nullable column + index | ✅ Additive migration; subject uniqueness unchanged |
-| `ENABLE_USER_ACCOUNT_AUTH` | ✅ Default **off**; call-time read for tests |
-| Grant/bind helpers honor flag | ✅ `user_id` ignored / bind no-op when off |
+| OpenAPI `POST /auth/register` + `POST /auth/login` | ✅ Contract ≥ `1.3.0`; **403** while flag off |
+| `mobile_entitlements.user_id` nullable column + index | ✅ Additive migration |
+| `ENABLE_USER_ACCOUNT_AUTH` | ✅ Default **off** |
+| Users table + argon2id hash + real register/login | ✅ Behind flag; JWT includes `user_id` |
+| Optional `client_id` binds device entitlements | ✅ `bindEntitlementsUserId` on register/login |
+| `GET /entitlement` merges subject + user_id rows | ✅ When flag on + claim present |
 | Polar web | ❌ Explicitly deferred (see below) |
 | Production deploy | ❌ Out of scope |
 
 ## Remaining ordered steps
 
-### A. Accounts (BFF) — next PRs
+### A. Accounts (BFF) — later PRs
 
-1. **Users table** (`users`: `id` UUID PK, `email` unique, `password_hash`, `created_at`).
-2. **Password hashing** — Bun `password.hash` / `password.verify` (argon2id).
-3. **Implement register/login** behind `ENABLE_USER_ACCOUNT_AUTH=true` only; issue JWT with claims `{ sub, user_id }` (keep device `sub` for chat rate-limit continuity or migrate carefully).
-4. **Link device session → account** on first login: `bindEntitlementsUserId(subject, user_id)` so prior IAP grants move with the user.
+1. ~~**Users table**~~ ✅
+2. ~~**Password hashing**~~ ✅ Bun argon2id
+3. ~~**Implement register/login** behind flag~~ ✅
+4. ~~**Link device session → account** via optional `client_id`~~ ✅
 5. **OAuth (later):** Google/Apple Sign-In as additive providers; same `user_id` key.
+6. **FE account UI** (optional) gated separately; keep dart-defines off until go-live.
 
 ### B. Entitlement read path
 
-6. Prefer `listEntitlementsForUserId` when JWT has `user_id` **and** flag on; fall back to subject until migration complete.
-7. `GET /entitlement` response stays `scope: "mobile"` only — no Polar leakage.
-8. FE: optional account UI gated separately; keep `ENABLE_BFF_IAP_VALIDATION` default **off** until accounts + real Apple/Google validators.
+7. ~~Prefer user_id when JWT has claim and flag on~~ ✅ (merged with subject rows)
+8. FE: keep `ENABLE_BFF_IAP_VALIDATION` default **off** until accounts + real Apple/Google validators in production.
 
 ### C. Polar web — deferred (product decision required)
 
@@ -60,7 +62,7 @@ unimplemented.
 
 | Flag | Default | Layer | Purpose |
 |------|---------|-------|---------|
-| `ENABLE_USER_ACCOUNT_AUTH` | `false` | BFF env | Unlock account stubs → real register/login + persist `user_id` on grants |
+| `ENABLE_USER_ACCOUNT_AUTH` | `false` | BFF env | Unlock register/login + persist `user_id` on grants |
 | `ENABLE_BFF_IAP_VALIDATION` | `false` | Flutter dart-define | FE → BFF `/iap/validate` + fail-closed pre-IAP guard |
 
 ## Local validation
@@ -75,7 +77,9 @@ bash scripts/verify-parity.sh
 ## Acceptance mapping (#86)
 
 - [x] Account-bound entitlement grant path **documented** + schema/`user_id` prep behind flag
-- [ ] Account register/login **implemented** (not just stub) behind flag
+- [x] Account register/login **implemented** behind flag (users table + hashing + JWT `user_id`)
 - [x] Polar web **explicitly deferred** pending product sign-off (this doc)
 - [x] Anti-double-pay / channel rules unchanged (IAP ≠ polar/web)
 - [ ] Flip flags only after Jorge go-live approval — **no deploy from agents**
+- [ ] OAuth providers (optional follow-up)
+- [ ] Product decision on Polar web Pro

@@ -35,7 +35,7 @@ app.use('/auth/login', authRateLimiter.middleware);
 // Public routes (no JWT required)
 app.openapi(healthRoute, healthHandler as never);
 app.openapi(authTokenRoute, authTokenHandler as never);
-// Account stubs (fleet #86) — 403 while ENABLE_USER_ACCOUNT_AUTH is off.
+// Account register/login (fleet #86) — 403 while ENABLE_USER_ACCOUNT_AUTH is off.
 app.openapi(authRegisterRoute, authRegisterHandler as never);
 app.openapi(authLoginRoute, authLoginHandler as never);
 

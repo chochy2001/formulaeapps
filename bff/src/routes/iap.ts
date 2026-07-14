@@ -79,10 +79,10 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
 
   const claims = c.get('jwt_claims');
 
-  // WP5 step 1: persist mobile entitlement on successful IAP validation.
+  // WP5 step 1 + #86: persist mobile entitlement on successful IAP validation.
   // Scope is hardcoded `mobile` — never Polar/web from this path.
   // FE still gates calls with ENABLE_BFF_IAP_VALIDATION (default off).
-  // Subject is interim JWT `sub` until real user_id accounts land (step 2).
+  // user_id is written only when ENABLE_USER_ACCOUNT_AUTH is on (store helper).
   if (result.valid && claims?.sub) {
     try {
       grantMobileEntitlement({
@@ -90,6 +90,7 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
         payment_source: paymentSourceFromPlatform(body.platform),
         product_id: result.product_id,
         raw_receipt_ref: result.transaction_id,
+        user_id: claims.user_id,
       });
     } catch (err) {
       // Persistence must not fail the validate response; FE still has local IAP.
@@ -108,6 +109,7 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
       platform: claims.platform,
       app_version: claims.app_version,
       jti: randomUUID(),
+      user_id: claims.user_id,
     });
     c.header('X-Auth-Refresh', token);
   }

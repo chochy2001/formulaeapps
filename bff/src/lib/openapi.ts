@@ -9,7 +9,7 @@ import type { SessionClaims } from './jwt';
 // - MAJOR: breaking change (field renamed, response type changed, route removed).
 // - MINOR: additive (new route, new optional field, new error code).
 // - PATCH: non-semantic (description, example, examples).
-export const CONTRACT_VERSION = '1.2.0';
+export const CONTRACT_VERSION = '1.3.0';
 
 export type AppEnv = {
   Variables: {
