@@ -637,7 +637,11 @@ este tablero refleja ese estado y no lo sustituye.
   `archive/local-history-20260713` (`a347805`) las ancla junto con sus
   terceros padres de stash. `gitleaks detect` escaneó 83 commits y no encontró
   secretos; tras `fetch --prune`, el grafo de archivo tiene cero commits únicos
-  frente a `origin`. Quedan objetos históricos equivalentes/no referenciados,
-  que no se purgan a ciegas porque su contenido ya está respaldado.
+  frente a `origin`.
+  Se eliminaron siete ramas locales sin upstream únicamente después de que
+  `git cherry -v origin/main` no encontrara ningún parche `+`; las referencias
+  restantes tienen respaldo remoto. Quedan objetos históricos equivalentes/no
+  referenciados que no se purgan a ciegas porque su contenido ya está
+  respaldado.
 - Bloqueo: Ninguno; las ramas `archive/` conservan material pendiente sin
   presentarlo como apto para integración.
