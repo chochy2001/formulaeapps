@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DeterminantesAlgebraLineal extends StatefulWidget {
+  const DeterminantesAlgebraLineal({super.key});
   @override
-  _DeterminantesAlgebraLinealState createState() =>
+  State<DeterminantesAlgebraLineal> createState() =>
       _DeterminantesAlgebraLinealState();
 }
 

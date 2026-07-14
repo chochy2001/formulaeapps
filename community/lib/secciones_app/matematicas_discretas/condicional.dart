@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CondicionalMatematicasDiscretas extends StatefulWidget {
+  const CondicionalMatematicasDiscretas({super.key});
   @override
-  _CondicionalMatematicasDiscretasState createState() =>
+  State<CondicionalMatematicasDiscretas> createState() =>
       _CondicionalMatematicasDiscretasState();
 }
 

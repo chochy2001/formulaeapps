@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SegmentoConductorRecto extends StatefulWidget {
+  const SegmentoConductorRecto({super.key});
   @override
   State<SegmentoConductorRecto> createState() => _SegmentoConductorRectoState();
 }

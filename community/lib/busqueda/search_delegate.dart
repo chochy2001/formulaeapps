@@ -987,11 +987,10 @@ class DataSearch extends SearchDelegate {
       return const Center(
         child: Opacity(
           opacity: 0.2,
-          child: FadeInImage(
+          child: ImagenRemotaRobusta(
             height: 300.0,
             width: 300.0,
-            placeholder: AssetImage(kUrlImagenGifCarga),
-            image: NetworkImage(kUrlImagenCapdesisTexto),
+            urlImagen: kUrlImagenCapdesisTexto,
           ),
         ),
       );

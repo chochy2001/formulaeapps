@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CampoElectricoOriginadoPorDistribucionesDeCarga extends StatefulWidget {
+  const CampoElectricoOriginadoPorDistribucionesDeCarga({super.key});
   @override
   State<CampoElectricoOriginadoPorDistribucionesDeCarga> createState() =>
       _CampoElectricoOriginadoPorDistribucionesDeCargaState();

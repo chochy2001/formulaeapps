@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CuantilesParaDatosAgrupados extends StatefulWidget {
+  const CuantilesParaDatosAgrupados({super.key});
   @override
-  _CuantilesParaDatosAgrupadosState createState() =>
+  State<CuantilesParaDatosAgrupados> createState() =>
       _CuantilesParaDatosAgrupadosState();
 }
 

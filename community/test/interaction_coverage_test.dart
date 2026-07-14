@@ -32,7 +32,6 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     AdMobConfig.adsEnabled = false;
-    FlutterError.onError = (_) {};
   });
 
   tearDown(() {
@@ -54,17 +53,18 @@ void main() {
   testWidgets('TasksScreen and AddTaskScreen mount', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final tasks = TaskData();
-    await tester.pumpWidget(_harness(taskData: tasks, home: TasksScreen()));
+    await tester
+        .pumpWidget(_harness(taskData: tasks, home: const TasksScreen()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'TasksScreen initial mount');
     expect(find.byType(TasksScreen), findsOneWidget);
 
     await tester.pumpWidget(
       _harness(taskData: tasks, home: const Scaffold(body: AddTaskScreen())),
     );
     await tester.pump();
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'AddTaskScreen initial mount');
     expect(find.byType(AddTaskScreen), findsOneWidget);
     final fields = find.byType(TextField);
     if (fields.evaluate().isNotEmpty) {
@@ -73,7 +73,8 @@ void main() {
     }
   });
 
-  testWidgets('FavoritesScreen with favorites and clear dialog', (tester) async {
+  testWidgets('FavoritesScreen with favorites and clear dialog',
+      (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final favs = FavoritesNotifier();
     favs.addFavorite(
@@ -84,7 +85,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'FavoritesScreen initial mount');
     expect(find.byType(FavoritesScreen), findsOneWidget);
 
     final delete = find.byIcon(Icons.delete_forever);
@@ -92,7 +93,7 @@ void main() {
       await tester.tap(delete.first);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'Favorites clear dialog');
       final cancelEs = find.textContaining('Cancelar');
       final cancelEn = find.textContaining('Cancel');
       if (cancelEs.evaluate().isNotEmpty) {
@@ -101,7 +102,7 @@ void main() {
         await tester.tap(cancelEn.first);
       }
       await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'Favorites clear dialog dismissal');
     }
   });
 
@@ -110,31 +111,32 @@ void main() {
     await tester.pumpWidget(_harness(home: const Configuracion()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'Configuracion initial mount');
     expect(find.byType(Configuracion), findsOneWidget);
     final switches = find.byType(Switch);
     for (var i = 0; i < switches.evaluate().length && i < 3; i++) {
       await tester.tap(switches.at(i));
       await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'Configuracion switch $i');
     }
     expect(find.byType(ListView), findsWidgets);
   });
 
-  testWidgets('PuntoMedio calculator fields and favorite toggle', (tester) async {
+  testWidgets('PuntoMedio calculator fields and favorite toggle',
+      (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 2000));
     await tester.pumpWidget(
-      _harness(home: PuntoMedioEntreDosPuntosGeometria()),
+      _harness(home: const PuntoMedioEntreDosPuntosGeometria()),
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'PuntoMedio initial mount');
 
     final fav = find.byIcon(Icons.favorite_border);
     if (fav.evaluate().isNotEmpty) {
       await tester.tap(fav.first);
       await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'PuntoMedio favorite toggle');
     }
 
     final fields = find.byType(TextField);
@@ -142,13 +144,13 @@ void main() {
     for (var i = 0; i < count && i < 4; i++) {
       await tester.enterText(fields.at(i), '${i + 1}.5');
       await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'PuntoMedio field $i');
     }
     final buttons = find.byType(ElevatedButton);
     for (var i = 0; i < buttons.evaluate().length && i < 2; i++) {
       await tester.tap(buttons.at(i));
       await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'PuntoMedio button $i');
     }
   });
 
@@ -156,33 +158,34 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(900, 2000));
     final screens = <Widget>[
       const FormulaGeneral(),
-      PropiedadesLogaritmosGenerales(),
-      IdentidadesTrigonometricasGenerales(),
-      DerivacionBasicaDiferencial(),
-      IntegracionBasicaIntegral(),
+      const PropiedadesLogaritmosGenerales(),
+      const IdentidadesTrigonometricasGenerales(),
+      const DerivacionBasicaDiferencial(),
+      const IntegracionBasicaIntegral(),
       const AreaYPerimetroDeCuadrilateros(),
-      AreaYPerimetroDeTriangulos(),
-      EcuacionesDeSegundoGrado(),
+      const AreaYPerimetroDeTriangulos(),
+      const EcuacionesDeSegundoGrado(),
     ];
 
     for (final screen in screens) {
       await tester.pumpWidget(_harness(home: screen));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 16));
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, '${screen.runtimeType} initial mount');
 
       final fav = find.byIcon(Icons.favorite_border);
       if (fav.evaluate().isNotEmpty) {
         await tester.tap(fav.first);
         await tester.pump();
-        while (tester.takeException() != null) {}
+        _expectNoWidgetException(
+            tester, '${screen.runtimeType} favorite toggle');
       }
 
       final list = find.byType(Scrollable);
       if (list.evaluate().isNotEmpty) {
         await tester.drag(list.first, const Offset(0, -400));
         await tester.pump();
-        while (tester.takeException() != null) {}
+        _expectNoWidgetException(tester, '${screen.runtimeType} scroll');
       }
 
       final tiles = find.byType(ExpansionTile);
@@ -190,7 +193,8 @@ void main() {
         await tester.ensureVisible(tiles.at(i));
         await tester.tap(tiles.at(i));
         await tester.pump();
-        while (tester.takeException() != null) {}
+        _expectNoWidgetException(
+            tester, '${screen.runtimeType} expansion tile $i');
       }
     }
   });
@@ -200,9 +204,14 @@ void main() {
       _harness(home: const Scaffold(body: VerPDF(url: kWidgetFormulaGeneral))),
     );
     await tester.pump();
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'VerPDF known widget id');
     expect(find.byType(VerPDF), findsOneWidget);
   });
+}
+
+void _expectNoWidgetException(WidgetTester tester, String phase) {
+  expect(tester.takeException(), isNull,
+      reason: '$phase threw a widget exception');
 }
 
 Widget _harness({

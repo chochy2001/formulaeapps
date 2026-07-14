@@ -21,7 +21,6 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     AdMobConfig.adsEnabled = false;
-    FlutterError.onError = (details) {};
   });
 
   tearDown(() {
@@ -47,6 +46,7 @@ void main() {
       ),
     );
     await tester.pump();
+    _expectNoWidgetException(tester, 'search catalog harness');
 
     final search = DataSearch(buscarFormula: 'Buscar fórmula');
     final results = search.getSearchResults(captured);
@@ -71,6 +71,7 @@ void main() {
       ),
     );
     await tester.pump();
+    _expectNoWidgetException(tester, 'DataSearch harness');
 
     final search = DataSearch(buscarFormula: 'Buscar');
     search.query = '';
@@ -91,7 +92,8 @@ void main() {
       ),
     );
     await tester.pump();
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'DataSearch results');
+    expect(find.byType(Scaffold), findsOneWidget);
   });
 
   testWidgets('Busqueda menu list mounts', (tester) async {
@@ -101,7 +103,7 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 16));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'Busqueda menu');
     expect(find.byType(Busqueda), findsOneWidget);
     expect(find.byType(ListView), findsWidgets);
   });
@@ -113,10 +115,16 @@ void main() {
       ),
     );
     await tester.pump();
-    // Post-frame showSearch may replace the route; drain plugin/network noise.
+    // Post-frame showSearch may replace the route, but must not throw.
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'AppBarBusqueda post-frame search');
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
+}
+
+void _expectNoWidgetException(WidgetTester tester, String phase) {
+  expect(tester.takeException(), isNull,
+      reason: '$phase threw a widget exception');
 }
 
 Widget _harness({required Widget home}) {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CambioDeVariables extends StatefulWidget {
+  const CambioDeVariables({super.key});
   @override
-  _CambioDeVariablesState createState() => _CambioDeVariablesState();
+  State<CambioDeVariables> createState() => _CambioDeVariablesState();
 }
 
 class _CambioDeVariablesState extends State<CambioDeVariables> {

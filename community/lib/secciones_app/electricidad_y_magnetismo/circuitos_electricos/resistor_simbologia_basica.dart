@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ResistorSimbologiaBasica extends StatefulWidget {
+  const ResistorSimbologiaBasica({super.key});
   @override
   State<ResistorSimbologiaBasica> createState() =>
       _ResistorSimbologiaBasicaState();

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaSumatorias extends StatefulWidget {
+  const TeoremaSumatorias({super.key});
   @override
-  _TeoremaSumatoriasState createState() => _TeoremaSumatoriasState();
+  State<TeoremaSumatorias> createState() => _TeoremaSumatoriasState();
 }
 
 class _TeoremaSumatoriasState extends State<TeoremaSumatorias> {

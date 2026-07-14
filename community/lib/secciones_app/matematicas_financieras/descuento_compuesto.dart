@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DescuentoCompuesto extends StatefulWidget {
+  const DescuentoCompuesto({super.key});
   @override
-  _DescuentoCompuestoState createState() => _DescuentoCompuestoState();
+  State<DescuentoCompuesto> createState() => _DescuentoCompuestoState();
 }
 
 class _DescuentoCompuestoState extends State<DescuentoCompuesto> {

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Polarizacion extends StatefulWidget {
+  const Polarizacion({super.key});
   @override
   State<Polarizacion> createState() => _PolarizacionState();
 }

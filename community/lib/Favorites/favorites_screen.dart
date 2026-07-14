@@ -6,7 +6,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../constantes/export_constantes.dart';
 
 class FavoritesScreen extends StatefulWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+  const FavoritesScreen({super.key});
 
   @override
   State<FavoritesScreen> createState() => _FavoritesScreenState();
@@ -18,9 +18,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(onBannerReady: () {
+      if (mounted) setState(() {});
+    });
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -61,7 +62,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   child: FloatingActionButton.extended(
                     label: Text(
                       AppLocalizations.of(context)!.borrarTodo,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     backgroundColor: kColorBotones,
                     icon: const Icon(
@@ -119,12 +120,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           if (favoritesNotifier.favorites.isEmpty) {
             return Center(
                 //todo_poner imagen de no hay formulas favoritas
-                child: FadeInImage(
+                child: ImagenRemotaRobusta(
               height: 300.0,
               width: MediaQuery.of(context).size.width,
-              placeholder: const AssetImage(kUrlImagenGifCarga),
-              image: NetworkImage(getImageUrlById(context, kImagenFavoritos) ??
-                  kUrlImagenFavoritos),
+              urlImagen: getImageUrlById(context, kImagenFavoritos) ??
+                  kUrlImagenFavoritos,
             ));
           }
           return NotificationListener<UserScrollNotification>(

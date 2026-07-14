@@ -61,3 +61,33 @@ job receives production FTP credentials.
 
 Until those controls have executable evidence, production remains a separate
 manual operator procedure and this workflow is build-only.
+
+## Formulae image asset promotion
+
+The Formulae applications consume 176 language-neutral routes under
+`https://formulaeapps.com/imagenes/`. The asset source of truth is
+`landing/public/imagenes/`, together with the compatibility redirects in
+`landing/public/.htaccess` and `landing/nginx.conf`.
+
+Before an authorized promotion, run:
+
+```bash
+cd landing
+bun install --frozen-lockfile
+bun run lint
+bun run test
+bun run build
+bun run check:formulae-images
+```
+
+After the promoted artifact is live and cache bypass is available, run:
+
+```bash
+bun run check:formulae-images:remote
+```
+
+This is a post-promotion smoke, not a CI gate. As of 2026-07-13 it fails 176
+of 176 routes because the current host returns 404; do not mark the asset
+promotion complete until it passes. See
+[`AUDITORIA_FUNCIONAL_2026-07-13.md`](AUDITORIA_FUNCIONAL_2026-07-13.md) for
+the verified scope and remaining PDF/runtime blockers.

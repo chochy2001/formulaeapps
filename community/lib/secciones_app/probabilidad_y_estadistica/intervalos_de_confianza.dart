@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IntervalosDeConfianza extends StatefulWidget {
+  const IntervalosDeConfianza({super.key});
   @override
-  _IntervalosDeConfianzaState createState() => _IntervalosDeConfianzaState();
+  State<IntervalosDeConfianza> createState() => _IntervalosDeConfianzaState();
 }
 
 class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {

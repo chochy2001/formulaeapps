@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaIntegrales extends StatefulWidget {
+  const TeoremaIntegrales({super.key});
   @override
-  _TeoremaIntegralesState createState() => _TeoremaIntegralesState();
+  State<TeoremaIntegrales> createState() => _TeoremaIntegralesState();
 }
 
 class _TeoremaIntegralesState extends State<TeoremaIntegrales> {

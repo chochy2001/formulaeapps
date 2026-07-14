@@ -4,8 +4,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesDeLosExponentesEjercicios extends StatefulWidget {
+  const PropiedadesDeLosExponentesEjercicios({super.key});
   @override
-  _PropiedadesDeLosExponentesEjerciciosState createState() =>
+  State<PropiedadesDeLosExponentesEjercicios> createState() =>
       _PropiedadesDeLosExponentesEjerciciosState();
 }
 

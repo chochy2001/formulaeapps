@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class RepresentacionDeLosVectoresElectricos extends StatefulWidget {
+  const RepresentacionDeLosVectoresElectricos({super.key});
   @override
   State<RepresentacionDeLosVectoresElectricos> createState() =>
       _RepresentacionDeLosVectoresElectricosState();

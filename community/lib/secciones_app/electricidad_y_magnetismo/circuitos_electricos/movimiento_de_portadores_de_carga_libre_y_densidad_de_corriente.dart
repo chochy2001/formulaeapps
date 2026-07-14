@@ -4,6 +4,7 @@ import '../../../constantes/export_constantes.dart';
 
 class MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente
     extends StatefulWidget {
+  const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente({super.key});
   @override
   State<MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente> createState() =>
       _MovimientoDePortadoresDeCargaLibreYDensidadDeCorrienteState();

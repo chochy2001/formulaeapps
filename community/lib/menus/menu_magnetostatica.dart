@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuMagnetostatica extends StatefulWidget {
-  const MenuMagnetostatica({Key? key}) : super(key: key);
+  const MenuMagnetostatica({super.key});
 
   static const int maxFailedLoadAttempts = 3;
 

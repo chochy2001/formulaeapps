@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyesDeLaTeoriaDeConjuntos extends StatefulWidget {
+  const LeyesDeLaTeoriaDeConjuntos({super.key});
   @override
-  _LeyesDeLaTeoriaDeConjuntosState createState() =>
+  State<LeyesDeLaTeoriaDeConjuntos> createState() =>
       _LeyesDeLaTeoriaDeConjuntosState();
 }
 

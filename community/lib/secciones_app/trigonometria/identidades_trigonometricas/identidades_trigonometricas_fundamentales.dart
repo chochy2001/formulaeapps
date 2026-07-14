@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IdentidadesTrigonometricasFundamentales extends StatefulWidget {
+  const IdentidadesTrigonometricasFundamentales({super.key});
   @override
-  _IdentidadesTrigonometricasFundamentalesState createState() =>
+  State<IdentidadesTrigonometricasFundamentales> createState() =>
       _IdentidadesTrigonometricasFundamentalesState();
 }
 

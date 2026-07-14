@@ -4,10 +4,10 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AreaYPerimetroDeCuadrilateros extends StatefulWidget {
-  const AreaYPerimetroDeCuadrilateros({Key? key}) : super(key: key);
+  const AreaYPerimetroDeCuadrilateros({super.key});
 
   @override
-  _AreaYPerimetroDeCuadrilaterosState createState() =>
+  State<AreaYPerimetroDeCuadrilateros> createState() =>
       _AreaYPerimetroDeCuadrilaterosState();
 }
 

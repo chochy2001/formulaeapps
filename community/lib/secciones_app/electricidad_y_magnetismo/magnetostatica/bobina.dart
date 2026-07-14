@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Bobina extends StatefulWidget {
+  const Bobina({super.key});
   @override
   State<Bobina> createState() => _BobinaState();
 }

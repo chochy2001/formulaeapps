@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyesDelAlgebraDeBoole extends StatefulWidget {
+  const LeyesDelAlgebraDeBoole({super.key});
   @override
-  _LeyesDelAlgebraDeBooleState createState() => _LeyesDelAlgebraDeBooleState();
+  State<LeyesDelAlgebraDeBoole> createState() => _LeyesDelAlgebraDeBooleState();
 }
 
 class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {

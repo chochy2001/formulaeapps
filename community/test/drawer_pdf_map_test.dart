@@ -22,7 +22,6 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     AdMobConfig.adsEnabled = false;
-    FlutterError.onError = (details) {};
   });
 
   tearDown(() {
@@ -41,7 +40,8 @@ void main() {
       scaffoldState.openDrawer();
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(
+          tester, 'DrawerPersonalizado platform $platform');
       expect(find.byType(Drawer), findsOneWidget);
       expect(find.byType(ListView), findsWidgets);
     }
@@ -59,6 +59,7 @@ void main() {
       ),
     );
     await tester.pump();
+    _expectNoWidgetException(tester, 'PDF map harness');
 
     expect(urlPdfMap, isNotEmpty);
     expect(urlPdfMap.length, greaterThan(100));
@@ -82,13 +83,14 @@ void main() {
       _harness(home: const Scaffold(body: VerPDF(url: ''))),
     );
     await tester.pump();
+    _expectNoWidgetException(tester, 'VerPDF empty URL');
     expect(find.byType(SizedBox), findsWidgets);
 
     await tester.pumpWidget(
       _harness(home: const Scaffold(body: VerPDF(url: 'no-such-id'))),
     );
     await tester.pump();
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'VerPDF unknown widget ID');
   });
 
   testWidgets('DescargarPDF shrinks for missing urls', (tester) async {
@@ -96,8 +98,13 @@ void main() {
       _harness(home: const Scaffold(body: DescargarPDF(url: 'no-such-id'))),
     );
     await tester.pump();
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'DescargarPDF unknown widget ID');
   });
+}
+
+void _expectNoWidgetException(WidgetTester tester, String phase) {
+  expect(tester.takeException(), isNull,
+      reason: '$phase threw a widget exception');
 }
 
 Widget _harness({required Widget home}) {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LongitudDeArco extends StatefulWidget {
+  const LongitudDeArco({super.key});
   @override
-  _LongitudDeArcoState createState() => _LongitudDeArcoState();
+  State<LongitudDeArco> createState() => _LongitudDeArcoState();
 }
 
 class _LongitudDeArcoState extends State<LongitudDeArco> {

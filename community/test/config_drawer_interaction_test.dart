@@ -13,13 +13,14 @@ import 'package:formulae/screens_personalizados/drawer_personalizado.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+const _drawerHostKey = ValueKey<String>('drawer-host');
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     AdMobConfig.adsEnabled = false;
-    FlutterError.onError = (_) {};
   });
 
   tearDown(() {
@@ -31,32 +32,26 @@ void main() {
     await tester.pumpWidget(_harness(home: const Configuracion()));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
-    while (tester.takeException() != null) {}
+    _expectNoWidgetException(tester, 'Configuracion initial mount');
 
     final buttons = find.byType(ElevatedButton);
-    final n = buttons.evaluate().length;
-    for (var i = 0; i < n && i < 4; i++) {
-      await tester.ensureVisible(buttons.at(i));
-      await tester.tap(buttons.at(i), warnIfMissed: false);
+    expect(buttons, findsNWidgets(4));
+    // This test covers the two dialogs named in its contract. Subscription and
+    // language actions have their own platform/state behavior and are not
+    // asserted as if they were privacy/terms dialogs.
+    for (final index in [0, 1]) {
+      await tester.ensureVisible(buttons.at(index));
+      await tester.tap(buttons.at(index));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
-      while (tester.takeException() != null) {}
-      // Close dialog if opened
-      final aceptar = find.textContaining('Aceptar');
-      final accept = find.textContaining('Accept');
-      if (aceptar.evaluate().isNotEmpty) {
-        await tester.tap(aceptar.first, warnIfMissed: false);
-      } else if (accept.evaluate().isNotEmpty) {
-        await tester.tap(accept.first, warnIfMissed: false);
-      } else {
-        // Pop via back if dialog present
-        final dialog = find.byType(AlertDialog);
-        if (dialog.evaluate().isNotEmpty) {
-          await tester.tapAt(const Offset(5, 5));
-        }
-      }
-      await tester.pump();
-      while (tester.takeException() != null) {}
+      _expectNoWidgetException(tester, 'Configuracion dialog $index opening');
+      expect(find.byType(AlertDialog), findsOneWidget);
+      final accept = find.text('Aceptar');
+      expect(accept, findsOneWidget);
+      await tester.tap(accept);
+      await tester.pumpAndSettle();
+      _expectNoWidgetException(tester, 'Configuracion dialog $index dismissal');
+      expect(find.byType(AlertDialog), findsNothing);
     }
   });
 
@@ -67,51 +62,58 @@ void main() {
       await tester.pumpWidget(
         _harness(
           routes: {
-            '/preguntasFrecuentes': (_) =>
-                const Scaffold(body: Text('faq')),
+            '/preguntasFrecuentes': (_) => const Scaffold(body: Text('faq')),
             '/informacion': (_) => const Scaffold(body: Text('info')),
             '/configuracion': (_) => const Scaffold(body: Text('cfg')),
           },
           home: Scaffold(
+            key: _drawerHostKey,
             drawer: DrawerPersonalizado(platform),
-            body: Builder(
-              builder: (context) => TextButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('open'),
-              ),
-            ),
+            body: const SizedBox.shrink(),
           ),
         ),
       );
       await tester.pump();
-      await tester.tap(find.text('open'));
+      final drawerHostFinder = find.byKey(_drawerHostKey);
+      expect(drawerHostFinder, findsOneWidget);
+      final drawerHost = tester.state<ScaffoldState>(drawerHostFinder);
+      drawerHost.openDrawer();
       await tester.pump();
-      await tester.pump(const Duration(milliseconds: 50));
-      while (tester.takeException() != null) {}
+      await tester.pump(const Duration(milliseconds: 300));
+      _expectNoWidgetException(tester, 'Drawer platform $platform opening');
+      expect(find.byType(Drawer), findsOneWidget);
 
-      // Tap drawer gesture targets by icon
-      for (final icon in [
-        Icons.question_mark_rounded,
-        Icons.info_outline_rounded,
-        Icons.settings,
-      ]) {
+      // Tap each named navigation target and assert its registered route.
+      for (final entry in <IconData, String>{
+        Icons.question_mark_rounded: 'faq',
+        Icons.info_outline_rounded: 'info',
+        Icons.settings: 'cfg',
+      }.entries) {
+        final icon = entry.key;
         final finder = find.byIcon(icon);
-        if (finder.evaluate().isNotEmpty) {
-          await tester.tap(finder.first, warnIfMissed: false);
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 50));
-          while (tester.takeException() != null) {}
-          // Return to drawer host if navigated
-          if (find.text('open').evaluate().isEmpty) {
-            await tester.pageBack();
-            await tester.pump();
-            await tester.tap(find.text('open'), warnIfMissed: false);
-            await tester.pump();
-          }
-        }
+        expect(finder, findsOneWidget);
+        await tester.ensureVisible(finder);
+        await tester.tap(finder);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 300));
+        _expectNoWidgetException(tester, 'Drawer platform $platform $icon');
+        expect(find.text(entry.value), findsOneWidget);
+
+        tester.state<NavigatorState>(find.byType(Navigator)).pop();
+        await tester.pump(const Duration(milliseconds: 300));
+        _expectNoWidgetException(tester, 'Drawer platform $platform return');
+        drawerHost.openDrawer();
+        await tester.pump(const Duration(milliseconds: 300));
+        _expectNoWidgetException(tester, 'Drawer platform $platform reopen');
+        expect(find.byType(Drawer), findsOneWidget);
       }
     }
   });
+}
+
+void _expectNoWidgetException(WidgetTester tester, String phase) {
+  expect(tester.takeException(), isNull,
+      reason: '$phase threw a widget exception');
 }
 
 Widget _harness({

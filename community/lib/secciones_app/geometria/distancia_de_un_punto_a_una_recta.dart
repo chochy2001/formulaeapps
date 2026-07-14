@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistanciaDeUnPuntoAUnaRecta extends StatefulWidget {
+  const DistanciaDeUnPuntoAUnaRecta({super.key});
   @override
-  _DistanciaDeUnPuntoAUnaRectaState createState() =>
+  State<DistanciaDeUnPuntoAUnaRecta> createState() =>
       _DistanciaDeUnPuntoAUnaRectaState();
 }
 

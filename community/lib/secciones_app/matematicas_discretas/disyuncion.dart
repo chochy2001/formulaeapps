@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DisyuncionMatematicasDiscretas extends StatefulWidget {
+  const DisyuncionMatematicasDiscretas({super.key});
   @override
-  _DisyuncionMatematicasDiscretasState createState() =>
+  State<DisyuncionMatematicasDiscretas> createState() =>
       _DisyuncionMatematicasDiscretasState();
 }
 

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CirculacionDeUnCampoVectorial extends StatefulWidget {
+  const CirculacionDeUnCampoVectorial({super.key});
   @override
   State<CirculacionDeUnCampoVectorial> createState() =>
       _CirculacionDeUnCampoVectorialState();

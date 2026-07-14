@@ -2,7 +2,12 @@
 
 Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through **OpenRouter** with JWT verification (so the FE can swap models per-task and adopt new ones without a redeploy), validates Apple/Google IAP receipts server-side, and issues short-lived session JWTs to the FE clients.
 
-> **Status**: deployed to production at `https://api.formulaeapps.com` (tag `v1.0.0-bff`, cutover 2026-05-19). All four OpenAPI routes implemented; the current branch has 110/110 unit + integration tests passing across 19 files via `bun test`. CI gates: `bff-test`, `verify-parity`, `verify-routes`. Remaining follow-up: `/iap/validate` is an intentional orphan (no FE consumer); real Apple/Google validators are stubbed pending product decision.
+> **Estado verificado localmente, 2026-07-13**: `bun run typecheck` y
+> `bun test` pasan con 125 pruebas en 20 archivos. CI protege `bff-test`,
+> `verify-parity` y `verify-routes`. El estado de despliegue histórico no se
+> revalidó en esta auditoría. `/iap/validate` tiene un consumidor Pro opt-in,
+> apagado por defecto; no debe describirse como entitlement productivo hasta
+> completar los validadores y la sincronización de cuentas.
 
 ## Stack
 
@@ -10,14 +15,14 @@ Backend-for-Frontend for FormulaeApps Pro + Community. Proxies LLM chat through 
 |-------|--------|-----|
 | Runtime | **Bun 1.3+** | Workspace default (CLAUDE.md); fast cold-start; built-in test runner |
 | Framework | **Hono 4.x** | Portable across Bun/Node/Deno/Edge; great DX |
-| Validation + OpenAPI | **@hono/zod-openapi + Zod 3.x** | Single source of truth: Zod schemas drive request validation AND the OpenAPI export |
+| Validation + OpenAPI | **@hono/zod-openapi + Zod 4.4.3** | Single source of truth: Zod schemas drive request validation AND the OpenAPI export |
 | Auth | **jose** (HS256 JWT) | BFF-issued session tokens, ≤60 min lifetime |
 | IAP — Apple | **@apple/app-store-server-library** | Official Apple Node SDK |
 | IAP — Google | **googleapis** | Official Google SDK |
 | Logging | **hono/logger** + custom JSON serializer | Structured, redacted of secrets |
 | Tests | **bun test** | Built-in; `hono/testing` for in-process HTTP simulation |
 
-Full rationale: [`../specs/002-formulae-fe-be-sync/research.md`](../specs/002-formulae-fe-be-sync/research.md) §§ R1, R4, R5, R9, R11, R12.
+Estado y limitaciones actuales: [`../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
 
 ## Quick start
 
@@ -50,7 +55,7 @@ curl http://localhost:3001/health
 docker compose down
 ```
 
-For local docker compose testing: see the monorepo root `docker-compose.yml`. For the full reproducible flow including FE clients: see [`../specs/002-formulae-fe-be-sync/quickstart.md`](../specs/002-formulae-fe-be-sync/quickstart.md).
+For local docker compose testing, see the monorepo root `docker-compose.yml` and the current root `README.md`. A root `.env` and a running local BFF are required for the infrastructure smoke; never commit those secrets.
 
 ## Source layout (current state)
 
@@ -114,13 +119,11 @@ None are blocking — the container is functional and well within the workspace'
 
 Target host: **VPS Contabo** (resumed from pause). The existing `../docker-compose.yml:64` already declares `build: ./bff`, so once this directory is populated, `docker compose up -d bff` works.
 
-Production cutover process: [`../specs/002-formulae-fe-be-sync/research.md`](../specs/002-formulae-fe-be-sync/research.md) §§ R6, R7 (VPS readiness checklist + Cloudflare DNS 3-phase cutover).
-
-Secret provisioning: [`../specs/002-formulae-fe-be-sync/research.md`](../specs/002-formulae-fe-be-sync/research.md) § R16 (`/opt/infrastructure/secrets/formulaeapps-docker/`).
+The current release controls and known runtime blockers are documented in [`../docs/DEPLOY_CI_WEB.md`](../docs/DEPLOY_CI_WEB.md) and [`../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
 
 ## Contracts
 
-The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yaml`. It is **generated** by `bun run build:openapi` from the Zod schemas under `src/schemas/`. Never hand-edit either the YAML or the generated FE Dart types under `../pro/lib/generated/bff/` and `../community/lib/generated/bff/` — drift is detected by `../scripts/verify-parity.sh` and fails CI.
+The runtime-exported OpenAPI 3.1 contract lives at `../contracts/bff.openapi.yaml`. It is **generated** by `bun run build:openapi` from the Zod schemas under `src/schemas/`. Never hand-edit either the YAML or the generated FE Dart types under `../pro/packages/formulaeapps_bff_client/` and `../community/packages/formulaeapps_bff_client/`; drift is detected by `../scripts/verify-parity.sh` and fails CI.
 
 ## Security
 
@@ -235,7 +238,7 @@ bun test tests/unit/      # unit only
 bun test tests/integration/  # integration only
 ```
 
-Coverage target: every route added in US6 has at least one success-path and one primary-failure-path test (SC-011). **Current: 110/110 pass across 19 files** (`bun test`, including signing-key, fixed-window boundary, restart, rollback-gate, and calendar-impossible timestamp cases).
+Coverage target: every route has at least one success-path and one primary-failure-path test. **Última medición local, 2026-07-13: 125 pruebas en 20 archivos pasan** con `bun test`.
 
 ## R12+R13 additions (2026-05-19)
 
@@ -261,7 +264,7 @@ Startup emits one warn line per platform check:
 
 Reason tokens: `apple_issuer_id_placeholder`, `apple_key_id_placeholder`, `apple_p8_file_missing`, `apple_p8_file_empty`, `apple_p8_file_not_pkcs8`, `google_sa_missing`, `google_sa_invalid_json`, `google_sa_missing_client_email`, `google_package_name_placeholder`. The integration test suite at `tests/integration/iap-availability.test.ts` covers the 503 path for both platforms.
 
-### Production state (2026-05-19)
+### Historical production snapshot (2026-05-19)
 
 | Endpoint | Status |
 |---|---|
@@ -274,8 +277,6 @@ Reason tokens: `apple_issuer_id_placeholder`, `apple_key_id_placeholder`, `apple
 
 ## Related docs
 
-- Feature spec: [`../specs/002-formulae-fe-be-sync/spec.md`](../specs/002-formulae-fe-be-sync/spec.md)
-- Implementation plan: [`../specs/002-formulae-fe-be-sync/plan.md`](../specs/002-formulae-fe-be-sync/plan.md)
-- Phase 0 research: [`../specs/002-formulae-fe-be-sync/research.md`](../specs/002-formulae-fe-be-sync/research.md)
-- Data model: [`../specs/002-formulae-fe-be-sync/data-model.md`](../specs/002-formulae-fe-be-sync/data-model.md)
-- Constitution: [`../.specify/memory/constitution.md`](../.specify/memory/constitution.md) v1.1.0
+- Current audit: [`../docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+- Contract workflow: [`../contracts/README.md`](../contracts/README.md)
+- Workspace constitution: `/Users/jorge/Documents/Apps/.specify/memory/constitution.md`

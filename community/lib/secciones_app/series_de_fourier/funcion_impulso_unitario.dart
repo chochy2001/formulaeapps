@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionImpulsoUnitario extends StatefulWidget {
+  const FuncionImpulsoUnitario({super.key});
   @override
-  _FuncionImpulsoUnitarioState createState() => _FuncionImpulsoUnitarioState();
+  State<FuncionImpulsoUnitario> createState() => _FuncionImpulsoUnitarioState();
 }
 
 class _FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDePitagoras extends StatefulWidget {
+  const TeoremaDePitagoras({super.key});
   @override
-  _TeoremaDePitagorasState createState() => _TeoremaDePitagorasState();
+  State<TeoremaDePitagoras> createState() => _TeoremaDePitagorasState();
 }
 
 class _TeoremaDePitagorasState extends State<TeoremaDePitagoras> {

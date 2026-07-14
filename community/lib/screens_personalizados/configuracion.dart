@@ -7,7 +7,7 @@ import '../l10n/l10n.dart';
 import '../main.dart';
 
 class Configuracion extends StatelessWidget {
-  const Configuracion({Key? key}) : super(key: key);
+  const Configuracion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +33,10 @@ class Configuracion extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                const FadeInImage(
+                const ImagenRemotaRobusta(
                   height: 200.0,
                   width: 200.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
                 const SizedBox(
                   height: 20.0,

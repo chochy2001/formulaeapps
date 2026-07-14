@@ -176,7 +176,7 @@ jobs:
       - name: pub get main app
         run: flutter pub get
       - name: analyze
-        run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+        run: flutter analyze --no-pub --fatal-infos --fatal-warnings
       # Same dart-defines as pro-test: auth minting path needs JWT_SHARED_SECRET.
       - name: test
         run: |
@@ -208,3 +208,9 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Unit tests
         run: bun run test
+      - name: Lint
+        run: bun run lint
+      - name: Validate canonical Formulae images
+        run: bun run check:formulae-images
+      - name: Build
+        run: bun run build

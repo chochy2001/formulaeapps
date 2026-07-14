@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyesDeKirchhoffCircuitoRC extends StatefulWidget {
+  const LeyesDeKirchhoffCircuitoRC({super.key});
   @override
   State<LeyesDeKirchhoffCircuitoRC> createState() =>
       _LeyesDeKirchhoffCircuitoRCState();

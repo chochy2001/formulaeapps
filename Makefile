@@ -3,9 +3,10 @@
 # Wraps scripts/*.sh so contributors have one entry point per Principle IV.
 # Run `make help` for a list of targets.
 
-.PHONY: help verify-all verify-parity verify-routes verify-infra verify-infra-local \
+.PHONY: help verify-all verify-parity verify-routes verify-infra verify-infra-local verify-tickets \
+        measure-community-android \
         build-openapi generate-types bff-test bff-build flutter-analyze flutter-test \
-        landing-build landing-test compose-lint compose-up compose-down
+        landing-build landing-test landing-images compose-lint compose-up compose-down
 
 help:
 	@echo "FormulaeApps monorepo — make targets"
@@ -16,6 +17,8 @@ help:
 	@echo "  verify-routes       Run route-coverage scan (Principle VI)"
 	@echo "  verify-infra        Run production infra validator (Principle IX)"
 	@echo "  verify-infra-local  Run infra validator in local-dev mode"
+	@echo "  verify-tickets      Validate the active execution ticket tracker"
+	@echo "  measure-community-android  Measure first interactive Community UI on Android"
 	@echo ""
 	@echo "Codegen:"
 	@echo "  build-openapi       Export contracts/bff.openapi.yaml from BFF Zod schemas"
@@ -28,12 +31,13 @@ help:
 	@echo "  flutter-test        Run flutter test in pro/ and community/"
 	@echo "  landing-build       Build the Astro landing site"
 	@echo "  landing-test        Run landing vitest suite"
+	@echo "  landing-images      Validate the 176 local canonical Formulae assets"
 	@echo "  compose-lint        Lint docker-compose.yml"
 	@echo "  compose-up          Bring up landing + pro + bff containers"
 	@echo "  compose-down        Stop and remove the compose stack"
 	@echo ""
 
-verify-all: verify-parity verify-routes verify-infra-local bff-test flutter-analyze flutter-test landing-test landing-build compose-lint
+verify-all: verify-tickets verify-parity verify-routes verify-infra-local bff-test flutter-analyze flutter-test landing-test landing-build landing-images compose-lint
 	@echo "✓ All per-stack gates passed."
 
 verify-parity:
@@ -47,6 +51,12 @@ verify-infra:
 
 verify-infra-local:
 	bash scripts/infra-validate.sh --local
+
+verify-tickets:
+	bash scripts/validate-ticket-tracker.sh
+
+measure-community-android:
+	bash scripts/measure-community-android-startup.sh
 
 build-openapi:
 	cd bff && bun run build:openapi
@@ -79,10 +89,13 @@ flutter-test:
 	cd community/packages/formulaeapps_bff_client && dart test
 
 landing-build:
-	cd landing && bun install && bun run build
+	cd landing && bun install --frozen-lockfile && bun run build
 
 landing-test:
-	cd landing && bun install && bun run test
+	cd landing && bun install --frozen-lockfile && bun run test
+
+landing-images:
+	cd landing && bun install --frozen-lockfile && bun run check:formulae-images
 
 compose-lint:
 	docker compose config > /dev/null && echo "compose lint OK"

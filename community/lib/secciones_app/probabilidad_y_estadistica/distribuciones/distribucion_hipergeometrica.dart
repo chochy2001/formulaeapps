@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistribucionHipergeometrica extends StatefulWidget {
+  const DistribucionHipergeometrica({super.key});
   @override
-  _DistribucionHipergeometricaState createState() =>
+  State<DistribucionHipergeometrica> createState() =>
       _DistribucionHipergeometricaState();
 }
 

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FormulasDeFactorizacion extends StatefulWidget {
+  const FormulasDeFactorizacion({super.key});
   @override
-  _FormulasDeFactorizacionState createState() =>
+  State<FormulasDeFactorizacion> createState() =>
       _FormulasDeFactorizacionState();
 }
 

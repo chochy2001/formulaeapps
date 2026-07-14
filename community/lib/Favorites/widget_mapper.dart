@@ -19,386 +19,419 @@ import '../secciones_app/trigonometria/export_trigonometria.dart';
 
 final Map<String, WidgetBuilder> widgetTable = {
   //Algebra
-  kWidgetFormulaGeneral: (context) => FormulaGeneral(),
-  kWidgetEcuacionesDePrimerGrado: (context) => EcuacionesDePrimerGrado(),
-  kWidgetEcuacionesDeSegundoGrado: (context) => EcuacionesDeSegundoGrado(),
+  kWidgetFormulaGeneral: (context) => const FormulaGeneral(),
+  kWidgetEcuacionesDePrimerGrado: (context) => const EcuacionesDePrimerGrado(),
+  kWidgetEcuacionesDeSegundoGrado: (context) =>
+      const EcuacionesDeSegundoGrado(),
   kWidgetPropiedadesDeLosExponentesEjercicios: (context) =>
-      PropiedadesDeLosExponentesEjercicios(),
-  kWidgetConjugadoDeUnNumeroComplejo: (context) => ConjugadoNumerosComplejos(),
+      const PropiedadesDeLosExponentesEjercicios(),
+  kWidgetConjugadoDeUnNumeroComplejo: (context) =>
+      const ConjugadoNumerosComplejos(),
   kWidgetModuloYArgumentoDeUnNumeroComplejo: (context) =>
-      ModuloyArgumentoNumerosComplejos(),
+      const ModuloyArgumentoNumerosComplejos(),
   kWidgetOperacionesDeNumerosComplejos: (context) =>
-      OperacionesNumerosComplejos(),
+      const OperacionesNumerosComplejos(),
   kWidgetPropiedadesNumerosComplejos: (context) =>
-      PropiedadesNumerosComplejos(),
+      const PropiedadesNumerosComplejos(),
   kWidgetRepresentacionesDeUnNumeroComplejo: (context) =>
-      RepresentacionesDeNumerosComplejos(),
-  kWidgetEcuacionesLineales: (context) => EcuacionesLineales(),
-  kWidgetFormulasDeProductos: (context) => FormulasDeProductos(),
-  kWidgetFormulasDeFactorizacion: (context) => FormulasDeFactorizacion(),
+      const RepresentacionesDeNumerosComplejos(),
+  kWidgetEcuacionesLineales: (context) => const EcuacionesLineales(),
+  kWidgetFormulasDeProductos: (context) => const FormulasDeProductos(),
+  kWidgetFormulasDeFactorizacion: (context) => const FormulasDeFactorizacion(),
   kWidgetOperacionesConFraccionesAlgebraicas: (context) =>
-      OperacionesFraccionesAlgebraicas(),
-  kWidgetOperacionesPolinomios: (context) => OperacionesConPolinomios(),
-  kWidgetPropiedadesDeLosExponentes: (context) => PropiedadesDeLosExponentes(),
-  kWidgetPropiedadesDesigualdad: (context) => PropiedadesDesigualdad(),
-  kWidgetPropiedadesRadicales: (context) => PropiedadesRadicales(),
-  kWidgetSerieDeTaylorYMaClaurin: (context) => SerieTaylorMaClaurin(),
-  kWidgetTeoremaDeSumatorias: (context) => TeoremaSumatorias(),
+      const OperacionesFraccionesAlgebraicas(),
+  kWidgetOperacionesPolinomios: (context) => const OperacionesConPolinomios(),
+  kWidgetPropiedadesDeLosExponentes: (context) =>
+      const PropiedadesDeLosExponentes(),
+  kWidgetPropiedadesDesigualdad: (context) => const PropiedadesDesigualdad(),
+  kWidgetPropiedadesRadicales: (context) => const PropiedadesRadicales(),
+  kWidgetSerieDeTaylorYMaClaurin: (context) => const SerieTaylorMaClaurin(),
+  kWidgetTeoremaDeSumatorias: (context) => const TeoremaSumatorias(),
   //Algebra Lineal
-  kWidgetMatrizAdjunta: (context) => MatrizAdjunta(),
-  kWidgetMatrizidentidad: (context) => MatrizIdentidad(),
-  kWidgetMatrizInversa: (context) => MatrizInversa(),
-  kWidgetMatrizOrtogonal: (context) => MatrizOrtogonal(),
-  kWidgetMatrizSimetrica: (context) => MatrizSimetrica(),
-  kWidgetMatrizTranspuesta: (context) => MatrizTranspuesta(),
-  kWidgetMatrizTriangular: (context) => MatrizTriangular(),
-  kWidgetMultiplicacionDeMatrices: (context) => MultiplicacionDeMatrices(),
-  kWidgetPropiedadesDeLasMatrices: (context) => PropiedadesDeLasMatrices(),
-  kWidgetSumaRestaDeMatrices: (context) => SumaRestaDeMatrices(),
-  kWidgetAnguloEntreVectores: (context) => AnguloEntreVectores(),
-  kWidgetNormalizacion: (context) => Normalizacion(),
-  kWidgetOperacionesConVectores: (context) => OperacionesConVectores(),
-  kWidgetProductoCruz: (context) => ProductoCruz(),
-  kWidgetProductoPunto: (context) => ProductoPunto(),
-  kWidgetPropiedadesDeLosVectores: (context) => PropiedadesDeLosVectores(),
-  kWidgetProyeccionesDeVectores: (context) => ProyeccionesDeVectores(),
-  kWidgetVectorUnitario: (context) => VectorUnitario(),
-  kWidgetVectoresYSuMagnitud: (context) => VectoresYSuMagnitud(),
-  kWidgetDeterminantesAlgebraLineal: (context) => DeterminantesAlgebraLineal(),
-  kWidgetReglaDeCramer: (context) => ReglaDeCramer(),
-  kWidgetReglaDeSarrus: (context) => ReglaDeSarrus(),
+  kWidgetMatrizAdjunta: (context) => const MatrizAdjunta(),
+  kWidgetMatrizidentidad: (context) => const MatrizIdentidad(),
+  kWidgetMatrizInversa: (context) => const MatrizInversa(),
+  kWidgetMatrizOrtogonal: (context) => const MatrizOrtogonal(),
+  kWidgetMatrizSimetrica: (context) => const MatrizSimetrica(),
+  kWidgetMatrizTranspuesta: (context) => const MatrizTranspuesta(),
+  kWidgetMatrizTriangular: (context) => const MatrizTriangular(),
+  kWidgetMultiplicacionDeMatrices: (context) =>
+      const MultiplicacionDeMatrices(),
+  kWidgetPropiedadesDeLasMatrices: (context) =>
+      const PropiedadesDeLasMatrices(),
+  kWidgetSumaRestaDeMatrices: (context) => const SumaRestaDeMatrices(),
+  kWidgetAnguloEntreVectores: (context) => const AnguloEntreVectores(),
+  kWidgetNormalizacion: (context) => const Normalizacion(),
+  kWidgetOperacionesConVectores: (context) => const OperacionesConVectores(),
+  kWidgetProductoCruz: (context) => const ProductoCruz(),
+  kWidgetProductoPunto: (context) => const ProductoPunto(),
+  kWidgetPropiedadesDeLosVectores: (context) =>
+      const PropiedadesDeLosVectores(),
+  kWidgetProyeccionesDeVectores: (context) => const ProyeccionesDeVectores(),
+  kWidgetVectorUnitario: (context) => const VectorUnitario(),
+  kWidgetVectoresYSuMagnitud: (context) => const VectoresYSuMagnitud(),
+  kWidgetDeterminantesAlgebraLineal: (context) =>
+      const DeterminantesAlgebraLineal(),
+  kWidgetReglaDeCramer: (context) => const ReglaDeCramer(),
+  kWidgetReglaDeSarrus: (context) => const ReglaDeSarrus(),
   //Calculo Diferencial
-  kWidgetLimitesTrigonometricos: (context) => LimitesTrigonometricos(),
-  kWidgetPropiedadesLimites: (context) => PropiedadesLimites(),
+  kWidgetLimitesTrigonometricos: (context) => const LimitesTrigonometricos(),
+  kWidgetPropiedadesLimites: (context) => const PropiedadesLimites(),
   kWidgetDerivacionBasicaDiferencial: (context) =>
-      DerivacionBasicaDiferencial(),
+      const DerivacionBasicaDiferencial(),
   kWidgetExponencialLogaritmos: (context) =>
-      ExponencialyLogaritmosDiferencial(),
+      const ExponencialyLogaritmosDiferencial(),
   kWidgetFuncionesTrigonometricasDiferencial: (context) =>
-      FuncionesTrigonometricasDiferencial(),
+      const FuncionesTrigonometricasDiferencial(),
   kWidgetFuncionesTrigonometricasInversasDiferencial: (context) =>
-      TrigonometricasInversasDiferencial(),
+      const TrigonometricasInversasDiferencial(),
   kWidgetFuncionesHiperbolicas: (context) =>
-      TrigonometricasHiperbolicasDiferencial(),
+      const TrigonometricasHiperbolicasDiferencial(),
   //Calculo Integral
   kWidgetExponencialLogaritmoIntegral: (context) =>
-      ExponencialyLogaritmoIntegral(),
+      const ExponencialyLogaritmoIntegral(),
   kWidgetFuncionesHiperbolicasIntegral: (context) =>
-      FuncionesHiperbolicasIntegral(),
+      const FuncionesHiperbolicasIntegral(),
   kWidgetFuncionesTrigonometricasIntegral: (context) =>
-      FuncionesTrigonometricasIntegral(),
-  kWidgetIntegracionBasica: (context) => IntegracionBasicaIntegral(),
-  kWidgetIntegralesExtrasIntegral: (context) => IntegralesExtraIntegral(),
+      const FuncionesTrigonometricasIntegral(),
+  kWidgetIntegracionBasica: (context) => const IntegracionBasicaIntegral(),
+  kWidgetIntegralesExtrasIntegral: (context) => const IntegralesExtraIntegral(),
   kWidgetTrigonometricasInversasIntegral: (context) =>
-      TrigonometricasInversasIntegral(),
+      const TrigonometricasInversasIntegral(),
 
   //Calculo Multivariable
   kWidgetDerivadaFuncionesVectoriales: (context) =>
-      DerivadaFuncionesVectoriales(),
+      const DerivadaFuncionesVectoriales(),
   kWidgetLimiteDerivadaIntegralFuncionesVectoriales: (context) =>
-      LimiteDerivadaIntegralFuncionesVectoriales(),
-  kWidgetAreaBajoLaCurva: (context) => AreaBajoLaCurva(),
+      const LimiteDerivadaIntegralFuncionesVectoriales(),
+  kWidgetAreaBajoLaCurva: (context) => const AreaBajoLaCurva(),
   kWidgetAreaDeUnaSuperficieDeRevolucion: (context) =>
-      AreaDeUnaSuperficieDeRevolucion(),
-  kWidgetCambioDeVariables: (context) => CambioDeVariables(),
-  kWidgetDerivadasDireccionales: (context) => DerivadasDireccionales(),
-  kWidgetDerivadasParciales: (context) => DerivadasParciales(),
-  kWidgetDiferencialTotal: (context) => DiferencialTotal(),
-  kWidgetGradienteDeUnaFuncion: (context) => GradienteDeUnaFuncion(),
-  kWidgetIdentidadesVectoriales: (context) => IdentidadesVectoriales(),
+      const AreaDeUnaSuperficieDeRevolucion(),
+  kWidgetCambioDeVariables: (context) => const CambioDeVariables(),
+  kWidgetDerivadasDireccionales: (context) => const DerivadasDireccionales(),
+  kWidgetDerivadasParciales: (context) => const DerivadasParciales(),
+  kWidgetDiferencialTotal: (context) => const DiferencialTotal(),
+  kWidgetGradienteDeUnaFuncion: (context) => const GradienteDeUnaFuncion(),
+  kWidgetIdentidadesVectoriales: (context) => const IdentidadesVectoriales(),
   kWidgetIntegralEnCoordenasCilindricas: (context) =>
-      IntegralEnCoordenadasCilindricas(),
-  kWidgetIntegralesDeLinea: (context) => IntegralesDeLinea(),
-  kWidgetLongitudDeArco: (context) => LongitudDeArco(),
-  kWidgetOperadoresDiferenciales: (context) => OperadoresDiferenciales(),
-  kWidgetTeoremaDeFubini: (context) => TeoremaDeFubini(),
-  kWidgetTeoremaIntegrales: (context) => TeoremaIntegrales(),
+      const IntegralEnCoordenadasCilindricas(),
+  kWidgetIntegralesDeLinea: (context) => const IntegralesDeLinea(),
+  kWidgetLongitudDeArco: (context) => const LongitudDeArco(),
+  kWidgetOperadoresDiferenciales: (context) => const OperadoresDiferenciales(),
+  kWidgetTeoremaDeFubini: (context) => const TeoremaDeFubini(),
+  kWidgetTeoremaIntegrales: (context) => const TeoremaIntegrales(),
 
   //Ecuaciones Diferenciales
-  kWidgetConstantesDeIntegracion: (context) => ConstantesDeIntegracion(),
+  kWidgetConstantesDeIntegracion: (context) => const ConstantesDeIntegracion(),
   kWidgetEcuacionDiferencialConCoeficientesConstantes: (context) =>
-      EcuacionDiferencialConCoeficientesConstantes(),
+      const EcuacionDiferencialConCoeficientesConstantes(),
   kWidgetEcuacionDiferencialDeRectasNoParalelas: (context) =>
-      EcuacionDiferencialDeRectasNoParalelas(),
+      const EcuacionDiferencialDeRectasNoParalelas(),
   kWidgetEcuacionDiferencialDeRectasParalelas: (context) =>
-      EcuacionDiferencialDeRectasParalelas(),
-  kWidgetEcuacionDiferencialExacta: (context) => EcuacionDiferencialExacta(),
+      const EcuacionDiferencialDeRectasParalelas(),
+  kWidgetEcuacionDiferencialExacta: (context) =>
+      const EcuacionDiferencialExacta(),
   kWidgetEcuacionDiferencialHomogenea: (context) =>
-      EcuacionDiferencialHomogenea(),
+      const EcuacionDiferencialHomogenea(),
   kWidgetEcuacionDiferencialLinealDeOrdenSuperior: (context) =>
-      EcuacionDiferencialLinealDeOrdenSuperior(),
+      const EcuacionDiferencialLinealDeOrdenSuperior(),
   kWidgetEcuacionDiferencialLinealDePrimerOrden: (context) =>
-      EcuacionDiferencialLinealDePrimerOrden(),
+      const EcuacionDiferencialLinealDePrimerOrden(),
   kWidgetEcuacionDiferencialSeparable: (context) =>
-      EcuacionDiferencialSeparable(),
+      const EcuacionDiferencialSeparable(),
   //Electricidad y Magnetismo
   //Campo y potencial electricos
   kWidgetCalculoDeDiferenciasDePotencial: (context) =>
-      CalculoDeDiferenciasDePotencial(),
-  kWidgetCampoElectrico: (context) => CampoElectrico(),
+      const CalculoDeDiferenciasDePotencial(),
+  kWidgetCampoElectrico: (context) => const CampoElectrico(),
   kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga: (context) =>
-      CampoElectricoOriginadoPorDistribucionesDeCarga(),
-  kWidgetCargaElectrica: (context) => CargaElectrica(),
-  kWidgetCargaProtonyElectron: (context) => CargaProtonElectron(),
+      const CampoElectricoOriginadoPorDistribucionesDeCarga(),
+  kWidgetCargaElectrica: (context) => const CargaElectrica(),
+  kWidgetCargaProtonyElectron: (context) => const CargaProtonElectron(),
   kWidgetCirculacionDelCampoElectrostatico: (context) =>
-      CirculacionDelCampoElectrostatico(),
+      const CirculacionDelCampoElectrostatico(),
   kWidgetDistribucionesDeCargaElectrica: (context) =>
-      DistribucionesDeCargaElectrica(),
-  kWidgetEcuacionDePossionYLaplace: (context) => EcuacionDePoissonYLaplace(),
-  kWidgetElectricidad: (context) => Electricidad(),
-  kWidgetEnergiaPotencialElectrica: (context) => EnergiaPotencialElectrica(),
+      const DistribucionesDeCargaElectrica(),
+  kWidgetEcuacionDePossionYLaplace: (context) =>
+      const EcuacionDePoissonYLaplace(),
+  kWidgetElectricidad: (context) => const Electricidad(),
+  kWidgetEnergiaPotencialElectrica: (context) =>
+      const EnergiaPotencialElectrica(),
   kWidgetFlujoElectricoDeUnCampoVectorial: (context) =>
-      FlujoDeUnCampoVectorial(),
+      const FlujoDeUnCampoVectorial(),
   kWidgetGradienteDePotencialElectrico: (context) =>
-      GradienteDePotencialElectrico(),
+      const GradienteDePotencialElectrico(),
   kWidgetGradienteDeUnaFuncionEscalar: (context) =>
-      GradienteDeUnaFuncionEscalar(),
-  kWidgetLeyDeCoulomb: (context) => LeyDeCoulomb(),
-  kWidgetLeyDeGauss: (context) => LeyDeGauss(),
+      const GradienteDeUnaFuncionEscalar(),
+  kWidgetLeyDeCoulomb: (context) => const LeyDeCoulomb(),
+  kWidgetLeyDeGauss: (context) => const LeyDeGauss(),
   kWidgetLeyDeGaussEnFormaDiferencial: (context) =>
-      LeyDeGaussEnFormaDiferencial(),
-  kWidgetOperadorGradiente: (context) => OperadorGradiente(),
-  kWidgetPrincipioDeSuperposicion: (context) => PrincipioDeSuperposicion(),
+      const LeyDeGaussEnFormaDiferencial(),
+  kWidgetOperadorGradiente: (context) => const OperadorGradiente(),
+  kWidgetPrincipioDeSuperposicion: (context) =>
+      const PrincipioDeSuperposicion(),
   kWidgetRotacionalDelCampoElectrostatico: (context) =>
-      RotacionalDelCampoElectrostatico(),
-  kWidgetSuperficiesEquipotenciales: (context) => SuperficiesEquipotenciales(),
-  kWidgetTeoremaDeLaDivergencia: (context) => TeoremaDeLaDivergencia(),
-  kWidgetTeoremaDelRotacional: (context) => TeoremaDelRotacional(),
+      const RotacionalDelCampoElectrostatico(),
+  kWidgetSuperficiesEquipotenciales: (context) =>
+      const SuperficiesEquipotenciales(),
+  kWidgetTeoremaDeLaDivergencia: (context) => const TeoremaDeLaDivergencia(),
+  kWidgetTeoremaDelRotacional: (context) => const TeoremaDelRotacional(),
   //Capacitancia y Dielectricos
 
-  kWidgetCapacitor: (context) => Capacitor(),
+  kWidgetCapacitor: (context) => const Capacitor(),
   kWidgetCapacitorDePlacasPlanasYParalelas: (context) =>
-      CapacitorDePlacasPlanasYParalelas(),
-  kWidgetCargaDeUnCapacitor: (context) => CargaDeUnCapacitor(),
-  kWidgetGraficaDeCapacitancia: (context) => GraficaDeCapacitancia(),
+      const CapacitorDePlacasPlanasYParalelas(),
+  kWidgetCargaDeUnCapacitor: (context) => const CargaDeUnCapacitor(),
+  kWidgetGraficaDeCapacitancia: (context) => const GraficaDeCapacitancia(),
   kWidgetConexionEnParaleloCapacitor: (context) =>
-      ConexionEnParaleloCapacitor(),
-  kWidgetConexionEnSerieCapacitor: (context) => ConexionEnSerieCapacitor(),
-  kWidgetConstantesDielectricas: (context) => ConstantesDielectricas(),
-  kWidgetDefinicionDeCapacitancia: (context) => DefinicionDeCapacitancia(),
+      const ConexionEnParaleloCapacitor(),
+  kWidgetConexionEnSerieCapacitor: (context) =>
+      const ConexionEnSerieCapacitor(),
+  kWidgetConstantesDielectricas: (context) => const ConstantesDielectricas(),
+  kWidgetDefinicionDeCapacitancia: (context) =>
+      const DefinicionDeCapacitancia(),
   kWidgetEnergiaAlmacenadaPorUnCapacitor: (context) =>
-      EnergiaAlmacenadaPorUnCapacitor(),
-  kWidgetEnergiaYCapacitancia: (context) => EnergiaYCapacitancia(),
-  kWidgetPolarizacion: (context) => Polarizacion(),
-  kWidgetPolarizacionYCargaInducida: (context) => PolarizacionYCargaInducida(),
+      const EnergiaAlmacenadaPorUnCapacitor(),
+  kWidgetEnergiaYCapacitancia: (context) => const EnergiaYCapacitancia(),
+  kWidgetPolarizacion: (context) => const Polarizacion(),
+  kWidgetPolarizacionYCargaInducida: (context) =>
+      const PolarizacionYCargaInducida(),
   kWidgetRepresentacionDeLosVectoresElectricos: (context) =>
-      RepresentacionDeLosVectoresElectricos(),
-  kWidgetRigidezDielectrica: (context) => RigidezDielectrica(),
-  kWidgetSimbologiaCapacitores: (context) => SimbologiaCapacitores(),
+      const RepresentacionDeLosVectoresElectricos(),
+  kWidgetRigidezDielectrica: (context) => const RigidezDielectrica(),
+  kWidgetSimbologiaCapacitores: (context) => const SimbologiaCapacitores(),
   kWidgetVectorDeDesplazamientoElectrico: (context) =>
-      VectorDeDesplazamientoElectrico(),
+      const VectorDeDesplazamientoElectrico(),
   //Circuitos Electricos
-  kWidgetCircuitoRCyVoltajeContinuo: (context) => CircuitoRCyVoltajeContinuo(),
-  kWidgetConductividadyResistividad: (context) => ConductividadYResistividad(),
-  kWidgetConexionEnParaleloResistor: (context) => ConexionEnParaleloResistor(),
-  kWidgetConexionEnSerieResistor: (context) => ConexionEnSerieResistor(),
+  kWidgetCircuitoRCyVoltajeContinuo: (context) =>
+      const CircuitoRCyVoltajeContinuo(),
+  kWidgetConductividadyResistividad: (context) =>
+      const ConductividadYResistividad(),
+  kWidgetConexionEnParaleloResistor: (context) =>
+      const ConexionEnParaleloResistor(),
+  kWidgetConexionEnSerieResistor: (context) => const ConexionEnSerieResistor(),
   kWidgetDensidadDeCorrienteYCorrienteElectrica: (context) =>
-      DensidadDeCorrienteYCorrienteElectrica(),
-  kWidgetEcuacionDeOhm: (context) => EcuacionDeOhm(),
-  kWidgetEfectoJoule: (context) => EfectoJoule(),
+      const DensidadDeCorrienteYCorrienteElectrica(),
+  kWidgetEcuacionDeOhm: (context) => const EcuacionDeOhm(),
+  kWidgetEfectoJoule: (context) => const EfectoJoule(),
   kWidgetElementosCapacitorYResistor: (context) =>
-      ElementosCapacitorYResistor(),
-  kWidgetElementosFem: (context) => ElementosFem(),
+      const ElementosCapacitorYResistor(),
+  kWidgetElementosFem: (context) => const ElementosFem(),
   kWidgetFuenteDeFuerzaElectromotriz: (context) =>
-      FuenteDeFuerzaElectromotrizFem(),
-  kWidgetLeyDeCorrienteDeKirchhoff: (context) => LeyDeCorrientesDeKirchhoff(),
-  kWidgetLeyDeOhm: (context) => LeyDeOhm(),
-  kWidgetLeyDeVoltajesDeKirchhoff: (context) => LeyDeVoltajesDeKirchhoff(),
-  kWidgetLeyesDeKirchhoffCircuitoRc: (context) => LeyesDeKirchhoffCircuitoRC(),
+      const FuenteDeFuerzaElectromotrizFem(),
+  kWidgetLeyDeCorrienteDeKirchhoff: (context) =>
+      const LeyDeCorrientesDeKirchhoff(),
+  kWidgetLeyDeOhm: (context) => const LeyDeOhm(),
+  kWidgetLeyDeVoltajesDeKirchhoff: (context) =>
+      const LeyDeVoltajesDeKirchhoff(),
+  kWidgetLeyesDeKirchhoffCircuitoRc: (context) =>
+      const LeyesDeKirchhoffCircuitoRC(),
   kWidgetMovimientoDePortadoresDeCargaLibreYDensidadDeCorriente: (context) =>
-      MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente(),
+      const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente(),
   kWidgetNomenclaturaBasicaEmpleadaEnCircuitos: (context) =>
-      NomenclaturaBasicaEmpleadaEnCircuitos(),
-  kWidgetPortadoresDeCargaLibre: (context) => PortadoresDeCargaLibre(),
-  kWidgetReglasParaLVKyLCK: (context) => ReglasParaLVKyLCK(),
-  kWidgetResistividadYTemperatura: (context) => ResistividadYTemperatura(),
-  kWidgetResistorLinealYNoLineal: (context) => ResistorLinealYNoLineal(),
-  kWidgetResistorSimbologiaBasica: (context) => ResistorSimbologiaBasica(),
-  kWidgetTeoriaDeCircuitos: (context) => TeoriaDeCircuitos(),
-  kWidgetTiposDeCorrienteElectrica: (context) => TiposDeCorrienteElectrica(),
+      const NomenclaturaBasicaEmpleadaEnCircuitos(),
+  kWidgetPortadoresDeCargaLibre: (context) => const PortadoresDeCargaLibre(),
+  kWidgetReglasParaLVKyLCK: (context) => const ReglasParaLVKyLCK(),
+  kWidgetResistividadYTemperatura: (context) =>
+      const ResistividadYTemperatura(),
+  kWidgetResistorLinealYNoLineal: (context) => const ResistorLinealYNoLineal(),
+  kWidgetResistorSimbologiaBasica: (context) =>
+      const ResistorSimbologiaBasica(),
+  kWidgetTeoriaDeCircuitos: (context) => const TeoriaDeCircuitos(),
+  kWidgetTiposDeCorrienteElectrica: (context) =>
+      const TiposDeCorrienteElectrica(),
   //Induccion Electromagnetica
 
   kWidgetEnergiaAlmacenadaEnUnCampoMagnetico: (context) =>
-      EnergiaAlmacenadaEnUnCampoMagnetico(),
-  kWidgetInductanciaMutua: (context) => InductanciaMutua(),
+      const EnergiaAlmacenadaEnUnCampoMagnetico(),
+  kWidgetInductanciaMutua: (context) => const InductanciaMutua(),
   kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales: (context) =>
-      InductanciaMutuaEntreDosSolenoidesCoaxiales(),
-  kWidgetInductanciaParaUnToroide: (context) => InductanciaParaUnToroide(),
-  kWidgetInductanciaPropia: (context) => InductanciaPropia(),
+      const InductanciaMutuaEntreDosSolenoidesCoaxiales(),
+  kWidgetInductanciaParaUnToroide: (context) =>
+      const InductanciaParaUnToroide(),
+  kWidgetInductanciaPropia: (context) => const InductanciaPropia(),
   kWidgetInductanciaPropiaDeUnSolenoide: (context) =>
-      InductanciaPropiaDeUnSolenoide(),
-  kWidgetInductor: (context) => Inductor(),
-  kWidgetInductoresEnSerie: (context) => InductoresEnSerie(),
+      const InductanciaPropiaDeUnSolenoide(),
+  kWidgetInductor: (context) => const Inductor(),
+  kWidgetInductoresEnSerie: (context) => const InductoresEnSerie(),
   kWidgetLeyDeFaradayYEnergiaEnUnInductor: (context) =>
-      LeyDeInduccionDeFaradayEnergiaEnUnInductor(),
+      const LeyDeInduccionDeFaradayEnergiaEnUnInductor(),
   kWidgetPrincipioDeOperacionDelGeneradorElectrico: (context) =>
-      GeneradorHomopolar(),
+      const GeneradorHomopolar(),
   //Magnetostatica
-  kWidgetBobina: (context) => Bobina(),
+  kWidgetBobina: (context) => const Bobina(),
   kWidgetCampoMagneticoAPartirDeLeyDeAmpere: (context) =>
-      CampoMagneticoAPartirDeLeyDeAmpere(),
+      const CampoMagneticoAPartirDeLeyDeAmpere(),
   kWidgetCirculacionDeUnCampoVectorial: (context) =>
-      CirculacionDeUnCampoVectorial(),
-  kWidgetDefinicionDeCampoMagnetico: (context) => DefinicionDeCampoMagnetico(),
-  kWidgetEspiraCuadrada: (context) => EspiraCuadrada(),
+      const CirculacionDeUnCampoVectorial(),
+  kWidgetDefinicionDeCampoMagnetico: (context) =>
+      const DefinicionDeCampoMagnetico(),
+  kWidgetEspiraCuadrada: (context) => const EspiraCuadrada(),
   kWidgetEspiraEnFormaDeCircunferencia: (context) =>
-      EspiraEnFormaDeCircunferencia(),
-  kWidgetFlujoMagnetico: (context) => FlujoMagnetico(),
-  kWidgetFuerzaDeLorentz: (context) => FuerzaDeLorentz(),
+      const EspiraEnFormaDeCircunferencia(),
+  kWidgetFlujoMagnetico: (context) => const FlujoMagnetico(),
+  kWidgetFuerzaDeLorentz: (context) => const FuerzaDeLorentz(),
   kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento: (context) =>
-      FuerzaMagneticaComoVectorSobreCargasEnMovimiento(),
+      const FuerzaMagneticaComoVectorSobreCargasEnMovimiento(),
   kWidgetLeyDeAmpereEnFormaDiferencial: (context) =>
-      LeyDeAmpereEnFormaDiferencial(),
-  kWidgetLeyDeBiotSavart: (context) => LeyDeBiotSavart(),
-  kWidgetMotorDeCorrienteDirecta: (context) => MotorDeCorrienteDirecta(),
-  kWidgetOrigenDeCampoMagnetico: (context) => OrigenDeCampoMagnetico(),
-  kWidgetSegmentoConductoRecto: (context) => SegmentoConductorRecto(),
-  kWidgetSolenoide: (context) => Solenoide(),
+      const LeyDeAmpereEnFormaDiferencial(),
+  kWidgetLeyDeBiotSavart: (context) => const LeyDeBiotSavart(),
+  kWidgetMotorDeCorrienteDirecta: (context) => const MotorDeCorrienteDirecta(),
+  kWidgetOrigenDeCampoMagnetico: (context) => const OrigenDeCampoMagnetico(),
+  kWidgetSegmentoConductoRecto: (context) => const SegmentoConductorRecto(),
+  kWidgetSolenoide: (context) => const Solenoide(),
   //Generales
   kWidgetFuncionesTrigonometricasGeneral: (context) =>
-      FuncionesTrigonometricasGenerales(),
+      const FuncionesTrigonometricasGenerales(),
   kWidgetIdentidadesHiperbolicasGenerales: (context) =>
-      IdentidadesHiperbolicasGenerales(),
+      const IdentidadesHiperbolicasGenerales(),
   kWidgetIdentidadesTrigonometricasGenerales: (context) =>
-      IdentidadesTrigonometricasGenerales(),
+      const IdentidadesTrigonometricasGenerales(),
   kWidgetPropiedadesLogaritmosGenerales: (context) =>
-      PropiedadesLogaritmosGenerales(),
+      const PropiedadesLogaritmosGenerales(),
   kWidgetTrigonometricasHiperbolicasGenerales: (context) =>
-      TrigonometricasHiperbolicasGenerales(),
+      const TrigonometricasHiperbolicasGenerales(),
 
   //Geometria
   kWidgetAreaYPerimetroDeCuadrilateros: (context) =>
-      AreaYPerimetroDeCuadrilateros(),
-  kWidgetAreaYPerimetroDeTriangulos: (context) => AreaYPerimetroDeTriangulos(),
-  kWidgetAreaYPerimetroDelCirculo: (context) => AreaYPerimetroDelCirculo(),
-  kWidgetAngulosEnUnPoligono: (context) => AngulosEnUnPoligono(),
-  kWidgetCircunferencia: (context) => Circunferencia(),
+      const AreaYPerimetroDeCuadrilateros(),
+  kWidgetAreaYPerimetroDeTriangulos: (context) =>
+      const AreaYPerimetroDeTriangulos(),
+  kWidgetAreaYPerimetroDelCirculo: (context) =>
+      const AreaYPerimetroDelCirculo(),
+  kWidgetAngulosEnUnPoligono: (context) => const AngulosEnUnPoligono(),
+  kWidgetCircunferencia: (context) => const Circunferencia(),
   kWidgetDistanciaDeUnPuntoAUnaRecta: (context) =>
-      DistanciaDeUnPuntoAUnaRecta(),
-  kWidgetDistanciaEntreDosPuntos: (context) => DistanciaEntreDosPuntos(),
-  kWidgetEcuacionDeLaRecta: (context) => EcuacionDeLaRecta(),
+      const DistanciaDeUnPuntoAUnaRecta(),
+  kWidgetDistanciaEntreDosPuntos: (context) => const DistanciaEntreDosPuntos(),
+  kWidgetEcuacionDeLaRecta: (context) => const EcuacionDeLaRecta(),
   kWidgetElipseConCentroDiferenteDelOrigen: (context) =>
-      ElipseConCentroDiferenteDelOrigen(),
-  kWidgetElipseConCentroEnElOrigen: (context) => ElipseConCentroEnElOrigen(),
-  kWidgetHiperbola: (context) => Hiperbola(),
+      const ElipseConCentroDiferenteDelOrigen(),
+  kWidgetElipseConCentroEnElOrigen: (context) =>
+      const ElipseConCentroEnElOrigen(),
+  kWidgetHiperbola: (context) => const Hiperbola(),
   kWidgetParabolaConVerticeDiferenteDelOrigen: (context) =>
-      ParabolaConVerticeDiferenteDelOrigen(),
+      const ParabolaConVerticeDiferenteDelOrigen(),
   kWidgetParabolaConVerticeEnElOrigen: (context) =>
-      ParabolaConVerticeEnElOrigen(),
+      const ParabolaConVerticeEnElOrigen(),
   kWidgetVolumenDeCuerposGeometricos: (context) =>
-      VolumenDeCuerposGeometricos(),
+      const VolumenDeCuerposGeometricos(),
   //Matematicas Discretas
-  kWidgetBicondicional: (context) => BicondicionalMatematicasDiscretas(),
-  kWidgetCondicional: (context) => CondicionalMatematicasDiscretas(),
-  kWidgetConectoresLogicos: (context) => ConectoresLogicos(),
-  kWidgetConjuncion: (context) => ConjuncionMatematicasDiscretas(),
-  kWidgetDisyuncion: (context) => DisyuncionMatematicasDiscretas(),
+  kWidgetBicondicional: (context) => const BicondicionalMatematicasDiscretas(),
+  kWidgetCondicional: (context) => const CondicionalMatematicasDiscretas(),
+  kWidgetConectoresLogicos: (context) => const ConectoresLogicos(),
+  kWidgetConjuncion: (context) => const ConjuncionMatematicasDiscretas(),
+  kWidgetDisyuncion: (context) => const DisyuncionMatematicasDiscretas(),
   kWidgetLeyesDeLaLogicaProposicional: (context) =>
-      LeyesDeLaLogicaProposicional(),
-  kWidgetLeyesDeLaTeoriaDeConjuntos: (context) => LeyesDeLaTeoriaDeConjuntos(),
-  kWidgetLeyesDelAlgebraDeBoole: (context) => LeyesDelAlgebraDeBoole(),
-  kWidgetNegacion: (context) => Negacion(),
+      const LeyesDeLaLogicaProposicional(),
+  kWidgetLeyesDeLaTeoriaDeConjuntos: (context) =>
+      const LeyesDeLaTeoriaDeConjuntos(),
+  kWidgetLeyesDelAlgebraDeBoole: (context) => const LeyesDelAlgebraDeBoole(),
+  kWidgetNegacion: (context) => const Negacion(),
   //Matematicas Financiera
-  kWidgetAmortizacion: (context) => Amortizacion(),
+  kWidgetAmortizacion: (context) => const Amortizacion(),
   kWidgetAnualidadVencidaSimpleyCierta: (context) =>
-      AnualidadVencidaSimpleYCierta(),
+      const AnualidadVencidaSimpleYCierta(),
   kWidgetAnualidadAnticipadaSimpleyCierta: (context) =>
-      AnualidadAnticipadaSimpleYCierta(),
-  kWidgetDescuentoCompuesto: (context) => DescuentoCompuesto(),
-  kWidgetDescuentoSimple: (context) => DescuentoSimple(),
-  kWidgetInteresCompuesto: (context) => InteresCompuesto(),
-  kWidgetInteresSimple: (context) => InteresSimple(),
-  kWidgetSaldoInsoluto: (context) => SaldoInsoluto(),
-  kWidgetTasaDeInteresGlobal: (context) => TasaDeInteresGlobal(),
-  kWidgetTasaEfectiva: (context) => TasaEfectiva(),
+      const AnualidadAnticipadaSimpleYCierta(),
+  kWidgetDescuentoCompuesto: (context) => const DescuentoCompuesto(),
+  kWidgetDescuentoSimple: (context) => const DescuentoSimple(),
+  kWidgetInteresCompuesto: (context) => const InteresCompuesto(),
+  kWidgetInteresSimple: (context) => const InteresSimple(),
+  kWidgetSaldoInsoluto: (context) => const SaldoInsoluto(),
+  kWidgetTasaDeInteresGlobal: (context) => const TasaDeInteresGlobal(),
+  kWidgetTasaEfectiva: (context) => const TasaEfectiva(),
   //Probabilidad y Estadistica
-  kWidgetDistribucionBinomial: (context) => DistribucionBinomial(),
-  kWidgetDistribucionDePoisson: (context) => DistribucionDePoisson(),
-  kWidgetDistribucionExponencial: (context) => DistribucionExponencial(),
-  kWidgetDistribucionGeometrica: (context) => DistribucionGeometrica(),
+  kWidgetDistribucionBinomial: (context) => const DistribucionBinomial(),
+  kWidgetDistribucionDePoisson: (context) => const DistribucionDePoisson(),
+  kWidgetDistribucionExponencial: (context) => const DistribucionExponencial(),
+  kWidgetDistribucionGeometrica: (context) => const DistribucionGeometrica(),
   kWidgetDistribucionHipergeometrica: (context) =>
-      DistribucionHipergeometrica(),
-  kWidgetDistribucionNormal: (context) => DistribucionNormal(),
-  kWidgetDistribucionTDeStudent: (context) => DistribucionTDeStudent(),
+      const DistribucionHipergeometrica(),
+  kWidgetDistribucionNormal: (context) => const DistribucionNormal(),
+  kWidgetDistribucionTDeStudent: (context) => const DistribucionTDeStudent(),
   kWidgetMedidasDeDispersionParaDatosNoAgrupados: (context) =>
-      MedidasDeDispersionParaDatosNoAgrupados(),
+      const MedidasDeDispersionParaDatosNoAgrupados(),
   kWidgetMedidasDePosicionParaDatosNoAgrupados: (context) =>
-      MedidasDePosicionParaDatosNoAgrupados(),
+      const MedidasDePosicionParaDatosNoAgrupados(),
   kWidgetMedidasDeTendenciaCentralParaDatosAgrupados: (context) =>
-      MedidasDeTendenciaCentralParaDatosAgrupados(),
+      const MedidasDeTendenciaCentralParaDatosAgrupados(),
   kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados: (context) =>
-      MedidasDeTendenciaCentralParaDatosNoAgrupados(),
+      const MedidasDeTendenciaCentralParaDatosNoAgrupados(),
   kWidgetCombinacionesYPermutaciones: (context) =>
-      CombinacionesYPermutaciones(),
+      const CombinacionesYPermutaciones(),
   kWidgetCuantilesParaDatosAgrupados: (context) =>
-      CuantilesParaDatosAgrupados(),
-  kWidgetEstadisticaInferencial: (context) => EstadisticaInferencial(),
-  kWidgetIntervalosDeConfianza: (context) => IntervalosDeConfianza(),
-  kWidgetMediaGeometrica: (context) => MediaGeometrica(),
-  kWidgetMomentosEstadisticos: (context) => MomentosEstadisticos(),
-  kWidgetProbabilidad: (context) => Probabilidad(),
-  kWidgetTamanioMuestral: (context) => TamanioMuestral(),
+      const CuantilesParaDatosAgrupados(),
+  kWidgetEstadisticaInferencial: (context) => const EstadisticaInferencial(),
+  kWidgetIntervalosDeConfianza: (context) => const IntervalosDeConfianza(),
+  kWidgetMediaGeometrica: (context) => const MediaGeometrica(),
+  kWidgetMomentosEstadisticos: (context) => const MomentosEstadisticos(),
+  kWidgetProbabilidad: (context) => const Probabilidad(),
+  kWidgetTamanioMuestral: (context) => const TamanioMuestral(),
 
   //Series de Fourier
-  kWidgetSimetriaDeMediaOnda: (context) => SimetriaDeMediaOnda(),
+  kWidgetSimetriaDeMediaOnda: (context) => const SimetriaDeMediaOnda(),
   kWidgetSimetriaDeUnCuartoDeOndaImpar: (context) =>
-      SimetriaDeUnCuartoDeOndaImpar(),
+      const SimetriaDeUnCuartoDeOndaImpar(),
   kWidgetSimetriaDeUnCuartoDeOndaPar: (context) =>
-      SimetriaDeUnCuartoDeOndaPar(),
-  kWidgetSimetriaImpar: (context) => SimetriaImpar(),
-  kWidgetSimetriaPar: (context) => SimetriaPar(),
+      const SimetriaDeUnCuartoDeOndaPar(),
+  kWidgetSimetriaImpar: (context) => const SimetriaImpar(),
+  kWidgetSimetriaPar: (context) => const SimetriaPar(),
 
-  kWidgetTransformadaDeFourier: (context) => TransformadaDeFourier(),
-  kWidgetTransformadaDeLaplace: (context) => TransformadaDeLaplace(),
+  kWidgetTransformadaDeFourier: (context) => const TransformadaDeFourier(),
+  kWidgetTransformadaDeLaplace: (context) => const TransformadaDeLaplace(),
   kWidgetTransformadaSenoYCosenoDeFourier: (context) =>
-      TransformadaSenoYCosenoDeFourier(),
+      const TransformadaSenoYCosenoDeFourier(),
   kWidgetTransformadasBasicasDeFourier: (context) =>
-      TransformadasBasicasDeFourier(),
-  kWidgetTransformadasDeFourier: (context) => TransformadasDeFourier(),
-  kWidgetTransformadasDeLaplace: (context) => TransformadasDeLaplace(),
-  kWidgetConvolucion: (context) => Convolucion(),
+      const TransformadasBasicasDeFourier(),
+  kWidgetTransformadasDeFourier: (context) => const TransformadasDeFourier(),
+  kWidgetTransformadasDeLaplace: (context) => const TransformadasDeLaplace(),
+  kWidgetConvolucion: (context) => const Convolucion(),
   kWidgetFormaComplejaDeLasSeriesDeFourier: (context) =>
-      FormaComplejaDeLasSeriesDeFourier(),
-  kWidgetFuncionImpulsoUnitario: (context) => FuncionImpulsoUnitario(),
-  kWidgetFuncionUnitariaDeHeaviside: (context) => FuncionUnitariaDeHeaviside(),
+      const FormaComplejaDeLasSeriesDeFourier(),
+  kWidgetFuncionImpulsoUnitario: (context) => const FuncionImpulsoUnitario(),
+  kWidgetFuncionUnitariaDeHeaviside: (context) =>
+      const FuncionUnitariaDeHeaviside(),
   kWidgetSerieYCoeficientesDeFourier: (context) =>
-      SerieYCoeficientesDeFourier(),
+      const SerieYCoeficientesDeFourier(),
   kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace: (context) =>
-      FormulasOperacionalesDeLaTransformadaDeLaplace(),
+      const FormulasOperacionalesDeLaTransformadaDeLaplace(),
   //Trigonometria
-  kWidgetTeoremaDeLaCotangente: (context) => TeoremaDeLaCotangente(),
+  kWidgetTeoremaDeLaCotangente: (context) => const TeoremaDeLaCotangente(),
   kWidgetTeoremaDelCosenoParaAngulos: (context) =>
-      TeoremaDelCosenoParaAngulos(),
-  kWidgetTeoremaDelCosenoParaLados: (context) => TeoremaDelCosenoParaLados(),
-  kWidgetTeoremaDelSeno: (context) => TeoremaDelSeno(),
+      const TeoremaDelCosenoParaAngulos(),
+  kWidgetTeoremaDelCosenoParaLados: (context) =>
+      const TeoremaDelCosenoParaLados(),
+  kWidgetTeoremaDelSeno: (context) => const TeoremaDelSeno(),
 
   kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio: (context) =>
-      IdentidadesTrigonometricasDeAnguloDobleYMedio(),
+      const IdentidadesTrigonometricasDeAnguloDobleYMedio(),
   kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa: (context) =>
-      IdentidadesTrigonometricasDeSumaAProductoYViceversa(),
+      const IdentidadesTrigonometricasDeSumaAProductoYViceversa(),
   kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos: (context) =>
-      IdentidadesTrigonometricasDeSumaYRestaDeAngulos(),
+      const IdentidadesTrigonometricasDeSumaYRestaDeAngulos(),
   kWidgetIdentidadesTrigonometricasExtras: (context) =>
-      IdentidadesTrigonometricasExtras(),
+      const IdentidadesTrigonometricasExtras(),
   kWidgetIdentidadesTrigonometricasFundamentales: (context) =>
-      IdentidadesTrigonometricasFundamentales(),
+      const IdentidadesTrigonometricasFundamentales(),
 
-  kWidgetAnalogiasDeGaussDelambre: (context) => AnalogiasDeGaussDelambre(),
-  kWidgetAnalogiasDeNeper: (context) => AnalogiasDeNeper(),
-  kWidgetFuncionesDelAnguloMitad: (context) => FuncionesDelAnguloMitad(),
+  kWidgetAnalogiasDeGaussDelambre: (context) =>
+      const AnalogiasDeGaussDelambre(),
+  kWidgetAnalogiasDeNeper: (context) => const AnalogiasDeNeper(),
+  kWidgetFuncionesDelAnguloMitad: (context) => const FuncionesDelAnguloMitad(),
   kWidgetFuncionesTrigonometricasTrigonometria: (context) =>
-      FuncionesTrigonometricas(),
+      const FuncionesTrigonometricas(),
   kWidgetFuncionesTrigonometricasDeAngulosNotables: (context) =>
-      FuncionesTrigonometricasDeAngulosNotables(),
-  kWidgetLeyDeProyecciones: (context) => LeyDeProyecciones(),
+      const FuncionesTrigonometricasDeAngulosNotables(),
+  kWidgetLeyDeProyecciones: (context) => const LeyDeProyecciones(),
   kWidgetLeyesDeSenosCosenosTangentes: (context) =>
-      LeyesDeSenosCosenosTangentes(),
+      const LeyesDeSenosCosenosTangentes(),
   kWidgetMedicionYClasificacionDeAngulos: (context) =>
-      MedicionYClasificacionDeAngulos(),
+      const MedicionYClasificacionDeAngulos(),
   kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico: (context) =>
-      SuperficieDeUnTrianguloYUnPoligonoEsferico(),
-  kWidgetTeoremaDePitagoras: (context) => TeoremaDePitagoras(),
-  kWidgetValoresDeSenoYCoseno: (context) => ValoresDeSenoYCoseno(),
+      const SuperficieDeUnTrianguloYUnPoligonoEsferico(),
+  kWidgetTeoremaDePitagoras: (context) => const TeoremaDePitagoras(),
+  kWidgetValoresDeSenoYCoseno: (context) => const ValoresDeSenoYCoseno(),
 };
 
 Widget widgetMapper(String typeName, BuildContext context) {

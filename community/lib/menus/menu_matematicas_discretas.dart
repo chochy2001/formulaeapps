@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuMatematicasDiscretas extends StatefulWidget {
-  const MenuMatematicasDiscretas({Key? key}) : super(key: key);
+  const MenuMatematicasDiscretas({super.key});
 
   @override
   MenuMatematicasDiscretasState createState() =>

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DerivacionBasicaDiferencial extends StatefulWidget {
+  const DerivacionBasicaDiferencial({super.key});
   @override
-  _DerivacionBasicaDiferencialState createState() =>
+  State<DerivacionBasicaDiferencial> createState() =>
       _DerivacionBasicaDiferencialState();
 }
 
@@ -30,9 +31,10 @@ class _DerivacionBasicaDiferencialState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(onBannerReady: () {
+      if (mounted) setState(() {});
+    });
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -646,8 +648,8 @@ class _DerivacionBasicaDiferencialState
                         ? 260.0
                         : 300.0,
                     height: seleccionadoFuncionCompuestaPorUnaFuncionCompuesta
-                        ? 100.0
-                        : 100.0,
+                        ? 120.0
+                        : 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [
@@ -731,8 +733,8 @@ class _DerivacionBasicaDiferencialState
                         ? 260.0
                         : 300.0,
                     height: seleccionadoCocienteDeFuncionesCompuestas
-                        ? 100.0
-                        : 100.0,
+                        ? 120.0
+                        : 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [
@@ -817,8 +819,8 @@ class _DerivacionBasicaDiferencialState
                         ? 260.0
                         : 300.0,
                     height: seleccionadoProductoDeFuncionesCompuestas
-                        ? 100.0
-                        : 100.0,
+                        ? 120.0
+                        : 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [

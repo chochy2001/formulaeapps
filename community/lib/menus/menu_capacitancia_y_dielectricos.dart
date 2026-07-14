@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuCapacitanciaYDielectricos extends StatefulWidget {
-  const MenuCapacitanciaYDielectricos({Key? key}) : super(key: key);
+  const MenuCapacitanciaYDielectricos({super.key});
 
   static const int maxFailedLoadAttempts = 3;
 

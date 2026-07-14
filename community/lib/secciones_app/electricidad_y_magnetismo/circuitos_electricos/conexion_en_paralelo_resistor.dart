@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConexionEnParaleloResistor extends StatefulWidget {
+  const ConexionEnParaleloResistor({super.key});
   @override
   State<ConexionEnParaleloResistor> createState() =>
       _ConexionEnParaleloResistorState();

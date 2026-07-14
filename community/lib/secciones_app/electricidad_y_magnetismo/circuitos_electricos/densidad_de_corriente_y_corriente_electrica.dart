@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DensidadDeCorrienteYCorrienteElectrica extends StatefulWidget {
+  const DensidadDeCorrienteYCorrienteElectrica({super.key});
   @override
   State<DensidadDeCorrienteYCorrienteElectrica> createState() =>
       _DensidadDeCorrienteYCorrienteElectricaState();

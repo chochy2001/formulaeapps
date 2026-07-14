@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ProductoPunto extends StatefulWidget {
+  const ProductoPunto({super.key});
   @override
-  _ProductoPuntoState createState() => _ProductoPuntoState();
+  State<ProductoPunto> createState() => _ProductoPuntoState();
 }
 
 class _ProductoPuntoState extends State<ProductoPunto> {

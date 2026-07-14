@@ -9,6 +9,24 @@ import 'package:formulae/widgets_personalizados/zoom_image_personalizado.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('resolves the Formulae image origin from build configuration', () {
+    const configuredOrigin = String.fromEnvironment(
+      'FORMULAE_IMAGE_ORIGIN',
+      defaultValue: 'https://formulaeapps.com',
+    );
+
+    expect(
+      resolveFormulaeImageUrl(
+        'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/capacitor_1.png',
+      ),
+      '$configuredOrigin/imagenes/electricidad_y_magnetismo/capacitor_1.png',
+    );
+    expect(
+      resolveFormulaeImageUrl('https://example.test/diagrama.png'),
+      'https://example.test/diagrama.png',
+    );
+  });
+
   Widget harness(Widget child, {Locale locale = const Locale('es')}) {
     return MaterialApp(
       locale: locale,

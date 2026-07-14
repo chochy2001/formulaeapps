@@ -13,6 +13,11 @@
     "check": "astro check",
     "og": "node scripts/generate-og.mjs",
     "favicons": "node scripts/generate-favicons.mjs",
+    "recover:formulae-images": "bun scripts/recover-formulae-spanish-images.mjs --force && bun scripts/neutralize-formulae-image-language.mjs",
+    "neutralize:formulae-images": "bun scripts/neutralize-formulae-image-language.mjs",
+    "check:formulae-images": "bun scripts/validate-formulae-images.mjs --scope=all",
+    "check:formulae-images:canonical": "bun scripts/validate-formulae-images.mjs --scope=canonical",
+    "check:formulae-images:remote": "bun scripts/verify-formulae-image-urls.mjs --scope=all",
     "lint": "astro check && prettier --check .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"

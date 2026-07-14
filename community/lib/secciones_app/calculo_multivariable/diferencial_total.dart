@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DiferencialTotal extends StatefulWidget {
+  const DiferencialTotal({super.key});
   @override
-  _DiferencialTotalState createState() => _DiferencialTotalState();
+  State<DiferencialTotal> createState() => _DiferencialTotalState();
 }
 
 class _DiferencialTotalState extends State<DiferencialTotal> {

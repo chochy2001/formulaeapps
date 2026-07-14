@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SuperficiesEquipotenciales extends StatefulWidget {
+  const SuperficiesEquipotenciales({super.key});
   @override
   State<SuperficiesEquipotenciales> createState() =>
       _SuperficiesEquipotencialesState();

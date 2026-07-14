@@ -48,14 +48,17 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.potenciasNEsimas,
       AppLocalizations.of(context)!.ecuacionCubica,
       AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta,
-      AppLocalizations.of(context)!.numerosComplejosFormaExponencialNumeroComplejo,
-      AppLocalizations.of(context)!.numerosComplejosRaicesEIgualdadNumerosComplejos,
+      AppLocalizations.of(context)!
+          .numerosComplejosFormaExponencialNumeroComplejo,
+      AppLocalizations.of(context)!
+          .numerosComplejosRaicesEIgualdadNumerosComplejos,
       AppLocalizations.of(context)!.propiedadesLogaritmos2,
       AppLocalizations.of(context)!.determinantesCramerSarrus,
       AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices,
       AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica,
       AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple,
-      AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes,
+      AppLocalizations.of(context)!
+          .algebraLinealVectoresSumaVectoresComponentes,
       AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos,
       AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas,
       AppLocalizations.of(context)!.limitesTeoremasLimites,
@@ -136,7 +139,8 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos,
       AppLocalizations.of(context)!.axiomasDeProbabilidad,
       AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada,
-      AppLocalizations.of(context)!.funcionesDeProbabilidadConjuntasYCondicionales,
+      AppLocalizations.of(context)!
+          .funcionesDeProbabilidadConjuntasYCondicionales,
       AppLocalizations.of(context)!.esperanzaMediaYVarianza,
       AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli,
       AppLocalizations.of(context)!.distribucionesDistribucionDePascal,
@@ -500,127 +504,222 @@ class DataSearch extends SearchDelegate {
 
   Map<dynamic, String> getSearchResultss(BuildContext context) {
     return {
-      AppLocalizations.of(context)!.coeficientesBinomiales: kRutaCoeficientesBinomiales,
+      AppLocalizations.of(context)!.coeficientesBinomiales:
+          kRutaCoeficientesBinomiales,
       AppLocalizations.of(context)!.potenciasNEsimas: kRutaPotenciasNEsimas,
       AppLocalizations.of(context)!.ecuacionCubica: kRutaEcuacionCubica,
-      AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta: kRutaEcuacionCuadraticaFormaMonicaVieta,
-      AppLocalizations.of(context)!.numerosComplejosFormaExponencialNumeroComplejo: kRutaNumerosComplejosFormaExponencialNumeroComplejo,
-      AppLocalizations.of(context)!.numerosComplejosRaicesEIgualdadNumerosComplejos: kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos,
-      AppLocalizations.of(context)!.propiedadesLogaritmos2: kRutaPropiedadesLogaritmos2,
-      AppLocalizations.of(context)!.determinantesCramerSarrus: kRutaDeterminantesCramerSarrus,
-      AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices: kRutaAlgebraLinealMatricesTiposDeMatrices,
-      AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica: kRutaAlgebraLinealVectoresProductosBaseCanonica,
-      AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple: kRutaAlgebraLinealVectoresProductoEscalarTriple,
-      AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes: kRutaAlgebraLinealVectoresSumaVectoresComponentes,
-      AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos: kRutaAlgebraLinealVectoresLeySenosCosenos,
-      AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas: kRutaAlgebraLinealVectoresRazonesTrigonometricas,
-      AppLocalizations.of(context)!.limitesTeoremasLimites: kRutaLimitesTeoremasLimites,
-      AppLocalizations.of(context)!.limitesLimitesInfinitos: kRutaLimitesLimitesInfinitos,
-      AppLocalizations.of(context)!.limitesLimitesImportantes: kRutaLimitesLimitesImportantes,
-      AppLocalizations.of(context)!.asintotasHorizontalesOblicuas: kRutaAsintotasHorizontalesOblicuas,
+      AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta:
+          kRutaEcuacionCuadraticaFormaMonicaVieta,
+      AppLocalizations.of(context)!
+              .numerosComplejosFormaExponencialNumeroComplejo:
+          kRutaNumerosComplejosFormaExponencialNumeroComplejo,
+      AppLocalizations.of(context)!
+              .numerosComplejosRaicesEIgualdadNumerosComplejos:
+          kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos,
+      AppLocalizations.of(context)!.propiedadesLogaritmos2:
+          kRutaPropiedadesLogaritmos2,
+      AppLocalizations.of(context)!.determinantesCramerSarrus:
+          kRutaDeterminantesCramerSarrus,
+      AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices:
+          kRutaAlgebraLinealMatricesTiposDeMatrices,
+      AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica:
+          kRutaAlgebraLinealVectoresProductosBaseCanonica,
+      AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple:
+          kRutaAlgebraLinealVectoresProductoEscalarTriple,
+      AppLocalizations.of(context)!
+              .algebraLinealVectoresSumaVectoresComponentes:
+          kRutaAlgebraLinealVectoresSumaVectoresComponentes,
+      AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos:
+          kRutaAlgebraLinealVectoresLeySenosCosenos,
+      AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas:
+          kRutaAlgebraLinealVectoresRazonesTrigonometricas,
+      AppLocalizations.of(context)!.limitesTeoremasLimites:
+          kRutaLimitesTeoremasLimites,
+      AppLocalizations.of(context)!.limitesLimitesInfinitos:
+          kRutaLimitesLimitesInfinitos,
+      AppLocalizations.of(context)!.limitesLimitesImportantes:
+          kRutaLimitesLimitesImportantes,
+      AppLocalizations.of(context)!.asintotasHorizontalesOblicuas:
+          kRutaAsintotasHorizontalesOblicuas,
       AppLocalizations.of(context)!.continuidad: kRutaContinuidad,
       AppLocalizations.of(context)!.reglaLhopital: kRutaReglaLhopital,
       AppLocalizations.of(context)!.diferenciales: kRutaDiferenciales,
-      AppLocalizations.of(context)!.derivadasAlgebraicasRadicales: kRutaDerivadasAlgebraicasRadicales,
-      AppLocalizations.of(context)!.reglaCadenaFuncionInversa: kRutaReglaCadenaFuncionInversa,
-      AppLocalizations.of(context)!.derivadasTrigonometricasComplementarias: kRutaDerivadasTrigonometricasComplementarias,
-      AppLocalizations.of(context)!.derivadasHiperbolicasInversas: kRutaDerivadasHiperbolicasInversas,
-      AppLocalizations.of(context)!.derivacionLogaritmica: kRutaDerivacionLogaritmica,
-      AppLocalizations.of(context)!.razonCambioTangenteNormal: kRutaRazonCambioTangenteNormal,
-      AppLocalizations.of(context)!.aplicacionFisicaDerivada: kRutaAplicacionFisicaDerivada,
-      AppLocalizations.of(context)!.integralesInmediatasAdicionalesIntegral: kRutaIntegralesInmediatasAdicionalesIntegral,
-      AppLocalizations.of(context)!.potenciasReduccionTrigonometricasIntegral: kRutaPotenciasReduccionTrigonometricasIntegral,
-      AppLocalizations.of(context)!.trigonometricasRacionalesProductosIntegral: kRutaTrigonometricasRacionalesProductosIntegral,
-      AppLocalizations.of(context)!.potenciasReduccionHiperbolicasIntegral: kRutaPotenciasReduccionHiperbolicasIntegral,
-      AppLocalizations.of(context)!.hiperbolicasInversasIntegral: kRutaHiperbolicasInversasIntegral,
-      AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral: kRutaIntegralDefinidaPropiedadesIntegral,
-      AppLocalizations.of(context)!.integracionNumericaIntegral: kRutaIntegracionNumericaIntegral,
-      AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral: kRutaSustitucionTrigonometricaIntegral,
-      AppLocalizations.of(context)!.areaLongitudArcoIntegral: kRutaAreaLongitudArcoIntegral,
-      AppLocalizations.of(context)!.fraccionesParcialesIntegral: kRutaFraccionesParcialesIntegral,
-      AppLocalizations.of(context)!.constantesMatematicas: kRutaConstantesMatematicas,
-      AppLocalizations.of(context)!.constantesFisicasUniversales: kRutaConstantesFisicasUniversales,
-      AppLocalizations.of(context)!.constantesElectromagneticas: kRutaConstantesElectromagneticas,
-      AppLocalizations.of(context)!.constantesAtomicasMoleculares: kRutaConstantesAtomicasMoleculares,
-      AppLocalizations.of(context)!.constantesTerrestresAstronomicas: kRutaConstantesTerrestresAstronomicas,
+      AppLocalizations.of(context)!.derivadasAlgebraicasRadicales:
+          kRutaDerivadasAlgebraicasRadicales,
+      AppLocalizations.of(context)!.reglaCadenaFuncionInversa:
+          kRutaReglaCadenaFuncionInversa,
+      AppLocalizations.of(context)!.derivadasTrigonometricasComplementarias:
+          kRutaDerivadasTrigonometricasComplementarias,
+      AppLocalizations.of(context)!.derivadasHiperbolicasInversas:
+          kRutaDerivadasHiperbolicasInversas,
+      AppLocalizations.of(context)!.derivacionLogaritmica:
+          kRutaDerivacionLogaritmica,
+      AppLocalizations.of(context)!.razonCambioTangenteNormal:
+          kRutaRazonCambioTangenteNormal,
+      AppLocalizations.of(context)!.aplicacionFisicaDerivada:
+          kRutaAplicacionFisicaDerivada,
+      AppLocalizations.of(context)!.integralesInmediatasAdicionalesIntegral:
+          kRutaIntegralesInmediatasAdicionalesIntegral,
+      AppLocalizations.of(context)!.potenciasReduccionTrigonometricasIntegral:
+          kRutaPotenciasReduccionTrigonometricasIntegral,
+      AppLocalizations.of(context)!.trigonometricasRacionalesProductosIntegral:
+          kRutaTrigonometricasRacionalesProductosIntegral,
+      AppLocalizations.of(context)!.potenciasReduccionHiperbolicasIntegral:
+          kRutaPotenciasReduccionHiperbolicasIntegral,
+      AppLocalizations.of(context)!.hiperbolicasInversasIntegral:
+          kRutaHiperbolicasInversasIntegral,
+      AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral:
+          kRutaIntegralDefinidaPropiedadesIntegral,
+      AppLocalizations.of(context)!.integracionNumericaIntegral:
+          kRutaIntegracionNumericaIntegral,
+      AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral:
+          kRutaSustitucionTrigonometricaIntegral,
+      AppLocalizations.of(context)!.areaLongitudArcoIntegral:
+          kRutaAreaLongitudArcoIntegral,
+      AppLocalizations.of(context)!.fraccionesParcialesIntegral:
+          kRutaFraccionesParcialesIntegral,
+      AppLocalizations.of(context)!.constantesMatematicas:
+          kRutaConstantesMatematicas,
+      AppLocalizations.of(context)!.constantesFisicasUniversales:
+          kRutaConstantesFisicasUniversales,
+      AppLocalizations.of(context)!.constantesElectromagneticas:
+          kRutaConstantesElectromagneticas,
+      AppLocalizations.of(context)!.constantesAtomicasMoleculares:
+          kRutaConstantesAtomicasMoleculares,
+      AppLocalizations.of(context)!.constantesTerrestresAstronomicas:
+          kRutaConstantesTerrestresAstronomicas,
       AppLocalizations.of(context)!.longitudConversion: kRutaLongitudConversion,
-      AppLocalizations.of(context)!.superficieConversion: kRutaSuperficieConversion,
+      AppLocalizations.of(context)!.superficieConversion:
+          kRutaSuperficieConversion,
       AppLocalizations.of(context)!.volumenConversion: kRutaVolumenConversion,
       AppLocalizations.of(context)!.masaConversion: kRutaMasaConversion,
       AppLocalizations.of(context)!.densidadConversion: kRutaDensidadConversion,
       AppLocalizations.of(context)!.presionConversion: kRutaPresionConversion,
       AppLocalizations.of(context)!.energiaConversion: kRutaEnergiaConversion,
       AppLocalizations.of(context)!.potenciaConversion: kRutaPotenciaConversion,
-      AppLocalizations.of(context)!.potenciaYReactanciasEnCa: kRutaPotenciaYReactanciasEnCa,
-      AppLocalizations.of(context)!.caValoresEficacesTransformador: kRutaCaValoresEficacesTransformador,
-      AppLocalizations.of(context)!.instrumentosDeMedicionElectrica: kRutaInstrumentosDeMedicionElectrica,
+      AppLocalizations.of(context)!.potenciaYReactanciasEnCa:
+          kRutaPotenciaYReactanciasEnCa,
+      AppLocalizations.of(context)!.caValoresEficacesTransformador:
+          kRutaCaValoresEficacesTransformador,
+      AppLocalizations.of(context)!.instrumentosDeMedicionElectrica:
+          kRutaInstrumentosDeMedicionElectrica,
       AppLocalizations.of(context)!.circuitoLrEnSerie: kRutaCircuitoLrEnSerie,
-      AppLocalizations.of(context)!.fuerzaYTorcaMagnetica: kRutaFuerzaYTorcaMagnetica,
-      AppLocalizations.of(context)!.capacitoresCilindricoYEsferico: kRutaCapacitoresCilindricoYEsferico,
-      AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales: kRutaPermeabilidadMagneticaEnMateriales,
-      AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales: kRutaBateriaRealVoltajeEnTerminales,
-      AppLocalizations.of(context)!.laRectaYElTriangulo: kRutaLaRectaYElTriangulo,
-      AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas: kRutaTangentesYPropiedadesDeLasConicas,
-      AppLocalizations.of(context)!.hiperbolaEquilatera: kRutaHiperbolaEquilatera,
+      AppLocalizations.of(context)!.fuerzaYTorcaMagnetica:
+          kRutaFuerzaYTorcaMagnetica,
+      AppLocalizations.of(context)!.capacitoresCilindricoYEsferico:
+          kRutaCapacitoresCilindricoYEsferico,
+      AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales:
+          kRutaPermeabilidadMagneticaEnMateriales,
+      AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales:
+          kRutaBateriaRealVoltajeEnTerminales,
+      AppLocalizations.of(context)!.laRectaYElTriangulo:
+          kRutaLaRectaYElTriangulo,
+      AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas:
+          kRutaTangentesYPropiedadesDeLasConicas,
+      AppLocalizations.of(context)!.hiperbolaEquilatera:
+          kRutaHiperbolaEquilatera,
       AppLocalizations.of(context)!.laCurvaExponencial: kRutaLaCurvaExponencial,
       AppLocalizations.of(context)!.aceleracionYMrua: kRutaAceleracionYMrua,
-      AppLocalizations.of(context)!.caidaLibreYTiroVertical: kRutaCaidaLibreYTiroVertical,
-      AppLocalizations.of(context)!.movimientoDeProyectiles: kRutaMovimientoDeProyectiles,
-      AppLocalizations.of(context)!.movimientoCircularUniforme: kRutaMovimientoCircularUniforme,
+      AppLocalizations.of(context)!.caidaLibreYTiroVertical:
+          kRutaCaidaLibreYTiroVertical,
+      AppLocalizations.of(context)!.movimientoDeProyectiles:
+          kRutaMovimientoDeProyectiles,
+      AppLocalizations.of(context)!.movimientoCircularUniforme:
+          kRutaMovimientoCircularUniforme,
       AppLocalizations.of(context)!.cinematicaAngular: kRutaCinematicaAngular,
-      AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta: kRutaAceleracionYFuerzaCentripeta,
+      AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta:
+          kRutaAceleracionYFuerzaCentripeta,
       AppLocalizations.of(context)!.leyesDeNewton: kRutaLeyesDeNewton,
       AppLocalizations.of(context)!.pesoYGravedad: kRutaPesoYGravedad,
-      AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso: kRutaCantidadDeMovimientoEImpulso,
+      AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso:
+          kRutaCantidadDeMovimientoEImpulso,
       AppLocalizations.of(context)!.friccion: kRutaFriccion,
-      AppLocalizations.of(context)!.movimientoArmonicoSimple: kRutaMovimientoArmonicoSimple,
+      AppLocalizations.of(context)!.movimientoArmonicoSimple:
+          kRutaMovimientoArmonicoSimple,
       AppLocalizations.of(context)!.penduloSimple: kRutaPenduloSimple,
-      AppLocalizations.of(context)!.equilibrioDeCuerposRigidos: kRutaEquilibrioDeCuerposRigidos,
+      AppLocalizations.of(context)!.equilibrioDeCuerposRigidos:
+          kRutaEquilibrioDeCuerposRigidos,
       AppLocalizations.of(context)!.momentoDeTorsion: kRutaMomentoDeTorsion,
       AppLocalizations.of(context)!.eficiencia: kRutaEficiencia,
       AppLocalizations.of(context)!.hidrostatica: kRutaHidrostatica,
       AppLocalizations.of(context)!.hidrodinamica: kRutaHidrodinamica,
-      AppLocalizations.of(context)!.axiomasDeCampoNumerosReales: kRutaAxiomasDeCampoNumerosReales,
-      AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales: kRutaAxiomasDeOrdenYTeoremasReales,
-      AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden: kRutaDesigualdadesTeoremasDeOrden,
-      AppLocalizations.of(context)!.conjuntosEIntervalos: kRutaConjuntosEIntervalos,
+      AppLocalizations.of(context)!.axiomasDeCampoNumerosReales:
+          kRutaAxiomasDeCampoNumerosReales,
+      AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales:
+          kRutaAxiomasDeOrdenYTeoremasReales,
+      AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden:
+          kRutaDesigualdadesTeoremasDeOrden,
+      AppLocalizations.of(context)!.conjuntosEIntervalos:
+          kRutaConjuntosEIntervalos,
       AppLocalizations.of(context)!.valorAbsoluto: kRutaValorAbsoluto,
       AppLocalizations.of(context)!.leyDeLaIluminacion: kRutaLeyDeLaIluminacion,
-      AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana: kRutaReflexionYAumentoFormaNewtoniana,
-      AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana: kRutaEcuacionDeLasLentesFormaGaussiana,
-      AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell: kRutaRefraccionDeLaLuzLeyDeSnell,
-      AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos: kRutaTiposDeLentesYMarchaDeRayos,
-      AppLocalizations.of(context)!.axiomasDeProbabilidad: kRutaAxiomasDeProbabilidad,
-      AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada: kRutaFuncionesDeMasaDensidadYAcumulada,
-      AppLocalizations.of(context)!.funcionesDeProbabilidadConjuntasYCondicionales: kRutaFuncionesDeProbabilidadConjuntasYCondicionales,
-      AppLocalizations.of(context)!.esperanzaMediaYVarianza: kRutaEsperanzaMediaYVarianza,
-      AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli: kRutaDistribucionesDistribucionDeBernoulli,
-      AppLocalizations.of(context)!.distribucionesDistribucionDePascal: kRutaDistribucionesDistribucionDePascal,
-      AppLocalizations.of(context)!.distribucionesDistribucionBeta: kRutaDistribucionesDistribucionBeta,
-      AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy: kRutaDistribucionesDistribucionDeCauchy,
-      AppLocalizations.of(context)!.distribucionesDistribucionDeErlang: kRutaDistribucionesDistribucionDeErlang,
-      AppLocalizations.of(context)!.distribucionesDistribucionUniforme: kRutaDistribucionesDistribucionUniforme,
+      AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana:
+          kRutaReflexionYAumentoFormaNewtoniana,
+      AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana:
+          kRutaEcuacionDeLasLentesFormaGaussiana,
+      AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell:
+          kRutaRefraccionDeLaLuzLeyDeSnell,
+      AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos:
+          kRutaTiposDeLentesYMarchaDeRayos,
+      AppLocalizations.of(context)!.axiomasDeProbabilidad:
+          kRutaAxiomasDeProbabilidad,
+      AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada:
+          kRutaFuncionesDeMasaDensidadYAcumulada,
+      AppLocalizations.of(context)!
+              .funcionesDeProbabilidadConjuntasYCondicionales:
+          kRutaFuncionesDeProbabilidadConjuntasYCondicionales,
+      AppLocalizations.of(context)!.esperanzaMediaYVarianza:
+          kRutaEsperanzaMediaYVarianza,
+      AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli:
+          kRutaDistribucionesDistribucionDeBernoulli,
+      AppLocalizations.of(context)!.distribucionesDistribucionDePascal:
+          kRutaDistribucionesDistribucionDePascal,
+      AppLocalizations.of(context)!.distribucionesDistribucionBeta:
+          kRutaDistribucionesDistribucionBeta,
+      AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy:
+          kRutaDistribucionesDistribucionDeCauchy,
+      AppLocalizations.of(context)!.distribucionesDistribucionDeErlang:
+          kRutaDistribucionesDistribucionDeErlang,
+      AppLocalizations.of(context)!.distribucionesDistribucionUniforme:
+          kRutaDistribucionesDistribucionUniforme,
       AppLocalizations.of(context)!.regresionLineal: kRutaRegresionLineal,
-      AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia: kRutaDesigualdadDeChebyshevYConvergencia,
-      AppLocalizations.of(context)!.transferenciaDeCalor: kRutaTransferenciaDeCalor,
-      AppLocalizations.of(context)!.capacidadCalorificaYCalorLatente: kRutaCapacidadCalorificaYCalorLatente,
+      AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia:
+          kRutaDesigualdadDeChebyshevYConvergencia,
+      AppLocalizations.of(context)!.transferenciaDeCalor:
+          kRutaTransferenciaDeCalor,
+      AppLocalizations.of(context)!.capacidadCalorificaYCalorLatente:
+          kRutaCapacidadCalorificaYCalorLatente,
       AppLocalizations.of(context)!.leyesDeLosGases: kRutaLeyesDeLosGases,
-      AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica: kRutaCicloDeCarnotYLeyesDeLaTermodinamica,
-      AppLocalizations.of(context)!.trabajoTermodinamico: kRutaTrabajoTermodinamico,
-      AppLocalizations.of(context)!.entalpiaYEnergiaInterna: kRutaEntalpiaYEnergiaInterna,
+      AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica:
+          kRutaCicloDeCarnotYLeyesDeLaTermodinamica,
+      AppLocalizations.of(context)!.trabajoTermodinamico:
+          kRutaTrabajoTermodinamico,
+      AppLocalizations.of(context)!.entalpiaYEnergiaInterna:
+          kRutaEntalpiaYEnergiaInterna,
       AppLocalizations.of(context)!.dilatacionLineal: kRutaDilatacionLineal,
-      AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica: kRutaDilatacionSuperficialYVolumetrica,
-      AppLocalizations.of(context)!.entropiaYTeoriaCinetica: kRutaEntropiaYTeoriaCinetica,
-      AppLocalizations.of(context)!.procesosTermodinamicos: kRutaProcesosTermodinamicos,
+      AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica:
+          kRutaDilatacionSuperficialYVolumetrica,
+      AppLocalizations.of(context)!.entropiaYTeoriaCinetica:
+          kRutaEntropiaYTeoriaCinetica,
+      AppLocalizations.of(context)!.procesosTermodinamicos:
+          kRutaProcesosTermodinamicos,
       AppLocalizations.of(context)!.circuloUnitario: kRutaCirculoUnitario,
-      AppLocalizations.of(context)!.signosDeFuncionesPorCuadrante: kRutaSignosDeFuncionesPorCuadrante,
-      AppLocalizations.of(context)!.angulosNotablesGradosRadianes: kRutaAngulosNotablesGradosRadianes,
-      AppLocalizations.of(context)!.relacionEntreFuncionesTrigonometricas: kRutaRelacionEntreFuncionesTrigonometricas,
-      AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple: kRutaIdentidadesDeAnguloTripleYCuadruple,
-      AppLocalizations.of(context)!.identidadesDeReduccionDePotencias: kRutaIdentidadesDeReduccionDePotencias,
-      AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas: kRutaIdentidadesFundamentalesFormasDerivadas,
-      AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos: kRutaCotangenteDeSumaYRestaDeAngulos,
-      AppLocalizations.of(context)!.productoDeCosenoPorSeno: kRutaProductoDeCosenoPorSeno,
+      AppLocalizations.of(context)!.signosDeFuncionesPorCuadrante:
+          kRutaSignosDeFuncionesPorCuadrante,
+      AppLocalizations.of(context)!.angulosNotablesGradosRadianes:
+          kRutaAngulosNotablesGradosRadianes,
+      AppLocalizations.of(context)!.relacionEntreFuncionesTrigonometricas:
+          kRutaRelacionEntreFuncionesTrigonometricas,
+      AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple:
+          kRutaIdentidadesDeAnguloTripleYCuadruple,
+      AppLocalizations.of(context)!.identidadesDeReduccionDePotencias:
+          kRutaIdentidadesDeReduccionDePotencias,
+      AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas:
+          kRutaIdentidadesFundamentalesFormasDerivadas,
+      AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos:
+          kRutaCotangenteDeSumaYRestaDeAngulos,
+      AppLocalizations.of(context)!.productoDeCosenoPorSeno:
+          kRutaProductoDeCosenoPorSeno,
       // todo cambiar los strings por constantes
       //Electricidad
       AppLocalizations.of(context)!.electricidad: kRutaElectricidad,
@@ -1227,11 +1326,10 @@ class DataSearch extends SearchDelegate {
       return const Center(
         child: Opacity(
           opacity: 0.2,
-          child: FadeInImage(
+          child: Image(
             height: 300.0,
             width: 300.0,
-            placeholder: AssetImage(kUrlImagenGifCarga),
-            image: NetworkImage(kUrlImagenCapdesisTexto),
+            image: AssetImage('assets/images/capdesis_logo.png'),
           ),
         ),
       );

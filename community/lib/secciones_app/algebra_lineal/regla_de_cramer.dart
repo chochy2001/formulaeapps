@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ReglaDeCramer extends StatefulWidget {
+  const ReglaDeCramer({super.key});
   @override
-  _ReglaDeCramerState createState() => _ReglaDeCramerState();
+  State<ReglaDeCramer> createState() => _ReglaDeCramerState();
 }
 
 class _ReglaDeCramerState extends State<ReglaDeCramer> {

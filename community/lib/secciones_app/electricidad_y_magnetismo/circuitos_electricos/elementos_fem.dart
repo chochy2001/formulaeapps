@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ElementosFem extends StatefulWidget {
+  const ElementosFem({super.key});
   @override
   State<ElementosFem> createState() => _ElementosFemState();
 }

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class InductanciaMutuaEntreDosSolenoidesCoaxiales extends StatefulWidget {
+  const InductanciaMutuaEntreDosSolenoidesCoaxiales({super.key});
   @override
   State<InductanciaMutuaEntreDosSolenoidesCoaxiales> createState() =>
       _InductanciaMutuaEntreDosSolenoidesCoaxialesState();

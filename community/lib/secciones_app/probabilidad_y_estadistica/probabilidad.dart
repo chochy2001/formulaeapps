@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Probabilidad extends StatefulWidget {
+  const Probabilidad({super.key});
   @override
-  _ProbabilidadState createState() => _ProbabilidadState();
+  State<Probabilidad> createState() => _ProbabilidadState();
 }
 
 class _ProbabilidadState extends State<Probabilidad> {

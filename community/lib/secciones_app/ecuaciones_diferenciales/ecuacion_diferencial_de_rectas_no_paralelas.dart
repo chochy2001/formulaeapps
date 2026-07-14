@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDiferencialDeRectasNoParalelas extends StatefulWidget {
+  const EcuacionDiferencialDeRectasNoParalelas({super.key});
   @override
-  _EcuacionDiferencialDeRectasNoParalelasState createState() =>
+  State<EcuacionDiferencialDeRectasNoParalelas> createState() =>
       _EcuacionDiferencialDeRectasNoParalelasState();
 }
 

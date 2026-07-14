@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FondoDegradado extends StatelessWidget {
   final ListView child;
 
-  const FondoDegradado({Key? key, required this.child}) : super(key: key);
+  const FondoDegradado({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IntegralEnCoordenadasCilindricas extends StatefulWidget {
+  const IntegralEnCoordenadasCilindricas({super.key});
   @override
-  _IntegralEnCoordenadasCilindricasState createState() =>
+  State<IntegralEnCoordenadasCilindricas> createState() =>
       _IntegralEnCoordenadasCilindricasState();
 }
 

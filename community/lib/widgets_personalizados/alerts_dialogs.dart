@@ -10,9 +10,9 @@ void mostrarEjemplos(BuildContext context) {
       context: context,
       builder: (context) {
         //Nos construye la alerta
-        return AlertEjercicios(
+        return const AlertEjercicios(
           ruta: '/propiedadesDeLosExponentesEjercicios',
-          ejercicioEjemplo: Column(children: const <Widget>[
+          ejercicioEjemplo: Column(children: <Widget>[
             Latex(formulaText: r"\mathsf{Pregunta}"),
             SizedBox(height: kEspacioEntreBotones),
             Latex(formulaText: r"(10\cdot 3)^2=\space ?"),
@@ -58,14 +58,13 @@ void mostrarInfo(BuildContext context, String texto) {
                       ),
                     ),
                   ),
-                  content: Column(
+                  content: const Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      FadeInImage(
+                    children: <Widget>[
+                      ImagenRemotaRobusta(
                         height: 100.0,
                         width: 100.0,
-                        placeholder: AssetImage(kUrlImagenGifCarga),
-                        image: NetworkImage(kUrlImagenFormulae),
+                        urlImagen: kUrlImagenFormulae,
                       ),
                     ],
                   ),

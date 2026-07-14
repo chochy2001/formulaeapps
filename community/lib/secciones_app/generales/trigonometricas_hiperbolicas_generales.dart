@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TrigonometricasHiperbolicasGenerales extends StatefulWidget {
+  const TrigonometricasHiperbolicasGenerales({super.key});
   @override
-  _TrigonometricasHiperbolicasGeneralesState createState() =>
+  State<TrigonometricasHiperbolicasGenerales> createState() =>
       _TrigonometricasHiperbolicasGeneralesState();
 }
 

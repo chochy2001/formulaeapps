@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuDistribuciones extends StatefulWidget {
-  const MenuDistribuciones({Key? key}) : super(key: key);
+  const MenuDistribuciones({super.key});
 
   @override
   MenuDistribucionesState createState() => MenuDistribucionesState();

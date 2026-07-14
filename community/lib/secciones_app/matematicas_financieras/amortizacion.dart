@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Amortizacion extends StatefulWidget {
+  const Amortizacion({super.key});
   @override
-  _AmortizacionState createState() => _AmortizacionState();
+  State<Amortizacion> createState() => _AmortizacionState();
 }
 
 class _AmortizacionState extends State<Amortizacion> {

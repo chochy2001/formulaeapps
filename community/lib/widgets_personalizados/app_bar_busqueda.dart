@@ -6,7 +6,7 @@ import '../../../constantes/export_constantes.dart';
 import '../busqueda/search_delegate.dart';
 
 class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarBusqueda({Key? key}) : super(key: key);
+  const AppBarBusqueda({super.key});
 
   @override
   Widget build(BuildContext context) {

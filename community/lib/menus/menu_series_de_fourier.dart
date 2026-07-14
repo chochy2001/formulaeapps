@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuSeriesDeFourier extends StatefulWidget {
-  const MenuSeriesDeFourier({Key? key}) : super(key: key);
+  const MenuSeriesDeFourier({super.key});
 
   @override
   MenuSeriesDeFourierState createState() => MenuSeriesDeFourierState();

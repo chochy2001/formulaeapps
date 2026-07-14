@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class InductanciaPropia extends StatefulWidget {
+  const InductanciaPropia({super.key});
   @override
   State<InductanciaPropia> createState() => _InductanciaPropiaState();
 }

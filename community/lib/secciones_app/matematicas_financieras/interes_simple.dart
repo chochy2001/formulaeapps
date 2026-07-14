@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class InteresSimple extends StatefulWidget {
+  const InteresSimple({super.key});
   @override
-  _InteresSimpleState createState() => _InteresSimpleState();
+  State<InteresSimple> createState() => _InteresSimpleState();
 }
 
 class _InteresSimpleState extends State<InteresSimple> {

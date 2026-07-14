@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TransformadasBasicasDeFourier extends StatefulWidget {
+  const TransformadasBasicasDeFourier({super.key});
   @override
-  _TransformadasBasicasDeFourierState createState() =>
+  State<TransformadasBasicasDeFourier> createState() =>
       _TransformadasBasicasDeFourierState();
 }
 

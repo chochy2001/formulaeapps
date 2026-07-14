@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PreguntasFrecuentes extends StatefulWidget {
-  const PreguntasFrecuentes({Key? key}) : super(key: key);
+  const PreguntasFrecuentes({super.key});
 
   @override
   PreguntasFrecuentesState createState() => PreguntasFrecuentesState();
@@ -16,6 +16,20 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
   bool descargarImprimirPDF = false;
   bool videosNoCargan = false;
   bool pdfNoCargan = false;
+
+  Widget _faqImage(String urlImagen) {
+    return SizedBox(
+      height: 200.0,
+      width: 300.0,
+      child: InteractiveViewer(
+        child: ImagenRemotaRobusta(
+          urlImagen: urlImagen,
+          height: 300.0,
+          width: double.infinity,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,55 +133,25 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                           AppLocalizations.of(context)!.botonVerPDF,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: const AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(
-                                  getImageUrlById(context, kImagenBotones) ??
-                                      kUrlImagenBotones),
-                            ),
-                          ),
+                        _faqImage(
+                          getImageUrlById(context, kImagenBotones) ??
+                              kUrlImagenBotones,
                         ),
                         Text(
                           AppLocalizations.of(context)!.parteSuperiorCelular,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: const AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(
-                                  getImageUrlById(context, kImagenTresPuntos) ??
-                                      kUrlImagenTresPuntos),
-                            ),
-                          ),
+                        _faqImage(
+                          getImageUrlById(context, kImagenTresPuntos) ??
+                              kUrlImagenTresPuntos,
                         ),
                         Text(
                           AppLocalizations.of(context)!.presionandoOpcionesPDF,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: const AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(getImageUrlById(
-                                      context, kImagenOpcionesPdf) ??
-                                  kUrlImagenOpcionesPdf),
-                            ),
-                          ),
+                        _faqImage(
+                          getImageUrlById(context, kImagenOpcionesPdf) ??
+                              kUrlImagenOpcionesPdf,
                         ),
                       ],
                     ),
@@ -259,18 +243,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                               .asegurarConexionInternet,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion1),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion1),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),
@@ -278,18 +251,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                           AppLocalizations.of(context)!.activarDesactivado,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion2),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion2),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),
@@ -297,35 +259,13 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                           AppLocalizations.of(context)!.esperarCargaVideo,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion3),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion3),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),
                         Text(AppLocalizations.of(context)!.disfrutarVideo,
                             style: kTextoMostrarOcultar),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion4),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion4),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),
@@ -420,18 +360,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                               .asegurarConexionInternet,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion1),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion1),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),
@@ -439,18 +368,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                           AppLocalizations.of(context)!.activarDesactivado,
                           style: kTextoMostrarOcultar,
                         ),
-                        SizedBox(
-                          height: 200.0,
-                          width: 300.0,
-                          child: InteractiveViewer(
-                            child: const FadeInImage(
-                              height: 300.0,
-                              width: double.infinity,
-                              placeholder: AssetImage(kUrlImagenGifCarga),
-                              image: NetworkImage(kUrlImagenConexion2),
-                            ),
-                          ),
-                        ),
+                        _faqImage(kUrlImagenConexion2),
                         const SizedBox(
                           height: kEspacioEntreBotones,
                         ),

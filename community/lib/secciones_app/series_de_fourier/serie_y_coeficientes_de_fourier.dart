@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SerieYCoeficientesDeFourier extends StatefulWidget {
+  const SerieYCoeficientesDeFourier({super.key});
   @override
-  _SerieYCoeficientesDeFourierState createState() =>
+  State<SerieYCoeficientesDeFourier> createState() =>
       _SerieYCoeficientesDeFourierState();
 }
 

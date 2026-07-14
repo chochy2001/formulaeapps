@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../constantes/export_constantes.dart';
 
 class BotonMenu extends StatelessWidget {
-  const BotonMenu({Key? key, required this.onPress, this.color, this.cardChild})
-      : super(key: key);
+  const BotonMenu({
+    super.key,
+    required this.onPress,
+    this.color,
+    this.cardChild,
+  });
 
   final Color? color;
   final Widget? cardChild;
@@ -40,8 +44,11 @@ class BotonesMenu extends StatelessWidget {
   final String ruta;
   final String textoBoton;
 
-  const BotonesMenu({Key? key, required this.ruta, required this.textoBoton})
-      : super(key: key);
+  const BotonesMenu({
+    super.key,
+    required this.ruta,
+    required this.textoBoton,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class OperacionesFraccionesAlgebraicas extends StatefulWidget {
+  const OperacionesFraccionesAlgebraicas({super.key});
   @override
-  _OperacionesFraccionesAlgebraicasState createState() =>
+  State<OperacionesFraccionesAlgebraicas> createState() =>
       _OperacionesFraccionesAlgebraicasState();
 }
 

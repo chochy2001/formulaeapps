@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class OperadorGradiente extends StatefulWidget {
+  const OperadorGradiente({super.key});
   @override
   State<OperadorGradiente> createState() => _OperadorGradienteState();
 }

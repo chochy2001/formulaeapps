@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeBiotSavart extends StatefulWidget {
+  const LeyDeBiotSavart({super.key});
   @override
   State<LeyDeBiotSavart> createState() => _LeyDeBiotSavartState();
 }

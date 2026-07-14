@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AreaDeUnaSuperficieDeRevolucion extends StatefulWidget {
+  const AreaDeUnaSuperficieDeRevolucion({super.key});
   @override
-  _AreaDeUnaSuperficieDeRevolucionState createState() =>
+  State<AreaDeUnaSuperficieDeRevolucion> createState() =>
       _AreaDeUnaSuperficieDeRevolucionState();
 }
 

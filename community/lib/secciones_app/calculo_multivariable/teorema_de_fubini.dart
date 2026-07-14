@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDeFubini extends StatefulWidget {
+  const TeoremaDeFubini({super.key});
   @override
-  _TeoremaDeFubiniState createState() => _TeoremaDeFubiniState();
+  State<TeoremaDeFubini> createState() => _TeoremaDeFubiniState();
 }
 
 class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {

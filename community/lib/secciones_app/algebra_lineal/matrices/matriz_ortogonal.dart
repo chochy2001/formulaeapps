@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizOrtogonal extends StatefulWidget {
+  const MatrizOrtogonal({super.key});
   @override
-  _MatrizOrtogonalState createState() => _MatrizOrtogonalState();
+  State<MatrizOrtogonal> createState() => _MatrizOrtogonalState();
 }
 
 class _MatrizOrtogonalState extends State<MatrizOrtogonal> {

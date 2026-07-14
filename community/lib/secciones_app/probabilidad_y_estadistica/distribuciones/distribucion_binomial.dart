@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistribucionBinomial extends StatefulWidget {
+  const DistribucionBinomial({super.key});
   @override
-  _DistribucionBinomialState createState() => _DistribucionBinomialState();
+  State<DistribucionBinomial> createState() => _DistribucionBinomialState();
 }
 
 class _DistribucionBinomialState extends State<DistribucionBinomial> {

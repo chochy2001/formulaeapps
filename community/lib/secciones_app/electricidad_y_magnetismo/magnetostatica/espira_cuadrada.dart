@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EspiraCuadrada extends StatefulWidget {
+  const EspiraCuadrada({super.key});
   @override
   State<EspiraCuadrada> createState() => _EspiraCuadradaState();
 }

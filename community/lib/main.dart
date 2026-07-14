@@ -45,7 +45,9 @@ void main() async {
   // ENABLE_* + credential dart-defines are supplied (CapGym#79 pattern).
   await bootstrapObservability();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  MobileAds.instance.initialize();
+  if (AdMobConfig.adsEnabled) {
+    MobileAds.instance.initialize();
+  }
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -82,7 +84,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   final FavoritesNotifier favoritesNotifier;
 
-  const MyApp({Key? key, required this.favoritesNotifier}) : super(key: key);
+  const MyApp({super.key, required this.favoritesNotifier});
 
   static MyAppState? _myAppState;
 
@@ -91,11 +93,17 @@ class MyApp extends StatefulWidget {
   }
 
   @override
-  MyAppState createState() => _myAppState = MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
   Key key = UniqueKey();
+
+  @override
+  void initState() {
+    super.initState();
+    MyApp._myAppState = this;
+  }
 
   void restartApp() {
     setState(() {

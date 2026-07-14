@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionesLineales extends StatefulWidget {
+  const EcuacionesLineales({super.key});
   @override
-  _EcuacionesLinealesState createState() => _EcuacionesLinealesState();
+  State<EcuacionesLineales> createState() => _EcuacionesLinealesState();
 }
 
 class _EcuacionesLinealesState extends State<EcuacionesLineales> {

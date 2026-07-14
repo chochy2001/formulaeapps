@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SimetriaDeMediaOnda extends StatefulWidget {
+  const SimetriaDeMediaOnda({super.key});
   @override
-  _SimetriaDeMediaOndaState createState() => _SimetriaDeMediaOndaState();
+  State<SimetriaDeMediaOnda> createState() => _SimetriaDeMediaOndaState();
 }
 
 class _SimetriaDeMediaOndaState extends State<SimetriaDeMediaOnda> {

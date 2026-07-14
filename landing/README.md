@@ -2,7 +2,34 @@
 
 Landing page oficial de [formulaeapps.com](https://formulaeapps.com) — apps **Formulae Pro** y **Formulae Community** publicadas por CAPDESIS.
 
-Reemplaza el sitio actual hecho con Hostinger Website Builder (Zyro) por un proyecto **Astro 5 + Tailwind v4** estático, optimizado para SEO y desplegado por FTP a Hostinger.
+Reemplaza el sitio actual hecho con Hostinger Website Builder (Zyro) por un proyecto **Astro 6 + Tailwind v4** estático, optimizado para SEO y alojado en Hostinger.
+
+## Estado operativo y despliegue
+
+La fuente de verdad para producción es [DEPLOY_CI_WEB.md](../docs/DEPLOY_CI_WEB.md).
+El workflow de GitHub construye artefactos bajo demanda pero no publica: una
+promoción requiere FTPS con certificado y hostname validados, entorno protegido,
+snapshot remoto, smoke con bypass de cache y rollback verificable. No reutilices
+los comandos históricos de FTP, Docker/VPS o Cloudflare de este documento como
+runbook de producción.
+
+Los diagramas de Formulae se entregan exclusivamente desde `public/imagenes/`.
+Cada ruta es canónica y sus píxeles son independientes del idioma; los textos
+explicativos se localizan en Flutter. Para reconstruir y validar el set:
+
+```bash
+bun run recover:formulae-images
+# Exige las 176 rutas canónicas:
+bun run check:formulae-images
+# Despues de la promocion manual controlada:
+bun run check:formulae-images:remote
+```
+
+Estado comprobado el 2026-07-13: `bun run check:formulae-images` pasa para los
+176 assets locales, pero `bun run check:formulae-images:remote` falla 176 de
+176 porque el hosting público aún responde 404. Las reglas locales de alias
+existen, pero no sustituyen una promoción autorizada. No afirmar que los
+diagramas remotos están publicados hasta que el smoke remoto pase.
 
 ---
 
@@ -10,13 +37,13 @@ Reemplaza el sitio actual hecho con Hostinger Website Builder (Zyro) por un proy
 
 | Capa      | Herramienta                                      | Por qué                                               |
 | --------- | ------------------------------------------------ | ----------------------------------------------------- |
-| Framework | Astro 5                                          | Genera HTML estático puro, 0 KB de JS por defecto     |
+| Framework | Astro 6                                          | Genera HTML estático puro, 0 KB de JS por defecto     |
 | Estilos   | Tailwind CSS v4 (Vite plugin)                    | Tokens en CSS, sin `tailwind.config.js`, bundle ~5 KB |
-| i18n      | Built-in de Astro 5                              | Routing nativo `/` (ES) + `/en/`                      |
+| i18n      | Built-in de Astro 6                              | Routing nativo `/` (ES) + `/en/`                      |
 | SEO       | Componentes propios `SEO.astro` y `JsonLd.astro` | Meta + OG + Twitter + JSON-LD `MobileApplication`     |
 | Sitemap   | `@astrojs/sitemap`                               | XML automático con hreflang                           |
 | Tipos     | TypeScript strict                                | Aliases `@/*`, `@components/*`                        |
-| Deploy    | Docker multi-stage → nginx en VPS propio         | Imagen ~50 MB, portátil entre proveedores             |
+| Deploy    | Hostinger, promoción manual controlada           | Requiere los controles de `docs/DEPLOY_CI_WEB.md`     |
 
 ---
 
@@ -24,22 +51,22 @@ Reemplaza el sitio actual hecho con Hostinger Website Builder (Zyro) por un proy
 
 ```bash
 # Instalar dependencias
-npm install
+bun install --frozen-lockfile
 
 # Servidor de desarrollo (puerto 4321)
-npm run dev
+bun run dev
 
 # Type-check sin construir
-npm run check
+bun run check
 
 # Build para producción → dist/
-npm run build
+bun run build
 
 # Previsualizar el build
-npm run preview
+bun run preview
 
 # Generar imágenes OG (1200x630) desde src/assets/og/*.svg
-npm run og
+bun run og
 ```
 
 ---
@@ -92,7 +119,7 @@ formulae-landing/
 │   └── consts.ts                    # SITE, SOCIAL, STORES, FEATURES
 ├── astro.config.mjs                 # Astro + i18n + sitemap + Tailwind
 ├── tsconfig.json                    # strict + paths
-├── Dockerfile                       # Multi-stage: node build → nginx serve
+├── Dockerfile                       # Multi-stage: Bun build → nginx serve
 ├── nginx.conf                       # Clean URLs, gzip, security headers, cache
 ├── .dockerignore                    # Excluye node_modules, dist, .git del build
 └── scripts/generate-og.mjs          # Convierte src/assets/og/*.svg → public/og/*.png
@@ -129,7 +156,7 @@ import shot01 from '@/assets/images/screenshots/screenshot-01.png';
 Generadas a `public/og/{default,pro,community}.png` (1200×630) desde plantillas SVG en `src/assets/og/`. Para regenerarlas:
 
 ```bash
-npm run og
+bun run og
 ```
 
 Edita los `.svg` en cualquier editor vectorial y vuelve a correr el comando.
@@ -153,7 +180,11 @@ Edita los `.svg` en cualquier editor vectorial y vuelve a correr el comando.
 
 ---
 
-## Deploy con Docker en tu VPS
+## Referencia histórica: Docker, VPS y Cloudflare
+
+La siguiente sección se conserva únicamente como contexto de una arquitectura
+anterior. No es un procedimiento autorizado de despliegue ni debe ejecutarse para
+promover Formulae a producción.
 
 ### Construir la imagen localmente (opcional, para verificar)
 
@@ -259,7 +290,7 @@ curl -X POST \
 
 ---
 
-## DNS recomendado en Cloudflare
+## Referencia histórica: DNS de Cloudflare
 
 | Tipo  | Nombre | Destino                                      | Proxy |
 | ----- | ------ | -------------------------------------------- | ----- |
@@ -274,7 +305,7 @@ curl -X POST \
 
 - [x] Descargar capturas de Zyrosite → `src/assets/images/screenshots/`
 - [x] Generar imágenes OG (`public/og/{default,pro,community}.png`)
-- [x] Verificar que `npm run build` pasa (1.1 MB en `dist/`)
+- [x] Verificar que `bun run build` pasa (1.1 MB en `dist/`)
 - [ ] Insertar las capturas reales en `Hero.astro` y donde haga falta (ahora hay un placeholder con gradiente)
 - [ ] Generar `public/favicon.svg`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`
 - [ ] Verificar el número real de WhatsApp (`SOCIAL.whatsapp` actualmente apunta a `https://wa.me/5561869139` extraído del sitio actual — el formato parece incompleto)

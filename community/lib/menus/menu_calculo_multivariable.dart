@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuCalculoMultivariable extends StatefulWidget {
-  const MenuCalculoMultivariable({Key? key}) : super(key: key);
+  const MenuCalculoMultivariable({super.key});
 
   @override
   MenuCalculoMultivariableState createState() =>

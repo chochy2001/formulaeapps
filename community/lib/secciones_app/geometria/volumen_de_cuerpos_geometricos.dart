@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class VolumenDeCuerposGeometricos extends StatefulWidget {
+  const VolumenDeCuerposGeometricos({super.key});
   @override
-  _VolumenDeCuerposGeometricosState createState() =>
+  State<VolumenDeCuerposGeometricos> createState() =>
       _VolumenDeCuerposGeometricosState();
 }
 

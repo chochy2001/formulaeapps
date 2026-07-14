@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyesDeSenosCosenosTangentes extends StatefulWidget {
+  const LeyesDeSenosCosenosTangentes({super.key});
   @override
-  _LeyesDeSenosCosenosTangentesState createState() =>
+  State<LeyesDeSenosCosenosTangentes> createState() =>
       _LeyesDeSenosCosenosTangentesState();
 }
 

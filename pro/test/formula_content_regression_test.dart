@@ -8,6 +8,7 @@ import 'package:formulae/secciones_app/algebra/potencias_n_esimas.dart';
 import 'package:formulae/secciones_app/calculo_diferencial/derivadas_trigonometricas_complementarias.dart';
 import 'package:formulae/secciones_app/calculo_diferencial/limites/limites_importantes.dart';
 import 'package:formulae/secciones_app/calculo_diferencial/razon_cambio_tangente_normal.dart';
+import 'package:formulae/secciones_app/series_de_fourier/transformadas/transformada_de_laplace.dart';
 import 'package:formulae/secciones_app/constantes_matematicas/constantes_fisicas_universales.dart';
 import 'package:formulae/widgets_personalizados/textos_personalizados.dart';
 import 'package:provider/provider.dart';
@@ -96,5 +97,11 @@ void main() {
         r'G = 6.674\,30(15) \times 10^{-11}\ \mathrm{m^{3}\,kg^{-1}\,s^{-2}}',
       ),
     );
+    final laplace = await pumpFormulaScreen(
+      tester,
+      const TransformadaDeLaplace(),
+    );
+    expect(laplace, contains(r'\mathcal{L}\{e^{at}\} = \frac{1}{s-a}'));
+    expect(laplace, contains(r"\mathcal{L}\{f'(t)\} = sF(s) - f(0^-)"));
   });
 }

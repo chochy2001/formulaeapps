@@ -633,9 +633,7 @@ class DerivacionBasicaDiferencialState
                     width: seleccionadoFuncionCompuestaPorUnaFuncionCompuesta
                         ? 260.0
                         : 300.0,
-                    height: seleccionadoFuncionCompuestaPorUnaFuncionCompuesta
-                        ? 100.0
-                        : 100.0,
+                    height: 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [
@@ -718,9 +716,7 @@ class DerivacionBasicaDiferencialState
                     width: seleccionadoCocienteDeFuncionesCompuestas
                         ? 260.0
                         : 300.0,
-                    height: seleccionadoCocienteDeFuncionesCompuestas
-                        ? 100.0
-                        : 100.0,
+                    height: 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [
@@ -804,9 +800,7 @@ class DerivacionBasicaDiferencialState
                     width: seleccionadoProductoDeFuncionesCompuestas
                         ? 260.0
                         : 300.0,
-                    height: seleccionadoProductoDeFuncionesCompuestas
-                        ? 100.0
-                        : 100.0,
+                    height: 120.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [

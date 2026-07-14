@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EfectoJoule extends StatefulWidget {
+  const EfectoJoule({super.key});
   @override
   State<EfectoJoule> createState() => _EfectoJouleState();
 }

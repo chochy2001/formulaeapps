@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EstadisticaInferencial extends StatefulWidget {
+  const EstadisticaInferencial({super.key});
   @override
-  _EstadisticaInferencialState createState() => _EstadisticaInferencialState();
+  State<EstadisticaInferencial> createState() => _EstadisticaInferencialState();
 }
 
 class _EstadisticaInferencialState extends State<EstadisticaInferencial> {

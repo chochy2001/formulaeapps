@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesLimites extends StatefulWidget {
+  const PropiedadesLimites({super.key});
   @override
-  _PropiedadesLimitesState createState() => _PropiedadesLimitesState();
+  State<PropiedadesLimites> createState() => _PropiedadesLimitesState();
 }
 
 class _PropiedadesLimitesState extends State<PropiedadesLimites> {

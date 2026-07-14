@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SuperficieDeUnTrianguloYUnPoligonoEsferico extends StatefulWidget {
+  const SuperficieDeUnTrianguloYUnPoligonoEsferico({super.key});
   @override
-  _SuperficieDeUnTrianguloYUnPoligonoEsfericoState createState() =>
+  State<SuperficieDeUnTrianguloYUnPoligonoEsferico> createState() =>
       _SuperficieDeUnTrianguloYUnPoligonoEsfericoState();
 }
 

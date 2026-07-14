@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MedidasDePosicionParaDatosNoAgrupados extends StatefulWidget {
+  const MedidasDePosicionParaDatosNoAgrupados({super.key});
   @override
-  _MedidasDePosicionParaDatosNoAgrupadosState createState() =>
+  State<MedidasDePosicionParaDatosNoAgrupados> createState() =>
       _MedidasDePosicionParaDatosNoAgrupadosState();
 }
 

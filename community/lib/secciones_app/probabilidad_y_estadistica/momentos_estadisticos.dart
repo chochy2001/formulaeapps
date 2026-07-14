@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MomentosEstadisticos extends StatefulWidget {
+  const MomentosEstadisticos({super.key});
   @override
-  _MomentosEstadisticosState createState() => _MomentosEstadisticosState();
+  State<MomentosEstadisticos> createState() => _MomentosEstadisticosState();
 }
 
 class _MomentosEstadisticosState extends State<MomentosEstadisticos> {

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeGauss extends StatefulWidget {
+  const LeyDeGauss({super.key});
   @override
   State<LeyDeGauss> createState() => _LeyDeGaussState();
 }

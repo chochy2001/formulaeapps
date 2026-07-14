@@ -1,40 +1,45 @@
 # BFF Contracts
 
-This directory holds the **runtime-generated** OpenAPI artifact derived from the BFF's Zod schemas (`bff/src/schemas/*.ts`). It is the canonical contract between the BFF and FE clients.
+Este directorio contiene el artefacto OpenAPI generado en runtime desde los
+schemas Zod de `bff/src/schemas/`. Es el contrato entre el BFF y los clientes
+Flutter.
 
-## DO NOT EDIT
+## No editar a mano
 
-The OpenAPI YAML in this directory is **generated** by `bun run build:openapi` (which calls `bff/scripts/export-openapi.ts`, which calls `@hono/zod-openapi`'s `getOpenAPI31Document()`).
+`bff.openapi.yaml` se produce con:
 
-Hand-edits will:
+```bash
+cd bff && bun run build:openapi
+```
 
-1. Be reverted by the next `bun run build:openapi`.
-2. Trigger `scripts/verify-parity.sh` to fail in CI.
-3. Make the FE Dart types under `pro/lib/generated/bff/` and `community/lib/generated/bff/` drift from the BFF code.
+Los tipos Dart derivados se escriben en:
 
-To change the contract: **edit the Zod schemas** under `bff/src/schemas/` and rerun the generators.
+- `pro/packages/formulaeapps_bff_client/`
+- `community/packages/formulaeapps_bff_client/`
 
-## Files
+Para cambiar el contrato, edita Zod, vuelve a generar y valida el resultado:
 
-| File | Status | Notes |
-|------|--------|-------|
-| `bff.openapi.yaml` | 🤖 GENERATED (US3 will produce this) | Source: `bff/src/schemas/*.ts` via `@hono/zod-openapi` |
-| `README.md` | Hand-written | This file |
+```bash
+bash scripts/generate-bff-types.sh
+bash scripts/verify-parity.sh
+```
 
-The design-time blueprint for `bff.openapi.yaml` (what shape it should have, used to seed the Zod schemas) lives at `specs/002-formulae-fe-be-sync/contracts/bff.openapi.yaml`. Once US6 + US3 land, `~/Code/formulaeapps/contracts/bff.openapi.yaml` becomes the authoritative copy.
+Una edición manual del YAML o de esos paquetes será reemplazada por el
+generador o detectada como drift por `verify-parity.sh`.
 
-## Version policy
+## Versionado
 
-Per [`../specs/002-formulae-fe-be-sync/research.md`](../specs/002-formulae-fe-be-sync/research.md) § R13:
+La versión se define en `bff/src/lib/openapi.ts`.
 
-- **MAJOR** — breaking change (field renamed, response type changed, route removed).
-- **MINOR** — additive (new route, new optional field, new error code).
-- **PATCH** — non-semantic (description, example, examples).
+- MAJOR: cambio incompatible, como retirar una ruta o renombrar un campo.
+- MINOR: adición compatible, como un campo opcional o ruta nueva.
+- PATCH: cambios no semánticos, como descripciones y ejemplos.
 
-The version lives in the Zod source (`bff/src/lib/openapi.ts`); diffs surface in PR review.
+## Estado auditado
 
-## Tooling
-
-- Generate: `cd bff && bun run build:openapi` → writes `../contracts/bff.openapi.yaml`.
-- Generate FE types: `bash scripts/generate-bff-types.sh` → writes Dart types in `pro/` and `community/`.
-- Verify parity: `bash scripts/verify-parity.sh` → exits non-zero on drift.
+El 2026-07-13 se comprobó que el contrato y los paquetes generados no tenían
+drift tras regenerarlos. El scanner de rutas detecta consumidores ejecutables,
+incluida la llamada Pro `iapValidatePost`, y no cuenta comentarios como uso de
+una ruta. Consulta
+[la auditoría funcional](../docs/AUDITORIA_FUNCIONAL_2026-07-13.md) antes de
+atribuir un estado de despliegue a este contrato.
