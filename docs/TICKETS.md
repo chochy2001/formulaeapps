@@ -20,17 +20,17 @@ este tablero refleja ese estado y no lo sustituye.
 
 | Estado | Tickets | Lectura rápida |
 | --- | ---: | --- |
-| `EN_CURSO` | 0 | El candidato local ya incluye las correcciones de seguridad; falta su gate final y publicación controlada. |
-| `PENDIENTE` | 2 | Repetir los gates sobre el candidato integrado y demostrar aislamiento determinista de la suite BFF. |
+| `EN_CURSO` | 0 | No hay trabajo local sin cerrar; el siguiente movimiento es publicar el candidato validado mediante PR. |
+| `PENDIENTE` | 0 | Ninguno. |
 | `BLOQUEADO` | 3 | Hosting, staging/promoción, controles externos y decisión/validadores de entitlement. |
-| `HECHO` | 23 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada y fallback extensible. |
+| `HECHO` | 25 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración y aislamiento BFF. |
 | `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
 
-1. Repetir los gates completos sobre el candidato integrado de `FML-107` y
-   cerrar la demostración de aislamiento de `FML-118` antes de publicar la
-   rama o solicitar un merge.
+1. Publicar el candidato validado mediante una PR contra `main`, comprobar el
+   SHA y el resultado de CI que GitHub reporte, y hacer el merge normal sin
+   saltarse controles.
 2. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
    antes de activar IAP remoto o cuentas; reintentar `FML-101` y `FML-116`
    únicamente cuando exista staging, un SHA exacto y una ruta de rollback
@@ -169,22 +169,25 @@ este tablero refleja ese estado y no lo sustituye.
 
 ### FML-107: Integrar el trabajo sobre el SHA de promoción
 
-- Estado: PENDIENTE
+- Estado: HECHO
 - Prioridad: P1
 - Area: Git e integración
 - Responsable: Codex
-- Proximo paso: Ejecutar los gates completos sobre el candidato ya rebasado,
-  registrar su SHA final y publicar una PR contra `main` sin omitir la revisión
-  de integración.
+- Proximo paso: Publicar `8d839b2` y sus commits ancestrales mediante una PR
+  normal contra `main`; volver a comprobar el SHA remoto inmediatamente antes
+  del merge.
 - Criterio de cierre: El cambio existe sobre el SHA objetivo, sin conflictos y
   con quality gates repetidos desde ese estado.
 - Evidencia: La rama se rebasó de forma controlada sobre
-  `origin/main@c79e866c2ac9f55cd0231abffa69f17d716607fa`; el commit integrado
-  resultante es `5a2a1b6`. El candidato posterior elimina el `client_id` no
-  probado de register/login, elevó el contrato a `2.0.0` y regeneró ambos
-  clientes Dart. Aún no representa un SHA final validado/publicado.
-- Bloqueo: Ninguno de autorización. Faltan el gate completo del candidato
-  final, la comprobación de la PR y el SHA exacto de promoción.
+  `origin/main@c79e866c2ac9f55cd0231abffa69f17d716607fa`; después se creó el
+  candidato de seguridad `8d839b2`. `git fetch origin --prune` confirmó
+  `origin/main` en el mismo SHA y una divergencia `0 4`. `make verify-all`
+  pasó desde ese candidato; incluye contrato/paridad, 172 pruebas BFF (478
+  expectativas), análisis y pruebas Flutter, landing, infraestructura y
+  tickets. `bun run build` del BFF y `gitleaks protect --staged --redact`
+  también pasaron.
+- Bloqueo: Ninguno local. La publicación/merge se ejecuta como paso operativo
+  separado; no implica autorización ni evidencia de producción.
 
 ### FML-108: Validación en emulador y dispositivos móviles
 
@@ -398,23 +401,23 @@ este tablero refleja ese estado y no lo sustituye.
 
 ### FML-118: Integrar y aislar pruebas BFF de la rama entrante
 
-- Estado: PENDIENTE
+- Estado: HECHO
 - Prioridad: P0
 - Area: Git, BFF y pruebas
 - Responsable: Codex
-- Proximo paso: Repetir el suite BFF completo en el candidato integrado y
-  confirmar que los mocks IAP no contaminan archivos; conservar el contrato
-  `2.0.0` y los clientes regenerados como parte del mismo gate.
+- Proximo paso: Mantener esta suite como gate de todo cambio en rutas protegidas,
+  validadores IAP, JWT o contrato generado.
 - Criterio de cierre: El candidato integrado no comparte mocks entre archivos,
   pasa sus pruebas BFF de forma reproducible y no incorpora el vínculo inseguro
   de `FML-117`.
-- Evidencia: `origin/main@c79e866` ya se integró mediante rebase. El candidato
-  elimina el vínculo inseguro de cuentas, añade regresiones de aislamiento de
-  entitlement y genera contrato/clientes `2.0.0`. El antecedente de
-  `mock.module` global y un run remoto de 154 pass/2 fail obliga a repetir la
-  suite completa en este SHA; no se considera cerrado por los tests focales.
-- Bloqueo: No queda bloqueo de autorización ni de seguridad de `FML-117` para
-  ejecutar el gate; falta su evidencia reproducible en el candidato final.
+- Evidencia: Sobre `8d839b2`, `make verify-all` terminó correctamente: BFF
+  `172 pass`, `0 fail`, `478 expect()` en 30 archivos. La ejecución vuelve a
+  generar y verifica el contrato `2.0.0` y ambos clientes Dart, sin cambios
+  fuera del índice. Las regresiones cubren el rechazo de `client_id` público,
+  aislamiento de filas de entitlement por `user_id` y el fallo cerrado de
+  persistencia IAP; el antecedente de contaminación por `mock.module` no se
+  reprodujo.
+- Bloqueo: Ninguno local.
 
 ### FML-119: Resiliencia y contratos seguros de OpenRouter e IAP
 
