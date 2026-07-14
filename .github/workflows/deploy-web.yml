@@ -199,7 +199,8 @@ jobs:
           HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; mirror --reverse --parallel=4 --verbose --exclude '^app/' --exclude '^cgi-bin/' --exclude '^\\.well-known/' --exclude '^\\.user\\.ini\$' --exclude '^error_log\$' ./landing-dist/ ./ ; bye"
 
           echo "Uploading Pro web to public_html/app"
-          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; mkdir -p app; cd app; mirror --reverse --parallel=4 --verbose ./pro-web/ ./ ; bye"
+          # app/ already exists on Hostinger; mkdir fails with 550 under cmd:fail-exit.
+          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; cd app; mirror --reverse --parallel=4 --verbose ./pro-web/ ./ ; bye"
 
           echo "Upload complete."
       - name: Smoke test (landing, app, imagenes, release marker)
