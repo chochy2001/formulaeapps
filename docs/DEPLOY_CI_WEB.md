@@ -24,12 +24,13 @@ and release blockers. At `2026-07-14T02:50:46Z`, the dispatches for code SHA
 `b909676d11e5e789811409c2968541d191c3bb9f` were
 [CI `29302052034`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052034)
 and [Build Web Release Candidate `29302052031`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052031).
-Both remain `queued`: every Formulae-authorized `test-light`, `build-heavy`,
-or `policy-light` runner is offline, while the online laptop runner is
-restricted to a workflow allowlist that excludes these workflows. The older
-`081aa889` dispatches `29301504493` and `29301504487` were cancelled and are
-not current evidence. No candidate artifact was uploaded and no production
-system changed.
+The candidate completed with the exact-SHA guard failing correctly after
+`main` advanced beyond `b909676`; no Pro or landing artifact was built. The
+CI is not green or terminal: its landing unit-test step passed, then its
+landing lint step failed, while other jobs remain in progress, queued or
+cancelled. There is no candidate for the newer documentation-only `main`
+state. The older `081aa889` dispatches `29301504493` and `29301504487` were
+cancelled and are not current evidence. No production system changed.
 
 The FTP job is disabled because the attempted promotion path still lacked an
 authenticated FTPS endpoint, a protected `production` environment, a dedicated
@@ -51,9 +52,13 @@ job receives production FTP credentials.
 
 ## Current build blockers
 
-- Restore a Formulae-authorized online runner for `test-light`, `build-heavy`
-  and `policy-light`; do not bypass the restricted workflow allowlist of a
-  laptop or move secrets to a non-approved group merely to drain the queue.
+- Restore sufficient Formulae-authorized capacity for `test-light`,
+  `build-heavy` and `policy-light`; do not bypass the restricted workflow
+  allowlist of a laptop or move secrets to a non-approved group merely to
+  drain the remaining queue.
+- Diagnose and fix the landing lint failure from CI `29302052034` before a
+  fresh exact-main candidate is dispatched; do not treat its passed unit-test
+  step as a green landing gate.
 - Correct ownership of the `test-light` runner tool cache before relying on
   `actions/setup-node` there; the historical landing job failed with `EACCES`.
 - Provision `FORMULAE_JWT_SHARED_SECRET` through the approved secret store and

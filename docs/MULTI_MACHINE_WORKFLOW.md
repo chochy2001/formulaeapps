@@ -44,11 +44,16 @@ PR a `main`:
 - [archive/stash-20260705-fleet-cleanup-wip](https://github.com/CAPDESIS/formulaeapps/tree/archive/stash-20260705-fleet-cleanup-wip) (`b090015`): WIP amplio de limpieza, CI e infraestructura; requiere revisión selectiva.
 - [archive/stash-20260713-bff-client-codegen](https://github.com/CAPDESIS/formulaeapps/tree/archive/stash-20260713-bff-client-codegen) (`3eb3730`): clientes Dart generados; dos archivos difieren de `main`.
 - [archive/local-history-20260713](https://github.com/CAPDESIS/formulaeapps/tree/archive/local-history-20260713) (`a347805`): ancla de preservación para 47 puntas históricas potencialmente únicas y sus padres; no se fusiona.
+- [archive/local-history-recovery-20260713](https://github.com/CAPDESIS/formulaeapps/tree/archive/local-history-recovery-20260713) (`b812a10`): preserva 58 commits históricos recuperados, incluidos parents de stash; no se fusiona.
+- [archive/local-object-recovery-sanitized-20260713](https://github.com/CAPDESIS/formulaeapps/tree/archive/local-object-recovery-sanitized-20260713) (`28a017c`): árboles y blobs históricos saneados; una credencial detectada fue redactada y se sigue en `FML-129`.
 
 Para retomar una de ellas, se inspecciona su diff y se reconstruye solamente el
 cambio aprobado en una rama nueva basada en el `origin/main` vigente. Las tres
 instantáneas se restauraron en worktrees aislados, pasaron `git diff --check`
 y `gitleaks protect --staged --redact` antes de publicarse.
+Si el escaneo encuentra una credencial, no se publica la rama cruda: se crea
+una copia saneada, se abre un ticket de seguridad y el titular del secreto la
+revoca/rota antes de limpiar o recrear el clon que contenía el objeto.
 
 ## Cierre verificable
 

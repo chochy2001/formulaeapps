@@ -22,18 +22,20 @@ este tablero refleja ese estado y no lo sustituye.
 | --- | ---: | --- |
 | `EN_CURSO` | 0 | Ninguno: el trabajo restante depende de controles y runners externos. |
 | `PENDIENTE` | 0 | Ninguno. |
-| `BLOQUEADO` | 4 | Hosting, staging/promoción, runners/controles externos y decisión/validadores de entitlement. |
+| `BLOQUEADO` | 5 | Rotación de credencial histórica, hosting, staging/promoción, runners/controles externos y decisión/validadores de entitlement. |
 | `HECHO` | 26 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración, aislamiento BFF y sincronización multi-máquina. |
 | `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
 
-1. Resolver `FML-116`: restaurar un runner autorizado de `ci-builds`, repetir
+1. Resolver `FML-129`: revocar/rotar la credencial histórica detectada y
+   limpiar el clon antiguo tras confirmar la sustitución en el gestor de secretos.
+2. Resolver `FML-116`: restaurar un runner autorizado de `ci-builds`, repetir
    CI y el candidato web sobre el SHA exacto de `main`, y registrar resultados
    terminales antes de cerrar `FML-127`.
-2. Resolver `FML-101`: promover las imágenes únicamente mediante la ruta FTPS
+3. Resolver `FML-101`: promover las imágenes únicamente mediante la ruta FTPS
    protegida, con snapshot, smoke y rollback verificables.
-3. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
+4. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
    antes de activar IAP remoto o cuentas. No inventar evidencia de producción
    ni de controles GitHub/VPS.
 
@@ -605,10 +607,12 @@ este tablero refleja ese estado y no lo sustituye.
   `2026-07-14T02:50:46Z`, los dispatches del SHA `b909676` fueron
   [CI `29302052034`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052034)
   y [Build Web Release Candidate `29302052031`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052031);
-  ambos permanecen `queued`, sin resultado terminal ni artefacto. Los runs
-  `29301504493` y `29301504487` de `081aa889` fueron cancelados y ya no son
-  evidencia vigente. Los runners Formulae autorizados están offline y el
-  runner online de laptop no permite estos workflows.
+  el candidato falló correctamente su guardia de SHA al avanzar `main`, sin
+  construir artefactos. La CI no está verde ni terminal: el paso de pruebas
+  unitarias de landing pasó, su lint falló y quedan jobs en progreso, cola o
+  cancelados. Los runs `29301504493` y `29301504487` de `081aa889` fueron
+  cancelados y ya no son evidencia vigente. No hay candidato para el estado
+  más reciente de `main`.
 - Bloqueo: Depende de `FML-116`: un operador debe restaurar capacidad de runner
   autorizada para Formulae. No es seguro redirigir estas cargas a un runner o
   grupo no autorizado ni afirmar CI verde mientras siguen en cola.
@@ -622,26 +626,40 @@ este tablero refleja ese estado y no lo sustituye.
 - Proximo paso: Iniciar cada tarea desde `origin/main` actualizado en una rama
   y worktree propios; publicar el commit antes de cambiar de equipo y revisar
   selectivamente cualquier rama `archive/`.
-- Criterio de cierre: Ningún cambio único queda sólo en disco local o en un
-  stash; los worktrees activos tienen finalidad explícita y el procedimiento
-  reproducible está versionado.
+- Criterio de cierre: Todo cambio publicable queda en una referencia remota o
+  se bloquea explícitamente por seguridad; los worktrees activos tienen
+  finalidad explícita y el procedimiento reproducible está versionado.
 - Evidencia: La conciliación dejó `main` limpio y alineado con `origin/main`,
   `git stash list` vacío y eliminó el worktree limpio
   `agent/formulae-ci-concurrency-recovery-20260714`, cuyo árbol era idéntico
-  a `main`. Las tres instantáneas recientes se restauraron, pasaron
-  `git diff --check` y `gitleaks protect --staged --redact`, y quedaron en
-  GitHub como `archive/stash-20260529-deploy-notes-temp` (`50588e7`),
-  `archive/stash-20260705-fleet-cleanup-wip` (`b090015`) y
-  `archive/stash-20260713-bff-client-codegen` (`3eb3730`). Una auditoría
-  adicional encontró 47 puntas históricas potencialmente únicas:
-  `archive/local-history-20260713` (`a347805`) las ancla junto con sus
-  terceros padres de stash. `gitleaks detect` escaneó 83 commits y no encontró
-  secretos; tras `fetch --prune`, el grafo de archivo tiene cero commits únicos
-  frente a `origin`.
-  Se eliminaron siete ramas locales sin upstream únicamente después de que
-  `git cherry -v origin/main` no encontrara ningún parche `+`; las referencias
-  restantes tienen respaldo remoto. Quedan objetos históricos equivalentes/no
-  referenciados que no se purgan a ciegas porque su contenido ya está
-  respaldado.
+  a `main`. Las instantáneas y grafos publicables están respaldados en
+  `archive/stash-*`, `archive/local-history-20260713` (`a347805`) y
+  `archive/local-history-recovery-20260713` (`b812a10`). Los árboles y blobs
+  sin commit quedaron en
+  `archive/local-object-recovery-sanitized-20260713` (`28a017c`), tras escanear
+  los blobs nuevos con Gitleaks. Una credencial histórica se excluyó y redactó
+  antes de publicar; su rotación y la limpieza del clon se siguen en `FML-129`.
+  Las ramas locales sin upstream se eliminaron sólo tras comprobar que no
+  aportaban un parche `+` frente a `origin/main`.
 - Bloqueo: Ninguno; las ramas `archive/` conservan material pendiente sin
   presentarlo como apto para integración.
+
+### FML-129: Revocar una credencial histórica detectada durante el archivo
+
+- Estado: BLOQUEADO
+- Prioridad: P0
+- Area: Seguridad, secretos y recuperación Git
+- Responsable: Operador de secretos, con apoyo de Codex
+- Proximo paso: Revocar/rotar la credencial de proveedor detectada en una
+  instantánea histórica y actualizar sus consumidores únicamente mediante el
+  gestor de secretos aprobado; después reemplazar o limpiar el clon antiguo.
+- Criterio de cierre: La credencial histórica ya no es válida, ningún entorno
+  depende de ella y el clon local que la contenía se ha eliminado o recreado
+  desde GitHub sin objetos secretos.
+- Evidencia: Gitleaks detectó una clave de OpenAI en cuatro copias locales
+  históricas de `DEPLOY-NOTES-2026-04-30.md`. No se publicó el objeto original.
+  La rama remota `archive/local-object-recovery-sanitized-20260713` (`28a017c`)
+  preserva los árboles no sensibles y sustituye esas cuatro copias por una
+  nota de redacción; el escaneo agregado de blobs saneados no encontró fugas.
+- Bloqueo: Sólo el titular del gestor de secretos/proveedor puede revocar y
+  reemplazar la credencial; no se debe pegar su valor en tickets, Git ni logs.
