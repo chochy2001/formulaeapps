@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: FormulaeApps BFF
-  version: 1.3.0
+  version: 2.0.0
   description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
 servers:
   - url: https://api.formulaeapps.com
@@ -193,14 +193,10 @@ components:
           pattern: ^\d+\.\d+\.\d+
           example: 3.7.2
           description: "Client app version for the session JWT (default: 0.0.0)."
-        client_id:
-          type: string
-          format: uuid
-          example: 550e8400-e29b-41d4-a716-446655440000
-          description: Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
       required:
         - email
         - password
+      additionalProperties: false
     AccountLoginRequest:
       type: object
       properties:
@@ -228,14 +224,10 @@ components:
           pattern: ^\d+\.\d+\.\d+
           example: 3.7.2
           description: "Client app version for the session JWT (default: 0.0.0)."
-        client_id:
-          type: string
-          format: uuid
-          example: 550e8400-e29b-41d4-a716-446655440000
-          description: Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
       required:
         - email
         - password
+      additionalProperties: false
     ChatResponse:
       type: object
       properties:
@@ -458,7 +450,7 @@ paths:
       tags:
         - auth
       summary: Register an email/password account
-      description: Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
+      description: Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). It never accepts an unproved device identifier or adopts a device entitlement. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
       requestBody:
         required: true
         content:
@@ -495,7 +487,7 @@ paths:
       tags:
         - auth
       summary: Login with email/password
-      description: Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md.
+      description: Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default); it does not accept an unproved device identifier. See docs/ACCOUNTS_USER_ID_PLAN.md.
       requestBody:
         required: true
         content:
@@ -594,7 +586,7 @@ paths:
       tags:
         - iap
       summary: Validate an Apple or Google IAP receipt server-side
-      description: Uses the official Apple/Google SDKs with secrets mounted at runtime. Returns a normalized result without leaking the raw provider response.
+      description: Uses the official Apple/Google SDKs with secrets mounted at runtime. A valid response is returned only after its mobile entitlement grant persists, without leaking the raw provider response.
       security:
         - bearerAuth: []
       requestBody:
@@ -656,7 +648,7 @@ paths:
       tags:
         - entitlement
       summary: List mobile entitlements for the current JWT subject
-      description: Returns channel-scoped mobile entitlements persisted after successful POST /iap/validate. Keyed by interim JWT sub until user accounts land. Never returns Polar/web scope from this store.
+      description: Returns channel-scoped mobile entitlements persisted after successful POST /iap/validate. Account JWTs can additionally read rows belonging to their own user_id; register/login never adopts a device row. Never returns Polar/web scope from this store.
       security:
         - bearerAuth: []
       responses:

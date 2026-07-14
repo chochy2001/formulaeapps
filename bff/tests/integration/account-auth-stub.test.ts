@@ -1,11 +1,18 @@
 import { describe, test, expect, beforeAll, afterAll, beforeEach } from 'bun:test';
 import { app } from '../../src/index';
 import { verifyToken } from '../../src/lib/jwt';
+import {
+  grantMobileEntitlement,
+  listEntitlementsForSubject,
+  resetEntitlementsStoreForTests,
+} from '../../src/services/entitlements-store';
+import { hashClientId } from '../../src/services/jwt-issuer';
 import { resetUsersStoreForTests } from '../../src/services/users-store';
 
 describe('POST /auth/register + /auth/login (fleet #86)', () => {
   const prev = process.env['ENABLE_USER_ACCOUNT_AUTH'];
   const prevDb = process.env['ACCOUNTS_DB_PATH'];
+  const prevEntitlementsDb = process.env['ENTITLEMENTS_DB_PATH'];
 
   beforeAll(() => {
     delete process.env['ENABLE_USER_ACCOUNT_AUTH'];
@@ -15,7 +22,9 @@ describe('POST /auth/register + /auth/login (fleet #86)', () => {
 
   beforeEach(() => {
     process.env['ACCOUNTS_DB_PATH'] = ':memory:';
+    process.env['ENTITLEMENTS_DB_PATH'] = ':memory:';
     resetUsersStoreForTests();
+    resetEntitlementsStoreForTests();
   });
 
   afterAll(() => {
@@ -29,7 +38,13 @@ describe('POST /auth/register + /auth/login (fleet #86)', () => {
     } else {
       process.env['ACCOUNTS_DB_PATH'] = prevDb;
     }
+    if (prevEntitlementsDb === undefined) {
+      delete process.env['ENTITLEMENTS_DB_PATH'];
+    } else {
+      process.env['ENTITLEMENTS_DB_PATH'] = prevEntitlementsDb;
+    }
     resetUsersStoreForTests();
+    resetEntitlementsStoreForTests();
   });
 
   test('register returns 403 with E_ACCOUNTS_DISABLED when flag off', async () => {
@@ -156,6 +171,60 @@ describe('POST /auth/register + /auth/login (fleet #86)', () => {
     const body = (await second.json()) as { error: { code?: string } };
     expect(body.error.code).toBe('E_EMAIL_TAKEN');
 
+    delete process.env['ENABLE_USER_ACCOUNT_AUTH'];
+  });
+
+  test('rejects an unproved foreign client_id without adopting its entitlement', async () => {
+    process.env['ENABLE_USER_ACCOUNT_AUTH'] = 'true';
+    const foreignClientId = '11111111-2222-4333-8444-555555555555';
+    const foreignSubject = hashClientId(foreignClientId);
+    grantMobileEntitlement({
+      subject: foreignSubject,
+      payment_source: 'app_store',
+      product_id: 'com.capdesis.formulae.pro_monthly',
+      raw_receipt_ref: 'victim-transaction',
+    });
+
+    const rejectedRegistration = await app.request('/auth/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        email: `attacker-${Date.now()}@example.com`,
+        password: 'correct-horse-battery',
+        client_id: foreignClientId,
+      }),
+    });
+    expect(rejectedRegistration.status).toBe(400);
+    expect(listEntitlementsForSubject(foreignSubject)[0]?.user_id).toBeNull();
+
+    const email = `safe-${Date.now()}@example.com`;
+    const registered = await app.request('/auth/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email, password: 'correct-horse-battery' }),
+    });
+    expect(registered.status).toBe(200);
+    const account = (await registered.json()) as { token: string; user_id: string };
+    const claims = await verifyToken(account.token);
+    expect(claims.sub).toBe(`user:${account.user_id}`);
+
+    const entitlement = await app.request('/entitlement', {
+      headers: { authorization: `Bearer ${account.token}` },
+    });
+    expect(entitlement.status).toBe(200);
+    const body = (await entitlement.json()) as { sources: unknown[] };
+    expect(body.sources).toEqual([]);
+
+    const rejectedLogin = await app.request('/auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        password: 'correct-horse-battery',
+        client_id: foreignClientId,
+      }),
+    });
+    expect(rejectedLogin.status).toBe(400);
     delete process.env['ENABLE_USER_ACCOUNT_AUTH'];
   });
 

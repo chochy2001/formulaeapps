@@ -5,12 +5,10 @@ import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
 import { createAppleIapValidator } from '../services/apple-iap';
 import { createGoogleIapValidator } from '../services/google-iap';
 import { checkIapAvailability } from '../services/iap-availability';
-import {
-  grantMobileEntitlement,
-  paymentSourceFromPlatform,
-} from '../services/entitlements-store';
+import { persistValidatedMobileIap } from '../services/iap-entitlement-persistence';
 import { issueToken, shouldRefresh } from '../lib/jwt';
 import { randomUUID } from 'node:crypto';
+import { BffError } from '../middleware/error';
 
 export const iapValidateRoute = createRoute({
   method: 'post',
@@ -19,7 +17,8 @@ export const iapValidateRoute = createRoute({
   summary: 'Validate an Apple or Google IAP receipt server-side',
   description:
     'Uses the official Apple/Google SDKs with secrets mounted at runtime. ' +
-    'Returns a normalized result without leaking the raw provider response.',
+    'A valid response is returned only after its mobile entitlement grant persists, ' +
+    'without leaking the raw provider response.',
   security: [{ bearerAuth: [] }],
   request: {
     body: {
@@ -79,26 +78,24 @@ export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
 
   const claims = c.get('jwt_claims');
 
-  // WP5 step 1 + #86: persist mobile entitlement on successful IAP validation.
-  // Scope is hardcoded `mobile` — never Polar/web from this path.
-  // FE still gates calls with ENABLE_BFF_IAP_VALIDATION (default off).
-  // user_id is written only when ENABLE_USER_ACCOUNT_AUTH is on (store helper).
-  if (result.valid && claims?.sub) {
-    try {
-      grantMobileEntitlement({
-        subject: claims.sub,
-        payment_source: paymentSourceFromPlatform(body.platform),
-        product_id: result.product_id,
-        raw_receipt_ref: result.transaction_id,
-        user_id: claims.user_id,
-      });
-    } catch (err) {
-      // Persistence must not fail the validate response; FE still has local IAP.
-      // eslint-disable-next-line no-console
-      console.warn(
-        `[entitlements] grant failed for sub=${claims.sub}: ${err instanceof Error ? err.message : String(err)}`,
+  // A provider-confirmed receipt must not return valid=true until the matching
+  // mobile grant is durable. Otherwise a later entitlement check can permit a
+  // duplicate purchase. The helper turns storage failures into a sanitized 500.
+  if (result.valid) {
+    if (!claims?.sub) {
+      throw new BffError(
+        'internal_error',
+        'Validated purchase is missing its authenticated subject.',
+        'E_IAP_MISSING_SUBJECT',
       );
     }
+    persistValidatedMobileIap({
+      subject: claims.sub,
+      user_id: claims.user_id,
+      platform: body.platform,
+      product_id: result.product_id,
+      transaction_id: result.transaction_id,
+    });
   }
 
   // Rotate JWT if close to expiry.

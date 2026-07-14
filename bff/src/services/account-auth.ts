@@ -6,18 +6,16 @@ import type {
   AccountLoginRequest,
   AccountRegisterRequest,
 } from '../schemas/account-auth';
-import { bindEntitlementsUserId } from './entitlements-store';
-import { hashClientId } from './jwt-issuer';
 import { authenticateUser, createUser } from './users-store';
 
 /**
  * Account register/login service (fleet #86).
  * Callers must gate on ENABLE_USER_ACCOUNT_AUTH before invoking.
  *
- * JWT always includes claim `user_id`. When optional `client_id` is sent,
- * `sub` matches the device-session hash from POST /auth/token and prior
- * mobile entitlements are bound to the account. Otherwise `sub` is
- * `user:<uuid>`.
+ * JWT always includes claim `user_id` and uses an account-owned `sub`.
+ * Device subjects are minted only by POST /auth/token, which verifies a
+ * possession proof. Account credentials must not be able to adopt a device
+ * subject or its pre-existing entitlements.
  */
 
 const DEFAULT_PLATFORM: SessionClaims['platform'] = 'web';
@@ -28,21 +26,14 @@ type AccountSessionOpts = {
   userId: string;
   platform?: SessionClaims['platform'];
   app_version?: string;
-  client_id?: string;
 };
 
-function resolveSubject(userId: string, clientId?: string): string {
-  if (clientId && clientId.trim().length > 0) {
-    return hashClientId(clientId.trim());
-  }
+function resolveSubject(userId: string): string {
   return `user:${userId}`;
 }
 
 async function issueAccountToken(opts: AccountSessionOpts): Promise<AccountAuthResponse> {
-  const subject = resolveSubject(opts.userId, opts.client_id);
-  if (opts.client_id?.trim()) {
-    bindEntitlementsUserId(subject, opts.userId);
-  }
+  const subject = resolveSubject(opts.userId);
 
   const { token, exp } = await issueToken({
     sub: subject,
@@ -68,7 +59,6 @@ export async function registerAccount(
       userId: user.id,
       platform: req.platform,
       app_version: req.app_version,
-      client_id: req.client_id,
     });
   } catch (err) {
     if (err instanceof Error && (err.name === 'EmailTakenError' || err.message === 'EMAIL_TAKEN')) {
@@ -87,7 +77,6 @@ export async function loginAccount(req: AccountLoginRequest): Promise<AccountAut
     userId: user.id,
     platform: req.platform,
     app_version: req.app_version,
-    client_id: req.client_id,
   });
 }
 

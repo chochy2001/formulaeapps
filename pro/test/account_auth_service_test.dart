@@ -2,14 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/chat_gpt/account_auth_service.dart';
 import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
-import 'package:formulaeapps_bff_client/src/serializers.dart';
 
 class _RecordingClient extends FormulaeappsBffClient {
   _RecordingClient({
     this.registerResponse,
     this.loginResponse,
-    this.registerStatus = 200,
-    this.loginStatus = 200,
     this.throwDio = false,
   }) : super(
           basePathOverride: 'http://test-bff',
@@ -18,8 +15,6 @@ class _RecordingClient extends FormulaeappsBffClient {
 
   final AccountAuthResponse? registerResponse;
   final AccountAuthResponse? loginResponse;
-  final int registerStatus;
-  final int loginStatus;
   final bool throwDio;
   bool registerCalled = false;
   bool loginCalled = false;
@@ -68,7 +63,7 @@ class _RecordingAuthApi extends AuthApi {
     return Response<AccountAuthResponse>(
       data: _parent.registerResponse,
       requestOptions: RequestOptions(path: '/auth/register'),
-      statusCode: _parent.registerStatus,
+      statusCode: 200,
     );
   }
 
@@ -87,7 +82,7 @@ class _RecordingAuthApi extends AuthApi {
     return Response<AccountAuthResponse>(
       data: _parent.loginResponse,
       requestOptions: RequestOptions(path: '/auth/login'),
-      statusCode: _parent.loginStatus,
+      statusCode: 200,
     );
   }
 }
@@ -99,7 +94,6 @@ void main() {
       final service = AccountAuthService(
         enabled: false,
         clientFactory: () => recording,
-        clientIdProvider: () async => '550e8400-e29b-41d4-a716-446655440000',
       );
 
       expect(await service.register(email: 'a@b.com', password: 'password1'),
@@ -110,7 +104,7 @@ void main() {
       expect(recording.loginCalled, isFalse);
     });
 
-    test('register returns success and binds client_id when enabled', () async {
+    test('register returns success without a device-ownership field', () async {
       final payload = AccountAuthResponse(
         (b) => b
           ..token = 'acct-jwt'
@@ -121,7 +115,6 @@ void main() {
       final service = AccountAuthService(
         enabled: true,
         clientFactory: () => recording,
-        clientIdProvider: () async => '11111111-2222-3333-4444-555555555555',
       );
 
       final result = await service.register(
@@ -130,14 +123,34 @@ void main() {
       );
 
       expect(recording.registerCalled, isTrue);
-      expect(
-        recording.lastRegister?.clientId,
-        '11111111-2222-3333-4444-555555555555',
-      );
+      expect(recording.lastRegister?.email, 'user@example.com');
       expect(result, isA<AccountAuthSuccess>());
       final ok = result as AccountAuthSuccess;
       expect(ok.userId, '550e8400-e29b-41d4-a716-446655440000');
       expect(ok.token, 'acct-jwt');
+    });
+
+    test('login returns success without a device-ownership field', () async {
+      final payload = AccountAuthResponse(
+        (b) => b
+          ..token = 'acct-login-jwt'
+          ..expiresAt = DateTime.utc(2026, 7, 14, 2)
+          ..userId = '550e8400-e29b-41d4-a716-446655440000',
+      );
+      final recording = _RecordingClient(loginResponse: payload);
+      final service = AccountAuthService(
+        enabled: true,
+        clientFactory: () => recording,
+      );
+
+      final result = await service.login(
+        email: 'user@example.com',
+        password: 'correct-horse',
+      );
+
+      expect(recording.loginCalled, isTrue);
+      expect(recording.lastLogin?.email, 'user@example.com');
+      expect(result, isA<AccountAuthSuccess>());
     });
 
     test('login maps Dio 403 to AccountAuthFailure with code', () async {
@@ -145,7 +158,6 @@ void main() {
       final service = AccountAuthService(
         enabled: true,
         clientFactory: () => recording,
-        clientIdProvider: () async => '550e8400-e29b-41d4-a716-446655440000',
       );
 
       final result = await service.register(

@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach } from 'bun:test';
+import { afterEach, describe, test, expect, beforeEach } from 'bun:test';
 import {
   grantMobileEntitlement,
   assertStorePaymentSource,
@@ -43,6 +43,52 @@ describe('entitlement-check (fail-closed)', () => {
     expect(view.scope).toBe('mobile');
     expect(view.sources).toHaveLength(1);
     expect(view.sources[0]?.payment_source).toBe('app_store');
+  });
+});
+
+describe('entitlement-check — account session isolation', () => {
+  const prevAccountFlag = process.env['ENABLE_USER_ACCOUNT_AUTH'];
+
+  beforeEach(() => {
+    process.env['ENTITLEMENTS_DB_PATH'] = ':memory:';
+    process.env['ENABLE_USER_ACCOUNT_AUTH'] = 'true';
+    resetEntitlementsStoreForTests();
+  });
+
+  afterEach(() => {
+    if (prevAccountFlag === undefined) {
+      delete process.env['ENABLE_USER_ACCOUNT_AUTH'];
+    } else {
+      process.env['ENABLE_USER_ACCOUNT_AUTH'] = prevAccountFlag;
+    }
+    resetEntitlementsStoreForTests();
+  });
+
+  test('does not expose a same-subject row linked to another user_id', () => {
+    const currentUserId = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
+    const otherUserId = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
+    const subject = `user:${currentUserId}`;
+
+    grantMobileEntitlement({
+      subject,
+      user_id: otherUserId,
+      payment_source: 'app_store',
+      product_id: 'foreign-account-product',
+      raw_receipt_ref: 'foreign-tx',
+    });
+    grantMobileEntitlement({
+      subject: 'another-device-subject',
+      user_id: currentUserId,
+      payment_source: 'play_store',
+      product_id: 'current-account-product',
+      raw_receipt_ref: 'current-tx',
+    });
+
+    const view = readMobileEntitlement(subject, currentUserId);
+    expect(view.entitled).toBe(true);
+    expect(view.sources.map((source) => source.product_id)).toEqual([
+      'current-account-product',
+    ]);
   });
 });
 

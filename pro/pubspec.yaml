@@ -70,6 +70,9 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Referenced directly by entitlement tests; do not rely on a transitive
+  # dependency from the generated BFF client.
+  built_collection: ^5.1.1
   intl_translation: any
   flutter_lints: ^4.0.0
   msix: ^3.16.1

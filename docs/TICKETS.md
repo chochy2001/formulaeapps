@@ -20,20 +20,21 @@ este tablero refleja ese estado y no lo sustituye.
 
 | Estado | Tickets | Lectura rápida |
 | --- | ---: | --- |
-| `EN_CURSO` | 0 | No queda una corrección local prioritaria en ejecución. |
-| `PENDIENTE` | 2 | Integración sobre el SHA actual y aislamiento de pruebas entrantes. |
-| `BLOQUEADO` | 3 | Hosting, controles externos y decisión/validadores de entitlement. |
+| `EN_CURSO` | 0 | El candidato local ya incluye las correcciones de seguridad; falta su gate final y publicación controlada. |
+| `PENDIENTE` | 2 | Repetir los gates sobre el candidato integrado y demostrar aislamiento determinista de la suite BFF. |
+| `BLOQUEADO` | 3 | Hosting, staging/promoción, controles externos y decisión/validadores de entitlement. |
 | `HECHO` | 23 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada y fallback extensible. |
 | `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
 
-1. Revalidar/integrar sobre el SHA de promoción en `FML-107` y `FML-118` con autorización
-   explícita para crear el commit y resolver la integración.
+1. Repetir los gates completos sobre el candidato integrado de `FML-107` y
+   cerrar la demostración de aislamiento de `FML-118` antes de publicar la
+   rama o solicitar un merge.
 2. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
    antes de activar IAP remoto o cuentas; reintentar `FML-101` y `FML-116`
-   únicamente cuando exista acceso autorizado. No inventar evidencia de
-   producción ni de controles GitHub/VPS.
+   únicamente cuando exista staging, un SHA exacto y una ruta de rollback
+   verificable. No inventar evidencia de producción ni de controles GitHub/VPS.
 
 ## Tickets
 
@@ -79,8 +80,9 @@ este tablero refleja ese estado y no lo sustituye.
   validados localmente. La comprobación de presencia no encontró variables
   FTP/Hostinger ni `.env` local.
 - Bloqueo: `docs/DEPLOY_CI_WEB.md` exige entorno protegido, FTPS validado,
-  snapshot y smoke con rollback; no existen credenciales ni promoción de
-  hosting disponible en este checkout.
+  snapshot y smoke con rollback. La ruta FTPS (host, autenticación, snapshot,
+  publicación atómica y rollback) no se pudo verificar desde este checkout;
+  no existe una promoción de hosting segura que ejecutar aún.
 
 ### FML-102: PDF funcional sin dependencia de PDFs remotos en Community
 
@@ -171,17 +173,18 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P1
 - Area: Git e integración
 - Responsable: Codex
-- Proximo paso: Con autorización explícita para crear el commit, integrar o
-  revalidar contra `origin/main` antes de abrir una promoción.
+- Proximo paso: Ejecutar los gates completos sobre el candidato ya rebasado,
+  registrar su SHA final y publicar una PR contra `main` sin omitir la revisión
+  de integración.
 - Criterio de cierre: El cambio existe sobre el SHA objetivo, sin conflictos y
   con quality gates repetidos desde ese estado.
-- Evidencia: Tras `git fetch origin` el 2026-07-13,
-  `HEAD=73773595bf100c5a54aeddb7b9545d96a5a9ca20`,
-  `origin/main=c79e866c2ac9f55cd0231abffa69f17d716607fa` y
-  `HEAD...origin/main` indicó `2 15`; el árbol tiene cambios locales sin commit.
-  La medición se debe refrescar antes de integrar.
-- Bloqueo: No hay autorización para crear commit, rebase ni merge; hacerlo con
-  un árbol local pendiente mezclaría cambios sin una revisión de integración.
+- Evidencia: La rama se rebasó de forma controlada sobre
+  `origin/main@c79e866c2ac9f55cd0231abffa69f17d716607fa`; el commit integrado
+  resultante es `5a2a1b6`. El candidato posterior elimina el `client_id` no
+  probado de register/login, elevó el contrato a `2.0.0` y regeneró ambos
+  clientes Dart. Aún no representa un SHA final validado/publicado.
+- Bloqueo: Ninguno de autorización. Faltan el gate completo del candidato
+  final, la comprobación de la PR y el SHA exacto de promoción.
 
 ### FML-108: Validación en emulador y dispositivos móviles
 
@@ -331,8 +334,11 @@ este tablero refleja ese estado y no lo sustituye.
   un proveedor real y dev conserva solamente el stub explícito de pruebas.
 - Evidencia: `iap-availability.ts` devuelve `*_not_configured` o
   `*_validator_not_ready` fuera de desarrollo; `/iap/validate` responde
-  `503 E_IAP_VALIDATION_UNAVAILABLE` sin campo `valid`. Typecheck pasó y la
-  suite BFF alcanzó 138/138 al integrar las regresiones.
+  `503 E_IAP_VALIDATION_UNAVAILABLE` sin campo `valid`. Además,
+  `iap-entitlement-persistence.ts` persiste el grant móvil antes de permitir
+  `valid=true`; ausencia de sujeto devuelve `E_IAP_MISSING_SUBJECT` y un fallo
+  de almacenamiento se convierte en `E_ENTITLEMENT_PERSISTENCE`, no en un
+  éxito falso. `iap-entitlement-persistence.test.ts` cubre ambos fallos.
 - Bloqueo: Los validadores Apple/Google y compras sandbox siguen en `FML-117`;
   el aislamiento de pruebas que vive en `origin/main` se sigue en `FML-118`.
 
@@ -342,25 +348,28 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P0
 - Area: GitHub, VPS y despliegue
 - Responsable: Operador de infraestructura, con apoyo de Codex
-- Proximo paso: Configurar required checks y permisos mínimos en `main`,
-  provisionar secretos/volumen persistente BFF y validar el candidate exacto
-  en el VPS antes de promocionarlo.
+- Proximo paso: Reparar el runner de landing, provisionar staging para el SHA
+  exacto, required checks/permisos mínimos y un entorno de producción protegido;
+  después verificar FTPS con snapshot/rollback y el volumen BFF con
+  backup/restore en el VPS antes de promocionar.
 - Criterio de cierre: `main` no acepta cambios con preflight rojo, el BFF posee
   almacenamiento persistente escribible y la promoción usa secretos y entorno
   protegidos sin incorporarlos al repositorio.
 - Evidencia: GitHub permitió merges con `JWT light preflight` rojo porque no hay
   required checks ni revisión obligatoria. Los rulesets activos sólo cubren
-  borrado/non-fast-forward; el token por defecto de Actions conserva `write` y
-  puede aprobar revisiones, no existe entorno `production` protegido y secret
-  scanning, push protection y Dependabot están desactivados. `FML-121` ya
-  declara volumen/ruta localmente, pero falta verificar su uso real, backup y
-  permisos en el VPS; las 176 imágenes también siguen 404 en el hosting público.
-  Al cierre, `api.formulaeapps.com` respondió health 200 pero sigue exponiendo
-  contrato OpenAPI 1.0.0 con sólo cuatro rutas, no el contrato más reciente del
-  checkout.
-- Bloqueo: Requiere autoridad/configuración de GitHub, secretos y acceso al VPS
-  o hosting. No se deben inventar archivos `.env`, credenciales ni cambiar
-  controles remotos sin autorización explícita.
+  borrado/non-fast-forward; no existe entorno `production` protegido y el único
+  entorno observado fue `copilot`. El último intento de workflow de landing no
+  llegó a una promoción: falló al preparar Node en el runner con `EACCES` bajo
+  su toolcache. No hay staging que pueda atestiguar un SHA candidato ni rollback
+  probado. En el VPS, `/opt/infrastructure/formulaeapps` no es un checkout Git
+  trazable y el contenedor BFF observado tiene `LocalVolumes=0`; por tanto no
+  existe evidencia de volumen, recreate, backup o restore. La ruta FTPS web
+  tampoco tiene host/certificado, snapshot, publicación atómica, marker ni
+  rollback verificables. Las 176 imágenes siguen 404 en el hosting público.
+- Bloqueo: Producción queda bloqueada hasta que operador aporte staging, SHA
+  verde, entorno/secretos protegidos y una ruta FTPS/VPS comprobable con
+  snapshot, smoke y rollback. No se deben inventar archivos `.env`, credenciales
+  ni cambiar controles remotos sin la configuración autorizada.
 
 ### FML-117: Autoridad de entitlement y vínculo cuenta-dispositivo
 
@@ -369,15 +378,20 @@ este tablero refleja ese estado y no lo sustituye.
 - Area: Producto, BFF y compras
 - Responsable: Producto e infraestructura, con apoyo de Codex
 - Proximo paso: Elegir la autoridad de entitlement para online/offline,
-  timeout, `503` y restauraciones; después implementar validadores sandbox,
-  persistencia y prueba de posesión antes de activar cuentas o validación BFF.
+  timeout, `503` y restauraciones; después implementar validadores sandbox y,
+  si producto requiere migrar un dispositivo existente a una cuenta, una
+  vinculación basada en sesión verificada o pairing de un solo uso.
 - Criterio de cierre: Las compras sólo se conceden según una política aprobada,
   validadores reales, persistencia durable y una cuenta/dispositivo que pruebe
   posesión, sin poder reclamar `client_id` ajeno.
 - Evidencia: Pro actualmente concede por StoreKit/Billing local y la llamada BFF
-  es opt-in/telemetría. El código entrante de `origin/main` vincula entitlements
-  a un `client_id` UUID sin `client_proof`; forzar BFF ahora bloquearía compras
-  legítimas porque sus validadores deliberadamente no están listos.
+  es opt-in/telemetría. El candidato actual corrige el riesgo anterior:
+  register/login usan esquemas estrictos que rechazan `client_id`, emiten
+  `sub=user:<user_id>` y no adoptan grants de dispositivo; el helper de binding
+  fue eliminado. `readMobileEntitlement` filtra una fila de sujeto vinculada a
+  otro `user_id`; regresiones demuestran que un `client_id` ajeno no expone ni
+  vincula su entitlement. El contrato generado es `2.0.0`. Estas correcciones
+  no equivalen a una decisión de autoridad ni a validadores Apple/Google listos.
 - Bloqueo: Requiere decisión de producto, credenciales/sandbox Apple y Google,
   y diseño de identidad/persistencia. No es seguro escoger la política ni
   activar una compra remota por inferencia.
@@ -388,18 +402,19 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P0
 - Area: Git, BFF y pruebas
 - Responsable: Codex
-- Proximo paso: Con autorización para integrar el SHA objetivo, reproducir y
-  aislar los mocks globales de IAP que aparecen en los tests de entitlements de
-  `origin/main`, luego repetir el suite completo y el contrato generado.
+- Proximo paso: Repetir el suite BFF completo en el candidato integrado y
+  confirmar que los mocks IAP no contaminan archivos; conservar el contrato
+  `2.0.0` y los clientes regenerados como parte del mismo gate.
 - Criterio de cierre: El candidato integrado no comparte mocks entre archivos,
   pasa sus pruebas BFF de forma reproducible y no incorpora el vínculo inseguro
   de `FML-117`.
-- Evidencia: `origin/main@c79e866` contiene tests de entitlements que usan
-  `mock.module` global y un run remoto terminó 154 pass/2 fail; el checkout
-  actual está 15 commits detrás y no contiene todavía ese lote para corregirlo
-  sin una integración controlada.
-- Bloqueo: La integración requiere autorización de commit/rebase/merge y debe
-  resolver primero la seguridad de cuentas de `FML-117`.
+- Evidencia: `origin/main@c79e866` ya se integró mediante rebase. El candidato
+  elimina el vínculo inseguro de cuentas, añade regresiones de aislamiento de
+  entitlement y genera contrato/clientes `2.0.0`. El antecedente de
+  `mock.module` global y un run remoto de 154 pass/2 fail obliga a repetir la
+  suite completa en este SHA; no se considera cerrado por los tests focales.
+- Bloqueo: No queda bloqueo de autorización ni de seguridad de `FML-117` para
+  ejecutar el gate; falta su evidencia reproducible en el candidato final.
 
 ### FML-119: Resiliencia y contratos seguros de OpenRouter e IAP
 
@@ -456,7 +471,9 @@ este tablero refleja ese estado y no lo sustituye.
   determinista; su lint y el preflight CORS contra un BFF nativo temporal en
   `localhost:3001` pasaron.
 - Bloqueo: La prueba real de volumen, permisos y backup sigue siendo parte de
-  la promoción externa `FML-116`; no hay daemon Docker ni VPS autorizado.
+  la promoción externa `FML-116`. La inspección del VPS observó
+  `LocalVolumes=0` en el BFF y un directorio de stack sin checkout Git trazable;
+  por tanto la topología local no prueba persistencia productiva.
 
 ### FML-122: Remediar advisory transitivo de BFF
 

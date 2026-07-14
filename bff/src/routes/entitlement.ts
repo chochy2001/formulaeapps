@@ -12,8 +12,9 @@ export const entitlementGetRoute = createRoute({
   summary: 'List mobile entitlements for the current JWT subject',
   description:
     'Returns channel-scoped mobile entitlements persisted after successful ' +
-    'POST /iap/validate. Keyed by interim JWT sub until user accounts land. ' +
-    'Never returns Polar/web scope from this store.',
+    'POST /iap/validate. Account JWTs can additionally read rows belonging to ' +
+    'their own user_id; register/login never adopts a device row. Never returns ' +
+    'Polar/web scope from this store.',
   security: [{ bearerAuth: [] }],
   responses: {
     200: {

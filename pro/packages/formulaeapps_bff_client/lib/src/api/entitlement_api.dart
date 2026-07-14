@@ -20,7 +20,7 @@ class EntitlementApi {
   const EntitlementApi(this._dio, this._serializers);
 
   /// List mobile entitlements for the current JWT subject
-  /// Returns channel-scoped mobile entitlements persisted after successful POST /iap/validate. Keyed by interim JWT sub until user accounts land. Never returns Polar/web scope from this store.
+  /// Returns channel-scoped mobile entitlements persisted after successful POST /iap/validate. Account JWTs can additionally read rows belonging to their own user_id; register/login never adopts a device row. Never returns Polar/web scope from this store.
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation

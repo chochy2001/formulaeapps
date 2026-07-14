@@ -50,8 +50,9 @@ class AuthService {
     _cachedExpiresAt = null;
   }
 
-  /// Stable per-install client UUID (SharedPreferences). Used when binding
-  /// device entitlements to an account via optional `client_id` on register/login.
+  /// Stable per-install client UUID (SharedPreferences) for the possession
+  /// proof required by the device-session `/auth/token` flow. Account
+  /// register/login deliberately do not accept or bind this identifier.
   static Future<String> stableClientId() => _stableClientId();
 
   /// Adopts a rotated token surfaced by the BFF in the `X-Auth-Refresh`
@@ -165,10 +166,14 @@ class AuthService {
     final parts = token.split('.');
     if (parts.length != 3) return null;
     try {
-      final padded = parts[1].padRight(parts[1].length + (4 - parts[1].length % 4) % 4, '=');
-      final payload = jsonDecode(utf8.decode(base64Url.decode(padded))) as Map<String, dynamic>;
+      final padded = parts[1]
+          .padRight(parts[1].length + (4 - parts[1].length % 4) % 4, '=');
+      final payload = jsonDecode(utf8.decode(base64Url.decode(padded)))
+          as Map<String, dynamic>;
       final exp = payload['exp'];
-      if (exp is int) return DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);
+      if (exp is int) {
+        return DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);
+      }
       return null;
     } catch (_) {
       return null;

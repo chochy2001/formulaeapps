@@ -2,11 +2,13 @@
 
 Este documento es el estado verificable de la revisión integral realizada en
 la rama `agent/formulae-image-regeneration-20260713`, iniciada sobre la base
-local `be796b1`. Sustituye las afirmaciones no fechadas de "producción lista"
-en la documentación histórica. No autoriza despliegues, publicaciones en
-tiendas, promociones de hosting ni merges a `main` sin revalidar el SHA exacto.
-Durante la revisión `origin/main` avanzó a `c79e866`, por lo que sus cambios no
-se confunden con la evidencia del checkout inicial.
+local `be796b1` y actualizada tras un rebase controlado sobre
+`origin/main@c79e866`. Sustituye las afirmaciones no fechadas de "producción
+lista" en la documentación histórica. La integración produjo `5a2a1b6`; las
+correcciones de seguridad posteriores siguen siendo un candidato local que
+requiere gates finales. Nada de este documento autoriza despliegues,
+publicaciones en tiendas, promociones de hosting ni merges a `main` sin
+revalidar el SHA exacto.
 
 ## Alcance revisado
 
@@ -31,17 +33,22 @@ se confunden con la evidencia del checkout inicial.
 | PDF Pro | El flujo de Pro genera bytes localmente desde la pantalla, muestra vista previa web nativa y visor móvil. Los 378 IDs de botones PDF se resuelven en `widgetTable`. Favoritos y la exportación de tareas usan el mismo exportador multiplataforma; Tareas usa `pw.MultiPage` para no truncar listas largas y su regresión cubre 180 tareas en 320, 600, 900 y 1440 px. En Linux guarda el PDF en Descargas o Documentos, sin invocar el share sheet no implementado. |
 | PDF Community | `Ver PDF` y `Descargar/Imprimir/Compartir PDF` generan una ficha de estudio local con `pdf`, validan su firma `%PDF-`, la muestran con `SfPdfViewer.memory` y la exportan mediante adaptadores condicionales de plataforma. No hacen fetch de la URL heredada. La ficha declara que es local y remite a la lección; no se presenta como el PDF histórico recuperado. |
 | Ejecución móvil y AdMob | El Debug del simulador iOS expande el ID oficial de prueba, instala y arranca sin `GADInvalidInitializationException`. Android Debug generó el APK, lo instaló y sobrevivió a un reinicio cálido en API 36.1 sin crash; su manifest fusionado contiene el ID oficial de prueba. Guardias de Xcode y Gradle rechazan Release sin un ID de aplicación real no-test; los IDs de release no están en el checkout. Las capturas de Home muestran un placeholder de imagen, consistente con el bloqueo externo de 176 URLs públicas 404. |
-| BFF | El checkout actual pasó `bun run typecheck`, `bun run check:persistence-config` y `bun test` con 138 pruebas. OpenRouter normaliza errores y timeout, IAP falla cerrado fuera de desarrollo y limita solicitudes; aun así, los validadores reales y la autoridad de entitlement no están listos para producción. |
-| Rutas BFF | `bash scripts/route-coverage.sh` pasa: `/auth/token`, `/openai/chat` y `/iap/validate` tienen consumidores reales; no hay rutas huérfanas ni llamadas muertas. |
+| BFF | El baseline previo pasó `bun run typecheck`, `bun run check:persistence-config` y `bun test` con 138 pruebas. El candidato integrado eleva el contrato a `2.0.0`: register/login rechazan `client_id` público, emiten `sub=user:<user_id>` y el lector de entitlement excluye filas de sujeto ligadas a otro usuario. La antigua ayuda de vínculo dispositivo→cuenta se eliminó; sólo un grant IAP validado puede escribir `user_id` con JWT de cuenta y la flag activa. Además, una validación IAP no devuelve éxito hasta persistir su grant; los errores son `E_IAP_MISSING_SUBJECT` o `E_ENTITLEMENT_PERSISTENCE`. Los validadores reales y la autoridad de entitlement no están listos para producción; el suite completo del candidato final debe volver a ejecutarse antes de promoverlo. |
+| Rutas BFF | Tras el rebase, `bash scripts/route-coverage.sh` pasó con consumidores para `/auth/token`, `/auth/register`, `/auth/login`, `/openai/chat`, `/iap/validate` y `/entitlement`; no hay rutas huérfanas ni llamadas muertas. Se repite como parte del gate del SHA final. |
 
 ## Validaciones ejecutadas
 
-Los comandos siguientes se ejecutaron durante esta auditoría, salvo cuando se
-indica que dependen de un operador o de infraestructura externa.
+Los comandos siguientes se ejecutaron durante la auditoría base, salvo cuando
+se indica que dependen de un operador o de infraestructura externa. Tras los
+cambios de seguridad de cuenta/IAP se generó el contrato `2.0.0` y sus clientes;
+los resultados base no sustituyen el gate completo pendiente del SHA candidato
+final.
 
 ```bash
 cd bff && bun install --frozen-lockfile && bun run typecheck && bun test
-cd .. && bash scripts/route-coverage.sh
+bun run build:openapi
+cd .. && bash scripts/generate-bff-types.sh
+bash scripts/route-coverage.sh
 
 cd landing
 bun run lint
@@ -88,6 +95,10 @@ gate estricto. El simulador iOS compiló, instaló y lanzó Home sin el crash de
 AdMob; Android Debug compiló, se instaló y abrió Home en el AVD API 36.1. Una
 compilación Release sin configuración de AdMob falla deliberadamente con la
 guardia de configuración.
+La corrección posterior de cuentas/IAP cuenta con regresiones focales de rechazo
+de `client_id`, aislamiento por `user_id` y fallo de persistencia IAP; no se
+debe reutilizar el conteo 138 como evidencia del candidato posterior hasta que
+su suite completa finalice.
 
 ## Bloqueos externos vigentes
 
@@ -111,14 +122,17 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
    aplica automáticamente en un despliegue y expone BFF sólo en loopback. Con
    un BFF nativo temporal en
    `localhost:3001`, `bash scripts/infra-validate.sh --local` pasó el lint y el
-   preflight CORS. Falta únicamente la evidencia de contenedor, volumen y backup
-   en un daemon Docker/VPS autorizado; los secretos no se agregan al repo.
-4. Tras `git fetch origin` durante la revisión, `origin/main` avanzó a
-   `c79e866`. El checkout auditado quedó detrás de esos cambios y con trabajo
-   local sin commit; no se hizo merge ni rebase. Revalidar sobre el SHA de
-   promoción antes de liberar, especialmente porque la comprobación final del
-   servidor público devolvió health 200 pero OpenAPI 1.0.0 con sólo cuatro rutas,
-   mientras `main` contiene un contrato más reciente.
+   preflight CORS. La inspección remota posterior observó que
+   `/opt/infrastructure/formulaeapps` no es un checkout Git trazable y que el
+   contenedor BFF tiene `LocalVolumes=0`; por ello siguen faltando la evidencia
+   de contenedor, volumen, recreate, backup y restore en el VPS autorizado. Los
+   secretos no se agregan al repo.
+4. La rama ya se rebasó sobre `origin/main@c79e866`, pero no hay un SHA exacto
+   desplegado en staging que permita validar el candidato. El workflow de web
+   actualmente construye artefactos y no ejecuta una promoción productiva; su
+   intento de landing falló al preparar Node con `EACCES` en el toolcache del
+   runner. El servidor público sigue exponiendo OpenAPI 1.0.0 con sólo cuatro
+   rutas, no el contrato `2.0.0` del candidato local.
 5. Android e iOS ya se ejecutaron en emuladores. El iPhone físico sigue
    requiriendo desbloqueo y Developer Mode si se necesita esa evidencia extra.
    La medición reproducible de primera UI interactiva en el AVD Android de 1
@@ -129,12 +143,16 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
    Release se rechaza intencionalmente si faltan.
 6. IAP no está listo para producción: sin credenciales de Apple/Google el
    snapshot inicial podía anunciar disponibilidad y devolver una respuesta de
-   stub. La corrección local está en `FML-115`; las compras sandbox, secretos y
-   validadores reales requieren configuración autorizada fuera de Git.
+   stub. El candidato ya evita responder éxito si no persiste el grant, pero
+   compras sandbox, secretos, validadores reales y una política de autoridad
+   siguen requiriendo configuración autorizada fuera de Git.
 7. Los rulesets actuales de GitHub no exigen checks verdes para `main`; se
-   observaron merges con `JWT light preflight` fallido. Requerir checks, review,
-   permisos mínimos y un entorno de producción es trabajo de administración
-   externa registrado en `FML-116`.
+   observaron merges con `JWT light preflight` fallido. No hay entorno
+   `production` protegido ni staging de Formulae que atestigüe un SHA. Además,
+   la ruta de publicación web FTPS no tiene hostname/certificado, snapshot,
+   carga atómica, marker, smoke de caché ni rollback verificables. Requerir
+   checks, review, permisos mínimos, entornos y rollback es administración
+   externa registrada en `FML-116`.
 
 ## Decisiones de producto pendientes
 
@@ -154,22 +172,26 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
 
 ## Checklist para una promoción autorizada
 
-1. Construir la landing con el lockfile y promover el directorio `dist/` más
-   `public/imagenes/` mediante el procedimiento FTPS protegido.
-2. Confirmar HTTP 200, MIME y decodificación con
+1. Reparar el runner de landing y obtener CI verde para el SHA exacto; desplegar
+   primero ese mismo SHA a staging y registrar smoke y rollback.
+2. Con un endpoint FTPS autorizado y verificable, tomar un snapshot, promover
+   atómicamente `dist/` más `public/imagenes/`, dejar marker de release y probar
+   rollback antes de tocar producción.
+3. Confirmar HTTP 200, MIME y decodificación con
    `cd landing && bun run check:formulae-images:remote`.
-3. Si producto requiere los documentos históricos exactos, restaurarlos desde
+4. Si producto requiere los documentos históricos exactos, restaurarlos desde
    una fuente aprobada y publicar un manifiesto verificable. La funcionalidad
    actual de ver/exportar la ficha local no depende de ese paso.
-4. Con un daemon Docker autorizado, repetir la validación usando el contenedor
-   BFF y verificar recreate, permisos y backup del volumen sin agregar secretos
-   al repositorio.
-5. Inyectar por CI los IDs AdMob reales no-test aprobados para una publicación
+5. Con un daemon Docker/VPS autorizado, repetir la validación usando el
+   contenedor BFF y verificar volumen escribible, recreate, backup y restore;
+   comprobar que el stack desplegado corresponde al SHA candidato sin agregar
+   secretos al repositorio.
+6. Inyectar por CI los IDs AdMob reales no-test aprobados para una publicación
    con anuncios y validar Android/dispositivo físico; no usar los IDs de prueba
    de Debug/Profile en Release.
-6. Ejecutar los quality gates del SHA exacto que se vaya a promover y confirmar
-   que GitHub exige resultados verdes. No basar un release en este informe si
-   el SHA ya cambió.
+7. Ejecutar los quality gates del SHA exacto que se vaya a promover y confirmar
+   que GitHub exige resultados verdes, revisión y entorno protegido. No basar
+   un release en este informe si el SHA ya cambió.
 
 ## Documentación relacionada
 
