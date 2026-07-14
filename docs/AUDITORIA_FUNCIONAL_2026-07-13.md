@@ -9,9 +9,13 @@ lista" en la documentación histórica. La PR
 de seguridad y el aislamiento BFF en `main` como `4bc1c6a`; su preflight
 `29300786169` fue verde. La PR
 [#83](https://github.com/CAPDESIS/formulaeapps/pull/83) alineó la concurrencia
-Flutter y dejó el candidato de código en `081aa889`. Al verificar el estado remoto el
-2026-07-14, la CI `29301504493` y el candidato web `29301504487` de ese SHA
-siguen en cola por runners elegibles offline. Nada de este documento autoriza
+Flutter y dejó el candidato de código en `081aa889`. La PR
+[#84](https://github.com/CAPDESIS/formulaeapps/pull/84) registró la integración
+y los bloqueos de release. La actualización operacional de
+`2026-07-14T02:50:46Z` despachó la CI `29302052034` y el candidato web
+`29302052031` para `b909676`; ambos siguen `queued` por runners elegibles
+offline. Los runs anteriores `29301504493` y `29301504487` fueron cancelados.
+Nada de este documento autoriza
 despliegues, publicaciones en tiendas, promociones de hosting ni cambios de
 flags sin revalidar el SHA remoto exacto.
 
@@ -54,8 +58,9 @@ bun run build`, `gitleaks protect --staged --redact`, 10 repeticiones
 aleatorizadas de los flujos IAP (130/130) y una revisión visual del build web
 de Pro en 320, 768 y escritorio, sin errores/advertencias de consola. El
 preflight de #79 fue verde antes del merge; #83 incorporó la concurrencia
-serial. La repetición remota exacta de `081aa889` aún no es terminal: sus
-runners requeridos están offline. Esto es evidencia local e integrada, no de
+serial. La repetición remota del SHA `b909676` aún no es terminal: sus
+runners Formulae autorizados están offline y el runner online de laptop no
+admite estos workflows. Esto es evidencia local e integrada, no de
 CI exacta verde, staging ni producción.
 
 ```bash
@@ -143,13 +148,15 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
    de contenedor, volumen, recreate, backup y restore en el VPS autorizado. Los
    secretos no se agregan al repo.
 4. La PR #79 ya integró el código en `main` y #83 dejó el candidato de código
-   `081aa889`, pero no hay un SHA exacto desplegado en staging que permita
-   validarlo. El workflow web construye artefactos y no ejecuta una promoción
-   productiva. Sus runs exactos actuales (`29301504493` y `29301504487`) están
-   en cola porque los runners elegibles de `ci-builds` están offline; el fallo
-   histórico de landing al preparar Node con `EACCES` tampoco está resuelto. El
-   servidor público sigue exponiendo OpenAPI 1.0.0 con sólo cuatro rutas, no el
-   contrato `2.0.0` del candidato local.
+   `081aa889`; #84 documentó el estado en `b909676`, pero no hay un SHA exacto
+   desplegado en staging que permita validarlo. El workflow web construye
+   artefactos y no ejecuta una promoción productiva. Sus dispatches vigentes
+   (`29302052034` y `29302052031`) siguen `queued` porque los runners elegibles
+   de `ci-builds` están offline y el runner de laptop está restringido por
+   allowlist; los IDs `29301504493` y `29301504487` ya fueron cancelados. El
+   fallo histórico de landing al preparar Node con `EACCES` tampoco está
+   resuelto. El servidor público sigue exponiendo OpenAPI 1.0.0 con sólo cuatro
+   rutas, no el contrato `2.0.0` del candidato local.
 5. Android e iOS ya se ejecutaron en emuladores. El iPhone físico sigue
    requiriendo desbloqueo y Developer Mode si se necesita esa evidencia extra.
    La medición reproducible de primera UI interactiva en el AVD Android de 1
@@ -215,6 +222,8 @@ acceso del operador. Se conservan aquí para no repetir la investigación.
 
 - `README.md`: arquitectura, límites y comandos de desarrollo actuales.
 - `docs/TICKETS.md`: estado operativo, prioridades, evidencia y próximos pasos.
+- `docs/MULTI_MACHINE_WORKFLOW.md`: protocolo versionado para trabajo entre
+  equipos y preservación de ramas de archivo.
 - `landing/README.md` y `landing/public/imagenes/README.md`: pipeline y smoke
   de assets.
 - `docs/DEPLOY_CI_WEB.md`: controles de promoción manual.

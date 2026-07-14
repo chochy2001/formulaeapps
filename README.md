@@ -135,6 +135,8 @@ hosting publicado y debe ejecutarse como smoke posterior a la promoción.
 
 - [Auditoría funcional actual](docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
 - [Tablero de tickets activo](docs/TICKETS.md)
+- [Trabajo distribuido y sincronización Git](docs/MULTI_MACHINE_WORKFLOW.md)
+- [Candidatos web y promoción segura](docs/DEPLOY_CI_WEB.md)
 - [Pipeline de landing](landing/README.md)
 - [Contratos BFF](contracts/README.md)
 - Constitución compartida del workspace:

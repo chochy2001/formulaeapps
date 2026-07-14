@@ -12,15 +12,24 @@ The following failures are historical; neither changed production:
   not have the required Pro build configuration;
 - run `29267520787` could not write Node 22 to the test runner tool cache and
   did not have `FORMULAE_JWT_SHARED_SECRET` configured;
+- run `29271110965` also failed while creating the Node tool-cache directory
+  with `EACCES`;
 - both production upload jobs were skipped.
 
 The code from PR [#79](https://github.com/CAPDESIS/formulaeapps/pull/79) is
 integrated in `main`; PR [#83](https://github.com/CAPDESIS/formulaeapps/pull/83)
-made Flutter test concurrency explicit. At the last check on 2026-07-14, CI
-`29301504493` and the build candidate `29301504487` target code SHA
-`081aa889` (the `main` SHA at dispatch), but remain queued because every Formulae-authorized
-`test-light`, `build-heavy`, or `policy-light` runner is offline. No candidate
-artifact was uploaded and no production system changed.
+made Flutter test concurrency explicit, and PR
+[#84](https://github.com/CAPDESIS/formulaeapps/pull/84) recorded the integration
+and release blockers. At `2026-07-14T02:50:46Z`, the dispatches for code SHA
+`b909676d11e5e789811409c2968541d191c3bb9f` were
+[CI `29302052034`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052034)
+and [Build Web Release Candidate `29302052031`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052031).
+Both remain `queued`: every Formulae-authorized `test-light`, `build-heavy`,
+or `policy-light` runner is offline, while the online laptop runner is
+restricted to a workflow allowlist that excludes these workflows. The older
+`081aa889` dispatches `29301504493` and `29301504487` were cancelled and are
+not current evidence. No candidate artifact was uploaded and no production
+system changed.
 
 The FTP job is disabled because the attempted promotion path still lacked an
 authenticated FTPS endpoint, a protected `production` environment, a dedicated

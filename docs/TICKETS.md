@@ -23,7 +23,7 @@ este tablero refleja ese estado y no lo sustituye.
 | `EN_CURSO` | 0 | Ninguno: el trabajo restante depende de controles y runners externos. |
 | `PENDIENTE` | 0 | Ninguno. |
 | `BLOQUEADO` | 4 | Hosting, staging/promoción, runners/controles externos y decisión/validadores de entitlement. |
-| `HECHO` | 25 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración y aislamiento BFF. |
+| `HECHO` | 26 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración, aislamiento BFF y sincronización multi-máquina. |
 | `CANCELADO` | 0 | Ninguno. |
 
 ## Orden de ejecución
@@ -353,8 +353,10 @@ este tablero refleja ese estado y no lo sustituye.
 - Prioridad: P0
 - Area: GitHub, VPS y despliegue
 - Responsable: Operador de infraestructura, con apoyo de Codex
-- Proximo paso: Reparar el runner de landing, provisionar staging para el SHA
-  exacto, required checks/permisos mínimos y un entorno de producción protegido;
+- Proximo paso: Restaurar runners Formulae autorizados para `test-light`,
+  `build-heavy` y `policy-light`, corregir el toolcache de landing y provisionar
+  staging para el SHA exacto, required checks/permisos mínimos y un entorno de
+  producción protegido;
   después verificar FTPS con snapshot/rollback y el volumen BFF con
   backup/restore en el VPS antes de promocionar.
 - Criterio de cierre: `main` no acepta cambios con preflight rojo, el BFF posee
@@ -371,6 +373,12 @@ este tablero refleja ese estado y no lo sustituye.
   existe evidencia de volumen, recreate, backup o restore. La ruta FTPS web
   tampoco tiene host/certificado, snapshot, publicación atómica, marker ni
   rollback verificables. Las 176 imágenes siguen 404 en el hosting público.
+  La PR [#40](https://github.com/CAPDESIS/formulaeapps/pull/40) permanece como
+  borrador en `r21-jwt-staging-prep`: aunque GitHub puede aplicar su diff, al
+  corte está 52 commits detrás y 4 delante de `main`, su único preflight es
+  histórico y depende de staging, secretos y controles externos. Debe
+  conservarse, rebasarse y revalidarse; no se fusiona por antigüedad ni para
+  desbloquear producción.
 - Bloqueo: Producción queda bloqueada hasta que operador aporte staging, SHA
   verde, entorno/secretos protegidos y una ruta FTPS/VPS comprobable con
   snapshot, smoke y rollback. No se deben inventar archivos `.env`, credenciales
@@ -593,12 +601,43 @@ este tablero refleja ese estado y no lo sustituye.
 - Evidencia: La PR [#83](https://github.com/CAPDESIS/formulaeapps/pull/83)
   integró `FLUTTER_TEST_CONCURRENCY=1` en `main` mediante
   `081aa889ff95705b64e88d06b310097f6ee468ed`; `make flutter-test` ya pasó con
-  esa concurrencia y el YAML de Actions valida. Los runs exactos de ese SHA,
-  CI `29301504493` y candidato web `29301504487`, se enviaron después de
-  cancelar los runs obsoletos `29300874967` y `29300874991`. Quedaron en cola:
-  los runners elegibles de `ci-builds` (`test-light` y `build-heavy`) están
-  offline y el runner de política compatible también quedó offline. No existe
-  todavía resultado remoto terminal ni artefacto candidato para este SHA.
+  esa concurrencia y el YAML de Actions valida. A
+  `2026-07-14T02:50:46Z`, los dispatches del SHA `b909676` fueron
+  [CI `29302052034`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052034)
+  y [Build Web Release Candidate `29302052031`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052031);
+  ambos permanecen `queued`, sin resultado terminal ni artefacto. Los runs
+  `29301504493` y `29301504487` de `081aa889` fueron cancelados y ya no son
+  evidencia vigente. Los runners Formulae autorizados están offline y el
+  runner online de laptop no permite estos workflows.
 - Bloqueo: Depende de `FML-116`: un operador debe restaurar capacidad de runner
   autorizada para Formulae. No es seguro redirigir estas cargas a un runner o
   grupo no autorizado ni afirmar CI verde mientras siguen en cola.
+
+### FML-128: Sincronización reproducible para trabajo multi-máquina
+
+- Estado: HECHO
+- Prioridad: P0
+- Area: Git, documentación y operación distribuida
+- Responsable: Codex
+- Proximo paso: Iniciar cada tarea desde `origin/main` actualizado en una rama
+  y worktree propios; publicar el commit antes de cambiar de equipo y revisar
+  selectivamente cualquier rama `archive/`.
+- Criterio de cierre: Ningún cambio único queda sólo en disco local o en un
+  stash; los worktrees activos tienen finalidad explícita y el procedimiento
+  reproducible está versionado.
+- Evidencia: La conciliación dejó `main` limpio y alineado con `origin/main`,
+  `git stash list` vacío y eliminó el worktree limpio
+  `agent/formulae-ci-concurrency-recovery-20260714`, cuyo árbol era idéntico
+  a `main`. Las tres instantáneas recientes se restauraron, pasaron
+  `git diff --check` y `gitleaks protect --staged --redact`, y quedaron en
+  GitHub como `archive/stash-20260529-deploy-notes-temp` (`50588e7`),
+  `archive/stash-20260705-fleet-cleanup-wip` (`b090015`) y
+  `archive/stash-20260713-bff-client-codegen` (`3eb3730`). Una auditoría
+  adicional encontró 47 puntas históricas potencialmente únicas:
+  `archive/local-history-20260713` (`a347805`) las ancla junto con sus
+  terceros padres de stash. `gitleaks detect` escaneó 83 commits y no encontró
+  secretos; tras `fetch --prune`, el grafo de archivo tiene cero commits únicos
+  frente a `origin`. Quedan objetos históricos equivalentes/no referenciados,
+  que no se purgan a ciegas porque su contenido ya está respaldado.
+- Bloqueo: Ninguno; las ramas `archive/` conservan material pendiente sin
+  presentarlo como apto para integración.
