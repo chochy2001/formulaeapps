@@ -20,7 +20,7 @@ este tablero refleja ese estado y no lo sustituye.
 
 | Estado | Tickets | Lectura rápida |
 | --- | ---: | --- |
-| `EN_CURSO` | 0 | No hay trabajo local sin cerrar; el siguiente movimiento es publicar el candidato validado mediante PR. |
+| `EN_CURSO` | 1 | `FML-127` alinea la CI Flutter con el gate serial que ya pasó localmente y espera su repetición remota. |
 | `PENDIENTE` | 0 | Ninguno. |
 | `BLOQUEADO` | 3 | Hosting, staging/promoción, controles externos y decisión/validadores de entitlement. |
 | `HECHO` | 25 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración y aislamiento BFF. |
@@ -28,9 +28,9 @@ este tablero refleja ese estado y no lo sustituye.
 
 ## Orden de ejecución
 
-1. Publicar el candidato validado mediante una PR contra `main`, comprobar el
-   SHA y el resultado de CI que GitHub reporte, y hacer el merge normal sin
-   saltarse controles.
+1. Cerrar `FML-127`: publicar el ajuste de concurrencia, repetir la CI sobre
+   el SHA exacto de `main` y no considerar el run anterior, prolongado dentro
+   de `flutter test`, como evidencia de éxito.
 2. Resolver la decisión de producto y los validadores/sandbox de `FML-117`
    antes de activar IAP remoto o cuentas; reintentar `FML-101` y `FML-116`
    únicamente cuando exista staging, un SHA exacto y una ruta de rollback
@@ -577,3 +577,22 @@ este tablero refleja ese estado y no lo sustituye.
   pruebas focales de ambas apps pasaron.
 - Bloqueo: Community sigue sin target Windows por decisión de producto; no se
   generó plataforma nueva.
+
+### FML-127: Alinear la CI Flutter con el gate determinista
+
+- Estado: EN_CURSO
+- Prioridad: P1
+- Area: CI, Pro y Community
+- Responsable: Codex
+- Proximo paso: Publicar el uso explícito de `FLUTTER_TEST_CONCURRENCY=1`,
+  repetir la CI del SHA de `main` y registrar los dos resultados Flutter junto
+  con sus pruebas de clientes BFF.
+- Criterio de cierre: Los jobs remotos de Pro y Community ejecutan exactamente
+  la misma concurrencia que `make flutter-test`, terminan sin timeout y pasan
+  análisis, pruebas y contratos generados.
+- Evidencia: El gate local de `main@4bc1c6a` pasó con `make flutter-test` y el
+  YAML de Actions valida. El run remoto `29300874967` completó análisis pero
+  ambos jobs permanecían dentro de `flutter test` más de 11 minutos, mientras
+  el Makefile ya fija la concurrencia serial. El cambio de workflow conserva
+  los `dart-defines` no secretos y sólo alinea esa variable.
+- Bloqueo: Ninguno local; falta el resultado de la CI publicada.
