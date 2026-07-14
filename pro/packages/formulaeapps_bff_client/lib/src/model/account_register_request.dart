@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,6 +14,9 @@ part 'account_register_request.g.dart';
 /// Properties:
 /// * [email] - Account email (unique).
 /// * [password] - Password (min 8 chars). Never logged.
+/// * [platform] - Client platform for the issued session JWT (default: web).
+/// * [appVersion] - Client app version for the session JWT (default: 0.0.0).
+/// * [clientId] - Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
 @BuiltValue()
 abstract class AccountRegisterRequest implements Built<AccountRegisterRequest, AccountRegisterRequestBuilder> {
   /// Account email (unique).
@@ -22,6 +26,19 @@ abstract class AccountRegisterRequest implements Built<AccountRegisterRequest, A
   /// Password (min 8 chars). Never logged.
   @BuiltValueField(wireName: r'password')
   String get password;
+
+  /// Client platform for the issued session JWT (default: web).
+  @BuiltValueField(wireName: r'platform')
+  AccountRegisterRequestPlatformEnum? get platform;
+  // enum platformEnum {  web,  android,  ios,  macos,  };
+
+  /// Client app version for the session JWT (default: 0.0.0).
+  @BuiltValueField(wireName: r'app_version')
+  String? get appVersion;
+
+  /// Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
+  @BuiltValueField(wireName: r'client_id')
+  String? get clientId;
 
   AccountRegisterRequest._();
 
@@ -56,6 +73,27 @@ class _$AccountRegisterRequestSerializer implements PrimitiveSerializer<AccountR
       object.password,
       specifiedType: const FullType(String),
     );
+    if (object.platform != null) {
+      yield r'platform';
+      yield serializers.serialize(
+        object.platform,
+        specifiedType: const FullType(AccountRegisterRequestPlatformEnum),
+      );
+    }
+    if (object.appVersion != null) {
+      yield r'app_version';
+      yield serializers.serialize(
+        object.appVersion,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.clientId != null) {
+      yield r'client_id';
+      yield serializers.serialize(
+        object.clientId,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -93,6 +131,27 @@ class _$AccountRegisterRequestSerializer implements PrimitiveSerializer<AccountR
           ) as String;
           result.password = valueDes;
           break;
+        case r'platform':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(AccountRegisterRequestPlatformEnum),
+          ) as AccountRegisterRequestPlatformEnum;
+          result.platform = valueDes;
+          break;
+        case r'app_version':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.appVersion = valueDes;
+          break;
+        case r'client_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.clientId = valueDes;
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -120,5 +179,28 @@ class _$AccountRegisterRequestSerializer implements PrimitiveSerializer<AccountR
     );
     return result.build();
   }
+}
+
+class AccountRegisterRequestPlatformEnum extends EnumClass {
+
+  /// Client platform for the issued session JWT (default: web).
+  @BuiltValueEnumConst(wireName: r'web')
+  static const AccountRegisterRequestPlatformEnum web = _$accountRegisterRequestPlatformEnum_web;
+  /// Client platform for the issued session JWT (default: web).
+  @BuiltValueEnumConst(wireName: r'android')
+  static const AccountRegisterRequestPlatformEnum android = _$accountRegisterRequestPlatformEnum_android;
+  /// Client platform for the issued session JWT (default: web).
+  @BuiltValueEnumConst(wireName: r'ios')
+  static const AccountRegisterRequestPlatformEnum ios = _$accountRegisterRequestPlatformEnum_ios;
+  /// Client platform for the issued session JWT (default: web).
+  @BuiltValueEnumConst(wireName: r'macos')
+  static const AccountRegisterRequestPlatformEnum macos = _$accountRegisterRequestPlatformEnum_macos;
+
+  static Serializer<AccountRegisterRequestPlatformEnum> get serializer => _$accountRegisterRequestPlatformEnumSerializer;
+
+  const AccountRegisterRequestPlatformEnum._(String name): super(name);
+
+  static BuiltSet<AccountRegisterRequestPlatformEnum> get values => _$accountRegisterRequestPlatformEnumValues;
+  static AccountRegisterRequestPlatformEnum valueOf(String name) => _$accountRegisterRequestPlatformEnumValueOf(name);
 }
 

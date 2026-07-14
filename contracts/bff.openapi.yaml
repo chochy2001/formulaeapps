@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: FormulaeApps BFF
-  version: 1.2.0
+  version: 1.3.0
   description: Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.
 servers:
   - url: https://api.formulaeapps.com
@@ -151,7 +151,7 @@ components:
         token:
           type: string
           example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLi4uIn0.sig
-          description: Session JWT; future claim user_id binds entitlements.
+          description: Session JWT with user_id claim for entitlement binding.
         expires_at:
           type: string
           format: date-time
@@ -160,7 +160,7 @@ components:
           type: string
           format: uuid
           example: 550e8400-e29b-41d4-a716-446655440000
-          description: Stable account id — entitlement key once accounts go live.
+          description: Stable account id — entitlement key when accounts flag is on.
       required:
         - token
         - expires_at
@@ -179,6 +179,25 @@ components:
           maxLength: 128
           example: correct-horse-battery
           description: Password (min 8 chars). Never logged.
+        platform:
+          type: string
+          enum:
+            - web
+            - android
+            - ios
+            - macos
+          example: web
+          description: "Client platform for the issued session JWT (default: web)."
+        app_version:
+          type: string
+          pattern: ^\d+\.\d+\.\d+
+          example: 3.7.2
+          description: "Client app version for the session JWT (default: 0.0.0)."
+        client_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+          description: Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
       required:
         - email
         - password
@@ -195,6 +214,25 @@ components:
           maxLength: 128
           example: correct-horse-battery
           description: Password. Never logged.
+        platform:
+          type: string
+          enum:
+            - web
+            - android
+            - ios
+            - macos
+          example: web
+          description: "Client platform for the issued session JWT (default: web)."
+        app_version:
+          type: string
+          pattern: ^\d+\.\d+\.\d+
+          example: 3.7.2
+          description: "Client app version for the session JWT (default: 0.0.0)."
+        client_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+          description: Optional device client_id — when present, prior mobile entitlements for that device subject are bound to the new user_id.
       required:
         - email
         - password
@@ -419,8 +457,8 @@ paths:
     post:
       tags:
         - auth
-      summary: Register an email/password account (stub)
-      description: "Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until users table + password hashing land. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here."
+      summary: Register an email/password account
+      description: Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
       requestBody:
         required: true
         content:
@@ -429,13 +467,13 @@ paths:
               $ref: "#/components/schemas/AccountRegisterRequest"
       responses:
         "200":
-          description: Account created (not yet implemented)
+          description: Account created; JWT includes user_id
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AccountAuthResponse"
         "400":
-          description: Bad request
+          description: Bad request (validation or email taken)
           content:
             application/json:
               schema:
@@ -448,12 +486,6 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "429":
           description: Rate limited
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorEnvelope"
-        "503":
-          description: Stub — not implemented yet
           content:
             application/json:
               schema:
@@ -462,8 +494,8 @@ paths:
     post:
       tags:
         - auth
-      summary: Login with email/password (stub)
-      description: "Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until credential verification lands. See docs/ACCOUNTS_USER_ID_PLAN.md."
+      summary: Login with email/password
+      description: Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md.
       requestBody:
         required: true
         content:
@@ -472,13 +504,19 @@ paths:
               $ref: "#/components/schemas/AccountLoginRequest"
       responses:
         "200":
-          description: Login successful (not yet implemented)
+          description: Login successful; JWT includes user_id
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/AccountAuthResponse"
         "400":
           description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorEnvelope"
+        "401":
+          description: Invalid credentials
           content:
             application/json:
               schema:
@@ -491,12 +529,6 @@ paths:
                 $ref: "#/components/schemas/ErrorEnvelope"
         "429":
           description: Rate limited
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorEnvelope"
-        "503":
-          description: Stub — not implemented yet
           content:
             application/json:
               schema:

@@ -126,7 +126,7 @@ export function findUserById(id: string): UserRow | null {
 
 /** Fixed argon2id hash for missing-user verify path (timing pad; not a real secret). */
 const TIMING_PAD_HASH =
-  '$argon2id$v=19$m=65536,t=2,p=1$dGltZWluZ3BhZGRpbmdzYWx0$8G+8nQb5G8v3n6n5p0vKqXwYxY3aZ1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6';
+  '$argon2id$v=19$m=65536,t=2,p=1$JFlbb4+5TQzQ7doA9qWMv1B60lfAF6KlBYLlwdbJZLo$69pz9zbxZJgurRWDQIM359oZCUbIj9dyTF7hK/qbW5c';
 
 export async function authenticateUser(
   email: string,
@@ -135,11 +135,7 @@ export async function authenticateUser(
   const user = findUserByEmail(email);
   if (!user) {
     // Dummy verify to reduce timing oracle on missing emails.
-    try {
-      await Bun.password.verify(password, TIMING_PAD_HASH);
-    } catch {
-      // Invalid pad hash still burns some work; ignore verify errors.
-    }
+    await Bun.password.verify(password, TIMING_PAD_HASH);
     return null;
   }
   const ok = await verifyPassword(password, user.password_hash);

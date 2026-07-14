@@ -38,6 +38,22 @@ describe('jwt issue + verify', () => {
     expect(claims.jti).toBe(jti);
     expect(claims.platform).toBe('web');
     expect(claims.app_version).toBe('3.7.2');
+    expect(claims.user_id).toBeUndefined();
+  });
+
+  test('includes optional user_id claim when provided', async () => {
+    const userId = randomUUID();
+    const result = await issueToken({
+      sub: `user:${userId}`,
+      aud: 'formulaeapps-pro',
+      platform: 'web',
+      app_version: '0.0.0',
+      jti: randomUUID(),
+      user_id: userId,
+    });
+    const claims = await verifyToken(result.token);
+    expect(claims.user_id).toBe(userId);
+    expect(claims.sub).toBe(`user:${userId}`);
   });
 
   test('rejects token with wrong signature', async () => {

@@ -11,19 +11,19 @@ part 'account_auth_response.g.dart';
 /// AccountAuthResponse
 ///
 /// Properties:
-/// * [token] - Session JWT; future claim user_id binds entitlements.
+/// * [token] - Session JWT with user_id claim for entitlement binding.
 /// * [expiresAt] 
-/// * [userId] - Stable account id — entitlement key once accounts go live.
+/// * [userId] - Stable account id — entitlement key when accounts flag is on.
 @BuiltValue()
 abstract class AccountAuthResponse implements Built<AccountAuthResponse, AccountAuthResponseBuilder> {
-  /// Session JWT; future claim user_id binds entitlements.
+  /// Session JWT with user_id claim for entitlement binding.
   @BuiltValueField(wireName: r'token')
   String get token;
 
   @BuiltValueField(wireName: r'expires_at')
   DateTime get expiresAt;
 
-  /// Stable account id — entitlement key once accounts go live.
+  /// Stable account id — entitlement key when accounts flag is on.
   @BuiltValueField(wireName: r'user_id')
   String get userId;
 

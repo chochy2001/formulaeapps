@@ -23,8 +23,8 @@ class AuthApi {
 
   const AuthApi(this._dio, this._serializers);
 
-  /// Login with email/password (stub)
-  /// Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until credential verification lands. See docs/ACCOUNTS_USER_ID_PLAN.md.
+  /// Login with email/password
+  /// Verifies credentials against the users table and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md.
   ///
   /// Parameters:
   /// * [accountLoginRequest] 
@@ -118,8 +118,8 @@ class AuthApi {
     );
   }
 
-  /// Register an email/password account (stub)
-  /// Design stub for WP5 step 2 / fleet #86. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). When the flag is on, still returns 503 until users table + password hashing land. See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
+  /// Register an email/password account
+  /// Creates a users-row (argon2id password hash) and returns a JWT with claim user_id. Returns 403 while ENABLE_USER_ACCOUNT_AUTH is off (default). See docs/ACCOUNTS_USER_ID_PLAN.md. Polar web checkout is out of scope here.
   ///
   /// Parameters:
   /// * [accountRegisterRequest] 

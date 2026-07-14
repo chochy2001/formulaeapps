@@ -6,17 +6,104 @@ part of 'account_register_request.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const AccountRegisterRequestPlatformEnum
+    _$accountRegisterRequestPlatformEnum_web =
+    const AccountRegisterRequestPlatformEnum._('web');
+const AccountRegisterRequestPlatformEnum
+    _$accountRegisterRequestPlatformEnum_android =
+    const AccountRegisterRequestPlatformEnum._('android');
+const AccountRegisterRequestPlatformEnum
+    _$accountRegisterRequestPlatformEnum_ios =
+    const AccountRegisterRequestPlatformEnum._('ios');
+const AccountRegisterRequestPlatformEnum
+    _$accountRegisterRequestPlatformEnum_macos =
+    const AccountRegisterRequestPlatformEnum._('macos');
+
+AccountRegisterRequestPlatformEnum _$accountRegisterRequestPlatformEnumValueOf(
+    String name) {
+  switch (name) {
+    case 'web':
+      return _$accountRegisterRequestPlatformEnum_web;
+    case 'android':
+      return _$accountRegisterRequestPlatformEnum_android;
+    case 'ios':
+      return _$accountRegisterRequestPlatformEnum_ios;
+    case 'macos':
+      return _$accountRegisterRequestPlatformEnum_macos;
+    default:
+      throw ArgumentError(name);
+  }
+}
+
+final BuiltSet<AccountRegisterRequestPlatformEnum>
+    _$accountRegisterRequestPlatformEnumValues = BuiltSet<
+        AccountRegisterRequestPlatformEnum>(const <AccountRegisterRequestPlatformEnum>[
+  _$accountRegisterRequestPlatformEnum_web,
+  _$accountRegisterRequestPlatformEnum_android,
+  _$accountRegisterRequestPlatformEnum_ios,
+  _$accountRegisterRequestPlatformEnum_macos,
+]);
+
+Serializer<AccountRegisterRequestPlatformEnum>
+    _$accountRegisterRequestPlatformEnumSerializer =
+    _$AccountRegisterRequestPlatformEnumSerializer();
+
+class _$AccountRegisterRequestPlatformEnumSerializer
+    implements PrimitiveSerializer<AccountRegisterRequestPlatformEnum> {
+  static const Map<String, Object> _toWire = const <String, Object>{
+    'web': 'web',
+    'android': 'android',
+    'ios': 'ios',
+    'macos': 'macos',
+  };
+  static const Map<Object, String> _fromWire = const <Object, String>{
+    'web': 'web',
+    'android': 'android',
+    'ios': 'ios',
+    'macos': 'macos',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[AccountRegisterRequestPlatformEnum];
+  @override
+  final String wireName = 'AccountRegisterRequestPlatformEnum';
+
+  @override
+  Object serialize(
+          Serializers serializers, AccountRegisterRequestPlatformEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  AccountRegisterRequestPlatformEnum deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      AccountRegisterRequestPlatformEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+}
+
 class _$AccountRegisterRequest extends AccountRegisterRequest {
   @override
   final String email;
   @override
   final String password;
+  @override
+  final AccountRegisterRequestPlatformEnum? platform;
+  @override
+  final String? appVersion;
+  @override
+  final String? clientId;
 
   factory _$AccountRegisterRequest(
           [void Function(AccountRegisterRequestBuilder)? updates]) =>
       (AccountRegisterRequestBuilder()..update(updates))._build();
 
-  _$AccountRegisterRequest._({required this.email, required this.password})
+  _$AccountRegisterRequest._(
+      {required this.email,
+      required this.password,
+      this.platform,
+      this.appVersion,
+      this.clientId})
       : super._();
   @override
   AccountRegisterRequest rebuild(
@@ -32,7 +119,10 @@ class _$AccountRegisterRequest extends AccountRegisterRequest {
     if (identical(other, this)) return true;
     return other is AccountRegisterRequest &&
         email == other.email &&
-        password == other.password;
+        password == other.password &&
+        platform == other.platform &&
+        appVersion == other.appVersion &&
+        clientId == other.clientId;
   }
 
   @override
@@ -40,6 +130,9 @@ class _$AccountRegisterRequest extends AccountRegisterRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, email.hashCode);
     _$hash = $jc(_$hash, password.hashCode);
+    _$hash = $jc(_$hash, platform.hashCode);
+    _$hash = $jc(_$hash, appVersion.hashCode);
+    _$hash = $jc(_$hash, clientId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -48,7 +141,10 @@ class _$AccountRegisterRequest extends AccountRegisterRequest {
   String toString() {
     return (newBuiltValueToStringHelper(r'AccountRegisterRequest')
           ..add('email', email)
-          ..add('password', password))
+          ..add('password', password)
+          ..add('platform', platform)
+          ..add('appVersion', appVersion)
+          ..add('clientId', clientId))
         .toString();
   }
 }
@@ -65,6 +161,19 @@ class AccountRegisterRequestBuilder
   String? get password => _$this._password;
   set password(String? password) => _$this._password = password;
 
+  AccountRegisterRequestPlatformEnum? _platform;
+  AccountRegisterRequestPlatformEnum? get platform => _$this._platform;
+  set platform(AccountRegisterRequestPlatformEnum? platform) =>
+      _$this._platform = platform;
+
+  String? _appVersion;
+  String? get appVersion => _$this._appVersion;
+  set appVersion(String? appVersion) => _$this._appVersion = appVersion;
+
+  String? _clientId;
+  String? get clientId => _$this._clientId;
+  set clientId(String? clientId) => _$this._clientId = clientId;
+
   AccountRegisterRequestBuilder() {
     AccountRegisterRequest._defaults(this);
   }
@@ -74,6 +183,9 @@ class AccountRegisterRequestBuilder
     if ($v != null) {
       _email = $v.email;
       _password = $v.password;
+      _platform = $v.platform;
+      _appVersion = $v.appVersion;
+      _clientId = $v.clientId;
       _$v = null;
     }
     return this;
@@ -99,6 +211,9 @@ class AccountRegisterRequestBuilder
               email, r'AccountRegisterRequest', 'email'),
           password: BuiltValueNullFieldError.checkNotNull(
               password, r'AccountRegisterRequest', 'password'),
+          platform: platform,
+          appVersion: appVersion,
+          clientId: clientId,
         );
     replace(_$result);
     return _$result;
