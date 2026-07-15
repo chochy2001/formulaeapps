@@ -20,7 +20,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId "com.capdesis.formulae_pro.formulae_calculo_pro"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode 59
         versionName '3.3.8'
     }
