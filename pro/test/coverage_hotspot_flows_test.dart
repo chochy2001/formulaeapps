@@ -23,13 +23,14 @@ void main() {
   });
 
   testWidgets(
-    'task list edits a task name through its slide action without losing dates',
+    'task list edits a task name through its slide action without losing completion or dates',
     (tester) async {
       final tasks = TaskData();
       await tester.pumpAndSettle();
       tasks.deleteAllTasks();
       final task = Task(
         name: 'Nombre original',
+        isDone: true,
         reminderDateTime: DateTime(2026, 8, 10, 9),
         dueDate: DateTime(2026, 8, 15),
       );
@@ -57,7 +58,119 @@ void main() {
 
       expect(tasks.tasks, hasLength(1));
       expect(tasks.tasks.single.name, 'Nombre actualizado');
+      expect(tasks.tasks.single.isDone, isTrue);
       expect(tasks.tasks.single.reminderDateTime, task.reminderDateTime);
+      expect(tasks.tasks.single.dueDate, task.dueDate);
+    },
+  );
+
+  testWidgets(
+    'task deletion keeps the task until the destructive confirmation is accepted',
+    (tester) async {
+      final tasks = TaskData();
+      await tester.pumpAndSettle();
+      tasks.deleteAllTasks();
+      final task = Task(name: 'Resolver ecuaciones');
+      tasks.addTask(task);
+
+      await tester.pumpWidget(
+        _app(
+          child: ChangeNotifierProvider<TaskData>.value(
+            value: tasks,
+            child: const Scaffold(body: TasksList()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(Slidable), const Offset(500, 0));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Eliminar').first);
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+
+      await tester.tap(find.text('Cancelar'));
+      await tester.pumpAndSettle();
+      expect(tasks.tasks, contains(task));
+
+      await tester.drag(find.byType(Slidable), const Offset(500, 0));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Eliminar').first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Eliminar').last);
+      await tester.pumpAndSettle();
+      expect(tasks.tasks, isEmpty);
+    },
+  );
+
+  testWidgets(
+    'empty reminder confirmation closes without scheduling or changing the task',
+    (tester) async {
+      final tasks = TaskData();
+      await tester.pumpAndSettle();
+      tasks.deleteAllTasks();
+      final task = Task(name: 'Estudiar límites');
+      tasks.addTask(task);
+
+      await tester.pumpWidget(
+        _app(
+          child: ChangeNotifierProvider<TaskData>.value(
+            value: tasks,
+            child: const Scaffold(body: TasksList()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(Slidable), const Offset(-500, 0));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Recordatorio'));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+
+      await tester.tap(find.text('Guardar Recordatorio'));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(task.reminderDateTime, isNull);
+      expect(tasks.tasks, contains(task));
+    },
+  );
+
+  testWidgets(
+    'due-date picker persists the selected deadline on the task',
+    (tester) async {
+      final tasks = TaskData();
+      await tester.pumpAndSettle();
+      tasks.deleteAllTasks();
+      final task = Task(name: 'Enviar proyecto');
+      tasks.addTask(task);
+
+      await tester.pumpWidget(
+        _app(
+          child: ChangeNotifierProvider<TaskData>.value(
+            value: tasks,
+            child: const Scaffold(body: TasksList()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(Slidable), const Offset(-500, 0));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Plazo'));
+      await tester.pumpAndSettle();
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(
+        find
+            .descendant(
+              of: find.byType(DatePickerDialog),
+              matching: find.byType(TextButton),
+            )
+            .last,
+      );
+      await tester.pumpAndSettle();
+      expect(task.dueDate, isNotNull);
       expect(tasks.tasks.single.dueDate, task.dueDate);
     },
   );
@@ -84,6 +197,31 @@ void main() {
       await tester.tap(find.text('Preguntas frecuentes'));
       await tester.pumpAndSettle();
       expect(find.text('iOS FAQ destination'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'desktop drawer routes settings through its named destination',
+    (tester) async {
+      await tester.binding.setSurfaceSize(const Size(900, 1200));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
+      await tester.pumpWidget(
+        _app(
+          routes: {
+            '/configuracion': (_) =>
+                const Scaffold(body: Text('desktop settings destination')),
+          },
+          child: const Scaffold(drawer: DrawerPersonalizado(2)),
+        ),
+      );
+      final scaffold = tester.state<ScaffoldState>(find.byType(Scaffold));
+      scaffold.openDrawer();
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Configuración'));
+      await tester.pumpAndSettle();
+      expect(find.text('desktop settings destination'), findsOneWidget);
     },
   );
 
