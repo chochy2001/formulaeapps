@@ -9,6 +9,7 @@ import 'package:formulae/l10n/app_localizations.dart';
 import 'package:formulae/l10n/l10n.dart';
 import 'package:formulae/widgets_personalizados/todo/add_task_screen.dart';
 import 'package:formulae/widgets_personalizados/todo/export_options.dart';
+import 'package:formulae/widgets_personalizados/todo/task.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
 import 'package:formulae/widgets_personalizados/todo/tasks_screen.dart';
 import 'package:formulae/widgets_personalizados/ver_pdf.dart';
@@ -95,6 +96,53 @@ void main() {
   );
 
   testWidgets(
+    'PDF preview separates multiple formulas and does not repeat its title heading',
+    (tester) async {
+      const first = FavoriteFormulaContent(
+        title: 'Primera formula',
+        blocks: [
+          FormulaPdfBlock(
+            type: FormulaPdfBlockType.heading,
+            text: 'Primera formula',
+          ),
+          FormulaPdfBlock(
+            type: FormulaPdfBlockType.text,
+            text: 'El encabezado repetido se omite.',
+          ),
+        ],
+      );
+      const second = FavoriteFormulaContent(
+        title: 'Segunda formula',
+        blocks: [
+          FormulaPdfBlock(
+            type: FormulaPdfBlockType.heading,
+            text: 'Desarrollo',
+          ),
+          FormulaPdfBlock(
+            type: FormulaPdfBlockType.formula,
+            text: r'a^2 + b^2 = c^2',
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        _app(
+          child: VerPDFGenerado(
+            title: first.title,
+            previewContents: const [first, second],
+          ),
+        ),
+      );
+
+      expect(find.text('Primera formula'), findsNWidgets(2));
+      expect(find.text('Segunda formula'), findsOneWidget);
+      expect(find.text('Desarrollo'), findsOneWidget);
+      expect(find.text(r'a^2 + b^2 = c^2'), findsOneWidget);
+      expect(find.byType(Divider), findsOneWidget);
+    },
+  );
+
+  testWidgets(
     'task export options return every selected field to the caller',
     (tester) async {
       late Future<ExportOptions?> result;
@@ -160,6 +208,35 @@ void main() {
   );
 
   testWidgets(
+    'task screen confirms before clearing every existing task',
+    (tester) async {
+      final taskData = TaskData();
+      taskData.addTask(Task(name: 'Preparar parcial'));
+      taskData.addTask(Task(name: 'Repasar derivadas'));
+      final expectedTaskCount = taskData.taskCount;
+
+      await tester.pumpWidget(
+        ChangeNotifierProvider<TaskData>.value(
+          value: taskData,
+          child: _app(child: const TasksScreen()),
+        ),
+      );
+
+      await tester.longPress(find.byIcon(Icons.add));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(expectedTaskCount, greaterThan(0));
+      expect(taskData.taskCount, expectedTaskCount);
+
+      await tester.tap(find.text('Eliminar'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(taskData.taskCount, 0);
+    },
+  );
+
+  testWidgets(
     'favorites creates a folder, moves a saved formula, and opens it',
     (tester) async {
       final favorites = FavoritesNotifier();
@@ -193,6 +270,62 @@ void main() {
       await tester.tap(find.text('Teorema del rotacional'));
       await tester.pumpAndSettle();
       expect(find.byType(FavoritesScreen), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'favorites explains why moving requires another folder',
+    (tester) async {
+      final favorites = FavoritesNotifier();
+      favorites.addFavorite(
+        Favorite(
+          title: 'Ley de Gauss',
+          widgetName: kWidgetTeoremaDelRotacional,
+        ),
+      );
+
+      await tester.pumpWidget(
+        ChangeNotifierProvider<FavoritesNotifier>.value(
+          value: favorites,
+          child: _app(child: const FavoritesScreen()),
+        ),
+      );
+
+      await tester.tap(find.byIcon(Icons.drive_file_move_rounded));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(favorites.activeFolder.favorites, hasLength(1));
+    },
+  );
+
+  testWidgets(
+    'favorites only clear after the destructive action is confirmed',
+    (tester) async {
+      final favorites = FavoritesNotifier();
+      favorites.addFavorite(
+        Favorite(
+          title: 'Ley de Faraday',
+          widgetName: kWidgetTeoremaDelRotacional,
+        ),
+      );
+
+      await tester.pumpWidget(
+        ChangeNotifierProvider<FavoritesNotifier>.value(
+          value: favorites,
+          child: _app(child: const FavoritesScreen()),
+        ),
+      );
+
+      await tester.tap(find.byIcon(Icons.delete_forever));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(favorites.favorites, hasLength(1));
+
+      await tester.tap(find.text('Eliminar'));
+      await tester.pumpAndSettle();
+      expect(favorites.favorites, isEmpty);
     },
   );
 }

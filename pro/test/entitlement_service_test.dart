@@ -54,16 +54,21 @@ void main() {
   group('EntitlementService', () {
     test('fetchEntitlement returns BFF payload on 200', () async {
       final payload = EntitlementResponse(
-        (b) => b
-          ..scope = EntitlementResponseScopeEnum.mobile
-          ..sources = ListBuilder<EntitlementSource>([
+        (b) {
+          final builder = b;
+          builder.scope = EntitlementResponseScopeEnum.mobile;
+          builder.sources = ListBuilder<EntitlementSource>([
             EntitlementSource(
-              (s) => s
-                ..paymentSource = EntitlementSourcePaymentSourceEnum.appStore
-                ..productId = 'chat_mensual_2023_01'
-                ..grantedAt = DateTime.utc(2026, 7, 13),
+              (s) {
+                final source = s;
+                source.paymentSource =
+                    EntitlementSourcePaymentSourceEnum.appStore;
+                source.productId = 'chat_mensual_2023_01';
+                source.grantedAt = DateTime.utc(2026, 7, 13);
+              },
             ),
-          ]),
+          ]);
+        },
       );
       final recording = _RecordingClient(response: payload);
 
@@ -107,9 +112,11 @@ void main() {
 
     test('fetchEntitlement returns empty sources when none granted', () async {
       final payload = EntitlementResponse(
-        (b) => b
-          ..scope = EntitlementResponseScopeEnum.mobile
-          ..sources = ListBuilder<EntitlementSource>(),
+        (b) {
+          final builder = b;
+          builder.scope = EntitlementResponseScopeEnum.mobile;
+          builder.sources = ListBuilder<EntitlementSource>();
+        },
       );
       final recording = _RecordingClient(response: payload);
       final service = EntitlementService(
