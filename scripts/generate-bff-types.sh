@@ -113,6 +113,16 @@ generate_for_app() {
     ( cd "$dest" && flutter pub get >/dev/null 2>&1 && dart run build_runner build >/dev/null 2>&1 ) || {
       echo "WARN: build_runner failed for $app — generated .g.dart files may be stale" >&2
     }
+
+    # dart-dio 7.14.0 adds response-schema imports (for example
+    # ErrorEnvelope) even though its generated request methods surface
+    # non-2xx responses as DioException and never deserialize those schemas.
+    # Its built_value API template also imports JsonObject unconditionally.
+    # Normalize the generated API surface through Dart's analyzer-backed fix
+    # so both clients remain warning-free after every regeneration without
+    # weakening the OpenAPI error contract or hand-editing generated files.
+    echo "→ Removing unused imports from generated $app API files"
+    ( cd "$dest" && dart fix --apply --code=unused_import lib/src/api >/dev/null )
   else
     echo "WARN: flutter not on PATH — skipping build_runner; run it manually under $dest" >&2
   fi

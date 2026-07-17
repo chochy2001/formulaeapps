@@ -4,13 +4,11 @@
 
 import 'dart:async';
 
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:formulaeapps_bff_client/src/model/chat_request.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_response.dart';
-import 'package:formulaeapps_bff_client/src/model/error_envelope.dart';
 
 class ChatApi {
 
