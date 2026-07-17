@@ -166,8 +166,8 @@ void main() {
         idToken: 'fake.jwt',
       );
       expect(recording.oauthCalled, isTrue);
-      expect(recording.lastOauth?.provider,
-          AccountOAuthRequestProviderEnum.apple);
+      expect(
+          recording.lastOauth?.provider, AccountOAuthRequestProviderEnum.apple);
       expect(result, isA<AccountAuthFailure>());
       final fail = result as AccountAuthFailure;
       expect(fail.statusCode, 503);
@@ -176,10 +176,11 @@ void main() {
 
     test('register returns success without a device-ownership field', () async {
       final payload = AccountAuthResponse(
-        (b) => b
-          ..token = 'acct-jwt'
-          ..expiresAt = DateTime.utc(2026, 7, 14, 1)
-          ..userId = '550e8400-e29b-41d4-a716-446655440000',
+        (b) {
+          b.token = 'acct-jwt';
+          b.expiresAt = DateTime.utc(2026, 7, 14, 1);
+          b.userId = '550e8400-e29b-41d4-a716-446655440000';
+        },
       );
       final recording = _RecordingClient(registerResponse: payload);
       final service = AccountAuthService(
@@ -202,10 +203,11 @@ void main() {
 
     test('login returns success without a device-ownership field', () async {
       final payload = AccountAuthResponse(
-        (b) => b
-          ..token = 'acct-login-jwt'
-          ..expiresAt = DateTime.utc(2026, 7, 14, 2)
-          ..userId = '550e8400-e29b-41d4-a716-446655440000',
+        (b) {
+          b.token = 'acct-login-jwt';
+          b.expiresAt = DateTime.utc(2026, 7, 14, 2);
+          b.userId = '550e8400-e29b-41d4-a716-446655440000';
+        },
       );
       final recording = _RecordingClient(loginResponse: payload);
       final service = AccountAuthService(

@@ -175,16 +175,18 @@ void main() {
       bffIapValidationEnabled: false,
       entitlementService: _entitlementStub(
         EntitlementResponse(
-          (b) => b
-            ..scope = EntitlementResponseScopeEnum.mobile
-            ..sources = ListBuilder<EntitlementSource>([
+          (b) {
+            b.scope = EntitlementResponseScopeEnum.mobile;
+            b.sources = ListBuilder<EntitlementSource>([
               EntitlementSource(
-                (s) => s
-                  ..paymentSource = EntitlementSourcePaymentSourceEnum.appStore
-                  ..productId = 'chat_mensual_2023_01'
-                  ..grantedAt = DateTime.utc(2026, 7, 13),
+                (s) {
+                  s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
+                  s.productId = 'chat_mensual_2023_01';
+                  s.grantedAt = DateTime.utc(2026, 7, 13);
+                },
               ),
-            ]),
+            ]);
+          },
         ),
       ),
     );
@@ -204,16 +206,18 @@ void main() {
       bffIapValidationEnabled: true,
       entitlementService: _entitlementStub(
         EntitlementResponse(
-          (b) => b
-            ..scope = EntitlementResponseScopeEnum.mobile
-            ..sources = ListBuilder<EntitlementSource>([
+          (b) {
+            b.scope = EntitlementResponseScopeEnum.mobile;
+            b.sources = ListBuilder<EntitlementSource>([
               EntitlementSource(
-                (s) => s
-                  ..paymentSource = EntitlementSourcePaymentSourceEnum.appStore
-                  ..productId = 'chat_mensual_2023_01'
-                  ..grantedAt = DateTime.utc(2026, 7, 13),
+                (s) {
+                  s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
+                  s.productId = 'chat_mensual_2023_01';
+                  s.grantedAt = DateTime.utc(2026, 7, 13);
+                },
               ),
-            ]),
+            ]);
+          },
         ),
       ),
     );
@@ -255,9 +259,10 @@ void main() {
       bffIapValidationEnabled: true,
       entitlementService: _entitlementStub(
         EntitlementResponse(
-          (b) => b
-            ..scope = EntitlementResponseScopeEnum.mobile
-            ..sources = ListBuilder<EntitlementSource>(),
+          (b) {
+            b.scope = EntitlementResponseScopeEnum.mobile;
+            b.sources = ListBuilder<EntitlementSource>();
+          },
         ),
       ),
     );
