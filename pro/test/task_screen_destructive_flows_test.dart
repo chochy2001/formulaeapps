@@ -58,6 +58,43 @@ void main() {
     expect(find.byType(BottomSheet), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
   });
+
+  testWidgets(
+    'adding a task can skip optional reminder and due dates without losing its name',
+    (tester) async {
+      final tasks = TaskData();
+      await tester.pump();
+      tasks.deleteAllTasks();
+
+      await tester.pumpWidget(_app(tasks));
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.tap(find.text('Agregar'));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(TextField), 'Preparar examen');
+      await tester.tap(
+        find.descendant(
+          of: find.byType(BottomSheet),
+          matching: find.byType(TextButton),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+
+      await tester.tap(find.text('Saltar'));
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+
+      await tester.tap(find.text('Saltar'));
+      await tester.pumpAndSettle();
+
+      expect(tasks.tasks, hasLength(1));
+      expect(tasks.tasks.single.name, 'Preparar examen');
+      expect(tasks.tasks.single.reminderDateTime, isNull);
+      expect(tasks.tasks.single.dueDate, isNull);
+      expect(find.byType(BottomSheet), findsNothing);
+    },
+  );
 }
 
 Widget _app(TaskData tasks) {

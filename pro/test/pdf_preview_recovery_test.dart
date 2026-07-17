@@ -79,6 +79,74 @@ void main() {
     expect(find.text('Formulae PDF'), findsOneWidget);
     expect(find.byType(FormulaePdfPreview), findsOneWidget);
   });
+
+  testWidgets(
+    'PDF preview renders every block type across multiple extracted formula pages',
+    (tester) async {
+      await tester.pumpWidget(
+        _app(
+          const FormulaePdfPreview(
+            size: PdfFormulaSize.large,
+            contents: <FavoriteFormulaContent>[
+              FavoriteFormulaContent(
+                title: 'Derivadas',
+                blocks: [
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.heading,
+                    text: 'Derivadas',
+                  ),
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.text,
+                    text: 'La pendiente describe el cambio.',
+                  ),
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.formula,
+                    text: r'\frac{dy}{dx}',
+                  ),
+                ],
+              ),
+              FavoriteFormulaContent(
+                title: 'Integrales',
+                blocks: <FormulaPdfBlock>[
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.heading,
+                    text: 'Regla de potencia',
+                  ),
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.formula,
+                    text: r'\int x dx',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+
+      expect(find.text('Derivadas'), findsOneWidget);
+      expect(find.text('La pendiente describe el cambio.'), findsOneWidget);
+      expect(find.text(r'\frac{dy}{dx}'), findsOneWidget);
+      expect(find.text('Integrales'), findsOneWidget);
+      expect(find.text('Regla de potencia'), findsOneWidget);
+      expect(find.text(r'\int x dx'), findsOneWidget);
+      expect(find.byType(Divider), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'PDF size selector remains absent when the viewer cannot reflow or rebuild',
+    (tester) async {
+      await tester.pumpWidget(
+        _app(
+          const VerPDFGenerado(
+            title: 'Documento estático',
+          ),
+        ),
+      );
+
+      expect(find.byIcon(Icons.format_size_rounded), findsNothing);
+    },
+  );
 }
 
 Widget _app(Widget child) {

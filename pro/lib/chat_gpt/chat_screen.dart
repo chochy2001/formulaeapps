@@ -190,9 +190,11 @@ class _ChatScreenState extends State<ChatScreen>
         msg: msg,
         chosenModelId: modelsProvider.getCurrentModel,
       );
-      setState(() {
-        _isTyping = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isTyping = false;
+        });
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -205,10 +207,12 @@ class _ChatScreenState extends State<ChatScreen>
         );
       }
     } finally {
-      setState(() {
-        scrollToBottom();
-        _isTyping = false;
-      });
+      if (mounted) {
+        setState(() {
+          scrollToBottom();
+          _isTyping = false;
+        });
+      }
     }
   }
 
