@@ -1,16 +1,18 @@
 name: JWT PR Preflight
 
-# Lightweight, secret-free PR gate for the dual-key JWT migration.
-# Intentionally excludes Flutter/Docker/heavy builds — those stay on the
-# scheduled/manual CI workflow.
+# Lightweight PR gate for JWT migration and staging deploy hardening.
+# Excludes Flutter/Docker/heavy builds — those stay on CI workflow.
 
 on:
   pull_request:
     paths:
       - 'bff/**'
-      - 'scripts/verify-jwt-release-artifact.sh'
+      - 'scripts/**'
+      - 'docs/JWT_STAGING_RUNBOOK.md'
+      - 'docker-compose.staging.yml'
       - '.gitleaks.toml'
       - '.github/workflows/jwt-pr-preflight.yml'
+      - '.github/workflows/deploy-staging-bff.yml'
   workflow_dispatch:
 
 permissions:
@@ -18,6 +20,7 @@ permissions:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  STAGING_LEGACY_MAX_MS: '1200000'
 
 concurrency:
   group: jwt-pr-preflight-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -29,7 +32,6 @@ jobs:
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     steps:
-      # Pin by full commit SHA (not floating tags).
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -49,7 +51,6 @@ jobs:
       - name: Install gitleaks
         run: |
           set -euo pipefail
-          # [[allowlists]] / targetRules require gitleaks >= 8.25.0
           GITLEAKS_VERSION="8.30.0"
           TARBALL="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
           BASE_URL="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
@@ -61,6 +62,40 @@ jobs:
           rm "${TARBALL}" "gitleaks_${GITLEAKS_VERSION}_checksums.txt"
           ./gitleaks version
 
+      - name: Install ShellCheck
+        run: |
+          set -euo pipefail
+          SHELLCHECK_VERSION="0.10.0"
+          TARBALL="shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz"
+          EXPECTED_SHA256="6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87"
+          BASE_URL="https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}"
+          wget -q "${BASE_URL}/${TARBALL}"
+          echo "${EXPECTED_SHA256}  ${TARBALL}" | sha256sum --check
+          tar xJf "${TARBALL}"
+          mv "shellcheck-v${SHELLCHECK_VERSION}/shellcheck" ./shellcheck
+          chmod +x shellcheck
+          rm -rf "shellcheck-v${SHELLCHECK_VERSION}" "${TARBALL}"
+          ./shellcheck --version
+
+      - name: Python compile + staging helper tests
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/staging_lib.py scripts/staging-transport.py scripts/staging_deploy_remote.py scripts/staging_rollback_remote.py scripts/staging_sync_remote.py scripts/staging-check-env.py
+          python3 scripts/test_staging_lib.py
+
+      - name: Shellcheck staging scripts
+        run: |
+          set -euo pipefail
+          ./shellcheck -x scripts/staging-deploy-remote.sh scripts/staging-rollback-remote.sh scripts/staging-sync-release.sh scripts/jwt-staging-smoke.sh scripts/validate-legacy-window.sh
+
+      - name: Docker compose config (synthetic)
+        env:
+          CANDIDATE_SHA: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        run: |
+          set -euo pipefail
+          : > .env
+          docker compose -f docker-compose.staging.yml config >/dev/null
+
       - name: Frozen install
         working-directory: bff
         run: bun install --frozen-lockfile
@@ -69,6 +104,7 @@ jobs:
         working-directory: bff
         env:
           GITLEAKS_BIN: ${{ github.workspace }}/gitleaks
+          SHELLCHECK_BIN: ${{ github.workspace }}/shellcheck
         run: bun test
 
       - name: Typecheck
@@ -85,4 +121,5 @@ jobs:
           ./gitleaks dir --redact --no-banner --config .gitleaks.toml --exit-code 1 .
 
       - name: Diff check
-        run: git diff --check
+        if: github.event_name == 'pull_request'
+        run: git diff --check "${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}"
