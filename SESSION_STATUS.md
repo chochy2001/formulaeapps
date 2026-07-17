@@ -44,3 +44,18 @@
   denominator. The full suite passed 151 tests; strict analysis and
   `scripts/verify-parity.sh` passed locally. This is local branch evidence,
   not a staging or production claim.
+- The latest coverage increment adds destructive task-delete confirmation,
+  empty-reminder dismissal, due-date persistence, and desktop drawer-route
+  behavior tests. It also fixes task editing so an already-completed task
+  remains completed after its name is changed. Measured raw Pro line coverage
+  is **82.09%** (**23,259 / 28,332**), using
+  `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter
+  compact` with `JWT_SHARED_SECRET=test-shared-secret`,
+  `FORMULAE_BUILD_NONCE=ci-test-build-nonce`, and
+  `FORMULAE_APP_VERSION=0.0.0-ci`; **824 lines** remain to reach 85% at this
+  denominator. The full suite passed **155 tests**; strict analysis and
+  `scripts/verify-parity.sh` passed locally. This is local code-validation
+  evidence, not a staging or production claim. Highest-return residual
+  hotspots remain PDF generation/preview (`ver_pdf.dart`,
+  `favorites_pdf_generator.dart`), chat UI (`chat_screen.dart`), and
+  task-list/task-screen flows.

@@ -177,6 +177,7 @@ class TasksList extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         final updatedName = taskNameController.text;
+                        final isDone = task.isDone;
                         final reminderDateTime = task.reminderDateTime;
                         final dueDate = task.dueDate;
                         Navigator.pop(context);
@@ -184,6 +185,7 @@ class TasksList extends StatelessWidget {
                         // Crea una nueva tarea con el nombre editado y las fechas existentes
                         Task newTask = Task(
                           name: updatedName,
+                          isDone: isDone,
                           reminderDateTime: reminderDateTime,
                           dueDate: dueDate,
                         );
