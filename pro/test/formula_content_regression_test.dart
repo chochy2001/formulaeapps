@@ -91,10 +91,44 @@ void main() {
       await pumpFormulaScreen(tester, const RazonCambioTangenteNormal()),
       contains(r'\Delta y = \Delta x\tan a'),
     );
+    final physicalConstants = await pumpFormulaScreen(
+      tester,
+      const ConstantesFisicasUniversales(),
+    );
     expect(
-      await pumpFormulaScreen(tester, const ConstantesFisicasUniversales()),
+      physicalConstants,
       contains(
-        r'G = 6.674\,30(15) \times 10^{-11}\ \mathrm{m^{3}\,kg^{-1}\,s^{-2}}',
+        r'c = 299\,792\,458\ \mathrm{m\,s^{-1}}\quad\text{(exacta por definición SI)}',
+      ),
+    );
+    expect(
+      physicalConstants,
+      contains(
+        r'G = 6.674\,30(15) \times 10^{-11}\ \mathrm{m^{3}\,kg^{-1}\,s^{-2}}\quad\text{(valor medido; incertidumbre estándar 0.000\,15 \times 10^{-11})}',
+      ),
+    );
+    expect(
+      physicalConstants,
+      contains(
+        r'h = 6.626\,070\,15 \times 10^{-34}\ \mathrm{J\,s}\quad\text{(exacta por definición SI)}',
+      ),
+    );
+    expect(
+      physicalConstants,
+      contains(
+        r'k = 1.380\,649 \times 10^{-23}\ \mathrm{J\,K^{-1}}\quad\text{(exacta por definición SI)}',
+      ),
+    );
+    expect(
+      physicalConstants,
+      contains(
+        r'N_A = 6.022\,140\,76 \times 10^{23}\ \mathrm{mol^{-1}}\quad\text{(exacta por definición SI)}',
+      ),
+    );
+    expect(
+      physicalConstants,
+      contains(
+        r'\sigma = 5.670\,374\,419\ldots \times 10^{-8}\ \mathrm{W\,m^{-2}\,K^{-4}}\quad\text{(exacta; derivada de constantes SI)}',
       ),
     );
     final laplace = await pumpFormulaScreen(
