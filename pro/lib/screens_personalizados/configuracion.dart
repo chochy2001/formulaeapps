@@ -1,24 +1,60 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:universal_io/io.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constantes/export_constantes.dart';
 import '../l10n/l10n.dart';
 import '../main.dart';
 import '../widgets_personalizados/export_widgets_personalizados.dart';
 
+const _kGooglePlayCancellationUrl =
+    'https://support.google.com/googleplay/answer/7018481';
+const _kAppleCancellationUrlEs = 'https://support.apple.com/es-lamr/HT202039';
+const _kAppleCancellationUrlEn = 'https://support.apple.com/en-us/HT202039';
+const _kFormulaeSupportUrlEs = 'https://formulaeapps.com/soporte/';
+const _kFormulaeSupportUrlEn = 'https://formulaeapps.com/en/support/';
+
+/// Returns the appropriate subscription-cancellation help URL for the current
+/// runtime and [locale].
+///
+/// Mobile keeps the store-specific flow. Web and desktop cannot reliably know
+/// which store owns a past subscription, so they use Formulae's localized
+/// support page instead of leaving a URL uninitialized.
+String subscriptionCancellationSupportUrl(
+  Locale locale, {
+  TargetPlatform? targetPlatform,
+  bool isWeb = kIsWeb,
+}) {
+  final bool isSpanish = locale.languageCode.toLowerCase() == 'es';
+  final String supportUrl =
+      isSpanish ? _kFormulaeSupportUrlEs : _kFormulaeSupportUrlEn;
+
+  if (isWeb) {
+    return supportUrl;
+  }
+
+  switch (targetPlatform ?? defaultTargetPlatform) {
+    case TargetPlatform.android:
+      return '$_kGooglePlayCancellationUrl?hl=${isSpanish ? 'ES' : 'EN'}';
+    case TargetPlatform.iOS:
+    case TargetPlatform.macOS:
+      return isSpanish ? _kAppleCancellationUrlEs : _kAppleCancellationUrlEn;
+    case TargetPlatform.linux:
+    case TargetPlatform.windows:
+    case TargetPlatform.fuchsia:
+      return supportUrl;
+  }
+}
+
 class Configuracion extends StatelessWidget {
   const Configuracion({super.key});
 
   @override
   Widget build(BuildContext context) {
-    late String url;
-    if (Platform.isAndroid) {
-      url = 'https://support.google.com/googleplay/answer/7018481?hl=ES';
-    } else if (Platform.isIOS || Platform.isMacOS) {
-      url = 'https://support.apple.com/es-lamr/HT202039';
-    }
+    final String cancellationSupportUrl = subscriptionCancellationSupportUrl(
+      Localizations.localeOf(context),
+    );
     return Scaffold(
       appBar: const AppBarHome(),
       body: ListView(
@@ -35,11 +71,10 @@ class Configuracion extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                const FadeInImage(
+                const ImagenRemotaRobusta(
                   height: 200.0,
                   width: 200.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
                 const SizedBox(
                   height: 20.0,
@@ -198,10 +233,15 @@ class Configuracion extends StatelessWidget {
                             TextButton(
                               child: Text(
                                 AppLocalizations.of(context)!.visitarWeb,
-                                style: kTexto,
+                                // Enlace: acento SECUNDARIO teal (6.56:1 sobre
+                                // navy) para senalar la afordancia interactiva.
+                                style: kTexto.copyWith(
+                                  color: kColorAcentoSecundario,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                               onPressed: () {
-                                openURL(url);
+                                openURL(cancellationSupportUrl);
                               },
                             ),
                           ],

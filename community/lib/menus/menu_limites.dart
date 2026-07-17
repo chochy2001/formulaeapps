@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuLimites extends StatefulWidget {
-  const MenuLimites({Key? key}) : super(key: key);
+  const MenuLimites({super.key});
 
   @override
   MenuLimitesState createState() => MenuLimitesState();

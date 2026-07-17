@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IdentidadesVectoriales extends StatefulWidget {
+  const IdentidadesVectoriales({super.key});
   @override
-  _IdentidadesVectorialesState createState() => _IdentidadesVectorialesState();
+  State<IdentidadesVectoriales> createState() => _IdentidadesVectorialesState();
 }
 
 class _IdentidadesVectorialesState extends State<IdentidadesVectoriales> {

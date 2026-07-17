@@ -6,8 +6,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../../constantes/export_constantes.dart';
 
 class EcuacionesDeSegundoGrado extends StatefulWidget {
+  const EcuacionesDeSegundoGrado({super.key});
   @override
-  _EcuacionesDeSegundoGradoState createState() =>
+  State<EcuacionesDeSegundoGrado> createState() =>
       _EcuacionesDeSegundoGradoState();
 }
 

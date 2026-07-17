@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AnguloEntreVectores extends StatefulWidget {
+  const AnguloEntreVectores({super.key});
   @override
-  _AnguloEntreVectoresState createState() => _AnguloEntreVectoresState();
+  State<AnguloEntreVectores> createState() => _AnguloEntreVectoresState();
 }
 
 class _AnguloEntreVectoresState extends State<AnguloEntreVectores> {

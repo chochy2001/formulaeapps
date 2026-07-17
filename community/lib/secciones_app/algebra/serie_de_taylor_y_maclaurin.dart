@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SerieTaylorMaClaurin extends StatefulWidget {
+  const SerieTaylorMaClaurin({super.key});
   @override
-  _SerieTaylorMaClaurinState createState() => _SerieTaylorMaClaurinState();
+  State<SerieTaylorMaClaurin> createState() => _SerieTaylorMaClaurinState();
 }
 
 class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {

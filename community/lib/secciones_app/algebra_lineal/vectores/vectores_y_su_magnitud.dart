@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class VectoresYSuMagnitud extends StatefulWidget {
+  const VectoresYSuMagnitud({super.key});
   @override
-  _VectoresYSuMagnitudState createState() => _VectoresYSuMagnitudState();
+  State<VectoresYSuMagnitud> createState() => _VectoresYSuMagnitudState();
 }
 
 class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {

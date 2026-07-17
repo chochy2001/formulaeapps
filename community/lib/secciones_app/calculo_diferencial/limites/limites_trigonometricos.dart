@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LimitesTrigonometricos extends StatefulWidget {
+  const LimitesTrigonometricos({super.key});
   @override
-  _LimitesTrigonometricosState createState() => _LimitesTrigonometricosState();
+  State<LimitesTrigonometricos> createState() => _LimitesTrigonometricosState();
 }
 
 class _LimitesTrigonometricosState extends State<LimitesTrigonometricos> {

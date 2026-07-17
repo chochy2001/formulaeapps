@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constantes/export_constantes.dart';
 import '../../widgets_personalizados/textos_personalizados.dart';
+import '../../widgets_personalizados/zoom_image_personalizado.dart';
 
 class AlertEjercicios extends StatelessWidget {
   final String textoEjercicio, ruta;
@@ -35,11 +36,10 @@ class AlertEjercicios extends StatelessWidget {
               //Imagen del logo capdesis para darle un mejor formato y más calidad
               const Padding(
                 padding: EdgeInsets.all(15.0),
-                child: FadeInImage(
+                child: ImagenRemotaRobusta(
                   height: 100.0,
                   width: 100.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
               ),
               const SizedBox(height: kEspacioEntreBotones),

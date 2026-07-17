@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DerivadasParciales extends StatefulWidget {
+  const DerivadasParciales({super.key});
   @override
-  _DerivadasParcialesState createState() => _DerivadasParcialesState();
+  State<DerivadasParciales> createState() => _DerivadasParcialesState();
 }
 
 class _DerivadasParcialesState extends State<DerivadasParciales> {

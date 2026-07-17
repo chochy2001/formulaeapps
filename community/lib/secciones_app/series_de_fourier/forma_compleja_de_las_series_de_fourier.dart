@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FormaComplejaDeLasSeriesDeFourier extends StatefulWidget {
+  const FormaComplejaDeLasSeriesDeFourier({super.key});
   @override
-  _FormaComplejaDeLasSeriesDeFourierState createState() =>
+  State<FormaComplejaDeLasSeriesDeFourier> createState() =>
       _FormaComplejaDeLasSeriesDeFourierState();
 }
 

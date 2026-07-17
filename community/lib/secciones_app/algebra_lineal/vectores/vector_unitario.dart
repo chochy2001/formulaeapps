@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class VectorUnitario extends StatefulWidget {
+  const VectorUnitario({super.key});
   @override
-  _VectorUnitarioState createState() => _VectorUnitarioState();
+  State<VectorUnitario> createState() => _VectorUnitarioState();
 }
 
 class _VectorUnitarioState extends State<VectorUnitario> {

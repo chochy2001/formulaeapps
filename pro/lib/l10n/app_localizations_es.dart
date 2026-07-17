@@ -1524,6 +1524,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get imagen => 'Imagen';
 
   @override
+  String get imagenNoDisponible => 'Imagen no disponible';
+
+  @override
   String get explicacionDominio =>
       'El conjunto de partida o el conjunto de los valores que puede tomarla Variable Independiente (x), es el Dominio de la Función.';
 
@@ -4550,7 +4553,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mensajeError =>
-      'Hubo un problema al cargar el archivo PDF. Revisa tu conexión a internet e intenta de nuevo más tarde.';
+      'Hubo un problema al generar el PDF. Intenta de nuevo.';
 
   @override
   String get reintentar => 'Intentar de nuevo';
@@ -4678,4 +4681,468 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get eliminarCarpeta => 'Eliminar carpeta';
+
+  @override
+  String get tamanoFormula => 'Tamaño de fórmula';
+
+  @override
+  String get tamanoFormulaPequeno => 'Pequeño';
+
+  @override
+  String get tamanoFormulaMediano => 'Mediano';
+
+  @override
+  String get tamanoFormulaGrande => 'Grande';
+
+  @override
+  String get carpetaVaciaAyuda =>
+      'Toca el corazón en una fórmula para guardarla aquí.';
+
+  @override
+  String get crearOtraCarpetaParaMover =>
+      'Crea otra carpeta primero para mover esta fórmula.';
+
+  @override
+  String get coeficientesBinomiales =>
+      'Coeficientes binomiales y binomio de Newton';
+
+  @override
+  String get potenciasNEsimas => 'Suma y diferencia de potencias n-esimas';
+
+  @override
+  String get ecuacionCubica => 'Ecuacion cubica (metodo de Cardano)';
+
+  @override
+  String get ecuacionCuadraticaFormaMonicaVieta =>
+      'Ecuacion cuadratica: forma monica y teorema de Vieta';
+
+  @override
+  String get numerosComplejosFormaExponencialNumeroComplejo =>
+      'Forma exponencial (Euler) de un numero complejo';
+
+  @override
+  String get numerosComplejosRaicesEIgualdadNumerosComplejos =>
+      'Raices e igualdad de numeros complejos';
+
+  @override
+  String get propiedadesLogaritmos2 => 'Logaritmos (leyes y transformaciones)';
+
+  @override
+  String get determinantesCramerSarrus =>
+      'Determinantes y regla de Cramer / Sarrus';
+
+  @override
+  String get algebraLinealMatricesTiposDeMatrices => 'Tipos de matrices';
+
+  @override
+  String get algebraLinealVectoresProductosBaseCanonica =>
+      'Producto punto y cruz de la base canonica';
+
+  @override
+  String get algebraLinealVectoresProductoEscalarTriple =>
+      'Producto escalar triple y volumen';
+
+  @override
+  String get algebraLinealVectoresSumaVectoresComponentes =>
+      'Suma de vectores por componentes (metodo del poligono)';
+
+  @override
+  String get algebraLinealVectoresLeySenosCosenos => 'Ley de senos y cosenos';
+
+  @override
+  String get algebraLinealVectoresRazonesTrigonometricas =>
+      'Razones trigonometricas (triangulo rectangulo)';
+
+  @override
+  String get limitesTeoremasLimites => 'Teoremas de los limites';
+
+  @override
+  String get limitesLimitesInfinitos => 'Limites infinitos';
+
+  @override
+  String get limitesLimitesImportantes => 'Limites importantes';
+
+  @override
+  String get asintotasHorizontalesOblicuas =>
+      'Asintotas horizontales y oblicuas';
+
+  @override
+  String get continuidad => 'Continuidad';
+
+  @override
+  String get reglaLhopital => 'Regla de L\'Hopital';
+
+  @override
+  String get diferenciales => 'Diferenciales';
+
+  @override
+  String get derivadasAlgebraicasRadicales =>
+      'Derivadas algebraicas y radicales';
+
+  @override
+  String get reglaCadenaFuncionInversa =>
+      'Regla de la cadena y funcion inversa';
+
+  @override
+  String get derivadasTrigonometricasComplementarias =>
+      'Derivadas trigonometricas complementarias (verseno y en terminos del arco)';
+
+  @override
+  String get derivadasHiperbolicasInversas =>
+      'Derivadas de funciones hiperbolicas inversas';
+
+  @override
+  String get derivacionLogaritmica =>
+      'Derivacion logaritmica (potencias variables)';
+
+  @override
+  String get razonCambioTangenteNormal =>
+      'Razon de cambio, recta tangente y normal';
+
+  @override
+  String get aplicacionFisicaDerivada => 'Aplicacion fisica de la derivada';
+
+  @override
+  String get integralesInmediatasAdicionalesIntegral =>
+      'Integrales inmediatas adicionales (formas racionales y radicales)';
+
+  @override
+  String get potenciasReduccionTrigonometricasIntegral =>
+      'Potencias de funciones trigonometricas y formulas de reduccion';
+
+  @override
+  String get trigonometricasRacionalesProductosIntegral =>
+      'Integrales trigonometricas racionales y productos';
+
+  @override
+  String get potenciasReduccionHiperbolicasIntegral =>
+      'Potencias y reduccion de funciones hiperbolicas';
+
+  @override
+  String get hiperbolicasInversasIntegral =>
+      'Integrales de funciones hiperbolicas inversas';
+
+  @override
+  String get integralDefinidaPropiedadesIntegral =>
+      'Integral definida: propiedades y teoremas';
+
+  @override
+  String get integracionNumericaIntegral => 'Integracion numerica';
+
+  @override
+  String get sustitucionTrigonometricaIntegral =>
+      'Integracion por sustitucion trigonometrica';
+
+  @override
+  String get areaLongitudArcoIntegral =>
+      'Aplicaciones de la integral: area entre curvas y longitud de arco';
+
+  @override
+  String get fraccionesParcialesIntegral =>
+      'Descomposicion en fracciones parciales';
+
+  @override
+  String get constantesMatematicas => 'Constantes matemáticas';
+
+  @override
+  String get constantesFisicasUniversales => 'Constantes físicas universales';
+
+  @override
+  String get constantesElectromagneticas => 'Constantes electromagnéticas';
+
+  @override
+  String get constantesAtomicasMoleculares =>
+      'Constantes atómicas y moleculares';
+
+  @override
+  String get constantesTerrestresAstronomicas =>
+      'Constantes terrestres y astronómicas';
+
+  @override
+  String get seccionConstantesMatematicas => 'Constantes matemáticas';
+
+  @override
+  String get longitudConversion => 'Longitud';
+
+  @override
+  String get superficieConversion => 'Superficie';
+
+  @override
+  String get volumenConversion => 'Volumen';
+
+  @override
+  String get masaConversion => 'Masa';
+
+  @override
+  String get densidadConversion => 'Densidad';
+
+  @override
+  String get presionConversion => 'Presion';
+
+  @override
+  String get energiaConversion => 'Energia';
+
+  @override
+  String get potenciaConversion => 'Potencia';
+
+  @override
+  String get seccionConversionDeUnidades => 'Conversión de unidades';
+
+  @override
+  String get potenciaYReactanciasEnCa =>
+      'Potencia y reactancias en corriente alterna (CA)';
+
+  @override
+  String get caValoresEficacesTransformador =>
+      'Corriente alterna: valores eficaces, transformador y maquinas rotatorias';
+
+  @override
+  String get instrumentosDeMedicionElectrica =>
+      'Instrumentos de medicion electrica: puente de Wheatstone, voltimetro y amperimetro';
+
+  @override
+  String get circuitoLrEnSerie => 'Circuito LR (RL) en serie';
+
+  @override
+  String get fuerzaYTorcaMagnetica => 'Fuerza y momento de torsion magneticos';
+
+  @override
+  String get capacitoresCilindricoYEsferico =>
+      'Capacitancia de capacitores cilindrico y esferico';
+
+  @override
+  String get permeabilidadMagneticaEnMateriales =>
+      'Permeabilidad magnetica e intensidad de campo en materiales';
+
+  @override
+  String get bateriaRealVoltajeEnTerminales =>
+      'Fuente real (bateria): voltaje en terminales y resistencia interna';
+
+  @override
+  String get laRectaYElTriangulo => 'La recta y el triangulo';
+
+  @override
+  String get tangentesYPropiedadesDeLasConicas =>
+      'Tangentes y propiedades de las conicas';
+
+  @override
+  String get hiperbolaEquilatera => 'La hiperbola equilatera';
+
+  @override
+  String get laCurvaExponencial => 'La curva exponencial';
+
+  @override
+  String get aceleracionYMrua =>
+      'Aceleracion y Movimiento Rectilineo Uniformemente Acelerado (MRUA)';
+
+  @override
+  String get caidaLibreYTiroVertical => 'Caida libre y tiro vertical';
+
+  @override
+  String get movimientoDeProyectiles =>
+      'Movimiento de proyectiles (tiro parabolico)';
+
+  @override
+  String get movimientoCircularUniforme => 'Movimiento circular uniforme';
+
+  @override
+  String get cinematicaAngular =>
+      'Cinematica angular (rotacion uniformemente acelerada)';
+
+  @override
+  String get aceleracionYFuerzaCentripeta => 'Aceleracion y fuerza centripeta';
+
+  @override
+  String get leyesDeNewton => 'Leyes de Newton';
+
+  @override
+  String get pesoYGravedad => 'Peso y gravedad';
+
+  @override
+  String get cantidadDeMovimientoEImpulso => 'Cantidad de movimiento e impulso';
+
+  @override
+  String get friccion => 'Friccion';
+
+  @override
+  String get movimientoArmonicoSimple => 'Movimiento armonico simple (M.A.S.)';
+
+  @override
+  String get penduloSimple => 'Pendulo simple';
+
+  @override
+  String get equilibrioDeCuerposRigidos => 'Equilibrio de cuerpos rigidos';
+
+  @override
+  String get momentoDeTorsion => 'Momento de torsion (torque)';
+
+  @override
+  String get eficiencia => 'Eficiencia';
+
+  @override
+  String get hidrostatica => 'Hidrostatica';
+
+  @override
+  String get hidrodinamica =>
+      'Hidrodinamica (Bernoulli, continuidad, Torricelli)';
+
+  @override
+  String get seccionMecanica => 'Mecánica';
+
+  @override
+  String get axiomasDeCampoNumerosReales =>
+      'Axiomas de campo de los numeros reales';
+
+  @override
+  String get axiomasDeOrdenYTeoremasReales =>
+      'Axiomas de orden y teoremas de los numeros reales';
+
+  @override
+  String get desigualdadesTeoremasDeOrden => 'Desigualdades: teoremas de orden';
+
+  @override
+  String get conjuntosEIntervalos => 'Conjuntos e intervalos';
+
+  @override
+  String get valorAbsoluto => 'Valor absoluto';
+
+  @override
+  String get seccionNumerosRealesYDesigualdades =>
+      'Números reales y desigualdades';
+
+  @override
+  String get leyDeLaIluminacion => 'Ley de la iluminación';
+
+  @override
+  String get reflexionYAumentoFormaNewtoniana =>
+      'Reflexión y aumento de la imagen (forma Newtoniana)';
+
+  @override
+  String get ecuacionDeLasLentesFormaGaussiana =>
+      'Ecuación de las lentes (forma Gaussiana)';
+
+  @override
+  String get refraccionDeLaLuzLeyDeSnell =>
+      'Refracción de la luz (ley de Snell)';
+
+  @override
+  String get tiposDeLentesYMarchaDeRayos => 'Tipos de lentes y marcha de rayos';
+
+  @override
+  String get seccionOptica => 'Óptica';
+
+  @override
+  String get axiomasDeProbabilidad =>
+      'Axiomas de probabilidad y probabilidad condicional';
+
+  @override
+  String get funcionesDeMasaDensidadYAcumulada =>
+      'Funciones de masa, densidad y distribucion acumulada';
+
+  @override
+  String get funcionesDeProbabilidadConjuntasYCondicionales =>
+      'Funciones de probabilidad conjuntas y condicionales';
+
+  @override
+  String get esperanzaMediaYVarianza => 'Esperanza, media y varianza';
+
+  @override
+  String get distribucionesDistribucionDeBernoulli =>
+      'Distribucion de Bernoulli';
+
+  @override
+  String get distribucionesDistribucionDePascal =>
+      'Distribucion de Pascal (binomial negativa)';
+
+  @override
+  String get distribucionesDistribucionBeta => 'Distribucion Beta';
+
+  @override
+  String get distribucionesDistribucionDeCauchy => 'Distribucion de Cauchy';
+
+  @override
+  String get distribucionesDistribucionDeErlang => 'Distribucion de Erlang';
+
+  @override
+  String get distribucionesDistribucionUniforme =>
+      'Distribucion uniforme (continua)';
+
+  @override
+  String get regresionLineal => 'Regresion lineal y correlacion';
+
+  @override
+  String get desigualdadDeChebyshevYConvergencia =>
+      'Desigualdad de Chebyshev y convergencia estocastica';
+
+  @override
+  String get transferenciaDeCalor => 'Transferencia de calor';
+
+  @override
+  String get capacidadCalorificaYCalorLatente =>
+      'Capacidad calorifica y calor latente';
+
+  @override
+  String get leyesDeLosGases => 'Leyes de los gases';
+
+  @override
+  String get cicloDeCarnotYLeyesDeLaTermodinamica =>
+      'Ciclo de Carnot y leyes de la termodinamica';
+
+  @override
+  String get trabajoTermodinamico => 'Trabajo termodinamico';
+
+  @override
+  String get entalpiaYEnergiaInterna => 'Entalpia y energia interna';
+
+  @override
+  String get dilatacionLineal => 'Dilatacion lineal';
+
+  @override
+  String get dilatacionSuperficialYVolumetrica =>
+      'Dilatacion superficial y volumetrica';
+
+  @override
+  String get entropiaYTeoriaCinetica =>
+      'Entropia y teoria cinetica de los gases';
+
+  @override
+  String get procesosTermodinamicos => 'Procesos termodinamicos';
+
+  @override
+  String get seccionTermodinamica => 'Termodinámica';
+
+  @override
+  String get circuloUnitario => 'Circulo unitario';
+
+  @override
+  String get signosDeFuncionesPorCuadrante =>
+      'Signos de las funciones trigonometricas por cuadrante';
+
+  @override
+  String get angulosNotablesGradosRadianes =>
+      'Equivalencia de angulos notables: grados y radianes';
+
+  @override
+  String get relacionEntreFuncionesTrigonometricas =>
+      'Relacion entre funciones trigonometricas';
+
+  @override
+  String get identidadesDeAnguloTripleYCuadruple =>
+      'Identidades de angulo triple y cuadruple';
+
+  @override
+  String get identidadesDeReduccionDePotencias =>
+      'Identidades de reduccion de potencias';
+
+  @override
+  String get identidadesFundamentalesFormasDerivadas =>
+      'Identidades fundamentales: formas derivadas';
+
+  @override
+  String get cotangenteDeSumaYRestaDeAngulos =>
+      'Cotangente de la suma y resta de angulos';
+
+  @override
+  String get productoDeCosenoPorSeno =>
+      'Producto de coseno por seno (producto a suma)';
 }

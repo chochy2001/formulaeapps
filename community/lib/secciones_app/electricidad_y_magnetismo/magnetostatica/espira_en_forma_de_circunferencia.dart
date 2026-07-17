@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EspiraEnFormaDeCircunferencia extends StatefulWidget {
+  const EspiraEnFormaDeCircunferencia({super.key});
   @override
   State<EspiraEnFormaDeCircunferencia> createState() =>
       _EspiraEnFormaDeCircunferenciaState();

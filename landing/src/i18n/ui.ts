@@ -27,16 +27,15 @@ export const ui = {
       'Ofrecemos dos aplicaciones, Formulae Pro y Formulae Community, diseñadas para ayudarte en tus estudios. Ambas ofrecen una lista de tareas para que no se te olvide lo que debes hacer, un buscador de fórmulas para encontrar rápidamente lo que necesitas y más.',
     'hero.cta.primary': '¡Descarga la App!',
     'hero.cta.secondary': 'Ver Formulae Pro',
-    'hero.imageAlt':
-      'Captura de Formulae mostrando un catálogo de fórmulas matemáticas en pantalla móvil',
+    'hero.imageAlt': 'Vista visual de Formulae con símbolos matemáticos universales',
 
     'video.eyebrow': 'En 60 segundos',
     'video.title': 'Mira Formulae en acción',
 
-    'screenshots.eyebrow': 'Capturas reales',
-    'screenshots.title': 'Mira Formulae por dentro',
+    'screenshots.eyebrow': 'Funciones visuales',
+    'screenshots.title': 'Explora Formulae',
     'screenshots.subtitle':
-      'Vistas de la app: catálogo de fórmulas, imágenes explicativas, vídeos, ejercicios resueltos y más.',
+      'Símbolos visuales de las funciones: fórmulas, búsquedas, tareas, PDFs, práctica y más.',
     'screenshots.scrollHint': '← Desliza para ver más →',
 
     'features.eyebrow': 'Funcionalidades',
@@ -87,6 +86,30 @@ export const ui = {
     'comparison.feature.formulas': 'Catálogo de fórmulas',
     'comparison.feature.videos': 'Vídeos explicativos',
     'comparison.recommended': 'Recomendado',
+
+    'free.upsell.text': '¿Prefieres usarla sin anuncios y con asistente de IA?',
+    'free.upsell.cta': 'Conoce Formulae Pro',
+
+    'subjects.eyebrow': 'Materias',
+    'subjects.title': 'Materias que cubre Formulae Pro',
+    'subjects.subtitle':
+      'Formulae Pro va más allá de las matemáticas puras y reúne fórmulas de matemáticas e ingeniería en una sola app, desde álgebra y cálculo hasta mecánica, óptica y termodinámica.',
+    'subjects.algebra.label': 'Álgebra',
+    'subjects.linearAlgebra.label': 'Álgebra lineal',
+    'subjects.trigonometry.label': 'Trigonometría',
+    'subjects.geometry.label': 'Geometría',
+    'subjects.calculus.label': 'Cálculo diferencial, integral y multivariable',
+    'subjects.differentialEquations.label': 'Ecuaciones diferenciales',
+    'subjects.probabilityStatistics.label': 'Probabilidad y estadística',
+    'subjects.fourier.label': 'Series de Fourier',
+    'subjects.discreteMath.label': 'Matemáticas discretas',
+    'subjects.financialMath.label': 'Matemáticas financieras',
+    'subjects.mechanics.label': 'Mecánica',
+    'subjects.electromagnetism.label': 'Electricidad y magnetismo',
+    'subjects.optics.label': 'Óptica',
+    'subjects.thermodynamics.label': 'Termodinámica',
+    'subjects.unitConversion.label': 'Conversión de unidades',
+    'subjects.constants.label': 'Constantes físicas y matemáticas',
 
     'download.title': 'Descarga la App',
     'download.subtitle': 'Disponible en App Store, Google Play, Microsoft Store y AppGallery',
@@ -141,15 +164,15 @@ export const ui = {
       'We offer two applications, Formulae Pro and Formulae Community, designed to assist you in your studies. Both include a task list so you never forget what you have to do, a formula searcher to quickly find what you need and more.',
     'hero.cta.primary': 'Download the App!',
     'hero.cta.secondary': 'See Formulae Pro',
-    'hero.imageAlt': 'Formulae screenshot showing the math formulas catalog on a mobile screen',
+    'hero.imageAlt': 'Formulae visual preview with universal mathematical symbols',
 
     'video.eyebrow': 'In 60 seconds',
     'video.title': 'See Formulae in action',
 
-    'screenshots.eyebrow': 'Real screenshots',
-    'screenshots.title': 'Take a look inside Formulae',
+    'screenshots.eyebrow': 'Feature previews',
+    'screenshots.title': 'Explore Formulae',
     'screenshots.subtitle':
-      'App views: formula catalog, explanatory images, videos, solved exercises and more.',
+      'Visual symbols for the features: formulas, search, tasks, PDFs, practice and more.',
     'screenshots.scrollHint': '← Swipe to see more →',
 
     'features.eyebrow': 'Features',
@@ -196,6 +219,30 @@ export const ui = {
     'comparison.feature.formulas': 'Formula catalog',
     'comparison.feature.videos': 'Explanatory videos',
     'comparison.recommended': 'Recommended',
+
+    'free.upsell.text': 'Prefer it without ads and with an AI assistant?',
+    'free.upsell.cta': 'Discover Formulae Pro',
+
+    'subjects.eyebrow': 'Subjects',
+    'subjects.title': 'Subjects Formulae Pro covers',
+    'subjects.subtitle':
+      'Formulae Pro goes beyond pure mathematics and brings together formulas from maths and engineering in a single app, from algebra and calculus to mechanics, optics and thermodynamics.',
+    'subjects.algebra.label': 'Algebra',
+    'subjects.linearAlgebra.label': 'Linear algebra',
+    'subjects.trigonometry.label': 'Trigonometry',
+    'subjects.geometry.label': 'Geometry',
+    'subjects.calculus.label': 'Differential, integral and multivariable calculus',
+    'subjects.differentialEquations.label': 'Differential equations',
+    'subjects.probabilityStatistics.label': 'Probability and statistics',
+    'subjects.fourier.label': 'Fourier series',
+    'subjects.discreteMath.label': 'Discrete mathematics',
+    'subjects.financialMath.label': 'Financial mathematics',
+    'subjects.mechanics.label': 'Mechanics',
+    'subjects.electromagnetism.label': 'Electricity and magnetism',
+    'subjects.optics.label': 'Optics',
+    'subjects.thermodynamics.label': 'Thermodynamics',
+    'subjects.unitConversion.label': 'Unit conversion',
+    'subjects.constants.label': 'Physical and mathematical constants',
 
     'download.title': 'Download the App',
     'download.subtitle': 'Available on App Store, Google Play, Microsoft Store and AppGallery',

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuerzaMagneticaComoVectorSobreCargasEnMovimiento extends StatefulWidget {
+  const FuerzaMagneticaComoVectorSobreCargasEnMovimiento({super.key});
   @override
   State<FuerzaMagneticaComoVectorSobreCargasEnMovimiento> createState() =>
       _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState();

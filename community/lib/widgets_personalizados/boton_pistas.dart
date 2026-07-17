@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+
 import '../../../constantes/export_constantes.dart';
 
 class VerPistas extends StatelessWidget {
   //const VerPistas ({Key? key}) : super(key: key);
   final Widget latex;
 
-  VerPistas(this.latex);
+  const VerPistas(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.2,
       child: ListView(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               latex,
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           )
         ],
@@ -30,7 +31,7 @@ class VerPistas extends StatelessWidget {
 class BotonVerPistas extends StatelessWidget {
   final Widget latex;
 
-  BotonVerPistas(this.latex);
+  const BotonVerPistas(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,10 @@ class BotonVerPistas extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child: Text("Pista", style: kTextoBotones),
+      child: Text(
+        AppLocalizations.of(context)!.pista,
+        style: kTextoBotones,
+      ),
       onPressed: () {
         showModalBottomSheet(
             backgroundColor: kColorBotones,
@@ -55,7 +59,7 @@ class BotonVerPistas extends StatelessWidget {
 class BotonVerRespuesta extends StatelessWidget {
   final Widget latex;
 
-  BotonVerRespuesta(this.latex);
+  const BotonVerRespuesta(this.latex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,10 @@ class BotonVerRespuesta extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child: Text("Respuesta", style: kTextoBotones),
+      child: Text(
+        AppLocalizations.of(context)!.respuesta,
+        style: kTextoBotones,
+      ),
       onPressed: () {
         showModalBottomSheet(
             backgroundColor: kColorBotones,

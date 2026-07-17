@@ -78,6 +78,34 @@ class TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
                             formulaText:
                                 r"\mathcal{L}[f(t)] = F(s) = \int_{0}^{\infty}f(t)e^{-st}dt"),
                         const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(
+                          AppLocalizations.of(
+                            context,
+                          )!.formulasOperacionalesDeLaTransformadaDeLaplace,
+                        ),
+                        const SizedBox(height: 10),
+                        const Latex(
+                          formulaText: r"\mathcal{L}\{1\} = \frac{1}{s}",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"\mathcal{L}\{t^n\} = \frac{n!}{s^{n+1}},\quad n \geq 0",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText: r"\mathcal{L}\{e^{at}\} = \frac{1}{s-a}",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"\mathcal{L}\{\sin(at)\} = \frac{a}{s^2+a^2}",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText: r"\mathcal{L}\{f'(t)\} = sF(s) - f(0^-)",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),

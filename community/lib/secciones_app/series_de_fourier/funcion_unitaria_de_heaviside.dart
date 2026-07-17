@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionUnitariaDeHeaviside extends StatefulWidget {
+  const FuncionUnitariaDeHeaviside({super.key});
   @override
-  _FuncionUnitariaDeHeavisideState createState() =>
+  State<FuncionUnitariaDeHeaviside> createState() =>
       _FuncionUnitariaDeHeavisideState();
 }
 

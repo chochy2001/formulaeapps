@@ -27,7 +27,6 @@ CONTRACT="$ROOT/contracts/bff.openapi.yaml"
 # version (7.x stream). We pin the wrapper to a known-good release; the
 # wrapper's `version-manager` separately controls the JAR.
 GENERATOR_WRAPPER_VERSION="2.13.4"
-GENERATOR_JAR_VERSION="7.10.0"
 GENERATOR_PACKAGE="@openapitools/openapi-generator-cli@$GENERATOR_WRAPPER_VERSION"
 
 if [ ! -f "$CONTRACT" ]; then
@@ -46,7 +45,7 @@ generate_for_app() {
   local dest="$ROOT/$app/packages/formulaeapps_bff_client"
   local tmp
   tmp=$(mktemp -d)
-  trap "rm -rf '$tmp'" EXIT INT TERM
+  trap 'rm -rf -- "${tmp:?}"' EXIT INT TERM
 
   echo "→ Generating $app types into $dest"
 
@@ -58,23 +57,51 @@ generate_for_app() {
     --additional-properties=pubName=formulaeapps_bff_client,pubLibrary=formulaeapps_bff_client.api,pubAuthor=CAPDESIS,pubVersion=1.0.0,nullSafe=true,nullableFields=true \
     --global-property=apiTests=false,modelTests=false,apiDocs=false,modelDocs=false
 
-  # Wipe destination + copy FULL package output (pubspec.yaml, lib/, README, analysis_options.yaml)
-  # so the consuming app can reference it via `path: packages/formulaeapps_bff_client`.
-  rm -rf "$dest"
-  mkdir -p "$dest"
-  if [ -d "$tmp/lib" ]; then
-    # Copy pubspec.yaml, README.md, analysis_options.yaml, lib/
-    for entry in pubspec.yaml README.md analysis_options.yaml lib; do
-      if [ -e "$tmp/$entry" ]; then
-        cp -R "$tmp/$entry" "$dest/"
-      fi
-    done
-  else
+  # Refresh only the generator-owned outputs (pubspec.yaml, README.md,
+  # analysis_options.yaml, lib/) so the consuming app can reference the package
+  # via `path: packages/formulaeapps_bff_client`.
+  #
+  # Hand-authored files committed inside the package are NOT generator output
+  # and MUST survive regeneration. In particular test/ holds the contract
+  # serialization tests that `dart test` runs in CI. A blanket `rm -rf "$dest"`
+  # used to delete them, so verify-parity.sh reported them as deleted drift and
+  # failed the parity gate. Remove each generated entry individually and leave
+  # everything else (test/, and any future hand-authored files) untouched.
+  if [ ! -d "$tmp/lib" ]; then
     echo "ERROR: generator did not produce lib/ for $app (check $tmp)" >&2
     exit 1
   fi
+  mkdir -p "$dest"
+  for entry in pubspec.yaml README.md analysis_options.yaml lib; do
+    # Drop any stale copy first so a generated entry that disappears upstream
+    # does not linger, then copy the freshly generated one.
+    rm -rf "${dest:?}/$entry"
+    if [ -e "$tmp/$entry" ]; then
+      cp -R "$tmp/$entry" "$dest/"
+    fi
+  done
 
-  rm -rf "$tmp"
+  # `apiDocs=false,modelDocs=false` intentionally keeps the generated package
+  # small, but the stock dart-dio README still links to doc/*.md files that do
+  # not exist. Replace those sections with the canonical OpenAPI contract so
+  # consumers never receive dead links. Keep this transformation here rather
+  # than hand-editing generated READMEs, because every parity run regenerates
+  # them from scratch.
+  if [ -f "$dest/README.md" ]; then
+    perl -0pi -e 's{## Documentation for API Endpoints\n.*?## Documentation For Models\n.*?## Documentation For Authorization}{## API contract\n\nThe canonical API surface is generated in\n[`contracts/bff.openapi.yaml`](../../../contracts/bff.openapi.yaml). API and model\nMarkdown files are intentionally not generated with this package; use the\ncontract and generated Dart source as references.\n\n## Documentation For Authorization}s' "$dest/README.md"
+
+    # The stock example leaves an invalid Dart assignment. Auth requests need a
+    # real per-install identifier and HMAC proof, so point consumers to the
+    # owning app service instead of publishing a non-compilable placeholder.
+    perl -0pi -e 's{## Getting Started\n.*?## API contract}{## Getting started\n\nImport this package from the owning app. Authentication requests require a real\nper-install client ID and HMAC client proof; use the app `AuthService` rather\nthan hardcoding example values. The canonical contract and generated APIs below\nare the reference for integrations.\n\n## API contract}s' "$dest/README.md"
+
+    if grep -Fq '](doc/' "$dest/README.md" || grep -Fq 'authTokenRequest = ;' "$dest/README.md"; then
+      echo "ERROR: generated README for $app still contains disabled doc links or an invalid example." >&2
+      exit 1
+    fi
+  fi
+
+  rm -rf -- "${tmp:?}"
   trap - EXIT INT TERM
 
   # dart-dio uses built_value: each model emits an abstract class with

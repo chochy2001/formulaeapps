@@ -4,17 +4,25 @@ import Container from '../components/ui/Container.astro';
 import Features from '../components/home/Features.astro';
 import DownloadCTA from '../components/home/DownloadCTA.astro';
 import { useTranslations } from '../i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { STORES, type Locale } from '../consts';
 
 const locale: Locale = 'es';
 const t = useTranslations(locale);
 
-const title = 'Formulae Community — Versión gratuita';
+const title = 'Formulae Community, versión gratuita';
 const description =
   'Formulae Community es la versión gratuita de Formulae. Catálogo completo de fórmulas matemáticas y científicas con vídeos e imágenes explicativas, financiada con publicidad.';
 ---
 
-<BaseLayout {title} {description} pathname="/gratuita" schema="community">
+<BaseLayout
+  {title}
+  {description}
+  pathname="/gratuita"
+  schema="community"
+  image="/og/community.png"
+  imageAlt="Formulae Community"
+>
   <Container as="section" class="py-16 md:py-24">
     <p class="text-primary-600 text-sm font-semibold tracking-wider uppercase">
       Formulae Community
@@ -46,9 +54,10 @@ const description =
     </div>
 
     <p class="text-ink-500 mt-10 max-w-2xl text-sm">
-      ¿Prefieres usarla sin anuncios y con asistente IA? <a
-        href="/pro"
-        class="text-primary-600 font-semibold hover:underline">Conoce Formulae Pro</a
+      {t('free.upsell.text')}{' '}
+      <a
+        href={getRelativeLocaleUrl(locale, '/pro')}
+        class="text-primary-600 font-semibold hover:underline">{t('free.upsell.cta')}</a
       >.
     </p>
   </Container>

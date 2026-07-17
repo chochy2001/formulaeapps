@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Negacion extends StatefulWidget {
+  const Negacion({super.key});
   @override
-  _NegacionState createState() => _NegacionState();
+  State<Negacion> createState() => _NegacionState();
 }
 
 class _NegacionState extends State<Negacion> {

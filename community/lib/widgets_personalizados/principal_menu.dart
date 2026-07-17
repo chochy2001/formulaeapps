@@ -4,9 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PrincipalMenu extends StatefulWidget {
-  const PrincipalMenu({
-    Key? key,
-  }) : super(key: key);
+  const PrincipalMenu({super.key});
   @override
   State<PrincipalMenu> createState() => _PrincipalMenuState();
 }
@@ -17,9 +15,10 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(onBannerReady: () {
+      if (mounted) setState(() {});
+    });
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,15 +39,14 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
             onTap: () {
               openURLNuevo('https://capdesis.com/');
             },
-            child: const FadeInImage(
+            child: const ImagenRemotaRobusta(
               height: 100.0,
               width: 100.0,
-              placeholder: AssetImage(kUrlImagenGifCarga),
-              image: NetworkImage(kUrlImagenCapdesisTexto),
+              urlImagen: kUrlImagenCapdesisTexto,
             ),
           ),
           adContainer,
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           BotonRedSocial(
@@ -59,7 +57,7 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               openURLNuevo('https://linktr.ee/formulae_');
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Center(

@@ -1,4 +1,4 @@
-# .htaccess — red de seguridad para Hostinger LiteSpeed.
+# .htaccess: red de seguridad para Hostinger LiteSpeed.
 # Astro genera con build.format='directory', LiteSpeed sirve index.html
 # de cada carpeta natural. Estas reglas cubren casos límite y hardening.
 
@@ -8,6 +8,12 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Legacy locale-specific diagram URLs now resolve to the single canonical
+  # asset set. Keep this temporary redirect while installed app versions age
+  # out; the exception preserves the historical chat/cart path mapping.
+  RewriteRule ^imagenes_ingles/clic_card_buy\.png$ /imagenes/carrito_comprar.png [R=302,L,NE]
+  RewriteRule ^imagenes_ingles/(.+)$ /imagenes/$1 [R=302,L,NE]
 
   # /app/ tiene su propio .htaccess (Flutter SPA + redirect a subdominio
   # cuando se accede vía apex). No procesar reglas root para esos paths.
@@ -39,6 +45,7 @@ ErrorDocument 404 /404.html
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType image/avif "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType image/x-icon "access plus 30 days"

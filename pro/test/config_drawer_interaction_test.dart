@@ -59,19 +59,21 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(900, 1800));
     for (final platform in [0, 1]) {
       await tester.pumpWidget(
-        _harness(
-          routes: {
-            '/preguntasFrecuentes': (_) =>
-                const Scaffold(body: Text('faq')),
-            '/informacion': (_) => const Scaffold(body: Text('info')),
-            '/configuracion': (_) => const Scaffold(body: Text('cfg')),
-          },
-          home: Scaffold(
-            drawer: DrawerPersonalizado(platform),
-            body: Builder(
-              builder: (context) => TextButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const Text('open'),
+        KeyedSubtree(
+          key: ValueKey('drawer-platform-$platform'),
+          child: _harness(
+            routes: {
+              '/preguntasFrecuentes': (_) => const Scaffold(body: Text('faq')),
+              '/informacion': (_) => const Scaffold(body: Text('info')),
+              '/configuracion': (_) => const Scaffold(body: Text('cfg')),
+            },
+            home: Scaffold(
+              drawer: DrawerPersonalizado(platform),
+              body: Builder(
+                builder: (context) => TextButton(
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  child: const Text('open'),
+                ),
               ),
             ),
           ),

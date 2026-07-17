@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PortadoresDeCargaLibre extends StatefulWidget {
+  const PortadoresDeCargaLibre({super.key});
   @override
   State<PortadoresDeCargaLibre> createState() => _PortadoresDeCargaLibreState();
 }

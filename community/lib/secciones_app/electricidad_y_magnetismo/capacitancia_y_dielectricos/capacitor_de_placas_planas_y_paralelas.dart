@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CapacitorDePlacasPlanasYParalelas extends StatefulWidget {
+  const CapacitorDePlacasPlanasYParalelas({super.key});
   @override
   State<CapacitorDePlacasPlanasYParalelas> createState() =>
       _CapacitorDePlacasPlanasYParalelasState();

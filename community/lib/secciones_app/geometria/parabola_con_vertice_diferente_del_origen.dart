@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ParabolaConVerticeDiferenteDelOrigen extends StatefulWidget {
+  const ParabolaConVerticeDiferenteDelOrigen({super.key});
   @override
-  _ParabolaConVerticeDiferenteDelOrigenState createState() =>
+  State<ParabolaConVerticeDiferenteDelOrigen> createState() =>
       _ParabolaConVerticeDiferenteDelOrigenState();
 }
 

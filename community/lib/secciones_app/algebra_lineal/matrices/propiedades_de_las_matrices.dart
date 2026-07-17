@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesDeLasMatrices extends StatefulWidget {
+  const PropiedadesDeLasMatrices({super.key});
   @override
-  _PropiedadesDeLasMatricesState createState() =>
+  State<PropiedadesDeLasMatrices> createState() =>
       _PropiedadesDeLasMatricesState();
 }
 

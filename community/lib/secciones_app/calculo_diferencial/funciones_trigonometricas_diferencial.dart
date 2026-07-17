@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionesTrigonometricasDiferencial extends StatefulWidget {
+  const FuncionesTrigonometricasDiferencial({super.key});
   @override
-  _FuncionesTrigonometricasDiferencialState createState() =>
+  State<FuncionesTrigonometricasDiferencial> createState() =>
       _FuncionesTrigonometricasDiferencialState();
 }
 

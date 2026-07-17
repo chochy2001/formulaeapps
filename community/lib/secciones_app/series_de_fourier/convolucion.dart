@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Convolucion extends StatefulWidget {
+  const Convolucion({super.key});
   @override
-  _ConvolucionState createState() => _ConvolucionState();
+  State<Convolucion> createState() => _ConvolucionState();
 }
 
 class _ConvolucionState extends State<Convolucion> {

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import Features from '../components/home/Features.astro';
+import Subjects from '../components/home/Subjects.astro';
 import DownloadCTA from '../components/home/DownloadCTA.astro';
 import { useTranslations } from '../i18n/ui';
 import { STORES, type Locale } from '../consts';
@@ -9,16 +10,23 @@ import { STORES, type Locale } from '../consts';
 const locale: Locale = 'es';
 const t = useTranslations(locale);
 
-const title = 'Formulae Pro — Sin anuncios, con asistente IA';
+const title = 'Formulae Pro, fórmulas de matemáticas e ingeniería';
 const description =
-  'Formulae Pro es la versión sin anuncios de Formulae. Incluye exportación a PDF, lista de tareas, asistente con ChatGPT y más. Disponible para iOS, Android, Windows, macOS y Linux.';
+  'Formulae Pro es la versión sin anuncios de Formulae, con fórmulas de matemáticas e ingeniería: álgebra, cálculo, mecánica, óptica, termodinámica y más. Incluye exportación a PDF, lista de tareas y asistente con ChatGPT. Disponible para iOS, Android, Windows, macOS y Linux.';
 ---
 
-<BaseLayout {title} {description} pathname="/pro" schema="pro">
+<BaseLayout
+  {title}
+  {description}
+  pathname="/pro"
+  schema="pro"
+  image="/og/pro.png"
+  imageAlt="Formulae Pro"
+>
   <Container as="section" class="py-16 md:py-24">
     <p class="text-primary-600 text-sm font-semibold tracking-wider uppercase">Formulae Pro</p>
     <h1 class="font-display text-ink-900 mt-3 max-w-3xl text-4xl md:text-5xl">
-      Toda la potencia de Formulae, sin anuncios y con IA.
+      Toda la potencia de Formulae para matemáticas e ingeniería, sin anuncios y con IA.
     </h1>
     <p class="text-ink-700 mt-6 max-w-2xl text-lg">
       {t('comparison.pro.tagline')}
@@ -44,6 +52,7 @@ const description =
     </div>
   </Container>
 
+  <Subjects />
   <Features />
   <DownloadCTA variant="pro" />
 </BaseLayout>

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizInversa extends StatefulWidget {
+  const MatrizInversa({super.key});
   @override
-  _MatrizInversaState createState() => _MatrizInversaState();
+  State<MatrizInversa> createState() => _MatrizInversaState();
 }
 
 class _MatrizInversaState extends State<MatrizInversa> {

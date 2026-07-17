@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuIdentidadesTrigonometricas extends StatefulWidget {
-  const MenuIdentidadesTrigonometricas({Key? key}) : super(key: key);
+  const MenuIdentidadesTrigonometricas({super.key});
 
   @override
   MenuIdentidadesTrigonometricasState createState() =>

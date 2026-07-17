@@ -9,7 +9,19 @@ class DrawerPersonalizado extends StatelessWidget {
   final int plataform;
   static const int widthFinal = 400;
 
-  const DrawerPersonalizado(this.plataform, {Key? key}) : super(key: key);
+  const DrawerPersonalizado(this.plataform, {super.key});
+
+  Widget _itemLabel(String text, bool isNarrow) {
+    return Flexible(
+      child: Text(
+        text,
+        maxLines: isNarrow ? 2 : 1,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+        style: kTextoBotonesDelgado,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +45,10 @@ class DrawerPersonalizado extends StatelessWidget {
                             top: 20.0,
                             bottom: 10.0,
                           ),
-                          child: FadeInImage(
+                          child: ImagenRemotaRobusta(
                             height: 50.0,
                             width: 50.0,
-                            placeholder: AssetImage(kUrlImagenGifCarga),
-                            image: NetworkImage(kUrlImagenFormulae),
+                            urlImagen: kUrlImagenFormulae,
                           ),
                         ),
                         Text(
@@ -68,11 +79,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.preguntasFrecuentes,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -95,11 +104,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.informacion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -122,11 +129,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.configuracion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -171,11 +176,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.compartirApp,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -263,11 +266,10 @@ class DrawerPersonalizado extends StatelessWidget {
                   return ListView(
                     children: [
                       const Column(children: [
-                        FadeInImage(
+                        ImagenRemotaRobusta(
                           height: 50.0,
                           width: 50.0,
-                          placeholder: AssetImage(kUrlImagenGifCarga),
-                          image: NetworkImage(kUrlImagenFormulae),
+                          urlImagen: kUrlImagenFormulae,
                         ),
                         Text(
                           'Formulae',
@@ -297,11 +299,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.preguntasFrecuentes,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -324,11 +324,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.informacion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -351,11 +349,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.configuracion,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -398,11 +394,9 @@ class DrawerPersonalizado extends StatelessWidget {
                             const SizedBox(
                               width: 10.0,
                             ),
-                            Text(
+                            _itemLabel(
                               AppLocalizations.of(context)!.compartirApp,
-                              maxLines: isNarrow ? 2 : 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: kTextoBotonesDelgado,
+                              isNarrow,
                             ),
                           ],
                         ),
@@ -491,11 +485,10 @@ class DrawerPersonalizado extends StatelessWidget {
                     return ListView(
                       children: [
                         const Column(children: [
-                          FadeInImage(
+                          ImagenRemotaRobusta(
                             height: 50.0,
                             width: 50.0,
-                            placeholder: AssetImage(kUrlImagenGifCarga),
-                            image: NetworkImage(kUrlImagenFormulae),
+                            urlImagen: kUrlImagenFormulae,
                           ),
                           Text(
                             'Formulae',
@@ -526,12 +519,10 @@ class DrawerPersonalizado extends StatelessWidget {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Text(
+                              _itemLabel(
                                 AppLocalizations.of(context)!
                                     .preguntasFrecuentes,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
+                                isNarrow,
                               ),
                             ],
                           ),
@@ -554,11 +545,9 @@ class DrawerPersonalizado extends StatelessWidget {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Text(
+                              _itemLabel(
                                 AppLocalizations.of(context)!.informacion,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
+                                isNarrow,
                               ),
                             ],
                           ),
@@ -581,11 +570,9 @@ class DrawerPersonalizado extends StatelessWidget {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Text(
+                              _itemLabel(
                                 AppLocalizations.of(context)!.configuracion,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
+                                isNarrow,
                               ),
                             ],
                           ),
@@ -628,11 +615,9 @@ class DrawerPersonalizado extends StatelessWidget {
                               const SizedBox(
                                 width: 10.0,
                               ),
-                              Text(
+                              _itemLabel(
                                 AppLocalizations.of(context)!.compartirApp,
-                                maxLines: isNarrow ? 2 : 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: kTextoBotonesDelgado,
+                                isNarrow,
                               ),
                             ],
                           ),

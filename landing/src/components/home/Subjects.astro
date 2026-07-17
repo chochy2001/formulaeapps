@@ -1,0 +1,53 @@
+---
+/**
+ * Sección "Materias": lista las áreas que cubre Formulae Pro.
+ * Comunica que Pro abarca matemáticas e ingeniería con una lista
+ * verificable de materias (no un conteo de fórmulas). El orden y los
+ * ids vienen de SUBJECTS en consts.ts; el texto de cada materia vive
+ * en i18n/ui.ts como 'subjects.<id>.label'.
+ */
+import { SUBJECTS, SITE, type Locale } from '../../consts';
+import { useTranslations, type UIKey } from '../../i18n/ui';
+import Container from '../ui/Container.astro';
+
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const t = useTranslations(locale);
+---
+
+<Container as="section" class="py-16 md:py-24">
+  <div class="mb-12 text-center">
+    <p class="text-primary-600 text-sm font-semibold tracking-wider uppercase">
+      {t('subjects.eyebrow')}
+    </p>
+    <h2 class="font-display text-ink-900 mt-3 text-3xl md:text-4xl">
+      {t('subjects.title')}
+    </h2>
+    <p class="text-ink-500 mx-auto mt-4 max-w-2xl text-base">
+      {t('subjects.subtitle')}
+    </p>
+  </div>
+
+  <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      SUBJECTS.map((id) => (
+        <li class="border-ink-100 shadow-soft hover:border-primary-200 flex items-center gap-3 rounded-[var(--radius-card)] border bg-white px-4 py-3 transition-colors">
+          <span class="bg-primary-100 text-primary-700 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </span>
+          <span class="text-ink-800 text-sm font-medium">{t(`subjects.${id}.label` as UIKey)}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Container>

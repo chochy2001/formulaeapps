@@ -22,7 +22,7 @@ class CalculoDiferencialState extends State<CalculoDiferencial> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              Column(
+              MenuColumn(
                 children: [
                   const SizedBox(
                     height: 20.0,

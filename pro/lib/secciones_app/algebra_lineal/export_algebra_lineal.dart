@@ -1,3 +1,9 @@
+export '../algebra_lineal/algebra_lineal/matrices/tipos_de_matrices.dart';
+export '../algebra_lineal/algebra_lineal/vectores/ley_senos_cosenos.dart';
+export '../algebra_lineal/algebra_lineal/vectores/producto_escalar_triple.dart';
+export '../algebra_lineal/algebra_lineal/vectores/productos_base_canonica.dart';
+export '../algebra_lineal/algebra_lineal/vectores/razones_trigonometricas.dart';
+export '../algebra_lineal/algebra_lineal/vectores/suma_vectores_componentes.dart';
 export '../algebra_lineal/determinantes_algebra_lineal.dart';
 export '../algebra_lineal/matrices/matriz_adjunta.dart';
 export '../algebra_lineal/matrices/matriz_identidad.dart';

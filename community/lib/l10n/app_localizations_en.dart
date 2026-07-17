@@ -1515,6 +1515,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get imagen => 'Image';
 
   @override
+  String get imagenNoDisponible => 'Image unavailable';
+
+  @override
+  String get formulaePDF => 'Formulae PDF';
+
+  @override
+  String get pdfNoDisponible => 'The PDF is unavailable right now.';
+
+  @override
+  String get reintentar => 'Retry';
+
+  @override
+  String get noSePudoAbrirPDF => 'The PDF could not be opened.';
+
+  @override
+  String get pdfGeneradoLocalmente =>
+      'This PDF was generated locally by Formulae Community.';
+
+  @override
+  String get consultaLaLeccionEnLaApp =>
+      'See the lesson in the app for the full content.';
+
+  @override
+  String get pdfExportado => 'The PDF is ready to save or share.';
+
+  @override
+  String get noSePudoExportarPDF => 'The PDF could not be exported.';
+
+  @override
   String get explicacionDominio =>
       'The starting set or the set of values that the Independent Variable (x) can take, is the Domain of the Function.';
 

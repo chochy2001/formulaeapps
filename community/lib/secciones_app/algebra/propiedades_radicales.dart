@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesRadicales extends StatefulWidget {
+  const PropiedadesRadicales({super.key});
   @override
-  _PropiedadesRadicalesState createState() => _PropiedadesRadicalesState();
+  State<PropiedadesRadicales> createState() => _PropiedadesRadicalesState();
 }
 
 class _PropiedadesRadicalesState extends State<PropiedadesRadicales> {

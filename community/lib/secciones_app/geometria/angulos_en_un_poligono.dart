@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AngulosEnUnPoligono extends StatefulWidget {
+  const AngulosEnUnPoligono({super.key});
   @override
-  _AngulosEnUnPoligonoState createState() => _AngulosEnUnPoligonoState();
+  State<AngulosEnUnPoligono> createState() => _AngulosEnUnPoligonoState();
 }
 
 class _AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {

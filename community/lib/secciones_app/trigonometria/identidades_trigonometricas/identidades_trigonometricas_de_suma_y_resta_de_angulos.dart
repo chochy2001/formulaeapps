@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IdentidadesTrigonometricasDeSumaYRestaDeAngulos extends StatefulWidget {
+  const IdentidadesTrigonometricasDeSumaYRestaDeAngulos({super.key});
   @override
-  _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState createState() =>
+  State<IdentidadesTrigonometricasDeSumaYRestaDeAngulos> createState() =>
       _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState();
 }
 

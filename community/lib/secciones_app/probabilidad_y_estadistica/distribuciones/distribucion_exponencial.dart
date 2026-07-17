@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DistribucionExponencial extends StatefulWidget {
+  const DistribucionExponencial({super.key});
   @override
-  _DistribucionExponencialState createState() =>
+  State<DistribucionExponencial> createState() =>
       _DistribucionExponencialState();
 }
 

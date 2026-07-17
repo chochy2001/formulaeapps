@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../constantes/export_constantes.dart';
+import 'boton_drawer_item.dart';
 
 class BotonRedSocial extends StatelessWidget {
   final Function url;
-  final IconData icon;
+  final FaIconData icon;
   final String text;
 
   const BotonRedSocial(
@@ -12,27 +13,12 @@ class BotonRedSocial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return BotonDrawerItem(
+      icon: icon,
+      text: text,
       onTap: () {
         url();
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(
-            icon,
-            color: kColorBlanco,
-            //color: Colors.white,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: kTextoBotonesDelgado,
-          ),
-        ],
-      ),
     );
   }
 }

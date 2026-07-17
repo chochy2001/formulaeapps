@@ -5,8 +5,8 @@
 # and will fail CI. To change generated content, edit the Zod schemas under
 # bff/src/schemas/ and rerun the generators.
 
-pro/lib/generated/** linguist-generated=true
-community/lib/generated/** linguist-generated=true
+pro/packages/formulaeapps_bff_client/** linguist-generated=true
+community/packages/formulaeapps_bff_client/** linguist-generated=true
 contracts/*.yaml linguist-generated=true
 
 # Bun lockfile (Bun 1.2+ uses text format bun.lock; older bun.lockb was binary)

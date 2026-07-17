@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CalculoDiferencial extends StatefulWidget {
-  const CalculoDiferencial({Key? key}) : super(key: key);
+  const CalculoDiferencial({super.key});
 
   @override
   CalculoDiferencialState createState() => CalculoDiferencialState();

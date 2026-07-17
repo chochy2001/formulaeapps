@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesLogaritmosGenerales extends StatefulWidget {
+  const PropiedadesLogaritmosGenerales({super.key});
   @override
-  _PropiedadesLogaritmosGeneralesState createState() =>
+  State<PropiedadesLogaritmosGenerales> createState() =>
       _PropiedadesLogaritmosGeneralesState();
 }
 

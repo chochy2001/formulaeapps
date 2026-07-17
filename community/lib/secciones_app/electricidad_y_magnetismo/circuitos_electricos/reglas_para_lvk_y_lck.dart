@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ReglasParaLVKyLCK extends StatefulWidget {
+  const ReglasParaLVKyLCK({super.key});
   @override
   State<ReglasParaLVKyLCK> createState() => _ReglasParaLVKyLCKState();
 }

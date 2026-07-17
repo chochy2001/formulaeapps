@@ -32,7 +32,14 @@ jobs:
       run:
         working-directory: bff
     steps:
+      # Full history: the JWT release-artifact gate test (bun test) inspects the
+      # canonical dual-key squash commit and its main-lineage ancestors via
+      # git ancestry checks. A shallow (default depth-1) checkout omits those
+      # objects, so the gate exits early with "candidate must identify a local
+      # Git commit". Mirror the fetch-depth used by jwt-pr-preflight/release.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@v4
         with:
@@ -107,9 +114,13 @@ jobs:
           path: coverage.json
           retention-days: 30
 
+  # Flutter analyze+test is CPU/RAM heavy. Keep Pro and Community on build-heavy
+  # and serialize Community after Pro so parallel suites cannot starve the shared
+  # host (recent main failures: runner lost communication mid-test while analyze
+  # had already passed).
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 45
     defaults:
       run:
@@ -139,7 +150,7 @@ jobs:
       # here is a non-secret CI test constant that only gates these unit tests.
       - name: test
         run: |
-          flutter test --no-pub --reporter compact \
+          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
             --dart-define=JWT_SHARED_SECRET=test-shared-secret \
             --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
             --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
@@ -151,7 +162,8 @@ jobs:
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    needs: [pro-test]
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 45
     defaults:
       run:
@@ -169,11 +181,11 @@ jobs:
       - name: pub get main app
         run: flutter pub get
       - name: analyze
-        run: flutter analyze --no-pub --no-fatal-infos --fatal-warnings
+        run: flutter analyze --no-pub --fatal-infos --fatal-warnings
       # Same dart-defines as pro-test: auth minting path needs JWT_SHARED_SECRET.
       - name: test
         run: |
-          flutter test --no-pub --reporter compact \
+          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
             --dart-define=JWT_SHARED_SECRET=test-shared-secret \
             --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
             --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
@@ -192,6 +204,11 @@ jobs:
         working-directory: landing
     steps:
       - uses: actions/checkout@v4
+      # Astro 6 `astro check` requires Node >=22.12; the runner default is Node 20.
+      - name: Setup Node (required by astro check)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.3'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -201,3 +218,9 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Unit tests
         run: bun run test
+      - name: Lint
+        run: bun run lint
+      - name: Validate canonical Formulae images
+        run: bun run check:formulae-images
+      - name: Build
+        run: bun run build

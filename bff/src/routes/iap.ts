@@ -5,8 +5,25 @@ import { ErrorEnvelopeSchema, errorEnvelope } from '../schemas/error';
 import { createAppleIapValidator } from '../services/apple-iap';
 import { createGoogleIapValidator } from '../services/google-iap';
 import { checkIapAvailability } from '../services/iap-availability';
+import { persistValidatedMobileIap } from '../services/iap-entitlement-persistence';
 import { issueToken, shouldRefresh } from '../lib/jwt';
 import { randomUUID } from 'node:crypto';
+import { BffError } from '../middleware/error';
+
+/**
+ * IAP collaborators are injectable so integration tests can exercise a
+ * positive provider response without process-wide module mocks. Bun loads
+ * test files concurrently, and a mocked singleton route can otherwise leak a
+ * `valid: true` validator into the default stub-flow tests.
+ */
+export type IapValidateDependencies = {
+  checkIapAvailability: typeof checkIapAvailability;
+  createAppleIapValidator: typeof createAppleIapValidator;
+  createGoogleIapValidator: typeof createGoogleIapValidator;
+  persistValidatedMobileIap: typeof persistValidatedMobileIap;
+};
+
+export type IapValidateHandler = (c: AppContext) => Promise<Response>;
 
 export const iapValidateRoute = createRoute({
   method: 'post',
@@ -15,7 +32,8 @@ export const iapValidateRoute = createRoute({
   summary: 'Validate an Apple or Google IAP receipt server-side',
   description:
     'Uses the official Apple/Google SDKs with secrets mounted at runtime. ' +
-    'Returns a normalized result without leaking the raw provider response.',
+    'A valid response is returned only after its mobile entitlement grant persists, ' +
+    'without leaking the raw provider response.',
   security: [{ bearerAuth: [] }],
   request: {
     body: {
@@ -46,45 +64,80 @@ export const iapValidateRoute = createRoute({
   },
 });
 
-export const iapValidateHandler = async (c: AppContext): Promise<Response> => {
-  const body = (c.req as unknown as { valid: (t: 'json') => { platform: 'apple' | 'google'; product_id: string; transaction_id: string; receipt_data: string; subscription: boolean } }).valid('json');
+export function createIapValidateHandler(
+  dependencies: Partial<IapValidateDependencies> = {},
+): IapValidateHandler {
+  const {
+    checkIapAvailability: checkAvailability = checkIapAvailability,
+    createAppleIapValidator: createAppleValidator = createAppleIapValidator,
+    createGoogleIapValidator: createGoogleValidator = createGoogleIapValidator,
+    persistValidatedMobileIap: persistMobileIap = persistValidatedMobileIap,
+  } = dependencies;
 
-  // Detect missing-or-placeholder secrets BEFORE constructing the SDK so the
-  // client gets a clean envelope instead of a leaked jsonwebtoken / googleapis
-  // construction error. See src/services/iap-availability.ts for the rules.
-  const availability = await checkIapAvailability(body.platform);
-  if (!availability.available) {
-    const requestId = c.get('request_id') ?? randomUUID();
-    return c.json(
-      errorEnvelope(
-        'internal_error',
-        `IAP validation unavailable for ${body.platform}: ${availability.reason}`,
-        requestId,
-        'E_IAP_VALIDATION_UNAVAILABLE',
-      ),
-      503,
-    );
-  }
+  return async (c: AppContext): Promise<Response> => {
+    const body = (c.req as unknown as { valid: (t: 'json') => { platform: 'apple' | 'google'; product_id: string; transaction_id: string; receipt_data: string; subscription: boolean } }).valid('json');
 
-  const validator =
-    body.platform === 'apple'
-      ? await createAppleIapValidator()
-      : await createGoogleIapValidator();
+    // Detect missing-or-placeholder secrets BEFORE constructing the SDK so the
+    // client gets a clean envelope instead of a leaked jsonwebtoken / googleapis
+    // construction error. See src/services/iap-availability.ts for the rules.
+    const availability = await checkAvailability(body.platform);
+    if (!availability.available) {
+      const requestId = c.get('request_id') ?? randomUUID();
+      return c.json(
+        errorEnvelope(
+          'internal_error',
+          `IAP validation unavailable for ${body.platform}: ${availability.reason}`,
+          requestId,
+          'E_IAP_VALIDATION_UNAVAILABLE',
+        ),
+        503,
+      );
+    }
 
-  const result = await validator.validate(body);
+    const validator =
+      body.platform === 'apple'
+        ? await createAppleValidator()
+        : await createGoogleValidator();
 
-  // Rotate JWT if close to expiry.
-  const claims = c.get('jwt_claims');
-  if (claims && shouldRefresh(claims)) {
-    const { token } = await issueToken({
-      sub: claims.sub,
-      aud: claims.aud,
-      platform: claims.platform,
-      app_version: claims.app_version,
-      jti: randomUUID(),
-    });
-    c.header('X-Auth-Refresh', token);
-  }
+    const result = await validator.validate(body);
 
-  return c.json(result, 200);
-};
+    const claims = c.get('jwt_claims');
+
+    // A provider-confirmed receipt must not return valid=true until the matching
+    // mobile grant is durable. Otherwise a later entitlement check can permit a
+    // duplicate purchase. The helper turns storage failures into a sanitized 500.
+    if (result.valid) {
+      if (!claims?.sub) {
+        throw new BffError(
+          'internal_error',
+          'Validated purchase is missing its authenticated subject.',
+          'E_IAP_MISSING_SUBJECT',
+        );
+      }
+      persistMobileIap({
+        subject: claims.sub,
+        user_id: claims.user_id,
+        platform: body.platform,
+        product_id: result.product_id,
+        transaction_id: result.transaction_id,
+      });
+    }
+
+    // Rotate JWT if close to expiry.
+    if (claims && shouldRefresh(claims)) {
+      const { token } = await issueToken({
+        sub: claims.sub,
+        aud: claims.aud,
+        platform: claims.platform,
+        app_version: claims.app_version,
+        jti: randomUUID(),
+        user_id: claims.user_id,
+      });
+      c.header('X-Auth-Refresh', token);
+    }
+
+    return c.json(result, 200);
+  };
+}
+
+export const iapValidateHandler = createIapValidateHandler();

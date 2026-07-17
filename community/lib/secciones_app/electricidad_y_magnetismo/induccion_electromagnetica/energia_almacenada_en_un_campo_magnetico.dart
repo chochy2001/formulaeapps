@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EnergiaAlmacenadaEnUnCampoMagnetico extends StatefulWidget {
+  const EnergiaAlmacenadaEnUnCampoMagnetico({super.key});
   @override
   State<EnergiaAlmacenadaEnUnCampoMagnetico> createState() =>
       _EnergiaAlmacenadaEnUnCampoMagneticoState();

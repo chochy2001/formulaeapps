@@ -14,11 +14,17 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:formulaeapps_bff_client/src/date_serializer.dart';
 import 'package:formulaeapps_bff_client/src/model/date.dart';
 
+import 'package:formulaeapps_bff_client/src/model/account_auth_response.dart';
+import 'package:formulaeapps_bff_client/src/model/account_login_request.dart';
+import 'package:formulaeapps_bff_client/src/model/account_o_auth_request.dart';
+import 'package:formulaeapps_bff_client/src/model/account_register_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_request.dart';
 import 'package:formulaeapps_bff_client/src/model/auth_token_response.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_request.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_response.dart';
 import 'package:formulaeapps_bff_client/src/model/chat_usage.dart';
+import 'package:formulaeapps_bff_client/src/model/entitlement_response.dart';
+import 'package:formulaeapps_bff_client/src/model/entitlement_source.dart';
 import 'package:formulaeapps_bff_client/src/model/error_envelope.dart';
 import 'package:formulaeapps_bff_client/src/model/error_envelope_error.dart';
 import 'package:formulaeapps_bff_client/src/model/error_kind.dart';
@@ -30,11 +36,17 @@ import 'package:formulaeapps_bff_client/src/model/iap_validate_response.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AccountAuthResponse,
+  AccountLoginRequest,
+  AccountOAuthRequest,
+  AccountRegisterRequest,
   AuthTokenRequest,
   AuthTokenResponse,
   ChatRequest,
   ChatResponse,
   ChatUsage,
+  EntitlementResponse,
+  EntitlementSource,
   ErrorEnvelope,
   ErrorEnvelopeError,
   ErrorKind,

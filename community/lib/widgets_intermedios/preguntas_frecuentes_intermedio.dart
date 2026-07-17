@@ -4,7 +4,7 @@ import 'package:universal_io/io.dart';
 import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 
 class PreguntasFrecuentesIntermedio extends StatelessWidget {
-  const PreguntasFrecuentesIntermedio({Key? key}) : super(key: key);
+  const PreguntasFrecuentesIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {

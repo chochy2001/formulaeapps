@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDelRotacional extends StatefulWidget {
+  const TeoremaDelRotacional({super.key});
   @override
   State<TeoremaDelRotacional> createState() => _TeoremaDelRotacionalState();
 }

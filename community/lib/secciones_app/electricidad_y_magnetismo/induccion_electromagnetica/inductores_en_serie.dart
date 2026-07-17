@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class InductoresEnSerie extends StatefulWidget {
+  const InductoresEnSerie({super.key});
   @override
   State<InductoresEnSerie> createState() => _InductoresEnSerieState();
 }

@@ -13,6 +13,8 @@ export type SessionClaims = {
   jti: string;
   platform: 'web' | 'android' | 'ios' | 'macos';
   app_version: string;
+  /** Present on account-auth JWTs when ENABLE_USER_ACCOUNT_AUTH is on. */
+  user_id?: string;
   iat: number;
   exp: number;
 };
@@ -31,6 +33,8 @@ type IssueTokenArgs = {
   platform: SessionClaims['platform'];
   app_version: string;
   jti: string;
+  /** Optional account id claim (fleet #86). Omitted for device-session JWTs. */
+  user_id?: string;
 };
 
 /**
@@ -60,13 +64,18 @@ export async function issueTokenWithConfig(
   const exp = iat + TOKEN_LIFETIME_SECONDS;
   const refresh_after = exp - REFRESH_WINDOW_SECONDS;
 
-  const token = await new SignJWT({
+  const payload: Record<string, string> = {
     sub: args.sub,
     aud: args.aud,
     jti: args.jti,
     platform: args.platform,
     app_version: args.app_version,
-  })
+  };
+  if (args.user_id !== undefined && args.user_id.trim().length > 0) {
+    payload['user_id'] = args.user_id.trim();
+  }
+
+  const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: ALG })
     .setIssuer(ISSUER)
     .setIssuedAt(iat)
@@ -163,6 +172,12 @@ export async function verifyTokenWithConfig(
     throw new Error(`Unexpected JWT platform: ${platform}`);
   }
 
+  const userIdRaw = (p as { user_id?: unknown }).user_id;
+  const user_id =
+    typeof userIdRaw === 'string' && userIdRaw.trim().length > 0
+      ? userIdRaw.trim()
+      : undefined;
+
   return {
     sub: p.sub,
     iss: ISSUER,
@@ -170,6 +185,7 @@ export async function verifyTokenWithConfig(
     jti: p.jti,
     platform,
     app_version: (p as { app_version: string }).app_version,
+    ...(user_id !== undefined ? { user_id } : {}),
     iat: p.iat,
     exp: p.exp,
   };

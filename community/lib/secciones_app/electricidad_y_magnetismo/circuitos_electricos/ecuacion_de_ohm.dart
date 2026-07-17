@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDeOhm extends StatefulWidget {
+  const EcuacionDeOhm({super.key});
   @override
   State<EcuacionDeOhm> createState() => _EcuacionDeOhmState();
 }

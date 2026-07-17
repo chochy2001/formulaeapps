@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesDesigualdad extends StatefulWidget {
+  const PropiedadesDesigualdad({super.key});
   @override
-  _PropiedadesDesigualdadState createState() => _PropiedadesDesigualdadState();
+  State<PropiedadesDesigualdad> createState() => _PropiedadesDesigualdadState();
 }
 
 class _PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {

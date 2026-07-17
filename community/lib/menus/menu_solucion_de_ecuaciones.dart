@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SolucionEcuaciones extends StatefulWidget {
-  const SolucionEcuaciones({Key? key}) : super(key: key);
+  const SolucionEcuaciones({super.key});
 
   @override
   SolucionEcuacionesState createState() => SolucionEcuacionesState();

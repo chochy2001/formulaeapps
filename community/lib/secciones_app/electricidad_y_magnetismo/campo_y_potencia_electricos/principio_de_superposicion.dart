@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PrincipioDeSuperposicion extends StatefulWidget {
+  const PrincipioDeSuperposicion({super.key});
   @override
   State<PrincipioDeSuperposicion> createState() =>
       _PrincipioDeSuperposicionState();

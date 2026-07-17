@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MediaGeometrica extends StatefulWidget {
+  const MediaGeometrica({super.key});
   @override
-  _MediaGeometricaState createState() => _MediaGeometricaState();
+  State<MediaGeometrica> createState() => _MediaGeometricaState();
 }
 
 class _MediaGeometricaState extends State<MediaGeometrica> {

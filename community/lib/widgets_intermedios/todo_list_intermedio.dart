@@ -5,12 +5,12 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../screens/tasks_screen.dart';
 
 class TodoListIntermedio extends StatelessWidget {
-  const TodoListIntermedio({Key? key}) : super(key: key);
+  const TodoListIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
-      return ScaffoldScreen(
+      return const ScaffoldScreen(
         appBar: AppBarHome(
           visible: false,
         ),
@@ -18,7 +18,7 @@ class TodoListIntermedio extends StatelessWidget {
         body: TasksScreen(),
       );
     } else if (Platform.isIOS || Platform.isMacOS) {
-      return ScaffoldScreen(
+      return const ScaffoldScreen(
         appBar: AppBarHome(
           visible: false,
         ),
@@ -27,7 +27,7 @@ class TodoListIntermedio extends StatelessWidget {
       );
     } else {
       //Se puso un else, ya que si no es ni android ni IOS entrará ahí y se quita el warning
-      return ScaffoldScreen(
+      return const ScaffoldScreen(
         appBar: AppBarHome(
           visible: false,
         ),

@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/ui/Container.astro';
+import EmailLink from '../../components/ui/EmailLink.astro';
 import { useTranslations } from '../../i18n/ui';
-import { SITE, SOCIAL, LINKTREE } from '../../consts';
+import { SOCIAL, LINKTREE } from '../../consts';
 
 const t = useTranslations('en');
 
-const title = 'Support — Formulae';
+const title = 'Support | Formulae';
 const description =
   'Formulae support center. Reach out to ask a question, report a bug or suggest an improvement.';
 
@@ -21,11 +22,11 @@ const faqs = [
   },
   {
     q: 'Can I download formulas to study offline?',
-    a: 'Yes. Formulae Pro lets you export any formula sheet to PDF for printing or saving. Formulae Community does not include this feature.',
+    a: 'Yes. Formulae Pro lets you export formula sheets to PDF for printing or saving. Formulae Community also generates a local study-sheet PDF that you can view or export.',
   },
   {
     q: 'What is the difference between Pro and Community?',
-    a: 'Pro removes ads and adds tasks, PDF export and a ChatGPT-powered assistant. Community is free but ad-supported and lacks those extras.',
+    a: 'Both include formulas, videos, tasks and local PDF features. Pro removes ads and includes the ChatGPT-powered assistant; Community is free and ad-supported.',
   },
 ];
 ---
@@ -42,12 +43,7 @@ const faqs = [
         <p class="text-ink-500 text-xs font-semibold tracking-wider uppercase">
           {t('support.email.label')}
         </p>
-        <a
-          href={`mailto:${SITE.email}`}
-          class="text-primary-700 mt-1 block text-base font-semibold hover:underline"
-        >
-          {SITE.email}
-        </a>
+        <EmailLink class="text-primary-700 mt-1 block text-base font-semibold hover:underline" />
       </div>
       <div>
         <p class="text-ink-500 text-xs font-semibold tracking-wider uppercase">WhatsApp</p>

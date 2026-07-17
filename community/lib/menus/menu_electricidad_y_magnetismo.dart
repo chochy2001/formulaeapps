@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuElectricidadYMagnetismo extends StatefulWidget {
-  const MenuElectricidadYMagnetismo({Key? key}) : super(key: key);
+  const MenuElectricidadYMagnetismo({super.key});
 
   static const int maxFailedLoadAttempts = 3;
 

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AnualidadAnticipadaSimpleYCierta extends StatefulWidget {
+  const AnualidadAnticipadaSimpleYCierta({super.key});
   @override
-  _AnualidadAnticipadaSimpleYCiertaState createState() =>
+  State<AnualidadAnticipadaSimpleYCierta> createState() =>
       _AnualidadAnticipadaSimpleYCiertaState();
 }
 

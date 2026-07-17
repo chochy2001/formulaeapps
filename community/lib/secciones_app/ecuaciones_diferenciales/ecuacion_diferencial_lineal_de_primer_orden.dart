@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EcuacionDiferencialLinealDePrimerOrden extends StatefulWidget {
+  const EcuacionDiferencialLinealDePrimerOrden({super.key});
   @override
-  _EcuacionDiferencialLinealDePrimerOrdenState createState() =>
+  State<EcuacionDiferencialLinealDePrimerOrden> createState() =>
       _EcuacionDiferencialLinealDePrimerOrdenState();
 }
 

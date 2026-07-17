@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/ui/Container.astro';
+import EmailLink from '../../components/ui/EmailLink.astro';
 import { SITE } from '../../consts';
 
-const title = 'Privacy policy — Formulae';
+const title = 'Privacy policy | Formulae';
 const description =
   'Privacy policy for the Formulae Pro and Formulae Community apps published by CAPDESIS.';
 const lastUpdated = '2026-04-30';
@@ -18,7 +19,7 @@ const lastUpdated = '2026-04-30';
     <p>
       The data controller for the Formulae Pro and Formulae Community apps and the website
       {SITE.domain} is <strong>CAPDESIS</strong>. For any matters related to this policy contact us
-      at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      at <EmailLink />.
     </p>
 
     <h2>2. Data we collect</h2>
@@ -50,7 +51,7 @@ const lastUpdated = '2026-04-30';
     <h2>4. Your rights</h2>
     <p>
       You may exercise your rights of access, rectification, erasure, objection, restriction and
-      portability at any time by emailing <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      portability at any time by emailing <EmailLink />.
     </p>
 
     <h2>5. Third parties</h2>

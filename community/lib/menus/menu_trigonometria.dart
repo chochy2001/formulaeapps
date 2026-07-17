@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuTrigonometria extends StatefulWidget {
-  const MenuTrigonometria({Key? key}) : super(key: key);
+  const MenuTrigonometria({super.key});
 
   @override
   MenuTrigonometriaState createState() => MenuTrigonometriaState();

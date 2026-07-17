@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class NomenclaturaBasicaEmpleadaEnCircuitos extends StatefulWidget {
+  const NomenclaturaBasicaEmpleadaEnCircuitos({super.key});
   @override
   State<NomenclaturaBasicaEmpleadaEnCircuitos> createState() =>
       _NomenclaturaBasicaEmpleadaEnCircuitosState();

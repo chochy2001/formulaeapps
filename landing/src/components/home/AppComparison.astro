@@ -9,8 +9,8 @@ const t = useTranslations(locale);
 const rows = [
   { label: t('comparison.feature.formulas'), pro: true, community: true },
   { label: t('comparison.feature.videos'), pro: true, community: true },
-  { label: t('comparison.feature.tasks'), pro: true, community: false },
-  { label: t('comparison.feature.pdf'), pro: true, community: false },
+  { label: t('comparison.feature.tasks'), pro: true, community: true },
+  { label: t('comparison.feature.pdf'), pro: true, community: true },
   { label: t('comparison.feature.chatgpt'), pro: true, community: false },
   { label: t('comparison.feature.adFree'), pro: true, community: false },
 ];
@@ -43,7 +43,7 @@ const rows = [
           rows.map((row) => (
             <li class="flex items-center gap-2">
               <span class:list={[row.pro ? 'text-primary-600' : 'text-ink-300']} aria-hidden="true">
-                {row.pro ? '✓' : '—'}
+                {row.pro ? '✓' : '✕'}
               </span>
               <span class:list={[!row.pro && 'text-ink-300 line-through']}>{row.label}</span>
             </li>
@@ -72,7 +72,7 @@ const rows = [
                 class:list={[row.community ? 'text-primary-600' : 'text-ink-300']}
                 aria-hidden="true"
               >
-                {row.community ? '✓' : '—'}
+                {row.community ? '✓' : '✕'}
               </span>
               <span class:list={[!row.community && 'text-ink-300 line-through']}>{row.label}</span>
             </li>

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MedidasDeTendenciaCentralParaDatosNoAgrupados extends StatefulWidget {
+  const MedidasDeTendenciaCentralParaDatosNoAgrupados({super.key});
   @override
-  _MedidasDeTendenciaCentralParaDatosNoAgrupadosState createState() =>
+  State<MedidasDeTendenciaCentralParaDatosNoAgrupados> createState() =>
       _MedidasDeTendenciaCentralParaDatosNoAgrupadosState();
 }
 

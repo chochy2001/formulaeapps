@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CampoElectrico extends StatefulWidget {
+  const CampoElectrico({super.key});
   @override
   State<CampoElectrico> createState() => _CampoElectricoState();
 }

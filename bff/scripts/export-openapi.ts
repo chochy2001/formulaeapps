@@ -24,12 +24,13 @@ const outputPath = resolve(here, '..', '..', 'contracts', 'bff.openapi.yaml');
 
 // Dynamic import so the dummy env above is set BEFORE env.ts validates.
 const { app } = await import('../src/index');
+const { CONTRACT_VERSION } = await import('../src/lib/openapi');
 
 const doc = app.getOpenAPI31Document({
   openapi: '3.1.0',
   info: {
     title: 'FormulaeApps BFF',
-    version: '1.0.0',
+    version: CONTRACT_VERSION,
     description:
       'Backend-for-Frontend for FormulaeApps. Generated from bff/src/schemas/*.ts ' +
       'by @hono/zod-openapi. DO NOT EDIT — drift fails scripts/verify-parity.sh in CI.',

@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
+import EmailLink from '../components/ui/EmailLink.astro';
 import { SITE } from '../consts';
 
-const title = 'Términos y condiciones — Formulae';
+const title = 'Términos y condiciones | Formulae';
 const description =
   'Términos de uso de las aplicaciones Formulae Pro y Formulae Community publicadas por CAPDESIS.';
 const lastUpdated = '2026-04-30';
@@ -55,7 +56,7 @@ const lastUpdated = '2026-04-30';
 
     <h2>7. Contacto</h2>
     <p>
-      Para cualquier cuestión: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      Para cualquier cuestión: <EmailLink />.
     </p>
   </Container>
 </BaseLayout>

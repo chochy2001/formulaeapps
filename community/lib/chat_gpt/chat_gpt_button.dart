@@ -7,7 +7,7 @@ import 'chat_screen.dart';
 class ChatGPTButton extends StatelessWidget {
   final Widget child;
 
-  const ChatGPTButton({Key? key, required this.child}) : super(key: key);
+  const ChatGPTButton({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

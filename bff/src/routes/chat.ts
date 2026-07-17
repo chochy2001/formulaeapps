@@ -58,6 +58,7 @@ export const chatHandler = async (c: AppContext): Promise<Response> => {
       platform: claims.platform,
       app_version: claims.app_version,
       jti: randomUUID(),
+      user_id: claims.user_id,
     });
     c.header('X-Auth-Refresh', token);
   }

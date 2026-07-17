@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeCoulomb extends StatefulWidget {
+  const LeyDeCoulomb({super.key});
   @override
   State<LeyDeCoulomb> createState() => _LeyDeCoulombState();
 }

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MedidasDeDispersionParaDatosNoAgrupados extends StatefulWidget {
+  const MedidasDeDispersionParaDatosNoAgrupados({super.key});
   @override
-  _MedidasDeDispersionParaDatosNoAgrupadosState createState() =>
+  State<MedidasDeDispersionParaDatosNoAgrupados> createState() =>
       _MedidasDeDispersionParaDatosNoAgrupadosState();
 }
 

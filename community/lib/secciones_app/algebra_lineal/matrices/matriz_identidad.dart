@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizIdentidad extends StatefulWidget {
+  const MatrizIdentidad({super.key});
   @override
-  _MatrizIdentidadState createState() => _MatrizIdentidadState();
+  State<MatrizIdentidad> createState() => _MatrizIdentidadState();
 }
 
 class _MatrizIdentidadState extends State<MatrizIdentidad> {

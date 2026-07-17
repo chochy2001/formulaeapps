@@ -3,9 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FormulaGeneral extends StatefulWidget {
-  const FormulaGeneral({Key? key}) : super(key: key);
+  const FormulaGeneral({super.key});
   @override
-  _FormulaGeneralState createState() => _FormulaGeneralState();
+  State<FormulaGeneral> createState() => _FormulaGeneralState();
 }
 
 class _FormulaGeneralState extends State<FormulaGeneral> {

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ConstantesDeIntegracion extends StatefulWidget {
+  const ConstantesDeIntegracion({super.key});
   @override
-  _ConstantesDeIntegracionState createState() =>
+  State<ConstantesDeIntegracion> createState() =>
       _ConstantesDeIntegracionState();
 }
 

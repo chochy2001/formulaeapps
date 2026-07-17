@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class RotacionalDelCampoElectrostatico extends StatefulWidget {
+  const RotacionalDelCampoElectrostatico({super.key});
   @override
   State<RotacionalDelCampoElectrostatico> createState() =>
       _RotacionalDelCampoElectrostaticoState();

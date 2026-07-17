@@ -5,7 +5,7 @@
  *
  * Por defecto inyecta los dos schemas relevantes para una landing de apps.
  */
-import { SITE, SOCIAL, STORES, VIDEO } from '../../consts';
+import { SITE, SOCIAL, STORES, VIDEO, type Locale } from '../../consts';
 
 interface Props {
   /** Si se pasa "pro" o "community", inyecta solo ese MobileApplication. */
@@ -17,6 +17,25 @@ interface Props {
 }
 
 const { variant = 'both', includeApp = true, includeVideo = false } = Astro.props;
+const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
+const copy =
+  locale === 'es'
+    ? {
+        proDescription:
+          'Una aplicación sin anuncios para estudiar matemáticas y ciencias, con vídeos e imágenes explicativas, buscador de fórmulas, tareas y asistente con IA.',
+        communityDescription:
+          'Una aplicación gratuita con anuncios para estudiar matemáticas y ciencias, con vídeos e imágenes explicativas, buscador de fórmulas, tareas y funciones PDF locales.',
+        videoName: 'Formulae en acción',
+        videoDescription: 'Demostración de Formulae con fórmulas, buscador, tareas y más.',
+      }
+    : {
+        proDescription:
+          'An ad-free app for studying mathematics and science, with explanatory videos and images, formula search, tasks and an AI assistant.',
+        communityDescription:
+          'A free, ad-supported app for studying mathematics and science, with explanatory videos and images, formula search, tasks and local PDF features.',
+        videoName: 'Formulae in action',
+        videoDescription: 'Formulae demonstration with formulas, search, tasks and more.',
+      };
 
 const organization = {
   '@context': 'https://schema.org',
@@ -24,7 +43,7 @@ const organization = {
   name: SITE.publisher,
   legalName: SITE.publisherLegal,
   url: SITE.url,
-  logo: new URL('/favicon-512.png', SITE.url).toString(),
+  logo: new URL('/icon-512.png', SITE.url).toString(),
   email: SITE.email,
   sameAs: [SOCIAL.facebook, SOCIAL.instagram].filter(Boolean),
 };
@@ -35,9 +54,8 @@ const proApp = {
   name: 'Formulae Pro',
   operatingSystem: 'iOS, Android, Windows, macOS, Linux',
   applicationCategory: 'EducationApplication',
-  description:
-    'Una aplicación de pago para ayudarte en tus estudios de matemáticas y ciencias. Ofrece videos y imágenes explicativas, un buscador de fórmulas y una lista de tareas para no olvidar lo que debes hacer.',
-  inLanguage: ['es', 'en'],
+  description: copy.proDescription,
+  inLanguage: locale === 'es' ? 'es' : 'en',
   author: { '@type': 'Organization', name: SITE.publisher, url: SITE.url },
   offers: {
     '@type': 'Offer',
@@ -55,9 +73,8 @@ const communityApp = {
   name: 'Formulae Community',
   operatingSystem: 'iOS, Android',
   applicationCategory: 'EducationApplication',
-  description:
-    'Una aplicación gratuita para ayudarte en tus estudios de matemáticas y ciencias. Ofrece videos y imágenes explicativas, un buscador de fórmulas y una lista de tareas para no olvidar lo que debes hacer.',
-  inLanguage: ['es', 'en'],
+  description: copy.communityDescription,
+  inLanguage: locale === 'es' ? 'es' : 'en',
   author: { '@type': 'Organization', name: SITE.publisher, url: SITE.url },
   offers: {
     '@type': 'Offer',
@@ -71,8 +88,8 @@ const communityApp = {
 const demoVideo = {
   '@context': 'https://schema.org',
   '@type': 'VideoObject',
-  name: 'Mira Formulae en acción',
-  description: 'Demo en vídeo de Formulae: catálogo de fórmulas, buscador, tareas y más.',
+  name: copy.videoName,
+  description: copy.videoDescription,
   thumbnailUrl: VIDEO.thumbnailUrl,
   contentUrl: VIDEO.watchUrl,
   embedUrl: VIDEO.embedUrl,

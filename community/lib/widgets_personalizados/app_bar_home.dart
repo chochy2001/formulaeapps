@@ -7,7 +7,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
   final Color? color;
   final bool? visible;
 
-  const AppBarHome({Key? key, this.color, this.visible}) : super(key: key);
+  const AppBarHome({super.key, this.color, this.visible});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,17 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
         Visibility(
           visible: visible ?? true,
           child: IconButton(
-            icon: Icon(
+            icon: FaIcon(
               FontAwesomeIcons.houseChimneyCrack,
               color: color ?? Colors.white,
               size: 20.0,
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              // The root route already hosts the persistent Community shell.
+              // Pushing '/' here created another Menu on top of the current
+              // stack every time the user pressed Home. Returning to the first
+              // route preserves the existing shell and does not duplicate it.
+              Navigator.of(context).popUntil((route) => route.isFirst);
             },
           ),
         ),

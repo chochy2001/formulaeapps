@@ -1,0 +1,701 @@
+{
+  "cluster": "estatica_y_resistencia_de_materiales",
+  "target_seccion": "estatica_y_resistencia_de_materiales",
+  "es_nueva": true,
+  "pantallas": [
+    {
+      "titulo_es": "Equilibrio del cuerpo rigido",
+      "titulo_en": "Rigid Body Equilibrium",
+      "archivo": "equilibrio_cuerpo_rigido.dart",
+      "formulas": [
+        {
+          "nombre_es": "Equilibrio de fuerzas (vectorial)",
+          "nombre_en": "Force equilibrium (vector)",
+          "latex": "\\sum \\vec{F} = 0",
+          "condiciones": "Suma vectorial de todas las fuerzas externas sobre el cuerpo igual a cero. Condicion necesaria de equilibrio. Fuerzas en N (SI).",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Cap. 5.1"
+        },
+        {
+          "nombre_es": "Equilibrio de fuerzas en x",
+          "nombre_en": "Force equilibrium in x",
+          "latex": "\\sum F_x = 0",
+          "condiciones": "Suma algebraica de las componentes en x de las fuerzas igual a cero. F_x en N.",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Cap. 4"
+        },
+        {
+          "nombre_es": "Equilibrio de fuerzas en y",
+          "nombre_en": "Force equilibrium in y",
+          "latex": "\\sum F_y = 0",
+          "condiciones": "Suma algebraica de las componentes en y de las fuerzas igual a cero. F_y en N.",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Cap. 4"
+        },
+        {
+          "nombre_es": "Equilibrio de fuerzas en z",
+          "nombre_en": "Force equilibrium in z",
+          "latex": "\\sum F_z = 0",
+          "condiciones": "Suma algebraica de las componentes en z de las fuerzas igual a cero (equilibrio 3D). F_z en N.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Cap. 5.5"
+        },
+        {
+          "nombre_es": "Equilibrio de momentos (vectorial)",
+          "nombre_en": "Moment equilibrium (vector)",
+          "latex": "\\sum \\vec{M}_O = 0",
+          "condiciones": "Suma de momentos de todas las fuerzas respecto a un punto O igual a cero. M en N*m. Segunda condicion de equilibrio.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Cap. 5.1"
+        },
+        {
+          "nombre_es": "Momento de una fuerza (escalar)",
+          "nombre_en": "Moment of a force (scalar)",
+          "latex": "M_O = F \\, d",
+          "condiciones": "M_O momento respecto a O (N*m); F magnitud de la fuerza (N); d brazo de palanca = distancia perpendicular de O a la linea de accion de F (m).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 3.12"
+        },
+        {
+          "nombre_es": "Momento de una fuerza (vectorial)",
+          "nombre_en": "Moment of a force (vector)",
+          "latex": "\\vec{M}_O = \\vec{r} \\times \\vec{F}",
+          "condiciones": "Producto cruz del vector posicion r (m) desde O al punto de aplicacion, por la fuerza F (N). M_O en N*m.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 4.3"
+        },
+        {
+          "nombre_es": "Momento respecto a un eje (2D)",
+          "nombre_en": "Moment about an axis (2D)",
+          "latex": "\\sum M_z = 0",
+          "condiciones": "Para sistemas planos, la unica ecuacion de momento es respecto al eje z perpendicular al plano. M_z en N*m.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Cap. 5.3"
+        },
+        {
+          "nombre_es": "Fuerza resultante distribuida",
+          "nombre_en": "Resultant of distributed load",
+          "latex": "F_R = \\int_L w(x)\\, dx",
+          "condiciones": "F_R fuerza resultante (N) equivalente a una carga distribuida w(x) (N/m) sobre una longitud L (m); igual al area bajo el diagrama de carga.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 4.9"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Centroides y centro de gravedad",
+      "titulo_en": "Centroids and Center of Gravity",
+      "archivo": "centroides_centro_gravedad.dart",
+      "formulas": [
+        {
+          "nombre_es": "Centroide en x (area, integral)",
+          "nombre_en": "Centroid x (area, integral)",
+          "latex": "\\bar{x} = \\frac{\\int_A x\\, dA}{\\int_A dA}",
+          "condiciones": "x-bar coordenada del centroide del area (m); x posicion del elemento diferencial dA (m); A area total (m^2).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 5.3"
+        },
+        {
+          "nombre_es": "Centroide en y (area, integral)",
+          "nombre_en": "Centroid y (area, integral)",
+          "latex": "\\bar{y} = \\frac{\\int_A y\\, dA}{\\int_A dA}",
+          "condiciones": "y-bar coordenada del centroide del area (m); y posicion del elemento dA (m); A area total (m^2).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 5.3"
+        },
+        {
+          "nombre_es": "Centroide de areas compuestas en x",
+          "nombre_en": "Composite area centroid x",
+          "latex": "\\bar{x} = \\frac{\\sum \\bar{x}_i A_i}{\\sum A_i}",
+          "condiciones": "x-bar_i centroide de cada parte i (m); A_i area de cada parte (m^2). Las areas de agujeros se toman negativas.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 9.2"
+        },
+        {
+          "nombre_es": "Centroide de areas compuestas en y",
+          "nombre_en": "Composite area centroid y",
+          "latex": "\\bar{y} = \\frac{\\sum \\bar{y}_i A_i}{\\sum A_i}",
+          "condiciones": "y-bar_i centroide de cada parte i (m); A_i area de cada parte (m^2). Areas de agujeros negativas.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 9.2"
+        },
+        {
+          "nombre_es": "Centro de gravedad en x",
+          "nombre_en": "Center of gravity x",
+          "latex": "\\bar{x} = \\frac{\\sum \\bar{x}_i W_i}{\\sum W_i}",
+          "condiciones": "x-bar centro de gravedad (m); x-bar_i centroide de cada parte; W_i peso de cada parte (N).",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 9.1"
+        },
+        {
+          "nombre_es": "Centro de masa en x",
+          "nombre_en": "Center of mass x",
+          "latex": "\\bar{x} = \\frac{\\sum \\bar{x}_i m_i}{\\sum m_i}",
+          "condiciones": "x-bar centro de masa (m); m_i masa de cada parte (kg). Coincide con el centro de gravedad si g es uniforme.",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 5.2"
+        },
+        {
+          "nombre_es": "Primer momento de area",
+          "nombre_en": "First moment of area",
+          "latex": "Q_x = \\int_A y\\, dA = \\bar{y}\\, A",
+          "condiciones": "Q_x primer momento del area respecto al eje x (m^3); y-bar distancia del centroide al eje x (m); A area (m^2). Es cero respecto a un eje centroidal.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Centroide del rectangulo",
+          "nombre_en": "Rectangle centroid",
+          "latex": "\\bar{y} = \\frac{h}{2}",
+          "condiciones": "Para un rectangulo de base b y altura h medido desde la base, el centroide esta a h/2 (m). En x a b/2.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Tabla interior (formas comunes)"
+        },
+        {
+          "nombre_es": "Centroide del triangulo",
+          "nombre_en": "Triangle centroid",
+          "latex": "\\bar{y} = \\frac{h}{3}",
+          "condiciones": "Para un triangulo de altura h medido desde la base, el centroide esta a h/3 sobre la base (m).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Fig. 5.8A"
+        },
+        {
+          "nombre_es": "Centroide del semicirculo",
+          "nombre_en": "Semicircle centroid",
+          "latex": "\\bar{y} = \\frac{4r}{3\\pi}",
+          "condiciones": "Para un semicirculo de radio r, el centroide esta a 4r/(3*pi) del diametro base (m).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Fig. 5.8A"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Momento de inercia de areas",
+      "titulo_en": "Area Moment of Inertia",
+      "archivo": "momento_inercia_areas.dart",
+      "formulas": [
+        {
+          "nombre_es": "Segundo momento de area en x",
+          "nombre_en": "Second moment of area about x",
+          "latex": "I_x = \\int_A y^2\\, dA",
+          "condiciones": "I_x momento de inercia del area respecto al eje x (m^4); y distancia del elemento dA al eje x (m).",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 10.1"
+        },
+        {
+          "nombre_es": "Segundo momento de area en y",
+          "nombre_en": "Second moment of area about y",
+          "latex": "I_y = \\int_A x^2\\, dA",
+          "condiciones": "I_y momento de inercia del area respecto al eje y (m^4); x distancia del elemento dA al eje y (m).",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 10.1"
+        },
+        {
+          "nombre_es": "Teorema de ejes paralelos",
+          "nombre_en": "Parallel axis theorem",
+          "latex": "I = \\bar{I} + A\\, d^2",
+          "condiciones": "I momento de inercia respecto a un eje paralelo (m^4); I-bar momento de inercia respecto al eje centroidal paralelo (m^4); A area (m^2); d distancia entre ejes (m).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 9.6"
+        },
+        {
+          "nombre_es": "Momento polar de inercia",
+          "nombre_en": "Polar moment of inertia",
+          "latex": "J_O = I_x + I_y",
+          "condiciones": "J_O momento polar de inercia respecto al eje perpendicular por O (m^4); I_x, I_y momentos rectangulares (m^4).",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 10.1"
+        },
+        {
+          "nombre_es": "Inercia del rectangulo (centroidal)",
+          "nombre_en": "Rectangle inertia (centroidal)",
+          "latex": "\\bar{I}_x = \\frac{b\\, h^3}{12}",
+          "condiciones": "b base (m); h altura (m); eje x centroidal paralelo a la base. I en m^4.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Apendice B"
+        },
+        {
+          "nombre_es": "Inercia del circulo (centroidal)",
+          "nombre_en": "Circle inertia (centroidal)",
+          "latex": "\\bar{I} = \\frac{\\pi r^4}{4}",
+          "condiciones": "r radio (m); eje diametral por el centro. I en m^4.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Apendice B"
+        },
+        {
+          "nombre_es": "Inercia del triangulo (centroidal)",
+          "nombre_en": "Triangle inertia (centroidal)",
+          "latex": "\\bar{I}_x = \\frac{b\\, h^3}{36}",
+          "condiciones": "b base (m); h altura (m); eje x centroidal paralelo a la base. I en m^4.",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Fig. 9.12A"
+        },
+        {
+          "nombre_es": "Momento polar del circulo",
+          "nombre_en": "Circle polar moment",
+          "latex": "J = \\frac{\\pi r^4}{2}",
+          "condiciones": "r radio del circulo solido (m); J respecto al centro (m^4). Equivale a pi*d^4/32.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 5.1"
+        },
+        {
+          "nombre_es": "Radio de giro",
+          "nombre_en": "Radius of gyration",
+          "latex": "k = \\sqrt{\\frac{I}{A}}",
+          "condiciones": "k radio de giro (m); I momento de inercia (m^4); A area (m^2).",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 9.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Armaduras: nodos y secciones",
+      "titulo_en": "Trusses: Joints and Sections",
+      "archivo": "armaduras_nodos_secciones.dart",
+      "formulas": [
+        {
+          "nombre_es": "Equilibrio de nodo en x",
+          "nombre_en": "Joint equilibrium in x",
+          "latex": "\\sum F_x = 0",
+          "condiciones": "En el metodo de nodos, suma de componentes horizontales de fuerzas de barra y cargas en cada nodo igual a cero. Fuerzas en N.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Equilibrio de nodo en y",
+          "nombre_en": "Joint equilibrium in y",
+          "latex": "\\sum F_y = 0",
+          "condiciones": "Suma de componentes verticales en cada nodo igual a cero. Cada barra ejerce fuerza a lo largo de su eje (traccion + o compresion -). Fuerzas en N.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Metodo de secciones (momentos)",
+          "nombre_en": "Method of sections (moments)",
+          "latex": "\\sum M_O = 0",
+          "condiciones": "Al cortar la armadura, tomar momentos respecto a un punto O donde concurren las otras incognitas para despejar una fuerza de barra. M en N*m.",
+          "referencia": "Beer & Johnston, Vector Mechanics: Statics, 12th ed., Sec. 6.7"
+        },
+        {
+          "nombre_es": "Regla de determinacion estatica",
+          "nombre_en": "Static determinacy rule",
+          "latex": "b + r = 2n",
+          "condiciones": "b numero de barras; r numero de reacciones de apoyo; n numero de nodos. Si se cumple, la armadura plana es estaticamente determinada; b+r>2n es indeterminada.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 6.3"
+        },
+        {
+          "nombre_es": "Componente de fuerza de barra",
+          "nombre_en": "Member force component",
+          "latex": "F_x = F \\cos\\theta",
+          "condiciones": "F fuerza axial en la barra (N); theta angulo de la barra respecto a la horizontal; F_x componente horizontal (N). Nota: cos en grados o radianes segun convencion.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Longitud de barra diagonal",
+          "nombre_en": "Diagonal member length",
+          "latex": "L = \\sqrt{L_x^2 + L_y^2}",
+          "condiciones": "L longitud de la barra (m); L_x, L_y proyecciones horizontal y vertical (m). Usada para descomponer fuerzas por semejanza de triangulos.",
+          "referencia": "Hibbeler, Engineering Mechanics: Statics, 14th ed., Sec. 6.2"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Esfuerzo normal y cortante",
+      "titulo_en": "Normal and Shear Stress",
+      "archivo": "esfuerzo_normal_cortante.dart",
+      "formulas": [
+        {
+          "nombre_es": "Esfuerzo normal promedio",
+          "nombre_en": "Average normal stress",
+          "latex": "\\sigma = \\frac{P}{A}",
+          "condiciones": "sigma esfuerzo normal (Pa = N/m^2); P fuerza axial normal a la seccion (N); A area de la seccion transversal (m^2).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 1.4"
+        },
+        {
+          "nombre_es": "Esfuerzo cortante promedio",
+          "nombre_en": "Average shear stress",
+          "latex": "\\tau = \\frac{V}{A}",
+          "condiciones": "tau esfuerzo cortante (Pa); V fuerza cortante paralela a la seccion (N); A area sometida a corte (m^2).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 1.5"
+        },
+        {
+          "nombre_es": "Esfuerzo cortante doble",
+          "nombre_en": "Double shear stress",
+          "latex": "\\tau = \\frac{V}{2A}",
+          "condiciones": "En un pasador en cortante doble, cada seccion transversal soporta V/2. tau en Pa; V carga total (N); A area de una seccion (m^2).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.2C"
+        },
+        {
+          "nombre_es": "Esfuerzo de apoyo (aplastamiento)",
+          "nombre_en": "Bearing stress",
+          "latex": "\\sigma_b = \\frac{P}{d\\, t}",
+          "condiciones": "sigma_b esfuerzo de apoyo (Pa); P fuerza (N); d diametro del pasador (m); t espesor de la placa (m). Area proyectada = d*t.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.2D"
+        },
+        {
+          "nombre_es": "Esfuerzo en plano inclinado (normal)",
+          "nombre_en": "Stress on oblique plane (normal)",
+          "latex": "\\sigma_\\theta = \\frac{P}{A}\\cos^2\\theta",
+          "condiciones": "sigma_theta esfuerzo normal en un plano a angulo theta respecto a la seccion transversal de una barra axial. P/A esfuerzo axial (Pa). cos en grados o radianes.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.4"
+        },
+        {
+          "nombre_es": "Esfuerzo cortante en plano inclinado",
+          "nombre_en": "Shear stress on oblique plane",
+          "latex": "\\tau_\\theta = \\frac{P}{A}\\sin\\theta\\cos\\theta",
+          "condiciones": "tau_theta esfuerzo cortante en el plano inclinado a angulo theta en una barra axial. P/A esfuerzo axial (Pa). Maximo a theta = 45 grados.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.4"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Deformacion y ley de Hooke",
+      "titulo_en": "Strain and Hooke's Law",
+      "archivo": "deformacion_ley_hooke.dart",
+      "formulas": [
+        {
+          "nombre_es": "Deformacion unitaria normal",
+          "nombre_en": "Normal strain",
+          "latex": "\\epsilon = \\frac{\\delta}{L}",
+          "condiciones": "epsilon deformacion unitaria (adimensional); delta cambio de longitud (m); L longitud original (m).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 2.2"
+        },
+        {
+          "nombre_es": "Ley de Hooke",
+          "nombre_en": "Hooke's law",
+          "latex": "\\sigma = E\\, \\epsilon",
+          "condiciones": "sigma esfuerzo normal (Pa); E modulo de elasticidad de Young (Pa); epsilon deformacion unitaria (adimensional). Valida en el rango elastico lineal.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.5"
+        },
+        {
+          "nombre_es": "Deformacion axial",
+          "nombre_en": "Axial deformation",
+          "latex": "\\delta = \\frac{P\\, L}{A\\, E}",
+          "condiciones": "delta alargamiento (m); P carga axial (N); L longitud (m); A area transversal (m^2); E modulo de Young (Pa). Barra prismatica, carga y material uniformes.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 4.2"
+        },
+        {
+          "nombre_es": "Deformacion axial (segmentos)",
+          "nombre_en": "Axial deformation (segments)",
+          "latex": "\\delta = \\sum \\frac{P_i\\, L_i}{A_i\\, E_i}",
+          "condiciones": "Suma sobre segmentos con distinta carga P_i (N), longitud L_i (m), area A_i (m^2) o material E_i (Pa). delta total en m.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.6"
+        },
+        {
+          "nombre_es": "Relacion de Poisson",
+          "nombre_en": "Poisson's ratio",
+          "latex": "\\nu = -\\frac{\\epsilon_{lat}}{\\epsilon_{long}}",
+          "condiciones": "nu relacion de Poisson (adimensional); epsilon_lat deformacion lateral; epsilon_long deformacion longitudinal. Para la mayoria de metales 0 < nu <= 0.5.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.7"
+        },
+        {
+          "nombre_es": "Ley de Hooke en cortante",
+          "nombre_en": "Hooke's law in shear",
+          "latex": "\\tau = G\\, \\gamma",
+          "condiciones": "tau esfuerzo cortante (Pa); G modulo de rigidez o cortante (Pa); gamma deformacion angular por cortante (rad). Valida en rango elastico.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 3.7"
+        },
+        {
+          "nombre_es": "Modulo de rigidez",
+          "nombre_en": "Shear modulus",
+          "latex": "G = \\frac{E}{2(1+\\nu)}",
+          "condiciones": "G modulo de cortante (Pa); E modulo de Young (Pa); nu relacion de Poisson. Valida para material isotropo lineal-elastico.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.15"
+        },
+        {
+          "nombre_es": "Deformacion volumetrica (dilatacion)",
+          "nombre_en": "Volumetric strain (dilatation)",
+          "latex": "e = \\frac{1-2\\nu}{E}(\\sigma_x + \\sigma_y + \\sigma_z)",
+          "condiciones": "e cambio unitario de volumen (adimensional); sigma_x, sigma_y, sigma_z esfuerzos normales principales (Pa); E modulo de Young (Pa); nu Poisson.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.13"
+        },
+        {
+          "nombre_es": "Modulo volumetrico",
+          "nombre_en": "Bulk modulus",
+          "latex": "K = \\frac{E}{3(1-2\\nu)}",
+          "condiciones": "K modulo volumetrico (Pa); E modulo de Young (Pa); nu relacion de Poisson. Relaciona presion hidrostatica con cambio de volumen.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.13"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Esfuerzo por flexion en vigas",
+      "titulo_en": "Bending Stress in Beams",
+      "archivo": "esfuerzo_flexion_vigas.dart",
+      "formulas": [
+        {
+          "nombre_es": "Formula de la flexion (maxima)",
+          "nombre_en": "Flexure formula (maximum)",
+          "latex": "\\sigma_{max} = \\frac{M\\, c}{I}",
+          "condiciones": "sigma_max esfuerzo normal maximo por flexion (Pa); M momento flector interno (N*m); c distancia del eje neutro a la fibra mas alejada (m); I momento de inercia centroidal de la seccion (m^4).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 6.4"
+        },
+        {
+          "nombre_es": "Esfuerzo de flexion a distancia y",
+          "nombre_en": "Bending stress at distance y",
+          "latex": "\\sigma = \\frac{M\\, y}{I}",
+          "condiciones": "sigma esfuerzo a una distancia y del eje neutro (Pa); M momento flector (N*m); y distancia al eje neutro (m); I inercia centroidal (m^4). Distribucion lineal.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 4.4"
+        },
+        {
+          "nombre_es": "Modulo de seccion",
+          "nombre_en": "Section modulus",
+          "latex": "S = \\frac{I}{c}",
+          "condiciones": "S modulo de seccion (m^3); I inercia centroidal (m^4); c distancia a la fibra extrema (m). Entonces sigma_max = M/S.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 6.4"
+        },
+        {
+          "nombre_es": "Modulo de seccion rectangular",
+          "nombre_en": "Rectangular section modulus",
+          "latex": "S = \\frac{b\\, h^2}{6}",
+          "condiciones": "b ancho (m); h altura (m) de una seccion rectangular. S en m^3.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 4.4"
+        },
+        {
+          "nombre_es": "Relacion carga-cortante",
+          "nombre_en": "Load-shear relation",
+          "latex": "\\frac{dV}{dx} = -w(x)",
+          "condiciones": "V fuerza cortante interna (N); w(x) carga distribuida (N/m); x posicion a lo largo de la viga (m). Pendiente del diagrama de cortante.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Relacion cortante-momento",
+          "nombre_en": "Shear-moment relation",
+          "latex": "\\frac{dM}{dx} = V",
+          "condiciones": "M momento flector (N*m); V cortante (N); x posicion (m). La pendiente del diagrama de momento es el cortante; M es maximo donde V=0.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Radio de curvatura por flexion",
+          "nombre_en": "Radius of curvature in bending",
+          "latex": "\\frac{1}{\\rho} = \\frac{M}{E\\, I}",
+          "condiciones": "rho radio de curvatura del eje neutro (m); M momento flector (N*m); E modulo de Young (Pa); I inercia (m^4).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 4.2"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Esfuerzo cortante en vigas",
+      "titulo_en": "Transverse Shear in Beams",
+      "archivo": "esfuerzo_cortante_vigas.dart",
+      "formulas": [
+        {
+          "nombre_es": "Formula del cortante",
+          "nombre_en": "Shear formula",
+          "latex": "\\tau = \\frac{V\\, Q}{I\\, b}",
+          "condiciones": "tau esfuerzo cortante transversal (Pa); V cortante interno (N); Q primer momento del area sobre el punto respecto al eje neutro (m^3); I inercia centroidal (m^4); b ancho de la seccion en el punto (m).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 7.2"
+        },
+        {
+          "nombre_es": "Primer momento Q",
+          "nombre_en": "First moment Q",
+          "latex": "Q = \\bar{y}'\\, A'",
+          "condiciones": "Q primer momento del area (m^3); A' area por encima (o debajo) del nivel donde se calcula tau (m^2); y-bar' distancia del centroide de A' al eje neutro (m).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 6.2"
+        },
+        {
+          "nombre_es": "Cortante maximo en seccion rectangular",
+          "nombre_en": "Max shear rectangular section",
+          "latex": "\\tau_{max} = \\frac{3V}{2A}",
+          "condiciones": "tau_max esfuerzo cortante maximo en el eje neutro de una seccion rectangular (Pa); V cortante (N); A area total (m^2). 1.5 veces el cortante promedio.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 7.2"
+        },
+        {
+          "nombre_es": "Cortante maximo en seccion circular",
+          "nombre_en": "Max shear circular section",
+          "latex": "\\tau_{max} = \\frac{4V}{3A}",
+          "condiciones": "tau_max esfuerzo cortante maximo en el eje neutro de una seccion circular solida (Pa); V cortante (N); A area (m^2).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 6.4"
+        },
+        {
+          "nombre_es": "Flujo cortante",
+          "nombre_en": "Shear flow",
+          "latex": "q = \\frac{V\\, Q}{I}",
+          "condiciones": "q flujo cortante (N/m); V cortante (N); Q primer momento del area conectada (m^3); I inercia centroidal (m^4). Usado para disenar conectores en vigas compuestas.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 7.3"
+        },
+        {
+          "nombre_es": "Espaciamiento de conectores",
+          "nombre_en": "Connector spacing",
+          "latex": "s = \\frac{F}{q}",
+          "condiciones": "s separacion entre conectores (m); F fuerza admisible de un conector (N); q flujo cortante (N/m).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 6.2"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Torsion en ejes",
+      "titulo_en": "Torsion of Shafts",
+      "archivo": "torsion_ejes.dart",
+      "formulas": [
+        {
+          "nombre_es": "Formula de la torsion (maxima)",
+          "nombre_en": "Torsion formula (maximum)",
+          "latex": "\\tau_{max} = \\frac{T\\, c}{J}",
+          "condiciones": "tau_max esfuerzo cortante maximo en la superficie (Pa); T par torsor interno (N*m); c radio exterior (m); J momento polar de inercia (m^4).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 5.2"
+        },
+        {
+          "nombre_es": "Esfuerzo cortante a radio rho",
+          "nombre_en": "Shear stress at radius rho",
+          "latex": "\\tau = \\frac{T\\, \\rho}{J}",
+          "condiciones": "tau esfuerzo cortante a distancia rho del centro (Pa); T par torsor (N*m); rho radio (m); J momento polar de inercia (m^4). Distribucion lineal.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 3.2"
+        },
+        {
+          "nombre_es": "Momento polar eje solido",
+          "nombre_en": "Polar moment solid shaft",
+          "latex": "J = \\frac{\\pi c^4}{2}",
+          "condiciones": "J momento polar de inercia (m^4); c radio del eje solido (m). Equivale a pi*d^4/32.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 5.1"
+        },
+        {
+          "nombre_es": "Momento polar eje hueco",
+          "nombre_en": "Polar moment hollow shaft",
+          "latex": "J = \\frac{\\pi}{2}(c_o^4 - c_i^4)",
+          "condiciones": "J momento polar (m^4); c_o radio exterior (m); c_i radio interior (m) de un eje tubular.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 3.2"
+        },
+        {
+          "nombre_es": "Angulo de torsion",
+          "nombre_en": "Angle of twist",
+          "latex": "\\phi = \\frac{T\\, L}{J\\, G}",
+          "condiciones": "phi angulo de torsion (rad); T par torsor (N*m); L longitud del eje (m); J momento polar (m^4); G modulo de rigidez (Pa). Eje prismatico con T constante.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 5.4"
+        },
+        {
+          "nombre_es": "Angulo de torsion (segmentos)",
+          "nombre_en": "Angle of twist (segments)",
+          "latex": "\\phi = \\sum \\frac{T_i\\, L_i}{J_i\\, G_i}",
+          "condiciones": "Suma sobre segmentos con distinto par T_i (N*m), longitud L_i (m), J_i (m^4) o material G_i (Pa). phi en rad.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 3.5"
+        },
+        {
+          "nombre_es": "Potencia transmitida por un eje",
+          "nombre_en": "Power transmitted by a shaft",
+          "latex": "P = T\\, \\omega",
+          "condiciones": "P potencia (W); T par torsor (N*m); omega velocidad angular (rad/s). Con omega = 2*pi*f donde f es la frecuencia en Hz.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 5.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Esfuerzo termico",
+      "titulo_en": "Thermal Stress",
+      "archivo": "esfuerzo_termico.dart",
+      "formulas": [
+        {
+          "nombre_es": "Deformacion termica",
+          "nombre_en": "Thermal deformation",
+          "latex": "\\delta_T = \\alpha\\, \\Delta T\\, L",
+          "condiciones": "delta_T cambio de longitud por temperatura (m); alpha coeficiente de dilatacion termica lineal (1/K o 1/C); Delta T cambio de temperatura (K o C); L longitud original (m).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.10"
+        },
+        {
+          "nombre_es": "Deformacion unitaria termica",
+          "nombre_en": "Thermal strain",
+          "latex": "\\epsilon_T = \\alpha\\, \\Delta T",
+          "condiciones": "epsilon_T deformacion unitaria termica (adimensional); alpha coeficiente de dilatacion (1/K); Delta T cambio de temperatura (K o C).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 4.6"
+        },
+        {
+          "nombre_es": "Esfuerzo termico (restringido)",
+          "nombre_en": "Thermal stress (constrained)",
+          "latex": "\\sigma_T = E\\, \\alpha\\, \\Delta T",
+          "condiciones": "sigma_T esfuerzo termico en una barra totalmente restringida (Pa); E modulo de Young (Pa); alpha coeficiente de dilatacion (1/K); Delta T cambio de temperatura (K o C). Compresion al calentar.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 2.10"
+        },
+        {
+          "nombre_es": "Deformacion total axial-termica",
+          "nombre_en": "Combined axial-thermal deformation",
+          "latex": "\\delta = \\frac{P\\, L}{A\\, E} + \\alpha\\, \\Delta T\\, L",
+          "condiciones": "delta cambio total de longitud (m); primer termino por carga axial P (N); segundo termino por temperatura. Superposicion de efectos mecanico y termico.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 4.6"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Transformacion de esfuerzos y circulo de Mohr",
+      "titulo_en": "Stress Transformation and Mohr's Circle",
+      "archivo": "circulo_mohr_transformacion.dart",
+      "formulas": [
+        {
+          "nombre_es": "Esfuerzo normal en plano rotado",
+          "nombre_en": "Normal stress on rotated plane",
+          "latex": "\\sigma_{x'} = \\frac{\\sigma_x + \\sigma_y}{2} + \\frac{\\sigma_x - \\sigma_y}{2}\\cos 2\\theta + \\tau_{xy}\\sin 2\\theta",
+          "condiciones": "sigma_x' esfuerzo normal en un plano rotado theta (Pa); sigma_x, sigma_y esfuerzos normales; tau_xy cortante (Pa); theta angulo de rotacion. Angulos en grados o radianes segun convencion.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 7.2"
+        },
+        {
+          "nombre_es": "Esfuerzo cortante en plano rotado",
+          "nombre_en": "Shear stress on rotated plane",
+          "latex": "\\tau_{x'y'} = -\\frac{\\sigma_x - \\sigma_y}{2}\\sin 2\\theta + \\tau_{xy}\\cos 2\\theta",
+          "condiciones": "tau_x'y' cortante en el plano rotado theta (Pa); sigma_x, sigma_y esfuerzos normales; tau_xy cortante original (Pa).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 7.2"
+        },
+        {
+          "nombre_es": "Esfuerzo normal promedio (centro de Mohr)",
+          "nombre_en": "Average normal stress (Mohr center)",
+          "latex": "\\sigma_{prom} = \\frac{\\sigma_x + \\sigma_y}{2}",
+          "condiciones": "sigma_prom esfuerzo normal promedio, centro del circulo de Mohr (Pa); sigma_x, sigma_y esfuerzos normales (Pa).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 9.4"
+        },
+        {
+          "nombre_es": "Radio del circulo de Mohr",
+          "nombre_en": "Mohr's circle radius",
+          "latex": "R = \\sqrt{\\left(\\frac{\\sigma_x - \\sigma_y}{2}\\right)^2 + \\tau_{xy}^2}",
+          "condiciones": "R radio del circulo de Mohr (Pa); sigma_x, sigma_y esfuerzos normales; tau_xy cortante (Pa). Igual al cortante maximo en el plano.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 9.4"
+        },
+        {
+          "nombre_es": "Esfuerzos principales",
+          "nombre_en": "Principal stresses",
+          "latex": "\\sigma_{1,2} = \\frac{\\sigma_x + \\sigma_y}{2} \\pm R",
+          "condiciones": "sigma_1, sigma_2 esfuerzos principales maximo y minimo (Pa); centro sigma_prom mas/menos el radio R (Pa). El cortante es nulo en los planos principales.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 7.3"
+        },
+        {
+          "nombre_es": "Cortante maximo en el plano",
+          "nombre_en": "Maximum in-plane shear stress",
+          "latex": "\\tau_{max} = R = \\sqrt{\\left(\\frac{\\sigma_x - \\sigma_y}{2}\\right)^2 + \\tau_{xy}^2}",
+          "condiciones": "tau_max cortante maximo en el plano (Pa); igual al radio del circulo de Mohr. Actua en planos a 45 grados de los principales.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 9.4"
+        },
+        {
+          "nombre_es": "Angulo de los planos principales",
+          "nombre_en": "Angle of principal planes",
+          "latex": "\\tan 2\\theta_p = \\frac{2\\tau_{xy}}{\\sigma_x - \\sigma_y}",
+          "condiciones": "theta_p orientacion de los planos principales; sigma_x, sigma_y esfuerzos normales; tau_xy cortante (Pa). Da dos soluciones a 90 grados entre si.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 7.3"
+        },
+        {
+          "nombre_es": "Cortante maximo absoluto",
+          "nombre_en": "Absolute maximum shear stress",
+          "latex": "\\tau_{abs} = \\frac{\\sigma_{max} - \\sigma_{min}}{2}",
+          "condiciones": "tau_abs cortante maximo absoluto (Pa); sigma_max, sigma_min esfuerzos principales extremos considerando los tres ejes (Pa).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 9.5"
+        }
+      ]
+    },
+    {
+      "titulo_es": "Factor de seguridad y diseno",
+      "titulo_en": "Factor of Safety and Design",
+      "archivo": "factor_seguridad_diseno.dart",
+      "formulas": [
+        {
+          "nombre_es": "Factor de seguridad (esfuerzo)",
+          "nombre_en": "Factor of safety (stress)",
+          "latex": "FS = \\frac{\\sigma_{falla}}{\\sigma_{perm}}",
+          "condiciones": "FS factor de seguridad (adimensional); sigma_falla esfuerzo de falla o de fluencia del material (Pa); sigma_perm esfuerzo admisible de trabajo (Pa). FS > 1.",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 1.7"
+        },
+        {
+          "nombre_es": "Factor de seguridad (carga)",
+          "nombre_en": "Factor of safety (load)",
+          "latex": "FS = \\frac{P_{ult}}{P_{perm}}",
+          "condiciones": "FS factor de seguridad (adimensional); P_ult carga ultima que produce falla (N); P_perm carga admisible de servicio (N).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.5C"
+        },
+        {
+          "nombre_es": "Esfuerzo admisible",
+          "nombre_en": "Allowable stress",
+          "latex": "\\sigma_{perm} = \\frac{\\sigma_Y}{FS}",
+          "condiciones": "sigma_perm esfuerzo admisible de diseno (Pa); sigma_Y esfuerzo de fluencia del material (Pa); FS factor de seguridad seleccionado (adimensional).",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.5C"
+        },
+        {
+          "nombre_es": "Area requerida por diseno",
+          "nombre_en": "Required design area",
+          "latex": "A = \\frac{P}{\\sigma_{perm}}",
+          "condiciones": "A area transversal minima requerida (m^2); P carga axial de servicio (N); sigma_perm esfuerzo admisible (Pa).",
+          "referencia": "Hibbeler, Mechanics of Materials, 10th ed., Sec. 1.7"
+        },
+        {
+          "nombre_es": "Margen de seguridad",
+          "nombre_en": "Margin of safety",
+          "latex": "MS = FS - 1",
+          "condiciones": "MS margen de seguridad (adimensional); FS factor de seguridad. Usado comunmente en diseno aeroespacial y estructural.",
+          "referencia": "Beer & Johnston, Mechanics of Materials, 8th ed., Sec. 1.5C"
+        }
+      ]
+    }
+  ],
+  "referencias": [
+    "Beer, F. P., Johnston, E. R., DeWolf, J. T., Mazurek, D. F. — Mechanics of Materials, 8th ed., McGraw-Hill, 2020",
+    "Beer, F. P., Johnston, E. R. — Vector Mechanics for Engineers: Statics, 12th ed., McGraw-Hill, 2019",
+    "Hibbeler, R. C. — Mechanics of Materials, 10th ed., Pearson, 2017",
+    "Hibbeler, R. C. — Engineering Mechanics: Statics, 14th ed., Pearson, 2016",
+    "Illinois Mechref (mechref.engr.illinois.edu/sol/torsion.html) — Torsion formula verification",
+    "Purdue ME323 Lecture 33 (web.ics.purdue.edu) — Mohr's circle and absolute maximum shear stress"
+  ]
+}

@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoriaDeCircuitos extends StatefulWidget {
+  const TeoriaDeCircuitos({super.key});
   @override
   State<TeoriaDeCircuitos> createState() => _TeoriaDeCircuitosState();
 }

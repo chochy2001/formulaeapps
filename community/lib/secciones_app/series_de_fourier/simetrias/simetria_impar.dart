@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SimetriaImpar extends StatefulWidget {
+  const SimetriaImpar({super.key});
   @override
-  _SimetriaImparState createState() => _SimetriaImparState();
+  State<SimetriaImpar> createState() => _SimetriaImparState();
 }
 
 class _SimetriaImparState extends State<SimetriaImpar> {

@@ -5,7 +5,7 @@ import '../../../constantes/export_constantes.dart';
 import 'package:formulae/ads/formulae_ads_controller.dart';
 
 class MenuAlgebra extends StatefulWidget {
-  const MenuAlgebra({Key? key}) : super(key: key);
+  const MenuAlgebra({super.key});
 
   @override
   MenuAlgebraState createState() => MenuAlgebraState();

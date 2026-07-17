@@ -2,6 +2,8 @@
 import { SITE, SOCIAL, type Locale } from '../../consts';
 import { useTranslations } from '../../i18n/ui';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { translatePath } from '../../i18n/routes';
+import EmailLink from '../ui/EmailLink.astro';
 
 const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
 const t = useTranslations(locale);
@@ -13,7 +15,7 @@ const productLinks = [
     href: getRelativeLocaleUrl(locale, locale === 'es' ? '/gratuita' : '/free'),
     label: t('nav.community'),
   },
-  { href: getRelativeLocaleUrl(locale, '/soporte'), label: t('nav.support') },
+  { href: translatePath('/soporte', locale), label: t('nav.support') },
 ];
 
 const legalLinks = [
@@ -71,9 +73,7 @@ const legalLinks = [
         <h2 class="text-ink-900 mt-6 text-sm font-semibold">{t('footer.contact')}</h2>
         <ul class="text-ink-500 mt-3 space-y-2 text-sm">
           <li>
-            <a href={`mailto:${SITE.email}`} class="hover:text-primary-600 transition-colors">
-              {SITE.email}
-            </a>
+            <EmailLink class="hover:text-primary-600 transition-colors" />
           </li>
           <li>
             <a

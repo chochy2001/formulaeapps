@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ReglaDeSarrus extends StatefulWidget {
+  const ReglaDeSarrus({super.key});
   @override
-  _ReglaDeSarrusState createState() => _ReglaDeSarrusState();
+  State<ReglaDeSarrus> createState() => _ReglaDeSarrusState();
 }
 
 class _ReglaDeSarrusState extends State<ReglaDeSarrus> {

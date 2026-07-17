@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PropiedadesDeLosVectores extends StatefulWidget {
+  const PropiedadesDeLosVectores({super.key});
   @override
-  _PropiedadesDeLosVectoresState createState() =>
+  State<PropiedadesDeLosVectores> createState() =>
       _PropiedadesDeLosVectoresState();
 }
 

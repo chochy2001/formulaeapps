@@ -4,6 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class GraficaDeCapacitancia extends StatefulWidget {
+  const GraficaDeCapacitancia({super.key});
   @override
   State<GraficaDeCapacitancia> createState() => _GraficaDeCapacitanciaState();
 }

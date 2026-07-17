@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class EnergiaYCapacitancia extends StatefulWidget {
+  const EnergiaYCapacitancia({super.key});
   @override
   State<EnergiaYCapacitancia> createState() => _EnergiaYCapacitanciaState();
 }

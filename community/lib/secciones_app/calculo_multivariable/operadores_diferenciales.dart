@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class OperadoresDiferenciales extends StatefulWidget {
+  const OperadoresDiferenciales({super.key});
   @override
-  _OperadoresDiferencialesState createState() =>
+  State<OperadoresDiferenciales> createState() =>
       _OperadoresDiferencialesState();
 }
 

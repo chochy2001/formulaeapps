@@ -4,8 +4,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class PuntoMedioEntreDosPuntosGeometria extends StatefulWidget {
+  const PuntoMedioEntreDosPuntosGeometria({super.key});
   @override
-  _PuntoMedioEntreDosPuntosGeometriaState createState() =>
+  State<PuntoMedioEntreDosPuntosGeometria> createState() =>
       _PuntoMedioEntreDosPuntosGeometriaState();
 }
 
@@ -13,7 +14,6 @@ class _PuntoMedioEntreDosPuntosGeometriaState
     extends State<PuntoMedioEntreDosPuntosGeometria> {
 
   double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
-  static const int maxFailedLoadAttempts = 3;
 
   final FormulaeAdsController _ads = FormulaeAdsController();
 

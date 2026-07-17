@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 #
-#  Dockerfile productivo para landing/ (sitio Astro 5 estático).
+#  Dockerfile productivo para landing/ (sitio Astro estático).
 #
 #  Build context esperado: ESTA carpeta (landing/).
 #  En tu docker-compose.yml de la raíz del monorepo, declara:
@@ -20,15 +20,15 @@
 #  está delante en la misma red docker.
 
 # ──────────── Stage 1 — builder ────────────
-FROM node:20-alpine AS builder
+FROM oven/bun:1.3.9-alpine AS builder
 
 WORKDIR /app
 
-# Capa de dependencias separada para aprovechar el cache cuando solo
-# cambia el código fuente y no package.json.
-COPY package.json package-lock.json* ./
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci --no-audit --no-fund
+# Capa de dependencias separada para aprovechar el cache cuando solo cambia el
+# código fuente. Bun y bun.lock son la fuente de verdad del proyecto.
+COPY package.json bun.lock ./
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile
 
 # Resto del código
 COPY . .
@@ -42,8 +42,8 @@ ENV PUBLIC_APP_URL=$PUBLIC_APP_URL
 
 # Type-check estricto (astro check) + build estático → /app/dist.
 # Si el type-check falla, la imagen NO se construye → no hay deploy roto.
-RUN npm run check \
- && npm run build \
+RUN bun run check \
+ && bun run build \
  && test -f dist/index.html
 
 
@@ -51,7 +51,7 @@ RUN npm run check \
 FROM nginx:1.27-alpine AS runtime
 
 LABEL org.opencontainers.image.title="formulae-landing" \
-      org.opencontainers.image.description="Landing oficial de formulaeapps.com (Astro 5 + nginx)" \
+      org.opencontainers.image.description="Landing oficial de formulaeapps.com (Astro 6 + nginx)" \
       org.opencontainers.image.vendor="CAPDESIS S.A. de C.V." \
       org.opencontainers.image.source="https://github.com/CAPDESIS/formulaeapps" \
       org.opencontainers.image.url="https://formulaeapps.com" \

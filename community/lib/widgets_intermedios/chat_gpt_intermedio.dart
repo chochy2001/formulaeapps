@@ -5,7 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../chat_gpt/chat_screen.dart';
 
 class ChatGPTIntermedio extends StatelessWidget {
-  const ChatGPTIntermedio({Key? key}) : super(key: key);
+  const ChatGPTIntermedio({super.key});
 
   @override
   Widget build(BuildContext context) {

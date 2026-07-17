@@ -15,7 +15,7 @@ import 'models_provider.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+  const ChatScreen({super.key});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -98,11 +98,11 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void _initializePurchaseDetails() {
-    // Touch the injectable platform so production still registers the store
-    // facade before listening (same eager-init as the old inAppPurchase getter).
-    _inAppPurchaseManager.platform;
+    // Use the public alias (not @visibleForTesting `platform`) so production
+    // UI can refresh on purchase updates without analyzer warnings. The store
+    // facade is already registered eagerly in the manager constructor.
     purchaseSubscription =
-        _inAppPurchaseManager.platform.purchaseStream.listen((purchases) {
+        _inAppPurchaseManager.inAppPurchase.purchaseStream.listen((purchases) {
       _inAppPurchaseManager.handlePurchaseUpdates(purchases);
       setState(() {});
     });
@@ -188,10 +188,12 @@ class _ChatScreenState extends State<ChatScreen>
         msg: msg,
         chosenModelId: modelsProvider.getCurrentModel,
       );
+      if (!mounted) return;
       setState(() {
         _isTyping = false;
       });
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: kColorBotones,
@@ -201,10 +203,12 @@ class _ChatScreenState extends State<ChatScreen>
         ),
       );
     } finally {
-      setState(() {
-        scrollToBottom();
-        _isTyping = false;
-      });
+      if (mounted) {
+        setState(() {
+          scrollToBottom();
+          _isTyping = false;
+        });
+      }
     }
   }
 
@@ -236,11 +240,10 @@ class _ChatScreenState extends State<ChatScreen>
               elevation: 2,
               leading: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: FadeInImage(
+                child: ImagenRemotaRobusta(
                   height: 200.0,
                   width: 200.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
               ),
               title: Text(AppLocalizations.of(context)!.formulaeProChat),
@@ -362,13 +365,11 @@ class _ChatScreenState extends State<ChatScreen>
                       ],
                     )
                   : Center(
-                      child: FadeInImage(
+                      child: ImagenRemotaRobusta(
                         height: MediaQuery.of(context).size.height * 0.5,
                         width: double.infinity,
-                        placeholder: const AssetImage(kUrlImagenGifCarga),
-                        image: NetworkImage(
-                            getImageUrlById(context, kImagenChat) ??
-                                kUrlImagenChat),
+                        urlImagen: getImageUrlById(context, kImagenChat) ??
+                            kUrlImagenChat,
                       ),
                     ),
             ),

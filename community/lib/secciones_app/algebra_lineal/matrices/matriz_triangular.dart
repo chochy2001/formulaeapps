@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MatrizTriangular extends StatefulWidget {
+  const MatrizTriangular({super.key});
   @override
-  _MatrizTriangularState createState() => _MatrizTriangularState();
+  State<MatrizTriangular> createState() => _MatrizTriangularState();
 }
 
 class _MatrizTriangularState extends State<MatrizTriangular> {

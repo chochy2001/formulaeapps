@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class Solenoide extends StatefulWidget {
+  const Solenoide({super.key});
   @override
   State<Solenoide> createState() => _SolenoideState();
 }

@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ParabolaConVerticeEnElOrigen extends StatefulWidget {
+  const ParabolaConVerticeEnElOrigen({super.key});
   @override
-  _ParabolaConVerticeEnElOrigenState createState() =>
+  State<ParabolaConVerticeEnElOrigen> createState() =>
       _ParabolaConVerticeEnElOrigenState();
 }
 

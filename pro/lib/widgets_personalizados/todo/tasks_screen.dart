@@ -1,15 +1,14 @@
-import 'dart:io' as io;
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:formulae/widgets_personalizados/todo/task.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:share_plus/share_plus.dart';
 
+import '../../Favorites/favorite_pdf_downloader.dart';
 import '../../constantes/export_constantes.dart';
 import 'add_task_screen.dart';
 import 'export_options.dart';
@@ -20,7 +19,6 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 600;
     //comenzando con las notificaciones push locales
 
     return SafeArea(
@@ -55,9 +53,8 @@ class TasksScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
+                child: Wrap(
+                  alignment: WrapAlignment.end,
                   children: [
                     Animate(
                       effects: const [
@@ -73,36 +70,21 @@ class TasksScreen extends StatelessWidget {
                           duration: Duration(milliseconds: 10),
                         ),
                       ],
-                      child: Row(
+                      child: Wrap(
+                        alignment: WrapAlignment.end,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: MediaQuery.of(context).size.width * .02,
+                        runSpacing: 8,
                         children: [
                           //Share
                           GestureDetector(
-                            onLongPress: () async {
-                              // Asegúrate de que onLongPress sea async
-                              final tasks =
-                                  Provider.of<TaskData>(context, listen: false)
-                                      .tasks;
-
-                              // Muestra el diálogo de opciones de exportación
-                              ExportOptions? options =
-                                  await showDialog<ExportOptions>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const ExportOptionsDialog();
-                                },
-                              );
-
-                              // Si el usuario seleccionó opciones y presionó "Aceptar", genera el PDF y lo guarda
-                              if (options != null) {
-                                if (!context.mounted) return;
-                                await generatePdfAndSave(
-                                    tasks, context, options);
-                              }
-                            },
+                            onLongPress: () =>
+                                _showExportOptionsAndExport(context),
                             child: FloatingActionButton.extended(
-                              extendedTextStyle:
-                                  const TextStyle(color: Colors.white),
-                              backgroundColor: kColorBotones,
+                              extendedTextStyle: const TextStyle(
+                                  color: kColorTextoSobreAcento),
+                              // Accion SECUNDARIA (compartir): acento teal.
+                              backgroundColor: kColorAcentoSecundario,
                               elevation: 9,
                               onPressed: () async {
                                 final tasks = Provider.of<TaskData>(context,
@@ -144,17 +126,16 @@ class TasksScreen extends StatelessWidget {
                               label: Text(
                                 AppLocalizations.of(context)!.compartirTareas,
                                 style: const TextStyle(
-                                    color: Colors.white, fontFamily: 'Poppins'),
+                                    color: kColorTextoSobreAcento,
+                                    fontFamily: 'Poppins'),
                               ),
                               icon: const Icon(
                                 Icons.share,
-                                color: Colors
-                                    .white, //Share Icon color changed to white to ensure contrast
+                                // Texto oscuro sobre el teal para asegurar
+                                // contraste (6.56:1).
+                                color: kColorTextoSobreAcento,
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * .02,
                           ),
                           //Add
                           GestureDetector(
@@ -210,7 +191,8 @@ class TasksScreen extends StatelessWidget {
                               }
                             },
                             child: FloatingActionButton.extended(
-                              backgroundColor: kColorBotones,
+                              // Accion PRIMARIA (agregar tarea): acento dorado.
+                              backgroundColor: kColorAcentoPrimario,
                               elevation: 9,
                               onPressed: () {
                                 showModalBottomSheet(
@@ -231,20 +213,18 @@ class TasksScreen extends StatelessWidget {
                               },
                               label: Text(
                                 AppLocalizations.of(context)!.agregar,
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(
+                                    color: kColorTextoSobreAcento),
                               ),
                               icon: const Icon(
                                 Icons.add,
-                                color: Colors.white,
+                                // Texto oscuro sobre el dorado (7.14:1).
+                                color: kColorTextoSobreAcento,
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height *
-                          (isMobile ? .08 : .07),
                     ),
                   ],
                 ),
@@ -282,65 +262,145 @@ class TasksScreen extends StatelessWidget {
     );
   }
 
-  Future<void> generatePdfAndSave(List<Task> tasks, BuildContext flutterContext,
-      ExportOptions options) async {
-    final pdf = pw.Document();
+  Future<void> _showExportOptionsAndExport(BuildContext context) async {
+    final tasks = Provider.of<TaskData>(context, listen: false).tasks;
+    final options = await showDialog<ExportOptions>(
+      context: context,
+      builder: (context) => const ExportOptionsDialog(),
+    );
 
-    // Cargar la imagen
-    final Uint8List imageData = await readImageData(
-        'assets/images/icono_app_nuevo.png'); // Necesitas reemplazar 'ruta_a_la_imagen' con la ruta actual a tu imagen
-    final imageProvider = pw.MemoryImage(imageData);
+    if (options == null || !context.mounted) {
+      return;
+    }
 
-    // Obtener la localización aquí antes de iniciar la operación asíncrona.
-    // AppLocalizations.of devuelve nullable; con un MaterialApp + delegates
-    // configurados nunca es null en este punto (y el mounted guard ya corrió),
-    // así que se afirma non-null una sola vez en la asignación.
-    if (!flutterContext.mounted) return;
+    final localizations = AppLocalizations.of(context)!;
+    try {
+      await generatePdfAndSave(tasks, context, options);
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(localizations.pdfGenerado)),
+      );
+    } catch (error, stackTrace) {
+      debugPrint('Formulae tasks PDF export failed: $error');
+      debugPrintStack(stackTrace: stackTrace);
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(localizations.mensajeError)),
+      );
+    }
+  }
+
+  Future<void> generatePdfAndSave(
+    List<Task> tasks,
+    BuildContext flutterContext,
+    ExportOptions options,
+  ) async {
+    if (!flutterContext.mounted) {
+      return;
+    }
+
     final appLocalization = AppLocalizations.of(flutterContext)!;
+    final pdfBytes = await buildTasksPdfBytes(
+      tasks: tasks,
+      options: options,
+      localizations: appLocalization,
+    );
 
+    if (!flutterContext.mounted) {
+      return;
+    }
+    await downloadFavoritePdf(pdfBytes, appLocalization.tareasPDF);
+  }
+
+  @visibleForTesting
+  static Future<pw.Document> buildTasksPdfDocument({
+    required List<Task> tasks,
+    required ExportOptions options,
+    required AppLocalizations localizations,
+  }) async {
+    final pdf = pw.Document();
+    final imageData = await readImageData('assets/images/icono_app_nuevo.png');
+    final imageProvider = pw.MemoryImage(imageData);
+    final textFont =
+        pw.Font.ttf(await rootBundle.load('fonts/Poppins-Bold.ttf'));
+    final mathFont =
+        pw.Font.ttf(await rootBundle.load('fonts/NotoSansMath-Regular.ttf'));
+
+    // Una página única recortaba las listas largas. MultiPage conserva todas
+    // las tareas y distribuye los renglones entre páginas A4 cuando es necesario.
     pdf.addPage(
-      pw.Page(
-        build: (pw.Context pdfContext) => pw.Column(
-          children: [
-            pw.Image(imageProvider,
-                width: 80,
-                height: 80,
-                fit: pw.BoxFit.scaleDown), // Imagen ajustada
-            pw.Text(appLocalization.formulaePro), // Texto adicional
-            pw.SizedBox(height: 10),
-            ...tasks.map((task) {
-              String taskText = task.name;
-              if (options.includeTaskStatus) {
-                taskText += ' - ${task.isDone ? '[x]' : '[ ]'}';
-              }
-              if (options.includeReminderDate) {
-                taskText +=
-                    ' - ${appLocalization.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : appLocalization.noAsignado}';
-              }
-              if (options.includeDueDate) {
-                taskText +=
-                    ' - ${appLocalization.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : appLocalization.noAsignado}';
-              }
-              return pw.Text(taskText);
-            }), // Un espacio entre el texto y las tareas
-          ],
+      pw.MultiPage(
+        theme: pw.ThemeData.withFont(
+          base: textFont,
+          bold: textFont,
+          italic: textFont,
+          boldItalic: textFont,
+          fontFallback: [mathFont],
         ),
+        build: (_) => [
+          pw.Center(
+            child: pw.Image(
+              imageProvider,
+              width: 80,
+              height: 80,
+              fit: pw.BoxFit.scaleDown,
+            ),
+          ),
+          pw.SizedBox(height: 6),
+          pw.Center(child: pw.Text(localizations.formulaePro)),
+          pw.SizedBox(height: 10),
+          ...tasks.map(
+            (task) => pw.Padding(
+              padding: const pw.EdgeInsets.only(bottom: 4),
+              child: pw.Text(_formatTaskForPdf(task, options, localizations)),
+            ),
+          ),
+        ],
       ),
     );
 
-    final output = await getTemporaryDirectory();
-    final file = io.File("${output.path}/${appLocalization.tareasPDF}");
-    await file.writeAsBytes(await pdf.save());
-
-    // comparte el archivoX
-    Share.shareXFiles(
-      [XFile('${output.path}/${appLocalization.tareasPDF}')],
-      subject: appLocalization.tarea,
-    );
+    return pdf;
   }
 
-// Función para leer la imagen como un Uint8List
-  Future<Uint8List> readImageData(String path) async {
+  @visibleForTesting
+  static Future<Uint8List> buildTasksPdfBytes({
+    required List<Task> tasks,
+    required ExportOptions options,
+    required AppLocalizations localizations,
+  }) async {
+    final pdf = await buildTasksPdfDocument(
+      tasks: tasks,
+      options: options,
+      localizations: localizations,
+    );
+    return pdf.save();
+  }
+
+  static String _formatTaskForPdf(
+    Task task,
+    ExportOptions options,
+    AppLocalizations localizations,
+  ) {
+    var taskText = task.name;
+    if (options.includeTaskStatus) {
+      taskText += ' - ${task.isDone ? '[x]' : '[ ]'}';
+    }
+    if (options.includeReminderDate) {
+      taskText +=
+          ' - ${localizations.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : localizations.noAsignado}';
+    }
+    if (options.includeDueDate) {
+      taskText +=
+          ' - ${localizations.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : localizations.noAsignado}';
+    }
+    return taskText;
+  }
+
+  static Future<Uint8List> readImageData(String path) async {
     final data = await rootBundle.load(path);
     return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   }

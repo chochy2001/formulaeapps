@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class IdentidadesTrigonometricasDeAnguloDobleYMedio extends StatefulWidget {
+  const IdentidadesTrigonometricasDeAnguloDobleYMedio({super.key});
   @override
-  _IdentidadesTrigonometricasDeAnguloDobleYMedioState createState() =>
+  State<IdentidadesTrigonometricasDeAnguloDobleYMedio> createState() =>
       _IdentidadesTrigonometricasDeAnguloDobleYMedioState();
 }
 

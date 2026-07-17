@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TasaEfectiva extends StatefulWidget {
+  const TasaEfectiva({super.key});
   @override
-  _TasaEfectivaState createState() => _TasaEfectivaState();
+  State<TasaEfectiva> createState() => _TasaEfectivaState();
 }
 
 class _TasaEfectivaState extends State<TasaEfectiva> {

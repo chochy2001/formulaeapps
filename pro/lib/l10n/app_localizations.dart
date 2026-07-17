@@ -2954,6 +2954,12 @@ abstract class AppLocalizations {
   /// **'Imagen'**
   String get imagen;
 
+  /// No description provided for @imagenNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Imagen no disponible'**
+  String get imagenNoDisponible;
+
   /// No description provided for @explicacionDominio.
   ///
   /// In es, this message translates to:
@@ -8250,7 +8256,7 @@ abstract class AppLocalizations {
   /// No description provided for @mensajeError.
   ///
   /// In es, this message translates to:
-  /// **'Hubo un problema al cargar el archivo PDF. Revisa tu conexión a internet e intenta de nuevo más tarde.'**
+  /// **'Hubo un problema al generar el PDF. Intenta de nuevo.'**
   String get mensajeError;
 
   /// No description provided for @reintentar.
@@ -8504,6 +8510,804 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Eliminar carpeta'**
   String get eliminarCarpeta;
+
+  /// No description provided for @tamanoFormula.
+  ///
+  /// In es, this message translates to:
+  /// **'Tamaño de fórmula'**
+  String get tamanoFormula;
+
+  /// No description provided for @tamanoFormulaPequeno.
+  ///
+  /// In es, this message translates to:
+  /// **'Pequeño'**
+  String get tamanoFormulaPequeno;
+
+  /// No description provided for @tamanoFormulaMediano.
+  ///
+  /// In es, this message translates to:
+  /// **'Mediano'**
+  String get tamanoFormulaMediano;
+
+  /// No description provided for @tamanoFormulaGrande.
+  ///
+  /// In es, this message translates to:
+  /// **'Grande'**
+  String get tamanoFormulaGrande;
+
+  /// No description provided for @carpetaVaciaAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca el corazón en una fórmula para guardarla aquí.'**
+  String get carpetaVaciaAyuda;
+
+  /// No description provided for @crearOtraCarpetaParaMover.
+  ///
+  /// In es, this message translates to:
+  /// **'Crea otra carpeta primero para mover esta fórmula.'**
+  String get crearOtraCarpetaParaMover;
+
+  /// No description provided for @coeficientesBinomiales.
+  ///
+  /// In es, this message translates to:
+  /// **'Coeficientes binomiales y binomio de Newton'**
+  String get coeficientesBinomiales;
+
+  /// No description provided for @potenciasNEsimas.
+  ///
+  /// In es, this message translates to:
+  /// **'Suma y diferencia de potencias n-esimas'**
+  String get potenciasNEsimas;
+
+  /// No description provided for @ecuacionCubica.
+  ///
+  /// In es, this message translates to:
+  /// **'Ecuacion cubica (metodo de Cardano)'**
+  String get ecuacionCubica;
+
+  /// No description provided for @ecuacionCuadraticaFormaMonicaVieta.
+  ///
+  /// In es, this message translates to:
+  /// **'Ecuacion cuadratica: forma monica y teorema de Vieta'**
+  String get ecuacionCuadraticaFormaMonicaVieta;
+
+  /// No description provided for @numerosComplejosFormaExponencialNumeroComplejo.
+  ///
+  /// In es, this message translates to:
+  /// **'Forma exponencial (Euler) de un numero complejo'**
+  String get numerosComplejosFormaExponencialNumeroComplejo;
+
+  /// No description provided for @numerosComplejosRaicesEIgualdadNumerosComplejos.
+  ///
+  /// In es, this message translates to:
+  /// **'Raices e igualdad de numeros complejos'**
+  String get numerosComplejosRaicesEIgualdadNumerosComplejos;
+
+  /// No description provided for @propiedadesLogaritmos2.
+  ///
+  /// In es, this message translates to:
+  /// **'Logaritmos (leyes y transformaciones)'**
+  String get propiedadesLogaritmos2;
+
+  /// No description provided for @determinantesCramerSarrus.
+  ///
+  /// In es, this message translates to:
+  /// **'Determinantes y regla de Cramer / Sarrus'**
+  String get determinantesCramerSarrus;
+
+  /// No description provided for @algebraLinealMatricesTiposDeMatrices.
+  ///
+  /// In es, this message translates to:
+  /// **'Tipos de matrices'**
+  String get algebraLinealMatricesTiposDeMatrices;
+
+  /// No description provided for @algebraLinealVectoresProductosBaseCanonica.
+  ///
+  /// In es, this message translates to:
+  /// **'Producto punto y cruz de la base canonica'**
+  String get algebraLinealVectoresProductosBaseCanonica;
+
+  /// No description provided for @algebraLinealVectoresProductoEscalarTriple.
+  ///
+  /// In es, this message translates to:
+  /// **'Producto escalar triple y volumen'**
+  String get algebraLinealVectoresProductoEscalarTriple;
+
+  /// No description provided for @algebraLinealVectoresSumaVectoresComponentes.
+  ///
+  /// In es, this message translates to:
+  /// **'Suma de vectores por componentes (metodo del poligono)'**
+  String get algebraLinealVectoresSumaVectoresComponentes;
+
+  /// No description provided for @algebraLinealVectoresLeySenosCosenos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ley de senos y cosenos'**
+  String get algebraLinealVectoresLeySenosCosenos;
+
+  /// No description provided for @algebraLinealVectoresRazonesTrigonometricas.
+  ///
+  /// In es, this message translates to:
+  /// **'Razones trigonometricas (triangulo rectangulo)'**
+  String get algebraLinealVectoresRazonesTrigonometricas;
+
+  /// No description provided for @limitesTeoremasLimites.
+  ///
+  /// In es, this message translates to:
+  /// **'Teoremas de los limites'**
+  String get limitesTeoremasLimites;
+
+  /// No description provided for @limitesLimitesInfinitos.
+  ///
+  /// In es, this message translates to:
+  /// **'Limites infinitos'**
+  String get limitesLimitesInfinitos;
+
+  /// No description provided for @limitesLimitesImportantes.
+  ///
+  /// In es, this message translates to:
+  /// **'Limites importantes'**
+  String get limitesLimitesImportantes;
+
+  /// No description provided for @asintotasHorizontalesOblicuas.
+  ///
+  /// In es, this message translates to:
+  /// **'Asintotas horizontales y oblicuas'**
+  String get asintotasHorizontalesOblicuas;
+
+  /// No description provided for @continuidad.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuidad'**
+  String get continuidad;
+
+  /// No description provided for @reglaLhopital.
+  ///
+  /// In es, this message translates to:
+  /// **'Regla de L\'Hopital'**
+  String get reglaLhopital;
+
+  /// No description provided for @diferenciales.
+  ///
+  /// In es, this message translates to:
+  /// **'Diferenciales'**
+  String get diferenciales;
+
+  /// No description provided for @derivadasAlgebraicasRadicales.
+  ///
+  /// In es, this message translates to:
+  /// **'Derivadas algebraicas y radicales'**
+  String get derivadasAlgebraicasRadicales;
+
+  /// No description provided for @reglaCadenaFuncionInversa.
+  ///
+  /// In es, this message translates to:
+  /// **'Regla de la cadena y funcion inversa'**
+  String get reglaCadenaFuncionInversa;
+
+  /// No description provided for @derivadasTrigonometricasComplementarias.
+  ///
+  /// In es, this message translates to:
+  /// **'Derivadas trigonometricas complementarias (verseno y en terminos del arco)'**
+  String get derivadasTrigonometricasComplementarias;
+
+  /// No description provided for @derivadasHiperbolicasInversas.
+  ///
+  /// In es, this message translates to:
+  /// **'Derivadas de funciones hiperbolicas inversas'**
+  String get derivadasHiperbolicasInversas;
+
+  /// No description provided for @derivacionLogaritmica.
+  ///
+  /// In es, this message translates to:
+  /// **'Derivacion logaritmica (potencias variables)'**
+  String get derivacionLogaritmica;
+
+  /// No description provided for @razonCambioTangenteNormal.
+  ///
+  /// In es, this message translates to:
+  /// **'Razon de cambio, recta tangente y normal'**
+  String get razonCambioTangenteNormal;
+
+  /// No description provided for @aplicacionFisicaDerivada.
+  ///
+  /// In es, this message translates to:
+  /// **'Aplicacion fisica de la derivada'**
+  String get aplicacionFisicaDerivada;
+
+  /// No description provided for @integralesInmediatasAdicionalesIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integrales inmediatas adicionales (formas racionales y radicales)'**
+  String get integralesInmediatasAdicionalesIntegral;
+
+  /// No description provided for @potenciasReduccionTrigonometricasIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencias de funciones trigonometricas y formulas de reduccion'**
+  String get potenciasReduccionTrigonometricasIntegral;
+
+  /// No description provided for @trigonometricasRacionalesProductosIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integrales trigonometricas racionales y productos'**
+  String get trigonometricasRacionalesProductosIntegral;
+
+  /// No description provided for @potenciasReduccionHiperbolicasIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencias y reduccion de funciones hiperbolicas'**
+  String get potenciasReduccionHiperbolicasIntegral;
+
+  /// No description provided for @hiperbolicasInversasIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integrales de funciones hiperbolicas inversas'**
+  String get hiperbolicasInversasIntegral;
+
+  /// No description provided for @integralDefinidaPropiedadesIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integral definida: propiedades y teoremas'**
+  String get integralDefinidaPropiedadesIntegral;
+
+  /// No description provided for @integracionNumericaIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integracion numerica'**
+  String get integracionNumericaIntegral;
+
+  /// No description provided for @sustitucionTrigonometricaIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Integracion por sustitucion trigonometrica'**
+  String get sustitucionTrigonometricaIntegral;
+
+  /// No description provided for @areaLongitudArcoIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Aplicaciones de la integral: area entre curvas y longitud de arco'**
+  String get areaLongitudArcoIntegral;
+
+  /// No description provided for @fraccionesParcialesIntegral.
+  ///
+  /// In es, this message translates to:
+  /// **'Descomposicion en fracciones parciales'**
+  String get fraccionesParcialesIntegral;
+
+  /// No description provided for @constantesMatematicas.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes matemáticas'**
+  String get constantesMatematicas;
+
+  /// No description provided for @constantesFisicasUniversales.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes físicas universales'**
+  String get constantesFisicasUniversales;
+
+  /// No description provided for @constantesElectromagneticas.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes electromagnéticas'**
+  String get constantesElectromagneticas;
+
+  /// No description provided for @constantesAtomicasMoleculares.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes atómicas y moleculares'**
+  String get constantesAtomicasMoleculares;
+
+  /// No description provided for @constantesTerrestresAstronomicas.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes terrestres y astronómicas'**
+  String get constantesTerrestresAstronomicas;
+
+  /// No description provided for @seccionConstantesMatematicas.
+  ///
+  /// In es, this message translates to:
+  /// **'Constantes matemáticas'**
+  String get seccionConstantesMatematicas;
+
+  /// No description provided for @longitudConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Longitud'**
+  String get longitudConversion;
+
+  /// No description provided for @superficieConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Superficie'**
+  String get superficieConversion;
+
+  /// No description provided for @volumenConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Volumen'**
+  String get volumenConversion;
+
+  /// No description provided for @masaConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Masa'**
+  String get masaConversion;
+
+  /// No description provided for @densidadConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Densidad'**
+  String get densidadConversion;
+
+  /// No description provided for @presionConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Presion'**
+  String get presionConversion;
+
+  /// No description provided for @energiaConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Energia'**
+  String get energiaConversion;
+
+  /// No description provided for @potenciaConversion.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencia'**
+  String get potenciaConversion;
+
+  /// No description provided for @seccionConversionDeUnidades.
+  ///
+  /// In es, this message translates to:
+  /// **'Conversión de unidades'**
+  String get seccionConversionDeUnidades;
+
+  /// No description provided for @potenciaYReactanciasEnCa.
+  ///
+  /// In es, this message translates to:
+  /// **'Potencia y reactancias en corriente alterna (CA)'**
+  String get potenciaYReactanciasEnCa;
+
+  /// No description provided for @caValoresEficacesTransformador.
+  ///
+  /// In es, this message translates to:
+  /// **'Corriente alterna: valores eficaces, transformador y maquinas rotatorias'**
+  String get caValoresEficacesTransformador;
+
+  /// No description provided for @instrumentosDeMedicionElectrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Instrumentos de medicion electrica: puente de Wheatstone, voltimetro y amperimetro'**
+  String get instrumentosDeMedicionElectrica;
+
+  /// No description provided for @circuitoLrEnSerie.
+  ///
+  /// In es, this message translates to:
+  /// **'Circuito LR (RL) en serie'**
+  String get circuitoLrEnSerie;
+
+  /// No description provided for @fuerzaYTorcaMagnetica.
+  ///
+  /// In es, this message translates to:
+  /// **'Fuerza y momento de torsion magneticos'**
+  String get fuerzaYTorcaMagnetica;
+
+  /// No description provided for @capacitoresCilindricoYEsferico.
+  ///
+  /// In es, this message translates to:
+  /// **'Capacitancia de capacitores cilindrico y esferico'**
+  String get capacitoresCilindricoYEsferico;
+
+  /// No description provided for @permeabilidadMagneticaEnMateriales.
+  ///
+  /// In es, this message translates to:
+  /// **'Permeabilidad magnetica e intensidad de campo en materiales'**
+  String get permeabilidadMagneticaEnMateriales;
+
+  /// No description provided for @bateriaRealVoltajeEnTerminales.
+  ///
+  /// In es, this message translates to:
+  /// **'Fuente real (bateria): voltaje en terminales y resistencia interna'**
+  String get bateriaRealVoltajeEnTerminales;
+
+  /// No description provided for @laRectaYElTriangulo.
+  ///
+  /// In es, this message translates to:
+  /// **'La recta y el triangulo'**
+  String get laRectaYElTriangulo;
+
+  /// No description provided for @tangentesYPropiedadesDeLasConicas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tangentes y propiedades de las conicas'**
+  String get tangentesYPropiedadesDeLasConicas;
+
+  /// No description provided for @hiperbolaEquilatera.
+  ///
+  /// In es, this message translates to:
+  /// **'La hiperbola equilatera'**
+  String get hiperbolaEquilatera;
+
+  /// No description provided for @laCurvaExponencial.
+  ///
+  /// In es, this message translates to:
+  /// **'La curva exponencial'**
+  String get laCurvaExponencial;
+
+  /// No description provided for @aceleracionYMrua.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceleracion y Movimiento Rectilineo Uniformemente Acelerado (MRUA)'**
+  String get aceleracionYMrua;
+
+  /// No description provided for @caidaLibreYTiroVertical.
+  ///
+  /// In es, this message translates to:
+  /// **'Caida libre y tiro vertical'**
+  String get caidaLibreYTiroVertical;
+
+  /// No description provided for @movimientoDeProyectiles.
+  ///
+  /// In es, this message translates to:
+  /// **'Movimiento de proyectiles (tiro parabolico)'**
+  String get movimientoDeProyectiles;
+
+  /// No description provided for @movimientoCircularUniforme.
+  ///
+  /// In es, this message translates to:
+  /// **'Movimiento circular uniforme'**
+  String get movimientoCircularUniforme;
+
+  /// No description provided for @cinematicaAngular.
+  ///
+  /// In es, this message translates to:
+  /// **'Cinematica angular (rotacion uniformemente acelerada)'**
+  String get cinematicaAngular;
+
+  /// No description provided for @aceleracionYFuerzaCentripeta.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceleracion y fuerza centripeta'**
+  String get aceleracionYFuerzaCentripeta;
+
+  /// No description provided for @leyesDeNewton.
+  ///
+  /// In es, this message translates to:
+  /// **'Leyes de Newton'**
+  String get leyesDeNewton;
+
+  /// No description provided for @pesoYGravedad.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso y gravedad'**
+  String get pesoYGravedad;
+
+  /// No description provided for @cantidadDeMovimientoEImpulso.
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad de movimiento e impulso'**
+  String get cantidadDeMovimientoEImpulso;
+
+  /// No description provided for @friccion.
+  ///
+  /// In es, this message translates to:
+  /// **'Friccion'**
+  String get friccion;
+
+  /// No description provided for @movimientoArmonicoSimple.
+  ///
+  /// In es, this message translates to:
+  /// **'Movimiento armonico simple (M.A.S.)'**
+  String get movimientoArmonicoSimple;
+
+  /// No description provided for @penduloSimple.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendulo simple'**
+  String get penduloSimple;
+
+  /// No description provided for @equilibrioDeCuerposRigidos.
+  ///
+  /// In es, this message translates to:
+  /// **'Equilibrio de cuerpos rigidos'**
+  String get equilibrioDeCuerposRigidos;
+
+  /// No description provided for @momentoDeTorsion.
+  ///
+  /// In es, this message translates to:
+  /// **'Momento de torsion (torque)'**
+  String get momentoDeTorsion;
+
+  /// No description provided for @eficiencia.
+  ///
+  /// In es, this message translates to:
+  /// **'Eficiencia'**
+  String get eficiencia;
+
+  /// No description provided for @hidrostatica.
+  ///
+  /// In es, this message translates to:
+  /// **'Hidrostatica'**
+  String get hidrostatica;
+
+  /// No description provided for @hidrodinamica.
+  ///
+  /// In es, this message translates to:
+  /// **'Hidrodinamica (Bernoulli, continuidad, Torricelli)'**
+  String get hidrodinamica;
+
+  /// No description provided for @seccionMecanica.
+  ///
+  /// In es, this message translates to:
+  /// **'Mecánica'**
+  String get seccionMecanica;
+
+  /// No description provided for @axiomasDeCampoNumerosReales.
+  ///
+  /// In es, this message translates to:
+  /// **'Axiomas de campo de los numeros reales'**
+  String get axiomasDeCampoNumerosReales;
+
+  /// No description provided for @axiomasDeOrdenYTeoremasReales.
+  ///
+  /// In es, this message translates to:
+  /// **'Axiomas de orden y teoremas de los numeros reales'**
+  String get axiomasDeOrdenYTeoremasReales;
+
+  /// No description provided for @desigualdadesTeoremasDeOrden.
+  ///
+  /// In es, this message translates to:
+  /// **'Desigualdades: teoremas de orden'**
+  String get desigualdadesTeoremasDeOrden;
+
+  /// No description provided for @conjuntosEIntervalos.
+  ///
+  /// In es, this message translates to:
+  /// **'Conjuntos e intervalos'**
+  String get conjuntosEIntervalos;
+
+  /// No description provided for @valorAbsoluto.
+  ///
+  /// In es, this message translates to:
+  /// **'Valor absoluto'**
+  String get valorAbsoluto;
+
+  /// No description provided for @seccionNumerosRealesYDesigualdades.
+  ///
+  /// In es, this message translates to:
+  /// **'Números reales y desigualdades'**
+  String get seccionNumerosRealesYDesigualdades;
+
+  /// No description provided for @leyDeLaIluminacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Ley de la iluminación'**
+  String get leyDeLaIluminacion;
+
+  /// No description provided for @reflexionYAumentoFormaNewtoniana.
+  ///
+  /// In es, this message translates to:
+  /// **'Reflexión y aumento de la imagen (forma Newtoniana)'**
+  String get reflexionYAumentoFormaNewtoniana;
+
+  /// No description provided for @ecuacionDeLasLentesFormaGaussiana.
+  ///
+  /// In es, this message translates to:
+  /// **'Ecuación de las lentes (forma Gaussiana)'**
+  String get ecuacionDeLasLentesFormaGaussiana;
+
+  /// No description provided for @refraccionDeLaLuzLeyDeSnell.
+  ///
+  /// In es, this message translates to:
+  /// **'Refracción de la luz (ley de Snell)'**
+  String get refraccionDeLaLuzLeyDeSnell;
+
+  /// No description provided for @tiposDeLentesYMarchaDeRayos.
+  ///
+  /// In es, this message translates to:
+  /// **'Tipos de lentes y marcha de rayos'**
+  String get tiposDeLentesYMarchaDeRayos;
+
+  /// No description provided for @seccionOptica.
+  ///
+  /// In es, this message translates to:
+  /// **'Óptica'**
+  String get seccionOptica;
+
+  /// No description provided for @axiomasDeProbabilidad.
+  ///
+  /// In es, this message translates to:
+  /// **'Axiomas de probabilidad y probabilidad condicional'**
+  String get axiomasDeProbabilidad;
+
+  /// No description provided for @funcionesDeMasaDensidadYAcumulada.
+  ///
+  /// In es, this message translates to:
+  /// **'Funciones de masa, densidad y distribucion acumulada'**
+  String get funcionesDeMasaDensidadYAcumulada;
+
+  /// No description provided for @funcionesDeProbabilidadConjuntasYCondicionales.
+  ///
+  /// In es, this message translates to:
+  /// **'Funciones de probabilidad conjuntas y condicionales'**
+  String get funcionesDeProbabilidadConjuntasYCondicionales;
+
+  /// No description provided for @esperanzaMediaYVarianza.
+  ///
+  /// In es, this message translates to:
+  /// **'Esperanza, media y varianza'**
+  String get esperanzaMediaYVarianza;
+
+  /// No description provided for @distribucionesDistribucionDeBernoulli.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion de Bernoulli'**
+  String get distribucionesDistribucionDeBernoulli;
+
+  /// No description provided for @distribucionesDistribucionDePascal.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion de Pascal (binomial negativa)'**
+  String get distribucionesDistribucionDePascal;
+
+  /// No description provided for @distribucionesDistribucionBeta.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion Beta'**
+  String get distribucionesDistribucionBeta;
+
+  /// No description provided for @distribucionesDistribucionDeCauchy.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion de Cauchy'**
+  String get distribucionesDistribucionDeCauchy;
+
+  /// No description provided for @distribucionesDistribucionDeErlang.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion de Erlang'**
+  String get distribucionesDistribucionDeErlang;
+
+  /// No description provided for @distribucionesDistribucionUniforme.
+  ///
+  /// In es, this message translates to:
+  /// **'Distribucion uniforme (continua)'**
+  String get distribucionesDistribucionUniforme;
+
+  /// No description provided for @regresionLineal.
+  ///
+  /// In es, this message translates to:
+  /// **'Regresion lineal y correlacion'**
+  String get regresionLineal;
+
+  /// No description provided for @desigualdadDeChebyshevYConvergencia.
+  ///
+  /// In es, this message translates to:
+  /// **'Desigualdad de Chebyshev y convergencia estocastica'**
+  String get desigualdadDeChebyshevYConvergencia;
+
+  /// No description provided for @transferenciaDeCalor.
+  ///
+  /// In es, this message translates to:
+  /// **'Transferencia de calor'**
+  String get transferenciaDeCalor;
+
+  /// No description provided for @capacidadCalorificaYCalorLatente.
+  ///
+  /// In es, this message translates to:
+  /// **'Capacidad calorifica y calor latente'**
+  String get capacidadCalorificaYCalorLatente;
+
+  /// No description provided for @leyesDeLosGases.
+  ///
+  /// In es, this message translates to:
+  /// **'Leyes de los gases'**
+  String get leyesDeLosGases;
+
+  /// No description provided for @cicloDeCarnotYLeyesDeLaTermodinamica.
+  ///
+  /// In es, this message translates to:
+  /// **'Ciclo de Carnot y leyes de la termodinamica'**
+  String get cicloDeCarnotYLeyesDeLaTermodinamica;
+
+  /// No description provided for @trabajoTermodinamico.
+  ///
+  /// In es, this message translates to:
+  /// **'Trabajo termodinamico'**
+  String get trabajoTermodinamico;
+
+  /// No description provided for @entalpiaYEnergiaInterna.
+  ///
+  /// In es, this message translates to:
+  /// **'Entalpia y energia interna'**
+  String get entalpiaYEnergiaInterna;
+
+  /// No description provided for @dilatacionLineal.
+  ///
+  /// In es, this message translates to:
+  /// **'Dilatacion lineal'**
+  String get dilatacionLineal;
+
+  /// No description provided for @dilatacionSuperficialYVolumetrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Dilatacion superficial y volumetrica'**
+  String get dilatacionSuperficialYVolumetrica;
+
+  /// No description provided for @entropiaYTeoriaCinetica.
+  ///
+  /// In es, this message translates to:
+  /// **'Entropia y teoria cinetica de los gases'**
+  String get entropiaYTeoriaCinetica;
+
+  /// No description provided for @procesosTermodinamicos.
+  ///
+  /// In es, this message translates to:
+  /// **'Procesos termodinamicos'**
+  String get procesosTermodinamicos;
+
+  /// No description provided for @seccionTermodinamica.
+  ///
+  /// In es, this message translates to:
+  /// **'Termodinámica'**
+  String get seccionTermodinamica;
+
+  /// No description provided for @circuloUnitario.
+  ///
+  /// In es, this message translates to:
+  /// **'Circulo unitario'**
+  String get circuloUnitario;
+
+  /// No description provided for @signosDeFuncionesPorCuadrante.
+  ///
+  /// In es, this message translates to:
+  /// **'Signos de las funciones trigonometricas por cuadrante'**
+  String get signosDeFuncionesPorCuadrante;
+
+  /// No description provided for @angulosNotablesGradosRadianes.
+  ///
+  /// In es, this message translates to:
+  /// **'Equivalencia de angulos notables: grados y radianes'**
+  String get angulosNotablesGradosRadianes;
+
+  /// No description provided for @relacionEntreFuncionesTrigonometricas.
+  ///
+  /// In es, this message translates to:
+  /// **'Relacion entre funciones trigonometricas'**
+  String get relacionEntreFuncionesTrigonometricas;
+
+  /// No description provided for @identidadesDeAnguloTripleYCuadruple.
+  ///
+  /// In es, this message translates to:
+  /// **'Identidades de angulo triple y cuadruple'**
+  String get identidadesDeAnguloTripleYCuadruple;
+
+  /// No description provided for @identidadesDeReduccionDePotencias.
+  ///
+  /// In es, this message translates to:
+  /// **'Identidades de reduccion de potencias'**
+  String get identidadesDeReduccionDePotencias;
+
+  /// No description provided for @identidadesFundamentalesFormasDerivadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Identidades fundamentales: formas derivadas'**
+  String get identidadesFundamentalesFormasDerivadas;
+
+  /// No description provided for @cotangenteDeSumaYRestaDeAngulos.
+  ///
+  /// In es, this message translates to:
+  /// **'Cotangente de la suma y resta de angulos'**
+  String get cotangenteDeSumaYRestaDeAngulos;
+
+  /// No description provided for @productoDeCosenoPorSeno.
+  ///
+  /// In es, this message translates to:
+  /// **'Producto de coseno por seno (producto a suma)'**
+  String get productoDeCosenoPorSeno;
 }
 
 class _AppLocalizationsDelegate

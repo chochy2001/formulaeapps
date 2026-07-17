@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:formulae/ads/formulae_ads_controller.dart';
 
 import '../../../../constantes/export_constantes.dart';
 
 class EcuacionesDePrimerGrado extends StatefulWidget {
+  const EcuacionesDePrimerGrado({super.key});
+
   @override
-  _EcuacionesDePrimerGradoState createState() =>
+  State<EcuacionesDePrimerGrado> createState() =>
       _EcuacionesDePrimerGradoState();
 }
 
@@ -20,9 +21,10 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(onBannerReady: () {
+      if (mounted) setState(() {});
+    });
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -92,9 +94,7 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                   const SizedBox(height: 30),
                   const Latex(formulaText: r"ax+ b = c"),
                   const SizedBox(height: kBordeBotones),
-                  Math.tex("$valorA x+$valorB=$valorC",
-                      mathStyle: MathStyle.display,
-                      textStyle: kTextoLatexFormulas),
+                  Latex(formulaText: "$valorA x+$valorB=$valorC"),
                   const SizedBox(height: 20),
                   const SizedBox(height: kBordeBotones),
                   Theme(
@@ -265,32 +265,31 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
               ),
             ),
           ),
-          Math.tex(
-              "(${implementFraction(valorA)} * ${implementFraction(valorX)})",
-              mathStyle: MathStyle.display,
-              textStyle: kTextoLatexFormulas),
+          Latex(
+            formulaText:
+                "(${implementFraction(valorA)} * ${implementFraction(valorX)})",
+          ),
           const SizedBox(
             height: 10,
           ),
-          Math.tex(
-              "+ ${implementFraction(valorB)}=${implementFraction(valorC)}",
-              mathStyle: MathStyle.display,
-              textStyle: kTextoLatexFormulas),
+          Latex(
+            formulaText:
+                "+ ${implementFraction(valorB)}=${implementFraction(valorC)}",
+          ),
           const SizedBox(height: 15),
-          Math.tex(
-              "${implementFraction(valorMultiplicacion)}+${implementFraction(valorB)}",
-              mathStyle: MathStyle.display,
-              textStyle: kTextoLatexFormulas),
+          Latex(
+            formulaText:
+                "${implementFraction(valorMultiplicacion)}+${implementFraction(valorB)}",
+          ),
           const SizedBox(
             height: 10,
           ),
-          Math.tex("=${implementFraction(valorC)}",
-              mathStyle: MathStyle.display, textStyle: kTextoLatexFormulas),
+          Latex(formulaText: "=${implementFraction(valorC)}"),
           const SizedBox(height: 15),
-          Math.tex(
-              "${implementFraction(valorSuma)}=${implementFraction(valorC)}",
-              mathStyle: MathStyle.display,
-              textStyle: kTextoLatexFormulas),
+          Latex(
+            formulaText:
+                "${implementFraction(valorSuma)}=${implementFraction(valorC)}",
+          ),
           const SizedBox(height: 30),
         ],
       ),

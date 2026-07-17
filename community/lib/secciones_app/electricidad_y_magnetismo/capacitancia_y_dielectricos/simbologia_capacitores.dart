@@ -4,6 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SimbologiaCapacitores extends StatefulWidget {
+  const SimbologiaCapacitores({super.key});
   @override
   State<SimbologiaCapacitores> createState() => _SimbologiaCapacitoresState();
 }

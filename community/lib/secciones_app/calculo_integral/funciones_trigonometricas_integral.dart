@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class FuncionesTrigonometricasIntegral extends StatefulWidget {
+  const FuncionesTrigonometricasIntegral({super.key});
   @override
-  _FuncionesTrigonometricasIntegralState createState() =>
+  State<FuncionesTrigonometricasIntegral> createState() =>
       _FuncionesTrigonometricasIntegralState();
 }
 

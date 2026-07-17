@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constantes/export_constantes.dart';
 
 class BotonRedSocial extends StatelessWidget {
   final Function url;
-  final IconData icon;
+  final FaIconData icon;
   final String text;
 
-  const BotonRedSocial(
-      {Key? key, required this.url, required this.icon, required this.text})
-      : super(key: key);
+  const BotonRedSocial({
+    super.key,
+    required this.url,
+    required this.icon,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +24,21 @@ class BotonRedSocial extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(
+          FaIcon(
             icon,
             color: kColorBlanco,
-            //color: Colors.white,
           ),
           const SizedBox(
             width: 10,
           ),
-          Text(
-            text,
-            style: kTextoBotonesDelgado,
+          Flexible(
+            child: Text(
+              text,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: kTextoBotonesDelgado,
+            ),
           ),
         ],
       ),

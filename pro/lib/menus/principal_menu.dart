@@ -26,14 +26,41 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               openURLNuevo('https://capdesis.com/');
             },
             child: const Center(
-              child: CapdesisLogo(height: 100.0, width: 100.0),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: ProductMark(size: 88.0),
+              ),
             ),
           ),
           Center(
             child: SingleChildScrollView(
-              child: Column(
+              child: MenuColumn(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                                    BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionConstantesMatematicas,
+                    ruta: kRutaMenuConstantesMatematicas,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionConversionDeUnidades,
+                    ruta: kRutaMenuConversionDeUnidades,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionMecanica,
+                    ruta: kRutaMenuMecanica,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionNumerosRealesYDesigualdades,
+                    ruta: kRutaMenuNumerosRealesYDesigualdades,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionOptica,
+                    ruta: kRutaMenuOptica,
+                  ),
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(context)!.seccionTermodinamica,
+                    ruta: kRutaMenuTermodinamica,
+                  ),
                   /* Boton de Generales*/
                   BotonesMenu(
                     ruta: kRutaGenerales,

@@ -29,6 +29,14 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+def googleTestAdMobApplicationId = 'ca-app-pub-3940256099942544~3347511713'
+def productionAdMobApplicationId = providers.gradleProperty('ADMOB_ANDROID_APP_ID').orNull
+def isValidProductionAdMobApplicationId = { appId ->
+    appId != null &&
+        appId ==~ /^ca-app-pub-\d{16}~\d{10}$/ &&
+        appId != googleTestAdMobApplicationId
+}
+
 android {
     compileSdkVersion 36
 
@@ -44,10 +52,7 @@ android {
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders = [
-            adMobApplicationId: project.findProperty('ADMOB_ANDROID_APP_ID') ?: 'ca-app-pub-3940256099942544~3347511713',
-            applicationName: "android.app.Application"
-        ]
+        manifestPlaceholders = [applicationName: "android.app.Application"]
     }
 
 
@@ -61,7 +66,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Google's official test application ID is restricted to local
+            // development. Release never inherits this value.
+            manifestPlaceholders.adMobApplicationId = googleTestAdMobApplicationId
+        }
         release {
+            manifestPlaceholders.adMobApplicationId =
+                productionAdMobApplicationId ?: '__ADMOB_ANDROID_APP_ID_REQUIRED__'
             // Use release signing config if keystore is available, otherwise use debug
             if (keystorePropertiesFile.exists()) {
                 signingConfig signingConfigs.release
@@ -83,6 +95,21 @@ android {
     namespace 'capdesis.formulae'
     lint {
         disable 'InvalidPackage'
+    }
+}
+
+// Keep a packageable release from silently embedding Google's test app ID or
+// a missing placeholder. Supply ADMOB_ANDROID_APP_ID through Gradle/CI only.
+tasks.configureEach { task ->
+    if (task.name.toLowerCase().contains('release')) {
+        task.doFirst {
+            if (!isValidProductionAdMobApplicationId(productionAdMobApplicationId)) {
+                throw new GradleException(
+                    'Release AdMob requires a non-test ADMOB_ANDROID_APP_ID ' +
+                    '(ca-app-pub-<16 digits>~<10 digits>) provided via Gradle/CI.'
+                )
+            }
+        }
     }
 }
 

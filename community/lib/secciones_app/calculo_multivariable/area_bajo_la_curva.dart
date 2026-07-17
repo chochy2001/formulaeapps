@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class AreaBajoLaCurva extends StatefulWidget {
+  const AreaBajoLaCurva({super.key});
   @override
-  _AreaBajoLaCurvaState createState() => _AreaBajoLaCurvaState();
+  State<AreaBajoLaCurva> createState() => _AreaBajoLaCurvaState();
 }
 
 class _AreaBajoLaCurvaState extends State<AreaBajoLaCurva> {

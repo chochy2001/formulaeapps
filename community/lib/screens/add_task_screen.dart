@@ -6,7 +6,7 @@ import '../constantes/constantes_codigo.dart';
 import '../models/task_data.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+  const AddTaskScreen({super.key});
 
   @override
   AddTaskScreenState createState() => AddTaskScreenState();

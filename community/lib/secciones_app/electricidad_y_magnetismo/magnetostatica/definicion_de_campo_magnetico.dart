@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DefinicionDeCampoMagnetico extends StatefulWidget {
+  const DefinicionDeCampoMagnetico({super.key});
   @override
   State<DefinicionDeCampoMagnetico> createState() =>
       _DefinicionDeCampoMagneticoState();

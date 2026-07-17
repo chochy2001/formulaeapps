@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
+import EmailLink from '../components/ui/EmailLink.astro';
 import { useTranslations } from '../i18n/ui';
-import { SITE, SOCIAL, LINKTREE, type Locale } from '../consts';
+import { SOCIAL, LINKTREE, type Locale } from '../consts';
 
 const locale: Locale = 'es';
 const t = useTranslations(locale);
 
-const title = 'Soporte — Formulae';
+const title = 'Soporte | Formulae';
 const description =
   'Centro de soporte de Formulae. Escríbenos para resolver dudas, reportar fallos o sugerir mejoras.';
 
@@ -22,11 +23,11 @@ const faqs = [
   },
   {
     q: '¿Puedo descargar las fórmulas para estudiar offline?',
-    a: 'Sí. Formulae Pro permite exportar cualquier formulario a PDF para imprimirlo o guardarlo. Formulae Community no incluye esta función.',
+    a: 'Sí. Formulae Pro permite exportar formularios a PDF para imprimirlos o guardarlos. Formulae Community también genera una ficha de estudio PDF local para verla o exportarla.',
   },
   {
     q: '¿Qué diferencias hay entre Pro y Community?',
-    a: 'Pro no muestra publicidad, incluye lista de tareas, exportación a PDF y asistente con ChatGPT. Community es gratuita pero financiada con anuncios y sin esas funciones extra.',
+    a: 'Ambas incluyen fórmulas, vídeos, tareas y funciones PDF locales. Pro no muestra publicidad e incluye el asistente con ChatGPT; Community es gratuita y está financiada con anuncios.',
   },
 ];
 ---
@@ -43,12 +44,7 @@ const faqs = [
         <p class="text-ink-500 text-xs font-semibold tracking-wider uppercase">
           {t('support.email.label')}
         </p>
-        <a
-          href={`mailto:${SITE.email}`}
-          class="text-primary-700 mt-1 block text-base font-semibold hover:underline"
-        >
-          {SITE.email}
-        </a>
+        <EmailLink class="text-primary-700 mt-1 block text-base font-semibold hover:underline" />
       </div>
       <div>
         <p class="text-ink-500 text-xs font-semibold tracking-wider uppercase">WhatsApp</p>

@@ -50,6 +50,11 @@ class AuthService {
     _cachedExpiresAt = null;
   }
 
+  /// Stable per-install client UUID (SharedPreferences) for the possession
+  /// proof required by the device-session `/auth/token` flow. Account
+  /// register/login deliberately do not accept or bind this identifier.
+  static Future<String> stableClientId() => _stableClientId();
+
   /// Adopts a rotated token surfaced by the BFF in the `X-Auth-Refresh`
   /// response header. The expiry is derived from a fresh decode of the JWT
   /// payload — keeps the cache honest about how long the rotated token lasts.
@@ -58,6 +63,12 @@ class AuthService {
     if (exp == null) return;
     _cachedToken = token;
     _cachedExpiresAt = exp;
+  }
+
+  /// Adopts an account-auth JWT (register/login) into the session cache.
+  static void adoptAccountToken(String token, {required DateTime expiresAt}) {
+    _cachedToken = token;
+    _cachedExpiresAt = expiresAt.toUtc();
   }
 
   // ──────────────────────────── internals ────────────────────────────
@@ -155,10 +166,14 @@ class AuthService {
     final parts = token.split('.');
     if (parts.length != 3) return null;
     try {
-      final padded = parts[1].padRight(parts[1].length + (4 - parts[1].length % 4) % 4, '=');
-      final payload = jsonDecode(utf8.decode(base64Url.decode(padded))) as Map<String, dynamic>;
+      final padded = parts[1]
+          .padRight(parts[1].length + (4 - parts[1].length % 4) % 4, '=');
+      final payload = jsonDecode(utf8.decode(base64Url.decode(padded)))
+          as Map<String, dynamic>;
       final exp = payload['exp'];
-      if (exp is int) return DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);
+      if (exp is int) {
+        return DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);
+      }
       return null;
     } catch (_) {
       return null;

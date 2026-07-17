@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class ResistorLinealYNoLineal extends StatefulWidget {
+  const ResistorLinealYNoLineal({super.key});
   @override
   State<ResistorLinealYNoLineal> createState() =>
       _ResistorLinealYNoLinealState();

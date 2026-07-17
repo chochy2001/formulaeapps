@@ -1,133 +1,148 @@
 # Formulae Apps
 
-Monorepo oficial de **Formulae Apps** (CAPDESIS). Reúne la landing, las dos apps Flutter del producto (Pro + Community), y el BFF que las une al backend.
+Monorepo de Formulae Pro, Formulae Community, la landing pública y el BFF.
+Este archivo describe el estado del checkout, no una declaración de que el
+hosting o las tiendas están actualizados. El informe verificable más reciente
+es [docs/AUDITORIA_FUNCIONAL_2026-07-13.md](docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
 
-## Estructura
+## Componentes
 
-```text
-formulaeapps/
-├── landing/      Astro 5 + Tailwind v4 — sitio público formulaeapps.com
-├── pro/          Flutter 3.41 / Dart 3 — Formulae Pro (sin ads, IAP, chat AI)
-├── community/    Flutter / Dart 2 — Formulae Community (con AdMob, chat AI)
-├── bff/          Bun 1.3 + Hono 4 — Backend-For-Frontend (api.formulaeapps.com)
-├── contracts/    OpenAPI 3.1 generado desde Zod en bff/src/schemas/
-├── scripts/      verify-parity, route-coverage, infra-validate, generate-bff-types
-└── docker-compose.yml + override (dev/prod)
-```
+| Directorio | Stack | Propósito |
+| --- | --- | --- |
+| `landing/` | Astro 6.4, Tailwind 4, Bun | Sitio estático y origen de los assets canónicos de Formulae. |
+| `pro/` | Flutter y Dart 3 | Aplicación Pro, sin anuncios, con generación local de PDF y chat. |
+| `community/` | Flutter y Dart 3 | Aplicación Community con anuncios y catálogo educativo. |
+| `bff/` | Bun, Hono, Zod OpenAPI | Sesiones, chat y contrato del backend. |
+| `contracts/` | OpenAPI 3.1 generado | Contrato derivado de los schemas Zod. |
+| `scripts/` | Bash y Bun | Paridad, rutas e infraestructura. |
 
-| Componente | Stack | Despliegue | Estado |
-| ---------- | ----- | ---------- | ------ |
-| `landing/` | Astro 5.7 + Tailwind 4 | Hostinger (FTP) — `formulaeapps.com`, `www.formulaeapps.com` | ✅ producción |
-| `pro/` | Flutter 3.41, Dart 3, http + crypto + shared_preferences | Hostinger (FTP) — `app.formulaeapps.com` (web); App Store + Play (mobile) | ✅ producción |
-| `community/` | Flutter, Dart 2 (tech debt) | Play Store + App Store (con ads) | ✅ producción |
-| `bff/` | Bun + Hono + Zod-OpenAPI + jose | VPS Contabo — `api.formulaeapps.com` | ✅ producción (tag `v1.0.0-bff`, cutover 2026-05-19) |
-| `contracts/` | OpenAPI 3.1 (generated) | n/a — artifact | ✅ |
-| `scripts/` | Bash + Bun TS | n/a — dev tooling | ✅ |
+Pro y Community mantienen `name: formulae` porque son sabores del mismo
+producto, pero se construyen y validan por separado.
 
-> Pro y Community comparten el `name: formulae` en su `pubspec.yaml` porque son dos *flavors* del mismo producto.
+## Estado auditado
 
-## Capacidades actuales (verificadas)
-
-- **Chat AI server-side**: las apps Pro y Community ya NO embeben la OpenAI API key. Llaman al BFF en `api.formulaeapps.com/openai/chat` con un JWT corto firmado por el BFF.
-- **JWT emitido por BFF**: el cliente obtiene su JWT vía `POST /auth/token` (no firma su propio JWT). Rotación automática vía `X-Auth-Refresh` header.
-- **System prompts BFF-side**: los 22 system prompts viven en `bff/src/schemas/prompts.ts` con versionado semver. Actualizaciones de prompts NO requieren release a App Store.
-- **Generación de tipos automática**: cambios en `bff/src/schemas/*.ts` (Zod) regeneran `contracts/bff.openapi.yaml` (vía `bun run build:openapi`) y los clientes Dart en `pro/packages/formulaeapps_bff_client/` + `community/packages/formulaeapps_bff_client/` (vía `bash scripts/generate-bff-types.sh`).
-- **CI gates** (`.github/workflows/ci.yml`):
-  - `bff-test` — 110/110 tests across 19 files (typecheck + unit + integration).
-  - `verify-parity` — falla si Zod, OpenAPI o tipos Dart drifean.
-  - `verify-routes` — falla si hay rutas huérfanas o llamadas muertas.
-- **Build-time guards** (Pro + Community `main.dart`): release builds con `JWT_SHARED_SECRET` placeholder son rechazados al startup.
-
-## Límites conocidos
-
-- **`/iap/validate` orphan**: la ruta de validación server-side de IAP existe en el BFF pero los clientes todavía no la consumen. Los validadores reales (Apple/Google SDK) están stubbed; producción devuelve 503 si los secrets montados son placeholders. Decisión de producto pendiente: wire-up FE o remover la ruta.
-- **Community en Dart 2** sigue siendo deuda técnica. La migración a Dart 3 está fuera del alcance de feature 002.
-- **Pro Web rebuild**: si el build en Hostinger aún usa `JWT_SHARED_SECRET=PLACEHOLDER_DEV_NOT_FOR_PROD`, el chat AI fallará hasta un rebuild con secret real apuntando a `api.formulaeapps.com`.
-
-## Próximos pasos
-
-1. **Decisión `/iap/validate`**: wire-up FE + validadores reales, o remover ruta y secrets del compose.
-2. **US1 zombie reconciliation**: archivar los working trees `FormulaeApps/{FormulaePro,FormulaeCommunity,formulae-landing,formulaeapps-monorepo}/` que duplican código canónico en este monorepo.
-3. **Community test coverage**: ampliar suite iniciada en #17 (`community/test/COVERAGE_TODO.md`).
+- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 173
+  pruebas y 481 expectativas. IAP responde
+  `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo mientras no haya
+  validadores Apple/Google reales; no es un entitlement listo para producción.
+- Cobertura de rutas: `bash scripts/route-coverage.sh` pasa; el consumidor Pro
+  de `/iap/validate` es opt-in y está apagado por defecto. No equivale a un
+  entitlement de compras listo para producción.
+- Imágenes: existen 176 assets canónicos locales, compartidos por todos los
+  idiomas de Pro y Community. El host público todavía responde 404 a 176 de
+  176 rutas, por lo que hace falta una promoción autorizada antes de afirmar
+  que esos diagramas funcionan en producción.
+- PDF: Pro genera y exporta contenido local, incluidos Favoritos y Tareas.
+  Community genera, visualiza y exporta una ficha de estudio local sin pedir
+  los PDFs heredados al host. Esa ficha no pretende ser una recuperación del
+  contenido histórico; restaurar ese material exacto requiere una fuente
+  aprobada.
+- Community: las cargas de imagen remotas tienen fallback localizado. Sus
+  controles revisados se localizan, el contraste de navegación es AA y la
+  cancelación de suscripción no inicializa URLs inválidas. El análisis estricto
+  terminó sin diagnósticos y la suite local pasó 100 pruebas; el host público de
+  las imágenes sigue bloqueado aparte por sus 176 respuestas 404.
 
 ## Desarrollo local
 
-### Setup inicial
-
 ```bash
-git clone git@github.com:CAPDESIS/formulaeapps.git
-cd formulaeapps
-
 # Landing
-cd landing && bun install && cd ..
-
-# Pro
-cd pro && flutter pub get && cd ..
-
-# Community
-cd community && flutter pub get && cd ..
+cd landing && bun install --frozen-lockfile
 
 # BFF
-cd bff && bun install && cd ..
+cd ../bff && bun install --frozen-lockfile
+
+# Apps Flutter, primero el cliente generado de cada una
+cd ../pro/packages/formulaeapps_bff_client && flutter pub get
+cd ../.. && flutter pub get
+
+cd ../community/packages/formulaeapps_bff_client && flutter pub get
+cd ../.. && flutter pub get
 ```
 
-### Correr el BFF localmente
+Los secretos pertenecen al entorno del operador. Nunca crear ni commitear un
+`.env`, material de firma, tokens o archivos de secretos para hacer pasar una
+validación local.
+
+## Validaciones principales
 
 ```bash
-# 1. Crear bff/secrets/ placeholders (vacíos OK en dev)
-mkdir -p bff/secrets && touch bff/secrets/apple_p8.txt bff/secrets/google_sa.json
+# BFF y contratos
+cd bff && bun run typecheck && bun test
+cd .. && bash scripts/route-coverage.sh
+bash scripts/verify-parity.sh
 
-# 2. Configurar JWT secret + OpenRouter key
-cp bff/.env.example bff/.env
-# editar bff/.env: JWT_SHARED_SECRET=$(openssl rand -hex 32), OPENROUTER_API_KEY=sk-or-v1-...
+# Landing y assets locales
+cd landing
+bun run lint
+bun run test
+bun run build
+bun run check:localized-marketing
+bun run check:formulae-images
 
-# 3. Levantar
-docker compose up -d bff
-curl http://localhost:3001/health  # → {"status":"ok",...}
+# Pro
+cd ../pro
+flutter analyze --no-pub --fatal-infos --fatal-warnings
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
+  --dart-define=JWT_SHARED_SECRET=test-shared-secret \
+  --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+  --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+
+# Community, con los mismos dart-defines de prueba y ejecución serial local
+cd ../community
+flutter analyze --no-pub --fatal-infos --fatal-warnings
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
+  --dart-define=JWT_SHARED_SECRET=test-shared-secret \
+  --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+  --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
 ```
 
-### Correr Pro Web contra BFF local
+Desde la raíz, `make flutter-test` ejecuta las dos suites Flutter y los
+clientes BFF con los `dart-defines` de prueba no secretos.
+
+`make verify-all` incluye typecheck BFF, lint de landing, el validador de
+marketing localizado, Flutter, Compose y los demás gates. El lint de Compose
+funciona en un checkout limpio mediante `docker-compose.local.yml` explícito y no requiere un
+daemon Docker. Para probar activamente CORS, inicia un BFF local en el puerto
+3001; si no está disponible, el validador lo registra como evidencia omitida,
+no como una falla de código. Usa las validaciones individuales anteriores para
+separar fallas de código de requisitos de runtime.
+
+Para una demo local de chat, usa `make compose-up` (se enlaza sólo a
+`127.0.0.1:3001`) y proporciona ambos defines a Pro o Community:
+`FORMULAE_BFF_BASE_URL=http://localhost:3001` y
+`FORMULAE_BFF_CHAT_URL=http://localhost:3001/openai/chat`. El secreto de firma
+JWT del BFF debe ser un valor independiente generado por el operador; no hay
+uno versionado ni un `.env` local implícito para Docker.
+
+## Contrato de imágenes
+
+Las apps solo declaran rutas `https://formulaeapps.com/imagenes/...`. Un único
+asset sirve todos los idiomas; dentro del bitmap solo van símbolos, notación y
+geometría universales. El texto explicativo debe vivir en los ARB y widgets.
 
 ```bash
-cd pro
-flutter run -d chrome -t lib/main_pro.dart \
-  --dart-define=FLAVOR=pro \
-  --dart-define=JWT_SHARED_SECRET=$(grep ^JWT_SHARED_SECRET ../bff/.env | cut -d= -f2) \
-  --dart-define=FORMULAE_BFF_CHAT_URL=http://localhost:3001/openai/chat \
-  --dart-define=FORMULAE_BUILD_NONCE=$(openssl rand -hex 16)
+cd landing
+bun run check:formulae-images
+# Solo después de una promoción manual autorizada:
+bun run check:formulae-images:remote
 ```
 
-### Validar cualquier cambio
+No agregar `check:formulae-images:remote` como gate local o de CI: verifica el
+hosting publicado y debe ejecutarse como smoke posterior a la promoción.
 
-```bash
-# Todos los gates a la vez (no Flutter):
-make verify-all
+## Fuentes de verdad
 
-# Individuales:
-bash scripts/verify-parity.sh      # Zod ↔ OpenAPI ↔ Dart drift
-bash scripts/route-coverage.sh     # rutas huérfanas / llamadas muertas
-bash scripts/infra-validate.sh --local   # compose + CORS + Traefik
-cd bff && bun test                 # 110 unit + integration tests (see bff/README.md for current count)
-```
+- [Auditoría funcional actual](docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
+- [Tablero de tickets activo](docs/TICKETS.md)
+- [Trabajo distribuido y sincronización Git](docs/MULTI_MACHINE_WORKFLOW.md)
+- [Candidatos web y promoción segura](docs/DEPLOY_CI_WEB.md)
+- [Pipeline de landing](landing/README.md)
+- [Contratos BFF](contracts/README.md)
+- Constitución compartida del workspace:
+  `/Users/jorge/Documents/Apps/.specify/memory/constitution.md`
 
-## Despliegue
-
-- **Landing**: Hostinger vía FTP. Build: `cd landing && bun run build`. Deploy: lftp script al hosting compartido.
-- **Pro Web**: Hostinger vía FTP en subdominio `app.formulaeapps.com`. Build: `flutter build web --release --base-href "/" -t lib/main_pro.dart --dart-define=...`.
-- **Pro Mobile**: `flutter build apk --release` / `flutter build ipa --release`. Distribución por App Store + Play.
-- **Community**: similar a Pro Mobile.
-- **BFF**: VPS Contabo vía `docker compose up -d bff` en `api.formulaeapps.com` (Traefik routers `formulae-bff`). Health check: `curl https://api.formulaeapps.com/health`. Cutover documentado en feature 002 audit (`round-10-production-cutover-2026-05-19`, `round-11-chat-live-2026-05-19`).
-
-## Documentación detallada
-
-- **Constitución del workspace**: `../.specify/memory/constitution.md` (v1.1.0, 9 principios).
-- **Feature spec 002** (FE↔BE sync): `specs/002-formulae-fe-be-sync/spec.md` + `plan.md` + `tasks.md`.
-- **Auditorías de cada gate**: `specs/002-formulae-fe-be-sync/audit/` (11 archivos cubriendo baseline, BFF tests, codegen, route coverage, infra, US2-narrow, validación final).
-- **Arquitectura workspace** (incluyendo histórico): `../FormulaeApps/ARCHITECTURE.md`.
-
-## Notas operativas
-
-- `community/android/app/google-services.json` está commiteado a propósito (config de cliente Firebase, no es secreto). La seguridad real vive en Firebase Security Rules.
-- El repo es **privado** en la organización `CAPDESIS`.
-- Variables sensibles (`.env`, keystores Android, `apple_p8.txt`, `google_sa.json`) están en `.gitignore`.
-- Los directorios `pro/lib/generated/`, `community/lib/generated/`, y `contracts/*.yaml` están marcados `linguist-generated=true` en `.gitattributes` y son regenerados por `bash scripts/generate-bff-types.sh` + `cd bff && bun run build:openapi`. **NO editar a mano.**
+No se deben editar a mano `contracts/bff.openapi.yaml` ni los clientes Dart en
+`pro/packages/formulaeapps_bff_client/` y
+`community/packages/formulaeapps_bff_client/`. Cambia Zod, regenera y ejecuta
+`bash scripts/verify-parity.sh`.

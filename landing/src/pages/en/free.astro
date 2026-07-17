@@ -4,16 +4,24 @@ import Container from '../../components/ui/Container.astro';
 import Features from '../../components/home/Features.astro';
 import DownloadCTA from '../../components/home/DownloadCTA.astro';
 import { useTranslations } from '../../i18n/ui';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { STORES } from '../../consts';
 
 const t = useTranslations('en');
 
-const title = 'Formulae Community — Free version';
+const title = 'Formulae Community, free version';
 const description =
   'Formulae Community is the free version of Formulae. Complete catalog of math and science formulas with explanatory videos and images, supported by ads.';
 ---
 
-<BaseLayout {title} {description} pathname="/free" schema="community">
+<BaseLayout
+  {title}
+  {description}
+  pathname="/free"
+  schema="community"
+  image="/og/community.png"
+  imageAlt="Formulae Community"
+>
   <Container as="section" class="py-16 md:py-24">
     <p class="text-primary-600 text-sm font-semibold tracking-wider uppercase">
       Formulae Community
@@ -41,6 +49,14 @@ const description =
         {t('download.appStore')}
       </a>
     </div>
+
+    <p class="text-ink-500 mt-10 max-w-2xl text-sm">
+      {t('free.upsell.text')}{' '}
+      <a
+        href={getRelativeLocaleUrl('en', '/pro')}
+        class="text-primary-600 font-semibold hover:underline">{t('free.upsell.cta')}</a
+      >.
+    </p>
   </Container>
   <Features />
   <DownloadCTA variant="community" />

@@ -28,3 +28,6 @@ Thumbs.db
 # Test coverage
 coverage/
 *.lcov
+
+# Local entitlements sqlite (WP5) — never commit runtime DB files
+.data/

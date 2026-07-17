@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class DerivadaFuncionesVectoriales extends StatefulWidget {
+  const DerivadaFuncionesVectoriales({super.key});
   @override
-  _DerivadaFuncionesVectorialesState createState() =>
+  State<DerivadaFuncionesVectoriales> createState() =>
       _DerivadaFuncionesVectorialesState();
 }
 

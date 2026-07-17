@@ -21,7 +21,7 @@ class IapApi {
   const IapApi(this._dio, this._serializers);
 
   /// Validate an Apple or Google IAP receipt server-side
-  /// Uses the official Apple/Google SDKs with secrets mounted at runtime. Returns a normalized result without leaking the raw provider response.
+  /// Uses the official Apple/Google SDKs with secrets mounted at runtime. A valid response is returned only after its mobile entitlement grant persists, without leaking the raw provider response.
   ///
   /// Parameters:
   /// * [iapValidateRequest] 

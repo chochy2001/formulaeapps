@@ -1,5 +1,5 @@
 import { env } from '../lib/env';
-import { BffError } from '../middleware/error';
+import { BffError, UPSTREAM_ERROR_MESSAGE } from '../middleware/error';
 import { PROMPTS_VERSION, SYSTEM_PROMPTS } from '../schemas/prompts';
 import type { ChatRequest, ChatResponse } from '../schemas/chat';
 
@@ -8,6 +8,7 @@ import type { ChatRequest, ChatResponse } from '../schemas/chat';
 // /v1/chat/completions shape and parse the same `choices[].message.content`
 // + `usage.{prompt,completion,total}_tokens` fields.
 const OPENROUTER_CHAT_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_TIMEOUT_MS = 20_000;
 
 type OpenRouterRequestBody = {
   model: string;
@@ -28,7 +29,9 @@ type OpenRouterResponseBody = {
     completion_tokens: number;
     total_tokens: number;
   };
-  error?: { message: string; type?: string; code?: string };
+  // An upstream error can contain provider-specific message/type/code values.
+  // Keep it opaque: clients only receive the BFF's normalized error contract.
+  error?: unknown;
 };
 
 /**
@@ -53,7 +56,24 @@ type OpenRouterResponseBody = {
 // (it just has extra Bun-specific properties like `preconnect`).
 export type FetchLike = (url: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
-export async function proxyChat(req: ChatRequest, opts?: { fetchImpl?: FetchLike }): Promise<ChatResponse> {
+export type ProxyChatOptions = {
+  fetchImpl?: FetchLike;
+  /** Optional caller cancellation, composed with the BFF request timeout. */
+  signal?: AbortSignal;
+  /** Test/embedding override; invalid values retain the bounded default. */
+  timeoutMs?: number;
+};
+
+function resolveTimeoutMs(timeoutMs: number | undefined): number {
+  return typeof timeoutMs === 'number' && Number.isFinite(timeoutMs) && timeoutMs > 0
+    ? timeoutMs
+    : OPENROUTER_TIMEOUT_MS;
+}
+
+export async function proxyChat(
+  req: ChatRequest,
+  opts?: ProxyChatOptions,
+): Promise<ChatResponse> {
   const fetchImpl: FetchLike = opts?.fetchImpl ?? fetch;
   const modelId = req.model_id ?? env.OPENROUTER_DEFAULT_MODEL;
 
@@ -75,9 +95,35 @@ export async function proxyChat(req: ChatRequest, opts?: { fetchImpl?: FetchLike
     temperature: 0,
   };
 
-  let res: Response;
+  // Do not rely on AbortSignal.timeout(): Bun and current Node expose it, but
+  // composing it with an optional caller signal is not portable everywhere we
+  // run tests. A local controller keeps fetch standards-compatible and lets
+  // both cancellation paths share one signal.
+  const controller = new AbortController();
+  const callerSignal = opts?.signal;
+  const abortFromCaller = (): void => controller.abort();
+  if (callerSignal?.aborted) {
+    controller.abort();
+  } else {
+    callerSignal?.addEventListener('abort', abortFromCaller, { once: true });
+  }
+
+  let timedOut = false;
+  const timeout = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, resolveTimeoutMs(opts?.timeoutMs));
+
   try {
-    res = await fetchImpl(OPENROUTER_CHAT_URL, {
+    if (controller.signal.aborted) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_ABORTED',
+      );
+    }
+
+    const res = await fetchImpl(OPENROUTER_CHAT_URL, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
@@ -86,64 +132,93 @@ export async function proxyChat(req: ChatRequest, opts?: { fetchImpl?: FetchLike
         'X-Title': env.OPENROUTER_X_TITLE,
       },
       body: JSON.stringify(body),
+      signal: controller.signal,
     });
+
+    if (!res.ok) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        `E_OPENROUTER_${res.status}`,
+      );
+    }
+
+    let json: OpenRouterResponseBody;
+    try {
+      json = (await res.json()) as OpenRouterResponseBody;
+    } catch {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_BAD_JSON',
+      );
+    }
+
+    if (json.error) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_PROVIDER_ERROR',
+      );
+    }
+
+    const choice = json.choices?.[0];
+    if (!choice || typeof choice.message?.content !== 'string') {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_NO_CHOICE',
+      );
+    }
+
+    const usage = json.usage;
+    if (
+      !usage ||
+      usage.total_tokens !== usage.prompt_tokens + usage.completion_tokens
+    ) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_USAGE_INVARIANT',
+      );
+    }
+
+    return {
+      message: choice.message.content,
+      model_id: modelId,
+      usage: {
+        prompt_tokens: usage.prompt_tokens,
+        completion_tokens: usage.completion_tokens,
+        total_tokens: usage.total_tokens,
+      },
+      ...(req.conversation_id !== undefined ? { conversation_id: req.conversation_id } : {}),
+      prompts_version: PROMPTS_VERSION,
+    };
   } catch (err) {
+    if (err instanceof BffError) {
+      throw err;
+    }
+    if (timedOut) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_TIMEOUT',
+      );
+    }
+    if (controller.signal.aborted) {
+      throw new BffError(
+        'upstream_error',
+        UPSTREAM_ERROR_MESSAGE,
+        'E_OPENROUTER_ABORTED',
+      );
+    }
     throw new BffError(
       'upstream_error',
-      `OpenRouter request failed: ${err instanceof Error ? err.message : 'unknown'}`,
+      UPSTREAM_ERROR_MESSAGE,
       'E_OPENROUTER_FETCH',
     );
+  } finally {
+    clearTimeout(timeout);
+    callerSignal?.removeEventListener('abort', abortFromCaller);
   }
-
-  if (!res.ok) {
-    throw new BffError(
-      'upstream_error',
-      `OpenRouter responded ${res.status}`,
-      `E_OPENROUTER_${res.status}`,
-    );
-  }
-
-  let json: OpenRouterResponseBody;
-  try {
-    json = (await res.json()) as OpenRouterResponseBody;
-  } catch {
-    throw new BffError('upstream_error', 'OpenRouter returned non-JSON response', 'E_OPENROUTER_BAD_JSON');
-  }
-
-  if (json.error) {
-    throw new BffError(
-      'upstream_error',
-      `OpenRouter error: ${json.error.message}`,
-      `E_OPENROUTER_${json.error.type ?? 'ERROR'}`,
-    );
-  }
-
-  const choice = json.choices?.[0];
-  if (!choice || typeof choice.message?.content !== 'string') {
-    throw new BffError('upstream_error', 'OpenRouter returned no completion', 'E_OPENROUTER_NO_CHOICE');
-  }
-
-  const usage = json.usage;
-  if (
-    !usage ||
-    usage.total_tokens !== usage.prompt_tokens + usage.completion_tokens
-  ) {
-    throw new BffError(
-      'upstream_error',
-      'OpenRouter usage shape invariant violated',
-      'E_OPENROUTER_USAGE_INVARIANT',
-    );
-  }
-
-  return {
-    message: choice.message.content,
-    model_id: modelId,
-    usage: {
-      prompt_tokens: usage.prompt_tokens,
-      completion_tokens: usage.completion_tokens,
-      total_tokens: usage.total_tokens,
-    },
-    ...(req.conversation_id !== undefined ? { conversation_id: req.conversation_id } : {}),
-    prompts_version: PROMPTS_VERSION,
-  };
 }

@@ -1,6 +1,16 @@
+export '../calculo_integral/area_longitud_arco_integral.dart';
 export '../calculo_integral/exponencial_logaritmo_integral.dart';
+export '../calculo_integral/fracciones_parciales_integral.dart';
 export '../calculo_integral/funciones_hiperbolicas_integral.dart';
 export '../calculo_integral/funciones_trigonometricas_integral.dart';
+export '../calculo_integral/hiperbolicas_inversas_integral.dart';
 export '../calculo_integral/integracion_basica_integral.dart';
+export '../calculo_integral/integracion_numerica_integral.dart';
+export '../calculo_integral/integral_definida_propiedades_integral.dart';
 export '../calculo_integral/integrales_extras_integral.dart';
+export '../calculo_integral/integrales_inmediatas_adicionales_integral.dart';
+export '../calculo_integral/potencias_reduccion_hiperbolicas_integral.dart';
+export '../calculo_integral/potencias_reduccion_trigonometricas_integral.dart';
+export '../calculo_integral/sustitucion_trigonometrica_integral.dart';
 export '../calculo_integral/trigonometricas_inversas_integral.dart';
+export '../calculo_integral/trigonometricas_racionales_productos_integral.dart';

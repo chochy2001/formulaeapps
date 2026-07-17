@@ -4,6 +4,7 @@ import '../../../constantes/export_constantes.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:formulae/core/observability/observability_bootstrap.dart';
 import 'package:formulae/menu.dart';
 import 'package:formulae/routes.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -40,8 +41,13 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // Spec §FR-006: refuse to launch a release build with placeholder JWT secret.
   _assertBffSecretsConfigured();
+  // Fleet observability (Crashlytics + PostHog): off by default until
+  // ENABLE_* + credential dart-defines are supplied (CapGym#79 pattern).
+  await bootstrapObservability();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  MobileAds.instance.initialize();
+  if (AdMobConfig.adsEnabled) {
+    MobileAds.instance.initialize();
+  }
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -78,7 +84,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   final FavoritesNotifier favoritesNotifier;
 
-  const MyApp({Key? key, required this.favoritesNotifier}) : super(key: key);
+  const MyApp({super.key, required this.favoritesNotifier});
 
   static MyAppState? _myAppState;
 
@@ -87,11 +93,17 @@ class MyApp extends StatefulWidget {
   }
 
   @override
-  MyAppState createState() => _myAppState = MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
   Key key = UniqueKey();
+
+  @override
+  void initState() {
+    super.initState();
+    MyApp._myAppState = this;
+  }
 
   void restartApp() {
     setState(() {
@@ -104,7 +116,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       key: key,
       navigatorKey: navigatorKey,
-      title: 'Formulae Pro',
+      title: 'Formulae Community',
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

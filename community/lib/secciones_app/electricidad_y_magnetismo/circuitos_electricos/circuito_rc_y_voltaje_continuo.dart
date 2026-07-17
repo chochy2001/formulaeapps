@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class CircuitoRCyVoltajeContinuo extends StatefulWidget {
+  const CircuitoRCyVoltajeContinuo({super.key});
   @override
   State<CircuitoRCyVoltajeContinuo> createState() =>
       _CircuitoRCyVoltajeContinuoState();

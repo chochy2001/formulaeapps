@@ -1,0 +1,275 @@
+name: Deploy Web (landing + Pro)
+
+# Manual production promotion to Hostinger FTPS.
+# Builds immutable candidates from the exact origin/main SHA, then uploads
+# landing + Pro web (including /imagenes/) when FTP_PASSWORD and
+# FORMULAE_JWT_SHARED_SECRET are set.
+#
+# Safety:
+#   - workflow_dispatch only (no auto-deploy on push)
+#   - exact-main SHA preflight
+#   - landing lint+test+build and Pro web build gates before upload
+#   - FTPS forced; certificate CA-chain verified
+#   - no mirror --delete (cannot wipe live site via wrong path)
+#   - post-deploy smoke for landing, app, and sample imagenes
+#   - feature flags stay OFF (not passed as dart-defines)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: formulae-web-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Verify exact main
+    runs-on: [self-hosted, ci-runner-node, policy-light]
+    outputs:
+      release_sha: ${{ steps.release.outputs.release_sha }}
+    steps:
+      - name: Checkout workflow ref
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Require exact main SHA
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+          candidate="${GITHUB_SHA}"
+          if [[ ! "$candidate" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::The release candidate must be a full commit SHA."
+            exit 1
+          fi
+          main_sha="$(git rev-parse HEAD)"
+          if [ "$candidate" != "$main_sha" ]; then
+            echo "::error::The selected workflow ref is not the current origin/main SHA."
+            exit 1
+          fi
+          echo "release_sha=$candidate" >> "$GITHUB_OUTPUT"
+          echo "::notice::Release candidate $candidate verified against origin/main."
+
+  build-landing:
+    name: Build landing
+    needs: preflight
+    runs-on: [self-hosted, ci-runner-node, test-light]
+    steps:
+      - name: Checkout release SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.preflight.outputs.release_sha }}
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.22.3'
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
+        with:
+          bun-version: 1.3.9
+      - name: Build landing
+        working-directory: landing
+        env:
+          PUBLIC_SITE_URL: https://formulaeapps.com
+          PUBLIC_APP_URL: https://app.formulaeapps.com
+        run: |
+          bun install --frozen-lockfile
+          bun run lint
+          bun run test
+          bun run build
+          test -d dist/imagenes
+          echo "${{ needs.preflight.outputs.release_sha }}" > dist/release-sha.txt
+          find dist/imagenes -type f | wc -l | awk '{print "imagenes_files="$1}'
+      - name: Upload landing candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: landing-${{ needs.preflight.outputs.release_sha }}
+          path: landing/dist
+          retention-days: 14
+          if-no-files-found: error
+
+  build-pro-web:
+    name: Build Pro web
+    needs: preflight
+    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    steps:
+      - name: Checkout release SHA
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ needs.preflight.outputs.release_sha }}
+          persist-credentials: false
+      - name: Set up Flutter
+        uses: subosito/flutter-action@fd55f4c5af5b953cc57a2be44cb082c8f6635e8e # v2.21.0
+        with:
+          flutter-version: '3.41.1'
+          channel: stable
+      - name: Install BFF client dependencies
+        working-directory: pro/packages/formulaeapps_bff_client
+        run: flutter pub get
+      - name: Build Pro web
+        working-directory: pro
+        env:
+          JWT_SHARED_SECRET: ${{ secrets.FORMULAE_JWT_SHARED_SECRET }}
+        run: |
+          set -euo pipefail
+          if [ -z "${JWT_SHARED_SECRET:-}" ]; then
+            echo "::error::Missing repository secret FORMULAE_JWT_SHARED_SECRET"
+            exit 1
+          fi
+          # Do not pass ENABLE_USER_ACCOUNT_AUTH / ENABLE_BFF_IAP_VALIDATION /
+          # Polar dart-defines — ship code only with flags OFF (defaults).
+          bash build_web.sh --base-href "/" --no-source-maps --no-web-resources-cdn
+          echo "${{ needs.preflight.outputs.release_sha }}" > build/web/release-sha.txt
+      - name: Verify build output
+        working-directory: pro
+        run: |
+          test -f build/web/index.html
+          grep -q '<base href="/">' build/web/index.html
+          test -f build/web/main.dart.js
+      - name: Upload Pro web candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pro-web-${{ needs.preflight.outputs.release_sha }}
+          path: pro/build/web
+          retention-days: 14
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to production (FTPS)
+    needs: [preflight, build-landing, build-pro-web]
+    runs-on: [self-hosted, ci-runner-node, deploy-only]
+    environment:
+      name: production
+      url: https://app.formulaeapps.com
+    env:
+      FTP_HOST: '31.170.161.105'
+      FTP_USER: 'u226095507.formulaeapps.com'
+    steps:
+      - name: Download landing candidate
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: landing-${{ needs.preflight.outputs.release_sha }}
+          path: landing-dist
+      - name: Download Pro web candidate
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: pro-web-${{ needs.preflight.outputs.release_sha }}
+          path: pro-web
+      - name: Ensure lftp is available
+        run: |
+          command -v lftp >/dev/null 2>&1 || {
+            sudo apt-get update -qq && sudo apt-get install -y lftp
+          }
+      - name: Record current live version (rollback reference)
+        run: |
+          set -euo pipefail
+          echo "Deploying release_sha=${{ needs.preflight.outputs.release_sha }}"
+          echo "Current live landing/app response (for the record):"
+          curl -fsS -m 20 -o /dev/null -w 'landing %{http_code} last-modified=%header{last-modified}\n' https://formulaeapps.com/ || true
+          curl -fsS -m 20 -o /dev/null -w 'app %{http_code} last-modified=%header{last-modified}\n' https://app.formulaeapps.com/ || true
+          echo "Rollback: re-run this workflow at the previous good SHA (candidates retained 14 days)."
+      - name: Upload over FTPS
+        env:
+          FTP_PW: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${FTP_PW:-}" ]; then
+            echo "::error::Missing repository secret FTP_PASSWORD"
+            exit 1
+          fi
+          NETRC_DIR="$(mktemp -d)"
+          trap 'rm -rf "$NETRC_DIR"' EXIT
+          umask 077
+          printf 'machine %s login %s password %s\n' "$FTP_HOST" "$FTP_USER" "$FTP_PW" > "$NETRC_DIR/.netrc"
+          chmod 600 "$NETRC_DIR/.netrc"
+
+          # Force FTPS (encrypt control + data) and verify the server certificate
+          # is signed by a trusted CA. check-hostname is off because we connect by
+          # IP, which never matches a certificate name; the CA-chain check still
+          # rejects self-signed or untrusted certs.
+          COMMON="set cmd:fail-exit yes; set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate true; set ssl:check-hostname false; set net:max-retries 2; set net:timeout 25; set ftp:passive-mode true"
+
+          echo "Uploading landing to public_html (chroot root), preserving /app/"
+          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; mirror --reverse --parallel=4 --verbose --exclude '^app/' --exclude '^cgi-bin/' --exclude '^\\.well-known/' --exclude '^\\.user\\.ini\$' --exclude '^error_log\$' ./landing-dist/ ./ ; bye"
+
+          echo "Uploading Pro web to public_html/app"
+          # app/ already exists on Hostinger; mkdir fails with 550 under cmd:fail-exit.
+          HOME="$NETRC_DIR" lftp -e "$COMMON; open \"$FTP_HOST\"; cd app; mirror --reverse --parallel=4 --verbose ./pro-web/ ./ ; bye"
+
+          echo "Upload complete."
+      - name: Smoke test (landing, app, imagenes, release marker)
+        run: |
+          set -euo pipefail
+          fail=0
+          SHA="${{ needs.preflight.outputs.release_sha }}"
+
+          # Bust CDN caches where possible
+          lc="$(curl -fsS -m 25 -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -o /tmp/landing.html -w '%{http_code}' "https://formulaeapps.com/?v=${SHA}" || echo 000)"
+          if [ "$lc" != "200" ]; then echo "::error::landing returned HTTP $lc"; fail=1; fi
+          grep -qi 'formulae' /tmp/landing.html || { echo "::error::landing HTML missing expected content"; fail=1; }
+
+          ac="$(curl -fsS -m 25 -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' -o /tmp/app.html -w '%{http_code}' "https://app.formulaeapps.com/?v=${SHA}" || echo 000)"
+          if [ "$ac" != "200" ]; then echo "::error::app returned HTTP $ac"; fail=1; fi
+          grep -q 'flutter_bootstrap.js' /tmp/app.html || { echo "::error::app HTML missing flutter_bootstrap.js"; fail=1; }
+
+          mc="$(curl -fsS -m 25 -H 'Cache-Control: no-cache' -o /tmp/main.js -w '%{http_code}' "https://app.formulaeapps.com/main.dart.js?v=${SHA}" || echo 000)"
+          if [ "$mc" != "200" ]; then echo "::error::main.dart.js returned HTTP $mc"; fail=1; fi
+
+          # Smoke known + discovered imagenes from the landing artifact
+          fail_img=1
+          for path in \
+            imagenes/regla_de_sarrus.png \
+            imagenes/agregar_tarea.png \
+            imagenes/carrito_comprar.png
+          do
+            code="$(curl -sS -m 25 -o /tmp/img.bin -w '%{http_code}' -H 'Cache-Control: no-cache' "https://formulaeapps.com/${path}?v=${SHA}" || echo 000)"
+            ctype="$(file -b --mime-type /tmp/img.bin 2>/dev/null || true)"
+            if [ "$code" = "200" ] && echo "$ctype" | grep -qi 'image/'; then
+              echo "OK ${path} HTTP $code mime=$ctype"
+              fail_img=0
+              break
+            fi
+            echo "sample ${path} -> HTTP $code mime=$ctype"
+          done
+          if [ "$fail_img" = "1" ]; then
+            sample="$(find landing-dist/imagenes -type f \( -name '*.webp' -o -name '*.png' -o -name '*.jpg' \) ! -name 'README.md' | head -1 | sed 's|^landing-dist/||')"
+            if [ -n "$sample" ]; then
+              code="$(curl -sS -m 25 -o /tmp/img.bin -w '%{http_code}' -H 'Cache-Control: no-cache' "https://formulaeapps.com/${sample}?v=${SHA}" || echo 000)"
+              ctype="$(file -b --mime-type /tmp/img.bin 2>/dev/null || true)"
+              if [ "$code" != "200" ] || ! echo "$ctype" | grep -qi 'image/'; then
+                echo "::error::imagenes smoke failed for ${sample} HTTP $code mime=$ctype"
+                fail=1
+              else
+                echo "OK discovered imagenes ${sample} HTTP $code mime=$ctype"
+              fi
+            else
+              echo "::error::no imagenes files in landing artifact"
+              fail=1
+            fi
+          fi
+
+          marker="$(curl -sS -m 25 -H 'Cache-Control: no-cache' "https://formulaeapps.com/release-sha.txt?v=${SHA}" || true)"
+          if [ "$marker" != "$SHA" ]; then
+            echo "::warning::landing release-sha.txt expected $SHA got '${marker}' (CDN may lag)"
+          else
+            echo "OK landing release marker $marker"
+          fi
+
+          amarker="$(curl -sS -m 25 -H 'Cache-Control: no-cache' "https://app.formulaeapps.com/release-sha.txt?v=${SHA}" || true)"
+          if [ "$amarker" != "$SHA" ]; then
+            echo "::warning::app release-sha.txt expected $SHA got '${amarker}' (CDN may lag)"
+          else
+            echo "OK app release marker $amarker"
+          fi
+
+          if [ "$fail" != "0" ]; then
+            echo "::error::Smoke check failed. Site was not wiped (no delete); re-run at last good SHA to roll back."
+            exit 1
+          fi
+          echo "Smoke check passed for SHA $SHA"

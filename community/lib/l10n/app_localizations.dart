@@ -2960,6 +2960,60 @@ abstract class AppLocalizations {
   /// **'Imagen'**
   String get imagen;
 
+  /// No description provided for @imagenNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Imagen no disponible'**
+  String get imagenNoDisponible;
+
+  /// No description provided for @formulaePDF.
+  ///
+  /// In es, this message translates to:
+  /// **'Formulae PDF'**
+  String get formulaePDF;
+
+  /// No description provided for @pdfNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'El PDF no está disponible en este momento.'**
+  String get pdfNoDisponible;
+
+  /// No description provided for @reintentar.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get reintentar;
+
+  /// No description provided for @noSePudoAbrirPDF.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo abrir el PDF.'**
+  String get noSePudoAbrirPDF;
+
+  /// No description provided for @pdfGeneradoLocalmente.
+  ///
+  /// In es, this message translates to:
+  /// **'Este PDF se generó localmente desde Formulae Community.'**
+  String get pdfGeneradoLocalmente;
+
+  /// No description provided for @consultaLaLeccionEnLaApp.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta la lección dentro de la aplicación para ver el contenido completo.'**
+  String get consultaLaLeccionEnLaApp;
+
+  /// No description provided for @pdfExportado.
+  ///
+  /// In es, this message translates to:
+  /// **'El PDF está listo para guardarse o compartirse.'**
+  String get pdfExportado;
+
+  /// No description provided for @noSePudoExportarPDF.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo exportar el PDF.'**
+  String get noSePudoExportarPDF;
+
   /// No description provided for @explicacionDominio.
   ///
   /// In es, this message translates to:

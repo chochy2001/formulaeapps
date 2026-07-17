@@ -6,12 +6,12 @@ class AlertEjercicios extends StatelessWidget {
   final String textoEjercicio, ruta;
   final Column ejercicioEjemplo;
 
-  const AlertEjercicios(
-      {Key? key,
-      required this.textoEjercicio,
-      required this.ejercicioEjemplo,
-      required this.ruta})
-      : super(key: key);
+  const AlertEjercicios({
+    super.key,
+    required this.textoEjercicio,
+    required this.ejercicioEjemplo,
+    required this.ruta,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +35,10 @@ class AlertEjercicios extends StatelessWidget {
               //Imagen del logo capdesis para darle un mejor formato y más calidad
               const Padding(
                 padding: EdgeInsets.all(15.0),
-                child: FadeInImage(
+                child: ImagenRemotaRobusta(
                   height: 100.0,
                   width: 100.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                  urlImagen: kUrlImagenFormulae,
                 ),
               ),
               const SizedBox(height: kEspacioEntreBotones),

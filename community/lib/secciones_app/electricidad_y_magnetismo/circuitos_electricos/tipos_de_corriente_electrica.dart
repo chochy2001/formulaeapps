@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TiposDeCorrienteElectrica extends StatefulWidget {
+  const TiposDeCorrienteElectrica({super.key});
   @override
   State<TiposDeCorrienteElectrica> createState() =>
       _TiposDeCorrienteElectricaState();

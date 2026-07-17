@@ -1,0 +1,107 @@
+import { z } from '@hono/zod-openapi';
+
+/**
+ * Email/password account auth (fleet #86 / WP5 step 2b).
+ * Handlers return 403 while ENABLE_USER_ACCOUNT_AUTH is off (default).
+ * See docs/ACCOUNTS_USER_ID_PLAN.md.
+ */
+
+const optionalPlatform = z
+  .enum(['web', 'android', 'ios', 'macos'])
+  .optional()
+  .openapi({
+    example: 'web',
+    description: 'Client platform for the issued session JWT (default: web).',
+  });
+
+const optionalAppVersion = z
+  .string()
+  .regex(/^\d+\.\d+\.\d+/)
+  .optional()
+  .openapi({
+    example: '3.7.2',
+    description: 'Client app version for the session JWT (default: 0.0.0).',
+  });
+
+export const AccountRegisterRequestSchema = z
+  .object({
+    email: z.string().email().openapi({
+      example: 'user@example.com',
+      description: 'Account email (unique).',
+    }),
+    password: z.string().min(8).max(128).openapi({
+      example: 'correct-horse-battery',
+      description: 'Password (min 8 chars). Never logged.',
+    }),
+    platform: optionalPlatform,
+    app_version: optionalAppVersion,
+  })
+  // Device identifiers are accepted only by /auth/token, where client_proof
+  // establishes possession. Register/login must never use an unproved
+  // client_id to adopt a device subject or its entitlements.
+  .strict()
+  .openapi('AccountRegisterRequest');
+
+export type AccountRegisterRequest = z.infer<typeof AccountRegisterRequestSchema>;
+
+export const AccountLoginRequestSchema = z
+  .object({
+    email: z.string().email().openapi({
+      example: 'user@example.com',
+    }),
+    password: z.string().min(1).max(128).openapi({
+      example: 'correct-horse-battery',
+      description: 'Password. Never logged.',
+    }),
+    platform: optionalPlatform,
+    app_version: optionalAppVersion,
+  })
+  // Keep this strict for the same reason as registration: account credentials
+  // alone are not proof that a caller owns a device identifier.
+  .strict()
+  .openapi('AccountLoginRequest');
+
+export type AccountLoginRequest = z.infer<typeof AccountLoginRequestSchema>;
+
+/** Success shape: session JWT + stable account user_id. */
+export const AccountAuthResponseSchema = z
+  .object({
+    token: z.string().openapi({
+      example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLi4uIn0.sig',
+      description: 'Session JWT with user_id claim for entitlement binding.',
+    }),
+    expires_at: z.string().datetime().openapi({
+      example: '2026-07-13T18:00:00.000Z',
+    }),
+    user_id: z.string().uuid().openapi({
+      example: '550e8400-e29b-41d4-a716-446655440000',
+      description: 'Stable account id — entitlement key when accounts flag is on.',
+    }),
+  })
+  .openapi('AccountAuthResponse');
+
+export type AccountAuthResponse = z.infer<typeof AccountAuthResponseSchema>;
+
+/**
+ * OAuth stub request (fleet #86 optional). Providers are accepted in the
+ * contract, but the handler never verifies id_token until Jorge configures
+ * Google/Apple OAuth clients. Flag off → 403; flag on → 503 stub.
+ */
+export const AccountOAuthRequestSchema = z
+  .object({
+    provider: z.enum(['google', 'apple']).openapi({
+      example: 'google',
+      description: 'Identity provider. Only google and apple are in scope.',
+    }),
+    id_token: z.string().min(1).max(8192).openapi({
+      example: 'eyJhbGciOiJSUzI1NiJ9...',
+      description:
+        'Provider ID token. Never logged. Stub does not verify signatures.',
+    }),
+    platform: optionalPlatform,
+    app_version: optionalAppVersion,
+  })
+  .strict()
+  .openapi('AccountOAuthRequest');
+
+export type AccountOAuthRequest = z.infer<typeof AccountOAuthRequestSchema>;

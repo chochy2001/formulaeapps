@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuGeometria extends StatefulWidget {
-  const MenuGeometria({Key? key}) : super(key: key);
+  const MenuGeometria({super.key});
 
   @override
   MenuGeometriaState createState() => MenuGeometriaState();

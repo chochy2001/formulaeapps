@@ -3,6 +3,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class LeyDeCorrientesDeKirchhoff extends StatefulWidget {
+  const LeyDeCorrientesDeKirchhoff({super.key});
   @override
   State<LeyDeCorrientesDeKirchhoff> createState() =>
       _LeyDeCorrientesDeKirchhoffState();

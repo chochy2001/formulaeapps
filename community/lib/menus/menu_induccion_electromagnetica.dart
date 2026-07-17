@@ -4,7 +4,7 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class MenuInduccionElectromagnetica extends StatefulWidget {
-  const MenuInduccionElectromagnetica({Key? key}) : super(key: key);
+  const MenuInduccionElectromagnetica({super.key});
 
   static const int maxFailedLoadAttempts = 3;
 

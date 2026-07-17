@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../chat_gpt/chats_provider.dart';
 import '../chat_gpt/export_chat_gpt.dart';
 import '../constantes/export_constantes.dart';
+import '../widgets_personalizados/zoom_image_personalizado.dart';
 import 'models_provider.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
 
@@ -237,11 +238,10 @@ class _ChatScreenState extends State<ChatScreen>
               elevation: 2,
               leading: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: FadeInImage(
-                  height: 200.0,
-                  width: 200.0,
-                  placeholder: AssetImage(kUrlImagenGifCarga),
-                  image: NetworkImage(kUrlImagenFormulae),
+                child: ImagenRemotaRobusta(
+                  height: 40.0,
+                  width: 40.0,
+                  urlImagen: kUrlImagenFormulae,
                 ),
               ),
               title: Text(AppLocalizations.of(context)!.formulaeProChat),
@@ -362,13 +362,11 @@ class _ChatScreenState extends State<ChatScreen>
                       ],
                     )
                   : Center(
-                      child: FadeInImage(
+                      child: ImagenRemotaRobusta(
                         height: MediaQuery.of(context).size.height * 0.5,
                         width: double.infinity,
-                        placeholder: const AssetImage(kUrlImagenGifCarga),
-                        image: NetworkImage(
-                            getImageUrlById(context, kImagenChat) ??
-                                kUrlImagenChat),
+                        urlImagen: getImageUrlById(context, kImagenChat) ??
+                            kUrlImagenChat,
                       ),
                     ),
             ),

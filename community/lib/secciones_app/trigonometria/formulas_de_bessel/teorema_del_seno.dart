@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TeoremaDelSeno extends StatefulWidget {
+  const TeoremaDelSeno({super.key});
   @override
-  _TeoremaDelSenoState createState() => _TeoremaDelSenoState();
+  State<TeoremaDelSeno> createState() => _TeoremaDelSenoState();
 }
 
 class _TeoremaDelSenoState extends State<TeoremaDelSeno> {

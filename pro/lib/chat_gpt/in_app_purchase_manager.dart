@@ -10,6 +10,10 @@ import 'package:universal_io/io.dart';
 
 import '../constantes/export_constantes.dart';
 import '../widgets_personalizados/textos_personalizados.dart';
+import '../widgets_personalizados/zoom_image_personalizado.dart';
+import 'entitlement_channel.dart';
+import 'entitlement_service.dart';
+import 'iap_validation_service.dart';
 
 /// Product catalog + purchase stream handler for Pro IAP.
 ///
@@ -20,8 +24,13 @@ class InAppPurchaseManager extends ChangeNotifier {
     InAppPurchasePlatform? platform,
     bool listenToPurchases = true,
     String? platformOverride,
+    EntitlementService? entitlementService,
+    bool? bffIapValidationEnabled,
   })  : _platform = platform ?? _defaultPlatform(),
-        _platformOverride = platformOverride {
+        _platformOverride = platformOverride,
+        _entitlementService = entitlementService ?? EntitlementService(),
+        _bffIapValidationEnabled =
+            bffIapValidationEnabled ?? kEnableBffIapValidation {
     if (listenToPurchases) {
       _purchaseSubscription =
           _platform.purchaseStream.listen(handlePurchaseUpdates);
@@ -36,12 +45,18 @@ class InAppPurchaseManager extends ChangeNotifier {
 
   final InAppPurchasePlatform _platform;
   final String? _platformOverride;
+  final EntitlementService _entitlementService;
+  final bool _bffIapValidationEnabled;
   StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
 
   bool disposed = false;
   late String device;
   bool _hasValidPurchase = false;
   List<ProductDetails> _products = [];
+
+  /// Last pre-purchase block reason when [ENABLE_BFF_IAP_VALIDATION] is on.
+  /// Anti double-pay UX stub — callers may surface this in UI later.
+  MobileIapPurchaseDecision? lastPurchaseBlockReason;
 
   @override
   void dispose() {
@@ -75,6 +90,13 @@ class InAppPurchaseManager extends ChangeNotifier {
         }
         _hasValidPurchase = true;
 
+        if (_bffIapValidationEnabled) {
+          unawaited(
+            IapValidationService(enabled: true)
+                .validatePurchase(purchaseDetails),
+          );
+        }
+
         if (!disposed) {
           notifyListeners();
         }
@@ -91,6 +113,26 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   Future<void> buyProduct(ProductDetails productDetails) async {
+    lastPurchaseBlockReason = null;
+
+    // Opt-in fail-closed anti double-pay guard (fleet §10 / WP5 steps 3–4).
+    // Default off via ENABLE_BFF_IAP_VALIDATION — local gating unchanged.
+    if (_bffIapValidationEnabled) {
+      final decision = await _evaluatePrePurchaseGuard();
+      if (decision != MobileIapPurchaseDecision.allow) {
+        lastPurchaseBlockReason = decision;
+        if (kDebugMode) {
+          debugPrint(
+            'IAP: pre-purchase blocked ($decision) — anti double-pay stub',
+          );
+        }
+        if (!disposed) {
+          notifyListeners();
+        }
+        return;
+      }
+    }
+
     final PurchaseParam purchaseParam =
         PurchaseParam(productDetails: productDetails);
 
@@ -104,6 +146,19 @@ class InAppPurchaseManager extends ChangeNotifier {
       if (kDebugMode) {
         print('Error al comprar el producto: $e');
       }
+    }
+  }
+
+  /// Fail-closed: network/auth errors block the charge when the flag is on.
+  Future<MobileIapPurchaseDecision> _evaluatePrePurchaseGuard() async {
+    try {
+      final entitlement = await _entitlementService.fetchEntitlement();
+      return evaluateMobileIapPurchase(
+        entitlement: entitlement,
+        fetchFailed: entitlement == null,
+      );
+    } catch (_) {
+      return MobileIapPurchaseDecision.blockCheckFailed;
     }
   }
 
@@ -188,11 +243,10 @@ class InAppPurchaseManager extends ChangeNotifier {
                     ),
                     Row(
                       children: [
-                        const FadeInImage(
+                        const ImagenRemotaRobusta(
                           height: 50.0,
                           width: 50.0,
-                          placeholder: AssetImage(kUrlImagenGifCarga),
-                          image: NetworkImage(kUrlImagenFormulae),
+                          urlImagen: kUrlImagenFormulae,
                         ),
                         Expanded(
                           child: TextoEcuaciones(

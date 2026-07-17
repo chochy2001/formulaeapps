@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class TransformadaDeLaplace extends StatefulWidget {
+  const TransformadaDeLaplace({super.key});
   @override
-  _TransformadaDeLaplaceState createState() => _TransformadaDeLaplaceState();
+  State<TransformadaDeLaplace> createState() => _TransformadaDeLaplaceState();
 }
 
 class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {

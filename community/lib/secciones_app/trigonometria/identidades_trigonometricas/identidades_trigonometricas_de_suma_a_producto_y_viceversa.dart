@@ -4,8 +4,9 @@ import '../../../constantes/export_constantes.dart';
 
 class IdentidadesTrigonometricasDeSumaAProductoYViceversa
     extends StatefulWidget {
+  const IdentidadesTrigonometricasDeSumaAProductoYViceversa({super.key});
   @override
-  _IdentidadesTrigonometricasDeSumaAProductoYViceversaState createState() =>
+  State<IdentidadesTrigonometricasDeSumaAProductoYViceversa> createState() =>
       _IdentidadesTrigonometricasDeSumaAProductoYViceversaState();
 }
 

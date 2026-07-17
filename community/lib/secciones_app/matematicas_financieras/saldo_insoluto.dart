@@ -3,8 +3,9 @@ import 'package:formulae/ads/formulae_ads_controller.dart';
 import '../../../constantes/export_constantes.dart';
 
 class SaldoInsoluto extends StatefulWidget {
+  const SaldoInsoluto({super.key});
   @override
-  _SaldoInsolutoState createState() => _SaldoInsolutoState();
+  State<SaldoInsoluto> createState() => _SaldoInsolutoState();
 }
 
 class _SaldoInsolutoState extends State<SaldoInsoluto> {

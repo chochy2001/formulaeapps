@@ -1,3 +1,5 @@
+export '../electricidad_y_magnetismo/bateria_real_voltaje_en_terminales.dart';
+export '../electricidad_y_magnetismo/ca_valores_eficaces_transformador.dart';
 export '../electricidad_y_magnetismo/campo_y_potencia_electricos/calculo_de_diferencias_de_potencial.dart';
 export '../electricidad_y_magnetismo/campo_y_potencia_electricos/campo_electrico.dart';
 export '../electricidad_y_magnetismo/campo_y_potencia_electricos/campo_electrico_originado_por_distribuciones_de_carga.dart';
@@ -36,6 +38,8 @@ export '../electricidad_y_magnetismo/capacitancia_y_dielectricos/representacion_
 export '../electricidad_y_magnetismo/capacitancia_y_dielectricos/rigidez_dielectrica.dart';
 export '../electricidad_y_magnetismo/capacitancia_y_dielectricos/simbologia_capacitores.dart';
 export '../electricidad_y_magnetismo/capacitancia_y_dielectricos/vector_de_desplazamiento_electrico.dart';
+export '../electricidad_y_magnetismo/capacitores_cilindrico_y_esferico.dart';
+export '../electricidad_y_magnetismo/circuito_lr_en_serie.dart';
 export '../electricidad_y_magnetismo/circuitos_electricos/circuito_rc_y_voltaje_continuo.dart';
 export '../electricidad_y_magnetismo/circuitos_electricos/conductividad_y_resistividad.dart';
 export '../electricidad_y_magnetismo/circuitos_electricos/conexion_en_paralelo_resistor.dart';
@@ -59,6 +63,7 @@ export '../electricidad_y_magnetismo/circuitos_electricos/resistor_lineal_y_no_l
 export '../electricidad_y_magnetismo/circuitos_electricos/resistor_simbologia_basica.dart';
 export '../electricidad_y_magnetismo/circuitos_electricos/teoria_de_circuitos.dart';
 export '../electricidad_y_magnetismo/circuitos_electricos/tipos_de_corriente_electrica.dart';
+export '../electricidad_y_magnetismo/fuerza_y_torca_magnetica.dart';
 export '../electricidad_y_magnetismo/induccion_electromagnetica/energia_almacenada_en_un_campo_magnetico.dart';
 export '../electricidad_y_magnetismo/induccion_electromagnetica/generador_homopolar.dart';
 export '../electricidad_y_magnetismo/induccion_electromagnetica/inductancia_mutua.dart';
@@ -69,6 +74,7 @@ export '../electricidad_y_magnetismo/induccion_electromagnetica/inductancia_prop
 export '../electricidad_y_magnetismo/induccion_electromagnetica/inductor.dart';
 export '../electricidad_y_magnetismo/induccion_electromagnetica/inductores_en_serie.dart';
 export '../electricidad_y_magnetismo/induccion_electromagnetica/ley_de_faraday_y_energia_en_un_inductor.dart';
+export '../electricidad_y_magnetismo/instrumentos_de_medicion_electrica.dart';
 export '../electricidad_y_magnetismo/magnetostatica/bobina.dart';
 export '../electricidad_y_magnetismo/magnetostatica/campo_magnetico_a_partir_de_ley_de_ampere.dart';
 export '../electricidad_y_magnetismo/magnetostatica/circulacion_de_un_campo_vectorial.dart';
@@ -84,3 +90,5 @@ export '../electricidad_y_magnetismo/magnetostatica/ley_de_biot_savart.dart';
 export '../electricidad_y_magnetismo/magnetostatica/motor_de_corriente_directa.dart';
 export '../electricidad_y_magnetismo/magnetostatica/segmento_conductor_recto.dart';
 export '../electricidad_y_magnetismo/magnetostatica/solenoide.dart';
+export '../electricidad_y_magnetismo/permeabilidad_magnetica_en_materiales.dart';
+export '../electricidad_y_magnetismo/potencia_y_reactancias_en_ca.dart';

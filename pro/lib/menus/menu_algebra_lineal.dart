@@ -36,7 +36,7 @@ class AlgebraLinealMenuState extends State<AlgebraLinealMenu> {
                 height: 30,
               ),
               Center(
-                child: Column(
+                child: MenuColumn(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Ecuaciones Lineales
