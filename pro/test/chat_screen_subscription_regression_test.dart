@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,6 +18,49 @@ import 'helpers/fake_iap_platform.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets(
+    'disposing the chat screen while a reply is pending does not update disposed state',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({'hasValidPurchase': true});
+      InAppPurchase.instance;
+      final previousPlatform = InAppPurchasePlatform.instance;
+      final platform = FakeInAppPurchasePlatform();
+      InAppPurchasePlatform.instance = platform;
+      addTearDown(() async {
+        InAppPurchasePlatform.instance = previousPlatform;
+        await platform.close();
+      });
+
+      final reply = Completer<List<ChatModel>>();
+      final chatProvider = ChatProvider(
+        sendMessage: ({required message, required modelId}) => reply.future,
+      );
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ModelsProvider()),
+            ChangeNotifierProvider.value(value: chatProvider),
+          ],
+          child: _app(const ChatScreen()),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      await tester.enterText(find.byType(TextField), '¿Qué es un límite?');
+      await tester.tap(find.byIcon(Icons.send));
+      await tester.pump();
+
+      await tester.pumpWidget(_app(const SizedBox.shrink()));
+      reply.complete([ChatModel(msg: 'Respuesta tardía', chatIndex: 1)]);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(tester.takeException(), isNull);
+    },
+  );
 
   testWidgets(
     'cached valid subscription sends the typed chat message instead of reopening purchase',

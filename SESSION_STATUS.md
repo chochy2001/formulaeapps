@@ -74,3 +74,21 @@
   high-return hotspots include PDF generation/preview
   (`favorites_pdf_generator.dart`, `ver_pdf.dart`), chat UI
   (`chat_screen.dart`), and task-list/task-screen flows.
+- The latest increment adds behavior tests for disposing chat while an answer is
+  pending, multi-page PDF preview rendering, unavailable PDF-size controls, and
+  creating a task while skipping both optional dates. It fixes a real chat
+  lifecycle defect: completing an in-flight reply after navigation called
+  `setState` on a disposed screen. Measured raw Pro line coverage is
+  **82.30%** (**23,330 / 28,336**), using
+  `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter
+  compact` with `JWT_SHARED_SECRET=test-shared-secret`,
+  `FORMULAE_BUILD_NONCE=ci-test-build-nonce`, and
+  `FORMULAE_APP_VERSION=0.0.0-ci`. The full suite passed **164 tests**;
+  strict analysis and `scripts/verify-parity.sh` passed locally. The target
+  remains unmet: **756 lines** are required to reach 85% at this denominator.
+  This is local code-validation evidence, not a staging or production claim.
+  Residual high-return hotspots remain `ver_pdf.dart` (69.1%, 262 lines),
+  `tasks_screen.dart` (73.6%, 148 lines),
+  `favorites_pdf_generator.dart` (76.5%, 319 lines),
+  `tasks_list.dart` (80.6%, 191 lines), and `chat_screen.dart` (81.0%, 163
+  lines).
