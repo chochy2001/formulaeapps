@@ -12,8 +12,9 @@ or enable daily production deploys.
    `STAGING_SSH_KEY`, `STAGING_SSH_KNOWN_HOSTS`. Optional: `STAGING_SSH_PORT`.
 3. Repository variable: `STAGING_APP_PATH` (default
    `/opt/staging/apps/formulaeapps`).
-4. Repository variable: `STAGING_BFF_BASE_URL` (staging Traefik route, e.g.
-   `https://staging.api.formulaeapps.com`).
+4. The staging Traefik route must be exactly
+   `https://staging.api.formulaeapps.com`; the workflow intentionally rejects
+   configurable or production base URLs.
 5. Host marker `/etc/capdesis-role` must contain exactly `staging`.
 6. Persistent host file `/opt/staging/apps/formulaeapps/.env.staging` (outside
    immutable releases) with:

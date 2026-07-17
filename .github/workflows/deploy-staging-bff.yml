@@ -5,7 +5,6 @@
 #   STAGING_SSH_HOST, STAGING_SSH_USER, STAGING_SSH_KEY, STAGING_SSH_KNOWN_HOSTS
 # Optional: STAGING_SSH_PORT (default 2222)
 # Optional repository variable: STAGING_APP_PATH (default /opt/staging/apps/formulaeapps)
-# Optional repository variable: STAGING_BFF_BASE_URL
 #
 # Host must provide persistent .env.staging outside immutable releases and
 # /etc/capdesis-role == staging. The workflow checks presence/format only.

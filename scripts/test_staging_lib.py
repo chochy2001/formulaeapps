@@ -368,6 +368,38 @@ class StagingLibTests(unittest.TestCase):
                 now_fn=lambda: now,
             )
 
+    def test_staging_env_check_uses_explicit_env_path(self) -> None:
+        repo = Path(__file__).resolve().parent.parent
+        with tempfile.TemporaryDirectory() as tmp:
+            env_file = Path(tmp) / '.env.staging'
+            write_env(env_file)
+            proc = subprocess.run(
+                [sys.executable, str(repo / 'scripts' / 'staging-check-env.py')],
+                cwd=tmp,
+                env={**os.environ, 'STAGING_ENV_FILE': str(env_file)},
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+            self.assertIn('PRESENT:JWT_SIGNING_SECRET', proc.stdout)
+
+    def test_staging_env_check_does_not_fall_back_when_configured_path_is_missing(self) -> None:
+        repo = Path(__file__).resolve().parent.parent
+        with tempfile.TemporaryDirectory() as tmp:
+            fallback_env = Path(tmp) / '.env'
+            write_env(fallback_env)
+            missing_env = Path(tmp) / '.env.staging'
+            proc = subprocess.run(
+                [sys.executable, str(repo / 'scripts' / 'staging-check-env.py')],
+                cwd=tmp,
+                env={**os.environ, 'STAGING_ENV_FILE': str(missing_env)},
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(proc.returncode, 0)
+            self.assertIn('MISSING:STAGING_ENV_FILE', proc.stdout)
+            self.assertNotIn('PRESENT:JWT_SIGNING_SECRET', proc.stdout)
+
     def test_finalize_rejects_stale_temp_digest(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / 'formulaeapps'

@@ -2,6 +2,7 @@
 """Redacted staging .env presence and format checks. Never prints secret values."""
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -18,9 +19,9 @@ def load_env(path: Path) -> dict[str, str]:
 
 
 def main() -> int:
-    env_path = Path('.env')
+    env_path = Path(os.environ.get('STAGING_ENV_FILE', '.env'))
     if not env_path.is_file():
-        print('MISSING:.env')
+        print('MISSING:STAGING_ENV_FILE')
         return 1
 
     required = [
