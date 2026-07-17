@@ -217,18 +217,18 @@ class TasksList extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        // Obtén la instancia de TaskData del Provider
-                        TaskData taskData =
-                            Provider.of<TaskData>(context, listen: false);
+                        final updatedName = taskNameController.text;
+                        final reminderDateTime = task.reminderDateTime;
+                        final dueDate = task.dueDate;
+                        Navigator.pop(context);
                         taskData.deleteTask(task);
                         // Crea una nueva tarea con el nombre editado y las fechas existentes
                         Task newTask = Task(
-                          name: taskNameController.text,
-                          reminderDateTime: task.reminderDateTime,
-                          dueDate: task.dueDate,
+                          name: updatedName,
+                          reminderDateTime: reminderDateTime,
+                          dueDate: dueDate,
                         );
                         taskData.addTask(newTask);
-                        Navigator.pop(context);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.guardar,
@@ -240,7 +240,12 @@ class TasksList extends StatelessWidget {
               },
             );
           } finally {
-            taskNameController.dispose();
+            // showDialog completes before its route is fully removed. Deferring
+            // disposal prevents the closing TextField from rebuilding against
+            // an already-disposed controller.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              taskNameController.dispose();
+            });
           }
         }
 

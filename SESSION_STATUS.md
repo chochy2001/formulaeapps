@@ -23,3 +23,12 @@
   denominator; the highest-return remaining user-flow hotspots are
   `tasks_list.dart`, `drawer_personalizado.dart`, `ver_pdf.dart`, and
   `tasks_screen.dart`.
+- The latest measured Pro coverage is **81.60%** (23,125 / 28,330 lines),
+  from `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter
+  compact` with the three CI Dart defines above. Four behavior tests now cover
+  task slide-to-edit, iOS drawer navigation, folder switching/formula-size
+  persistence, and disabled empty-folder actions. The edit flow exposed and
+  fixed a real dialog lifecycle defect: saving previously attempted to read
+  `TaskData` from the dialog route and disposed its text controller before the
+  closing frame completed. The 85% target remains **956 lines** away at the
+  current denominator; continue with PDF/extraction paths and task reminders.
