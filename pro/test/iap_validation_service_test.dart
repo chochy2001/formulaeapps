@@ -39,11 +39,12 @@ class _RecordingIapApi extends IapApi {
     _parent.onValidate(iapValidateRequest);
     return Response<IapValidateResponse>(
       data: IapValidateResponse(
-        (b) => b
-          ..valid = true
-          ..productId = iapValidateRequest.productId
-          ..transactionId = iapValidateRequest.transactionId
-          ..environment = IapValidateResponseEnvironmentEnum.sandbox,
+        (b) {
+          b.valid = true;
+          b.productId = iapValidateRequest.productId;
+          b.transactionId = iapValidateRequest.transactionId;
+          b.environment = IapValidateResponseEnvironmentEnum.sandbox;
+        },
       ),
       requestOptions: RequestOptions(path: '/iap/validate'),
       statusCode: 200,
@@ -52,7 +53,8 @@ class _RecordingIapApi extends IapApi {
 }
 
 void main() {
-  test('validatePurchase returns null when BFF validation flag is off', () async {
+  test('validatePurchase returns null when BFF validation flag is off',
+      () async {
     final service = IapValidationService(
       tokenProvider: () async => 'token',
       clientFactory: (_) => throw StateError('should not build client'),
@@ -69,7 +71,8 @@ void main() {
     expect(result, isNull);
   });
 
-  test('validatePurchase builds Apple subscription request when flag is on', () async {
+  test('validatePurchase builds Apple subscription request when flag is on',
+      () async {
     IapValidateRequest? captured;
     final recording = _RecordingClient((req) => captured = req);
 
