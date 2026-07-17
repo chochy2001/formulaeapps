@@ -12,7 +12,7 @@ correccion de todo el catalogo ni reemplaza una revision matematica completa.
 | Derivadas trigonometricas complementarias | La derivada de `arcvers(u)` es positiva: `arcvers(u) = arccos(1-u)` y la regla de la cadena cancela los dos signos negativos. | Derivacion desde la formula de `arccos` de NIST DLMF 4.24.8. https://dlmf.nist.gov/4.24.E8 |
 | Potencias n-esimas | La factorizacion de `a^n + b^n` por `a+b` ahora declara la condicion `n` impar. | Verificacion algebraica: al sustituir `a=-b`, el polinomio se anula exactamente para `n` impar; el caso base `n=3` coincide con OpenStax College Algebra 1.5. https://openstax.org/books/college-algebra/pages/1-5-factoring-polynomials |
 | Razon de cambio, tangente y normal | Se restauro el factor omitido: de `Delta y / Delta x = tan(a)` se obtiene `Delta y = Delta x tan(a)`. | Definicion de pendiente y cociente de diferencias, OpenStax Calculus Volume 1, 3.1. https://openstax.org/books/calculus-volume-1/pages/3-1-defining-the-derivative |
-| Constantes fisicas universales | `G` se actualizo a `6.674 30(15) x 10^-11 m^3 kg^-1 s^-2`. | CODATA 2022, NIST SP 961. https://physics.nist.gov/cuu/pdf/wall_2022.pdf |
+| Constantes fisicas universales | Se auditaron solo las seis constantes mostradas en esta pantalla: `c`, `h`, `k`, `N_A` y `sigma` se muestran como exactas por las definiciones SI de 2019 (con `sigma` derivada de ellas); `G = 6.674 30(15) x 10^-11 m^3 kg^-1 s^-2` conserva su incertidumbre estándar. | NIST CODATA 2022: https://physics.nist.gov/cuu/Constants/ y NIST SP 961, tabla CODATA 2022: https://physics.nist.gov/cuu/pdf/wall_2022.pdf |
 
 ## Exportacion PDF
 
