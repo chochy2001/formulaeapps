@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/Favorites/favorite.dart';
+import 'package:formulae/Favorites/pdf_capture_scope.dart';
 import 'package:formulae/Favorites/widget_mapper.dart';
 import 'package:formulae/chat_gpt/chat_screen.dart';
 import 'package:formulae/chat_gpt/chats_provider.dart';
@@ -13,6 +14,7 @@ import 'package:formulae/l10n/l10n.dart';
 import 'package:formulae/routes.dart';
 import 'package:formulae/screens_personalizados/configuracion.dart';
 import 'package:formulae/widgets_personalizados/todo/task_data.dart';
+import 'package:formulae/widgets_personalizados/textos_personalizados.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -338,6 +340,95 @@ void main() {
       timeout: const Timeout(Duration(minutes: 45)),
     );
 
+    testWidgets(
+      'every non-platform route renders instructional content without errors',
+      (tester) async {
+        final routes = getApplicationRoutes();
+        var rendered = 0;
+        await tester.binding.setSurfaceSize(const Size(900, 1600));
+
+        for (final entry in routes.entries) {
+          if (_routesRequiringPlatformChannels.contains(entry.key)) {
+            continue;
+          }
+
+          await tester.pumpWidget(
+            _buildHarness(
+              favoritesNotifier: FavoritesNotifier(),
+              homeBuilder: entry.value,
+            ),
+          );
+          await tester.pump();
+
+          expect(
+            tester.takeException(),
+            isNull,
+            reason: 'Route ${entry.key} must build without Flutter errors',
+          );
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is Text || widget is Latex,
+            ),
+            findsWidgets,
+            reason: 'Route ${entry.key} must show instructional content',
+          );
+          rendered++;
+        }
+
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump(const Duration(seconds: 1));
+        expect(
+            rendered, routes.length - _routesRequiringPlatformChannels.length);
+      },
+      timeout: const Timeout(Duration(minutes: 45)),
+    );
+
+    testWidgets(
+      'every non-platform route renders localized English content',
+      (tester) async {
+        final routes = getApplicationRoutes();
+        var rendered = 0;
+        await tester.binding.setSurfaceSize(const Size(900, 1600));
+
+        for (final entry in routes.entries) {
+          if (_routesRequiringPlatformChannels.contains(entry.key)) {
+            continue;
+          }
+
+          await tester.pumpWidget(
+            _buildHarness(
+              favoritesNotifier: FavoritesNotifier(),
+              locale: const Locale('en'),
+              homeBuilder: entry.value,
+            ),
+          );
+          await tester.pump();
+
+          expect(
+            tester.takeException(),
+            isNull,
+            reason:
+                'English route ${entry.key} must build without Flutter errors',
+          );
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is Text || widget is Latex,
+            ),
+            findsWidgets,
+            reason:
+                'English route ${entry.key} must show instructional content',
+          );
+          rendered++;
+        }
+
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump(const Duration(seconds: 1));
+        expect(
+            rendered, routes.length - _routesRequiringPlatformChannels.length);
+      },
+      timeout: const Timeout(Duration(minutes: 45)),
+    );
+
     testWidgets('still maps chat route to ChatScreen', (tester) async {
       final routes = getApplicationRoutes();
       late BuildContext context;
@@ -421,17 +512,55 @@ void main() {
       },
       timeout: const Timeout(Duration(minutes: 45)),
     );
+
+    testWidgets(
+      'every saved formula page renders instructional content without errors',
+      (tester) async {
+        var rendered = 0;
+        await tester.binding.setSurfaceSize(const Size(900, 1600));
+
+        for (final entry in widgetTable.entries) {
+          await tester.pumpWidget(
+            _buildHarness(
+              favoritesNotifier: FavoritesNotifier(),
+              homeBuilder: entry.value,
+            ),
+          );
+          await tester.pump();
+
+          expect(
+            tester.takeException(),
+            isNull,
+            reason: 'Favorite ${entry.key} must build without Flutter errors',
+          );
+          expect(
+            find.byWidgetPredicate(
+              (widget) => widget is Text || widget is Latex,
+            ),
+            findsWidgets,
+            reason: 'Favorite ${entry.key} must show instructional content',
+          );
+          rendered++;
+        }
+
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump(const Duration(seconds: 1));
+        expect(rendered, widgetTable.length);
+      },
+      timeout: const Timeout(Duration(minutes: 45)),
+    );
   });
 }
 
 Widget _buildHarness({
   required FavoritesNotifier favoritesNotifier,
   required WidgetBuilder homeBuilder,
+  Locale locale = const Locale('es'),
 }) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<LocaleProvider>(
-        create: (_) => LocaleProvider(const Locale('es')),
+        create: (_) => LocaleProvider(locale),
       ),
       ChangeNotifierProvider<ModelsProvider>(
         create: (_) => ModelsProvider(),
@@ -446,17 +575,20 @@ Widget _buildHarness({
         value: favoritesNotifier,
       ),
     ],
-    child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: const Locale('es'),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: L10n.all,
-      home: Builder(builder: homeBuilder),
+    child: PdfCaptureScope(
+      isCapturing: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: L10n.all,
+        home: Builder(builder: homeBuilder),
+      ),
     ),
   );
 }
