@@ -32,3 +32,15 @@
   `TaskData` from the dialog route and disposed its text controller before the
   closing frame completed. The 85% target remains **956 lines** away at the
   current denominator; continue with PDF/extraction paths and task reminders.
+- The latest increment adds PDF preview/render-size behavior tests and a
+  reminder/due-date persistence regression. It fixes reminder state being
+  changed in-place without being persisted or notifying the UI, and prevents
+  the empty reminder dialog from dereferencing a null selection. Measured
+  coverage is **81.70% raw line coverage** (23,134 / 28,331), using
+  `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter
+  compact` with `JWT_SHARED_SECRET=test-shared-secret`,
+  `FORMULAE_BUILD_NONCE=ci-test-build-nonce`, and
+  `FORMULAE_APP_VERSION=0.0.0-ci`; **948 lines** remain to reach 85% at this
+  denominator. The full suite passed 151 tests; strict analysis and
+  `scripts/verify-parity.sh` passed locally. This is local branch evidence,
+  not a staging or production claim.

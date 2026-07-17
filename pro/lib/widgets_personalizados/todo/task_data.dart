@@ -55,6 +55,14 @@ class TaskData extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> saveTask(Task task) async {
+    if (!_tasks.contains(task)) {
+      return;
+    }
+    await _saveTasks();
+    notifyListeners();
+  }
+
   void deleteTask(Task task) async {
     _tasks.remove(task);
     await _saveTasks();
