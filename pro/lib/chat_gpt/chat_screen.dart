@@ -42,6 +42,7 @@ class _ChatScreenState extends State<ChatScreen>
     bool? hasValidPurchase = prefs.getBool('hasValidPurchase');
 
     if (hasValidPurchase != null && hasValidPurchase) {
+      _inAppPurchaseManager.hasValidPurchase = true;
       return hasValidPurchase;
     }
 
@@ -52,6 +53,7 @@ class _ChatScreenState extends State<ChatScreen>
       }
       return false;
     });
+    _inAppPurchaseManager.hasValidPurchase = validated;
     _storePurchaseState(validated);
     return validated;
   }
@@ -226,7 +228,7 @@ class _ChatScreenState extends State<ChatScreen>
     final modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
     final chatProvider = Provider.of<ChatProvider>(context, listen: false);
     return FutureBuilder<bool>(
-      future: _getPurchaseValidation(),
+      future: _purchaseValidated,
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');

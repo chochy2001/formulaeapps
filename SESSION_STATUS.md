@@ -59,3 +59,18 @@
   hotspots remain PDF generation/preview (`ver_pdf.dart`,
   `favorites_pdf_generator.dart`), chat UI (`chat_screen.dart`), and
   task-list/task-screen flows.
+- The latest increment adds behavior coverage for cached subscriptions sending
+  chat messages, failed PDF resize recovery, task clear-all confirmation, and
+  opening the add-task sheet. It fixes cached valid subscriptions being treated
+  as invalid by the send handler and avoids starting a fresh purchase-validation
+  future on every chat rebuild. Measured raw Pro line coverage is **82.33%**
+  (**23,328 / 28,334**), using
+  `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter
+  compact` with `JWT_SHARED_SECRET=test-shared-secret`,
+  `FORMULAE_BUILD_NONCE=ci-test-build-nonce`, and
+  `FORMULAE_APP_VERSION=0.0.0-ci`; **756 lines** remain to reach 85% at this
+  denominator. The full suite passed **160 tests**. This is local
+  code-validation evidence, not a staging or production claim. Remaining
+  high-return hotspots include PDF generation/preview
+  (`favorites_pdf_generator.dart`, `ver_pdf.dart`), chat UI
+  (`chat_screen.dart`), and task-list/task-screen flows.
