@@ -129,51 +129,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Future<void> _showCreateFolderDialog(
     FavoritesNotifier favoritesNotifier,
   ) async {
-    final localizations = AppLocalizations.of(context)!;
-    final controller = TextEditingController();
-
     await showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: kColorBotones,
-        title: Text(localizations.crearCarpeta, style: kTextoBotones),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          style: kTexto,
-          decoration: InputDecoration(
-            hintText: localizations.nombreCarpeta,
-            hintStyle: kTextoBotonesDelgado,
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: kColorBlanco),
-            ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: kColorBlanco),
-            ),
-          ),
-          onSubmitted: (_) {
-            favoritesNotifier.createFolder(controller.text);
-            Navigator.of(context).pop();
-          },
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(localizations.cancelar, style: kTextoBotones2),
-          ),
-          TextButton(
-            onPressed: () {
-              favoritesNotifier.createFolder(controller.text);
-              Navigator.of(context).pop();
-            },
-            child: Text(localizations.guardar, style: kTextoBotones2),
-          ),
-        ],
+      builder: (_) => _CreateFolderDialog(
+        onCreate: favoritesNotifier.createFolder,
       ),
     );
-
-    controller.dispose();
   }
 
   // El boton de mover siempre responde: si no hay otra carpeta destino explica
@@ -481,9 +442,8 @@ class _FormulaSizeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
         decoration: BoxDecoration(
-          color: enabled
-              ? kColorBotones
-              : kColorBotones.withValues(alpha: 0.35),
+          color:
+              enabled ? kColorBotones : kColorBotones.withValues(alpha: 0.35),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
@@ -492,9 +452,8 @@ class _FormulaSizeButton extends StatelessWidget {
             Icon(
               Icons.format_size_rounded,
               size: 18,
-              color: enabled
-                  ? kColorBlanco
-                  : kColorBlanco.withValues(alpha: 0.45),
+              color:
+                  enabled ? kColorBlanco : kColorBlanco.withValues(alpha: 0.45),
             ),
             const SizedBox(width: 8),
             Text(
@@ -755,6 +714,67 @@ class _EmptyFavorites extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _CreateFolderDialog extends StatefulWidget {
+  final ValueChanged<String> onCreate;
+
+  const _CreateFolderDialog({required this.onCreate});
+
+  @override
+  State<_CreateFolderDialog> createState() => _CreateFolderDialogState();
+}
+
+class _CreateFolderDialogState extends State<_CreateFolderDialog> {
+  final TextEditingController _controller = TextEditingController();
+
+  void _createFolder() {
+    widget.onCreate(_controller.text);
+    Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: kColorBotones,
+      title: Text(localizations.crearCarpeta, style: kTextoBotones),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        style: kTexto,
+        decoration: InputDecoration(
+          hintText: localizations.nombreCarpeta,
+          hintStyle: kTextoBotonesDelgado,
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: kColorBlanco),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: kColorBlanco),
+          ),
+        ),
+        onSubmitted: (_) => _createFolder(),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(localizations.cancelar, style: kTextoBotones2),
+        ),
+        TextButton(
+          onPressed: _createFolder,
+          child: Text(localizations.guardar, style: kTextoBotones2),
+        ),
+      ],
     );
   }
 }
