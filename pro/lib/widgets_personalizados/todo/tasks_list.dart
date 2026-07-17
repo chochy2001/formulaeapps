@@ -111,55 +111,12 @@ class TasksList extends StatelessWidget {
                   style: kTexto,
                 ),
                 onPressed: () async {
-                  //aqui poner la logica de asignacion para el recordatorio
-                  // Aquí puedes llamar a la lógica para establecer el recordatorio.
-                  var scheduledNotificationDateTime =
-                      selectedDateTime; // La fecha y hora seleccionadas por el usuario.
-                  task.reminderDateTime =
-                      selectedDateTime; //todo darle un buen formato a la hora de imprimirla
-                  if (scheduledNotificationDateTime!.isAfter(DateTime.now())) {
-                    var androidPlatformChannelSpecifics =
-                        const AndroidNotificationDetails(
-                            'your_other_channel_id', 'your_other_channel_name',
-                            importance: Importance
-                                .high, // puedes cambiar esto según tus necesidades
-                            priority: Priority
-                                .high, // puedes cambiar esto según tus necesidades
-                            showWhen: false,
-                            channelDescription:
-                                'your_other_channel_description' // Asegúrate de agregar una descripción aquí
-                            );
-                    var iOSPlatformChannelSpecifics =
-                        const DarwinNotificationDetails(
-                      presentAlert: true,
-                      presentBadge: true,
-                      presentSound: true,
-                    );
-                    var macOSPlatformChannelSpecifics =
-                        const DarwinNotificationDetails(
-                      presentAlert: true,
-                      presentBadge: true,
-                      presentSound: true,
-                    );
-                    //todo hacer que funcione en macOS con las notificaciones
-                    var platformChannelSpecifics = NotificationDetails(
-                      android: androidPlatformChannelSpecifics,
-                      iOS: iOSPlatformChannelSpecifics,
-                      macOS: macOSPlatformChannelSpecifics,
-                    );
-                    await flutterLocalNotificationsPlugin.zonedSchedule(
-                      0,
-                      AppLocalizations.of(context)!.formulaePro,
-                      "${AppLocalizations.of(context)!.hacerTarea} ${task.name}", // El cuerpo de la notificación
-                      tz.TZDateTime.from(
-                          scheduledNotificationDateTime, tz.local),
-                      platformChannelSpecifics,
-                      uiLocalNotificationDateInterpretation:
-                          UILocalNotificationDateInterpretation.absoluteTime,
-                      androidScheduleMode: AndroidScheduleMode.exact,
-                    );
-                  } else {
-                    // Mostrar un mensaje al usuario indicando que la fecha y hora seleccionadas deben estar en el futuro
+                  final scheduledNotificationDateTime = selectedDateTime;
+                  if (scheduledNotificationDateTime == null) {
+                    Navigator.of(context).pop();
+                    return;
+                  }
+                  if (!scheduledNotificationDateTime.isAfter(DateTime.now())) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
@@ -169,9 +126,11 @@ class TasksList extends StatelessWidget {
                         backgroundColor: Colors.red,
                       ),
                     );
+                    Navigator.of(context).pop();
+                    return;
                   }
                   if (!context.mounted) return;
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(scheduledNotificationDateTime);
                 },
               ),
             ],
@@ -388,6 +347,7 @@ class TasksList extends StatelessWidget {
                                       matchDateTimeComponents:
                                           DateTimeComponents.dayOfWeekAndTime,
                                     );
+                                    await taskData.saveTask(task);
                                   }
                                 },
                                 backgroundColor: kColorBotones,
@@ -408,6 +368,7 @@ class TasksList extends StatelessWidget {
                                   if (selectedDate != null) {
                                     task.dueDate =
                                         selectedDate; // Asignar la fecha seleccionada a la fecha de vencimiento de la tarea
+                                    await taskData.saveTask(task);
                                   }
                                 },
                                 backgroundColor: kColorBotones,
