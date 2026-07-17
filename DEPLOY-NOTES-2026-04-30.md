@@ -6,6 +6,11 @@
 > [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md)
 > y [`docs/TICKETS.md`](docs/TICKETS.md); las credenciales y el procedimiento
 > protegido viven fuera del repositorio.
+>
+> La tarea de este registro de migrar Community a Dart 3 también está obsoleta:
+> no es un pendiente operativo ni una instrucción para el árbol canónico actual.
+> Determina cualquier trabajo de SDK desde el `pubspec.yaml` y la documentación
+> vigente antes de planearlo.
 
 Notas operativas del deploy FTP a Hostinger ejecutado esta sesión.
 Este texto se conserva sólo como contexto de la sesión histórica.
@@ -201,9 +206,11 @@ Para que el chat funcione, mañana hay que:
 - [ ] Re-buildar Pro con el JWT real, re-uploadear (o que lo haga Contabo Docker).
 - [ ] Una vez Contabo verde: revertir CF DNS a Contabo (apex y `app`).
 
-### Limpieza pendiente del backlog
-- [ ] Revocar y rotar la OpenAI key `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` (sigue hardcoded en `community/lib/chat_gpt/api_consts.dart:2`).
-- [ ] Migrar Community a Dart 3 antes de unificar con flavors.
+### Limpieza pendiente del backlog (histórico; no ejecutar)
+- [ ] Revocar y rotar cualquier clave de proveedor que una auditoría vigente
+  identifique como expuesta.
+- [ ] Migrar Community a Dart 3 antes de unificar con flavors — **obsoleto**;
+  no usar este ítem para planear trabajo actual.
 - [ ] Force-push para limpiar `Co-Authored-By: Claude` de los commits `1563d52` y `4846a65` (esperando luz verde del PM).
 
 ---
