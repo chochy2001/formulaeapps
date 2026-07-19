@@ -19,22 +19,15 @@ class TasksList extends StatelessWidget {
             : ListView.builder(
                 itemBuilder: (context, index) {
                   final task = taskData.tasks[index];
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        TaskTile(
-                          taskTitle: task.name,
-                          isChecked: task.isDone,
-                          checkboxCallback: (bool? checkboxState) {
-                            taskData.updateTask(task);
-                          },
-                          longPressCallback: () {
-                            taskData.deleteTask(task);
-                          },
-                        ),
-                      ],
-                    ),
+                  return TaskTile(
+                    taskTitle: task.name,
+                    isChecked: task.isDone,
+                    checkboxCallback: (bool? checkboxState) {
+                      taskData.updateTask(task);
+                    },
+                    longPressCallback: () {
+                      taskData.deleteTask(task);
+                    },
                   );
                 },
                 itemCount: taskData.taskCount,

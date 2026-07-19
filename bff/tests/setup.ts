@@ -12,8 +12,10 @@ process.env['JWT_SIGNING_SECRET'] = createHash('sha256')
   .update('formulae-bff-test-signing-key')
   .digest('hex');
 process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+// Bun coerces `process.env.X = undefined` to the literal string 'undefined',
+// which fails env.ts timestamp validation — delete the keys instead.
+delete process.env['JWT_LEGACY_VERIFY_START'];
+delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
 process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-test-key-for-bff-unit-tests';
 process.env['OPENROUTER_DEFAULT_MODEL'] = 'openai/gpt-4o-mini';
 process.env['OPENROUTER_MODEL_ALLOWLIST'] =

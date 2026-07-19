@@ -15,7 +15,7 @@ describe('env.ts: dev mode defaults', () => {
     process.env['BFF_ENV'] = 'development';
     process.env['JWT_SHARED_SECRET'] = 'test-secret-' + 'a'.repeat(48);
     process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-test-key';
-    process.env['JWT_SIGNING_SECRET'] = undefined;
+    delete process.env['JWT_SIGNING_SECRET'];
 
     const mod = await freshEnv();
     expect(mod.isDev).toBe(true);
@@ -35,7 +35,7 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['BFF_ENV'] = 'staging';
     process.env['JWT_SHARED_SECRET'] = 'PLACEHOLDER_DEV_NOT_FOR_PROD';
     process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
-    process.env['JWT_SIGNING_SECRET'] = undefined;
+    delete process.env['JWT_SIGNING_SECRET'];
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
 
@@ -61,7 +61,7 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['BFF_ENV'] = 'staging';
     process.env['JWT_SHARED_SECRET'] = 'a'.repeat(48) + '-real';
     process.env['OPENROUTER_API_KEY'] = 'replace-me';
-    process.env['JWT_SIGNING_SECRET'] = undefined;
+    delete process.env['JWT_SIGNING_SECRET'];
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
 
@@ -75,10 +75,10 @@ describe('env.ts: placeholder rejection in staging/production', () => {
       process.env['BFF_ENV'] = environment;
       process.env['JWT_SHARED_SECRET'] = 'a'.repeat(48) + '-real';
       process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
-      process.env['JWT_SIGNING_SECRET'] = undefined;
+      delete process.env['JWT_SIGNING_SECRET'];
       process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-      process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-      process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+      delete process.env['JWT_LEGACY_VERIFY_START'];
+      delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
       process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
       process.env['LOG_LEVEL'] = 'error';
 
@@ -95,8 +95,8 @@ describe('env.ts: placeholder rejection in staging/production', () => {
       process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
       process.env['JWT_SIGNING_SECRET'] = 'z'.repeat(64);
       process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-      process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-      process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+      delete process.env['JWT_LEGACY_VERIFY_START'];
+      delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
       process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
       process.env['LOG_LEVEL'] = 'error';
 
@@ -112,8 +112,8 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
     process.env['JWT_SIGNING_SECRET'] = VALID_SIGNING_SECRET;
     process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-    process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-    process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+    delete process.env['JWT_LEGACY_VERIFY_START'];
+    delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
 
@@ -133,8 +133,8 @@ describe('env.ts: placeholder rejection in staging/production', () => {
       process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
       process.env['JWT_SIGNING_SECRET'] = signingSecret;
       process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-      process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-      process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+      delete process.env['JWT_LEGACY_VERIFY_START'];
+      delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
       process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
       process.env['LOG_LEVEL'] = 'error';
 
@@ -155,8 +155,8 @@ describe('env.ts: placeholder rejection in staging/production', () => {
       process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
       process.env['JWT_SIGNING_SECRET'] = signingSecret;
       process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-      process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-      process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+      delete process.env['JWT_LEGACY_VERIFY_START'];
+      delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
       process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
       process.env['LOG_LEVEL'] = 'error';
 
@@ -173,8 +173,8 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
     process.env['JWT_SIGNING_SECRET'] = reusedSecret;
     process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'false';
-    process.env['JWT_LEGACY_VERIFY_START'] = undefined;
-    process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+    delete process.env['JWT_LEGACY_VERIFY_START'];
+    delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
 
@@ -189,7 +189,7 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['OPENROUTER_API_KEY'] = 'sk-or-v1-real-key-for-test';
     process.env['JWT_SIGNING_SECRET'] = VALID_SIGNING_SECRET;
     process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'true';
-    process.env['JWT_LEGACY_VERIFY_START'] = undefined;
+    delete process.env['JWT_LEGACY_VERIFY_START'];
     process.env['JWT_LEGACY_VERIFY_CUTOFF'] = '2030-01-01T01:00:00.000Z';
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
@@ -206,7 +206,7 @@ describe('env.ts: placeholder rejection in staging/production', () => {
     process.env['JWT_SIGNING_SECRET'] = VALID_SIGNING_SECRET;
     process.env['JWT_LEGACY_VERIFY_ENABLED'] = 'true';
     process.env['JWT_LEGACY_VERIFY_START'] = '2030-01-01T00:00:00.000Z';
-    process.env['JWT_LEGACY_VERIFY_CUTOFF'] = undefined;
+    delete process.env['JWT_LEGACY_VERIFY_CUTOFF'];
     process.env['CORS_ALLOWED_ORIGINS'] = ORIGINAL['CORS_ALLOWED_ORIGINS'] ?? 'https://example.com';
     process.env['LOG_LEVEL'] = 'error';
 

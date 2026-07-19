@@ -178,30 +178,23 @@ class _TasksScreenState extends State<TasksScreen> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    left: 15,
-                    right: 20,
-                    bottom: 20,
+              const Expanded(
+                child: Material(
+                  color: kColorBotones,
+                  elevation: 8,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                    color: kColorBotones,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      left: 15,
+                      right: 20,
+                      bottom: 20,
                     ),
+                    child: TasksList(),
                   ),
-                  child: const TasksList(),
                 ),
               ),
             ],
