@@ -3,4 +3,10 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Solo debug: permite cleartext para probar imágenes contra un servidor
+         local, p.ej. --dart-define=FORMULAE_IMAGE_ORIGIN=http://127.0.0.1:4321
+         (ver lib/widgets_personalizados/zoom_image_personalizado.dart).
+         El manifest principal fija usesCleartextTraffic="false". -->
+    <application android:usesCleartextTraffic="true"/>
 </manifest>

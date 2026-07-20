@@ -133,10 +133,6 @@ flutter:
       fonts:
         - asset: fonts/Poppins-Bold.ttf
           style: normal
-    - family: Noto
-      fonts:
-        - asset: fonts/NotoColorEmoji.ttf
-          style: normal
     - family: NotoSansMath
       fonts:
         - asset: fonts/NotoSansMath-Regular.ttf
