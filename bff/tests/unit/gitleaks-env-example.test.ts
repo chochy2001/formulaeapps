@@ -2,8 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import { mkdtempSync, writeFileSync, rmSync, readFileSync, copyFileSync, mkdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-
-const repoRoot = new URL('../../..', import.meta.url).pathname;
+import { repoRoot } from '../helpers/platform';
 const gitleaksConfig = join(repoRoot, '.gitleaks.toml');
 /** Prefer CI-pinned binary (GITLEAKS_BIN) so the suite cannot false-green on a
  * newer PATH gitleaks while workflows still pin an older scanner. */
