@@ -74,11 +74,18 @@ android {
         release {
             manifestPlaceholders.adMobApplicationId =
                 productionAdMobApplicationId ?: '__ADMOB_ANDROID_APP_ID_REQUIRED__'
-            // Use release signing config if keystore is available, otherwise use debug
+            // Release signing requires key.properties. Local developer builds may
+            // fall back to debug signing, but CI must fail closed so a store-bound
+            // release is never debug-signed (fleet store auto-deploy policy).
             if (keystorePropertiesFile.exists()) {
                 signingConfig signingConfigs.release
-            } else {
+            } else if (!System.getenv('CI')) {
                 signingConfig signingConfigs.debug
+            } else {
+                throw new GradleException(
+                    'Release build in CI requires android/key.properties decoded from ' +
+                    'the signing secrets; the debug signing fallback is disabled in CI.'
+                )
             }
         }
     }
