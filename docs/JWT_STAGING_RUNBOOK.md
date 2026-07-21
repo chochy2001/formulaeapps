@@ -4,6 +4,42 @@ Operator procedure for validating the dual-key JWT migration on `staging-node`
 before any production promotion. This does **not** provision production secrets
 or enable daily production deploys.
 
+## Verified gap (2026-07-21) — do not claim staging healthy
+
+Evidence (local dig/curl + SSH `chochy@100.97.107.71` + Cloudflare API list via
+`CF_DNS_API_TOKEN` on `web-app-proxy`, token never printed):
+
+| Check | Result |
+| --- | --- |
+| Intended hostname | **`staging.api.formulaeapps.com`** (compose Traefik `Host`, this runbook, `deploy-staging-bff.yml`). Not `staging-api.formulaeapps.com`. |
+| DNS | **NXDOMAIN** (`dig @1.1.1.1`); CF zone `179483deaecc754226b819fe8345c1be` has **0** records for `staging.api` / `staging-api` |
+| Prod contrast | `https://api.formulaeapps.com/health` → **200** (`A` → `212.28.180.4`, proxied) |
+| `staging-node` role | `/etc/capdesis-role` = `staging` |
+| App tree | **Missing** `/opt/staging/apps/formulaeapps` (only `capgym`, `ingetracker-*` under `/opt/staging/apps/`) |
+| Containers / network | No `formulae*` containers; Docker network **`staging_web_proxy` absent** (compose staging expects it `external: true`). CapGym uses `staging_proxy` + `capgym-staging-traefik` on :80/:443 |
+
+**Implication:** fixing DNS alone will not make `/health` return 200 until Traefik routing + release tree + `.env.staging` + GitHub `STAGING_SSH_*` are provisioned. Do not invent secrets or mark staging “fixed” without smoke evidence.
+
+### DNS create (when Jorge approves bootstrap)
+
+Prefer CapGym-style **DNS only** A record to the staging public IP:
+
+```bash
+# On web-app-proxy — never echo TOKEN
+sudo -n bash -c '
+TOKEN=$(grep -E "^CF_DNS_API_TOKEN=" /opt/infrastructure/traefik/.env | cut -d= -f2-)
+ZONE=179483deaecc754226b819fe8345c1be
+curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records" \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  --data "{\"type\":\"A\",\"name\":\"staging.api\",\"content\":\"144.126.159.214\",\"ttl\":300,\"proxied\":false,\"comment\":\"Formulae BFF staging-node\"}"
+'
+dig +short staging.api.formulaeapps.com @1.1.1.1   # expect 144.126.159.214
+curl -sS -o /dev/null -w "%{http_code}\n" --connect-timeout 8 \
+  https://staging.api.formulaeapps.com/health      # expect 200 only after Traefik+BFF
+```
+
+Also required before smoke: create `staging_web_proxy` (or retarget compose labels to the live CapGym Traefik network **with** file middlewares the labels reference), bootstrap `.env.staging`, set GitHub environment secrets, then `workflow_dispatch` `deploy-staging-bff.yml`.
+
 ## Prerequisites (human-approved)
 
 1. `staging` GitHub environment with required reviewers (configure in repository

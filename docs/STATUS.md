@@ -93,6 +93,7 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | **FML-101** | Ops | **BLOCKED** | FTPS promote of `landing/public/imagenes/` — sample remote smoke still **404** `text/html` |
 | **FML-129** | Security ops | **BLOCKED** | Rotate historical OpenAI key in secret manager; clean old clones |
 | **FML-116** | Ops / GitHub | **BLOCKED** | Protected envs, required checks, staging SHA, FTPS/VPS backup/rollback evidence |
+| **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Cloudflare A `staging.api` → `144.126.159.214` (DNS only) + Traefik/`staging_web_proxy` + `/opt/staging/apps/formulaeapps` bootstrap — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
 | **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
@@ -111,6 +112,7 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | **FML-101** | 176 public `/imagenes/` URLs still 404 | Authorized FTPS promote + remote smoke |
 | **FML-129** | Historical OpenAI credential rotation | Secret-manager rotation + old clone cleanup |
 | **FML-116** | Runners / promotion / staging controls | Staging + protected production env + FTPS/VPS evidence |
+| **Staging BFF host** | `staging.api.formulaeapps.com` NXDOMAIN; no app tree on `staging-node` | Create CF A (DNS only) → `144.126.159.214`; provision Traefik network + `.env.staging` + `STAGING_SSH_*`; then smoke `/health` |
 | **FML-117** | IAP entitlement / account-device product decision | Product + Apple/Google sandbox validators |
 | **T40** | AdMob / OAuth / OpenAI ops | Console access |
 | **T41** | Staging, VPS volume, backups, image hosting | VPS / GitHub settings |
