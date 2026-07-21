@@ -7,12 +7,14 @@
   aligned to `^4.0.0`; tests **89/89**. `main` = `b133e55`.
 - Monorepo docs refreshed (this file + parent `Formulae/README.md` local map).
 - T10–T14 hotspot metas remain **HECHO** (PR #116/#117). Global Pro raw coverage
-  after shell/formula behavior tests: **82.60%** (**23 548 / 28 507**), command:
+  raised to **≥85%**: **87.18%** (**24 851 / 28 507**) via favorite add/remove
+  behavior tests across electricidad + related formula screens
+  (`pro/test/formula_favorite_toggle_coverage_test.dart`). Command:
   `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact`
   with `JWT_SHARED_SECRET=test-shared-secret`,
   `FORMULAE_BUILD_NONCE=ci-test-build-nonce`,
-  `FORMULAE_APP_VERSION=0.0.0-ci`. Suite **214/214**; analyze 0. Fleet 85% still
-  open (~682 lines). Do **not** claim 85% until measured ≥85%.
+  `FORMULAE_APP_VERSION=0.0.0-ci`. Suite **215/215**; analyze 0 issues.
+  Prior baseline was **82.60%** (**23 548 / 28 507**).
 - T31: bun **1.3.14**, Node **24**, Astro **7** already on `main`. Residual fixed
   this session: removed dual `landing/package-lock.json` (CI uses Bun
   `--frozen-lockfile` only; `landing/bun.lock` remains).
