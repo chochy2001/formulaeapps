@@ -33,8 +33,8 @@ este tablero refleja ese estado y no lo sustituye.
 > tasks_screen 94.7%, favorites_pdf 90.9%, tasks_list 95.3%, chat_screen
 > 94.5%). Global Pro raw lcov **87.18%** (**24 851 / 28 507**, suite
 > **215/215**, analyze 0) tras tests de toggle favoritos en fórmulas;
-> baseline previa **82.60%**. PRs cobertura: #116, #117 (`cee77f4`), y el PR
-> de este incremento. Handoff en
+> baseline previa **82.60%**. PRs cobertura: #116, #117 (`cee77f4`), **#120**
+> (`9f84046`). Handoff en
 > `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`
 > (carpeta de audit fuera del git monorepo; solo local bajo `/Apps/Formulae/audits`).
 
