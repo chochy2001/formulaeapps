@@ -20,7 +20,7 @@
 #  está delante en la misma red docker.
 
 # ──────────── Stage 1 — builder ────────────
-FROM oven/bun:1.3.9-alpine AS builder
+FROM oven/bun:1.3.14-alpine AS builder
 
 WORKDIR /app
 
@@ -51,7 +51,7 @@ RUN bun run check \
 FROM nginx:1.27-alpine AS runtime
 
 LABEL org.opencontainers.image.title="formulae-landing" \
-      org.opencontainers.image.description="Landing oficial de formulaeapps.com (Astro 6 + nginx)" \
+      org.opencontainers.image.description="Landing oficial de formulaeapps.com (Astro 7 + nginx)" \
       org.opencontainers.image.vendor="CAPDESIS S.A. de C.V." \
       org.opencontainers.image.source="https://github.com/CAPDESIS/formulaeapps" \
       org.opencontainers.image.url="https://formulaeapps.com" \

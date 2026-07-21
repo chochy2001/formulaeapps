@@ -43,11 +43,11 @@ jobs:
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@v4
         with:
-          node-version: '22.22.3'
+          node-version: '24'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.9
+          bun-version: 1.3.14
           no-cache: true
       - name: Install deps
         run: bun install --frozen-lockfile
@@ -65,12 +65,12 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.9
+          bun-version: 1.3.14
           no-cache: true
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '22.22.3'
+          node-version: '24'
       - name: Setup Java (required by openapi-generator-cli)
         uses: actions/setup-java@v4
         with:
@@ -90,12 +90,12 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.9
+          bun-version: 1.3.14
           no-cache: true
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '22.22.3'
+          node-version: '24'
       - name: Install BFF deps (route-coverage.ts imports `yaml`)
         run: cd bff && bun install --frozen-lockfile
       - name: Scan for orphan routes / dead calls
@@ -204,15 +204,15 @@ jobs:
         working-directory: landing
     steps:
       - uses: actions/checkout@v4
-      # Astro 6 `astro check` requires Node >=22.12; the runner default is Node 20.
+      # Astro `astro check` requires a current Node LTS; the runner default is Node 20.
       - name: Setup Node (required by astro check)
         uses: actions/setup-node@v4
         with:
-          node-version: '22.22.3'
+          node-version: '24'
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.3.9
+          bun-version: 1.3.14
           no-cache: true
       - name: Install deps
         run: bun install --frozen-lockfile
