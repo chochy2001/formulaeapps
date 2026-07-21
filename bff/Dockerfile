@@ -4,7 +4,7 @@
 # Runs as non-root `bun` user. HEALTHCHECK matches docker-compose.yml:72-76.
 
 # ───────────────────── Stage 1: deps + OpenAPI export ─────────────────────
-FROM oven/bun:1.3-alpine AS builder
+FROM oven/bun:1.3.14-alpine AS builder
 WORKDIR /app
 
 # Install deps (cached layer)
@@ -22,7 +22,7 @@ RUN mkdir -p /app/.openapi-out && \
     bun run scripts/export-openapi.ts || echo "OpenAPI export skipped at build time (writes outside container)"
 
 # ───────────────────── Stage 2: runtime ─────────────────────
-FROM oven/bun:1.3-alpine
+FROM oven/bun:1.3.14-alpine
 
 # Healthcheck needs wget (Alpine ships busybox wget, available without extra install)
 WORKDIR /app
