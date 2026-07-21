@@ -1,8 +1,9 @@
 # Formulae — canonical status (LLM index)
 
 **Single source of truth for “what’s done / blocked / how to validate.”**
-Verified against `origin/main` + GitHub on **2026-07-21**. Prefer this file over
-scattered READMEs, old SESSION_STATUS sections, or audit notes that may lag.
+Verified against `origin/main` + GitHub on **2026-07-21** (triage refresh). Prefer
+this file over scattered READMEs, old SESSION_STATUS sections, or audit notes
+that may lag.
 
 | Surface | Canonical doc |
 | --- | --- |
@@ -22,10 +23,27 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `9facda3` | Pro coverage **#120** (`9f84046`); docs note **#121**; STATUS index **#122** |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `83f3f7f` | Strict analyze **#29** (`b133e55`); STATUS pointer **#30** |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1f8cceb` | Includes Pro coverage PR **#120** (`9f84046`) + docs note **#121** |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `83f3f7f` | Strict analyze via PR **#29**; README→STATUS via **#30** |
 
-Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. No open monorepo PRs at verification time.
+Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
+**0** open issues.
+
+---
+
+## CI health on `main` (remote evidence)
+
+| Workflow | Latest signal | Verdict |
+| --- | --- | --- |
+| formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
+| formulaeapps **CI** on HEAD `1f8cceb` | No completed run yet at triage; `workflow_dispatch` queued to catch up | Prefer exact-SHA green before store/web promote |
+| formulaeapps **Deploy to stores** | Failures on recent pushes ([29865725314](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865725314), [29865190240](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865190240)) | **Expected**: kill switch `STORE_AUTODEPLOY` unset / ≠ `true` — guard aborts before any store publish |
+| FormulaeCommunity **Formulae Flutter CI** | Schedule **success**; historically analyze + debug APK only (no `flutter test`) | Gap fixed in follow-up PR (add test step) |
+| Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
+
+`gh variable list` showed **no** repo variables (including `STORE_AUTODEPLOY`) —
+disarmed by design until store secrets are provisioned and the var is set to
+`true`.
 
 ---
 
@@ -39,7 +57,7 @@ Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. No open monorepo 
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
 | Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Fleet **≥85% met**. Hotspots T10–T14 met earlier (#116/#117) |
 | Community (monorepo copy) | analyze 0; **115/115** tests |
-| Community standalone | analyze 0 strict; **89/89** tests; `flutter_lints ^4.0.0` |
+| Community standalone | analyze 0 strict; **89/89** tests (local/session evidence); `flutter_lints ^4.0.0` |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
 | Audit T02/T03/T05/T10–T14/T20–T25/T30/T31 | Done (see audit README / HANDOFF locally) |
 
@@ -55,6 +73,33 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 
 ---
 
+## Auth / user-password path (findings)
+
+| Layer | Behavior | CI / prod |
+| --- | --- | --- |
+| Device JWT | `POST /auth/token` (HMAC `client_proof` + build nonce) | Staging smoke mints **ephemeral** device tokens from staging `.env` secrets — **does not** create email/password users |
+| Account register/login | Implemented behind `ENABLE_USER_ACCOUNT_AUTH` (default **off** → **403** in current monorepo code) | Unit/integration tests create users **in-process SQLite only** (`account-auth-stub.test.ts`, `users-store.test.ts`). **No workflow seeds prod/staging accounts** |
+| Production `api.formulaeapps.com` | OpenAPI **1.0.0** exposes only `/health`, `/auth/token`, `/openai/chat`, `/iap/validate` | `POST /auth/register` / `/auth/login` → **404** (routes not on live build). Contract in git is **2.1.0**. Health **200**. Drift = blocked VPS cutover (**#9**), not a missing CI user |
+| Flutter apps | Account UI / flag remain off until product + staging evidence | Do not invent production credentials |
+
+---
+
+## Pending vs blocked matrix
+
+| ID | Class | Status | Needs from user |
+| --- | --- | --- | --- |
+| **T04** / deploy FTPS | Ops / security | **BLOCKED** | Real FTPS hostname → replace IP `31.170.161.105`, set `ssl:check-hostname true` |
+| GitHub **#9** / **#13** | Ops / Spec Kit | **BLOCKED** | Contabo/VPS deploy + multi-app infra validation (prod BFF still contract **1.0.0**) |
+| **FML-101** | Ops | **BLOCKED** | FTPS promote of `landing/public/imagenes/` — sample remote smoke still **404** `text/html` |
+| **FML-129** | Security ops | **BLOCKED** | Rotate historical OpenAI key in secret manager; clean old clones |
+| **FML-116** | Ops / GitHub | **BLOCKED** | Protected envs, required checks, staging SHA, FTPS/VPS backup/rollback evidence |
+| **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
+| **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
+| **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
+| Store auto-deploy failures | Expected guard | **Not a bug** | Keep disarmed until secrets exist; then set `STORE_AUTODEPLOY=true` |
+
+---
+
 ## Blocked — needs user / external access
 
 Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product decisions.
@@ -65,7 +110,7 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | GitHub **#9** / **#13** | Spec Kit VPS / multi-app infra issues still OPEN | Contabo/VPS + deploy validation |
 | **FML-101** | 176 public `/imagenes/` URLs still 404 | Authorized FTPS promote + remote smoke |
 | **FML-129** | Historical OpenAI credential rotation | Secret-manager rotation + old clone cleanup |
-| **FML-116** | Runners / promotion / staging controls | Authorized `ci-builds` capacity + terminal CI on exact `main` SHA |
+| **FML-116** | Runners / promotion / staging controls | Staging + protected production env + FTPS/VPS evidence |
 | **FML-117** | IAP entitlement / account-device product decision | Product + Apple/Google sandbox validators |
 | **T40** | AdMob / OAuth / OpenAI ops | Console access |
 | **T41** | Staging, VPS volume, backups, image hosting | VPS / GitHub settings |
@@ -81,12 +126,14 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 4. Light local gates when editing contracts: `bash scripts/verify-parity.sh` and
    `bash scripts/route-coverage.sh`.
 5. Do **not** treat green unit tests as production deploy proof — see FML-101 / FML-116 / T04.
+6. Treat **Deploy to stores** red as expected while `STORE_AUTODEPLOY` ≠ `true`.
 
 ---
 
 ## Known drift (not “done”)
 
 - `monorepo/community/` is a **vendored copy**, not a submodule. Play Store source of truth is **`FormulaeCommunity`** (`community-app/`). Layout/release pipelines may diverge; do not assume sync.
+- Live BFF OpenAPI **1.0.0** vs monorepo contract **2.1.0** (missing account + entitlement routes on prod).
 - Historical docs (`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`, older `SESSION_STATUS` entries, `ARCHITECTURE.md` backlog) may quote older test/coverage counts — **this file wins**.
 
 ---
@@ -101,3 +148,5 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | T31 dual lockfile still open | **Cleared** — only `landing/bun.lock` |
 | Community standalone analyze broken | Fixed in **#29** (`b133e55`) |
 | T10–T14 still pending | **Done** (#116/#117); next work is blocked externals, not those hotspots |
+| Deploy-to-stores red = release broken | Kill switch disarmed (`STORE_AUTODEPLOY`); expected until armed |
+| Prod account login available | Live BFF lacks `/auth/register|login` (404); flag-off 403 only exists after cutover |
