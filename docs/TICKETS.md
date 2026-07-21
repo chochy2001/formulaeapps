@@ -31,8 +31,8 @@ este tablero refleja ese estado y no lo sustituye.
 > actualizada y PRs #115 (formulaeapps) y #28 (FormulaeCommunity) mergeados a
 > `main`. Cobertura Pro hotspot **T10–T14 cerrados** (ver_pdf 96.6%,
 > tasks_screen 94.7%, favorites_pdf 90.9%, tasks_list 95.3%, chat_screen
-> 94.5%); global Pro **82.37%** crudo (206/206 tests). PRs cobertura: #116
-> (T12–T14 + parcial T10/T11) y seguimiento T10/T11. Handoff en
+> 94.5%); global Pro **82.37%** crudo (206/206 tests). PRs cobertura: #116 y
+> **#117** (merge `cee77f4`). Handoff en
 > `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`
 > (carpeta de audit fuera del git monorepo; solo local bajo `/Apps/Formulae/audits`).
 
