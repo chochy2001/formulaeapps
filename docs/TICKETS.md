@@ -26,6 +26,14 @@ este tablero refleja ese estado y no lo sustituye.
 | `HECHO` | 26 | Tracker, assets, PDF local, pruebas, navegación, QA, móvil, calidad, rendimiento, localización, IAP fail-closed, BFF resiliente, configuración persistente, dependencia segura, Compose local aislado, validador de infraestructura, documentación archivada, fallback extensible, integración, aislamiento BFF y sincronización multi-máquina. |
 | `CANCELADO` | 0 | Ninguno. |
 
+> **Nota 2026-07-21**: integración del upgrade Flutter 3.44.7/Dart 3.12.2,
+> entitlement cache portado a `monorepo/community`, documentación stale
+> actualizada y PRs #115 (formulaeapps) y #28 (FormulaeCommunity) mergeados a
+> `main`. Todas las validaciones locales pasan (BFF 186/186, Pro 164/164,
+> Community 115/115, landing 64/64, parity/routes PASS). Handoff de
+> continuación en
+> `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`.
+
 ## Orden de ejecución
 
 1. Resolver `FML-129`: revocar/rotar la credencial histórica detectada y
