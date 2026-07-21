@@ -14,7 +14,8 @@
   with `JWT_SHARED_SECRET=test-shared-secret`,
   `FORMULAE_BUILD_NONCE=ci-test-build-nonce`,
   `FORMULAE_APP_VERSION=0.0.0-ci`. Suite **215/215**; analyze 0 issues.
-  Prior baseline was **82.60%** (**23 548 / 28 507**).
+  Prior baseline was **82.60%** (**23 548 / 28 507**). Merged as PR **#120**
+  (`9f84046` on `main`).
 - T31: bun **1.3.14**, Node **24**, Astro **7** already on `main`. Residual fixed
   this session: removed dual `landing/package-lock.json` (CI uses Bun
   `--frozen-lockfile` only; `landing/bun.lock` remains).
