@@ -40,6 +40,12 @@ Usar STATUS para el panorama; este archivo para el detalle por ticket.
 > (`9f84046`). Handoff en
 > `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`
 > (carpeta de audit fuera del git monorepo; solo local bajo `/Apps/Formulae/audits`).
+>
+> **Triage CI/ops 2026-07-21 (tarde)**: issues abiertos sólo **#9**/**#13**
+> (VPS/infra). `Deploy to stores` rojo = kill switch `STORE_AUTODEPLOY`
+> desarmado (esperado). CI schedule verde en `26c97ba`; preferir green en
+> HEAD exacto antes de promover. Prod BFF OpenAPI **1.0.0** (sin
+> register/login). Matriz pendiente/bloqueado y auth: `docs/STATUS.md`.
 
 ## Orden de ejecución
 
@@ -619,19 +625,15 @@ Usar STATUS para el panorama; este archivo para el detalle por ticket.
 - Evidencia: La PR [#83](https://github.com/CAPDESIS/formulaeapps/pull/83)
   integró `FLUTTER_TEST_CONCURRENCY=1` en `main` mediante
   `081aa889ff95705b64e88d06b310097f6ee468ed`; `make flutter-test` ya pasó con
-  esa concurrencia y el YAML de Actions valida. A
-  `2026-07-14T02:50:46Z`, los dispatches del SHA `b909676` fueron
-  [CI `29302052034`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052034)
-  y [Build Web Release Candidate `29302052031`](https://github.com/CAPDESIS/formulaeapps/actions/runs/29302052031);
-  el candidato falló correctamente su guardia de SHA al avanzar `main`, sin
-  construir artefactos. La CI no está verde ni terminal: el paso de pruebas
-  unitarias de landing pasó, su lint falló y quedan jobs en progreso, cola o
-  cancelados. Los runs `29301504493` y `29301504487` de `081aa889` fueron
-  cancelados y ya no son evidencia vigente. No hay candidato para el estado
-  más reciente de `main`.
-- Bloqueo: Depende de `FML-116`: un operador debe restaurar capacidad de runner
-  autorizada para Formulae. No es seguro redirigir estas cargas a un runner o
-  grupo no autorizado ni afirmar CI verde mientras siguen en cola.
+  esa concurrencia y el YAML de Actions valida. Evidencia vigente 2026-07-21:
+  CI schedule
+  [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313)
+  **success** (6/6 jobs) sobre `26c97ba`. Preferir un run terminal en el HEAD
+  exacto de `main` antes de promoción. `Deploy to stores` rojo por kill switch
+  no cuenta como fallo de quality gate Flutter.
+- Bloqueo: Cierre completo sigue ligado a `FML-116` (required checks, SHA
+  exacto de promoción, staging). No afirmar release-ready sólo con schedule
+  verde en un SHA anterior al HEAD.
 
 ### FML-128: Sincronización reproducible para trabajo multi-máquina
 
