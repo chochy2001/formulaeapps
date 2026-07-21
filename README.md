@@ -25,7 +25,7 @@ producto, pero se construyen y validan por separado.
 
 ## Estado (resumen — detalle en STATUS.md)
 
-Verificado en `main` **2026-07-21** (`1f8cceb`): BFF **186/186**, landing
+Verificado en `main` **2026-07-21** (`9facda3`): BFF **186/186**, landing
 **64/64**, Pro **215/215** + cobertura cruda **87.18%** (≥85%), Community
 monorepo **115/115**, gates de paridad/rutas PASS. Toolchain: Flutter
 **3.44.7**, Bun **1.3.14**, Node **24**, Astro **7**; solo `landing/bun.lock`.

@@ -22,8 +22,8 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1f8cceb` | Includes Pro coverage PR **#120** (`9f84046`) + docs note **#121** |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `b133e55` | Strict analyze via PR **#29** |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `9facda3` | Pro coverage **#120** (`9f84046`); docs note **#121**; STATUS index **#122** |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `83f3f7f` | Strict analyze **#29** (`b133e55`); STATUS pointer **#30** |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. No open monorepo PRs at verification time.
 

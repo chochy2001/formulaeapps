@@ -13,8 +13,9 @@
 - Pro raw coverage **87.18%** (**24 851 / 28 507**), suite **215/215**, analyze 0 —
   PR **#120** (`9f84046`); docs SHA note PR **#121**. Fleet **≥85% met**.
 - T10–T14 hotspot metas remain **HECHO** (#116/#117).
-- Community standalone PR **#29**: strict analyze clean; **89/89**; `main` =
-  `b133e55`.
+- Community standalone PR **#29**: strict analyze clean; **89/89**; STATUS
+  pointer **#30**; `main` = `83f3f7f`.
+- Monorepo STATUS index merged as **#122**; `main` = `9facda3`.
 - T31: Bun **1.3.14**, Node **24**, Astro **7**; dual `landing/package-lock.json`
   removed — only `landing/bun.lock`.
 - Still **BLOCKED** (needs user): T04 FTPS, VPS issues **#9**/**#13**, FML-101,
