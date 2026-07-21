@@ -48,6 +48,10 @@ class MenuState extends State<Menu> {
   late final List<GlobalKey<NavigatorState>> _navigatorKeys;
   late final Map<String, WidgetBuilder> _routes;
 
+  /// Test seam for nested-tab navigator coverage (pop / re-tap flows).
+  @visibleForTesting
+  List<GlobalKey<NavigatorState>> get debugNavigatorKeys => _navigatorKeys;
+
   @override
   void initState() {
     super.initState();
