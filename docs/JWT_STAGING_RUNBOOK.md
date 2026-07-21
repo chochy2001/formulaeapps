@@ -4,7 +4,7 @@ Operator procedure for validating the dual-key JWT migration on `staging-node`
 before any production promotion. This does **not** provision production secrets
 or enable daily production deploys.
 
-## Verified gap (2026-07-21) — do not claim staging healthy
+## Verified gap (2026-07-21, code fix follow-up) — do not claim staging healthy
 
 Evidence (local dig/curl + SSH `chochy@100.97.107.71` + Cloudflare API list via
 `CF_DNS_API_TOKEN` on `web-app-proxy`, token never printed):
@@ -12,13 +12,14 @@ Evidence (local dig/curl + SSH `chochy@100.97.107.71` + Cloudflare API list via
 | Check | Result |
 | --- | --- |
 | Intended hostname | **`staging.api.formulaeapps.com`** (compose Traefik `Host`, this runbook, `deploy-staging-bff.yml`). Not `staging-api.formulaeapps.com`. |
-| DNS | **NXDOMAIN** (`dig @1.1.1.1`); CF zone `179483deaecc754226b819fe8345c1be` has **0** records for `staging.api` / `staging-api` |
-| Prod contrast | `https://api.formulaeapps.com/health` → **200** (`A` → `212.28.180.4`, proxied) |
-| `staging-node` role | `/etc/capdesis-role` = `staging` |
-| App tree | **Missing** `/opt/staging/apps/formulaeapps` (only `capgym`, `ingetracker-*` under `/opt/staging/apps/`) |
-| Containers / network | No `formulae*` containers; Docker network **`staging_web_proxy` absent** (compose staging expects it `external: true`). CapGym uses `staging_proxy` + `capgym-staging-traefik` on :80/:443 |
+| DNS | **NXDOMAIN** (`dig @1.1.1.1`); CF zone has **0** records for `staging.api` / `staging-api` |
+| Prod contrast | `https://api.formulaeapps.com/health` → **200** |
+| Host role guard | **Code fixed:** deploy accepts `/etc/capdesis-role` ∈ `{staging, staging-node}` |
+| Traefik network | **Code fixed:** compose attaches to shared CapGym edge `staging_proxy` (override `STAGING_PROXY_NETWORK`); labels use CapGym staging-traefik middlewares + `letsencrypt` |
+| App tree | **Missing** `/opt/staging/apps/formulaeapps` |
+| Containers / `.env` | No `formulae*` containers; no host `.env.staging` |
 
-**Implication:** fixing DNS alone will not make `/health` return 200 until Traefik routing + release tree + `.env.staging` + GitHub `STAGING_SSH_*` are provisioned. Do not invent secrets or mark staging “fixed” without smoke evidence.
+**Remaining Jorge ops (code no longer blocks):** DNS A (DNS only) → staging-node public IP; create `/opt/staging/apps/formulaeapps` + `.env.staging` (real JWT/OpenRouter secrets — do not invent); GitHub `staging` env `STAGING_SSH_*`; then `workflow_dispatch` + smoke `/health`. Do not invent secrets or mark staging “fixed” without smoke evidence.
 
 ### DNS create (when Jorge approves bootstrap)
 
@@ -38,7 +39,7 @@ curl -sS -o /dev/null -w "%{http_code}\n" --connect-timeout 8 \
   https://staging.api.formulaeapps.com/health      # expect 200 only after Traefik+BFF
 ```
 
-Also required before smoke: create `staging_web_proxy` (or retarget compose labels to the live CapGym Traefik network **with** file middlewares the labels reference), bootstrap `.env.staging`, set GitHub environment secrets, then `workflow_dispatch` `deploy-staging-bff.yml`.
+Also required before smoke: bootstrap `.env.staging`, set GitHub environment secrets, then `workflow_dispatch` `deploy-staging-bff.yml`. No separate `staging_web_proxy` network — stack joins existing `staging_proxy`.
 
 ## Prerequisites (human-approved)
 
@@ -51,8 +52,14 @@ Also required before smoke: create `staging_web_proxy` (or retarget compose labe
 4. The staging Traefik route must be exactly
    `https://staging.api.formulaeapps.com`; the workflow intentionally rejects
    configurable or production base URLs.
-5. Host marker `/etc/capdesis-role` must contain exactly `staging`.
-6. Persistent host file `/opt/staging/apps/formulaeapps/.env.staging` (outside
+5. Host marker `/etc/capdesis-role` must be `staging` or `staging-node`
+   (fleet SoT on the VPS is `staging-node`).
+6. Docker external network default is `staging_proxy` (shared CapGym Traefik
+   edge on staging-node). Override with `STAGING_PROXY_NETWORK` only if the
+   host uses a different name. Compose labels use CapGym staging-traefik
+   middlewares (`security-headers`, `api-ratelimit`, `gzip-compress`) and
+   `letsencrypt` certresolver.
+7. Persistent host file `/opt/staging/apps/formulaeapps/.env.staging` (outside
    immutable releases) with:
    - `BFF_ENV=staging`
    - `JWT_SHARED_SECRET` (existing client-shared key, unchanged)

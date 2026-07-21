@@ -7,7 +7,7 @@
 # Optional repository variable: STAGING_APP_PATH (default /opt/staging/apps/formulaeapps)
 #
 # Host must provide persistent .env.staging outside immutable releases and
-# /etc/capdesis-role == staging. The workflow checks presence/format only.
+# /etc/capdesis-role in {staging, staging-node}. The workflow checks presence/format only.
 
 name: Deploy Staging BFF (JWT)
 
