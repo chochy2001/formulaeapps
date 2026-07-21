@@ -1,5 +1,9 @@
 # Auditoría funcional de Formulae, 2026-07-13
 
+> **Stale snapshot.** Prefer [`STATUS.md`](STATUS.md) for live SHAs, Pro
+> coverage **87.18%**, and blocked items (T04 / FML-* / #9 / #13). Keep this
+> file as the 2026-07-13 audit evidence.
+
 *Actualizado 2026-07-21 con conteos de pruebas, rutas/widgets y versión de
 contrato vigentes; el alcance y la fecha base de la auditoría no cambian.*
 

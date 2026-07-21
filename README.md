@@ -1,17 +1,21 @@
 # Formulae Apps
 
 Monorepo de Formulae Pro, Formulae Community, la landing pública y el BFF.
-Este archivo describe el estado del checkout, no una declaración de que el
-hosting o las tiendas están actualizados. El informe verificable más reciente
-es [docs/AUDITORIA_FUNCIONAL_2026-07-13.md](docs/AUDITORIA_FUNCIONAL_2026-07-13.md).
+Este archivo describe el checkout; **no** afirma que hosting o tiendas estén
+al día.
+
+**Estado vivo (LLMs / agentes):** [`docs/STATUS.md`](docs/STATUS.md) — SHAs,
+hecho vs bloqueado, cobertura, validación vía CI.  
+Tablero FML-*: [`docs/TICKETS.md`](docs/TICKETS.md).  
+Auditoría funcional histórica: [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md) (números pueden estar stale; STATUS gana).
 
 ## Componentes
 
 | Directorio | Stack | Propósito |
 | --- | --- | --- |
-| `landing/` | Astro 6.4, Tailwind 4, Bun | Sitio estático y origen de los assets canónicos de Formulae. |
-| `pro/` | Flutter y Dart 3 | Aplicación Pro, sin anuncios, con generación local de PDF y chat. |
-| `community/` | Flutter y Dart 3 | Aplicación Community con anuncios y catálogo educativo. |
+| `landing/` | Astro 7, Tailwind 4, Bun | Sitio estático y origen de los assets canónicos de Formulae. |
+| `pro/` | Flutter / Dart 3.12 | Aplicación Pro, sin anuncios, con generación local de PDF y chat. |
+| `community/` | Flutter / Dart 3.12 | Copia vendored; Play Store canónico = repo `FormulaeCommunity`. |
 | `bff/` | Bun, Hono, Zod OpenAPI | Sesiones, chat y contrato del backend. |
 | `contracts/` | OpenAPI 3.1 generado | Contrato derivado de los schemas Zod. |
 | `scripts/` | Bash y Bun | Paridad, rutas e infraestructura. |
@@ -19,29 +23,16 @@ es [docs/AUDITORIA_FUNCIONAL_2026-07-13.md](docs/AUDITORIA_FUNCIONAL_2026-07-13.
 Pro y Community mantienen `name: formulae` porque son sabores del mismo
 producto, pero se construyen y validan por separado.
 
-## Estado auditado
+## Estado (resumen — detalle en STATUS.md)
 
-- BFF local: `bun run typecheck` y `bun test` pasaron el 2026-07-13, con 173
-  pruebas y 481 expectativas. IAP responde
-  `503 E_IAP_VALIDATION_UNAVAILABLE` fuera de desarrollo mientras no haya
-  validadores Apple/Google reales; no es un entitlement listo para producción.
-- Cobertura de rutas: `bash scripts/route-coverage.sh` pasa; el consumidor Pro
-  de `/iap/validate` es opt-in y está apagado por defecto. No equivale a un
-  entitlement de compras listo para producción.
-- Imágenes: existen 176 assets canónicos locales, compartidos por todos los
-  idiomas de Pro y Community. El host público todavía responde 404 a 176 de
-  176 rutas, por lo que hace falta una promoción autorizada antes de afirmar
-  que esos diagramas funcionan en producción.
-- PDF: Pro genera y exporta contenido local, incluidos Favoritos y Tareas.
-  Community genera, visualiza y exporta una ficha de estudio local sin pedir
-  los PDFs heredados al host. Esa ficha no pretende ser una recuperación del
-  contenido histórico; restaurar ese material exacto requiere una fuente
-  aprobada.
-- Community: las cargas de imagen remotas tienen fallback localizado. Sus
-  controles revisados se localizan, el contraste de navegación es AA y la
-  cancelación de suscripción no inicializa URLs inválidas. El análisis estricto
-  terminó sin diagnósticos y la suite local pasó 100 pruebas; el host público de
-  las imágenes sigue bloqueado aparte por sus 176 respuestas 404.
+Verificado en `main` **2026-07-21** (`1f8cceb`): BFF **186/186**, landing
+**64/64**, Pro **215/215** + cobertura cruda **87.18%** (≥85%), Community
+monorepo **115/115**, gates de paridad/rutas PASS. Toolchain: Flutter
+**3.44.7**, Bun **1.3.14**, Node **24**, Astro **7**; solo `landing/bun.lock`.
+
+**Bloqueado (usuario/externo):** T04 FTPS, issues **#9**/**#13**, FML-101
+imágenes 404, FML-129, FML-116, FML-117, T40–T42. IAP sigue fail-closed fuera
+de desarrollo.
 
 ## Desarrollo local
 

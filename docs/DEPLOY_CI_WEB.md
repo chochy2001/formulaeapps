@@ -4,6 +4,11 @@ The workflow `.github/workflows/deploy-web.yml` builds the landing and Pro web
 artifacts manually from the exact current `main` SHA and then promotes them to
 production through a dedicated FTPS job.
 
+**Live status index:** [`STATUS.md`](STATUS.md). FTPS hostname verification
+(**T04**) remains **blocked** until the real hostname replaces the interim IP
+`31.170.161.105` + `ssl:check-hostname false` below. Image promotion remains
+**FML-101** blocked. Do not mark web deploy “done.”
+
 ## Current status
 
 The following failures are historical; none changed production:

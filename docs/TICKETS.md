@@ -1,9 +1,12 @@
 # Tablero de ejecución de Formulae
 
-Este es el registro operativo activo de Formulae. No es un handoff: Codex
-mantiene y ejecuta los tickets hasta cerrarlos o dejar una dependencia externa
-con evidencia concreta. La primera fuente de verdad es el código y las pruebas;
-este tablero refleja ese estado y no lo sustituye.
+Este es el registro operativo activo de Formulae (tickets `FML-*`). No es un
+handoff: Codex mantiene y ejecuta los tickets hasta cerrarlos o dejar una
+dependencia externa con evidencia concreta. La primera fuente de verdad es el
+código y las pruebas; este tablero refleja ese estado y no lo sustituye.
+
+**Estado vivo (SHAs / done / blocked / CI):** [`docs/STATUS.md`](STATUS.md).
+Usar STATUS para el panorama; este archivo para el detalle por ticket.
 
 ## Uso
 

@@ -1,5 +1,8 @@
 # Formulae Consolidation & Decommission Record
 
+> **Live status:** [`STATUS.md`](STATUS.md). This consolidation record is a
+> 2026-07-15 decision log; SHAs/test counts inside may be outdated.
+
 **Document:** `docs/CONSOLIDATION-FORMULAE.md`
 **Repo:** `CAPDESIS/formulaeapps` (monorepo, canonical)
 **Date:** 2026-07-15
