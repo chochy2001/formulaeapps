@@ -5,7 +5,8 @@
 # already installed in bff/node_modules). macOS ships bash 3.2 which lacks
 # associative arrays, so the parser is in TS/Bun.
 #
-# Per specs/002-formulae-fe-be-sync/tasks.md T113 + data-model.md § E12 + Principle VI.
+# Source of truth: contracts/bff.openapi.yaml; operational context in
+# docs/TICKETS.md. Principle VI (Backend↔FE Route Coverage).
 
 set -euo pipefail
 

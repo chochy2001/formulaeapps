@@ -1,5 +1,32 @@
 # Formulae Session Status
 
+## 2026-07-21
+
+- PRs #98 through #111 merged since 2026-07-17.
+- Toolchain upgrades pinned across the repo:
+  - Flutter `3.44.7` / Dart `3.12.2`.
+  - Astro `7` + Vite `8` + Tailwind `4.3` in `landing/`.
+  - BFF on Hono + `@hono/zod-openapi` + TypeScript `7`.
+  - CI pinned to Node `24` and Bun `1.3.14`.
+- New local baselines (all passing):
+  - BFF: **186/186** tests.
+  - Pro: **164/164** tests; raw line coverage **81.65%** (**23,270 / 28,499**
+    lines).
+  - Community (monorepo): **107/107** tests.
+  - Landing: **64/64** tests.
+  - Contract parity (`scripts/verify-parity.sh`) and route coverage
+    (`scripts/route-coverage.sh`) PASS.
+- Ported the standalone Community entitlement-cache hardening into
+  `monorepo/community/`: `purchase_entitlement_cache.dart` (24h TTL),
+  `in_app_purchase_manager.dart` cache integration + SharedPreferences
+  persistence, and regression tests.
+- Fixed a nullability mismatch in `community/lib/chat_gpt/api_service.dart`
+  caused by the regenerated BFF client (`ChatRequestBuilder` typed explicitly).
+- Added `build/**` to `analysis_options.yaml` exclusions for Pro and Community
+  (and created one for the standalone `community-app`) so local iOS plugin
+  artifacts do not break `flutter analyze`.
+- This is local branch evidence, not a staging or production claim.
+
 ## 2026-07-17
 
 - Pro line coverage: **81.44%** (23,072 / 28,330 lines), measured with:

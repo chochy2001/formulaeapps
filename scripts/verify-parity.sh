@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # verify-parity.sh — Detect drift between Zod schemas, OpenAPI YAML, and generated Dart types
 #
-# Per specs/002-formulae-fe-be-sync/tasks.md T106 + Spec §FR-009 + Principle VII.
+# Source of truth: contracts/bff.openapi.yaml; operational context in
+# docs/TICKETS.md. Principle VII (Model Parity).
 #
 # Algorithm:
 #   1. Re-run `bun run build:openapi` in bff/ → regenerates contracts/bff.openapi.yaml.

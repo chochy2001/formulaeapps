@@ -101,7 +101,7 @@ este tablero refleja ese estado y no lo sustituye.
   locales `%PDF-`; `ver_pdf.dart` los muestra con `SfPdfViewer.memory` y el
   exportador es condicional por plataforma. `community_pdf_document_test.dart`
   y `ver_pdf_local_action_test.dart` cubren generación, exportación y que no
-  exista fallback de red; la suite completa terminó con 100 pruebas.
+  exista fallback de red; la suite completa terminó con 107 pruebas.
 - Bloqueo: Ninguno para ver/exportar la ficha local. Recuperar el contenido
   histórico exacto requiere una fuente aprobada aparte.
 
@@ -117,8 +117,8 @@ este tablero refleja ese estado y no lo sustituye.
   suite mantiene pruebas de comportamiento útiles.
 - Evidencia: Se eliminaron `FlutterError.onError`, drains de `takeException`,
   `warnIfMissed:false` y `catch` vacíos de las cinco suites afectadas. El
-  mapeador verifica 297 rutas no nativas y 259 widgets, y la suite completa
-  terminó con 100 pruebas.
+  mapeador verifica 298 rutas no nativas y 259 widgets, y la suite completa
+  terminó con 107 pruebas (actualizado 2026-07-21).
 - Bloqueo: Ninguno.
 
 ### FML-104: Navegación y responsive de Community
@@ -165,7 +165,7 @@ este tablero refleja ese estado y no lo sustituye.
 - Criterio de cierre: `flutter analyze --no-pub --fatal-infos --fatal-warnings`
   pasa sin un baseline tolerado.
 - Evidencia: El comando estricto terminó con `No issues found!`; además, la
-  suite completa de Community pasó 100 pruebas con los `dart-defines` de CI.
+  suite completa de Community pasó 107 pruebas con los `dart-defines` de CI.
   El baseline inicial de 587 diagnósticos `info` fue eliminado sin suprimir el
   gate.
 - Bloqueo: Ninguno.
@@ -186,7 +186,7 @@ este tablero refleja ese estado y no lo sustituye.
   `29300786169` sobre `563c316`. Incluye el aislamiento BFF `e9d8a13`;
   `make verify-all` pasó sobre ese candidato con contrato/paridad, 173 pruebas
   BFF (481 expectativas), análisis y pruebas Flutter, landing,
-  infraestructura y tickets. `bun run build` del BFF y
+  infraestructura y tickets (actualizado 2026-07-21: BFF 186/516). `bun run build` del BFF y
   `gitleaks protect --staged --redact` también pasaron. El preflight previo
   del padre `5c65bc0` detectó mocks IAP contaminados; `e9d8a13` los sustituyó
   por inyección aislada antes de la integración.
@@ -308,7 +308,7 @@ este tablero refleja ese estado y no lo sustituye.
   `boton_pistas.dart`, `task_tile.dart` y `alerts_dialogs.dart`, título de app
   incorrecto, contraste 2.90:1 y una URL `late` no inicializada fuera de móvil.
   Las correcciones usan ARB, `#8A93C4` (4.84:1) y URL segura por plataforma;
-  análisis estricto pasó, pruebas focales 11/11 y suite completa 100/100.
+  análisis estricto pasó, pruebas focales 11/11 y suite completa 107/107.
 - Bloqueo: Community no declara targets Web/Windows/Linux; no se generaron sin
   decisión de producto, pero las rutas de esos casos se cubren unitariamente.
 
@@ -405,7 +405,8 @@ este tablero refleja ese estado y no lo sustituye.
   `sub=user:<user_id>` y no adoptan grants de dispositivo; el helper de binding
   fue eliminado. `readMobileEntitlement` filtra una fila de sujeto vinculada a
   otro `user_id`; regresiones demuestran que un `client_id` ajeno no expone ni
-  vincula su entitlement. El contrato generado es `2.0.0`. Estas correcciones
+  vincula su entitlement. El contrato generado era `2.0.0` en el candidato
+  integrado; el contrato actual es `2.1.0` (OAuth stub). Estas correcciones
   no equivalen a una decisión de autoridad ni a validadores Apple/Google listos.
 - Bloqueo: Requiere decisión de producto, credenciales/sandbox Apple y Google,
   y diseño de identidad/persistencia. No es seguro escoger la política ni
@@ -428,9 +429,9 @@ este tablero refleja ese estado y no lo sustituye.
   por prueba y añade una regresión que prueba que un 503 simulado no altera el
   stub normal. Sobre ese SHA, `make verify-all` terminó correctamente: BFF
   `173 pass`, `0 fail`, `481 expect()` en 30 archivos; además el grupo IAP se
-  repitió aleatoriamente 10 veces (130/130). La ejecución vuelve a generar y
-  verifica el contrato `2.0.0` y ambos clientes Dart, sin cambios fuera del
-  índice. El aislamiento quedó integrado en `main` por la PR
+  repitió aleatoriamente 10 veces (130/130). La ejecución volvió a generar y
+  verificó el contrato `2.0.0` y ambos clientes Dart, sin cambios fuera del
+  índice (actualizado 2026-07-21: BFF 186/516, contrato 2.1.0). El aislamiento quedó integrado en `main` por la PR
   [#79](https://github.com/CAPDESIS/formulaeapps/pull/79), merge `4bc1c6a`.
 - Bloqueo: Ninguno local.
 
@@ -448,7 +449,7 @@ este tablero refleja ese estado y no lo sustituye.
   normalizados; `error.ts` sólo confía en `BffError` y las regresiones cubren
   timeout, abort y secretos de proveedor. `/iap/validate` limita a 10 por
   ventana, con key hash de IP+sujeto, `429 E_RATE_LIMITED_IAP` y `Retry-After`.
-  `bun run typecheck`, `check:persistence-config` y BFF tests pasaron 138/138.
+  `bun run typecheck`, `check:persistence-config` y BFF tests pasaron 186/186.
 - Bloqueo: Ninguno conocido para la corrección local.
 
 ### FML-120: Eliminar fallos silenciosos de cargas remotas restantes en Pro
@@ -465,7 +466,7 @@ este tablero refleja ese estado y no lo sustituye.
   en información, configuración, chat, compra, diálogos, ejercicios y tareas.
   `rg` no encuentra cargas directas en `pro/lib`; quedan sólo el cargador
   `CachedNetworkImage` con timeout/fallback. Análisis estricto pasó y la suite
-  Pro con defines de CI pasó 88/88, incluidas 23 pruebas focales.
+  Pro con defines de CI pasó 164/164.
 - Bloqueo: La corrección visual local no publica los assets; la disponibilidad
   de las imágenes reales sigue en `FML-101`.
 
@@ -483,7 +484,7 @@ este tablero refleja ese estado y no lo sustituye.
   detecta drift de paths/permisos sin secretos ni daemon.
 - Evidencia: Docker crea/chown/chmod `/app/.data`, Compose monta
   `formulaeapps_bff_data`, `.env.example` declara ambos paths y
-  `check:persistence-config`, typecheck y BFF tests pasaron (138/138). El
+  `check:persistence-config`, typecheck y BFF tests pasaron (186/186). El
   overlay local explícito ahora resetea realmente `.env`, secretos, red y
   etiquetas de producción, se enlaza sólo a loopback y no contiene firmante JWT
   determinista; su lint y el preflight CORS contra un BFF nativo temporal en
@@ -506,7 +507,7 @@ este tablero refleja ese estado y no lo sustituye.
 - Evidencia: `@apple/app-store-server-library` traía `form-data@4.0.5` de forma
   transitiva; `overrides.form-data=4.0.6` conserva el rango `^4.0.4` del SDK.
   `bun pm why form-data` muestra sólo 4.0.6, `bun run audit` no reporta
-  vulnerabilidades y typecheck/tests BFF pasaron 138/138.
+  vulnerabilidades y typecheck/tests BFF pasaron 186/186.
 - Bloqueo: Ninguno para el checkout local.
 
 ### FML-123: Aislar Compose local y cablear el BFF de desarrollo
