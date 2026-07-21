@@ -88,6 +88,20 @@ class FavoritesPdfGenerator {
   @visibleForTesting
   static bool debugDisableFormulaCapture = false;
 
+  // Solo para tests: sustituye downloadFavoritePdf (SharePlus/path_provider)
+  // para ejercitar exportFavorite/exportFolder sin plugins de plataforma.
+  @visibleForTesting
+  static Future<void> Function(Uint8List bytes, String fileName)?
+  debugDownloadOverride;
+
+  static Future<void> _downloadPdf(Uint8List bytes, String fileName) {
+    final override = debugDownloadOverride;
+    if (override != null) {
+      return override(bytes, fileName);
+    }
+    return downloadFavoritePdf(bytes, fileName);
+  }
+
   // Lee el tamano de formula persistido; por defecto medium.
   static Future<PdfFormulaSize> loadFormulaSize() async {
     final prefs = await SharedPreferences.getInstance();
@@ -127,7 +141,7 @@ class FavoritesPdfGenerator {
       contents: contents,
       size: size,
     );
-    await downloadFavoritePdf(pdfBytes, downloadFileNameForTitle(folder.name));
+    await _downloadPdf(pdfBytes, downloadFileNameForTitle(folder.name));
   }
 
   // Genera el PDF y devuelve tambien el titulo real de la pantalla origen para
@@ -180,7 +194,7 @@ class FavoritesPdfGenerator {
       size: size,
     );
 
-    await downloadFavoritePdf(
+    await _downloadPdf(
       document.bytes,
       downloadFileNameForTitle(document.title),
     );

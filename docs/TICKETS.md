@@ -29,10 +29,11 @@ este tablero refleja ese estado y no lo sustituye.
 > **Nota 2026-07-21**: integración del upgrade Flutter 3.44.7/Dart 3.12.2,
 > entitlement cache portado a `monorepo/community`, documentación stale
 > actualizada y PRs #115 (formulaeapps) y #28 (FormulaeCommunity) mergeados a
-> `main`. Todas las validaciones locales pasan (BFF 186/186, Pro 164/164,
-> Community 115/115, landing 64/64, parity/routes PASS). Handoff de
+> `main`. Cobertura Pro hotspot T12/T13/T14 cerrados (≥90/92%); T10/T11
+> parciales; global Pro **82.04%** crudo (195/195 tests). Handoff de
 > continuación en
-> `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`.
+> `Formulae/audits/2026-07-21-revision-integral/HANDOFF-2026-07-21.md`
+> (carpeta de audit fuera del git monorepo; solo local bajo `/Apps/Formulae/audits`).
 
 ## Orden de ejecución
 

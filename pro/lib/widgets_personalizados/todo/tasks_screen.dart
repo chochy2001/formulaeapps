@@ -17,6 +17,11 @@ import 'tasks_list.dart';
 class TasksScreen extends StatelessWidget {
   const TasksScreen({super.key});
 
+  // Solo para tests: sustituye downloadFavoritePdf (SharePlus/path_provider).
+  @visibleForTesting
+  static Future<void> Function(Uint8List bytes, String fileName)?
+  debugDownloadOverride;
+
   @override
   Widget build(BuildContext context) {
     //comenzando con las notificaciones push locales
@@ -321,6 +326,11 @@ class TasksScreen extends StatelessWidget {
     );
 
     if (!flutterContext.mounted) {
+      return;
+    }
+    final override = debugDownloadOverride;
+    if (override != null) {
+      await override(pdfBytes, appLocalization.tareasPDF);
       return;
     }
     await downloadFavoritePdf(pdfBytes, appLocalization.tareasPDF);
