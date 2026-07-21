@@ -10,9 +10,9 @@ class _RecordingClient extends FormulaeappsBffClient {
     this.throwDio = false,
     this.throwOauthStub = false,
   }) : super(
-          basePathOverride: 'http://test-bff',
-          dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
-        );
+         basePathOverride: 'http://test-bff',
+         dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
+       );
 
   final AccountAuthResponse? registerResponse;
   final AccountAuthResponse? loginResponse;
@@ -130,29 +130,35 @@ class _RecordingAuthApi extends AuthApi {
 
 void main() {
   group('AccountAuthService', () {
-    test('register/login/oauth return AccountAuthDisabled when flag off',
-        () async {
-      final recording = _RecordingClient();
-      final service = AccountAuthService(
-        enabled: false,
-        clientFactory: () => recording,
-      );
+    test(
+      'register/login/oauth return AccountAuthDisabled when flag off',
+      () async {
+        final recording = _RecordingClient();
+        final service = AccountAuthService(
+          enabled: false,
+          clientFactory: () => recording,
+        );
 
-      expect(await service.register(email: 'a@b.com', password: 'password1'),
-          isA<AccountAuthDisabled>());
-      expect(await service.login(email: 'a@b.com', password: 'password1'),
-          isA<AccountAuthDisabled>());
-      expect(
-        await service.oauth(
-          provider: AccountOAuthRequestProviderEnum.google,
-          idToken: 'fake',
-        ),
-        isA<AccountAuthDisabled>(),
-      );
-      expect(recording.registerCalled, isFalse);
-      expect(recording.loginCalled, isFalse);
-      expect(recording.oauthCalled, isFalse);
-    });
+        expect(
+          await service.register(email: 'a@b.com', password: 'password1'),
+          isA<AccountAuthDisabled>(),
+        );
+        expect(
+          await service.login(email: 'a@b.com', password: 'password1'),
+          isA<AccountAuthDisabled>(),
+        );
+        expect(
+          await service.oauth(
+            provider: AccountOAuthRequestProviderEnum.google,
+            idToken: 'fake',
+          ),
+          isA<AccountAuthDisabled>(),
+        );
+        expect(recording.registerCalled, isFalse);
+        expect(recording.loginCalled, isFalse);
+        expect(recording.oauthCalled, isFalse);
+      },
+    );
 
     test('oauth maps BFF stub 503 to AccountAuthFailure', () async {
       final recording = _RecordingClient(throwOauthStub: true);
@@ -167,7 +173,9 @@ void main() {
       );
       expect(recording.oauthCalled, isTrue);
       expect(
-          recording.lastOauth?.provider, AccountOAuthRequestProviderEnum.apple);
+        recording.lastOauth?.provider,
+        AccountOAuthRequestProviderEnum.apple,
+      );
       expect(result, isA<AccountAuthFailure>());
       final fail = result as AccountAuthFailure;
       expect(fail.statusCode, 503);
@@ -175,13 +183,11 @@ void main() {
     });
 
     test('register returns success without a device-ownership field', () async {
-      final payload = AccountAuthResponse(
-        (b) {
-          b.token = 'acct-jwt';
-          b.expiresAt = DateTime.utc(2026, 7, 14, 1);
-          b.userId = '550e8400-e29b-41d4-a716-446655440000';
-        },
-      );
+      final payload = AccountAuthResponse((b) {
+        b.token = 'acct-jwt';
+        b.expiresAt = DateTime.utc(2026, 7, 14, 1);
+        b.userId = '550e8400-e29b-41d4-a716-446655440000';
+      });
       final recording = _RecordingClient(registerResponse: payload);
       final service = AccountAuthService(
         enabled: true,
@@ -202,13 +208,11 @@ void main() {
     });
 
     test('login returns success without a device-ownership field', () async {
-      final payload = AccountAuthResponse(
-        (b) {
-          b.token = 'acct-login-jwt';
-          b.expiresAt = DateTime.utc(2026, 7, 14, 2);
-          b.userId = '550e8400-e29b-41d4-a716-446655440000';
-        },
-      );
+      final payload = AccountAuthResponse((b) {
+        b.token = 'acct-login-jwt';
+        b.expiresAt = DateTime.utc(2026, 7, 14, 2);
+        b.userId = '550e8400-e29b-41d4-a716-446655440000';
+      });
       final recording = _RecordingClient(loginResponse: payload);
       final service = AccountAuthService(
         enabled: true,

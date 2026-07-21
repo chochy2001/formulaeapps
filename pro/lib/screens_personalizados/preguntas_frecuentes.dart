@@ -35,9 +35,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: ListView(
           children: [
@@ -45,16 +43,12 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Text(
                     AppLocalizations.of(context)!.preguntasFrecuentes,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -69,25 +63,25 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                       decoration: BoxDecoration(
                         border: Border.all(color: kColorBotones),
                         borderRadius: BorderRadius.circular(kBordeBotones),
-                        color:
-                            descargarImprimirPDF ? kColorFondo : kColorBotones,
+                        color: descargarImprimirPDF
+                            ? kColorFondo
+                            : kColorBotones,
                       ),
                       width: descargarImprimirPDF ? 250.0 : 300.0,
                       height: descargarImprimirPDF ? 80.0 : 100.0,
                       duration: const Duration(milliseconds: 600),
                       child: Wrap(
                         children: [
-                          SizedBox(
-                            width: descargarImprimirPDF ? 5.0 : 10.0,
-                          ),
+                          SizedBox(width: descargarImprimirPDF ? 5.0 : 10.0),
                           Visibility(
                             visible: !descargarImprimirPDF,
                             child: Column(
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .comoTrabajarConLosPdf,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.comoTrabajarConLosPdf,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -107,8 +101,9 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .comoTrabajarConLosPdf,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.comoTrabajarConLosPdf,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -157,9 +152,7 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //No me cargan los videos
                   GestureDetector(
@@ -183,17 +176,16 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                       duration: const Duration(milliseconds: 600),
                       child: Wrap(
                         children: [
-                          SizedBox(
-                            width: videosNoCargan ? 5.0 : 10.0,
-                          ),
+                          SizedBox(width: videosNoCargan ? 5.0 : 10.0),
                           Visibility(
                             visible: !videosNoCargan,
                             child: Column(
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .noCarganLosVideos,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.noCarganLosVideos,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -213,8 +205,9 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .noCarganLosVideos,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.noCarganLosVideos,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -232,44 +225,37 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   Visibility(
                     visible: videosNoCargan,
                     child: Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!
-                              .asegurarConexionInternet,
+                          AppLocalizations.of(
+                            context,
+                          )!.asegurarConexionInternet,
                           style: kTextoMostrarOcultar,
                         ),
                         _faqImage(kUrlImagenConexion1),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.activarDesactivado,
                           style: kTextoMostrarOcultar,
                         ),
                         _faqImage(kUrlImagenConexion2),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.esperarCargaVideo,
                           style: kTextoMostrarOcultar,
                         ),
                         _faqImage(kUrlImagenConexion3),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
+                        const SizedBox(height: kEspacioEntreBotones),
+                        Text(
+                          AppLocalizations.of(context)!.disfrutarVideo,
+                          style: kTextoMostrarOcultar,
                         ),
-                        Text(AppLocalizations.of(context)!.disfrutarVideo,
-                            style: kTextoMostrarOcultar),
                         _faqImage(kUrlImagenConexion4),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.siNoFunciona,
                           style: kTextoMostrarOcultar,
@@ -303,17 +289,16 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                       duration: const Duration(milliseconds: 600),
                       child: Wrap(
                         children: [
-                          SizedBox(
-                            width: pdfNoCargan ? 5.0 : 10.0,
-                          ),
+                          SizedBox(width: pdfNoCargan ? 5.0 : 10.0),
                           Visibility(
                             visible: !pdfNoCargan,
                             child: Column(
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .noCarganLosPdf,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.noCarganLosPdf,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -333,8 +318,9 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                               children: [
                                 Center(
                                   child: Text(
-                                    AppLocalizations.of(context)!
-                                        .noCarganLosPdf,
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.noCarganLosPdf,
                                     textAlign: TextAlign.center,
                                     style: kTextoMostrarOcultar,
                                   ),
@@ -357,29 +343,24 @@ class PreguntasFrecuentesState extends State<PreguntasFrecuentes> {
                     child: Column(
                       children: [
                         Text(
-                          AppLocalizations.of(context)!
-                              .asegurarConexionInternet,
+                          AppLocalizations.of(
+                            context,
+                          )!.asegurarConexionInternet,
                           style: kTextoMostrarOcultar,
                         ),
                         _faqImage(kUrlImagenConexion1),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.activarDesactivado,
                           style: kTextoMostrarOcultar,
                         ),
                         _faqImage(kUrlImagenConexion2),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.esperarCargaPDF,
                           style: kTextoMostrarOcultar,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         Text(
                           AppLocalizations.of(context)!.disfrutarPDF,
                           style: kTextoMostrarOcultar,

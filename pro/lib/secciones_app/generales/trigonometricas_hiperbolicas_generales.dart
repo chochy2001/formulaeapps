@@ -37,9 +37,11 @@ class TrigonometricasHiperbolicasGeneralesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .trigonometricasHiperbolicas,
-                      widgetName: kWidgetTrigonometricasHiperbolicasGenerales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasHiperbolicas,
+                    widgetName: kWidgetTrigonometricasHiperbolicasGenerales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -51,18 +53,22 @@ class TrigonometricasHiperbolicasGeneralesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .trigonometricasHiperbolicas,
-                              widgetName:
-                                  kWidgetTrigonometricasHiperbolicasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.trigonometricasHiperbolicas,
+                            widgetName:
+                                kWidgetTrigonometricasHiperbolicasGenerales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .trigonometricasHiperbolicas,
-                              widgetName:
-                                  kWidgetTrigonometricasHiperbolicasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.trigonometricasHiperbolicas,
+                            widgetName:
+                                kWidgetTrigonometricasHiperbolicasGenerales,
+                          ),
                         );
                       }
                     });
@@ -71,9 +77,7 @@ class TrigonometricasHiperbolicasGeneralesState
               },
             ),
 
-            const SizedBox(
-              height: 30.0,
-            ),
+            const SizedBox(height: 30.0),
             //Seno Hiperbólico
             GestureDetector(
               onTap: () {
@@ -89,8 +93,9 @@ class TrigonometricasHiperbolicasGeneralesState
                 decoration: BoxDecoration(
                   border: Border.all(color: kColorBotones),
                   borderRadius: BorderRadius.circular(kBordeBotones),
-                  color:
-                      seleccionadoSenoHiperbolico ? kColorFondo : kColorBotones,
+                  color: seleccionadoSenoHiperbolico
+                      ? kColorFondo
+                      : kColorBotones,
                 ),
                 width: seleccionadoSenoHiperbolico ? 80.0 : 50.0,
                 height: seleccionadoSenoHiperbolico ? 50.0 : 80.0,
@@ -101,9 +106,7 @@ class TrigonometricasHiperbolicasGeneralesState
                     TextoEcuaciones(
                       AppLocalizations.of(context)!.senoHiperbolico,
                     ),
-                    SizedBox(
-                      width: seleccionadoSenoHiperbolico ? 5.0 : 10.0,
-                    ),
+                    SizedBox(width: seleccionadoSenoHiperbolico ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoSenoHiperbolico,
                       child: const Icon(
@@ -129,25 +132,19 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sinh\thinspace x = \frac{e^x-e^{-x}}{2}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText: r"\sinh\thinspace x = \frac{e^x-e^{-x}}{2}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r" \mathbb R"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r" \mathbb R"),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Coseno Hiperbólico
             GestureDetector(
               onTap: () {
@@ -177,9 +174,7 @@ class TrigonometricasHiperbolicasGeneralesState
                     TextoEcuaciones(
                       AppLocalizations.of(context)!.cosenoHiperbolico,
                     ),
-                    SizedBox(
-                      width: seleccionadoCosenoHiperbolico ? 5.0 : 10.0,
-                    ),
+                    SizedBox(width: seleccionadoCosenoHiperbolico ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoCosenoHiperbolico,
                       child: const Icon(
@@ -205,26 +200,20 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cosh\thinspace x = \frac{e^x+e^{-x}}{2}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText: r"\cosh\thinspace x = \frac{e^x+e^{-x}}{2}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r" \mathbb R"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r" [1,+\infty)"),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Tangente Hiperbólica
             GestureDetector(
               onTap: () {
@@ -282,26 +271,21 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tanh\thinspace x = \frac{\sinh\thinspace x}{\cosh\thinspace x} = \frac{e^x-e^{-x}}{e^x+e^{-x}}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText:
+                          r"\tanh\thinspace x = \frac{\sinh\thinspace x}{\cosh\thinspace x} = \frac{e^x-e^{-x}}{e^x+e^{-x}}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r"\mathbb R"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r"(-1,1)"),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
 
             //Cotangente Hiperbólica
             GestureDetector(
@@ -360,25 +344,20 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\coth\thinspace x = \frac{1}{\tanh\thinspace x} = \frac{e^x+e^{-x}}{e^x-e^{-x}}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText:
+                          r"\coth\thinspace x = \frac{1}{\tanh\thinspace x} = \frac{e^x+e^{-x}}{e^x-e^{-x}}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r"\mathbb R \setminus \{0\}"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r"(-\infty,-1)\cup(1,+\infty)"),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
 
             //Secante Hiperbólica
             GestureDetector(
@@ -437,26 +416,21 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"sech \thinspace x = \frac{1}{\cosh\thinspace x} = \frac{2}{e^x+e^{-x}}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText:
+                          r"sech \thinspace x = \frac{1}{\cosh\thinspace x} = \frac{2}{e^x+e^{-x}}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r"\mathbb R"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r" (0,1]"),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
 
             //Cosecante Hiperbólica
             GestureDetector(
@@ -515,37 +489,26 @@ class TrigonometricasHiperbolicasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"csch\thinspace x = \frac{1}{\sinh\thinspace x} = \frac{2}{e^x-e^{-x}}"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.dominio,
+                      formulaText:
+                          r"csch\thinspace x = \frac{1}{\sinh\thinspace x} = \frac{2}{e^x-e^{-x}}",
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.dominio),
                     const Latex(formulaText: r" \mathbb R \setminus \{0\}"),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.imagen,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                     const Latex(formulaText: r" \mathbb R \setminus \{0\}"),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
+            const Padding(padding: EdgeInsets.only(top: 10.0)),
+            const SizedBox(height: 20.0),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetTrigonometricasHiperbolicasGenerales,
-            ),
+            const VerPDF(url: kWidgetTrigonometricasHiperbolicasGenerales),
             //Descargar PDF
             const DescargarPDF(
               url: kWidgetTrigonometricasHiperbolicasGenerales,
@@ -563,10 +526,7 @@ class TrigonometricasHiperbolicasGeneralesState
                 duration: const Duration(milliseconds: 600),
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -597,9 +557,7 @@ class TrigonometricasHiperbolicasGeneralesState
                             AppLocalizations.of(context)!.explicacionDominio,
                           ),
                           const SizedBox(height: kEspacioEntreBotones),
-                          TextoEcuaciones(
-                            AppLocalizations.of(context)!.imagen,
-                          ),
+                          TextoEcuaciones(AppLocalizations.of(context)!.imagen),
                           TextoEcuaciones(
                             AppLocalizations.of(context)!.explicacionImagen,
                           ),

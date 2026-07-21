@@ -30,7 +30,9 @@ class TrabajoTermodinamicoState extends State<TrabajoTermodinamico> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.trabajoTermodinamico,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.trabajoTermodinamico,
                         widgetName: kWidgetTrabajoTermodinamico,
                       ),
                     );
@@ -44,14 +46,18 @@ class TrabajoTermodinamicoState extends State<TrabajoTermodinamico> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.trabajoTermodinamico,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.trabajoTermodinamico,
                                 widgetName: kWidgetTrabajoTermodinamico,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.trabajoTermodinamico,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.trabajoTermodinamico,
                                 widgetName: kWidgetTrabajoTermodinamico,
                               ),
                             );

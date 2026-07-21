@@ -18,9 +18,12 @@ class MenuEcuacionesDiferencialesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,18 +36,14 @@ class MenuEcuacionesDiferencialesState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -53,53 +52,60 @@ class MenuEcuacionesDiferencialesState
                     AppLocalizations.of(context)!.ecuacionesDiferenciales,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.constantesDeIntegracion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesDeIntegracion,
                     ruta: kRutaConstantesDeIntegracion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialCoeficientesConstantes,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialCoeficientesConstantes,
                     ruta: kRutaEcuacionDiferencialConCoeficientesConstantes,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialRectasNoParalelas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialRectasNoParalelas,
                     ruta: kRutaEcuacionDiferencialDeRectasNoParalelas,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialRectasParalelas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialRectasParalelas,
                     ruta: kRutaEcuacionDiferencialDeRectasParalelas,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionDiferencialExacta,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialExacta,
                     ruta: kRutaEcuacionDiferencialExacta,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialHomogenea,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialHomogenea,
                     ruta: kRutaEcuacionDiferencialHomogenea,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialLinealOrdenSuperior,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialLinealOrdenSuperior,
                     ruta: kRutaEcuacionDiferencialLinealDeOrdenSuperior,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialLinealPrimerOrden,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialLinealPrimerOrden,
                     ruta: kRutaEcuacionDiferencialLinealDePrimerOrden,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .ecuacionDiferencialSeparable,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialSeparable,
                     ruta: kRutaEcuacionDiferencialSeparable,
                   ),
                 ],

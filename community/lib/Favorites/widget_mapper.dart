@@ -176,8 +176,8 @@ final Map<String, WidgetBuilder> widgetTable = {
       const SuperficiesEquipotenciales(),
   kWidgetTeoremaDeLaDivergencia: (context) => const TeoremaDeLaDivergencia(),
   kWidgetTeoremaDelRotacional: (context) => const TeoremaDelRotacional(),
-  //Capacitancia y Dielectricos
 
+  //Capacitancia y Dielectricos
   kWidgetCapacitor: (context) => const Capacitor(),
   kWidgetCapacitorDePlacasPlanasYParalelas: (context) =>
       const CapacitorDePlacasPlanasYParalelas(),
@@ -240,8 +240,8 @@ final Map<String, WidgetBuilder> widgetTable = {
   kWidgetTeoriaDeCircuitos: (context) => const TeoriaDeCircuitos(),
   kWidgetTiposDeCorrienteElectrica: (context) =>
       const TiposDeCorrienteElectrica(),
-  //Induccion Electromagnetica
 
+  //Induccion Electromagnetica
   kWidgetEnergiaAlmacenadaEnUnCampoMagnetico: (context) =>
       const EnergiaAlmacenadaEnUnCampoMagnetico(),
   kWidgetInductanciaMutua: (context) => const InductanciaMutua(),

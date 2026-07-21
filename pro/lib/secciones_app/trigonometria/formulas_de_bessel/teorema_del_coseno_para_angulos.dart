@@ -33,9 +33,11 @@ class TeoremaDelCosenoParaAngulosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDelCosenoParaAngulos,
-                            widgetName: kWidgetTeoremaDelCosenoParaAngulos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDelCosenoParaAngulos,
+                          widgetName: kWidgetTeoremaDelCosenoParaAngulos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -47,18 +49,22 @@ class TeoremaDelCosenoParaAngulosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaAngulos,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaAngulos,
+                                  widgetName:
+                                      kWidgetTeoremaDelCosenoParaAngulos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaAngulos,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaAngulos,
+                                  widgetName:
+                                      kWidgetTeoremaDelCosenoParaAngulos,
+                                ),
                               );
                             }
                           });
@@ -67,25 +73,26 @@ class TeoremaDelCosenoParaAngulosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \alpha = -\cos \beta\cos \gamma+\sin\beta\sin\gamma\cos a"),
+                          formulaText:
+                              r"\cos \alpha = -\cos \beta\cos \gamma+\sin\beta\sin\gamma\cos a",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \beta = -\cos \alpha\cos \gamma+\sin\alpha\sin\gamma\cos b"),
+                          formulaText:
+                              r"\cos \beta = -\cos \alpha\cos \gamma+\sin\alpha\sin\gamma\cos b",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \gamma = -\cos \alpha\cos \beta+\sin\alpha\sin\beta\cos c"),
+                          formulaText:
+                              r"\cos \gamma = -\cos \alpha\cos \beta+\sin\alpha\sin\beta\cos c",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -94,13 +101,9 @@ class TeoremaDelCosenoParaAngulosState
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetTeoremaDelCosenoParaAngulos,
-                      ),
+                      VerPDF(url: kWidgetTeoremaDelCosenoParaAngulos),
                       //Descargar PDF
-                      DescargarPDF(
-                        url: kWidgetTeoremaDelCosenoParaAngulos,
-                      ),
+                      DescargarPDF(url: kWidgetTeoremaDelCosenoParaAngulos),
                     ],
                   ),
 
@@ -108,10 +111,7 @@ class TeoremaDelCosenoParaAngulosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -126,8 +126,9 @@ class TeoremaDelCosenoParaAngulosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

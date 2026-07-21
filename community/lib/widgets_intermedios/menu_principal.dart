@@ -33,9 +33,7 @@ class _MenuPrincipal1State extends State<MenuPrincipal1> {
 
         if (Platform.isAndroid) {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(0),
@@ -44,9 +42,7 @@ class _MenuPrincipal1State extends State<MenuPrincipal1> {
           );
         } else if (Platform.isIOS || Platform.isMacOS) {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(1),
@@ -55,9 +51,7 @@ class _MenuPrincipal1State extends State<MenuPrincipal1> {
           );
         } else {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(2),

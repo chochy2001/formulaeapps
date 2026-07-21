@@ -30,7 +30,9 @@ class LaRectaYElTrianguloState extends State<LaRectaYElTriangulo> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.laRectaYElTriangulo,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.laRectaYElTriangulo,
                         widgetName: kWidgetLaRectaYElTriangulo,
                       ),
                     );
@@ -44,14 +46,18 @@ class LaRectaYElTrianguloState extends State<LaRectaYElTriangulo> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.laRectaYElTriangulo,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.laRectaYElTriangulo,
                                 widgetName: kWidgetLaRectaYElTriangulo,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.laRectaYElTriangulo,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.laRectaYElTriangulo,
                                 widgetName: kWidgetLaRectaYElTriangulo,
                               ),
                             );
@@ -67,19 +73,27 @@ class LaRectaYElTrianguloState extends State<LaRectaYElTriangulo> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{y - y_1}{x - x_1} = \frac{y_2 - y_1}{x_2 - x_1}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{y - y_1}{x - x_1} = \frac{y_2 - y_1}{x_2 - x_1}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"x_3 = \frac{b_2 - b_1}{m_1 - m_2}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"y_3 = m_1 x_3 + b_1 = m_2 x_3 + b_2"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan\phi = \frac{m_2 - m_1}{1 + m_2 m_1}"),
+                  Latex(
+                    formulaText: r"\tan\phi = \frac{m_2 - m_1}{1 + m_2 m_1}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"x_G = \frac{x_1 + x_2 + x_3}{3}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"y_G = \frac{y_1 + y_2 + y_3}{3}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"A = \frac{(x_1 y_2 - x_2 y_1) + (x_2 y_3 - x_3 y_2) + (x_3 y_1 - x_1 y_3)}{2}"),
+                  Latex(
+                    formulaText:
+                        r"A = \frac{(x_1 y_2 - x_2 y_1) + (x_2 y_3 - x_3 y_2) + (x_3 y_1 - x_1 y_3)}{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

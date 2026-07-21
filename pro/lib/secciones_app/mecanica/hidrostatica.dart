@@ -44,14 +44,18 @@ class HidrostaticaState extends State<Hidrostatica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hidrostatica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hidrostatica,
                                 widgetName: kWidgetHidrostatica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hidrostatica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hidrostatica,
                                 widgetName: kWidgetHidrostatica,
                               ),
                             );
@@ -81,7 +85,10 @@ class HidrostaticaState extends State<Hidrostatica> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"P = \rho g h + P_0"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\rho_r = \frac{\rho_{(\text{objeto})}}{\rho_{(\text{agua})}}"),
+                  Latex(
+                    formulaText:
+                        r"\rho_r = \frac{\rho_{(\text{objeto})}}{\rho_{(\text{agua})}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E = W_R - W_A"),
                   SizedBox(height: kEspacioEntreBotones),

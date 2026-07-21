@@ -6,10 +6,12 @@ class CaValoresEficacesTransformador extends StatefulWidget {
   const CaValoresEficacesTransformador({super.key});
 
   @override
-  CaValoresEficacesTransformadorState createState() => CaValoresEficacesTransformadorState();
+  CaValoresEficacesTransformadorState createState() =>
+      CaValoresEficacesTransformadorState();
 }
 
-class CaValoresEficacesTransformadorState extends State<CaValoresEficacesTransformador> {
+class CaValoresEficacesTransformadorState
+    extends State<CaValoresEficacesTransformador> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class CaValoresEficacesTransformadorState extends State<CaValoresEficacesTransfo
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.caValoresEficacesTransformador,
+                    AppLocalizations.of(
+                      context,
+                    )!.caValoresEficacesTransformador,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.caValoresEficacesTransformador,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.caValoresEficacesTransformador,
                         widgetName: kWidgetCaValoresEficacesTransformador,
                       ),
                     );
@@ -44,15 +50,21 @@ class CaValoresEficacesTransformadorState extends State<CaValoresEficacesTransfo
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.caValoresEficacesTransformador,
-                                widgetName: kWidgetCaValoresEficacesTransformador,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.caValoresEficacesTransformador,
+                                widgetName:
+                                    kWidgetCaValoresEficacesTransformador,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.caValoresEficacesTransformador,
-                                widgetName: kWidgetCaValoresEficacesTransformador,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.caValoresEficacesTransformador,
+                                widgetName:
+                                    kWidgetCaValoresEficacesTransformador,
                               ),
                             );
                           }
@@ -67,15 +79,24 @@ class CaValoresEficacesTransformadorState extends State<CaValoresEficacesTransfo
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\varepsilon_{inst} = \varepsilon_{max}\sin(2\pi f t)"),
+                  Latex(
+                    formulaText:
+                        r"\varepsilon_{inst} = \varepsilon_{max}\sin(2\pi f t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"i_{inst} = i_{max}\sin(2\pi f t)"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{\varepsilon_{p}}{\varepsilon_{s}} = \frac{N_{p}}{N_{s}} = \frac{I_{s}}{I_{p}}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{\varepsilon_{p}}{\varepsilon_{s}} = \frac{N_{p}}{N_{s}} = \frac{I_{s}}{I_{p}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"i_{eff} = 0.707\, i_{max}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\varepsilon_{eff} = 0.707\, \varepsilon_{max}"),
+                  Latex(
+                    formulaText:
+                        r"\varepsilon_{eff} = 0.707\, \varepsilon_{max}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

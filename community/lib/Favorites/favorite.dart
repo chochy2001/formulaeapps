@@ -11,16 +11,10 @@ class Favorite {
 
   Favorite({required this.title, required this.widgetName});
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'widgetName': widgetName,
-      };
+  Map<String, dynamic> toJson() => {'title': title, 'widgetName': widgetName};
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
-    return Favorite(
-      title: json['title'],
-      widgetName: json['widgetName'],
-    );
+    return Favorite(title: json['title'], widgetName: json['widgetName']);
   }
 
   Widget getWidget(BuildContext context) {
@@ -78,8 +72,9 @@ class FavoritesNotifier extends ChangeNotifier {
     final favoritesNotifier = FavoritesNotifier();
     if (jsonString != null) {
       final List<dynamic> jsonList = jsonDecode(jsonString);
-      favoritesNotifier
-          ._updateFavorites(jsonList.map((e) => Favorite.fromJson(e)).toList());
+      favoritesNotifier._updateFavorites(
+        jsonList.map((e) => Favorite.fromJson(e)).toList(),
+      );
     }
     return favoritesNotifier;
   }

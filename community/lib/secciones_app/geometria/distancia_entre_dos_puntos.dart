@@ -16,9 +16,12 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -49,9 +52,11 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distanciaEntreDosPuntos,
-                            widgetName: kWidgetDistanciaEntreDosPuntos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distanciaEntreDosPuntos,
+                          widgetName: kWidgetDistanciaEntreDosPuntos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,16 +68,20 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distanciaEntreDosPuntos,
-                                    widgetName: kWidgetDistanciaEntreDosPuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distanciaEntreDosPuntos,
+                                  widgetName: kWidgetDistanciaEntreDosPuntos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distanciaEntreDosPuntos,
-                                    widgetName: kWidgetDistanciaEntreDosPuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distanciaEntreDosPuntos,
+                                  widgetName: kWidgetDistanciaEntreDosPuntos,
+                                ),
                               );
                             }
                           });
@@ -81,12 +90,8 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -96,14 +101,17 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2}"),
+                          formulaText: r"d = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
-                  Text("d = √($x2-$x1)^2+($y2-$y1)^2",
-                      style: kTextoMostrarOcultar),
+                  Text(
+                    "d = √($x2-$x1)^2+($y2-$y1)^2",
+                    style: kTextoMostrarOcultar,
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   Theme(
                     data: ThemeData(
@@ -111,16 +119,13 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -128,7 +133,9 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -155,16 +162,13 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -172,7 +176,9 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -199,16 +205,13 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -216,7 +219,9 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -243,16 +248,13 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -260,7 +262,9 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -283,13 +287,9 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
                   _solucionDistanciaEntreDosPuntos(x1, x2, y1, y2),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistanciaEntreDosPuntos,
-                  ),
+                  const VerPDF(url: kWidgetDistanciaEntreDosPuntos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistanciaEntreDosPuntos,
-                  ),
+                  const DescargarPDF(url: kWidgetDistanciaEntreDosPuntos),
                 ],
               ),
             ),
@@ -305,10 +305,7 @@ class _DistanciaEntreDosPuntosState extends State<DistanciaEntreDosPuntos> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(

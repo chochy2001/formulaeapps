@@ -53,8 +53,9 @@ void main() {
     expect(keyAfter, isNot(equals(keyBefore)));
   });
 
-  testWidgets('VerPistas keeps its scrollable constrained layout',
-      (tester) async {
+  testWidgets('VerPistas keeps its scrollable constrained layout', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(400, 800));
     await tester.pumpWidget(
       const MaterialApp(home: VerPistas(Text('Pista de prueba'))),

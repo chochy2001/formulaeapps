@@ -16,9 +16,12 @@ class _ConductividadYResistividadState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _ConductividadYResistividadState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .conductividadResistividad,
-                      widgetName: kWidgetConductividadyResistividad),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.conductividadResistividad,
+                    widgetName: kWidgetConductividadyResistividad,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _ConductividadYResistividadState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conductividadResistividad,
-                              widgetName: kWidgetConductividadyResistividad),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conductividadResistividad,
+                            widgetName: kWidgetConductividadyResistividad,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conductividadResistividad,
-                              widgetName: kWidgetConductividadyResistividad),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conductividadResistividad,
+                            widgetName: kWidgetConductividadyResistividad,
+                          ),
                         );
                       }
                     });
@@ -79,10 +88,12 @@ class _ConductividadYResistividadState
             Column(
               children: <Widget>[
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenConductividadYResistividad),
+                  urlImagen: kUrlImagenConductividadYResistividad,
+                ),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .velocidadDeLosPortadoresDeCargaLibre,
+                  AppLocalizations.of(
+                    context,
+                  )!.velocidadDeLosPortadoresDeCargaLibre,
                 ),
                 const Latex(formulaText: r"\vec{V}_p = \mu \vec{E}"),
                 const SizedBox(height: 40.0),
@@ -92,8 +103,9 @@ class _ConductividadYResistividadState
                 const Latex(formulaText: r"\vec{j} = n_{v'}q\vec{V}_p"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{j} n_{v'} q\vec{V}_p = n_{v'}q \mu \vec{E}"),
+                  formulaText:
+                      r"\vec{j} n_{v'} q\vec{V}_p = n_{v'}q \mu \vec{E}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.conductividadElectrica,
@@ -102,24 +114,22 @@ class _ConductividadYResistividadState
                 const Latex(formulaText: r"\sigma = n_{v'}q\mu"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"[\sigma]_u = \left[ \frac{1}{m^3}\cdot \frac{Cm}{Ns}\right] = \left[\frac{1}{\Omega m}\right]"),
+                  formulaText:
+                      r"[\sigma]_u = \left[ \frac{1}{m^3}\cdot \frac{Cm}{Ns}\right] = \left[\frac{1}{\Omega m}\right]",
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laConductividadElectricaEsUnaConstante,
+                  AppLocalizations.of(
+                    context,
+                  )!.laConductividadElectricaEsUnaConstante,
                 ),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetConductividadyResistividad,
-            ),
+            const VerPDF(url: kWidgetConductividadyResistividad),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetConductividadyResistividad,
-            ),
+            const DescargarPDF(url: kWidgetConductividadyResistividad),
           ],
         ),
       ),

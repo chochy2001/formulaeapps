@@ -26,18 +26,21 @@ class EcuacionDiferencialDeRectasNoParalelasState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .ecuacionDiferencialRectasNoParalelas,
+                      AppLocalizations.of(
+                        context,
+                      )!.ecuacionDiferencialRectasNoParalelas,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionDiferencialRectasNoParalelas,
-                            widgetName:
-                                kWidgetEcuacionDiferencialDeRectasNoParalelas),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionDiferencialRectasNoParalelas,
+                          widgetName:
+                              kWidgetEcuacionDiferencialDeRectasNoParalelas,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +52,22 @@ class EcuacionDiferencialDeRectasNoParalelasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialRectasNoParalelas,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialDeRectasNoParalelas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialRectasNoParalelas,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialDeRectasNoParalelas,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialRectasNoParalelas,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialDeRectasNoParalelas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialRectasNoParalelas,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialDeRectasNoParalelas,
+                                ),
                               );
                             }
                           });
@@ -69,9 +76,7 @@ class EcuacionDiferencialDeRectasNoParalelasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -82,8 +87,8 @@ class EcuacionDiferencialDeRectasNoParalelasState
                         const Latex(formulaText: r"(ax+by+c)dx+(fx+gy+h)dy=0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(ax^2+by^2+c)xdx+(fx^2+gy^2+h)ydy=0"),
+                          formulaText: r"(ax^2+by^2+c)xdx+(fx^2+gy^2+h)ydy=0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.seSustituyePor,
@@ -97,8 +102,9 @@ class EcuacionDiferencialDeRectasNoParalelasState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"dy=dy'"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .tomamosDeCadaCoeficienteLosTerminosDeH,
+                          AppLocalizations.of(
+                            context,
+                          )!.tomamosDeCadaCoeficienteLosTerminosDeH,
                         ),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.kYLaConstante,
@@ -107,21 +113,25 @@ class EcuacionDiferencialDeRectasNoParalelasState
                           AppLocalizations.of(context)!.losIgualamosACero,
                         ),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales,
+                          AppLocalizations.of(
+                            context,
+                          )!.posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales,
                         ),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .alResolverPorHomogeneasSeSustituyenLasVariablesPor,
+                          AppLocalizations.of(
+                            context,
+                          )!.alResolverPorHomogeneasSeSustituyenLasVariablesPor,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"v = \frac{y'}{x'} \rightarrow y' = vx' \rightarrow dy' = vdx' + x'dv"),
+                          formulaText:
+                              r"v = \frac{y'}{x'} \rightarrow y' = vx' \rightarrow dy' = vdx' + x'dv",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"v = \frac{x'}{y'} \rightarrow x' = vy' \rightarrow dx' = vdy' + y'dv"),
+                          formulaText:
+                              r"v = \frac{x'}{y'} \rightarrow x' = vy' \rightarrow dx' = vdy' + y'dv",
+                        ),
                       ],
                     ),
                   ),
@@ -138,10 +148,7 @@ class EcuacionDiferencialDeRectasNoParalelasState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -150,15 +157,17 @@ class EcuacionDiferencialDeRectasNoParalelasState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"D"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .operadorQueSignificaDerivada,
+                          AppLocalizations.of(
+                            context,
+                          )!.operadorQueSignificaDerivada,
                         ),
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"n"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .ordenDeLaEcuacionSusRaicesSeran,
+                          AppLocalizations.of(
+                            context,
+                          )!.ordenDeLaEcuacionSusRaicesSeran,
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"r_1,r_2,\cdots ,r_n"),

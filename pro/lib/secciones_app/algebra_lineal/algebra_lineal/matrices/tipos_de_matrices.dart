@@ -6,10 +6,12 @@ class AlgebraLinealMatricesTiposDeMatrices extends StatefulWidget {
   const AlgebraLinealMatricesTiposDeMatrices({super.key});
 
   @override
-  AlgebraLinealMatricesTiposDeMatricesState createState() => AlgebraLinealMatricesTiposDeMatricesState();
+  AlgebraLinealMatricesTiposDeMatricesState createState() =>
+      AlgebraLinealMatricesTiposDeMatricesState();
 }
 
-class AlgebraLinealMatricesTiposDeMatricesState extends State<AlgebraLinealMatricesTiposDeMatrices> {
+class AlgebraLinealMatricesTiposDeMatricesState
+    extends State<AlgebraLinealMatricesTiposDeMatrices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class AlgebraLinealMatricesTiposDeMatricesState extends State<AlgebraLinealMatri
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealMatricesTiposDeMatrices,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealMatricesTiposDeMatrices,
                         widgetName: kWidgetAlgebraLinealMatricesTiposDeMatrices,
                       ),
                     );
@@ -44,15 +50,21 @@ class AlgebraLinealMatricesTiposDeMatricesState extends State<AlgebraLinealMatri
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices,
-                                widgetName: kWidgetAlgebraLinealMatricesTiposDeMatrices,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealMatricesTiposDeMatrices,
+                                widgetName:
+                                    kWidgetAlgebraLinealMatricesTiposDeMatrices,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealMatricesTiposDeMatrices,
-                                widgetName: kWidgetAlgebraLinealMatricesTiposDeMatrices,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealMatricesTiposDeMatrices,
+                                widgetName:
+                                    kWidgetAlgebraLinealMatricesTiposDeMatrices,
                               ),
                             );
                           }
@@ -67,13 +79,19 @@ class AlgebraLinealMatricesTiposDeMatricesState extends State<AlgebraLinealMatri
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"A = (a_{ij}), \quad B = (b_{ij}) \;\Rightarrow\; A = B \iff (a_{ij}) = (b_{ij})"),
+                  Latex(
+                    formulaText:
+                        r"A = (a_{ij}), \quad B = (b_{ij}) \;\Rightarrow\; A = B \iff (a_{ij}) = (b_{ij})",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"A^{K+1} = A"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"A^{2} = A"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"A^{P} = \underbrace{A \times A \times \cdots \times A}_{P \text{ veces}}"),
+                  Latex(
+                    formulaText:
+                        r"A^{P} = \underbrace{A \times A \times \cdots \times A}_{P \text{ veces}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"A^{P} = 0"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -86,7 +104,9 @@ class AlgebraLinealMatricesTiposDeMatricesState extends State<AlgebraLinealMatri
             ),
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetAlgebraLinealMatricesTiposDeMatrices),
-            const DescargarPDF(url: kWidgetAlgebraLinealMatricesTiposDeMatrices),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealMatricesTiposDeMatrices,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

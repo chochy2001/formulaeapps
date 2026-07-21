@@ -30,7 +30,9 @@ class CaidaLibreYTiroVerticalState extends State<CaidaLibreYTiroVertical> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.caidaLibreYTiroVertical,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.caidaLibreYTiroVertical,
                         widgetName: kWidgetCaidaLibreYTiroVertical,
                       ),
                     );
@@ -44,14 +46,18 @@ class CaidaLibreYTiroVerticalState extends State<CaidaLibreYTiroVertical> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.caidaLibreYTiroVertical,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.caidaLibreYTiroVertical,
                                 widgetName: kWidgetCaidaLibreYTiroVertical,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.caidaLibreYTiroVertical,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.caidaLibreYTiroVertical,
                                 widgetName: kWidgetCaidaLibreYTiroVertical,
                               ),
                             );

@@ -14,9 +14,12 @@ class _VectorUnitarioState extends State<VectorUnitario> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _VectorUnitarioState extends State<VectorUnitario> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.vectorUnitario,
-                            widgetName: kWidgetVectorUnitario),
+                          title: AppLocalizations.of(context)!.vectorUnitario,
+                          widgetName: kWidgetVectorUnitario,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _VectorUnitarioState extends State<VectorUnitario> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .vectorUnitario,
-                                    widgetName: kWidgetVectorUnitario),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.vectorUnitario,
+                                  widgetName: kWidgetVectorUnitario,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .vectorUnitario,
-                                    widgetName: kWidgetVectorUnitario),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.vectorUnitario,
+                                  widgetName: kWidgetVectorUnitario,
+                                ),
                               );
                             }
                           });
@@ -82,22 +90,27 @@ class _VectorUnitarioState extends State<VectorUnitario> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .vectoresUnitariosBasicos,
+                          AppLocalizations.of(
+                            context,
+                          )!.vectoresUnitariosBasicos,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathrm{i}=\langle 1,0,0\rangle"),
+                          formulaText: r"\mathrm{i}=\langle 1,0,0\rangle",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathrm{j}=\langle 0,1,0\rangle"),
+                          formulaText: r"\mathrm{j}=\langle 0,1,0\rangle",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathrm{k}=\langle 0,0,1\rangle"),
+                          formulaText: r"\mathrm{k}=\langle 0,0,1\rangle",
+                        ),
                         const SizedBox(height: 40),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .vectorUnitarioDireccionV,
+                          AppLocalizations.of(
+                            context,
+                          )!.vectorUnitarioDireccionV,
                         ),
                         const SizedBox(height: 5),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -105,20 +118,17 @@ class _VectorUnitarioState extends State<VectorUnitario> {
                           AppLocalizations.of(context)!.vectorUnitario,
                         ),
                         const Latex(
-                            formulaText: r"\frac{\mathrm{v}}{|\mathrm{v}|}"),
+                          formulaText: r"\frac{\mathrm{v}}{|\mathrm{v}|}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetVectorUnitario,
-                  ),
+                  const VerPDF(url: kWidgetVectorUnitario),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetVectorUnitario,
-                  ),
+                  const DescargarPDF(url: kWidgetVectorUnitario),
                 ],
               ),
             ),

@@ -31,9 +31,9 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.interesCompuesto,
-                            widgetName: kWidgetInteresCompuesto),
+                          title: AppLocalizations.of(context)!.interesCompuesto,
+                          widgetName: kWidgetInteresCompuesto,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +45,20 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .interesCompuesto,
-                                    widgetName: kWidgetInteresCompuesto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.interesCompuesto,
+                                  widgetName: kWidgetInteresCompuesto,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .interesCompuesto,
-                                    widgetName: kWidgetInteresCompuesto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.interesCompuesto,
+                                  widgetName: kWidgetInteresCompuesto,
+                                ),
                               );
                             }
                           });
@@ -63,9 +67,7 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -76,7 +78,8 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"M=C\left(1+\frac{i}{p}\right)^{np}"),
+                          formulaText: r"M=C\left(1+\frac{i}{p}\right)^{np}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -84,29 +87,23 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetInteresCompuesto,
-                  ),
+                  const VerPDF(url: kWidgetInteresCompuesto),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetInteresCompuesto,
-                  ),
+                  const DescargarPDF(url: kWidgetInteresCompuesto),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaCapitalizacionDefinicion,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaCapitalizacionDefinicion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"M"),
@@ -126,14 +123,13 @@ class InteresCompuestoState extends State<InteresCompuesto> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"p"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaCapitalizacion,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaCapitalizacion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"C"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.capital,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.capital),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

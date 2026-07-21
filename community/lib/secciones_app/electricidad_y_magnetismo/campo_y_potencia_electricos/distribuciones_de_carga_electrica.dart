@@ -16,9 +16,12 @@ class _DistribucionesDeCargaElectricaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _DistribucionesDeCargaElectricaState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .distribucionesCargaElectrica,
-                      widgetName: kWidgetDistribucionesDeCargaElectrica),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.distribucionesCargaElectrica,
+                    widgetName: kWidgetDistribucionesDeCargaElectrica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,20 @@ class _DistribucionesDeCargaElectricaState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .distribucionesCargaElectrica,
-                              widgetName:
-                                  kWidgetDistribucionesDeCargaElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.distribucionesCargaElectrica,
+                            widgetName: kWidgetDistribucionesDeCargaElectrica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .distribucionesCargaElectrica,
-                              widgetName:
-                                  kWidgetDistribucionesDeCargaElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.distribucionesCargaElectrica,
+                            widgetName: kWidgetDistribucionesDeCargaElectrica,
+                          ),
                         );
                       }
                     });
@@ -79,21 +86,15 @@ class _DistribucionesDeCargaElectricaState
 
             const SizedBox(height: 20.0),
 
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.naturalezaCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.naturalezaCarga),
 
             const SizedBox(height: 20.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.distribucionCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.distribucionCarga),
 
             const SizedBox(height: 30.0),
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.densidadLineal,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.densidadLineal),
                 const Latex(formulaText: r"\lambda = \frac{dq}{dl}"),
                 const Latex(formulaText: r"[\lambda]_u  = \space \frac{C}{m}"),
                 const SizedBox(height: 20.0),
@@ -108,19 +109,16 @@ class _DistribucionesDeCargaElectricaState
                 ),
                 const Latex(formulaText: r"\varrho= \frac{dq}{dV}"),
                 const Latex(
-                    formulaText: r"[\varrho]_u  = \space \frac{C}{m^3}"),
+                  formulaText: r"[\varrho]_u  = \space \frac{C}{m^3}",
+                ),
                 const SizedBox(height: 20.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetDistribucionesDeCargaElectrica,
-            ),
+            const VerPDF(url: kWidgetDistribucionesDeCargaElectrica),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetDistribucionesDeCargaElectrica,
-            ),
+            const DescargarPDF(url: kWidgetDistribucionesDeCargaElectrica),
           ],
         ),
       ),

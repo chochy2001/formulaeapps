@@ -45,9 +45,7 @@ class FakeInAppPurchasePlatform extends InAppPurchasePlatform {
   }
 
   @override
-  Future<bool> buyNonConsumable({
-    required PurchaseParam purchaseParam,
-  }) async {
+  Future<bool> buyNonConsumable({required PurchaseParam purchaseParam}) async {
     buyCalls++;
     if (buyThrows) {
       throw StateError('buy failed');

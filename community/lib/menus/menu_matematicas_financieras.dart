@@ -18,9 +18,12 @@ class MenuMatematicasFinancierasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,26 +36,19 @@ class MenuMatematicasFinancierasState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const ImagenLogoFormulae(),
-              ),
+              TextButton(onPressed: () {}, child: const ImagenLogoFormulae()),
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.matematicasFinancieras,
                   style: kTextoBotones,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               adContainer,
               Center(
                 child: Column(
@@ -65,20 +61,23 @@ class MenuMatematicasFinancierasState
                     ),
                     //Condicional
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .anualidadAnticipadaSimpleYCierta,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.anualidadAnticipadaSimpleYCierta,
                       ruta: kRutaAnualidadAnticipadaSimpleYCierta,
                     ),
                     //Conectores Logicos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .anualidadVencidaSimpleYCierta,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.anualidadVencidaSimpleYCierta,
                       ruta: kRutaAnualidadAnticipadaSimpleYCierta,
                     ),
                     //Conjuncion
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.descuentoCompuesto,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.descuentoCompuesto,
                       ruta: kRutaDescuentoCompuesto,
                     ),
                     //Disyuncion
@@ -87,8 +86,9 @@ class MenuMatematicasFinancierasState
                       ruta: kRutaDescuentoSimple,
                     ),
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.interesCompuesto,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.interesCompuesto,
                       ruta: kRutaInteresCompuesto,
                     ),
                     //Leyes de la logica proposicional
@@ -103,8 +103,9 @@ class MenuMatematicasFinancierasState
                     ),
                     //Leyes del Algebra de Boole
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.tasaDeInteresGlobal,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.tasaDeInteresGlobal,
                       ruta: kRutaTasaDeInteresGlobal,
                     ),
                     BotonesMenu(

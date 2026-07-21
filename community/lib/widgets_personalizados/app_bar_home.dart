@@ -34,9 +34,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      title: const Center(
-        child: HeaderBar(),
-      ),
+      title: const Center(child: HeaderBar()),
     );
   }
 

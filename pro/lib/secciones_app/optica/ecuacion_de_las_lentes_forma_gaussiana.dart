@@ -6,10 +6,12 @@ class EcuacionDeLasLentesFormaGaussiana extends StatefulWidget {
   const EcuacionDeLasLentesFormaGaussiana({super.key});
 
   @override
-  EcuacionDeLasLentesFormaGaussianaState createState() => EcuacionDeLasLentesFormaGaussianaState();
+  EcuacionDeLasLentesFormaGaussianaState createState() =>
+      EcuacionDeLasLentesFormaGaussianaState();
 }
 
-class EcuacionDeLasLentesFormaGaussianaState extends State<EcuacionDeLasLentesFormaGaussiana> {
+class EcuacionDeLasLentesFormaGaussianaState
+    extends State<EcuacionDeLasLentesFormaGaussiana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class EcuacionDeLasLentesFormaGaussianaState extends State<EcuacionDeLasLentesFo
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana,
+                    AppLocalizations.of(
+                      context,
+                    )!.ecuacionDeLasLentesFormaGaussiana,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.ecuacionDeLasLentesFormaGaussiana,
                         widgetName: kWidgetEcuacionDeLasLentesFormaGaussiana,
                       ),
                     );
@@ -44,15 +50,21 @@ class EcuacionDeLasLentesFormaGaussianaState extends State<EcuacionDeLasLentesFo
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana,
-                                widgetName: kWidgetEcuacionDeLasLentesFormaGaussiana,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionDeLasLentesFormaGaussiana,
+                                widgetName:
+                                    kWidgetEcuacionDeLasLentesFormaGaussiana,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana,
-                                widgetName: kWidgetEcuacionDeLasLentesFormaGaussiana,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionDeLasLentesFormaGaussiana,
+                                widgetName:
+                                    kWidgetEcuacionDeLasLentesFormaGaussiana,
                               ),
                             );
                           }
@@ -67,11 +79,17 @@ class EcuacionDeLasLentesFormaGaussianaState extends State<EcuacionDeLasLentesFo
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{1}{p} + \frac{1}{q} = \frac{1}{f}"),
+                  Latex(
+                    formulaText: r"\frac{1}{p} + \frac{1}{q} = \frac{1}{f}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{1}{p} - \frac{1}{q} = \frac{1}{f}"),
+                  Latex(
+                    formulaText: r"\frac{1}{p} - \frac{1}{q} = \frac{1}{f}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{1}{p} - \frac{1}{q} = -\frac{1}{f}"),
+                  Latex(
+                    formulaText: r"\frac{1}{p} - \frac{1}{q} = -\frac{1}{f}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

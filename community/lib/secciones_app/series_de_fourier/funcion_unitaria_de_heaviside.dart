@@ -16,9 +16,12 @@ class _FuncionUnitariaDeHeavisideState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _FuncionUnitariaDeHeavisideState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .funcionUnitariaDeHeaviside,
-                            widgetName: kWidgetFuncionUnitariaDeHeaviside),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.funcionUnitariaDeHeaviside,
+                          widgetName: kWidgetFuncionUnitariaDeHeaviside,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,20 @@ class _FuncionUnitariaDeHeavisideState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionUnitariaDeHeaviside,
-                                    widgetName:
-                                        kWidgetFuncionUnitariaDeHeaviside),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionUnitariaDeHeaviside,
+                                  widgetName: kWidgetFuncionUnitariaDeHeaviside,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionUnitariaDeHeaviside,
-                                    widgetName:
-                                        kWidgetFuncionUnitariaDeHeaviside),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionUnitariaDeHeaviside,
+                                  widgetName: kWidgetFuncionUnitariaDeHeaviside,
+                                ),
                               );
                             }
                           });
@@ -81,17 +88,16 @@ class _FuncionUnitariaDeHeavisideState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"u(t) = \left\{\begin{aligned}1 \space\space\space\space & \mathsf{Si\space}a\\0 \space\space\space\space & \mathsf{Si\space}b\end{aligned}\right."),
+                          formulaText:
+                              r"u(t) = \left\{\begin{aligned}1 \space\space\space\space & \mathsf{Si\space}a\\0 \space\space\space\space & \mathsf{Si\space}b\end{aligned}\right.",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a\rightarrow t > 0"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -109,13 +115,9 @@ class _FuncionUnitariaDeHeavisideState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetFuncionUnitariaDeHeaviside,
-                  ),
+                  const VerPDF(url: kWidgetFuncionUnitariaDeHeaviside),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetFuncionUnitariaDeHeaviside,
-                  ),
+                  const DescargarPDF(url: kWidgetFuncionUnitariaDeHeaviside),
                 ],
               ),
             ),

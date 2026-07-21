@@ -31,9 +31,11 @@ class ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .constantesDeIntegracion,
-                            widgetName: kWidgetConstantesDeIntegracion),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.constantesDeIntegracion,
+                          widgetName: kWidgetConstantesDeIntegracion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .constantesDeIntegracion,
-                                    widgetName: kWidgetConstantesDeIntegracion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.constantesDeIntegracion,
+                                  widgetName: kWidgetConstantesDeIntegracion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .constantesDeIntegracion,
-                                    widgetName: kWidgetConstantesDeIntegracion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.constantesDeIntegracion,
+                                  widgetName: kWidgetConstantesDeIntegracion,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -81,21 +85,14 @@ class ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConstantesDeIntegracion,
-                  ),
+                  const VerPDF(url: kWidgetConstantesDeIntegracion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConstantesDeIntegracion,
-                  ),
+                  const DescargarPDF(url: kWidgetConstantesDeIntegracion),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

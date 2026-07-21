@@ -14,8 +14,9 @@ String testJwt({required int expUnix}) {
   final header = base64Url
       .encode(utf8.encode('{"alg":"HS256","typ":"JWT"}'))
       .replaceAll('=', '');
-  final payload =
-      base64Url.encode(utf8.encode('{"exp":$expUnix}')).replaceAll('=', '');
+  final payload = base64Url
+      .encode(utf8.encode('{"exp":$expUnix}'))
+      .replaceAll('=', '');
   return '$header.$payload.test-signature';
 }
 
@@ -81,10 +82,7 @@ void main() {
       AuthService.adoptRotatedToken('not-a-jwt');
 
       if (jwtSharedSecret.isEmpty) {
-        await expectLater(
-          AuthService.getToken(),
-          throwsA(isA<StateError>()),
-        );
+        await expectLater(AuthService.getToken(), throwsA(isA<StateError>()));
         return;
       }
 
@@ -98,46 +96,51 @@ void main() {
   });
 
   group('AuthService BFF refresh', () {
-    test('getToken posts client proof to /auth/token when cache is cold',
-        () async {
-      if (jwtSharedSecret.isEmpty) {
-        // CI/local: flutter test --dart-define=JWT_SHARED_SECRET=unit-test-secret
-        return;
-      }
+    test(
+      'getToken posts client proof to /auth/token when cache is cold',
+      () async {
+        if (jwtSharedSecret.isEmpty) {
+          // CI/local: flutter test --dart-define=JWT_SHARED_SECRET=unit-test-secret
+          return;
+        }
 
-      final expiresAt =
-          DateTime.now().toUtc().add(const Duration(hours: 1)).toIso8601String();
-      final issuedToken = testJwt(
-        expUnix: DateTime.now()
-                .toUtc()
-                .add(const Duration(hours: 1))
-                .millisecondsSinceEpoch ~/
-            1000,
-      );
-
-      http.Request? captured;
-      final client = MockClient((request) async {
-        captured = request;
-        return http.Response(
-          jsonEncode({'token': issuedToken, 'expires_at': expiresAt}),
-          200,
-          headers: {'content-type': 'application/json'},
+        final expiresAt = DateTime.now()
+            .toUtc()
+            .add(const Duration(hours: 1))
+            .toIso8601String();
+        final issuedToken = testJwt(
+          expUnix:
+              DateTime.now()
+                  .toUtc()
+                  .add(const Duration(hours: 1))
+                  .millisecondsSinceEpoch ~/
+              1000,
         );
-      });
 
-      final token = await AuthService.getToken(client: client);
+        http.Request? captured;
+        final client = MockClient((request) async {
+          captured = request;
+          return http.Response(
+            jsonEncode({'token': issuedToken, 'expires_at': expiresAt}),
+            200,
+            headers: {'content-type': 'application/json'},
+          );
+        });
 
-      expect(token, issuedToken);
-      expect(captured, isNotNull);
-      expect(captured!.method, 'POST');
-      expect(captured!.url.path, endsWith('/auth/token'));
+        final token = await AuthService.getToken(client: client);
 
-      final body = jsonDecode(captured!.body) as Map<String, dynamic>;
-      expect(body['client_id'], isNotEmpty);
-      expect(body['client_proof'], isNotEmpty);
-      expect(body['build_nonce'], buildNonce);
-      expect(body['platform'], isNotEmpty);
-      expect(body['app_version'], appVersion);
-    });
+        expect(token, issuedToken);
+        expect(captured, isNotNull);
+        expect(captured!.method, 'POST');
+        expect(captured!.url.path, endsWith('/auth/token'));
+
+        final body = jsonDecode(captured!.body) as Map<String, dynamic>;
+        expect(body['client_id'], isNotEmpty);
+        expect(body['client_proof'], isNotEmpty);
+        expect(body['build_nonce'], buildNonce);
+        expect(body['platform'], isNotEmpty);
+        expect(body['app_version'], appVersion);
+      },
+    );
   });
 }

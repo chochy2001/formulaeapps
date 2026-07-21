@@ -31,8 +31,9 @@ class ReglaDeSarrusState extends State<ReglaDeSarrus> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.reglaSarrus,
-                            widgetName: kWidgetReglaDeSarrus),
+                          title: AppLocalizations.of(context)!.reglaSarrus,
+                          widgetName: kWidgetReglaDeSarrus,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class ReglaDeSarrusState extends State<ReglaDeSarrus> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .reglaSarrus,
-                                    widgetName: kWidgetReglaDeSarrus),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.reglaSarrus,
+                                  widgetName: kWidgetReglaDeSarrus,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .reglaSarrus,
-                                    widgetName: kWidgetReglaDeSarrus),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.reglaSarrus,
+                                  widgetName: kWidgetReglaDeSarrus,
+                                ),
                               );
                             }
                           });
@@ -66,12 +71,11 @@ class ReglaDeSarrusState extends State<ReglaDeSarrus> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.sea,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.sea),
                       const Latex(
-                          formulaText:
-                              r"A = \begin{bmatrix}a & b & c\\d & e & f\\g & h & i\\\end{bmatrix} \rightarrow \begin{bmatrix}a & b & c\\d & e & f\\g & h & i\\a & b & c\\d & e & f\\\end{bmatrix} "),
+                        formulaText:
+                            r"A = \begin{bmatrix}a & b & c\\d & e & f\\g & h & i\\\end{bmatrix} \rightarrow \begin{bmatrix}a & b & c\\d & e & f\\g & h & i\\a & b & c\\d & e & f\\\end{bmatrix} ",
+                      ),
 
                       const SizedBox(height: kEspacioEntreBotones),
                       TextoEcuaciones(
@@ -79,39 +83,32 @@ class ReglaDeSarrusState extends State<ReglaDeSarrus> {
                       ),
                       //Imagen
                       const ZoomImagePersonalizado(
-                          urlImagen: kUrlImagenReglaDeSarrus),
+                        urlImagen: kUrlImagenReglaDeSarrus,
+                      ),
                       const SizedBox(height: kEspacioEntreBotones),
                       const SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Latex(
-                            formulaText: r"\det A = aei+dhc+gbf-ceg-fha-ibd"),
+                          formulaText: r"\det A = aei+dhc+gbf-ceg-fha-ibd",
+                        ),
                       ),
                       const SizedBox(height: kEspacioEntreBotones),
                     ],
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetReglaDeSarrus,
-                  ),
+                  const VerPDF(url: kWidgetReglaDeSarrus),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetReglaDeSarrus,
-                  ),
+                  const DescargarPDF(url: kWidgetReglaDeSarrus),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.soloAplicaMatrices,
                         ),

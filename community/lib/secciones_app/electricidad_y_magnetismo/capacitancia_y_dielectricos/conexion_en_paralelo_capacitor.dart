@@ -16,9 +16,12 @@ class _ConexionEnParaleloCapacitorState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _ConexionEnParaleloCapacitorState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .conexionParaleloCapacitor,
-                      widgetName: kWidgetConexionEnParaleloCapacitor),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.conexionParaleloCapacitor,
+                    widgetName: kWidgetConexionEnParaleloCapacitor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _ConexionEnParaleloCapacitorState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionParaleloCapacitor,
-                              widgetName: kWidgetConexionEnParaleloCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionParaleloCapacitor,
+                            widgetName: kWidgetConexionEnParaleloCapacitor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionParaleloCapacitor,
-                              widgetName: kWidgetConexionEnParaleloCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionParaleloCapacitor,
+                            widgetName: kWidgetConexionEnParaleloCapacitor,
+                          ),
                         );
                       }
                     });
@@ -79,25 +88,24 @@ class _ConexionEnParaleloCapacitorState
 
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.sentidoFisico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.sentidoFisico),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenConexionEnParaleloFisico),
+                  urlImagen: kUrlImagenConexionEnParaleloFisico,
+                ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.simbologia,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.simbologia),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenConexionEnParaleloSimbologia),
+                  urlImagen: kUrlImagenConexionEnParaleloSimbologia,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.conexionEnParalelo,
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen:
-                        kUrlImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente),
+                  urlImagen:
+                      kUrlImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"Q_T = Q_1 + Q_2 + Q_3 + ... + Q_n"),
                 const SizedBox(height: 30.0),
@@ -109,13 +117,9 @@ class _ConexionEnParaleloCapacitorState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetConexionEnParaleloCapacitor,
-            ),
+            const VerPDF(url: kWidgetConexionEnParaleloCapacitor),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetConexionEnParaleloCapacitor,
-            ),
+            const DescargarPDF(url: kWidgetConexionEnParaleloCapacitor),
           ],
         ),
       ),

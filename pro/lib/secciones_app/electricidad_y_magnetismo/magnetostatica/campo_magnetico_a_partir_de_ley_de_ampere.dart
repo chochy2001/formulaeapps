@@ -22,17 +22,20 @@ class _CampoMagneticoAPartirDeLeyDeAmpereState
           children: [
             ChatGPTButton(
               child: TituloPersonalizado(
-                AppLocalizations.of(context)!
-                    .campoMagneticoAPartirDeLeyDeAmpere,
+                AppLocalizations.of(
+                  context,
+                )!.campoMagneticoAPartirDeLeyDeAmpere,
               ),
             ),
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .campoMagneticoAPartirDeLeyDeAmpere,
-                      widgetName: kWidgetCampoMagneticoAPartirDeLeyDeAmpere),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.campoMagneticoAPartirDeLeyDeAmpere,
+                    widgetName: kWidgetCampoMagneticoAPartirDeLeyDeAmpere,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -44,18 +47,22 @@ class _CampoMagneticoAPartirDeLeyDeAmpereState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .campoMagneticoAPartirDeLeyDeAmpere,
-                              widgetName:
-                                  kWidgetCampoMagneticoAPartirDeLeyDeAmpere),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.campoMagneticoAPartirDeLeyDeAmpere,
+                            widgetName:
+                                kWidgetCampoMagneticoAPartirDeLeyDeAmpere,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .campoMagneticoAPartirDeLeyDeAmpere,
-                              widgetName:
-                                  kWidgetCampoMagneticoAPartirDeLeyDeAmpere),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.campoMagneticoAPartirDeLeyDeAmpere,
+                            widgetName:
+                                kWidgetCampoMagneticoAPartirDeLeyDeAmpere,
+                          ),
                         );
                       }
                     });
@@ -72,29 +79,35 @@ class _CampoMagneticoAPartirDeLeyDeAmpereState
                 ),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu_0 i"),
+                  formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu_0 i",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText:
-                        r"\oint \vec{B} \cdot d \vec{l} = B\oint dl = B2\pi r = \mu _0 i"),
+                  formulaText:
+                      r"\oint \vec{B} \cdot d \vec{l} = B\oint dl = B2\pi r = \mu _0 i",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(formulaText: r"B= \frac{\mu _0 i}{2\pi r}"),
                 const SizedBox(height: 30.0),
                 const SizedBox(height: 30.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .enElCasoDeUnSolenoideLargoInterior,
+                  AppLocalizations.of(
+                    context,
+                  )!.enElCasoDeUnSolenoideLargoInterior,
                 ),
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSolenoideLargo),
+                  urlImagen: kUrlImagenSolenoideLargo,
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu _0 i"),
+                  formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu _0 i",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText:
-                        r"\oint \vec{B} \cdot d \vec{l} = \int_1 B dl = BL = \mu _0 i N"),
+                  formulaText:
+                      r"\oint \vec{B} \cdot d \vec{l} = \int_1 B dl = BL = \mu _0 i N",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(formulaText: r"B= \frac{\mu _0 i N}{L}"),
                 const SizedBox(height: 40.0),
@@ -104,15 +117,11 @@ class _CampoMagneticoAPartirDeLeyDeAmpereState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCampoMagneticoAPartirDeLeyDeAmpere,
-                ),
+                VerPDF(url: kWidgetCampoMagneticoAPartirDeLeyDeAmpere),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCampoMagneticoAPartirDeLeyDeAmpere,
-                ),
+                DescargarPDF(url: kWidgetCampoMagneticoAPartirDeLeyDeAmpere),
               ],
-            )
+            ),
           ],
         ),
       ),

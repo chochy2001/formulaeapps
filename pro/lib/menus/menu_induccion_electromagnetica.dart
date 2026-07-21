@@ -17,9 +17,7 @@ class MenuInduccionElectromagnetica extends StatelessWidget {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -28,13 +26,12 @@ class MenuInduccionElectromagnetica extends StatelessWidget {
                     AppLocalizations.of(context)!.induccionElectromagnetica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
                     ruta: kRutaGeneradorHomopolar,
-                    textoBoton:
-                        AppLocalizations.of(context)!.generadorHomopolar,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.generadorHomopolar,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaPropia,
@@ -46,28 +43,33 @@ class MenuInduccionElectromagnetica extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaPropiaDeUnSolenoide,
-                    textoBoton: AppLocalizations.of(context)!
-                        .inductanciaPropiaDeUnSolenoide,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaPropiaDeUnSolenoide,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaParaUnToroide,
-                    textoBoton:
-                        AppLocalizations.of(context)!.inductanciaParaUnToroide,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaParaUnToroide,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaMutuaEntreDosSolenoidesCoaxiales,
-                    textoBoton: AppLocalizations.of(context)!
-                        .inductanciaMutuaEntreDosSolenoidesCoaxiales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeInduccionDeFaraday,
-                    textoBoton: AppLocalizations.of(context)!
-                        .leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
                   ),
                   BotonesMenu(
                     ruta: kRutaEnergiaAlmacenadaEnUnCampoMagnetico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .energiaAlmacenadaEnUnCampoMagnetico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.energiaAlmacenadaEnUnCampoMagnetico,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductor,

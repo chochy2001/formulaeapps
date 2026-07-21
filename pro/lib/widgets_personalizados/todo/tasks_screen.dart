@@ -48,9 +48,7 @@ class TasksScreen extends StatelessWidget {
                 '${Provider.of<TaskData>(context).taskCount} ${AppLocalizations.of(context)!.tareas}',
                 style: kEstiloSubMenu,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
-              ),
+              SizedBox(height: MediaQuery.of(context).size.height * .02),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Wrap(
@@ -66,9 +64,7 @@ class TasksScreen extends StatelessWidget {
                           curve: Curves.easeInOut,
                           duration: Duration(milliseconds: 100),
                         ),
-                        ScaleEffect(
-                          duration: Duration(milliseconds: 10),
-                        ),
+                        ScaleEffect(duration: Duration(milliseconds: 10)),
                       ],
                       child: Wrap(
                         alignment: WrapAlignment.end,
@@ -82,53 +78,59 @@ class TasksScreen extends StatelessWidget {
                                 _showExportOptionsAndExport(context),
                             child: FloatingActionButton.extended(
                               extendedTextStyle: const TextStyle(
-                                  color: kColorTextoSobreAcento),
+                                color: kColorTextoSobreAcento,
+                              ),
                               // Accion SECUNDARIA (compartir): acento teal.
                               backgroundColor: kColorAcentoSecundario,
                               elevation: 9,
                               onPressed: () async {
-                                final tasks = Provider.of<TaskData>(context,
-                                        listen: false)
-                                    .tasks;
+                                final tasks = Provider.of<TaskData>(
+                                  context,
+                                  listen: false,
+                                ).tasks;
 
                                 // Muestra el diálogo de opciones de exportación
                                 ExportOptions? options =
                                     await showDialog<ExportOptions>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const ExportOptionsDialog();
-                                  },
-                                );
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const ExportOptionsDialog();
+                                      },
+                                    );
 
                                 // Si el usuario seleccionó opciones y presionó "Aceptar", genera el texto de todas las tareas con las opciones seleccionadas
                                 if (options != null) {
-                                  String allTasksText = tasks.map((task) {
-                                    String taskText = task.name;
-                                    if (options.includeTaskStatus) {
-                                      taskText +=
-                                          ' - ${task.isDone ? AppLocalizations.of(context)!.completada : AppLocalizations.of(context)!.noCompletada}';
-                                    }
-                                    if (options.includeReminderDate) {
-                                      taskText +=
-                                          ' - ${AppLocalizations.of(context)!.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : AppLocalizations.of(context)!.noAsignado}';
-                                    }
-                                    if (options.includeDueDate) {
-                                      taskText +=
-                                          ' - ${AppLocalizations.of(context)!.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : AppLocalizations.of(context)!.noAsignado}';
-                                    }
-                                    return taskText;
-                                  }).join('\n');
+                                  String allTasksText = tasks
+                                      .map((task) {
+                                        String taskText = task.name;
+                                        if (options.includeTaskStatus) {
+                                          taskText +=
+                                              ' - ${task.isDone ? AppLocalizations.of(context)!.completada : AppLocalizations.of(context)!.noCompletada}';
+                                        }
+                                        if (options.includeReminderDate) {
+                                          taskText +=
+                                              ' - ${AppLocalizations.of(context)!.fechaRecordatorio}: ${task.reminderDateTime != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.reminderDateTime!) : AppLocalizations.of(context)!.noAsignado}';
+                                        }
+                                        if (options.includeDueDate) {
+                                          taskText +=
+                                              ' - ${AppLocalizations.of(context)!.fechaEntrega}: ${task.dueDate != null ? DateFormat('yyyy-MM-dd – kk:mm').format(task.dueDate!) : AppLocalizations.of(context)!.noAsignado}';
+                                        }
+                                        return taskText;
+                                      })
+                                      .join('\n');
 
                                   // Comparte el texto de todas las tareas
                                   SharePlus.instance.share(
-                                      ShareParams(text: allTasksText));
+                                    ShareParams(text: allTasksText),
+                                  );
                                 }
                               },
                               label: Text(
                                 AppLocalizations.of(context)!.compartirTareas,
                                 style: const TextStyle(
-                                    color: kColorTextoSobreAcento,
-                                    fontFamily: 'Poppins'),
+                                  color: kColorTextoSobreAcento,
+                                  fontFamily: 'Poppins',
+                                ),
                               ),
                               icon: const Icon(
                                 Icons.share,
@@ -141,9 +143,10 @@ class TasksScreen extends StatelessWidget {
                           //Add
                           GestureDetector(
                             onLongPress: () {
-                              int taskCount =
-                                  Provider.of<TaskData>(context, listen: false)
-                                      .taskCount;
+                              int taskCount = Provider.of<TaskData>(
+                                context,
+                                listen: false,
+                              ).taskCount;
                               if (taskCount > 0) {
                                 showDialog(
                                   context: context,
@@ -153,13 +156,15 @@ class TasksScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     title: Text(
-                                      AppLocalizations.of(context)!
-                                          .eliminarTodasLasTareas,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.eliminarTodasLasTareas,
                                       style: kTextoBotones,
                                     ),
                                     content: Text(
-                                      AppLocalizations.of(context)!
-                                          .confirmacionEliminarTareas,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.confirmacionEliminarTareas,
                                       style: kTexto,
                                     ),
                                     actions: [
@@ -168,21 +173,24 @@ class TasksScreen extends StatelessWidget {
                                           Navigator.pop(context);
                                         },
                                         child: Text(
-                                          AppLocalizations.of(context)!
-                                              .cancelar,
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.cancelar,
                                           style: kTextoBotones2,
                                         ),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          Provider.of<TaskData>(context,
-                                                  listen: false)
-                                              .deleteAllTasks();
+                                          Provider.of<TaskData>(
+                                            context,
+                                            listen: false,
+                                          ).deleteAllTasks();
                                         },
                                         child: Text(
-                                          AppLocalizations.of(context)!
-                                              .eliminar,
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.eliminar,
                                           style: kTextoCerrar,
                                         ),
                                       ),
@@ -203,9 +211,9 @@ class TasksScreen extends StatelessWidget {
                                   builder: (context) => SingleChildScrollView(
                                     child: Container(
                                       padding: EdgeInsets.only(
-                                        bottom: MediaQuery.of(context)
-                                            .viewInsets
-                                            .bottom,
+                                        bottom: MediaQuery.of(
+                                          context,
+                                        ).viewInsets.bottom,
                                       ),
                                       child: const AddTaskScreen(),
                                     ),
@@ -215,7 +223,8 @@ class TasksScreen extends StatelessWidget {
                               label: Text(
                                 AppLocalizations.of(context)!.agregar,
                                 style: const TextStyle(
-                                    color: kColorTextoSobreAcento),
+                                  color: kColorTextoSobreAcento,
+                                ),
                               ),
                               icon: const Icon(
                                 Icons.add,
@@ -280,18 +289,18 @@ class TasksScreen extends StatelessWidget {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.pdfGenerado)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.pdfGenerado)));
     } catch (error, stackTrace) {
       debugPrint('Formulae tasks PDF export failed: $error');
       debugPrintStack(stackTrace: stackTrace);
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.mensajeError)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.mensajeError)));
     }
   }
 
@@ -326,10 +335,12 @@ class TasksScreen extends StatelessWidget {
     final pdf = pw.Document();
     final imageData = await readImageData('assets/images/icono_app_nuevo.png');
     final imageProvider = pw.MemoryImage(imageData);
-    final textFont =
-        pw.Font.ttf(await rootBundle.load('fonts/Poppins-Bold.ttf'));
-    final mathFont =
-        pw.Font.ttf(await rootBundle.load('fonts/NotoSansMath-Regular.ttf'));
+    final textFont = pw.Font.ttf(
+      await rootBundle.load('fonts/Poppins-Bold.ttf'),
+    );
+    final mathFont = pw.Font.ttf(
+      await rootBundle.load('fonts/NotoSansMath-Regular.ttf'),
+    );
 
     // Una página única recortaba las listas largas. MultiPage conserva todas
     // las tareas y distribuye los renglones entre páginas A4 cuando es necesario.

@@ -16,9 +16,12 @@ class _GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -35,16 +38,15 @@ class _GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.gradienteFuncion,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.gradienteFuncion),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.gradienteFuncion,
-                      widgetName: kWidgetGradienteDeUnaFuncion),
+                    title: AppLocalizations.of(context)!.gradienteFuncion,
+                    widgetName: kWidgetGradienteDeUnaFuncion,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +58,20 @@ class _GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncion,
-                              widgetName: kWidgetGradienteDeUnaFuncion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncion,
+                            widgetName: kWidgetGradienteDeUnaFuncion,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncion,
-                              widgetName: kWidgetGradienteDeUnaFuncion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncion,
+                            widgetName: kWidgetGradienteDeUnaFuncion,
+                          ),
                         );
                       }
                     });
@@ -74,16 +80,12 @@ class _GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sean,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sean),
                   const Latex(formulaText: r"f(x,y)"),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.unafunciondedosvariables,
@@ -95,27 +97,23 @@ class _GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} f(x,y) = f_x(x,y)\hat{i}+f_y(x,y)\hat{j}"),
+                    formulaText:
+                        r"\vec{\nabla} f(x,y) = f_x(x,y)\hat{i}+f_y(x,y)\hat{j}",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} f(x,y) =\left(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y}\right)"),
+                    formulaText:
+                        r"\vec{\nabla} f(x,y) =\left(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y}\right)",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetGradienteDeUnaFuncion,
-            ),
+            const VerPDF(url: kWidgetGradienteDeUnaFuncion),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetGradienteDeUnaFuncion,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetGradienteDeUnaFuncion),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

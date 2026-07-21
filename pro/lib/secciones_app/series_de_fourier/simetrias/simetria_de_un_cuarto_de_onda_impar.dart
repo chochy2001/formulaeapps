@@ -26,17 +26,20 @@ class SimetriaDeUnCuartoDeOndaImparState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .simetriaDeUnCuartoDeOndaImpar,
+                      AppLocalizations.of(
+                        context,
+                      )!.simetriaDeUnCuartoDeOndaImpar,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .simetriaDeUnCuartoDeOndaImpar,
-                            widgetName: kWidgetSimetriaDeUnCuartoDeOndaImpar),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.simetriaDeUnCuartoDeOndaImpar,
+                          widgetName: kWidgetSimetriaDeUnCuartoDeOndaImpar,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +51,22 @@ class SimetriaDeUnCuartoDeOndaImparState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaDeUnCuartoDeOndaImpar,
-                                    widgetName:
-                                        kWidgetSimetriaDeUnCuartoDeOndaImpar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaDeUnCuartoDeOndaImpar,
+                                  widgetName:
+                                      kWidgetSimetriaDeUnCuartoDeOndaImpar,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaDeUnCuartoDeOndaImpar,
-                                    widgetName:
-                                        kWidgetSimetriaDeUnCuartoDeOndaImpar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaDeUnCuartoDeOndaImpar,
+                                  widgetName:
+                                      kWidgetSimetriaDeUnCuartoDeOndaImpar,
+                                ),
                               );
                             }
                           });
@@ -68,9 +75,7 @@ class SimetriaDeUnCuartoDeOndaImparState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -82,8 +87,8 @@ class SimetriaDeUnCuartoDeOndaImparState
                         const Latex(formulaText: r"f(t) = -f(-t)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"f(t) = -f\left(t+\frac{T}{2}\right)"),
+                          formulaText: r"f(t) = -f\left(t+\frac{T}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -91,13 +96,15 @@ class SimetriaDeUnCuartoDeOndaImparState
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \sum_{n=1}^{\infty} b_{2n-1}\sin[(2n-1)\omega_0t]"),
+                          formulaText:
+                              r"f(t) = \sum_{n=1}^{\infty} b_{2n-1}\sin[(2n-1)\omega_0t]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .coeficientesSerieFourier,
+                          AppLocalizations.of(
+                            context,
+                          )!.coeficientesSerieFourier,
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"a_0 = 0"),
@@ -105,21 +112,18 @@ class SimetriaDeUnCuartoDeOndaImparState
                         const Latex(formulaText: r"a_{2n-1} = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"b_{2n-1} = \frac{8}{T}\int_{0}^{T/4}f(t)\sin[(2n-1)\omega_0t]dt"),
+                          formulaText:
+                              r"b_{2n-1} = \frac{8}{T}\int_{0}^{T/4}f(t)\sin[(2n-1)\omega_0t]dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSimetriaDeUnCuartoDeOndaImpar,
-                  ),
+                  const VerPDF(url: kWidgetSimetriaDeUnCuartoDeOndaImpar),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSimetriaDeUnCuartoDeOndaImpar,
-                  ),
+                  const DescargarPDF(url: kWidgetSimetriaDeUnCuartoDeOndaImpar),
                 ],
               ),
             ),

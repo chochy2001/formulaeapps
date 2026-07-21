@@ -14,9 +14,12 @@ class _TransformadaDeFourierState extends State<TransformadaDeFourier> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _TransformadaDeFourierState extends State<TransformadaDeFourier> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .transformadaDeFourier,
-                            widgetName: kWidgetTransformadaDeFourier),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.transformadaDeFourier,
+                          widgetName: kWidgetTransformadaDeFourier,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _TransformadaDeFourierState extends State<TransformadaDeFourier> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaDeFourier,
-                                    widgetName: kWidgetTransformadaDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaDeFourier,
+                                  widgetName: kWidgetTransformadaDeFourier,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaDeFourier,
-                                    widgetName: kWidgetTransformadaDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaDeFourier,
+                                  widgetName: kWidgetTransformadaDeFourier,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _TransformadaDeFourierState extends State<TransformadaDeFourier> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -89,31 +96,30 @@ class _TransformadaDeFourierState extends State<TransformadaDeFourier> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"F(\omega) = \int_{-\infty}^{\infty}f(t)e^{-j\omega t}dt"),
+                          formulaText:
+                              r"F(\omega) = \int_{-\infty}^{\infty}f(t)e^{-j\omega t}dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .transformadaInversaFourier,
+                          AppLocalizations.of(
+                            context,
+                          )!.transformadaInversaFourier,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \frac{1}{2\pi}\int_{-\infty}^{\infty}F(\omega)e^{j\omega t}d\omega"),
+                          formulaText:
+                              r"f(t) = \frac{1}{2\pi}\int_{-\infty}^{\infty}F(\omega)e^{j\omega t}d\omega",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTransformadaDeFourier,
-                  ),
+                  const VerPDF(url: kWidgetTransformadaDeFourier),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTransformadaDeFourier,
-                  ),
+                  const DescargarPDF(url: kWidgetTransformadaDeFourier),
                 ],
               ),
             ),

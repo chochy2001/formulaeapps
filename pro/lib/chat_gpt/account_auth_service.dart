@@ -54,11 +54,9 @@ class AccountAuthFailure extends AccountAuthResult {
 
 /// Calls BFF `POST /auth/register`, `/auth/login`, and `/auth/oauth` when on.
 class AccountAuthService {
-  AccountAuthService({
-    BffAccountClientFactory? clientFactory,
-    bool? enabled,
-  })  : _clientFactory = clientFactory ?? _defaultClientFactory,
-        _enabled = enabled ?? kEnableUserAccountAuth;
+  AccountAuthService({BffAccountClientFactory? clientFactory, bool? enabled})
+    : _clientFactory = clientFactory ?? _defaultClientFactory,
+      _enabled = enabled ?? kEnableUserAccountAuth;
 
   final BffAccountClientFactory _clientFactory;
   final bool _enabled;
@@ -83,8 +81,8 @@ class AccountAuthService {
     );
     try {
       final response = await _clientFactory().getAuthApi().authRegisterPost(
-            accountRegisterRequest: request,
-          );
+        accountRegisterRequest: request,
+      );
       return _mapResponse(response);
     } on DioException catch (e) {
       return _mapDio(e);
@@ -112,8 +110,8 @@ class AccountAuthService {
     );
     try {
       final response = await _clientFactory().getAuthApi().authLoginPost(
-            accountLoginRequest: request,
-          );
+        accountLoginRequest: request,
+      );
       return _mapResponse(response);
     } on DioException catch (e) {
       return _mapDio(e);
@@ -141,8 +139,8 @@ class AccountAuthService {
     );
     try {
       final response = await _clientFactory().getAuthApi().authOauthPost(
-            accountOAuthRequest: request,
-          );
+        accountOAuthRequest: request,
+      );
       return _mapResponse(response);
     } on DioException catch (e) {
       return _mapDio(e);

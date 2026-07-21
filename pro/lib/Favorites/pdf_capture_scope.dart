@@ -27,9 +27,5 @@ class PdfCaptureScope extends InheritedWidget {
 class PdfFormulaBoundary extends RepaintBoundary {
   final String formulaText;
 
-  const PdfFormulaBoundary({
-    super.key,
-    required this.formulaText,
-    super.child,
-  });
+  const PdfFormulaBoundary({super.key, required this.formulaText, super.child});
 }

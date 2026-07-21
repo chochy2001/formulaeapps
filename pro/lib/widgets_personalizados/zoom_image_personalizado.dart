@@ -49,7 +49,8 @@ class ZoomImagePersonalizado extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final bool isMobile = !kIsWeb &&
+    final bool isMobile =
+        !kIsWeb &&
         (defaultTargetPlatform == TargetPlatform.iOS ||
             defaultTargetPlatform == TargetPlatform.android);
 
@@ -178,11 +179,7 @@ class _PlaceholderImagen extends StatelessWidget {
   final double? height;
   final double? width;
 
-  const _PlaceholderImagen({
-    required this.error,
-    this.height,
-    this.width,
-  });
+  const _PlaceholderImagen({required this.error, this.height, this.width});
 
   static const Color _colorMuteado = Color(0xFF9294C0);
   static const Color _colorBorde = Color(0xFF4B4D7A);
@@ -194,30 +191,30 @@ class _PlaceholderImagen extends StatelessWidget {
 
     final Widget contenido = error
         ? isCompact
-            ? const Icon(
-                Icons.image_not_supported_outlined,
-                size: 24,
-                color: _colorMuteado,
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 40,
-                    color: _colorMuteado,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    AppLocalizations.of(context)!.imagenNoDisponible,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
+              ? const Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 24,
+                  color: _colorMuteado,
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 40,
                       color: _colorMuteado,
-                      fontSize: 13,
                     ),
-                  ),
-                ],
-              )
+                    const SizedBox(height: 8),
+                    Text(
+                      AppLocalizations.of(context)!.imagenNoDisponible,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: _colorMuteado,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                )
         : const SizedBox(
             height: 28,
             width: 28,
@@ -253,7 +250,8 @@ class ZoomPersonalizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = !kIsWeb &&
+    bool isMobile =
+        !kIsWeb &&
         (defaultTargetPlatform == TargetPlatform.iOS ||
             defaultTargetPlatform == TargetPlatform.android);
 
@@ -262,9 +260,7 @@ class ZoomPersonalizado extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-              ),
+              SizedBox(width: MediaQuery.of(context).size.width),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: LayoutBuilder(
@@ -272,8 +268,9 @@ class ZoomPersonalizado extends StatelessWidget {
                     return InteractiveViewer(
                       alignment: Alignment.center,
                       child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(maxWidth: constraints.maxWidth),
+                        constraints: BoxConstraints(
+                          maxWidth: constraints.maxWidth,
+                        ),
                         child: child,
                       ),
                     );

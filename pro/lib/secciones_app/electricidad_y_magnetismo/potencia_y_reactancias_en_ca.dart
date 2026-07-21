@@ -6,7 +6,8 @@ class PotenciaYReactanciasEnCa extends StatefulWidget {
   const PotenciaYReactanciasEnCa({super.key});
 
   @override
-  PotenciaYReactanciasEnCaState createState() => PotenciaYReactanciasEnCaState();
+  PotenciaYReactanciasEnCaState createState() =>
+      PotenciaYReactanciasEnCaState();
 }
 
 class PotenciaYReactanciasEnCaState extends State<PotenciaYReactanciasEnCa> {
@@ -30,7 +31,9 @@ class PotenciaYReactanciasEnCaState extends State<PotenciaYReactanciasEnCa> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.potenciaYReactanciasEnCa,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.potenciaYReactanciasEnCa,
                         widgetName: kWidgetPotenciaYReactanciasEnCa,
                       ),
                     );
@@ -44,14 +47,18 @@ class PotenciaYReactanciasEnCaState extends State<PotenciaYReactanciasEnCa> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.potenciaYReactanciasEnCa,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.potenciaYReactanciasEnCa,
                                 widgetName: kWidgetPotenciaYReactanciasEnCa,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.potenciaYReactanciasEnCa,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.potenciaYReactanciasEnCa,
                                 widgetName: kWidgetPotenciaYReactanciasEnCa,
                               ),
                             );
@@ -81,7 +88,10 @@ class PotenciaYReactanciasEnCaState extends State<PotenciaYReactanciasEnCa> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tan\phi = \frac{X_{L} - X_{C}}{R}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"V_{T} = \sqrt{V_{R}^{2} + (V_{L} - V_{C})^{2}}"),
+                  Latex(
+                    formulaText:
+                        r"V_{T} = \sqrt{V_{R}^{2} + (V_{L} - V_{C})^{2}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tan\phi = \frac{V_{L} - V_{C}}{V_{R}}"),
                   SizedBox(height: kEspacioEntreBotones),

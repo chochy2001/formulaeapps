@@ -6,7 +6,8 @@ class AplicacionFisicaDerivada extends StatefulWidget {
   const AplicacionFisicaDerivada({super.key});
 
   @override
-  AplicacionFisicaDerivadaState createState() => AplicacionFisicaDerivadaState();
+  AplicacionFisicaDerivadaState createState() =>
+      AplicacionFisicaDerivadaState();
 }
 
 class AplicacionFisicaDerivadaState extends State<AplicacionFisicaDerivada> {
@@ -30,7 +31,9 @@ class AplicacionFisicaDerivadaState extends State<AplicacionFisicaDerivada> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.aplicacionFisicaDerivada,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.aplicacionFisicaDerivada,
                         widgetName: kWidgetAplicacionFisicaDerivada,
                       ),
                     );
@@ -44,14 +47,18 @@ class AplicacionFisicaDerivadaState extends State<AplicacionFisicaDerivada> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aplicacionFisicaDerivada,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aplicacionFisicaDerivada,
                                 widgetName: kWidgetAplicacionFisicaDerivada,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aplicacionFisicaDerivada,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aplicacionFisicaDerivada,
                                 widgetName: kWidgetAplicacionFisicaDerivada,
                               ),
                             );
@@ -75,9 +82,13 @@ class AplicacionFisicaDerivadaState extends State<AplicacionFisicaDerivada> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"e = v\cdot t"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"e = \left(\frac{v_f + v_i}{2}\right)\cdot t"),
+                  Latex(
+                    formulaText: r"e = \left(\frac{v_f + v_i}{2}\right)\cdot t",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"e = v_i\cdot t + \frac{a\cdot t^{2}}{2}"),
+                  Latex(
+                    formulaText: r"e = v_i\cdot t + \frac{a\cdot t^{2}}{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"e = \frac{a\cdot t^{2}}{2}"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -113,7 +124,10 @@ class AplicacionFisicaDerivadaState extends State<AplicacionFisicaDerivada> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"P = \frac{w}{t}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"f(x) = \varphi(x) \;\Rightarrow\; f'(x) = \varphi'(x)"),
+                  Latex(
+                    formulaText:
+                        r"f(x) = \varphi(x) \;\Rightarrow\; f'(x) = \varphi'(x)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -6,10 +6,12 @@ class ReflexionYAumentoFormaNewtoniana extends StatefulWidget {
   const ReflexionYAumentoFormaNewtoniana({super.key});
 
   @override
-  ReflexionYAumentoFormaNewtonianaState createState() => ReflexionYAumentoFormaNewtonianaState();
+  ReflexionYAumentoFormaNewtonianaState createState() =>
+      ReflexionYAumentoFormaNewtonianaState();
 }
 
-class ReflexionYAumentoFormaNewtonianaState extends State<ReflexionYAumentoFormaNewtoniana> {
+class ReflexionYAumentoFormaNewtonianaState
+    extends State<ReflexionYAumentoFormaNewtoniana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class ReflexionYAumentoFormaNewtonianaState extends State<ReflexionYAumentoForma
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana,
+                    AppLocalizations.of(
+                      context,
+                    )!.reflexionYAumentoFormaNewtoniana,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.reflexionYAumentoFormaNewtoniana,
                         widgetName: kWidgetReflexionYAumentoFormaNewtoniana,
                       ),
                     );
@@ -44,15 +50,21 @@ class ReflexionYAumentoFormaNewtonianaState extends State<ReflexionYAumentoForma
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana,
-                                widgetName: kWidgetReflexionYAumentoFormaNewtoniana,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reflexionYAumentoFormaNewtoniana,
+                                widgetName:
+                                    kWidgetReflexionYAumentoFormaNewtoniana,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana,
-                                widgetName: kWidgetReflexionYAumentoFormaNewtoniana,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reflexionYAumentoFormaNewtoniana,
+                                widgetName:
+                                    kWidgetReflexionYAumentoFormaNewtoniana,
                               ),
                             );
                           }
@@ -69,7 +81,10 @@ class ReflexionYAumentoFormaNewtonianaState extends State<ReflexionYAumentoForma
                 children: [
                   Latex(formulaText: r"N = \frac{360^{\circ}}{\alpha} - 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{\text{tamaño de la imagen}}{\text{tamaño del objeto}} = \frac{\text{distancia de la imagen}}{\text{distancia del objeto}}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{\text{tamaño de la imagen}}{\text{tamaño del objeto}} = \frac{\text{distancia de la imagen}}{\text{distancia del objeto}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\frac{I}{O} = -\frac{q}{p}"),
                   SizedBox(height: kEspacioEntreBotones),

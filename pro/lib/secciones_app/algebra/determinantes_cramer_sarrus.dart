@@ -6,7 +6,8 @@ class DeterminantesCramerSarrus extends StatefulWidget {
   const DeterminantesCramerSarrus({super.key});
 
   @override
-  DeterminantesCramerSarrusState createState() => DeterminantesCramerSarrusState();
+  DeterminantesCramerSarrusState createState() =>
+      DeterminantesCramerSarrusState();
 }
 
 class DeterminantesCramerSarrusState extends State<DeterminantesCramerSarrus> {
@@ -30,7 +31,9 @@ class DeterminantesCramerSarrusState extends State<DeterminantesCramerSarrus> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.determinantesCramerSarrus,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.determinantesCramerSarrus,
                         widgetName: kWidgetDeterminantesCramerSarrus,
                       ),
                     );
@@ -44,14 +47,18 @@ class DeterminantesCramerSarrusState extends State<DeterminantesCramerSarrus> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.determinantesCramerSarrus,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.determinantesCramerSarrus,
                                 widgetName: kWidgetDeterminantesCramerSarrus,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.determinantesCramerSarrus,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.determinantesCramerSarrus,
                                 widgetName: kWidgetDeterminantesCramerSarrus,
                               ),
                             );
@@ -67,25 +74,49 @@ class DeterminantesCramerSarrusState extends State<DeterminantesCramerSarrus> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\begin{cases} a_{11}\,x + a_{12}\,y = r_{1} \\ a_{21}\,x + a_{22}\,y = r_{2} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"\begin{cases} a_{11}\,x + a_{12}\,y = r_{1} \\ a_{21}\,x + a_{22}\,y = r_{2} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"D = \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{21}a_{12}"),
+                  Latex(
+                    formulaText:
+                        r"D = \begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{21}a_{12}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"D_{1} = \begin{vmatrix} r_{1} & a_{12} \\ r_{2} & a_{22} \end{vmatrix} = r_{1}a_{22} - r_{2}a_{12}"),
+                  Latex(
+                    formulaText:
+                        r"D_{1} = \begin{vmatrix} r_{1} & a_{12} \\ r_{2} & a_{22} \end{vmatrix} = r_{1}a_{22} - r_{2}a_{12}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"x = \frac{D_{1}}{D}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"D_{2} = \begin{vmatrix} a_{11} & r_{1} \\ a_{21} & r_{2} \end{vmatrix} = r_{2}a_{11} - r_{1}a_{21}"),
+                  Latex(
+                    formulaText:
+                        r"D_{2} = \begin{vmatrix} a_{11} & r_{1} \\ a_{21} & r_{2} \end{vmatrix} = r_{2}a_{11} - r_{1}a_{21}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"y = \frac{D_{2}}{D}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\begin{cases} a_{11}\,x + a_{12}\,y + a_{13}\,z = r_{1} \\ a_{21}\,x + a_{22}\,y + a_{23}\,z = r_{2} \\ a_{31}\,x + a_{32}\,y + a_{33}\,z = r_{3} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"\begin{cases} a_{11}\,x + a_{12}\,y + a_{13}\,z = r_{1} \\ a_{21}\,x + a_{22}\,y + a_{23}\,z = r_{2} \\ a_{31}\,x + a_{32}\,y + a_{33}\,z = r_{3} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33}"),
+                  Latex(
+                    formulaText:
+                        r"D = \begin{vmatrix} a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} \end{vmatrix} = a_{11}a_{22}a_{33} + a_{12}a_{23}a_{31} + a_{13}a_{21}a_{32} - a_{13}a_{22}a_{31} - a_{11}a_{23}a_{32} - a_{12}a_{21}a_{33}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"D_{1} = \begin{vmatrix} r_{1} & a_{12} & a_{13} \\ r_{2} & a_{22} & a_{23} \\ r_{3} & a_{32} & a_{33} \end{vmatrix} = r_{1}a_{22}a_{33} + a_{12}a_{23}r_{3} + a_{13}r_{2}a_{32} - a_{13}a_{22}r_{3} - r_{1}a_{23}a_{32} - a_{12}r_{2}a_{33}"),
+                  Latex(
+                    formulaText:
+                        r"D_{1} = \begin{vmatrix} r_{1} & a_{12} & a_{13} \\ r_{2} & a_{22} & a_{23} \\ r_{3} & a_{32} & a_{33} \end{vmatrix} = r_{1}a_{22}a_{33} + a_{12}a_{23}r_{3} + a_{13}r_{2}a_{32} - a_{13}a_{22}r_{3} - r_{1}a_{23}a_{32} - a_{12}r_{2}a_{33}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x = \frac{D_{1}}{D} \qquad y = \frac{D_{2}}{D} \qquad z = \frac{D_{3}}{D}"),
+                  Latex(
+                    formulaText:
+                        r"x = \frac{D_{1}}{D} \qquad y = \frac{D_{2}}{D} \qquad z = \frac{D_{3}}{D}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

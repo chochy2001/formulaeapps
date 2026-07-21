@@ -16,9 +16,12 @@ class MenuSimetriasState extends State<MenuSimetrias> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -38,9 +41,7 @@ class MenuSimetriasState extends State<MenuSimetrias> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -49,23 +50,24 @@ class MenuSimetriasState extends State<MenuSimetrias> {
                     AppLocalizations.of(context)!.simetrias,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.simetriaDeMediaOnda,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.simetriaDeMediaOnda,
                     ruta: kRutaSimetriaDeMediaOnda,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .simetriaDeUnCuartoDeOndaImpar,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.simetriaDeUnCuartoDeOndaImpar,
                     ruta: kRutaSimetriaDeUnCuartoDeOndaImpar,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .simetriaDeUnCuartoDeOndaPar,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.simetriaDeUnCuartoDeOndaPar,
                     ruta: kRutaSimetriaDeUnCuartoDeOndaPar,
                   ),
                   BotonesMenu(

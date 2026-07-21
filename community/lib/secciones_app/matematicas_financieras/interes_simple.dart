@@ -14,9 +14,12 @@ class _InteresSimpleState extends State<InteresSimple> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _InteresSimpleState extends State<InteresSimple> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.interesSimple,
-                            widgetName: kWidgetInteresSimple),
+                          title: AppLocalizations.of(context)!.interesSimple,
+                          widgetName: kWidgetInteresSimple,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _InteresSimpleState extends State<InteresSimple> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .interesSimple,
-                                    widgetName: kWidgetInteresSimple),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.interesSimple,
+                                  widgetName: kWidgetInteresSimple,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .interesSimple,
-                                    widgetName: kWidgetInteresSimple),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.interesSimple,
+                                  widgetName: kWidgetInteresSimple,
+                                ),
                               );
                             }
                           });
@@ -76,17 +84,13 @@ class _InteresSimpleState extends State<InteresSimple> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.interes,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.interes),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"I=M-C"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -112,21 +116,14 @@ class _InteresSimpleState extends State<InteresSimple> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetInteresSimple,
-                  ),
+                  const VerPDF(url: kWidgetInteresSimple),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetInteresSimple,
-                  ),
+                  const DescargarPDF(url: kWidgetInteresSimple),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -134,19 +131,13 @@ class _InteresSimpleState extends State<InteresSimple> {
                         const Notas(),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"I"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.interes,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.interes),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"C"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.capital,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.capital),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"n"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.periodo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.periodo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"M"),
                         TextoEcuaciones(

@@ -6,10 +6,12 @@ class AxiomasDeOrdenYTeoremasReales extends StatefulWidget {
   const AxiomasDeOrdenYTeoremasReales({super.key});
 
   @override
-  AxiomasDeOrdenYTeoremasRealesState createState() => AxiomasDeOrdenYTeoremasRealesState();
+  AxiomasDeOrdenYTeoremasRealesState createState() =>
+      AxiomasDeOrdenYTeoremasRealesState();
 }
 
-class AxiomasDeOrdenYTeoremasRealesState extends State<AxiomasDeOrdenYTeoremasReales> {
+class AxiomasDeOrdenYTeoremasRealesState
+    extends State<AxiomasDeOrdenYTeoremasReales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class AxiomasDeOrdenYTeoremasRealesState extends State<AxiomasDeOrdenYTeoremasRe
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.axiomasDeOrdenYTeoremasReales,
                         widgetName: kWidgetAxiomasDeOrdenYTeoremasReales,
                       ),
                     );
@@ -44,15 +48,21 @@ class AxiomasDeOrdenYTeoremasRealesState extends State<AxiomasDeOrdenYTeoremasRe
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales,
-                                widgetName: kWidgetAxiomasDeOrdenYTeoremasReales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeOrdenYTeoremasReales,
+                                widgetName:
+                                    kWidgetAxiomasDeOrdenYTeoremasReales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales,
-                                widgetName: kWidgetAxiomasDeOrdenYTeoremasReales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeOrdenYTeoremasReales,
+                                widgetName:
+                                    kWidgetAxiomasDeOrdenYTeoremasReales,
                               ),
                             );
                           }
@@ -67,19 +77,36 @@ class AxiomasDeOrdenYTeoremasRealesState extends State<AxiomasDeOrdenYTeoremasRe
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R}:\ a < b \quad \text{o} \quad a = b \quad \text{o} \quad b < a"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b \in \mathbb{R}:\ a < b \quad \text{o} \quad a = b \quad \text{o} \quad b < a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"a < b \ \text{y}\ 0 < c \implies a\,c < b\,c"),
+                  Latex(
+                    formulaText:
+                        r"a < b \ \text{y}\ 0 < c \implies a\,c < b\,c",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a \in \mathbb{R},\ a \cdot 0 = 0 = 0 \cdot a"),
+                  Latex(
+                    formulaText:
+                        r"\forall a \in \mathbb{R},\ a \cdot 0 = 0 = 0 \cdot a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a \in \mathbb{R},\ -a = (-1)\,a"),
+                  Latex(
+                    formulaText: r"\forall a \in \mathbb{R},\ -a = (-1)\,a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ a(-b) = -(ab) = (-a)\,b"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b \in \mathbb{R},\ a(-b) = -(ab) = (-a)\,b",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\forall a \in \mathbb{R},\ -(-a) = a"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ (-a)(-b) = a\,b"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b \in \mathbb{R},\ (-a)(-b) = a\,b",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

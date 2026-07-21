@@ -6,9 +6,8 @@ import 'api_consts.dart';
 import 'auth_service.dart';
 import 'iap_validation_service.dart';
 
-typedef BffEntitlementClientFactory = FormulaeappsBffClient Function(
-  String bearerToken,
-);
+typedef BffEntitlementClientFactory =
+    FormulaeappsBffClient Function(String bearerToken);
 
 /// Reads channel-scoped mobile entitlements from BFF `GET /entitlement`.
 ///
@@ -19,8 +18,8 @@ class EntitlementService {
   EntitlementService({
     BffEntitlementClientFactory? clientFactory,
     Future<String> Function()? tokenProvider,
-  })  : _clientFactory = clientFactory ?? _defaultClientFactory,
-        _tokenProvider = tokenProvider ?? AuthService.getToken;
+  }) : _clientFactory = clientFactory ?? _defaultClientFactory,
+       _tokenProvider = tokenProvider ?? AuthService.getToken;
 
   final BffEntitlementClientFactory _clientFactory;
   final Future<String> Function() _tokenProvider;

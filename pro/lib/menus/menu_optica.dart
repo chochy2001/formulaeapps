@@ -14,9 +14,7 @@ class MenuOpticaState extends State<MenuOptica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -34,23 +32,33 @@ class MenuOpticaState extends State<MenuOptica> {
                   ),
                   const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.leyDeLaIluminacion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyDeLaIluminacion,
                     ruta: kRutaLeyDeLaIluminacion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.reflexionYAumentoFormaNewtoniana,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.reflexionYAumentoFormaNewtoniana,
                     ruta: kRutaReflexionYAumentoFormaNewtoniana,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.ecuacionDeLasLentesFormaGaussiana,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionDeLasLentesFormaGaussiana,
                     ruta: kRutaEcuacionDeLasLentesFormaGaussiana,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.refraccionDeLaLuzLeyDeSnell,
                     ruta: kRutaRefraccionDeLaLuzLeyDeSnell,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.tiposDeLentesYMarchaDeRayos,
                     ruta: kRutaTiposDeLentesYMarchaDeRayos,
                   ),
                 ],

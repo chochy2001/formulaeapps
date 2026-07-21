@@ -15,9 +15,12 @@ class _TiposDeCorrienteElectricaState extends State<TiposDeCorrienteElectrica> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,11 @@ class _TiposDeCorrienteElectricaState extends State<TiposDeCorrienteElectrica> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.tiposCorrienteElectrica,
-                      widgetName: kWidgetTiposDeCorrienteElectrica),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.tiposCorrienteElectrica,
+                    widgetName: kWidgetTiposDeCorrienteElectrica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +61,20 @@ class _TiposDeCorrienteElectricaState extends State<TiposDeCorrienteElectrica> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .tiposCorrienteElectrica,
-                              widgetName: kWidgetTiposDeCorrienteElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.tiposCorrienteElectrica,
+                            widgetName: kWidgetTiposDeCorrienteElectrica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .tiposCorrienteElectrica,
-                              widgetName: kWidgetTiposDeCorrienteElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.tiposCorrienteElectrica,
+                            widgetName: kWidgetTiposDeCorrienteElectrica,
+                          ),
                         );
                       }
                     });
@@ -91,21 +100,21 @@ class _TiposDeCorrienteElectricaState extends State<TiposDeCorrienteElectrica> {
                 ),
                 const SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenTiposDeCorrienteElectrica) ??
-                        kUrlImagenTiposDeCorrienteElectrica),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenTiposDeCorrienteElectrica,
+                      ) ??
+                      kUrlImagenTiposDeCorrienteElectrica,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetTiposDeCorrienteElectrica,
-            ),
+            const VerPDF(url: kWidgetTiposDeCorrienteElectrica),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetTiposDeCorrienteElectrica,
-            ),
+            const DescargarPDF(url: kWidgetTiposDeCorrienteElectrica),
           ],
         ),
       ),

@@ -17,9 +17,12 @@ class MenuMatematicasDiscretasState extends State<MenuMatematicasDiscretas> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -32,26 +35,19 @@ class MenuMatematicasDiscretasState extends State<MenuMatematicasDiscretas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const ImagenLogoFormulae(),
-              ),
+              TextButton(onPressed: () {}, child: const ImagenLogoFormulae()),
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.matematicasDiscretas,
                   style: kTextoBotones,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               adContainer,
               Center(
                 child: Column(
@@ -69,8 +65,9 @@ class MenuMatematicasDiscretasState extends State<MenuMatematicasDiscretas> {
                     ),
                     //Conectores Logicos
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.conectoresLogicos,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.conectoresLogicos,
                       ruta: kRutaConectoresLogicos,
                     ),
                     //Conjuncion
@@ -85,20 +82,23 @@ class MenuMatematicasDiscretasState extends State<MenuMatematicasDiscretas> {
                     ),
                     //Leyes de la logica proposicional
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .leyesDeLaLogicaProposicional,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.leyesDeLaLogicaProposicional,
                       ruta: kRutaLeyesDeLaLogicaProposicional,
                     ),
                     //Leyes de la Teoria de Conjuntos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .leyesDeLaTeoriaDeConjuntos,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.leyesDeLaTeoriaDeConjuntos,
                       ruta: kRutaLeyesDeLaTeoriaDeConjuntos,
                     ),
                     //Leyes del Algebra de Boole
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.leyesDelAlgebraDeBoole,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.leyesDelAlgebraDeBoole,
                       ruta: kRutaLeyesDelAlgebraDeBoole,
                     ),
                     //Negacion

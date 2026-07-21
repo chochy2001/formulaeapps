@@ -6,7 +6,8 @@ class AreaLongitudArcoIntegral extends StatefulWidget {
   const AreaLongitudArcoIntegral({super.key});
 
   @override
-  AreaLongitudArcoIntegralState createState() => AreaLongitudArcoIntegralState();
+  AreaLongitudArcoIntegralState createState() =>
+      AreaLongitudArcoIntegralState();
 }
 
 class AreaLongitudArcoIntegralState extends State<AreaLongitudArcoIntegral> {
@@ -30,7 +31,9 @@ class AreaLongitudArcoIntegralState extends State<AreaLongitudArcoIntegral> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.areaLongitudArcoIntegral,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.areaLongitudArcoIntegral,
                         widgetName: kWidgetAreaLongitudArcoIntegral,
                       ),
                     );
@@ -44,14 +47,18 @@ class AreaLongitudArcoIntegralState extends State<AreaLongitudArcoIntegral> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.areaLongitudArcoIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.areaLongitudArcoIntegral,
                                 widgetName: kWidgetAreaLongitudArcoIntegral,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.areaLongitudArcoIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.areaLongitudArcoIntegral,
                                 widgetName: kWidgetAreaLongitudArcoIntegral,
                               ),
                             );
@@ -67,9 +74,15 @@ class AreaLongitudArcoIntegralState extends State<AreaLongitudArcoIntegral> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"A = \int_{a}^{b} \left[\,f(x) - g(x)\,\right] dx"),
+                  Latex(
+                    formulaText:
+                        r"A = \int_{a}^{b} \left[\,f(x) - g(x)\,\right] dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"L = \int_{a}^{b} \sqrt{\,1 + \left[\,f'(x)\,\right]^{2}\,}\;dx"),
+                  Latex(
+                    formulaText:
+                        r"L = \int_{a}^{b} \sqrt{\,1 + \left[\,f'(x)\,\right]^{2}\,}\;dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

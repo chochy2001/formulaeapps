@@ -29,9 +29,11 @@ class _EnergiaAlmacenadaPorUnCapacitorState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .energiaAlmacenadaCapacitor,
-                      widgetName: kWidgetEnergiaAlmacenadaPorUnCapacitor),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.energiaAlmacenadaCapacitor,
+                    widgetName: kWidgetEnergiaAlmacenadaPorUnCapacitor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,18 +45,20 @@ class _EnergiaAlmacenadaPorUnCapacitorState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaAlmacenadaCapacitor,
-                              widgetName:
-                                  kWidgetEnergiaAlmacenadaPorUnCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaAlmacenadaCapacitor,
+                            widgetName: kWidgetEnergiaAlmacenadaPorUnCapacitor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaAlmacenadaCapacitor,
-                              widgetName:
-                                  kWidgetEnergiaAlmacenadaPorUnCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaAlmacenadaCapacitor,
+                            widgetName: kWidgetEnergiaAlmacenadaPorUnCapacitor,
+                          ),
                         );
                       }
                     });
@@ -71,13 +75,9 @@ class _EnergiaAlmacenadaPorUnCapacitorState
                     AppLocalizations.of(context)!.esUnProcesoDeCarga,
                   ),
                   const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.enUnCasoIdeal,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.enUnCasoIdeal),
                   const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.enUnCasoReal,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.enUnCasoReal),
                   const SizedBox(height: 40.0),
                 ],
               ),
@@ -86,15 +86,11 @@ class _EnergiaAlmacenadaPorUnCapacitorState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetEnergiaAlmacenadaPorUnCapacitor,
-                ),
+                VerPDF(url: kWidgetEnergiaAlmacenadaPorUnCapacitor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetEnergiaAlmacenadaPorUnCapacitor,
-                ),
+                DescargarPDF(url: kWidgetEnergiaAlmacenadaPorUnCapacitor),
               ],
-            )
+            ),
           ],
         ),
       ),

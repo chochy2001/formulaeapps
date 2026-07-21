@@ -27,8 +27,9 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.reglasLVKLCK,
-                      widgetName: kWidgetReglasParaLVKyLCK),
+                    title: AppLocalizations.of(context)!.reglasLVKLCK,
+                    widgetName: kWidgetReglasParaLVKyLCK,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.reglasLVKLCK,
-                              widgetName: kWidgetReglasParaLVKyLCK),
+                            title: AppLocalizations.of(context)!.reglasLVKLCK,
+                            widgetName: kWidgetReglasParaLVKyLCK,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.reglasLVKLCK,
-                              widgetName: kWidgetReglasParaLVKyLCK),
+                            title: AppLocalizations.of(context)!.reglasLVKLCK,
+                            widgetName: kWidgetReglasParaLVKyLCK,
+                          ),
                         );
                       }
                     });
@@ -73,8 +76,9 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
                   ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .considerarUnaCorrientePositiva,
+                    AppLocalizations.of(
+                      context,
+                    )!.considerarUnaCorrientePositiva,
                   ),
                   const SizedBox(height: 40.0),
                 ],
@@ -84,15 +88,11 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetReglasParaLVKyLCK,
-                ),
+                VerPDF(url: kWidgetReglasParaLVKyLCK),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetReglasParaLVKyLCK,
-                ),
+                DescargarPDF(url: kWidgetReglasParaLVKyLCK),
               ],
-            )
+            ),
           ],
         ),
       ),

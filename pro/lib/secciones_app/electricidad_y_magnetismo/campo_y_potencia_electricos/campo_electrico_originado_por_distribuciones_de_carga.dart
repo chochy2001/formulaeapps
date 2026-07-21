@@ -29,10 +29,12 @@ class _CampoElectricoOriginadoPorDistribucionesDeCargaState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .campoElectricoDistribucionesCarga,
-                      widgetName:
-                          kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.campoElectricoDistribucionesCarga,
+                    widgetName:
+                        kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -44,18 +46,22 @@ class _CampoElectricoOriginadoPorDistribucionesDeCargaState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .campoElectricoDistribucionesCarga,
-                              widgetName:
-                                  kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.campoElectricoDistribucionesCarga,
+                            widgetName:
+                                kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .campoElectricoDistribucionesCarga,
-                              widgetName:
-                                  kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.campoElectricoDistribucionesCarga,
+                            widgetName:
+                                kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga,
+                          ),
                         );
                       }
                     });
@@ -67,63 +73,68 @@ class _CampoElectricoOriginadoPorDistribucionesDeCargaState
             const SizedBox(height: 20.0),
             Column(
               children: [
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.cargaPuntual,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.cargaPuntual),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\vec{E} = k \frac{q}{r^2}\hat{r}"),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenCargaPuntual),
                 const SizedBox(height: 90.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .distribucionDiscretaCargasPuntuales,
+                  AppLocalizations.of(
+                    context,
+                  )!.distribucionDiscretaCargasPuntuales,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = \sum_{i=1}^{n} k \frac{q_i}{r^2}\hat{r}"),
+                  formulaText:
+                      r"\vec{E} = \sum_{i=1}^{n} k \frac{q_i}{r^2}\hat{r}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenDistribucionDiscretaDeCargasPuntuales),
+                  urlImagen: kUrlImagenDistribucionDiscretaDeCargasPuntuales,
+                ),
                 const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.lineaInfinita,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.lineaInfinita),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{E} = \frac{2 k \lambda}{r}\hat{r}"),
+                  formulaText: r"\vec{E} = \frac{2 k \lambda}{r}\hat{r}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenLineaInfinita),
+                  urlImagen: kUrlImagenLineaInfinita,
+                ),
                 const SizedBox(height: 90.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.discoCargaUniforme,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = \frac{\sigma}{2 \epsilon _0} \left( 1 - \frac{z}{\sqrt{z^2 + R^2}} \right) \hat{r}"),
+                  formulaText:
+                      r"\vec{E} = \frac{\sigma}{2 \epsilon _0} \left( 1 - \frac{z}{\sqrt{z^2 + R^2}} \right) \hat{r}",
+                ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenDiscoConCargaUniforme),
+                  urlImagen: kUrlImagenDiscoConCargaUniforme,
+                ),
                 const SizedBox(height: 90.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.superficieInfinita,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = \frac{\sigma}{ 2 \epsilon _0} \hat{r}"),
-                const SizedBox(height: 20.0),
-                const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSuperficieInfinita),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.segmentoLinea,
+                  formulaText:
+                      r"\vec{E} = \frac{\sigma}{ 2 \epsilon _0} \hat{r}",
                 ),
                 const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"\vec{E} = k \frac{\lambda L}{y \sqrt{y^2 + \frac{L^2}{4}}}\hat{j}"),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSegmentoDeLinea),
+                  urlImagen: kUrlImagenSuperficieInfinita,
+                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.segmentoLinea),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"\vec{E} = k \frac{\lambda L}{y \sqrt{y^2 + \frac{L^2}{4}}}\hat{j}",
+                ),
+                const ZoomImagePersonalizado(
+                  urlImagen: kUrlImagenSegmentoDeLinea,
+                ),
               ],
             ),
 
@@ -138,7 +149,7 @@ class _CampoElectricoOriginadoPorDistribucionesDeCargaState
                   url: kWidgetCampoElectricoOriginadoPorDistribucionesDeCarga,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

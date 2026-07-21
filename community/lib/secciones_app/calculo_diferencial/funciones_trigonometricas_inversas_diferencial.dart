@@ -19,9 +19,12 @@ class _TrigonometricasInversasDiferencialState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -39,18 +42,21 @@ class _TrigonometricasInversasDiferencialState
         child: ListView(
           children: [
             TituloPersonalizado(
-              AppLocalizations.of(context)!
-                  .derivadasDeFuncionesTrigonometricasInversas,
+              AppLocalizations.of(
+                context,
+              )!.derivadasDeFuncionesTrigonometricasInversas,
             ),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .derivadasDeFuncionesTrigonometricasInversas,
-                      widgetName:
-                          kWidgetFuncionesTrigonometricasInversasDiferencial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.derivadasDeFuncionesTrigonometricasInversas,
+                    widgetName:
+                        kWidgetFuncionesTrigonometricasInversasDiferencial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -62,18 +68,22 @@ class _TrigonometricasInversasDiferencialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasDeFuncionesTrigonometricasInversas,
-                              widgetName:
-                                  kWidgetFuncionesTrigonometricasInversasDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasDeFuncionesTrigonometricasInversas,
+                            widgetName:
+                                kWidgetFuncionesTrigonometricasInversasDiferencial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasDeFuncionesTrigonometricasInversas,
-                              widgetName:
-                                  kWidgetFuncionesTrigonometricasInversasDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasDeFuncionesTrigonometricasInversas,
+                            widgetName:
+                                kWidgetFuncionesTrigonometricasInversasDiferencial,
+                          ),
                         );
                       }
                     });
@@ -88,33 +98,39 @@ class _TrigonometricasInversasDiferencialState
                 children: [
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\sin^{-1}\thinspace u) = \frac{1}{\sqrt{1-u^2}} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\sin^{-1}\thinspace u) = \frac{1}{\sqrt{1-u^2}} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\cos^{-1}\thinspace u) = -\frac{1}{\sqrt{1-u^2}} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\cos^{-1}\thinspace u) = -\frac{1}{\sqrt{1-u^2}} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\tan^{-1}\thinspace u) = \frac{1}{1+u^2} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\tan^{-1}\thinspace u) = \frac{1}{1+u^2} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\csc^{-1}\thinspace u) = -\frac{1}{u\sqrt{u^2 -1}} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\csc^{-1}\thinspace u) = -\frac{1}{u\sqrt{u^2 -1}} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\sec^{-1}\thinspace u) = \frac{1}{u\sqrt{u^2 -1}} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\sec^{-1}\thinspace u) = \frac{1}{u\sqrt{u^2 -1}} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}(\cot^{-1}\thinspace u) = -\frac{1}{1+u^2} u'"),
+                    formulaText:
+                        r"\frac{d}{dx}(\cot^{-1}\thinspace u) = -\frac{1}{1+u^2} u'",
+                  ),
 
                   SizedBox(height: kEspacioEntreBotones),
                   //Boton para acceder al formulario en PDF
@@ -128,20 +144,13 @@ class _TrigonometricasInversasDiferencialState
                 ],
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -149,34 +158,22 @@ class _TrigonometricasInversasDiferencialState
                   const Notas(),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\sin"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.seno,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.seno),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\cos"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.coseno,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.coseno),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\tan"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.tangente,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.tangente),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\csc"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cosecante,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cosecante),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\sec"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.secante,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.secante),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\cot"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cotangente,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cotangente),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\frac{du}{dx} = u^{'}"),
                   const SizedBox(height: kEspacioEntreBotones),

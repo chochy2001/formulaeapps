@@ -31,9 +31,11 @@ class LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.leyDeProyecciones,
-                            widgetName: kWidgetLeyDeProyecciones),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.leyDeProyecciones,
+                          widgetName: kWidgetLeyDeProyecciones,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyDeProyecciones,
-                                    widgetName: kWidgetLeyDeProyecciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyDeProyecciones,
+                                  widgetName: kWidgetLeyDeProyecciones,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyDeProyecciones,
-                                    widgetName: kWidgetLeyDeProyecciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyDeProyecciones,
+                                  widgetName: kWidgetLeyDeProyecciones,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -84,13 +88,9 @@ class LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetLeyDeProyecciones,
-                      ),
+                      VerPDF(url: kWidgetLeyDeProyecciones),
                       //Descargar PDF
-                      DescargarPDF(
-                        url: kWidgetLeyDeProyecciones,
-                      ),
+                      DescargarPDF(url: kWidgetLeyDeProyecciones),
                     ],
                   ),
                 ],

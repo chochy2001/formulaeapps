@@ -25,16 +25,18 @@ class DerivadasTrigonometricasComplementariasState
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .derivadasTrigonometricasComplementarias,
+                    AppLocalizations.of(
+                      context,
+                    )!.derivadasTrigonometricasComplementarias,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!
-                            .derivadasTrigonometricasComplementarias,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.derivadasTrigonometricasComplementarias,
                         widgetName:
                             kWidgetDerivadasTrigonometricasComplementarias,
                       ),
@@ -49,8 +51,9 @@ class DerivadasTrigonometricasComplementariasState
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasTrigonometricasComplementarias,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasTrigonometricasComplementarias,
                                 widgetName:
                                     kWidgetDerivadasTrigonometricasComplementarias,
                               ),
@@ -58,8 +61,9 @@ class DerivadasTrigonometricasComplementariasState
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasTrigonometricasComplementarias,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasTrigonometricasComplementarias,
                                 widgetName:
                                     kWidgetDerivadasTrigonometricasComplementarias,
                               ),
@@ -77,24 +81,29 @@ class DerivadasTrigonometricasComplementariasState
               child: Column(
                 children: [
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}\operatorname{vers} u=\operatorname{sen} u\,\frac{du}{dx}"),
+                    formulaText:
+                        r"\frac{d}{dx}\operatorname{vers} u=\operatorname{sen} u\,\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}\,\operatorname{arc\,vers} u = \frac{1}{\sqrt{2u-u^{2}}}\cdot\frac{du}{dx}"),
+                    formulaText:
+                        r"\frac{d}{dx}\,\operatorname{arc\,vers} u = \frac{1}{\sqrt{2u-u^{2}}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}\,\operatorname{arc\,sen} x = \frac{1}{\sqrt{1-x^{2}}}"),
+                    formulaText:
+                        r"\frac{d}{dx}\,\operatorname{arc\,sen} x = \frac{1}{\sqrt{1-x^{2}}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}\,\operatorname{arc\,cos} x = -\frac{1}{\sqrt{1-x^{2}}}"),
+                    formulaText:
+                        r"\frac{d}{dx}\,\operatorname{arc\,cos} x = -\frac{1}{\sqrt{1-x^{2}}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dx}\,\operatorname{arc\,tan} x = \frac{1}{1+x^{2}}"),
+                    formulaText:
+                        r"\frac{d}{dx}\,\operatorname{arc\,tan} x = \frac{1}{1+x^{2}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
@@ -102,7 +111,8 @@ class DerivadasTrigonometricasComplementariasState
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetDerivadasTrigonometricasComplementarias),
             const DescargarPDF(
-                url: kWidgetDerivadasTrigonometricasComplementarias),
+              url: kWidgetDerivadasTrigonometricasComplementarias,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

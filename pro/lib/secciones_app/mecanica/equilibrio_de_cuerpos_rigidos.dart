@@ -6,10 +6,12 @@ class EquilibrioDeCuerposRigidos extends StatefulWidget {
   const EquilibrioDeCuerposRigidos({super.key});
 
   @override
-  EquilibrioDeCuerposRigidosState createState() => EquilibrioDeCuerposRigidosState();
+  EquilibrioDeCuerposRigidosState createState() =>
+      EquilibrioDeCuerposRigidosState();
 }
 
-class EquilibrioDeCuerposRigidosState extends State<EquilibrioDeCuerposRigidos> {
+class EquilibrioDeCuerposRigidosState
+    extends State<EquilibrioDeCuerposRigidos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class EquilibrioDeCuerposRigidosState extends State<EquilibrioDeCuerposRigidos> 
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.equilibrioDeCuerposRigidos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.equilibrioDeCuerposRigidos,
                         widgetName: kWidgetEquilibrioDeCuerposRigidos,
                       ),
                     );
@@ -44,14 +48,18 @@ class EquilibrioDeCuerposRigidosState extends State<EquilibrioDeCuerposRigidos> 
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.equilibrioDeCuerposRigidos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.equilibrioDeCuerposRigidos,
                                 widgetName: kWidgetEquilibrioDeCuerposRigidos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.equilibrioDeCuerposRigidos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.equilibrioDeCuerposRigidos,
                                 widgetName: kWidgetEquilibrioDeCuerposRigidos,
                               ),
                             );

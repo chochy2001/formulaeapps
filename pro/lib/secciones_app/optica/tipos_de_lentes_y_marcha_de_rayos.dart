@@ -6,10 +6,12 @@ class TiposDeLentesYMarchaDeRayos extends StatefulWidget {
   const TiposDeLentesYMarchaDeRayos({super.key});
 
   @override
-  TiposDeLentesYMarchaDeRayosState createState() => TiposDeLentesYMarchaDeRayosState();
+  TiposDeLentesYMarchaDeRayosState createState() =>
+      TiposDeLentesYMarchaDeRayosState();
 }
 
-class TiposDeLentesYMarchaDeRayosState extends State<TiposDeLentesYMarchaDeRayos> {
+class TiposDeLentesYMarchaDeRayosState
+    extends State<TiposDeLentesYMarchaDeRayos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class TiposDeLentesYMarchaDeRayosState extends State<TiposDeLentesYMarchaDeRayos
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.tiposDeLentesYMarchaDeRayos,
                         widgetName: kWidgetTiposDeLentesYMarchaDeRayos,
                       ),
                     );
@@ -44,14 +48,18 @@ class TiposDeLentesYMarchaDeRayosState extends State<TiposDeLentesYMarchaDeRayos
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.tiposDeLentesYMarchaDeRayos,
                                 widgetName: kWidgetTiposDeLentesYMarchaDeRayos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.tiposDeLentesYMarchaDeRayos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.tiposDeLentesYMarchaDeRayos,
                                 widgetName: kWidgetTiposDeLentesYMarchaDeRayos,
                               ),
                             );
@@ -67,13 +75,25 @@ class TiposDeLentesYMarchaDeRayosState extends State<TiposDeLentesYMarchaDeRayos
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\text{Biconvexa} \quad \text{Menisco convergente} \quad \text{Planoconvexa}"),
+                  Latex(
+                    formulaText:
+                        r"\text{Biconvexa} \quad \text{Menisco convergente} \quad \text{Planoconvexa}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\text{Bicóncava} \quad \text{Planocóncava} \quad \text{Menisco divergente}"),
+                  Latex(
+                    formulaText:
+                        r"\text{Bicóncava} \quad \text{Planocóncava} \quad \text{Menisco divergente}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\text{Rayos paralelos} \longrightarrow \text{foco } F"),
+                  Latex(
+                    formulaText:
+                        r"\text{Rayos paralelos} \longrightarrow \text{foco } F",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\text{Rayos paralelos} \longrightarrow \text{foco virtual } F"),
+                  Latex(
+                    formulaText:
+                        r"\text{Rayos paralelos} \longrightarrow \text{foco virtual } F",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"CF = \text{distancia focal} = f"),
                   SizedBox(height: kEspacioEntreBotones),

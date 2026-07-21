@@ -17,9 +17,12 @@ class _CirculacionDelCampoElectrostaticoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -44,9 +47,11 @@ class _CirculacionDelCampoElectrostaticoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .circulacionCampoElectrostatico,
-                      widgetName: kWidgetCirculacionDelCampoElectrostatico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.circulacionCampoElectrostatico,
+                    widgetName: kWidgetCirculacionDelCampoElectrostatico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -58,18 +63,22 @@ class _CirculacionDelCampoElectrostaticoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circulacionCampoElectrostatico,
-                              widgetName:
-                                  kWidgetCirculacionDelCampoElectrostatico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circulacionCampoElectrostatico,
+                            widgetName:
+                                kWidgetCirculacionDelCampoElectrostatico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circulacionCampoElectrostatico,
-                              widgetName:
-                                  kWidgetCirculacionDelCampoElectrostatico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circulacionCampoElectrostatico,
+                            widgetName:
+                                kWidgetCirculacionDelCampoElectrostatico,
+                          ),
                         );
                       }
                     });
@@ -81,35 +90,36 @@ class _CirculacionDelCampoElectrostaticoState
             Column(
               children: <Widget>[
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCirculacionParaUnaCargaPuntual),
+                  urlImagen: kUrlImagenCirculacionParaUnaCargaPuntual,
+                ),
                 const Latex(
-                    formulaText:
-                        r"c_e = \oint \vec{E} \cdot d\vec{l} = \oint k \frac{q}{r^2}\hat{r}\cdot d\vec{l}= kq \oint \frac{dr}{r^2}"),
+                  formulaText:
+                      r"c_e = \oint \vec{E} \cdot d\vec{l} = \oint k \frac{q}{r^2}\hat{r}\cdot d\vec{l}= kq \oint \frac{dr}{r^2}",
+                ),
                 const SizedBox(height: 40.0),
                 const Latex(
-                    formulaText:
-                        r"c_e = \lim_{r\rightarrow r'}kq \int_{r}^{r'} \frac{dr}{r^2}=0"),
+                  formulaText:
+                      r"c_e = \lim_{r\rightarrow r'}kq \int_{r}^{r'} \frac{dr}{r^2}=0",
+                ),
                 const SizedBox(height: 60.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .circulacionCampoElectrostaticoCero,
+                  AppLocalizations.of(
+                    context,
+                  )!.circulacionCampoElectrostaticoCero,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"c_e = \oint \vec{E}\cdot d\vec{l}=0"),
+                  formulaText: r"c_e = \oint \vec{E}\cdot d\vec{l}=0",
+                ),
                 const SizedBox(height: 20.0),
                 const SizedBox(height: 20.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetCirculacionDelCampoElectrostatico,
-            ),
+            const VerPDF(url: kWidgetCirculacionDelCampoElectrostatico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetCirculacionDelCampoElectrostatico,
-            ),
+            const DescargarPDF(url: kWidgetCirculacionDelCampoElectrostatico),
           ],
         ),
       ),

@@ -16,9 +16,12 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,21 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .formulasOperacionalesDeLaTransformadaDeLaplace,
+                    AppLocalizations.of(
+                      context,
+                    )!.formulasOperacionalesDeLaTransformadaDeLaplace,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .formulasOperacionalesDeLaTransformadaDeLaplace,
-                            widgetName:
-                                kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.formulasOperacionalesDeLaTransformadaDeLaplace,
+                          widgetName:
+                              kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +69,22 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulasOperacionalesDeLaTransformadaDeLaplace,
-                                    widgetName:
-                                        kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulasOperacionalesDeLaTransformadaDeLaplace,
+                                  widgetName:
+                                      kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulasOperacionalesDeLaTransformadaDeLaplace,
-                                    widgetName:
-                                        kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulasOperacionalesDeLaTransformadaDeLaplace,
+                                  widgetName:
+                                      kWidgetFormulasOperacionalesDeLaTransformadaDeLaplace,
+                                ),
                               );
                             }
                           });
@@ -83,16 +93,12 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const Latex(formulaText: r"f(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"af(t) +bg(t)"),
@@ -106,26 +112,24 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"f^{(n)}(t)\space(n=1,2,3,...)"),
+                          formulaText: r"f^{(n)}(t)\space(n=1,2,3,...)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.transformada,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"s^nF(n)-s^{n-1}f(0)-\cdots -f^{(n-1)}(0)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText:
+                              r"s^nF(n)-s^{n-1}f(0)-\cdots -f^{(n-1)}(0)",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\int_{0}^{t}f(t)dt"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -137,9 +141,7 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"t^n f(t)\space(n=1,2,3...)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -151,9 +153,7 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\frac{1}{t}f(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -162,14 +162,13 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\int_{s}^{\infty}F(\sigma)d\sigma"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText: r"\int_{s}^{\infty}F(\sigma)d\sigma",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"e^{\pm at}f(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -182,9 +181,7 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f(t-a)H(t-a)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -197,9 +194,7 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f(t+T) = f(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -208,8 +203,9 @@ class _FormulasOperacionalesDeLaTransformadaDeLaplaceState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{1}{1-e^{-Ts}}\int_{0}^{T}e^{-st}f(t)dt"),
+                          formulaText:
+                              r"\frac{1}{1-e^{-Ts}}\int_{0}^{T}e^{-st}f(t)dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),

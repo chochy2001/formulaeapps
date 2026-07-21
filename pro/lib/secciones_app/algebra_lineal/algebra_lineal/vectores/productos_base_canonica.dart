@@ -6,10 +6,12 @@ class AlgebraLinealVectoresProductosBaseCanonica extends StatefulWidget {
   const AlgebraLinealVectoresProductosBaseCanonica({super.key});
 
   @override
-  AlgebraLinealVectoresProductosBaseCanonicaState createState() => AlgebraLinealVectoresProductosBaseCanonicaState();
+  AlgebraLinealVectoresProductosBaseCanonicaState createState() =>
+      AlgebraLinealVectoresProductosBaseCanonicaState();
 }
 
-class AlgebraLinealVectoresProductosBaseCanonicaState extends State<AlgebraLinealVectoresProductosBaseCanonica> {
+class AlgebraLinealVectoresProductosBaseCanonicaState
+    extends State<AlgebraLinealVectoresProductosBaseCanonica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class AlgebraLinealVectoresProductosBaseCanonicaState extends State<AlgebraLinea
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealVectoresProductosBaseCanonica,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica,
-                        widgetName: kWidgetAlgebraLinealVectoresProductosBaseCanonica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealVectoresProductosBaseCanonica,
+                        widgetName:
+                            kWidgetAlgebraLinealVectoresProductosBaseCanonica,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class AlgebraLinealVectoresProductosBaseCanonicaState extends State<AlgebraLinea
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica,
-                                widgetName: kWidgetAlgebraLinealVectoresProductosBaseCanonica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresProductosBaseCanonica,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresProductosBaseCanonica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresProductosBaseCanonica,
-                                widgetName: kWidgetAlgebraLinealVectoresProductosBaseCanonica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresProductosBaseCanonica,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresProductosBaseCanonica,
                               ),
                             );
                           }
@@ -67,18 +80,30 @@ class AlgebraLinealVectoresProductosBaseCanonicaState extends State<AlgebraLinea
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\hat{i} \cdot \hat{i} = 1, \qquad \hat{j} \cdot \hat{j} = 1, \qquad \hat{k} \cdot \hat{k} = 1"),
+                  Latex(
+                    formulaText:
+                        r"\hat{i} \cdot \hat{i} = 1, \qquad \hat{j} \cdot \hat{j} = 1, \qquad \hat{k} \cdot \hat{k} = 1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\hat{i} \cdot \hat{j} = \hat{i} \cdot \hat{k} = \hat{j} \cdot \hat{k} = 0, \qquad \hat{j} \cdot \hat{i} = \hat{k} \cdot \hat{i} = \hat{k} \cdot \hat{j} = 0"),
+                  Latex(
+                    formulaText:
+                        r"\hat{i} \cdot \hat{j} = \hat{i} \cdot \hat{k} = \hat{j} \cdot \hat{k} = 0, \qquad \hat{j} \cdot \hat{i} = \hat{k} \cdot \hat{i} = \hat{k} \cdot \hat{j} = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\hat{\imath} \times \hat{\jmath} = \hat{k}"),
+                  Latex(
+                    formulaText: r"\hat{\imath} \times \hat{\jmath} = \hat{k}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             const SizedBox(height: kEspacioEntreBotones),
-            const VerPDF(url: kWidgetAlgebraLinealVectoresProductosBaseCanonica),
-            const DescargarPDF(url: kWidgetAlgebraLinealVectoresProductosBaseCanonica),
+            const VerPDF(
+              url: kWidgetAlgebraLinealVectoresProductosBaseCanonica,
+            ),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealVectoresProductosBaseCanonica,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

@@ -14,9 +14,7 @@ class MenuTermodinamicaState extends State<MenuTermodinamica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -34,11 +32,15 @@ class MenuTermodinamicaState extends State<MenuTermodinamica> {
                   ),
                   const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.transferenciaDeCalor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transferenciaDeCalor,
                     ruta: kRutaTransferenciaDeCalor,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.capacidadCalorificaYCalorLatente,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.capacidadCalorificaYCalorLatente,
                     ruta: kRutaCapacidadCalorificaYCalorLatente,
                   ),
                   BotonesMenu(
@@ -46,15 +48,21 @@ class MenuTermodinamicaState extends State<MenuTermodinamica> {
                     ruta: kRutaLeyesDeLosGases,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.cicloDeCarnotYLeyesDeLaTermodinamica,
                     ruta: kRutaCicloDeCarnotYLeyesDeLaTermodinamica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.trabajoTermodinamico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trabajoTermodinamico,
                     ruta: kRutaTrabajoTermodinamico,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.entalpiaYEnergiaInterna,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.entalpiaYEnergiaInterna,
                     ruta: kRutaEntalpiaYEnergiaInterna,
                   ),
                   BotonesMenu(
@@ -62,15 +70,21 @@ class MenuTermodinamicaState extends State<MenuTermodinamica> {
                     ruta: kRutaDilatacionLineal,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.dilatacionSuperficialYVolumetrica,
                     ruta: kRutaDilatacionSuperficialYVolumetrica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.entropiaYTeoriaCinetica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.entropiaYTeoriaCinetica,
                     ruta: kRutaEntropiaYTeoriaCinetica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.procesosTermodinamicos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.procesosTermodinamicos,
                     ruta: kRutaProcesosTermodinamicos,
                   ),
                 ],

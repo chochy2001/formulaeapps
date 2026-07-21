@@ -53,10 +53,7 @@ void main() {
     });
 
     test('falls back to APP_VERSION when FORMULAE_ is empty', () {
-      expect(
-        resolveAppVersion(formulae: '', legacy: '2.2.9'),
-        '2.2.9',
-      );
+      expect(resolveAppVersion(formulae: '', legacy: '2.2.9'), '2.2.9');
     });
   });
 

@@ -16,9 +16,12 @@ class _EcuacionDiferencialLinealDeOrdenSuperiorState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,21 @@ class _EcuacionDiferencialLinealDeOrdenSuperiorState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .ecuacionDiferencialLinealOrdenSuperior,
+                    AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialLinealOrdenSuperior,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionDiferencialLinealOrdenSuperior,
-                            widgetName:
-                                kWidgetEcuacionDiferencialLinealDeOrdenSuperior),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionDiferencialLinealOrdenSuperior,
+                          widgetName:
+                              kWidgetEcuacionDiferencialLinealDeOrdenSuperior,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +69,22 @@ class _EcuacionDiferencialLinealDeOrdenSuperiorState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialLinealOrdenSuperior,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialLinealDeOrdenSuperior),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialLinealOrdenSuperior,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialLinealDeOrdenSuperior,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialLinealOrdenSuperior,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialLinealDeOrdenSuperior),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialLinealOrdenSuperior,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialLinealDeOrdenSuperior,
+                                ),
                               );
                             }
                           });
@@ -88,8 +98,9 @@ class _EcuacionDiferencialLinealDeOrdenSuperiorState
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a_n(x)y^n+a_{n-1}(x)y^{n-1}+\cdots+a_0(x)y= g(x)"),
+                          formulaText:
+                              r"a_n(x)y^n+a_{n-1}(x)y^{n-1}+\cdots+a_0(x)y= g(x)",
+                        ),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.variacionDeParametros,
                         ),
@@ -99,24 +110,28 @@ class _EcuacionDiferencialLinealDeOrdenSuperiorState
                         ),
                         const SizedBox(height: kEspacioEntreBotones - 15),
                         const Latex(
-                            formulaText:
-                                r"a_ny^n+a_{n-1}(x)y^{n-1}+\cdots + a_0(x)y = 0"),
+                          formulaText:
+                              r"a_ny^n+a_{n-1}(x)y^{n-1}+\cdots + a_0(x)y = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"y_h = c_1u_1+c_2u_2 + \cdots + c_nu_n = 0"),
+                          formulaText:
+                              r"y_h = c_1u_1+c_2u_2 + \cdots + c_nu_n = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.solucionParticular,
                         ),
                         const SizedBox(height: kEspacioEntreBotones - 15),
                         const Latex(
-                            formulaText:
-                                r"y_p = u_1v_1 + u_2v_2 + \cdots + u_nv_n"),
+                          formulaText:
+                              r"y_p = u_1v_1 + u_2v_2 + \cdots + u_nv_n",
+                        ),
                         const SizedBox(height: 5),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seResuelveElSistemaDeEcuaciones,
+                          AppLocalizations.of(
+                            context,
+                          )!.seResuelveElSistemaDeEcuaciones,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(

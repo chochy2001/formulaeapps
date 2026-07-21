@@ -25,14 +25,10 @@ class ChatWidget extends StatelessWidget {
                   chatIndex == 0 ? AssetsManager.user : AssetsManager.icono,
                   height: MediaQuery.of(context).size.height * .04,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * .02,
-                ),
+                SizedBox(width: MediaQuery.of(context).size.width * .02),
                 Expanded(
                   child: chatIndex == 0
-                      ? TextWidget(
-                          label: msg,
-                        )
+                      ? TextWidget(label: msg)
                       : DefaultTextStyle(
                           style: kTextoEcuaciones,
                           child: AnimatedTextKit(
@@ -40,11 +36,7 @@ class ChatWidget extends StatelessWidget {
                             repeatForever: false,
                             displayFullTextOnTap: true,
                             totalRepeatCount: 1,
-                            animatedTexts: [
-                              TyperAnimatedText(
-                                msg.trim(),
-                              ),
-                            ],
+                            animatedTexts: [TyperAnimatedText(msg.trim())],
                           ),
                         ),
                 ),

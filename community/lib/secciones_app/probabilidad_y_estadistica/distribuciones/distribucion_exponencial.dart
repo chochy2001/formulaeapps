@@ -15,9 +15,12 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionExponencial,
-                            widgetName: kWidgetDistribucionExponencial),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionExponencial,
+                          widgetName: kWidgetDistribucionExponencial,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +65,20 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionExponencial,
-                                    widgetName: kWidgetDistribucionExponencial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionExponencial,
+                                  widgetName: kWidgetDistribucionExponencial,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionExponencial,
-                                    widgetName: kWidgetDistribucionExponencial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionExponencial,
+                                  widgetName: kWidgetDistribucionExponencial,
+                                ),
                               );
                             }
                           });
@@ -78,9 +87,7 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -91,7 +98,8 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"f(x)= \lambda \cdot e^{-\lambda x}"),
+                          formulaText: r"f(x)= \lambda \cdot e^{-\lambda x}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.valorEsperado,
@@ -99,9 +107,7 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\frac{1}{\lambda}"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\frac{1}{\lambda^2}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -110,21 +116,14 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionExponencial,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionExponencial),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionExponencial,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionExponencial),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -141,16 +140,18 @@ class _DistribucionExponencialState extends State<DistribucionExponencial> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"\lambda"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .tasaPromedioOcurrencia,
+                                AppLocalizations.of(
+                                  context,
+                                )!.tasaPromedioOcurrencia,
                               ),
                               const SizedBox(height: 10),
                               const Latex(formulaText: r""),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"e"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .baseLogaritmoNatural,
+                                AppLocalizations.of(
+                                  context,
+                                )!.baseLogaritmoNatural,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const CapdesisLatex(),

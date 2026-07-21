@@ -27,8 +27,9 @@ class _GraficaDeCapacitanciaState extends State<GraficaDeCapacitancia> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.graficaCapacitancia,
-                      widgetName: kWidgetGraficaDeCapacitancia),
+                    title: AppLocalizations.of(context)!.graficaCapacitancia,
+                    widgetName: kWidgetGraficaDeCapacitancia,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,20 @@ class _GraficaDeCapacitanciaState extends State<GraficaDeCapacitancia> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .graficaCapacitancia,
-                              widgetName: kWidgetGraficaDeCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.graficaCapacitancia,
+                            widgetName: kWidgetGraficaDeCapacitancia,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .graficaCapacitancia,
-                              widgetName: kWidgetGraficaDeCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.graficaCapacitancia,
+                            widgetName: kWidgetGraficaDeCapacitancia,
+                          ),
                         );
                       }
                     });
@@ -61,22 +66,19 @@ class _GraficaDeCapacitanciaState extends State<GraficaDeCapacitancia> {
             const SizedBox(height: 20.0),
 
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenGraficaCapacitancia) ??
-                        kUrlImagenGraficaCapacitancia),
+              urlImagen:
+                  getImageUrlById(context, kImagenGraficaCapacitancia) ??
+                  kUrlImagenGraficaCapacitancia,
+            ),
 
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetGraficaDeCapacitancia,
-                ),
+                VerPDF(url: kWidgetGraficaDeCapacitancia),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetGraficaDeCapacitancia,
-                ),
+                DescargarPDF(url: kWidgetGraficaDeCapacitancia),
               ],
-            )
+            ),
           ],
         ),
       ),

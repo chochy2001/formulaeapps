@@ -32,8 +32,9 @@ class ConstantesFisicasUniversalesState
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!
-                            .constantesFisicasUniversales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.constantesFisicasUniversales,
                         widgetName: kWidgetConstantesFisicasUniversales,
                       ),
                     );
@@ -47,16 +48,18 @@ class ConstantesFisicasUniversalesState
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .constantesFisicasUniversales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesFisicasUniversales,
                                 widgetName: kWidgetConstantesFisicasUniversales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .constantesFisicasUniversales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesFisicasUniversales,
                                 widgetName: kWidgetConstantesFisicasUniversales,
                               ),
                             );

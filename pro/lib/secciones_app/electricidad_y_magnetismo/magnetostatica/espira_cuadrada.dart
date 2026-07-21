@@ -27,8 +27,9 @@ class _EspiraCuadradaState extends State<EspiraCuadrada> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.espiraCuadrada,
-                      widgetName: kWidgetEspiraCuadrada),
+                    title: AppLocalizations.of(context)!.espiraCuadrada,
+                    widgetName: kWidgetEspiraCuadrada,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,16 @@ class _EspiraCuadradaState extends State<EspiraCuadrada> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.espiraCuadrada,
-                              widgetName: kWidgetEspiraCuadrada),
+                            title: AppLocalizations.of(context)!.espiraCuadrada,
+                            widgetName: kWidgetEspiraCuadrada,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.espiraCuadrada,
-                              widgetName: kWidgetEspiraCuadrada),
+                            title: AppLocalizations.of(context)!.espiraCuadrada,
+                            widgetName: kWidgetEspiraCuadrada,
+                          ),
                         );
                       }
                     });
@@ -62,27 +63,29 @@ class _EspiraCuadradaState extends State<EspiraCuadrada> {
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenEspiraCuadrada),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  urlImagen: kUrlImagenEspiraCuadrada,
                 ),
                 const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
+                const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.campoParaUnConductorRecto,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu _0 i}{4\pi y}\frac{L}{(\frac{L^2}{4}+y^2)^\frac{1}{2}}"),
+                  formulaText:
+                      r"B = \frac{\mu _0 i}{4\pi y}\frac{L}{(\frac{L^2}{4}+y^2)^\frac{1}{2}}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .campoMagneticoProducidoPorUnConductor,
+                  AppLocalizations.of(
+                    context,
+                  )!.campoMagneticoProducidoPorUnConductor,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"B = \frac{\sqrt{2}\mu_0 i}{2\pi L}"),
@@ -94,21 +97,24 @@ class _EspiraCuadradaState extends State<EspiraCuadrada> {
                 const Latex(formulaText: r"B = \frac{2\sqrt{2}\mu_0 i}{\pi L}"),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .paraUnPuntoFueraDelPlanoAlCentro,
+                  AppLocalizations.of(
+                    context,
+                  )!.paraUnPuntoFueraDelPlanoAlCentro,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0 i}{4\pi y} \frac{L}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}"),
+                  formulaText:
+                      r"B = \frac{\mu_0 i}{4\pi y} \frac{L}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.paraLosCuatroConductoresRectos,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0 i}{2\pi y^2} \frac{L^2}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}"),
+                  formulaText:
+                      r"B = \frac{\mu_0 i}{2\pi y^2} \frac{L^2}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -116,15 +122,11 @@ class _EspiraCuadradaState extends State<EspiraCuadrada> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetEspiraCuadrada,
-                ),
+                VerPDF(url: kWidgetEspiraCuadrada),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetEspiraCuadrada,
-                ),
+                DescargarPDF(url: kWidgetEspiraCuadrada),
               ],
-            )
+            ),
           ],
         ),
       ),

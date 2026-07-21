@@ -44,14 +44,18 @@ class HidrodinamicaState extends State<Hidrodinamica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hidrodinamica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hidrodinamica,
                                 widgetName: kWidgetHidrodinamica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hidrodinamica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hidrodinamica,
                                 widgetName: kWidgetHidrodinamica,
                               ),
                             );
@@ -77,7 +81,10 @@ class HidrodinamicaState extends State<Hidrodinamica> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"A_1 V_1 = A_2 V_2"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \vec{V}) = 0"),
+                  Latex(
+                    formulaText:
+                        r"\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \vec{V}) = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"V = \sqrt{2gh}"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -87,9 +94,15 @@ class HidrodinamicaState extends State<Hidrodinamica> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"(P_1 - P_2) = \rho g (h_1 - h_2)"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P + \rho g h + \frac{1}{2}\rho v^{2} = \text{cte.}"),
+                  Latex(
+                    formulaText:
+                        r"P + \rho g h + \frac{1}{2}\rho v^{2} = \text{cte.}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P_1 + \rho g h_1 + \frac{1}{2}\rho v_1^{2} = P_2 + \rho g h_2 + \frac{1}{2}\rho v_2^{2}"),
+                  Latex(
+                    formulaText:
+                        r"P_1 + \rho g h_1 + \frac{1}{2}\rho v_1^{2} = P_2 + \rho g h_2 + \frac{1}{2}\rho v_2^{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"N = \frac{d\,v\,D}{n}"),
                   SizedBox(height: kEspacioEntreBotones),

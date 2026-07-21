@@ -33,9 +33,11 @@ class VolumenDeCuerposGeometricosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .volumenDeCuerposGeometricos,
-                            widgetName: kWidgetVolumenDeCuerposGeometricos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.volumenDeCuerposGeometricos,
+                          widgetName: kWidgetVolumenDeCuerposGeometricos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -47,18 +49,22 @@ class VolumenDeCuerposGeometricosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .volumenDeCuerposGeometricos,
-                                    widgetName:
-                                        kWidgetVolumenDeCuerposGeometricos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.volumenDeCuerposGeometricos,
+                                  widgetName:
+                                      kWidgetVolumenDeCuerposGeometricos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .volumenDeCuerposGeometricos,
-                                    widgetName:
-                                        kWidgetVolumenDeCuerposGeometricos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.volumenDeCuerposGeometricos,
+                                  widgetName:
+                                      kWidgetVolumenDeCuerposGeometricos,
+                                ),
                               );
                             }
                           });
@@ -67,14 +73,10 @@ class VolumenDeCuerposGeometricosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cubo,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cubo),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"V = a^3"),
@@ -83,9 +85,7 @@ class VolumenDeCuerposGeometricosState
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenCubo),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.prisma,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.prisma),
 
                   //todo  poner area_base
                   //TextoEcuaciones(AppLocalizations.of(context)!.areaDeLaBase,),
@@ -94,15 +94,14 @@ class VolumenDeCuerposGeometricosState
 
                   const SizedBox(height: kEspacioEntreBotones),
                   ZoomImagePersonalizado(
-                      urlImagen:
-                          getImageUrlById(context, kImagenPrismaPentagonal) ??
-                              kUrlImagenPrismaPentagonal),
+                    urlImagen:
+                        getImageUrlById(context, kImagenPrismaPentagonal) ??
+                        kUrlImagenPrismaPentagonal,
+                  ),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cilindro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cilindro),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"V = \pi r^2\cdot h"),
@@ -110,12 +109,11 @@ class VolumenDeCuerposGeometricosState
                   const SizedBox(height: kEspacioEntreBotones),
 
                   const ZoomImagePersonalizado(
-                      urlImagen: kUrlImagenPrismaCircular),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.esfera,
+                    urlImagen: kUrlImagenPrismaCircular,
                   ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.esfera),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"V = \frac{4}{3}\pi r^3"),
@@ -125,26 +123,25 @@ class VolumenDeCuerposGeometricosState
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenEsfera),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.piramide,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.piramide),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   //todo cambiar por variable
                   //TextoEcuaciones(AppLocalizations.of(context)!.areaDeLaBase,),
                   const Latex(
-                      formulaText: r"V= \frac{\mathsf{Area_{base}}\cdot h}{3}"),
+                    formulaText: r"V= \frac{\mathsf{Area_{base}}\cdot h}{3}",
+                  ),
 
                   const SizedBox(height: kEspacioEntreBotones),
 
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(context, kImagenPiramide) ??
-                          kUrlImagenPiramide),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cono,
+                    urlImagen:
+                        getImageUrlById(context, kImagenPiramide) ??
+                        kUrlImagenPiramide,
                   ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cono),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"V = \frac{\pi r^2\cdot h}{3}"),
@@ -153,13 +150,9 @@ class VolumenDeCuerposGeometricosState
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenCono),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetVolumenDeCuerposGeometricos,
-                  ),
+                  const VerPDF(url: kWidgetVolumenDeCuerposGeometricos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetVolumenDeCuerposGeometricos,
-                  ),
+                  const DescargarPDF(url: kWidgetVolumenDeCuerposGeometricos),
                 ],
               ),
             ),

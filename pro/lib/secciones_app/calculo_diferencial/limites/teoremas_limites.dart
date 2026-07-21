@@ -30,7 +30,9 @@ class LimitesTeoremasLimitesState extends State<LimitesTeoremasLimites> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.limitesTeoremasLimites,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.limitesTeoremasLimites,
                         widgetName: kWidgetLimitesTeoremasLimites,
                       ),
                     );
@@ -44,14 +46,18 @@ class LimitesTeoremasLimitesState extends State<LimitesTeoremasLimites> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesTeoremasLimites,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesTeoremasLimites,
                                 widgetName: kWidgetLimitesTeoremasLimites,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesTeoremasLimites,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesTeoremasLimites,
                                 widgetName: kWidgetLimitesTeoremasLimites,
                               ),
                             );
@@ -69,11 +75,16 @@ class LimitesTeoremasLimitesState extends State<LimitesTeoremasLimites> {
                 children: [
                   Latex(formulaText: r"\lim_{x \to a} f(x) = L"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} f(x) = L_1 \;\wedge\; \lim_{x \to a} f(x) = L_2 \;\Rightarrow\; L_1 = L_2"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to a} f(x) = L_1 \;\wedge\; \lim_{x \to a} f(x) = L_2 \;\Rightarrow\; L_1 = L_2",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\lim_{x \to a} x = a"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}"),
+                  Latex(
+                    formulaText: r"\lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

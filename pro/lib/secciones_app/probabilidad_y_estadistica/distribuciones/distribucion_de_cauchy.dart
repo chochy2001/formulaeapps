@@ -6,10 +6,12 @@ class DistribucionesDistribucionDeCauchy extends StatefulWidget {
   const DistribucionesDistribucionDeCauchy({super.key});
 
   @override
-  DistribucionesDistribucionDeCauchyState createState() => DistribucionesDistribucionDeCauchyState();
+  DistribucionesDistribucionDeCauchyState createState() =>
+      DistribucionesDistribucionDeCauchyState();
 }
 
-class DistribucionesDistribucionDeCauchyState extends State<DistribucionesDistribucionDeCauchy> {
+class DistribucionesDistribucionDeCauchyState
+    extends State<DistribucionesDistribucionDeCauchy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DistribucionesDistribucionDeCauchyState extends State<DistribucionesDistri
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionDeCauchy,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionDeCauchy,
                         widgetName: kWidgetDistribucionesDistribucionDeCauchy,
                       ),
                     );
@@ -44,15 +50,21 @@ class DistribucionesDistribucionDeCauchyState extends State<DistribucionesDistri
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy,
-                                widgetName: kWidgetDistribucionesDistribucionDeCauchy,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeCauchy,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeCauchy,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeCauchy,
-                                widgetName: kWidgetDistribucionesDistribucionDeCauchy,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeCauchy,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeCauchy,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class DistribucionesDistribucionDeCauchyState extends State<DistribucionesDistri
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"f_x(X_0) = \dfrac{1}{\pi}\,\dfrac{a}{a^{2} + (X_0 - b)^{2}}"),
+                  Latex(
+                    formulaText:
+                        r"f_x(X_0) = \dfrac{1}{\pi}\,\dfrac{a}{a^{2} + (X_0 - b)^{2}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = b"),
                   SizedBox(height: kEspacioEntreBotones),

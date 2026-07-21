@@ -31,9 +31,11 @@ class TeoremaSumatoriasState extends State<TeoremaSumatorias> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDeSumatorias,
-                            widgetName: kWidgetTeoremaDeSumatorias),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDeSumatorias,
+                          widgetName: kWidgetTeoremaDeSumatorias,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class TeoremaSumatoriasState extends State<TeoremaSumatorias> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDeSumatorias,
-                                    widgetName: kWidgetTeoremaDeSumatorias),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDeSumatorias,
+                                  widgetName: kWidgetTeoremaDeSumatorias,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDeSumatorias,
-                                    widgetName: kWidgetTeoremaDeSumatorias),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDeSumatorias,
+                                  widgetName: kWidgetTeoremaDeSumatorias,
+                                ),
                               );
                             }
                           });
@@ -67,49 +73,46 @@ class TeoremaSumatoriasState extends State<TeoremaSumatorias> {
                     child: Column(
                       children: [
                         Latex(
-                            formulaText:
-                                r"\sum_{i=1}^n f(i)=c\sum_{i=1}^nf(i)"),
+                          formulaText: r"\sum_{i=1}^n f(i)=c\sum_{i=1}^nf(i)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sum_{i=1}[f(i)\pm g(i)]=\sum_{i=1}^nf(i)\pm\sum_{i=1}^ng(i)"),
+                          formulaText:
+                              r"\sum_{i=1}[f(i)\pm g(i)]=\sum_{i=1}^nf(i)\pm\sum_{i=1}^ng(i)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sum_{i=1}^nf(i) =\sum_{i=1}^mf(i)+\sum_{i=m+1}^nf(i)"),
+                          formulaText:
+                              r"\sum_{i=1}^nf(i) =\sum_{i=1}^mf(i)+\sum_{i=m+1}^nf(i)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\sum_{i=1}^n c=nc"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\sum_{i=1}^n i=\frac{n(n+1)}{2}"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sum_{i=1}^n i^2=\frac{n(n+1)(2n+1)}{6}"),
+                          formulaText:
+                              r"\sum_{i=1}^n i^2=\frac{n(n+1)(2n+1)}{6}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sum_{i=1}^n i^3=\left[\frac{n(n+1)}{2}\right]^2"),
+                          formulaText:
+                              r"\sum_{i=1}^n i^3=\left[\frac{n(n+1)}{2}\right]^2",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTeoremaDeSumatorias,
-                  ),
+                  const VerPDF(url: kWidgetTeoremaDeSumatorias),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTeoremaDeSumatorias,
-                  ),
+                  const DescargarPDF(url: kWidgetTeoremaDeSumatorias),
 
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

@@ -29,9 +29,11 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .nomenclaturaBasicaCircuitos,
-                      widgetName: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.nomenclaturaBasicaCircuitos,
+                    widgetName: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,18 +45,22 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .nomenclaturaBasicaCircuitos,
-                              widgetName:
-                                  kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.nomenclaturaBasicaCircuitos,
+                            widgetName:
+                                kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .nomenclaturaBasicaCircuitos,
-                              widgetName:
-                                  kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.nomenclaturaBasicaCircuitos,
+                            widgetName:
+                                kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                          ),
                         );
                       }
                     });
@@ -67,13 +73,15 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenNomenclaturaBasica1) ??
-                            kUrlImagenNomenclaturaBasica1),
+                  urlImagen:
+                      getImageUrlById(context, kImagenNomenclaturaBasica1) ??
+                      kUrlImagenNomenclaturaBasica1,
+                ),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenNomenclaturaBasica2) ??
-                            kUrlImagenNomenclaturaBasica2),
+                  urlImagen:
+                      getImageUrlById(context, kImagenNomenclaturaBasica2) ??
+                      kUrlImagenNomenclaturaBasica2,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -81,15 +89,11 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
-                ),
+                VerPDF(url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
-                ),
+                DescargarPDF(url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -15,9 +15,12 @@ class _ConexionEnSerieCapacitorState extends State<ConexionEnSerieCapacitor> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,9 @@ class _ConexionEnSerieCapacitorState extends State<ConexionEnSerieCapacitor> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.conexionSerieCapacitor,
-                      widgetName: kWidgetConexionEnSerieCapacitor),
+                    title: AppLocalizations.of(context)!.conexionSerieCapacitor,
+                    widgetName: kWidgetConexionEnSerieCapacitor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +59,20 @@ class _ConexionEnSerieCapacitorState extends State<ConexionEnSerieCapacitor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionSerieCapacitor,
-                              widgetName: kWidgetConexionEnSerieCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionSerieCapacitor,
+                            widgetName: kWidgetConexionEnSerieCapacitor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionSerieCapacitor,
-                              widgetName: kWidgetConexionEnSerieCapacitor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionSerieCapacitor,
+                            widgetName: kWidgetConexionEnSerieCapacitor,
+                          ),
                         );
                       }
                     });
@@ -78,45 +85,39 @@ class _ConexionEnSerieCapacitorState extends State<ConexionEnSerieCapacitor> {
 
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.sentidoFisico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.sentidoFisico),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCapacitorConexionEnSerieFisico),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.simbologia,
-                ),
-                const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCapacitorConexionEnSerieSimbologia),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.conexionEnSerie,
+                  urlImagen: kUrlImagenCapacitorConexionEnSerieFisico,
                 ),
                 const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.simbologia),
                 const ZoomImagePersonalizado(
-                    urlImagen:
-                        kUrlImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente),
+                  urlImagen: kUrlImagenCapacitorConexionEnSerieSimbologia,
+                ),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.conexionEnSerie),
+                const SizedBox(height: 20.0),
+                const ZoomImagePersonalizado(
+                  urlImagen:
+                      kUrlImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"Q_T = Q_1 = Q_2 = Q_3 = ... = Q_n"),
                 const SizedBox(height: 30.0),
                 const Latex(formulaText: r"V_T = V_1 + V_2 + V_3 + ... + V_n"),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText:
-                        r"\frac{1}{C_T} = \frac{1}{C_1} + \frac{1}{C_2} + \frac{1}{C_3} + ... + \frac{1}{C_n}"),
+                  formulaText:
+                      r"\frac{1}{C_T} = \frac{1}{C_1} + \frac{1}{C_2} + \frac{1}{C_3} + ... + \frac{1}{C_n}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetConexionEnSerieCapacitor,
-            ),
+            const VerPDF(url: kWidgetConexionEnSerieCapacitor),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetConexionEnSerieCapacitor,
-            ),
+            const DescargarPDF(url: kWidgetConexionEnSerieCapacitor),
           ],
         ),
       ),

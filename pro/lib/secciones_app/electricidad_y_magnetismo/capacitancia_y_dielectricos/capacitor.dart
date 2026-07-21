@@ -27,8 +27,9 @@ class _CapacitorState extends State<Capacitor> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.capacitor,
-                      widgetName: kWidgetCapacitor),
+                    title: AppLocalizations.of(context)!.capacitor,
+                    widgetName: kWidgetCapacitor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _CapacitorState extends State<Capacitor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.capacitor,
-                              widgetName: kWidgetCapacitor),
+                            title: AppLocalizations.of(context)!.capacitor,
+                            widgetName: kWidgetCapacitor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.capacitor,
-                              widgetName: kWidgetCapacitor),
+                            title: AppLocalizations.of(context)!.capacitor,
+                            widgetName: kWidgetCapacitor,
+                          ),
                         );
                       }
                     });
@@ -64,15 +67,19 @@ class _CapacitorState extends State<Capacitor> {
                 ),
                 //ZoomImagePersonalizado(urlImagen: kUrlImagenCapacitor1),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenCapacitor1) ??
-                        kUrlImagenCapacitor1),
+                  urlImagen:
+                      getImageUrlById(context, kImagenCapacitor1) ??
+                      kUrlImagenCapacitor1,
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.unCapacitorEstaCargado,
                 ),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenCapacitor2) ??
-                        kUrlImagenCapacitor2),
+                  urlImagen:
+                      getImageUrlById(context, kImagenCapacitor2) ??
+                      kUrlImagenCapacitor2,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -80,15 +87,11 @@ class _CapacitorState extends State<Capacitor> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCapacitor,
-                ),
+                VerPDF(url: kWidgetCapacitor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCapacitor,
-                ),
+                DescargarPDF(url: kWidgetCapacitor),
               ],
-            )
+            ),
           ],
         ),
       ),

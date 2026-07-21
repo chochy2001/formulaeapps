@@ -56,51 +56,33 @@ class Configuracion extends StatelessWidget {
               children: [
                 Text(
                   AppLocalizations.of(context)!.configuracion,
-                  style: GoogleFonts.poppins(
-                    textStyle: kEstiloTextoMenus,
-                  ),
+                  style: GoogleFonts.poppins(textStyle: kEstiloTextoMenus),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                 const ImagenRemotaRobusta(
                   height: 200.0,
                   width: 200.0,
                   urlImagen: kUrlImagenFormulae,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const SizedBox(height: 20.0),
                 Text(
                   AppLocalizations.of(context)!.formulaePro,
-                  style: GoogleFonts.poppins(
-                    textStyle: kTextoBotones,
-                  ),
+                  style: GoogleFonts.poppins(textStyle: kTextoBotones),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const SizedBox(height: 20.0),
                 Text(
                   AppLocalizations.of(context)!.desarrolladoPor,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    textStyle: kTextoDelgado,
-                  ),
+                  style: GoogleFonts.poppins(textStyle: kTextoDelgado),
                 ),
                 Text(
                   AppLocalizations.of(context)!.contacto,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    textStyle: kTextoDelgado,
-                  ),
+                  style: GoogleFonts.poppins(textStyle: kTextoDelgado),
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: 20.0),
+                const SizedBox(height: kEspacioEntreBotones),
                 ElevatedButton(
                   onPressed: () {
                     showDialog(
@@ -123,8 +105,9 @@ class Configuracion extends StatelessWidget {
                           content: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Text(
-                              AppLocalizations.of(context)!
-                                  .politicaDePrivacidad,
+                              AppLocalizations.of(
+                                context,
+                              )!.politicaDePrivacidad,
                               style: kTextoBotonesDelgado,
                             ),
                           ),
@@ -143,13 +126,9 @@ class Configuracion extends StatelessWidget {
                       },
                     );
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.politicaPrivacidad,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.politicaPrivacidad),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
                 ElevatedButton(
                   onPressed: () {
                     showDialog(
@@ -191,14 +170,10 @@ class Configuracion extends StatelessWidget {
                       },
                     );
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.terminosUso,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.terminosUso),
                 ),
                 if (subscriptionUrl != null) ...[
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -216,8 +191,9 @@ class Configuracion extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             title: Text(
-                              AppLocalizations.of(context)!
-                                  .cancelarSuscripciones,
+                              AppLocalizations.of(
+                                context,
+                              )!.cancelarSuscripciones,
                               style: kTexto,
                             ),
                             content: Text(
@@ -242,15 +218,14 @@ class Configuracion extends StatelessWidget {
                     child: Text(
                       AppLocalizations.of(context)!.cancelarSuscripciones,
                       style: kTextoBotonesDelgado.copyWith(
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : kColorFondo),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : kColorFondo,
+                      ),
                     ),
                   ),
                 ],
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
                 ElevatedButton(
                   onPressed: () {
                     showDialog(
@@ -271,16 +246,15 @@ class Configuracion extends StatelessWidget {
                             height: MediaQuery.of(context).size.height * 0.30,
                             decoration: BoxDecoration(
                               color: kColorBotones, // Color de fondo
-                              borderRadius: BorderRadius.circular(
-                                15,
-                              ),
+                              borderRadius: BorderRadius.circular(15),
                             ),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.80,
                               child: Column(
                                 children: L10n.all
-                                    .map<Widget>((locale) =>
-                                        localeButton(locale, context))
+                                    .map<Widget>(
+                                      (locale) => localeButton(locale, context),
+                                    )
                                     .toList(),
                               ),
                             ),
@@ -289,13 +263,9 @@ class Configuracion extends StatelessWidget {
                       },
                     );
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.cambiarIdioma,
-                  ),
+                  child: Text(AppLocalizations.of(context)!.cambiarIdioma),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
               ],
             ),
           ),

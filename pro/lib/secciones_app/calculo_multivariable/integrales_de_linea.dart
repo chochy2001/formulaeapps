@@ -29,8 +29,9 @@ class IntegralesDeLineaState extends State<IntegralesDeLinea> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.integralesLinea,
-                      widgetName: kWidgetIntegralesDeLinea),
+                    title: AppLocalizations.of(context)!.integralesLinea,
+                    widgetName: kWidgetIntegralesDeLinea,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,20 @@ class IntegralesDeLineaState extends State<IntegralesDeLinea> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.integralesLinea,
-                              widgetName: kWidgetIntegralesDeLinea),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.integralesLinea,
+                            widgetName: kWidgetIntegralesDeLinea,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.integralesLinea,
-                              widgetName: kWidgetIntegralesDeLinea),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.integralesLinea,
+                            widgetName: kWidgetIntegralesDeLinea,
+                          ),
                         );
                       }
                     });
@@ -60,9 +65,7 @@ class IntegralesDeLineaState extends State<IntegralesDeLinea> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
@@ -71,22 +74,23 @@ class IntegralesDeLineaState extends State<IntegralesDeLinea> {
                     AppLocalizations.of(context)!.deCamposEscalares,
                   ),
                   const Latex(
-                      formulaText:
-                          r"\int_C F(s)ds= \int_{t_P}^{t_Q} F(x(t),y(t))\sqrt{(x'(t))^2+(y'(t))^2}dt"),
+                    formulaText:
+                        r"\int_C F(s)ds= \int_{t_P}^{t_Q} F(x(t),y(t))\sqrt{(x'(t))^2+(y'(t))^2}dt",
+                  ),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.deCamposVectoriales,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.seaElCampo,
+                  TextoEcuaciones(AppLocalizations.of(context)!.seaElCampo),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText: r"F(x,y) = F_1(x,y)\hat{i}+F_2(x,y)\hat{j}",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText: r"F(x,y) = F_1(x,y)\hat{i}+F_2(x,y)\hat{j}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"\int_C \vec{F}\cdot d\vec{r}=\int_{t_P}^{t_Q} F_1(x,y)dx + \int_{t_P}^{t_Q} F_2(x,y)dy"),
+                    formulaText:
+                        r"\int_C \vec{F}\cdot d\vec{r}=\int_{t_P}^{t_Q} F_1(x,y)dx + \int_{t_P}^{t_Q} F_2(x,y)dy",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
@@ -94,19 +98,13 @@ class IntegralesDeLineaState extends State<IntegralesDeLinea> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetIntegralesDeLinea,
-                ),
+                VerPDF(url: kWidgetIntegralesDeLinea),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetIntegralesDeLinea,
-                ),
+                DescargarPDF(url: kWidgetIntegralesDeLinea),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

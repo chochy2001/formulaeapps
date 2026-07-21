@@ -15,9 +15,12 @@ class _ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .constantesDeIntegracion,
-                            widgetName: kWidgetConstantesDeIntegracion),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.constantesDeIntegracion,
+                          widgetName: kWidgetConstantesDeIntegracion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +65,20 @@ class _ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .constantesDeIntegracion,
-                                    widgetName: kWidgetConstantesDeIntegracion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.constantesDeIntegracion,
+                                  widgetName: kWidgetConstantesDeIntegracion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .constantesDeIntegracion,
-                                    widgetName: kWidgetConstantesDeIntegracion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.constantesDeIntegracion,
+                                  widgetName: kWidgetConstantesDeIntegracion,
+                                ),
                               );
                             }
                           });
@@ -78,9 +87,7 @@ class _ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -96,21 +103,14 @@ class _ConstantesDeIntegracionState extends State<ConstantesDeIntegracion> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConstantesDeIntegracion,
-                  ),
+                  const VerPDF(url: kWidgetConstantesDeIntegracion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConstantesDeIntegracion,
-                  ),
+                  const DescargarPDF(url: kWidgetConstantesDeIntegracion),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

@@ -43,20 +43,22 @@ void main() {
     );
   });
 
-  test('official Google test unit IDs are never accepted as production IDs',
-      () {
-    expect(
-      AdMobConfig.isValidProductionAdUnitId(
-        'ca-app-pub-3940256099942544/2934735716',
-      ),
-      isFalse,
-    );
-    expect(
-      AdMobConfig.isValidProductionAdUnitId(
-        'ca-app-pub-1234567890123456/1234567890',
-      ),
-      isTrue,
-    );
-    expect(AdMobConfig.isValidProductionAdUnitId('not-an-ad-unit'), isFalse);
-  });
+  test(
+    'official Google test unit IDs are never accepted as production IDs',
+    () {
+      expect(
+        AdMobConfig.isValidProductionAdUnitId(
+          'ca-app-pub-3940256099942544/2934735716',
+        ),
+        isFalse,
+      );
+      expect(
+        AdMobConfig.isValidProductionAdUnitId(
+          'ca-app-pub-1234567890123456/1234567890',
+        ),
+        isTrue,
+      );
+      expect(AdMobConfig.isValidProductionAdUnitId('not-an-ad-unit'), isFalse);
+    },
+  );
 }

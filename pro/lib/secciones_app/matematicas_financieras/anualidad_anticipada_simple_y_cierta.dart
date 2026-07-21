@@ -26,18 +26,20 @@ class AnualidadAnticipadaSimpleYCiertaState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .anualidadAnticipadaSimpleYCierta,
+                      AppLocalizations.of(
+                        context,
+                      )!.anualidadAnticipadaSimpleYCierta,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .anualidadAnticipadaSimpleYCierta,
-                            widgetName:
-                                kWidgetAnualidadAnticipadaSimpleyCierta),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.anualidadAnticipadaSimpleYCierta,
+                          widgetName: kWidgetAnualidadAnticipadaSimpleyCierta,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +51,22 @@ class AnualidadAnticipadaSimpleYCiertaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anualidadAnticipadaSimpleYCierta,
-                                    widgetName:
-                                        kWidgetAnualidadAnticipadaSimpleyCierta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anualidadAnticipadaSimpleYCierta,
+                                  widgetName:
+                                      kWidgetAnualidadAnticipadaSimpleyCierta,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anualidadAnticipadaSimpleYCierta,
-                                    widgetName:
-                                        kWidgetAnualidadAnticipadaSimpleyCierta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anualidadAnticipadaSimpleYCierta,
+                                  widgetName:
+                                      kWidgetAnualidadAnticipadaSimpleyCierta,
+                                ),
                               );
                             }
                           });
@@ -69,9 +75,7 @@ class AnualidadAnticipadaSimpleYCiertaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -82,16 +86,18 @@ class AnualidadAnticipadaSimpleYCiertaState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"M=R\left(1+\frac{i}{p}\right)\left[\frac{\left(1+\frac{i}{p}\right)^{np}-1}{\left(\frac{i}{p}\right)}\right]"),
+                          formulaText:
+                              r"M=R\left(1+\frac{i}{p}\right)\left[\frac{\left(1+\frac{i}{p}\right)^{np}-1}{\left(\frac{i}{p}\right)}\right]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.valorPresente,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"C = R\left(1+\frac{i}{p}\right)\left[\frac{1-\left(1+\frac{i}{p}\right)^{-np}}{\left(\frac{i}{p}\right)}\right]"),
+                          formulaText:
+                              r"C = R\left(1+\frac{i}{p}\right)\left[\frac{1-\left(1+\frac{i}{p}\right)^{-np}}{\left(\frac{i}{p}\right)}\right]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -99,9 +105,7 @@ class AnualidadAnticipadaSimpleYCiertaState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAnualidadAnticipadaSimpleyCierta,
-                  ),
+                  const VerPDF(url: kWidgetAnualidadAnticipadaSimpleyCierta),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetAnualidadAnticipadaSimpleyCierta,
@@ -110,10 +114,7 @@ class AnualidadAnticipadaSimpleYCiertaState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -145,8 +146,9 @@ class AnualidadAnticipadaSimpleYCiertaState
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"p"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .frecuenciaCapitalizacion,
+                                AppLocalizations.of(
+                                  context,
+                                )!.frecuenciaCapitalizacion,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"R"),

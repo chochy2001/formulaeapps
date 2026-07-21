@@ -13,10 +13,7 @@ void main() {
       );
 
       expect(
-        evaluateMobileIapPurchase(
-          entitlement: entitlement,
-          fetchFailed: false,
-        ),
+        evaluateMobileIapPurchase(entitlement: entitlement, fetchFailed: false),
         MobileIapPurchaseDecision.allow,
       );
     });
@@ -36,10 +33,7 @@ void main() {
       );
 
       expect(
-        evaluateMobileIapPurchase(
-          entitlement: entitlement,
-          fetchFailed: false,
-        ),
+        evaluateMobileIapPurchase(entitlement: entitlement, fetchFailed: false),
         MobileIapPurchaseDecision.blockAlreadyOwned,
       );
     });

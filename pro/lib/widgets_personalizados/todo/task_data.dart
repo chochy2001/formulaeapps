@@ -11,18 +11,22 @@ class TaskData extends ChangeNotifier {
   List<Task> _tasks = [
     Task(name: 'Mantén presionado para ver datos de la tarea'),
     Task(
-        name:
-            'Mantén presionado el botón (+ Agregar) para eliminar todas las tareas'),
+      name:
+          'Mantén presionado el botón (+ Agregar) para eliminar todas las tareas',
+    ),
     Task(name: 'Tarea demo'),
     Task(
-        name:
-            'Deja presionado el boton de Compartir para compartir la tarea en PDF'),
+      name:
+          'Deja presionado el boton de Compartir para compartir la tarea en PDF',
+    ),
     Task(
-        name:
-            'Desliza hacia la derecha para eliminar, compartir o editar la tarea'),
+      name:
+          'Desliza hacia la derecha para eliminar, compartir o editar la tarea',
+    ),
     Task(
-        name:
-            'Desliza hacia la izquierda para poner un recordatorio y asignar fecha de entrega'),
+      name:
+          'Desliza hacia la izquierda para poner un recordatorio y asignar fecha de entrega',
+    ),
     Task(name: 'Press and hold to see the data of the task'),
     Task(name: 'Press and hold the button (+ Add) to delete all tasks'),
     Task(name: 'Demo task'),

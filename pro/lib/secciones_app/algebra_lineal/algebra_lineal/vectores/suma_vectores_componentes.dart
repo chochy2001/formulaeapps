@@ -6,10 +6,12 @@ class AlgebraLinealVectoresSumaVectoresComponentes extends StatefulWidget {
   const AlgebraLinealVectoresSumaVectoresComponentes({super.key});
 
   @override
-  AlgebraLinealVectoresSumaVectoresComponentesState createState() => AlgebraLinealVectoresSumaVectoresComponentesState();
+  AlgebraLinealVectoresSumaVectoresComponentesState createState() =>
+      AlgebraLinealVectoresSumaVectoresComponentesState();
 }
 
-class AlgebraLinealVectoresSumaVectoresComponentesState extends State<AlgebraLinealVectoresSumaVectoresComponentes> {
+class AlgebraLinealVectoresSumaVectoresComponentesState
+    extends State<AlgebraLinealVectoresSumaVectoresComponentes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class AlgebraLinealVectoresSumaVectoresComponentesState extends State<AlgebraLin
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealVectoresSumaVectoresComponentes,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes,
-                        widgetName: kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealVectoresSumaVectoresComponentes,
+                        widgetName:
+                            kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class AlgebraLinealVectoresSumaVectoresComponentesState extends State<AlgebraLin
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes,
-                                widgetName: kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresSumaVectoresComponentes,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresSumaVectoresComponentes,
-                                widgetName: kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresSumaVectoresComponentes,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
                               ),
                             );
                           }
@@ -79,8 +92,12 @@ class AlgebraLinealVectoresSumaVectoresComponentesState extends State<AlgebraLin
               ),
             ),
             const SizedBox(height: kEspacioEntreBotones),
-            const VerPDF(url: kWidgetAlgebraLinealVectoresSumaVectoresComponentes),
-            const DescargarPDF(url: kWidgetAlgebraLinealVectoresSumaVectoresComponentes),
+            const VerPDF(
+              url: kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
+            ),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealVectoresSumaVectoresComponentes,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

@@ -4,12 +4,13 @@ import 'package:intl/intl.dart';
 import '../constantes/constantes_codigo.dart';
 
 class TextWidget extends StatelessWidget {
-  const TextWidget(
-      {super.key,
-      required this.label,
-      this.fontSize = 18,
-      this.color,
-      this.fontWeight});
+  const TextWidget({
+    super.key,
+    required this.label,
+    this.fontSize = 18,
+    this.color,
+    this.fontWeight,
+  });
 
   final String label;
   final double fontSize;
@@ -19,9 +20,6 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String normalizedString = Intl.canonicalizedLocale(label);
-    return Text(
-      normalizedString,
-      style: kTextoBotonesDelgado,
-    );
+    return Text(normalizedString, style: kTextoBotonesDelgado);
   }
 }

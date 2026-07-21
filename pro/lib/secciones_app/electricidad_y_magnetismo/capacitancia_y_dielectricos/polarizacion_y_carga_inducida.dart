@@ -29,9 +29,11 @@ class _PolarizacionYCargaInducidaState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .polarizacionCargaInducida,
-                      widgetName: kWidgetPolarizacionYCargaInducida),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.polarizacionCargaInducida,
+                    widgetName: kWidgetPolarizacionYCargaInducida,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _PolarizacionYCargaInducidaState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .polarizacionCargaInducida,
-                              widgetName: kWidgetPolarizacionYCargaInducida),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.polarizacionCargaInducida,
+                            widgetName: kWidgetPolarizacionYCargaInducida,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .polarizacionCargaInducida,
-                              widgetName: kWidgetPolarizacionYCargaInducida),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.polarizacionCargaInducida,
+                            widgetName: kWidgetPolarizacionYCargaInducida,
+                          ),
                         );
                       }
                     });
@@ -66,23 +72,28 @@ class _PolarizacionYCargaInducidaState
             const Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenPolarizacionDeCargaInucida1),
+                  urlImagen: kUrlImagenPolarizacionDeCargaInucida1,
+                ),
                 SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenPolarizacionDeCargaInucida2),
+                  urlImagen: kUrlImagenPolarizacionDeCargaInucida2,
+                ),
                 SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenPolarizacionDeCargaInucida3),
+                  urlImagen: kUrlImagenPolarizacionDeCargaInucida3,
+                ),
                 SizedBox(height: 40.0),
                 Latex(
-                    formulaText:
-                        r"\vec{P} = \frac{\sum_{i = 1}^n\vec{p}i}{V'} = \frac{qd}{V'}\widehat{r} = \frac{\sigma _i Ad}{V'}\widehat{r} = \sigma _i \widehat{r}"),
+                  formulaText:
+                      r"\vec{P} = \frac{\sum_{i = 1}^n\vec{p}i}{V'} = \frac{qd}{V'}\widehat{r} = \frac{\sigma _i Ad}{V'}\widehat{r} = \sigma _i \widehat{r}",
+                ),
                 SizedBox(height: 40.0),
                 Latex(formulaText: r"\left|\vec{P}\right| = \sigma _i"),
                 SizedBox(height: 40.0),
                 Latex(
-                    formulaText:
-                        r"\left[\vec{P}\right]_u = \left[ \frac{C}{m^2}\right]"),
+                  formulaText:
+                      r"\left[\vec{P}\right]_u = \left[ \frac{C}{m^2}\right]",
+                ),
                 SizedBox(height: 40.0),
               ],
             ),
@@ -90,15 +101,11 @@ class _PolarizacionYCargaInducidaState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetPolarizacionYCargaInducida,
-                ),
+                VerPDF(url: kWidgetPolarizacionYCargaInducida),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetPolarizacionYCargaInducida,
-                ),
+                DescargarPDF(url: kWidgetPolarizacionYCargaInducida),
               ],
-            )
+            ),
           ],
         ),
       ),

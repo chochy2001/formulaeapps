@@ -14,9 +14,12 @@ class _SaldoInsolutoState extends State<SaldoInsoluto> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _SaldoInsolutoState extends State<SaldoInsoluto> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.saldoInsoluto,
-                            widgetName: kWidgetSaldoInsoluto),
+                          title: AppLocalizations.of(context)!.saldoInsoluto,
+                          widgetName: kWidgetSaldoInsoluto,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _SaldoInsolutoState extends State<SaldoInsoluto> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .saldoInsoluto,
-                                    widgetName: kWidgetSaldoInsoluto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.saldoInsoluto,
+                                  widgetName: kWidgetSaldoInsoluto,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .saldoInsoluto,
-                                    widgetName: kWidgetSaldoInsoluto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.saldoInsoluto,
+                                  widgetName: kWidgetSaldoInsoluto,
+                                ),
                               );
                             }
                           });
@@ -76,42 +84,35 @@ class _SaldoInsolutoState extends State<SaldoInsoluto> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .saldoInsolutoDespuesPeriodo,
+                          AppLocalizations.of(
+                            context,
+                          )!.saldoInsolutoDespuesPeriodo,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"S=(n-k)\left(\frac{C}{n}\right)"),
+                          formulaText: r"S=(n-k)\left(\frac{C}{n}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSaldoInsoluto,
-                  ),
+                  const VerPDF(url: kWidgetSaldoInsoluto),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSaldoInsoluto,
-                  ),
+                  const DescargarPDF(url: kWidgetSaldoInsoluto),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -134,9 +135,7 @@ class _SaldoInsolutoState extends State<SaldoInsoluto> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"C"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.capital,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.capital),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

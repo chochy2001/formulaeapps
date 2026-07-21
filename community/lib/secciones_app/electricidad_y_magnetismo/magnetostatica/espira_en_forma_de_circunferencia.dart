@@ -16,9 +16,12 @@ class _EspiraEnFormaDeCircunferenciaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _EspiraEnFormaDeCircunferenciaState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .espiraEnFormaDeCircunferencia,
-                      widgetName: kWidgetEspiraEnFormaDeCircunferencia),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.espiraEnFormaDeCircunferencia,
+                    widgetName: kWidgetEspiraEnFormaDeCircunferencia,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _EspiraEnFormaDeCircunferenciaState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .espiraEnFormaDeCircunferencia,
-                              widgetName: kWidgetEspiraEnFormaDeCircunferencia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.espiraEnFormaDeCircunferencia,
+                            widgetName: kWidgetEspiraEnFormaDeCircunferencia,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .espiraEnFormaDeCircunferencia,
-                              widgetName: kWidgetEspiraEnFormaDeCircunferencia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.espiraEnFormaDeCircunferencia,
+                            widgetName: kWidgetEspiraEnFormaDeCircunferencia,
+                          ),
                         );
                       }
                     });
@@ -79,50 +88,50 @@ class _EspiraEnFormaDeCircunferenciaState
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenEspiraEnFormaDeCircunferencia),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  urlImagen: kUrlImagenEspiraEnFormaDeCircunferencia,
                 ),
                 const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
+                const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.magnitudDelCampoMagnetico,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = B_x = \frac{\mu _0}{4\pi}\int{\frac{cos{\theta} dl \sin{\alpha}}{r^2}}"),
+                  formulaText:
+                      r"B = B_x = \frac{\mu _0}{4\pi}\int{\frac{cos{\theta} dl \sin{\alpha}}{r^2}}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu _0}{4\pi} i \int{\frac{Rdl}{(R^2+x^2)^\frac{3}{2}}}"),
+                  formulaText:
+                      r"B = \frac{\mu _0}{4\pi} i \int{\frac{Rdl}{(R^2+x^2)^\frac{3}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu _0 i R^2}{(R^2+x^2)^\frac{3}{2}}"),
+                  formulaText:
+                      r"B = \frac{\mu _0 i R^2}{(R^2+x^2)^\frac{3}{2}}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.enElCentroDeLaEspira,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{B} = \frac{\mu _0 i}{2R}\hat{r}"),
+                  formulaText: r"\vec{B} = \frac{\mu _0 i}{2R}\hat{r}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetEspiraEnFormaDeCircunferencia,
-            ),
+            const VerPDF(url: kWidgetEspiraEnFormaDeCircunferencia),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetEspiraEnFormaDeCircunferencia,
-            ),
+            const DescargarPDF(url: kWidgetEspiraEnFormaDeCircunferencia),
           ],
         ),
       ),

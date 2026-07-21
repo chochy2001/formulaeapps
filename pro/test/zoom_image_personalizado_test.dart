@@ -72,8 +72,9 @@ void main() {
     },
   );
 
-  testWidgets('the English locale uses the English ARB placeholder label',
-      (tester) async {
+  testWidgets('the English locale uses the English ARB placeholder label', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       harness(
         const ZoomImagePersonalizado(
@@ -93,8 +94,9 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
-  testWidgets('compact callers keep their requested size after a timeout',
-      (tester) async {
+  testWidgets('compact callers keep their requested size after a timeout', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       harness(
         const SizedBox(

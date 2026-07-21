@@ -56,10 +56,10 @@ const String kUrlImagenCirculacionParaUnaCargaPuntual =
 const String kUrlImagenConductividadYResistividad =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conductividad_y_resistividad.png';
 const String
-    kUrlImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente =
+kUrlImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_paralelo_carga_diferencia_de_potencial_capacitancia_equivalente.png';
 const String
-    kUrlImagenConexionEnParaleloCorrienteDiferrenciaDePotencialResistenciaEquivalente =
+kUrlImagenConexionEnParaleloCorrienteDiferrenciaDePotencialResistenciaEquivalente =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_paralelo_corriente_diferencia_de_potencial_resistencia_equivalente.png';
 const String kUrlImagenConexionEnParaleloFisico =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_paralelo_fisico.png';
@@ -70,10 +70,10 @@ const String kUrlImagenConexionEnParaleloResistor =
 const String kUrlImagenConexionEnParaleloSimbologia =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_paralelo_simbologia.png';
 const String
-    kUrlImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente =
+kUrlImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_serie_carga_diferencia_de_potencial_capacitancia_equivalente.png';
 const String
-    kUrlImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente =
+kUrlImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_serie_corriente_diferencia_de_potencial_y_resistencia_equivalente.png';
 const String kUrlImagenCapacitorConexionEnSerieFisico =
     'https://formulaeapps.com/imagenes/electricidad_y_magnetismo/conexion_en_serie_fisico.png';

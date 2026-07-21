@@ -16,9 +16,12 @@ class _TeoremaDelCosenoParaAngulosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _TeoremaDelCosenoParaAngulosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDelCosenoParaAngulos,
-                            widgetName: kWidgetTeoremaDelCosenoParaAngulos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDelCosenoParaAngulos,
+                          widgetName: kWidgetTeoremaDelCosenoParaAngulos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _TeoremaDelCosenoParaAngulosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaAngulos,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaAngulos,
+                                  widgetName:
+                                      kWidgetTeoremaDelCosenoParaAngulos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaAngulos,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaAngulos,
+                                  widgetName:
+                                      kWidgetTeoremaDelCosenoParaAngulos,
+                                ),
                               );
                             }
                           });
@@ -81,46 +90,40 @@ class _TeoremaDelCosenoParaAngulosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \alpha = -\cos \beta\cos \gamma+\sin\beta\sin\gamma\cos a"),
+                          formulaText:
+                              r"\cos \alpha = -\cos \beta\cos \gamma+\sin\beta\sin\gamma\cos a",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \beta = -\cos \alpha\cos \gamma+\sin\alpha\sin\gamma\cos b"),
+                          formulaText:
+                              r"\cos \beta = -\cos \alpha\cos \gamma+\sin\alpha\sin\gamma\cos b",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos \gamma = -\cos \alpha\cos \beta+\sin\alpha\sin\beta\cos c"),
+                          formulaText:
+                              r"\cos \gamma = -\cos \alpha\cos \beta+\sin\alpha\sin\beta\cos c",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTeoremaDelCosenoParaAngulos,
-                  ),
+                  const VerPDF(url: kWidgetTeoremaDelCosenoParaAngulos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTeoremaDelCosenoParaAngulos,
-                  ),
+                  const DescargarPDF(url: kWidgetTeoremaDelCosenoParaAngulos),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -135,8 +138,9 @@ class _TeoremaDelCosenoParaAngulosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

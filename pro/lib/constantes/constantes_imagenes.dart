@@ -91,9 +91,7 @@ class VerImagen extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => VerImagenNuevo(
-              imageUrl: url_1,
-            ),
+            builder: (context) => VerImagenNuevo(imageUrl: url_1),
           ),
         );
       },
@@ -114,9 +112,7 @@ class VerImagenNuevo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.imagen),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.imagen)),
       body: Center(
         child: ImagenRemotaRobusta(
           urlImagen: imageUrl,

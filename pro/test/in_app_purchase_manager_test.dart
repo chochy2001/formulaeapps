@@ -11,10 +11,10 @@ import 'helpers/fake_iap_platform.dart';
 
 class _StubEntitlementClient extends FormulaeappsBffClient {
   _StubEntitlementClient(this.payload)
-      : super(
-          basePathOverride: 'http://test-bff',
-          dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
-        );
+    : super(
+        basePathOverride: 'http://test-bff',
+        dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
+      );
 
   final EntitlementResponse? payload;
 
@@ -76,14 +76,11 @@ void main() {
   });
 
   test('platformProductIds returns Pro iOS catalog', () {
-    expect(
-      manager.platformProductIds(),
-      {
-        'chat_anual_2023_01',
-        'chat_mensual_2023_01',
-        'chat_semanal_2023_01',
-      },
-    );
+    expect(manager.platformProductIds(), {
+      'chat_anual_2023_01',
+      'chat_mensual_2023_01',
+      'chat_semanal_2023_01',
+    });
   });
 
   test('platformProductIds returns Pro Android catalog', () {
@@ -92,14 +89,11 @@ void main() {
       listenToPurchases: false,
       platformOverride: 'android',
     );
-    expect(
-      androidManager.platformProductIds(),
-      {
-        'chat_anual_2023',
-        'android_chat_mensual_2023',
-        'chat_semanal_2023',
-      },
-    );
+    expect(androidManager.platformProductIds(), {
+      'chat_anual_2023',
+      'android_chat_mensual_2023',
+      'chat_semanal_2023',
+    });
     androidManager.dispose();
   });
 
@@ -142,14 +136,11 @@ void main() {
     await manager.getProducts();
 
     expect(manager.products, hasLength(3));
-    expect(
-      platform.lastQueriedIds,
-      {
-        'chat_anual_2023_01',
-        'chat_mensual_2023_01',
-        'chat_semanal_2023_01',
-      },
-    );
+    expect(platform.lastQueriedIds, {
+      'chat_anual_2023_01',
+      'chat_mensual_2023_01',
+      'chat_semanal_2023_01',
+    });
   });
 
   test('buyProduct no-ops when store is unavailable', () async {
@@ -174,20 +165,16 @@ void main() {
       platformOverride: 'ios',
       bffIapValidationEnabled: false,
       entitlementService: _entitlementStub(
-        EntitlementResponse(
-          (b) {
-            b.scope = EntitlementResponseScopeEnum.mobile;
-            b.sources = ListBuilder<EntitlementSource>([
-              EntitlementSource(
-                (s) {
-                  s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
-                  s.productId = 'chat_mensual_2023_01';
-                  s.grantedAt = DateTime.utc(2026, 7, 13);
-                },
-              ),
-            ]);
-          },
-        ),
+        EntitlementResponse((b) {
+          b.scope = EntitlementResponseScopeEnum.mobile;
+          b.sources = ListBuilder<EntitlementSource>([
+            EntitlementSource((s) {
+              s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
+              s.productId = 'chat_mensual_2023_01';
+              s.grantedAt = DateTime.utc(2026, 7, 13);
+            }),
+          ]);
+        }),
       ),
     );
 
@@ -205,20 +192,16 @@ void main() {
       platformOverride: 'ios',
       bffIapValidationEnabled: true,
       entitlementService: _entitlementStub(
-        EntitlementResponse(
-          (b) {
-            b.scope = EntitlementResponseScopeEnum.mobile;
-            b.sources = ListBuilder<EntitlementSource>([
-              EntitlementSource(
-                (s) {
-                  s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
-                  s.productId = 'chat_mensual_2023_01';
-                  s.grantedAt = DateTime.utc(2026, 7, 13);
-                },
-              ),
-            ]);
-          },
-        ),
+        EntitlementResponse((b) {
+          b.scope = EntitlementResponseScopeEnum.mobile;
+          b.sources = ListBuilder<EntitlementSource>([
+            EntitlementSource((s) {
+              s.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
+              s.productId = 'chat_mensual_2023_01';
+              s.grantedAt = DateTime.utc(2026, 7, 13);
+            }),
+          ]);
+        }),
       ),
     );
 
@@ -258,12 +241,10 @@ void main() {
       platformOverride: 'ios',
       bffIapValidationEnabled: true,
       entitlementService: _entitlementStub(
-        EntitlementResponse(
-          (b) {
-            b.scope = EntitlementResponseScopeEnum.mobile;
-            b.sources = ListBuilder<EntitlementSource>();
-          },
-        ),
+        EntitlementResponse((b) {
+          b.scope = EntitlementResponseScopeEnum.mobile;
+          b.sources = ListBuilder<EntitlementSource>();
+        }),
       ),
     );
 

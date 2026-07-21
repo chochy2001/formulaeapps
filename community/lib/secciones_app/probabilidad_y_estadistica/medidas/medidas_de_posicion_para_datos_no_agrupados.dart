@@ -16,9 +16,12 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,10 +50,12 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .posicionParaDatosNoAgrupados,
-                            widgetName:
-                                kWidgetMedidasDePosicionParaDatosNoAgrupados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.posicionParaDatosNoAgrupados,
+                          widgetName:
+                              kWidgetMedidasDePosicionParaDatosNoAgrupados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,18 +67,22 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .posicionParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDePosicionParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.posicionParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDePosicionParaDatosNoAgrupados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .posicionParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDePosicionParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.posicionParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDePosicionParaDatosNoAgrupados,
+                                ),
                               );
                             }
                           });
@@ -82,9 +91,7 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -94,8 +101,8 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"PS_p=(n+1)\left(\frac{P}{100}\right)"),
+                          formulaText: r"PS_p=(n+1)\left(\frac{P}{100}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -114,10 +121,7 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -138,13 +142,9 @@ class _MedidasDePosicionParaDatosNoAgrupadosState
                           AppLocalizations.of(context)!.percentil,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.decil,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.decil),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.cuartil,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.cuartil),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

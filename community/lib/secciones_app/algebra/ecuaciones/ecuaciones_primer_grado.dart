@@ -21,9 +21,11 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   Widget get adContainer => _ads.banner;
@@ -46,9 +48,7 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   TituloPersonalizado(
                     AppLocalizations.of(context)!.ecuacionesDePrimerGrado,
                   ),
@@ -57,8 +57,9 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                          title: AppLocalizations.of(context)!
-                              .ecuacionesDePrimerGrado,
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionesDePrimerGrado,
                           widgetName: kWidgetEcuacionesDePrimerGrado,
                         ),
                       );
@@ -72,16 +73,18 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .ecuacionesDePrimerGrado,
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesDePrimerGrado,
                                   widgetName: kWidgetEcuacionesDePrimerGrado,
                                 ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .ecuacionesDePrimerGrado,
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesDePrimerGrado,
                                   widgetName: kWidgetEcuacionesDePrimerGrado,
                                 ),
                               );
@@ -103,16 +106,13 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -149,16 +149,13 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -166,7 +163,9 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "2",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -193,16 +192,13 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -210,7 +206,9 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "10",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -250,10 +248,7 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: Column(
         children: [
@@ -269,9 +264,7 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
             formulaText:
                 "(${implementFraction(valorA)} * ${implementFraction(valorX)})",
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Latex(
             formulaText:
                 "+ ${implementFraction(valorB)}=${implementFraction(valorC)}",
@@ -281,9 +274,7 @@ class _EcuacionesDePrimerGradoState extends State<EcuacionesDePrimerGrado> {
             formulaText:
                 "${implementFraction(valorMultiplicacion)}+${implementFraction(valorB)}",
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10),
           Latex(formulaText: "=${implementFraction(valorC)}"),
           const SizedBox(height: 15),
           Latex(

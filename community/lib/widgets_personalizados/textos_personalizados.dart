@@ -12,11 +12,7 @@ class TituloPersonalizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      titulo,
-      style: kTextoBotones,
-      textAlign: TextAlign.center,
-    );
+    return Text(titulo, style: kTextoBotones, textAlign: TextAlign.center);
   }
 }
 
@@ -53,8 +49,9 @@ class TextoBotonesDelgado extends StatelessWidget {
     // These labels live next to an expand/collapse icon inside cards as narrow
     // as 250 px. Scrolling a fixed 90%-of-screen box made the surrounding Wrap
     // overflow on phones; constrain and wrap the localized label instead.
-    final maxTextWidth =
-        (MediaQuery.of(context).size.width * 0.65).clamp(0.0, 220.0).toDouble();
+    final maxTextWidth = (MediaQuery.of(context).size.width * 0.65)
+        .clamp(0.0, 220.0)
+        .toDouble();
 
     return SizedBox(
       width: maxTextWidth,
@@ -109,8 +106,11 @@ class CapdesisLatex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Math.tex(r"\mathrm{CAPDESIS}",
-        mathStyle: MathStyle.display, textStyle: kTextoLatexFormulas);
+    return Math.tex(
+      r"\mathrm{CAPDESIS}",
+      mathStyle: MathStyle.display,
+      textStyle: kTextoLatexFormulas,
+    );
   }
 }
 
@@ -120,10 +120,7 @@ class Notas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        AppLocalizations.of(context)!.notas,
-        style: kTextoBotones,
-      ),
+      child: Text(AppLocalizations.of(context)!.notas, style: kTextoBotones),
     );
   }
 }

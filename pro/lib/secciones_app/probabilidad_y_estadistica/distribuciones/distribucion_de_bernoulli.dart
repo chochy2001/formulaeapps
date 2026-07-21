@@ -6,10 +6,12 @@ class DistribucionesDistribucionDeBernoulli extends StatefulWidget {
   const DistribucionesDistribucionDeBernoulli({super.key});
 
   @override
-  DistribucionesDistribucionDeBernoulliState createState() => DistribucionesDistribucionDeBernoulliState();
+  DistribucionesDistribucionDeBernoulliState createState() =>
+      DistribucionesDistribucionDeBernoulliState();
 }
 
-class DistribucionesDistribucionDeBernoulliState extends State<DistribucionesDistribucionDeBernoulli> {
+class DistribucionesDistribucionDeBernoulliState
+    extends State<DistribucionesDistribucionDeBernoulli> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class DistribucionesDistribucionDeBernoulliState extends State<DistribucionesDis
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionDeBernoulli,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli,
-                        widgetName: kWidgetDistribucionesDistribucionDeBernoulli,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionDeBernoulli,
+                        widgetName:
+                            kWidgetDistribucionesDistribucionDeBernoulli,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class DistribucionesDistribucionDeBernoulliState extends State<DistribucionesDis
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli,
-                                widgetName: kWidgetDistribucionesDistribucionDeBernoulli,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeBernoulli,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeBernoulli,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeBernoulli,
-                                widgetName: kWidgetDistribucionesDistribucionDeBernoulli,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeBernoulli,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeBernoulli,
                               ),
                             );
                           }
@@ -67,7 +80,10 @@ class DistribucionesDistribucionDeBernoulliState extends State<DistribucionesDis
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"P_x(X_0) = \begin{cases} P & X_0 = 1 \\ 1-P & X_0 = 0 \\ 0 & \text{cualquier otro caso} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"P_x(X_0) = \begin{cases} P & X_0 = 1 \\ 1-P & X_0 = 0 \\ 0 & \text{cualquier otro caso} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = P"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -78,7 +94,9 @@ class DistribucionesDistribucionDeBernoulliState extends State<DistribucionesDis
             ),
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetDistribucionesDistribucionDeBernoulli),
-            const DescargarPDF(url: kWidgetDistribucionesDistribucionDeBernoulli),
+            const DescargarPDF(
+              url: kWidgetDistribucionesDistribucionDeBernoulli,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

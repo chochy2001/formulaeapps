@@ -30,7 +30,9 @@ class ProcesosTermodinamicosState extends State<ProcesosTermodinamicos> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.procesosTermodinamicos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.procesosTermodinamicos,
                         widgetName: kWidgetProcesosTermodinamicos,
                       ),
                     );
@@ -44,14 +46,18 @@ class ProcesosTermodinamicosState extends State<ProcesosTermodinamicos> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.procesosTermodinamicos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.procesosTermodinamicos,
                                 widgetName: kWidgetProcesosTermodinamicos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.procesosTermodinamicos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.procesosTermodinamicos,
                                 widgetName: kWidgetProcesosTermodinamicos,
                               ),
                             );

@@ -27,8 +27,9 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.flujoMagnetico,
-                      widgetName: kWidgetFlujoMagnetico),
+                    title: AppLocalizations.of(context)!.flujoMagnetico,
+                    widgetName: kWidgetFlujoMagnetico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,16 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.flujoMagnetico,
-                              widgetName: kWidgetFlujoMagnetico),
+                            title: AppLocalizations.of(context)!.flujoMagnetico,
+                            widgetName: kWidgetFlujoMagnetico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.flujoMagnetico,
-                              widgetName: kWidgetFlujoMagnetico),
+                            title: AppLocalizations.of(context)!.flujoMagnetico,
+                            widgetName: kWidgetFlujoMagnetico,
+                          ),
                         );
                       }
                     });
@@ -67,15 +68,17 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\Phi = \iint \vec{B} \cdot d\vec{A}"),
+                    formulaText: r"\Phi = \iint \vec{B} \cdot d\vec{A}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"[\Phi_B]_u = [Wb]"),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"[Wb] = Weber"),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .elFlujoDeCampoMagneticoEsUnaMedida,
+                    AppLocalizations.of(
+                      context,
+                    )!.elFlujoDeCampoMagneticoEsUnaMedida,
                   ),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
@@ -89,15 +92,11 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetFlujoMagnetico,
-                ),
+                VerPDF(url: kWidgetFlujoMagnetico),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetFlujoMagnetico,
-                ),
+                DescargarPDF(url: kWidgetFlujoMagnetico),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -14,9 +14,12 @@ class _LimitesTrigonometricosState extends State<LimitesTrigonometricos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _LimitesTrigonometricosState extends State<LimitesTrigonometricos> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                          title: AppLocalizations.of(context)!
-                              .limitesTrigonometricos,
-                          widgetName: kWidgetLimitesTrigonometricos),
+                        title: AppLocalizations.of(
+                          context,
+                        )!.limitesTrigonometricos,
+                        widgetName: kWidgetLimitesTrigonometricos,
+                      ),
                     );
                     return IconButton(
                       icon: isFavorite
@@ -57,16 +62,20 @@ class _LimitesTrigonometricosState extends State<LimitesTrigonometricos> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .limitesTrigonometricos,
-                                  widgetName: kWidgetLimitesTrigonometricos),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesTrigonometricos,
+                                widgetName: kWidgetLimitesTrigonometricos,
+                              ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .limitesTrigonometricos,
-                                  widgetName: kWidgetLimitesTrigonometricos),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesTrigonometricos,
+                                widgetName: kWidgetLimitesTrigonometricos,
+                              ),
                             );
                           }
                         });
@@ -87,40 +96,38 @@ class _LimitesTrigonometricosState extends State<LimitesTrigonometricos> {
                       Latex(formulaText: r"\lim_{x \to 0}\sin{x}=0"),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText: r"\lim_{x \to 0}\frac{\sin{kx}}{kx}=1"),
+                        formulaText: r"\lim_{x \to 0}\frac{\sin{kx}}{kx}=1",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(formulaText: r"\lim_{x \to 0}\cos{x}=1"),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText: r"\lim_{x \to 0}\frac{1-\cos{x}}{x}=0"),
+                        formulaText: r"\lim_{x \to 0}\frac{1-\cos{x}}{x}=0",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to 0}\frac{1-\cos{x}}{x^2}=\frac{1}{2}"),
+                        formulaText:
+                            r"\lim_{x \to 0}\frac{1-\cos{x}}{x^2}=\frac{1}{2}",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(formulaText: r"\lim_{x \to 0}\frac{\tan{x}}{x}=1"),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(formulaText: r"\lim_{x \to 0}\frac{x}{\tan{x}}=1"),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText: r"\lim_{x \to 0}\frac{\tan{kx}}{kx}=1"),
+                        formulaText: r"\lim_{x \to 0}\frac{\tan{kx}}{kx}=1",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                     ],
                   ),
                 ),
 
                 //Boton para acceder al formulario en PDF
-                const VerPDF(
-                  url: kWidgetLimitesTrigonometricos,
-                ),
+                const VerPDF(url: kWidgetLimitesTrigonometricos),
                 //Descargar PDF
-                const DescargarPDF(
-                  url: kWidgetLimitesTrigonometricos,
-                ),
+                const DescargarPDF(url: kWidgetLimitesTrigonometricos),
 
-                const SizedBox(
-                  height: 40.0,
-                ),
+                const SizedBox(height: 40.0),
               ],
             ),
           ],

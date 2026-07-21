@@ -18,9 +18,12 @@ class _AreaDeUnaSuperficieDeRevolucionState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _AreaDeUnaSuperficieDeRevolucionState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .areaSuperficieRevolucion,
-                      widgetName: kWidgetAreaDeUnaSuperficieDeRevolucion),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.areaSuperficieRevolucion,
+                    widgetName: kWidgetAreaDeUnaSuperficieDeRevolucion,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -59,18 +64,20 @@ class _AreaDeUnaSuperficieDeRevolucionState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .areaSuperficieRevolucion,
-                              widgetName:
-                                  kWidgetAreaDeUnaSuperficieDeRevolucion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.areaSuperficieRevolucion,
+                            widgetName: kWidgetAreaDeUnaSuperficieDeRevolucion,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .areaSuperficieRevolucion,
-                              widgetName:
-                                  kWidgetAreaDeUnaSuperficieDeRevolucion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.areaSuperficieRevolucion,
+                            widgetName: kWidgetAreaDeUnaSuperficieDeRevolucion,
+                          ),
                         );
                       }
                     });
@@ -79,9 +86,7 @@ class _AreaDeUnaSuperficieDeRevolucionState
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
@@ -90,31 +95,27 @@ class _AreaDeUnaSuperficieDeRevolucionState
                     AppLocalizations.of(context)!.alrededordelejex,
                   ),
                   const Latex(
-                      formulaText:
-                          r"A= 2 \pi \int_{a}^b y\sqrt{1+\left( \frac{dy}{dx} \right)^2}dx"),
+                    formulaText:
+                        r"A= 2 \pi \int_{a}^b y\sqrt{1+\left( \frac{dy}{dx} \right)^2}dx",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.alrededordelejey,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"A= 2 \pi \int_{a}^b x\sqrt{1+\left( \frac{dx}{dy} \right)^2}dy"),
+                    formulaText:
+                        r"A= 2 \pi \int_{a}^b x\sqrt{1+\left( \frac{dx}{dy} \right)^2}dy",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetAreaDeUnaSuperficieDeRevolucion,
-            ),
+            const VerPDF(url: kWidgetAreaDeUnaSuperficieDeRevolucion),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetAreaDeUnaSuperficieDeRevolucion,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetAreaDeUnaSuperficieDeRevolucion),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

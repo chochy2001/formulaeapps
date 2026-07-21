@@ -84,8 +84,9 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.vectorDesplazamientoElectrico,
       AppLocalizations.of(context)!.representacionVectoresElectricos,
       AppLocalizations.of(context)!.portadoresCargaLibre,
-      AppLocalizations.of(context)!
-          .movimientoPortadoresCargaLibreDensidadCorriente,
+      AppLocalizations.of(
+        context,
+      )!.movimientoPortadoresCargaLibreDensidadCorriente,
       AppLocalizations.of(context)!.densidadCorrienteCorrienteElectrica,
       AppLocalizations.of(context)!.tiposCorrienteElectrica,
       AppLocalizations.of(context)!.conductividadResistividad,
@@ -122,10 +123,12 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.energiaAlmacenadaEnUnCampoMagnetico,
       AppLocalizations.of(context)!.inductor,
       AppLocalizations.of(context)!.inductoresEnSerie,
-      AppLocalizations.of(context)!
-          .descripcionDeLosImanesYExperimentosDeOersted,
-      AppLocalizations.of(context)!
-          .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+      AppLocalizations.of(
+        context,
+      )!.descripcionDeLosImanesYExperimentosDeOersted,
+      AppLocalizations.of(
+        context,
+      )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
       AppLocalizations.of(context)!.definicionDeCampoMagnetico,
       AppLocalizations.of(context)!.fuerzaDeLorentz,
       AppLocalizations.of(context)!.leyDeBiotSavart,
@@ -145,7 +148,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.resultadoNan,
       AppLocalizations.of(context)!.comoTrabajarConLosPdf,
 
-//Generales
+      //Generales
       AppLocalizations.of(context)!.generales,
       AppLocalizations.of(context)!.propiedadesLogaritmos,
       AppLocalizations.of(context)!.funcionesTrigonometricas,
@@ -154,7 +157,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.trigonometricasHiperbolicas,
       AppLocalizations.of(context)!.identidadesHiperbolicas,
 
-//Algebra
+      //Algebra
       AppLocalizations.of(context)!.algebra,
       AppLocalizations.of(context)!.solucionEcuaciones,
       AppLocalizations.of(context)!.ecuacionesDePrimerGrado,
@@ -178,7 +181,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.propiedadesDeLosNumerosComplejos,
       AppLocalizations.of(context)!.representacionesDeUnNumeroComplejo,
 
-//Algebra Lineal
+      //Algebra Lineal
       AppLocalizations.of(context)!.algebraLineal,
       AppLocalizations.of(context)!.determinantes,
       AppLocalizations.of(context)!.matrices,
@@ -213,22 +216,25 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.derivacionBasica,
       AppLocalizations.of(context)!.derivadasDeFuncionesTrigonometricas,
       AppLocalizations.of(context)!.derivadasDeFuncionesTrigonometricasInversas,
-      AppLocalizations.of(context)!
-          .derivadasDeFuncionesTrigonometriasHiperbolicas,
+      AppLocalizations.of(
+        context,
+      )!.derivadasDeFuncionesTrigonometriasHiperbolicas,
       AppLocalizations.of(context)!.derivadasDeFuncionesExponencialYLogaritmos,
 
-//Calculo Integral
+      //Calculo Integral
       AppLocalizations.of(context)!.calculoIntegral,
       AppLocalizations.of(context)!.integracionBasica,
       AppLocalizations.of(context)!.integralesDeFuncionesTrigonometricas,
-      AppLocalizations.of(context)!
-          .integralesDeFuncionesTrigonometricasInversas,
-      AppLocalizations.of(context)!
-          .integralesDeFuncionesTrigonometricasHiperbolicas,
+      AppLocalizations.of(
+        context,
+      )!.integralesDeFuncionesTrigonometricasInversas,
+      AppLocalizations.of(
+        context,
+      )!.integralesDeFuncionesTrigonometricasHiperbolicas,
       AppLocalizations.of(context)!.integralesDelExponencialYLogaritmos,
       AppLocalizations.of(context)!.integralesExtras,
 
-//Calculo Multivariable
+      //Calculo Multivariable
       AppLocalizations.of(context)!.calculoMultivariable,
       AppLocalizations.of(context)!.areaBajoCurva,
       AppLocalizations.of(context)!.areaSuperficieRevolucion,
@@ -238,8 +244,9 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.diferencialTotal,
       AppLocalizations.of(context)!.funcionesVectoriales,
       AppLocalizations.of(context)!.derivadasFuncionesVectoriales,
-      AppLocalizations.of(context)!
-          .limitesDerivadasIntegralesFuncionesVectoriales,
+      AppLocalizations.of(
+        context,
+      )!.limitesDerivadasIntegralesFuncionesVectoriales,
       AppLocalizations.of(context)!.gradienteFuncion,
       AppLocalizations.of(context)!.identidadesVectoriales,
       AppLocalizations.of(context)!.integralCoordenadasCilindricas,
@@ -249,7 +256,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.teoremaFubini,
       AppLocalizations.of(context)!.teoremaIntegrales,
 
-//Ecuaciones Diferenciales
+      //Ecuaciones Diferenciales
       AppLocalizations.of(context)!.ecuacionesDiferenciales,
       AppLocalizations.of(context)!.constanteDeIntegracion,
       AppLocalizations.of(context)!.ecuacionDiferencialCoeficientesConstantes,
@@ -279,7 +286,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.puntoMedioEntreDosPuntos,
       AppLocalizations.of(context)!.volumenDeCuerposGeometricos,
 
-//Matematicas Discretas
+      //Matematicas Discretas
       AppLocalizations.of(context)!.matematicasDiscretas,
       AppLocalizations.of(context)!.bicondicional,
       AppLocalizations.of(context)!.condicional,
@@ -291,7 +298,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.leyesDelAlgebraDeBoole,
       AppLocalizations.of(context)!.negacion,
 
-//Matematicas Financieras
+      //Matematicas Financieras
       AppLocalizations.of(context)!.matematicasFinancieras,
       AppLocalizations.of(context)!.amortizacion,
       AppLocalizations.of(context)!.anualidadAnticipadaSimpleYCierta,
@@ -304,7 +311,7 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.tasaInteresGlobal,
       AppLocalizations.of(context)!.tasaEfectiva,
 
-//Probabilidad y Estadistica
+      //Probabilidad y Estadistica
       AppLocalizations.of(context)!.probabilidadEstadistica,
       AppLocalizations.of(context)!.distribuciones,
       AppLocalizations.of(context)!.distribucionBinomial,
@@ -343,14 +350,15 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.transformadasDeLaplace,
       AppLocalizations.of(context)!.convolucion,
       AppLocalizations.of(context)!.formaComplejaDeLasSeriesDeFourier,
-      AppLocalizations.of(context)!
-          .formulasOperacionalesDeLaTransformadaDeLaplace,
+      AppLocalizations.of(
+        context,
+      )!.formulasOperacionalesDeLaTransformadaDeLaplace,
       AppLocalizations.of(context)!.funcionImpulsoUnitario,
       AppLocalizations.of(context)!.funcionUnitariaDeHeaviside,
       AppLocalizations.of(context)!.serieYCoeficientesDeFourier,
       AppLocalizations.of(context)!.transformadaSenoYCosenoDeFourier,
 
-//Trigonometria
+      //Trigonometria
       AppLocalizations.of(context)!.trigonometria,
       AppLocalizations.of(context)!.formulasDeBessel,
       AppLocalizations.of(context)!.teoremaDeLaCotangente,
@@ -453,8 +461,9 @@ class DataSearch extends SearchDelegate {
 
       AppLocalizations.of(context)!.portadoresCargaLibre:
           kRutaPortadoresDeCargaLibre,
-      AppLocalizations.of(context)!
-              .movimientoPortadoresCargaLibreDensidadCorriente:
+      AppLocalizations.of(
+            context,
+          )!.movimientoPortadoresCargaLibreDensidadCorriente:
           kRutaMovimientoDePortadoresDeCargaLibre,
       AppLocalizations.of(context)!.densidadCorrienteCorrienteElectrica:
           kRutaDensidadDeCorrienteYCorrienteElectrica,
@@ -520,11 +529,13 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.inductor: kRutaInductor,
       AppLocalizations.of(context)!.inductoresEnSerie: kRutaInductorEnSerie,
 
-      AppLocalizations.of(context)!
-              .descripcionDeLosImanesYExperimentosDeOersted:
+      AppLocalizations.of(
+            context,
+          )!.descripcionDeLosImanesYExperimentosDeOersted:
           kRutaOrigenDeCampoMagnetico,
-      AppLocalizations.of(context)!
-              .fuerzaMagneticaComoVectorSobreCargasEnMovimiento:
+      AppLocalizations.of(
+            context,
+          )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento:
           kRutaFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
       AppLocalizations.of(context)!.definicionDeCampoMagnetico:
           kRutaDefinicionDeCampoMagnetico,
@@ -656,8 +667,9 @@ class DataSearch extends SearchDelegate {
           kRutaFuncionesTrigonometricasDiferencial,
       AppLocalizations.of(context)!.derivadasDeFuncionesTrigonometricasInversas:
           kRutaFuncionesTrigonometricasInversasDiferencial,
-      AppLocalizations.of(context)!
-              .derivadasDeFuncionesTrigonometriasHiperbolicas:
+      AppLocalizations.of(
+            context,
+          )!.derivadasDeFuncionesTrigonometriasHiperbolicas:
           kRutaFuncionesTrigonometricasHiperbolicasDiferencial,
       AppLocalizations.of(context)!.derivadasDeFuncionesExponencialYLogaritmos:
           kRutaExponencialyLogaritmosDiferencial,
@@ -667,11 +679,13 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.integracionBasica: kRutaIntegracionBasica,
       AppLocalizations.of(context)!.integralesDeFuncionesTrigonometricas:
           kRutaFuncionesTrigonometricasIntegral,
-      AppLocalizations.of(context)!
-              .integralesDeFuncionesTrigonometricasInversas:
+      AppLocalizations.of(
+            context,
+          )!.integralesDeFuncionesTrigonometricasInversas:
           kRutaFuncionesTrigonometricasInversasIntegral,
-      AppLocalizations.of(context)!
-              .integralesDeFuncionesTrigonometricasHiperbolicas:
+      AppLocalizations.of(
+            context,
+          )!.integralesDeFuncionesTrigonometricasHiperbolicas:
           kRutaFuncionesHiperbolicasIntegral,
       AppLocalizations.of(context)!.integralesDelExponencialYLogaritmos:
           kRutaFuncionesExponencialyLogaritmosIntegral,
@@ -692,8 +706,9 @@ class DataSearch extends SearchDelegate {
           kRutaMenuFuncionesVectoriales,
       AppLocalizations.of(context)!.derivadasFuncionesVectoriales:
           kRutaDerivadaFuncionesVectoriales,
-      AppLocalizations.of(context)!
-              .limitesDerivadasIntegralesFuncionesVectoriales:
+      AppLocalizations.of(
+            context,
+          )!.limitesDerivadasIntegralesFuncionesVectoriales:
           kRutaLimiteIntegralDerivadaFuncionVectorial,
       AppLocalizations.of(context)!.gradienteFuncion:
           kRutaGradienteDeUnaFuncion,
@@ -857,8 +872,9 @@ class DataSearch extends SearchDelegate {
       AppLocalizations.of(context)!.convolucion: kRutaConvolucion,
       AppLocalizations.of(context)!.formaComplejaDeLasSeriesDeFourier:
           kRutaFormaComplejaDeLasSeriesDeFourier,
-      AppLocalizations.of(context)!
-              .formulasOperacionalesDeLaTransformadaDeLaplace:
+      AppLocalizations.of(
+            context,
+          )!.formulasOperacionalesDeLaTransformadaDeLaplace:
           kRutaFormulasOperacionalesDeLaTransformadaDeLaplace,
       AppLocalizations.of(context)!.funcionImpulsoUnitario:
           kRutaFuncionImpulsoUnitario,
@@ -954,9 +970,9 @@ class DataSearch extends SearchDelegate {
     List<String> searchResults = getSearchResults(context);
     Map<dynamic, String> searchResultss = getSearchResultss(context);
     List<String> suggestions = searchResults.where((String suggestion) {
-      return suggestion
-          .toLowerCase()
-          .contains(removeDiacritics(query.toLowerCase()));
+      return suggestion.toLowerCase().contains(
+        removeDiacritics(query.toLowerCase()),
+      );
     }).toList();
     return ListView.builder(
       itemCount: suggestions.length,
@@ -965,9 +981,7 @@ class DataSearch extends SearchDelegate {
         return ListTile(
           title: Text(
             suggestion,
-            style: GoogleFonts.poppins(
-              color: kColorBlanco,
-            ),
+            style: GoogleFonts.poppins(color: kColorBlanco),
           ),
           onTap: () {
             query = suggestion;
@@ -996,9 +1010,9 @@ class DataSearch extends SearchDelegate {
       );
     }
     List<String> suggestions = searchResults.where((String suggestion) {
-      return suggestion
-          .toLowerCase()
-          .contains(removeDiacritics(query.toLowerCase()));
+      return suggestion.toLowerCase().contains(
+        removeDiacritics(query.toLowerCase()),
+      );
     }).toList();
     return ListView.builder(
       itemCount: suggestions.length,

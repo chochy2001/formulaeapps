@@ -16,9 +16,12 @@ class _TransformadaSenoYCosenoDeFourierState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,20 @@ class _TransformadaSenoYCosenoDeFourierState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .transformadaSenoYCosenoDeFourier,
+                    AppLocalizations.of(
+                      context,
+                    )!.transformadaSenoYCosenoDeFourier,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .transformadaSenoYCosenoDeFourier,
-                            widgetName:
-                                kWidgetTransformadaSenoYCosenoDeFourier),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.transformadaSenoYCosenoDeFourier,
+                          widgetName: kWidgetTransformadaSenoYCosenoDeFourier,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +68,22 @@ class _TransformadaSenoYCosenoDeFourierState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaSenoYCosenoDeFourier,
-                                    widgetName:
-                                        kWidgetTransformadaSenoYCosenoDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaSenoYCosenoDeFourier,
+                                  widgetName:
+                                      kWidgetTransformadaSenoYCosenoDeFourier,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaSenoYCosenoDeFourier,
-                                    widgetName:
-                                        kWidgetTransformadaSenoYCosenoDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaSenoYCosenoDeFourier,
+                                  widgetName:
+                                      kWidgetTransformadaSenoYCosenoDeFourier,
+                                ),
                               );
                             }
                           });
@@ -83,9 +92,7 @@ class _TransformadaSenoYCosenoDeFourierState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -95,35 +102,38 @@ class _TransformadaSenoYCosenoDeFourierState
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"Fs(\omega) = \int_{0}^{\infty}f(t)\sin(\omega t)dt"),
+                          formulaText:
+                              r"Fs(\omega) = \int_{0}^{\infty}f(t)\sin(\omega t)dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \frac{2}{\pi}\int_{0}^{\infty}Fs(\omega)\sin(\omega t)d\omega"),
+                          formulaText:
+                              r"f(t) = \frac{2}{\pi}\int_{0}^{\infty}Fs(\omega)\sin(\omega t)d\omega",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .transformadaCosenoFourier,
+                          AppLocalizations.of(
+                            context,
+                          )!.transformadaCosenoFourier,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"F_C(\omega) = \int_{0}^{\infty}f(t)\cos(\omega t)dt"),
+                          formulaText:
+                              r"F_C(\omega) = \int_{0}^{\infty}f(t)\cos(\omega t)dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \frac{2}{\pi}\int_{0}^{\infty}F_C(\omega)\cos(\omega t)d\omega"),
+                          formulaText:
+                              r"f(t) = \frac{2}{\pi}\int_{0}^{\infty}F_C(\omega)\cos(\omega t)d\omega",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTransformadaSenoYCosenoDeFourier,
-                  ),
+                  const VerPDF(url: kWidgetTransformadaSenoYCosenoDeFourier),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetTransformadaSenoYCosenoDeFourier,

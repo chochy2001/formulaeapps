@@ -20,9 +20,7 @@ class MenuPrincipal1 extends StatelessWidget {
 
         if (Platform.isAndroid) {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(0),
@@ -31,9 +29,7 @@ class MenuPrincipal1 extends StatelessWidget {
           );
         } else if (Platform.isIOS || Platform.isMacOS) {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(1),
@@ -42,9 +38,7 @@ class MenuPrincipal1 extends StatelessWidget {
           );
         } else {
           return ScaffoldScreen(
-            appBar: const AppBarHome(
-              visible: false,
-            ),
+            appBar: const AppBarHome(visible: false),
             drawer: SizedBox(
               width: drawerWidth,
               child: const DrawerPersonalizado(2),

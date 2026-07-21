@@ -26,18 +26,20 @@ class RepresentacionesDeNumerosComplejosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .representacionesDeUnNumeroComplejo,
+                      AppLocalizations.of(
+                        context,
+                      )!.representacionesDeUnNumeroComplejo,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .representacionesDeUnNumeroComplejo,
-                            widgetName:
-                                kWidgetRepresentacionesDeUnNumeroComplejo),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.representacionesDeUnNumeroComplejo,
+                          widgetName: kWidgetRepresentacionesDeUnNumeroComplejo,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +51,22 @@ class RepresentacionesDeNumerosComplejosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .representacionesDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetRepresentacionesDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.representacionesDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetRepresentacionesDeUnNumeroComplejo,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .representacionesDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetRepresentacionesDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.representacionesDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetRepresentacionesDeUnNumeroComplejo,
+                                ),
                               );
                             }
                           });
@@ -69,9 +75,7 @@ class RepresentacionesDeNumerosComplejosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -84,8 +88,9 @@ class RepresentacionesDeNumerosComplejosState
                             Latex(formulaText: r"z=a+bi"),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"z=r(\cos\theta +i\cdot \sin \theta)"),
+                              formulaText:
+                                  r"z=r(\cos\theta +i\cdot \sin \theta)",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"\cos \theta = \frac{a}{r}"),
                             SizedBox(height: kEspacioEntreBotones),
@@ -109,9 +114,7 @@ class RepresentacionesDeNumerosComplejosState
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"i^4=1"),
                             SizedBox(height: kEspacioEntreBotones),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
                       ],
@@ -119,9 +122,7 @@ class RepresentacionesDeNumerosComplejosState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetRepresentacionesDeUnNumeroComplejo,
-                  ),
+                  const VerPDF(url: kWidgetRepresentacionesDeUnNumeroComplejo),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetRepresentacionesDeUnNumeroComplejo,
@@ -130,10 +131,7 @@ class RepresentacionesDeNumerosComplejosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -151,9 +149,7 @@ class RepresentacionesDeNumerosComplejosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"r"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.modulo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.modulo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

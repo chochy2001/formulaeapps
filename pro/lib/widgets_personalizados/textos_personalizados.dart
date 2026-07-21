@@ -12,11 +12,7 @@ class TituloPersonalizado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      titulo,
-      style: kTextoBotones,
-      textAlign: TextAlign.center,
-    );
+    return Text(titulo, style: kTextoBotones, textAlign: TextAlign.center);
   }
 }
 
@@ -87,9 +83,7 @@ class Latex extends StatelessWidget {
 class CapdesisLatex extends StatelessWidget {
   static const String formulaCapdesis = r"\mathrm{CAPDESIS}";
 
-  const CapdesisLatex({
-    super.key,
-  });
+  const CapdesisLatex({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +91,11 @@ class CapdesisLatex extends StatelessWidget {
       return _buildParaCapturaPdf(formulaCapdesis);
     }
 
-    return Math.tex(formulaCapdesis,
-        mathStyle: MathStyle.display, textStyle: kTextoLatexFormulas);
+    return Math.tex(
+      formulaCapdesis,
+      mathStyle: MathStyle.display,
+      textStyle: kTextoLatexFormulas,
+    );
   }
 }
 
@@ -121,17 +118,12 @@ Widget _buildParaCapturaPdf(String formulaText) {
 }
 
 class Notas extends StatelessWidget {
-  const Notas({
-    super.key,
-  });
+  const Notas({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        AppLocalizations.of(context)!.notas,
-        style: kTextoBotones,
-      ),
+      child: Text(AppLocalizations.of(context)!.notas, style: kTextoBotones),
     );
   }
 }

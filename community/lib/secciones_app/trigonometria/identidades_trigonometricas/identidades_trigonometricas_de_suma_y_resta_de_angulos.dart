@@ -16,9 +16,12 @@ class _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,10 +50,12 @@ class _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .deSumaYRestaDeAngulos,
-                            widgetName:
-                                kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.deSumaYRestaDeAngulos,
+                          widgetName:
+                              kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,18 +67,22 @@ class _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deSumaYRestaDeAngulos,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deSumaYRestaDeAngulos,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deSumaYRestaDeAngulos,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deSumaYRestaDeAngulos,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeSumaYRestaDeAngulos,
+                                ),
                               );
                             }
                           });
@@ -82,37 +91,41 @@ class _IdentidadesTrigonometricasDeSumaYRestaDeAngulosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin(\alpha+\beta) = \sin\alpha\cos\beta+\cos\alpha\sin\beta"),
+                          formulaText:
+                              r"\sin(\alpha+\beta) = \sin\alpha\cos\beta+\cos\alpha\sin\beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos(\alpha+\beta) = \cos\alpha\cos\beta-\sin\alpha\sin\beta"),
+                          formulaText:
+                              r"\cos(\alpha+\beta) = \cos\alpha\cos\beta-\sin\alpha\sin\beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin(\alpha-\beta) = \sin\alpha\cos\beta-\cos\alpha\sin\beta"),
+                          formulaText:
+                              r"\sin(\alpha-\beta) = \sin\alpha\cos\beta-\cos\alpha\sin\beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos(\alpha-\beta) = \cos\alpha\cos\beta+\sin\alpha\sin\beta"),
+                          formulaText:
+                              r"\cos(\alpha-\beta) = \cos\alpha\cos\beta+\sin\alpha\sin\beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan(\alpha+\beta) = \frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}"),
+                          formulaText:
+                              r"\tan(\alpha+\beta) = \frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan(\alpha-\beta) = \frac{\tan\alpha-\tan\beta}{1+\tan\alpha\tan\beta}"),
+                          formulaText:
+                              r"\tan(\alpha-\beta) = \frac{\tan\alpha-\tan\beta}{1+\tan\alpha\tan\beta}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],

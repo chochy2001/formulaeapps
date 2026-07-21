@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constantes/export_constantes.dart';
@@ -39,17 +39,9 @@ class _BotonDrawerItemState extends State<BotonDrawerItem> {
   Widget _buildIcon() {
     final Object data = widget.icon;
     if (data is FaIconData) {
-      return FaIcon(
-        data,
-        color: kColorBlanco,
-        size: widget.iconSize,
-      );
+      return FaIcon(data, color: kColorBlanco, size: widget.iconSize);
     }
-    return Icon(
-      data as IconData,
-      color: kColorBlanco,
-      size: widget.iconSize,
-    );
+    return Icon(data as IconData, color: kColorBlanco, size: widget.iconSize);
   }
 
   @override
@@ -81,9 +73,7 @@ class _BotonDrawerItemState extends State<BotonDrawerItem> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 _buildIcon(),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
                     widget.text,

@@ -28,8 +28,9 @@ void main() {
     FlutterError.onError = (details) {};
   });
 
-  testWidgets('DrawerPersonalizado mounts Android and iOS variants',
-      (tester) async {
+  testWidgets('DrawerPersonalizado mounts Android and iOS variants', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     for (final platform in [0, 1]) {
       await tester.pumpWidget(
@@ -45,15 +46,18 @@ void main() {
     }
   });
 
-  testWidgets('urlPdfMap and getUrlPdfById resolve known widgets',
-      (tester) async {
+  testWidgets('urlPdfMap and getUrlPdfById resolve known widgets', (
+    tester,
+  ) async {
     late BuildContext captured;
     await tester.pumpWidget(
       _harness(
-        home: Builder(builder: (context) {
-          captured = context;
-          return const SizedBox.shrink();
-        }),
+        home: Builder(
+          builder: (context) {
+            captured = context;
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
     await tester.pump();
@@ -73,10 +77,7 @@ void main() {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final taskData = TaskData();
     await tester.pumpWidget(
-      _harness(
-        taskData: taskData,
-        home: const TasksScreen(),
-      ),
+      _harness(taskData: taskData, home: const TasksScreen()),
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
@@ -138,23 +139,26 @@ void main() {
     expect(data.taskCount, 0);
   });
 
-  testWidgets('VerPDF and DescargarPDF shrink for missing urls', (tester) async {
+  testWidgets('VerPDF and DescargarPDF shrink for missing urls', (
+    tester,
+  ) async {
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: VerPDF(url: ''))),
+      _harness(
+        home: const Scaffold(body: VerPDF(url: '')),
+      ),
     );
     await tester.pump();
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: DescargarPDF(url: 'no-such-id'))),
+      _harness(
+        home: const Scaffold(body: DescargarPDF(url: 'no-such-id')),
+      ),
     );
     await tester.pump();
     while (tester.takeException() != null) {}
   });
 }
 
-Widget _harness({
-  required Widget home,
-  TaskData? taskData,
-}) {
+Widget _harness({required Widget home, TaskData? taskData}) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<LocaleProvider>(
@@ -162,9 +166,7 @@ Widget _harness({
       ),
       ChangeNotifierProvider<ModelsProvider>(create: (_) => ModelsProvider()),
       ChangeNotifierProvider<ChatProvider>(create: (_) => ChatProvider()),
-      ChangeNotifierProvider<TaskData>.value(
-        value: taskData ?? TaskData(),
-      ),
+      ChangeNotifierProvider<TaskData>.value(value: taskData ?? TaskData()),
       ChangeNotifierProvider<FavoritesNotifier>(
         create: (_) => FavoritesNotifier(),
       ),

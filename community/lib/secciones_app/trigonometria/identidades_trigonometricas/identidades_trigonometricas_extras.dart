@@ -16,9 +16,12 @@ class _IdentidadesTrigonometricasExtrasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,20 @@ class _IdentidadesTrigonometricasExtrasState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .identidadesTrigonometricasExtras,
+                    AppLocalizations.of(
+                      context,
+                    )!.identidadesTrigonometricasExtras,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .identidadesTrigonometricasExtras,
-                            widgetName:
-                                kWidgetIdentidadesTrigonometricasExtras),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricasExtras,
+                          widgetName: kWidgetIdentidadesTrigonometricasExtras,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +68,22 @@ class _IdentidadesTrigonometricasExtrasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .identidadesTrigonometricasExtras,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasExtras),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.identidadesTrigonometricasExtras,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasExtras,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .identidadesTrigonometricasExtras,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasExtras),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.identidadesTrigonometricasExtras,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasExtras,
+                                ),
                               );
                             }
                           });
@@ -83,51 +92,53 @@ class _IdentidadesTrigonometricasExtrasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .identidadesTrigonometricasParImpar,
+                          AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricasParImpar,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\sin(-\theta) = -\sin\theta"),
+                          formulaText: r"\sin(-\theta) = -\sin\theta",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\cos(-\theta) = \cos\theta"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .identidadesTrigonometricasSuplementoComplemento,
+                          AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricasSuplementoComplemento,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sin(\pi\pm\theta) = \mp \sin\theta"),
+                          formulaText: r"\sin(\pi\pm\theta) = \mp \sin\theta",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\cos(\pi\pm\theta) = -\cos\theta"),
+                          formulaText: r"\cos(\pi\pm\theta) = -\cos\theta",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\sin(\pi/2-\theta) = \cos\theta"),
+                          formulaText: r"\sin(\pi/2-\theta) = \cos\theta",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\cos(\pi/2-\theta) = \sin\theta"),
+                          formulaText: r"\cos(\pi/2-\theta) = \sin\theta",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetIdentidadesTrigonometricasExtras,
-                  ),
+                  const VerPDF(url: kWidgetIdentidadesTrigonometricasExtras),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetIdentidadesTrigonometricasExtras,

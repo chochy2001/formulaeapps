@@ -29,9 +29,11 @@ class _DefinicionDeCampoMagneticoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .definicionDeCampoMagnetico,
-                      widgetName: kWidgetDefinicionDeCampoMagnetico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.definicionDeCampoMagnetico,
+                    widgetName: kWidgetDefinicionDeCampoMagnetico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _DefinicionDeCampoMagneticoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .definicionDeCampoMagnetico,
-                              widgetName: kWidgetDefinicionDeCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.definicionDeCampoMagnetico,
+                            widgetName: kWidgetDefinicionDeCampoMagnetico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .definicionDeCampoMagnetico,
-                              widgetName: kWidgetDefinicionDeCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.definicionDeCampoMagnetico,
+                            widgetName: kWidgetDefinicionDeCampoMagnetico,
+                          ),
                         );
                       }
                     });
@@ -64,20 +70,17 @@ class _DefinicionDeCampoMagneticoState
             Column(
               children: <Widget>[
                 const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.campoMagnetico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.campoMagnetico),
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenExperimentoOersted),
+                  urlImagen: kUrlImagenExperimentoOersted,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.elCampoMagneticoB,
                 ),
                 const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.fenomenologia,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.fenomenologia),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.laIntensidadDelCampoMagnetico,
@@ -96,44 +99,50 @@ class _DefinicionDeCampoMagneticoState
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laMagnitudDelCampoMagneticoDisminuye,
+                  AppLocalizations.of(
+                    context,
+                  )!.laMagnitudDelCampoMagneticoDisminuye,
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenExperimentoOersted),
+                  urlImagen: kUrlImagenExperimentoOersted,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"B\propto \frac{qv\sin{\theta}}{r^2}"),
+                  formulaText: r"B\propto \frac{qv\sin{\theta}}{r^2}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"B=K \frac{qv\sin{\theta}}{r^2}"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"K= \frac{\mu _0}{4\pi} = 10^{-7}\left[\frac{T\cdot m}{A}\right]"),
+                  formulaText:
+                      r"K= \frac{\mu _0}{4\pi} = 10^{-7}\left[\frac{T\cdot m}{A}\right]",
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.constanteDePermeabilidad,
                 ),
                 const SizedBox(height: 10.0),
                 const Latex(
-                    formulaText:
-                        r"\mu_0 = 4\pi \times 10^{-7}\left[\frac{T\cdot m}{A}\right]"),
+                  formulaText:
+                      r"\mu_0 = 4\pi \times 10^{-7}\left[\frac{T\cdot m}{A}\right]",
+                ),
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCampoMagnetico),
-                const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  urlImagen: kUrlImagenCampoMagnetico,
                 ),
+                const SizedBox(height: 40.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
                 const SizedBox(height: 10.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{B}=\frac{\mu_0}{4\pi}\frac{q\vec{v}\times\hat{r}}{r^2}"),
+                  formulaText:
+                      r"\vec{B}=\frac{\mu_0}{4\pi}\frac{q\vec{v}\times\hat{r}}{r^2}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{B}=\frac{\mu_0}{4\pi}\frac{q\vec{v}\times\bar{r}}{r^3}"),
+                  formulaText:
+                      r"\vec{B}=\frac{\mu_0}{4\pi}\frac{q\vec{v}\times\bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.lineasDeCampoMagnetico,
@@ -152,18 +161,21 @@ class _DefinicionDeCampoMagneticoState
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .lasLineasDeCampoMagneticoSonContinuas,
+                  AppLocalizations.of(
+                    context,
+                  )!.lasLineasDeCampoMagneticoSonContinuas,
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .lasLineasDeCampoMagneticoSonContinuas,
+                  AppLocalizations.of(
+                    context,
+                  )!.lasLineasDeCampoMagneticoSonContinuas,
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laMagnitudDelCampoMagneticoEnUnPunto,
+                  AppLocalizations.of(
+                    context,
+                  )!.laMagnitudDelCampoMagneticoEnUnPunto,
                 ),
                 const SizedBox(height: 40.0),
               ],
@@ -172,15 +184,11 @@ class _DefinicionDeCampoMagneticoState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetDefinicionDeCampoMagnetico,
-                ),
+                VerPDF(url: kWidgetDefinicionDeCampoMagnetico),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetDefinicionDeCampoMagnetico,
-                ),
+                DescargarPDF(url: kWidgetDefinicionDeCampoMagnetico),
               ],
-            )
+            ),
           ],
         ),
       ),

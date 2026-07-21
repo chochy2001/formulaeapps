@@ -15,9 +15,12 @@ class _PrincipioDeSuperposicionState extends State<PrincipioDeSuperposicion> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,9 @@ class _PrincipioDeSuperposicionState extends State<PrincipioDeSuperposicion> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.principioSuperposicion,
-                      widgetName: kWidgetPrincipioDeSuperposicion),
+                    title: AppLocalizations.of(context)!.principioSuperposicion,
+                    widgetName: kWidgetPrincipioDeSuperposicion,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +59,20 @@ class _PrincipioDeSuperposicionState extends State<PrincipioDeSuperposicion> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .principioSuperposicion,
-                              widgetName: kWidgetPrincipioDeSuperposicion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.principioSuperposicion,
+                            widgetName: kWidgetPrincipioDeSuperposicion,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .principioSuperposicion,
-                              widgetName: kWidgetPrincipioDeSuperposicion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.principioSuperposicion,
+                            widgetName: kWidgetPrincipioDeSuperposicion,
+                          ),
                         );
                       }
                     });
@@ -82,21 +89,21 @@ class _PrincipioDeSuperposicionState extends State<PrincipioDeSuperposicion> {
 
             const SizedBox(height: 30.0),
             const ZoomImagePersonalizado(
-                urlImagen: kUrlImagenPrincipioDeSuperposicion),
-            const Column(children: <Widget>[
-              Latex(
+              urlImagen: kUrlImagenPrincipioDeSuperposicion,
+            ),
+            const Column(
+              children: <Widget>[
+                Latex(
                   formulaText:
-                      r"\vec{F}_1 = \vec{F}_{12} + \vec{F}_{13} + \vec{F}_{14} + \vec{F}_{15}"),
-              SizedBox(height: 40.0),
-            ]),
+                      r"\vec{F}_1 = \vec{F}_{12} + \vec{F}_{13} + \vec{F}_{14} + \vec{F}_{15}",
+                ),
+                SizedBox(height: 40.0),
+              ],
+            ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetPrincipioDeSuperposicion,
-            ),
+            const VerPDF(url: kWidgetPrincipioDeSuperposicion),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetPrincipioDeSuperposicion,
-            ),
+            const DescargarPDF(url: kWidgetPrincipioDeSuperposicion),
           ],
         ),
       ),

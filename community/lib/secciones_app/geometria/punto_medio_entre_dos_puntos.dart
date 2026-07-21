@@ -12,7 +12,6 @@ class PuntoMedioEntreDosPuntosGeometria extends StatefulWidget {
 
 class _PuntoMedioEntreDosPuntosGeometriaState
     extends State<PuntoMedioEntreDosPuntosGeometria> {
-
   double x1 = 0.0, y1 = 0.0, x2 = 0.0, y2 = 0.0;
 
   final FormulaeAdsController _ads = FormulaeAdsController();
@@ -20,9 +19,12 @@ class _PuntoMedioEntreDosPuntosGeometriaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -51,9 +53,11 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .puntoMedioEntreDosPuntos,
-                            widgetName: kWidgetPuntoMedioEntreDosPuntos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.puntoMedioEntreDosPuntos,
+                          widgetName: kWidgetPuntoMedioEntreDosPuntos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -65,18 +69,20 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .puntoMedioEntreDosPuntos,
-                                    widgetName:
-                                        kWidgetPuntoMedioEntreDosPuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.puntoMedioEntreDosPuntos,
+                                  widgetName: kWidgetPuntoMedioEntreDosPuntos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .puntoMedioEntreDosPuntos,
-                                    widgetName:
-                                        kWidgetPuntoMedioEntreDosPuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.puntoMedioEntreDosPuntos,
+                                  widgetName: kWidgetPuntoMedioEntreDosPuntos,
+                                ),
                               );
                             }
                           });
@@ -85,12 +91,11 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const Latex(
-                      formulaText:
-                          r"M=\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2},\frac{z_1+z_2}{2}\right)"),
+                    formulaText:
+                        r"M=\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2},\frac{z_1+z_2}{2}\right)",
+                  ),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   Theme(
@@ -99,19 +104,17 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: TextField(
                       style: kTextoBotones,
                       cursorColor: Colors.white,
                       keyboardType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                        signed: true,
+                        decimal: true,
+                      ),
                       decoration: InputDecoration(
                         hintText: "5",
                         hintStyle: const TextStyle(color: Colors.grey),
@@ -138,19 +141,17 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: TextField(
                       style: kTextoBotones,
                       cursorColor: Colors.white,
                       keyboardType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                        signed: true,
+                        decimal: true,
+                      ),
                       decoration: InputDecoration(
                         hintText: "5",
                         hintStyle: const TextStyle(color: Colors.grey),
@@ -176,19 +177,17 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: TextField(
                       style: kTextoBotones,
                       cursorColor: Colors.white,
                       keyboardType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                        signed: true,
+                        decimal: true,
+                      ),
                       decoration: InputDecoration(
                         hintText: "5",
                         hintStyle: const TextStyle(color: Colors.grey),
@@ -214,19 +213,17 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: TextField(
                       style: kTextoBotones,
                       cursorColor: Colors.white,
                       keyboardType: const TextInputType.numberWithOptions(
-                          signed: true, decimal: true),
+                        signed: true,
+                        decimal: true,
+                      ),
                       decoration: InputDecoration(
                         hintText: "5",
                         hintStyle: const TextStyle(color: Colors.grey),
@@ -248,50 +245,44 @@ class _PuntoMedioEntreDosPuntosGeometriaState
                   const SizedBox(height: 30.0),
 
                   Math.tex(
-                      "(${implementFraction(x1)},${implementFraction(y1)}),(${implementFraction(x2)},${implementFraction(y2)})",
-                      mathStyle: MathStyle.display,
-                      textStyle: kTextoLatexFormulas),
+                    "(${implementFraction(x1)},${implementFraction(y1)}),(${implementFraction(x2)},${implementFraction(y2)})",
+                    mathStyle: MathStyle.display,
+                    textStyle: kTextoLatexFormulas,
+                  ),
                   _solucionPuntoMedio(x1, x2, y1, y2),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPuntoMedioEntreDosPuntos,
-                  ),
+                  const VerPDF(url: kWidgetPuntoMedioEntreDosPuntos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPuntoMedioEntreDosPuntos,
-                  ),
+                  const DescargarPDF(url: kWidgetPuntoMedioEntreDosPuntos),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                            '${AppLocalizations.of(context)!.encuentraPuntoMedioEntre}\n( –2, 5 )  y  ( 7, 7 ).'),
-                        const SizedBox(
-                          height: 10.0,
+                          '${AppLocalizations.of(context)!.encuentraPuntoMedioEntre}\n( –2, 5 )  y  ( 7, 7 ).',
                         ),
+                        const SizedBox(height: 10.0),
                         const Latex(
-                            formulaText:
-                                r"\left(\frac{-2+7}{2},\frac{5+7}{2}\right)"),
+                          formulaText:
+                              r"\left(\frac{-2+7}{2},\frac{5+7}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.simplificando,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\left(\frac{5}{2},\frac{12}{2}\right)"),
+                          formulaText: r"\left(\frac{5}{2},\frac{12}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\left(\frac{5}{2},\frac{6}{1}\right)"),
+                          formulaText: r"\left(\frac{5}{2},\frac{6}{1}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(2.5,6)"),
                         const SizedBox(height: kEspacioEntreBotones),

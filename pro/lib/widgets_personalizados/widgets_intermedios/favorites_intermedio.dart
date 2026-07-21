@@ -11,25 +11,19 @@ class FavoritesIntermedio extends StatelessWidget {
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
       return const ScaffoldScreen(
-        appBar: AppBarHome(
-          visible: false,
-        ),
+        appBar: AppBarHome(visible: false),
         drawer: DrawerPersonalizado(0),
         body: FavoritesScreen(),
       );
     } else if (Platform.isIOS || Platform.isMacOS) {
       return const ScaffoldScreen(
-        appBar: AppBarHome(
-          visible: false,
-        ),
+        appBar: AppBarHome(visible: false),
         drawer: DrawerPersonalizado(1),
         body: FavoritesScreen(),
       );
     } else {
       return const ScaffoldScreen(
-        appBar: AppBarHome(
-          visible: false,
-        ),
+        appBar: AppBarHome(visible: false),
         drawer: DrawerPersonalizado(2),
         body: FavoritesScreen(),
       );

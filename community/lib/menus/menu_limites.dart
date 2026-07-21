@@ -16,9 +16,12 @@ class MenuLimitesState extends State<MenuLimites> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -38,9 +41,7 @@ class MenuLimitesState extends State<MenuLimites> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -49,20 +50,20 @@ class MenuLimitesState extends State<MenuLimites> {
                     AppLocalizations.of(context)!.limites,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   //Propiedades de los Limites
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.propiedadesDeLosLimites,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.propiedadesDeLosLimites,
                     ruta: kRutaPropiedadesLimites,
                   ),
                   //Limites Trigonometricos
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.limitesTrigonometricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.limitesTrigonometricos,
                     ruta: kRutaLimitesTrigonometricos,
                   ),
                 ],

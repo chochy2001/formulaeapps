@@ -44,14 +44,18 @@ class EcuacionCubicaState extends State<EcuacionCubica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionCubica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionCubica,
                                 widgetName: kWidgetEcuacionCubica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionCubica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionCubica,
                                 widgetName: kWidgetEcuacionCubica,
                               ),
                             );
@@ -71,7 +75,9 @@ class EcuacionCubicaState extends State<EcuacionCubica> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"Q=\frac{3a_{2}-a_{1}^{2}}{9}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"R=\frac{9a_{1}a_{2}-27a_{3}-2a_{1}^{3}}{54}"),
+                  Latex(
+                    formulaText: r"R=\frac{9a_{1}a_{2}-27a_{3}-2a_{1}^{3}}{54}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"S=\sqrt[3]{R+\sqrt{Q^{3}+R^{2}}}"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -79,9 +85,15 @@ class EcuacionCubicaState extends State<EcuacionCubica> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"x_{1}=S+T-\frac{1}{3}a_{1}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x_{2}=-\frac{1}{2}\left(S+T\right)-\frac{1}{3}a_{1}+\frac{1}{2}i\sqrt{3}\left(S-T\right)"),
+                  Latex(
+                    formulaText:
+                        r"x_{2}=-\frac{1}{2}\left(S+T\right)-\frac{1}{3}a_{1}+\frac{1}{2}i\sqrt{3}\left(S-T\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x_{3}=-\frac{1}{2}\left(S+T\right)-\frac{1}{3}a_{1}-\frac{1}{2}i\sqrt{3}\left(S-T\right)"),
+                  Latex(
+                    formulaText:
+                        r"x_{3}=-\frac{1}{2}\left(S+T\right)-\frac{1}{3}a_{1}-\frac{1}{2}i\sqrt{3}\left(S-T\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"D=Q^{3}+R^{2}"),
                   SizedBox(height: kEspacioEntreBotones),

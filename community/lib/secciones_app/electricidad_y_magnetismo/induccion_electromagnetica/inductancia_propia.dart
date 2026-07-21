@@ -14,9 +14,12 @@ class _InductanciaPropiaState extends State<InductanciaPropia> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,8 +44,9 @@ class _InductanciaPropiaState extends State<InductanciaPropia> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.inductanciaPropia,
-                      widgetName: kWidgetInductanciaPropia),
+                    title: AppLocalizations.of(context)!.inductanciaPropia,
+                    widgetName: kWidgetInductanciaPropia,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +58,20 @@ class _InductanciaPropiaState extends State<InductanciaPropia> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaPropia,
-                              widgetName: kWidgetInductanciaPropia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaPropia,
+                            widgetName: kWidgetInductanciaPropia,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaPropia,
-                              widgetName: kWidgetInductanciaPropia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaPropia,
+                            widgetName: kWidgetInductanciaPropia,
+                          ),
                         );
                       }
                     });
@@ -114,14 +122,17 @@ class _InductanciaPropiaState extends State<InductanciaPropia> {
                   const Latex(formulaText: r"[H] = Henry"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\varepsilon_i = -\frac{d}{dt}\Phi_B"),
+                    formulaText: r"\varepsilon_i = -\frac{d}{dt}\Phi_B",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\varepsilon_i = -\frac{d}{dt}\lambda"),
+                    formulaText: r"\varepsilon_i = -\frac{d}{dt}\lambda",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\varepsilon_i = -\frac{d}{dt}\lambda = -\frac{d}{dt}LI"),
+                    formulaText:
+                        r"\varepsilon_i = -\frac{d}{dt}\lambda = -\frac{d}{dt}LI",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\varepsilon_i = -L\frac{d}{dt}I"),
                   const SizedBox(height: 40.0),
@@ -130,13 +141,9 @@ class _InductanciaPropiaState extends State<InductanciaPropia> {
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetInductanciaPropia,
-            ),
+            const VerPDF(url: kWidgetInductanciaPropia),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetInductanciaPropia,
-            ),
+            const DescargarPDF(url: kWidgetInductanciaPropia),
           ],
         ),
       ),

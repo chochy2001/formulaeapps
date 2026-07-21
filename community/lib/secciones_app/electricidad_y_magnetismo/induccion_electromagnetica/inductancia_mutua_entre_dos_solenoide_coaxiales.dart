@@ -16,9 +16,12 @@ class _InductanciaMutuaEntreDosSolenoidesCoaxialesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -36,18 +39,21 @@ class _InductanciaMutuaEntreDosSolenoidesCoaxialesState
         child: ListView(
           children: [
             TituloPersonalizado(
-              AppLocalizations.of(context)!
-                  .inductanciaMutuaEntreDosSolenoidesCoaxiales,
+              AppLocalizations.of(
+                context,
+              )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
             ),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .inductanciaMutuaEntreDosSolenoidesCoaxiales,
-                      widgetName:
-                          kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
+                    widgetName:
+                        kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -59,18 +65,22 @@ class _InductanciaMutuaEntreDosSolenoidesCoaxialesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaMutuaEntreDosSolenoidesCoaxiales,
-                              widgetName:
-                                  kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
+                            widgetName:
+                                kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaMutuaEntreDosSolenoidesCoaxiales,
-                              widgetName:
-                                  kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
+                            widgetName:
+                                kWidgetInductanciaMutuaEntreDosSolenoidesCoaxiales,
+                          ),
                         );
                       }
                     });
@@ -84,15 +94,17 @@ class _InductanciaMutuaEntreDosSolenoidesCoaxialesState
             Column(
               children: <Widget>[
                 const ZoomImagePersonalizado(
-                    urlImagen:
-                        kUrlImagenInductanciaMutuaEntreDosSolenoidesCoaxiales),
+                  urlImagen:
+                      kUrlImagenInductanciaMutuaEntreDosSolenoidesCoaxiales,
+                ),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.laInductanciaMutua,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"M = \frac{\lambda_{21}}{I_{1}} \neq \frac{\lambda_{12}}{I_{2}}"),
+                  formulaText:
+                      r"M = \frac{\lambda_{21}}{I_{1}} \neq \frac{\lambda_{12}}{I_{2}}",
+                ),
                 const SizedBox(height: 30.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.flujoConcatenadoEnElSolenoide2,
@@ -105,8 +117,9 @@ class _InductanciaMutuaEntreDosSolenoidesCoaxialesState
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"M = \frac{\lambda_{21}}{I_{1}} = \frac{N_{2}\Phi_{21}}{I_1} = \frac{N_2\frac{\mu_0N_1I_1A}{l_1}}{I_1}"),
+                  formulaText:
+                      r"M = \frac{\lambda_{21}}{I_{1}} = \frac{N_{2}\Phi_{21}}{I_1} = \frac{N_2\frac{\mu_0N_1I_1A}{l_1}}{I_1}",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(formulaText: r"M = \frac{\mu_0N_1N_2A}{l_1}"),
                 const SizedBox(height: 40.0),

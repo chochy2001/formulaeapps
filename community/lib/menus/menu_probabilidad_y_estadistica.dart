@@ -18,9 +18,12 @@ class MenuProbabilidadYEstadisticaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,18 +36,14 @@ class MenuProbabilidadYEstadisticaState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -53,18 +52,18 @@ class MenuProbabilidadYEstadisticaState
                     AppLocalizations.of(context)!.probabilidadEstadistica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .combinacionesYPermutaciones,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.combinacionesYPermutaciones,
                     ruta: kRutaCombinacionesYPermutaciones,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .cuantilesParaDatosAgrupados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.cuantilesParaDatosAgrupados,
                     ruta: kRutaCuantilesParaDatosAgrupados,
                   ),
                   BotonesMenu(
@@ -72,13 +71,15 @@ class MenuProbabilidadYEstadisticaState
                     ruta: kRutaMenuDistribuciones,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.estadisticaInferencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.estadisticaInferencial,
                     ruta: kRutaEstadisticaInferencial,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.intervalosDeConfianza,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.intervalosDeConfianza,
                     ruta: kRutaIntervalosDeConfianza,
                   ),
                   BotonesMenu(
@@ -90,8 +91,9 @@ class MenuProbabilidadYEstadisticaState
                     ruta: kRutaMenuMedidas,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.momentosEstadisticos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.momentosEstadisticos,
                     ruta: kRutaMomentosEstadisticos,
                   ),
                   BotonesMenu(

@@ -16,9 +16,12 @@ class _SimetriaDeUnCuartoDeOndaParState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _SimetriaDeUnCuartoDeOndaParState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .simetriaDeUnCuartoDeOndaPar,
-                            widgetName: kWidgetSimetriaDeUnCuartoDeOndaPar),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.simetriaDeUnCuartoDeOndaPar,
+                          widgetName: kWidgetSimetriaDeUnCuartoDeOndaPar,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _SimetriaDeUnCuartoDeOndaParState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaDeUnCuartoDeOndaPar,
-                                    widgetName:
-                                        kWidgetSimetriaDeUnCuartoDeOndaPar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaDeUnCuartoDeOndaPar,
+                                  widgetName:
+                                      kWidgetSimetriaDeUnCuartoDeOndaPar,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaDeUnCuartoDeOndaPar,
-                                    widgetName:
-                                        kWidgetSimetriaDeUnCuartoDeOndaPar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaDeUnCuartoDeOndaPar,
+                                  widgetName:
+                                      kWidgetSimetriaDeUnCuartoDeOndaPar,
+                                ),
                               );
                             }
                           });
@@ -93,8 +102,8 @@ class _SimetriaDeUnCuartoDeOndaParState
                         const Latex(formulaText: r"f(t) = f(-t)"),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = -f\left(t+\frac{T}{2}\right)"),
+                          formulaText: r"f(t) = -f\left(t+\frac{T}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -102,20 +111,23 @@ class _SimetriaDeUnCuartoDeOndaParState
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \sum_{n=1}^{\infty} a_{2n-1}\cos[(2n-1)\omega_0t]"),
+                          formulaText:
+                              r"f(t) = \sum_{n=1}^{\infty} a_{2n-1}\cos[(2n-1)\omega_0t]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .coeficientesSerieFourier,
+                          AppLocalizations.of(
+                            context,
+                          )!.coeficientesSerieFourier,
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"a_0 = 0"),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"a_{2n-1} = \frac{8}{T}\int_{0}^{T/4}f(t)\cos[(2n-1)\omega_0t]dt"),
+                          formulaText:
+                              r"a_{2n-1} = \frac{8}{T}\int_{0}^{T/4}f(t)\cos[(2n-1)\omega_0t]dt",
+                        ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"b_{2n-1} = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -123,13 +135,9 @@ class _SimetriaDeUnCuartoDeOndaParState
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSimetriaDeUnCuartoDeOndaPar,
-                  ),
+                  const VerPDF(url: kWidgetSimetriaDeUnCuartoDeOndaPar),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSimetriaDeUnCuartoDeOndaPar,
-                  ),
+                  const DescargarPDF(url: kWidgetSimetriaDeUnCuartoDeOndaPar),
                 ],
               ),
             ),

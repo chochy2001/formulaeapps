@@ -16,9 +16,12 @@ class _InductanciaPropiaDeUnSolenoideState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _InductanciaPropiaDeUnSolenoideState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .inductanciaPropiaDeUnSolenoide,
-                      widgetName: kWidgetInductanciaPropiaDeUnSolenoide),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.inductanciaPropiaDeUnSolenoide,
+                    widgetName: kWidgetInductanciaPropiaDeUnSolenoide,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,20 @@ class _InductanciaPropiaDeUnSolenoideState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaPropiaDeUnSolenoide,
-                              widgetName:
-                                  kWidgetInductanciaPropiaDeUnSolenoide),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaPropiaDeUnSolenoide,
+                            widgetName: kWidgetInductanciaPropiaDeUnSolenoide,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaPropiaDeUnSolenoide,
-                              widgetName:
-                                  kWidgetInductanciaPropiaDeUnSolenoide),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaPropiaDeUnSolenoide,
+                            widgetName: kWidgetInductanciaPropiaDeUnSolenoide,
+                          ),
                         );
                       }
                     });
@@ -78,48 +85,46 @@ class _InductanciaPropiaDeUnSolenoideState
             ),
 
             const ZoomImagePersonalizado(
-                urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide),
+              urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide,
+            ),
 
             ZoomPersonalizado(
               child: Column(
                 children: <Widget>[
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .flujoMagneticoEnUnSolenoideIdeal,
+                    AppLocalizations.of(
+                      context,
+                    )!.flujoMagneticoEnUnSolenoideIdeal,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\Phi_B = \iint \vec{B} \cdot d\vec{A} = \mu_0 nIA"),
+                    formulaText:
+                        r"\Phi_B = \iint \vec{B} \cdot d\vec{A} = \mu_0 nIA",
+                  ),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.flujoTotalConcatenado,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\lambda = N\Phi_B = \frac{\mu_0 N^2IA}{l}"),
-                  const SizedBox(height: 30.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.laInductancia,
+                    formulaText: r"\lambda = N\Phi_B = \frac{\mu_0 N^2IA}{l}",
                   ),
+                  const SizedBox(height: 30.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.laInductancia),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"L = \frac{\lambda }{I} = \frac{\mu_0 N^2A}{l}"),
+                    formulaText:
+                        r"L = \frac{\lambda }{I} = \frac{\mu_0 N^2A}{l}",
+                  ),
                   const SizedBox(height: 40.0),
                 ],
               ),
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetInductanciaPropiaDeUnSolenoide,
-            ),
+            const VerPDF(url: kWidgetInductanciaPropiaDeUnSolenoide),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetInductanciaPropiaDeUnSolenoide,
-            ),
+            const DescargarPDF(url: kWidgetInductanciaPropiaDeUnSolenoide),
           ],
         ),
       ),

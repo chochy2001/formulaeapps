@@ -86,10 +86,7 @@ void main() {
         ),
       );
       expect(
-        getUrlVideoById(
-          englishContext,
-          kVideoPropiedadesLogaritmoIgualACero,
-        ),
+        getUrlVideoById(englishContext, kVideoPropiedadesLogaritmoIgualACero),
         isEmpty,
       );
       expect(getUrlVideoById(englishContext, 'unknown-video'), isNull);

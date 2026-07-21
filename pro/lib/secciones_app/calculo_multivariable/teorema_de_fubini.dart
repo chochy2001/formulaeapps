@@ -29,8 +29,9 @@ class TeoremaDeFubiniState extends State<TeoremaDeFubini> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.teoremaFubini,
-                      widgetName: kWidgetTeoremaDeFubini),
+                    title: AppLocalizations.of(context)!.teoremaFubini,
+                    widgetName: kWidgetTeoremaDeFubini,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,16 @@ class TeoremaDeFubiniState extends State<TeoremaDeFubini> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoremaFubini,
-                              widgetName: kWidgetTeoremaDeFubini),
+                            title: AppLocalizations.of(context)!.teoremaFubini,
+                            widgetName: kWidgetTeoremaDeFubini,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoremaFubini,
-                              widgetName: kWidgetTeoremaDeFubini),
+                            title: AppLocalizations.of(context)!.teoremaFubini,
+                            widgetName: kWidgetTeoremaDeFubini,
+                          ),
                         );
                       }
                     });
@@ -60,9 +61,7 @@ class TeoremaDeFubiniState extends State<TeoremaDeFubini> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             const ZoomPersonalizado(
               child: Column(
                 children: [
@@ -72,12 +71,12 @@ class TeoremaDeFubiniState extends State<TeoremaDeFubini> {
                   Latex(formulaText: r"\iint_{|a,b|\times |c,d|}f(x,y)dxdy"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"= \int_a^b\left(\int_c^d f(x,y)dy\right)dx"),
+                    formulaText: r"= \int_a^b\left(\int_c^d f(x,y)dy\right)dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"= \int_c^d\left(\int_a^b f(x,y)dx\right)dy"),
+                    formulaText: r"= \int_c^d\left(\int_a^b f(x,y)dx\right)dy",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   SizedBox(height: kEspacioEntreBotones),
                   SizedBox(height: kEspacioEntreBotones),
@@ -87,19 +86,13 @@ class TeoremaDeFubiniState extends State<TeoremaDeFubini> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetTeoremaDeFubini,
-                ),
+                VerPDF(url: kWidgetTeoremaDeFubini),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetTeoremaDeFubini,
-                ),
+                DescargarPDF(url: kWidgetTeoremaDeFubini),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

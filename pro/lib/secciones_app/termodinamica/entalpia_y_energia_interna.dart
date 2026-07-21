@@ -30,7 +30,9 @@ class EntalpiaYEnergiaInternaState extends State<EntalpiaYEnergiaInterna> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.entalpiaYEnergiaInterna,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.entalpiaYEnergiaInterna,
                         widgetName: kWidgetEntalpiaYEnergiaInterna,
                       ),
                     );
@@ -44,14 +46,18 @@ class EntalpiaYEnergiaInternaState extends State<EntalpiaYEnergiaInterna> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.entalpiaYEnergiaInterna,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.entalpiaYEnergiaInterna,
                                 widgetName: kWidgetEntalpiaYEnergiaInterna,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.entalpiaYEnergiaInterna,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.entalpiaYEnergiaInterna,
                                 widgetName: kWidgetEntalpiaYEnergiaInterna,
                               ),
                             );

@@ -66,10 +66,7 @@ class CommunityPdfDocument {
           pw.SizedBox(height: 24),
           pw.Text(
             content.title,
-            style: pw.TextStyle(
-              fontSize: 21,
-              fontWeight: pw.FontWeight.bold,
-            ),
+            style: pw.TextStyle(fontSize: 21, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 20),
           pw.Container(
@@ -112,8 +109,13 @@ class CommunityPdfDocument {
     required String fallbackId,
     required String languageCode,
   }) {
-    var title =
-        (legacyUrl ?? '').split('/').last.split('?').first.split('#').first;
+    var title = (legacyUrl ?? '')
+        .split('/')
+        .last
+        .split('?')
+        .first
+        .split('#')
+        .first;
 
     try {
       title = Uri.decodeFull(title);

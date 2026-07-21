@@ -16,9 +16,12 @@ class _DiferencialTotalState extends State<DiferencialTotal> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -35,16 +38,15 @@ class _DiferencialTotalState extends State<DiferencialTotal> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.diferencialTotal,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.diferencialTotal),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.diferencialTotal,
-                      widgetName: kWidgetDiferencialTotal),
+                    title: AppLocalizations.of(context)!.diferencialTotal,
+                    widgetName: kWidgetDiferencialTotal,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +58,20 @@ class _DiferencialTotalState extends State<DiferencialTotal> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .diferencialTotal,
-                              widgetName: kWidgetDiferencialTotal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.diferencialTotal,
+                            widgetName: kWidgetDiferencialTotal,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .diferencialTotal,
-                              widgetName: kWidgetDiferencialTotal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.diferencialTotal,
+                            widgetName: kWidgetDiferencialTotal,
+                          ),
                         );
                       }
                     });
@@ -74,36 +80,27 @@ class _DiferencialTotalState extends State<DiferencialTotal> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sea,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sea),
                   const Latex(formulaText: r"W = f(x,y,z)"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"dW= \frac{\partial W}{\partial x}dx+\frac{\partial W}{\partial y}dy +\frac{\partial W}{\partial z}dz"),
+                    formulaText:
+                        r"dW= \frac{\partial W}{\partial x}dx+\frac{\partial W}{\partial y}dy +\frac{\partial W}{\partial z}dz",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetDiferencialTotal,
-            ),
+            const VerPDF(url: kWidgetDiferencialTotal),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetDiferencialTotal,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetDiferencialTotal),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

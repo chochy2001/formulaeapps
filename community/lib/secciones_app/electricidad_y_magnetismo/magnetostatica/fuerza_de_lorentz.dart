@@ -14,9 +14,12 @@ class _FuerzaDeLorentzState extends State<FuerzaDeLorentz> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _FuerzaDeLorentzState extends State<FuerzaDeLorentz> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.fuerzaDeLorentz,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.fuerzaDeLorentz),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.fuerzaDeLorentz,
-                      widgetName: kWidgetFuerzaDeLorentz),
+                    title: AppLocalizations.of(context)!.fuerzaDeLorentz,
+                    widgetName: kWidgetFuerzaDeLorentz,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +56,20 @@ class _FuerzaDeLorentzState extends State<FuerzaDeLorentz> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.fuerzaDeLorentz,
-                              widgetName: kWidgetFuerzaDeLorentz),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuerzaDeLorentz,
+                            widgetName: kWidgetFuerzaDeLorentz,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.fuerzaDeLorentz,
-                              widgetName: kWidgetFuerzaDeLorentz),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuerzaDeLorentz,
+                            widgetName: kWidgetFuerzaDeLorentz,
+                          ),
                         );
                       }
                     });
@@ -76,44 +82,46 @@ class _FuerzaDeLorentzState extends State<FuerzaDeLorentz> {
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenReglaDeLaManoDerecha) ??
-                            kUrlImagenReglaDeLaManoDerecha),
+                  urlImagen:
+                      getImageUrlById(context, kImagenReglaDeLaManoDerecha) ??
+                      kUrlImagenReglaDeLaManoDerecha,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{F}_{em} = \vec{F}_{e} + \vec{F}_{m} = q\vec{E}+q\vec{v}\times \vec{B}"),
+                  formulaText:
+                      r"\vec{F}_{em} = \vec{F}_{e} + \vec{F}_{m} = q\vec{E}+q\vec{v}\times \vec{B}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{F}_{m} = q\vec{v}\times \vec{B}"),
+                  formulaText: r"\vec{F}_{m} = q\vec{v}\times \vec{B}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{F}_{m} = q\frac{\vec{L}}{t}\times \vec{B} = \frac{q}{t}\vec{L}\times \vec{B}"),
+                  formulaText:
+                      r"\vec{F}_{m} = q\frac{\vec{L}}{t}\times \vec{B} = \frac{q}{t}\vec{L}\times \vec{B}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{F}_{m} = i\vec{L}\times \vec{B}"),
+                  formulaText: r"\vec{F}_{m} = i\vec{L}\times \vec{B}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\vec{F}_{m} = iLB\sin{\theta}"),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\vec{F}_{m} = NiLB\sin{\theta}"),
                 const SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenFuerzaDeLorentz) ??
-                            kUrlImagenFuerzaDeLorentz),
+                  urlImagen:
+                      getImageUrlById(context, kImagenFuerzaDeLorentz) ??
+                      kUrlImagenFuerzaDeLorentz,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetFuerzaDeLorentz,
-            ),
+            const VerPDF(url: kWidgetFuerzaDeLorentz),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetFuerzaDeLorentz,
-            ),
+            const DescargarPDF(url: kWidgetFuerzaDeLorentz),
           ],
         ),
       ),

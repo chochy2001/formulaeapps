@@ -26,17 +26,11 @@ void main() {
     });
 
     test('fromMap throws FormatException on malformed JSON', () {
-      expect(
-        () => Task.fromMap('not-json'),
-        throwsA(isA<FormatException>()),
-      );
+      expect(() => Task.fromMap('not-json'), throwsA(isA<FormatException>()));
     });
 
     test('fromMap throws when required field is missing', () {
-      expect(
-        () => Task.fromMap('{"isDone":false}'),
-        throwsA(isA<TypeError>()),
-      );
+      expect(() => Task.fromMap('{"isDone":false}'), throwsA(isA<TypeError>()));
     });
 
     test('fromMap throws when field has wrong type', () {

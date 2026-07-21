@@ -14,9 +14,7 @@ class MenuMecanicaState extends State<MenuMecanica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -38,15 +36,21 @@ class MenuMecanicaState extends State<MenuMecanica> {
                     ruta: kRutaAceleracionYMrua,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.caidaLibreYTiroVertical,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.caidaLibreYTiroVertical,
                     ruta: kRutaCaidaLibreYTiroVertical,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.movimientoDeProyectiles,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.movimientoDeProyectiles,
                     ruta: kRutaMovimientoDeProyectiles,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.movimientoCircularUniforme,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.movimientoCircularUniforme,
                     ruta: kRutaMovimientoCircularUniforme,
                   ),
                   BotonesMenu(
@@ -54,7 +58,9 @@ class MenuMecanicaState extends State<MenuMecanica> {
                     ruta: kRutaCinematicaAngular,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.aceleracionYFuerzaCentripeta,
                     ruta: kRutaAceleracionYFuerzaCentripeta,
                   ),
                   BotonesMenu(
@@ -66,7 +72,9 @@ class MenuMecanicaState extends State<MenuMecanica> {
                     ruta: kRutaPesoYGravedad,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.cantidadDeMovimientoEImpulso,
                     ruta: kRutaCantidadDeMovimientoEImpulso,
                   ),
                   BotonesMenu(
@@ -74,7 +82,9 @@ class MenuMecanicaState extends State<MenuMecanica> {
                     ruta: kRutaFriccion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.movimientoArmonicoSimple,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.movimientoArmonicoSimple,
                     ruta: kRutaMovimientoArmonicoSimple,
                   ),
                   BotonesMenu(
@@ -82,7 +92,9 @@ class MenuMecanicaState extends State<MenuMecanica> {
                     ruta: kRutaPenduloSimple,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.equilibrioDeCuerposRigidos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.equilibrioDeCuerposRigidos,
                     ruta: kRutaEquilibrioDeCuerposRigidos,
                   ),
                   BotonesMenu(

@@ -18,9 +18,12 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,9 +43,7 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -51,24 +52,25 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
                     AppLocalizations.of(context)!.magnetostatica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
                     ruta: kRutaOrigenDeCampoMagnetico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .descripcionDeLosImanesYExperimentosDeOersted,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.descripcionDeLosImanesYExperimentosDeOersted,
                   ),
                   BotonesMenu(
                     ruta: kRutaFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
-                    textoBoton: AppLocalizations.of(context)!
-                        .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
                   ),
                   BotonesMenu(
                     ruta: kRutaDefinicionDeCampoMagnetico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .definicionDeCampoMagnetico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.definicionDeCampoMagnetico,
                   ),
                   BotonesMenu(
                     ruta: kRutaFuerzaDeLorentz,
@@ -80,13 +82,15 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
                   ),
                   BotonesMenu(
                     ruta: kRutaSegmentoConductorRecto,
-                    textoBoton:
-                        AppLocalizations.of(context)!.segmentoConductorRecto,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.segmentoConductorRecto,
                   ),
                   BotonesMenu(
                     ruta: kRutaEspiraEnFormaDeCircunferencia,
-                    textoBoton: AppLocalizations.of(context)!
-                        .espiraEnFormaDeCircunferencia,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.espiraEnFormaDeCircunferencia,
                   ),
                   BotonesMenu(
                     ruta: kRutaEspiraCuadrada,
@@ -102,18 +106,21 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
                   ),
                   BotonesMenu(
                     ruta: kRutaCirculacionDeUnCampoVectorial,
-                    textoBoton: AppLocalizations.of(context)!
-                        .circulacionDeUnCampoVectorial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.circulacionDeUnCampoVectorial,
                   ),
                   BotonesMenu(
                     ruta: kRutaCampoMagneticoAPartirDeLeyDeAmpere,
-                    textoBoton: AppLocalizations.of(context)!
-                        .campoMagneticoAPartirDeLeyDeAmpere,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.campoMagneticoAPartirDeLeyDeAmpere,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeAmpereEnFormaDiferencial,
-                    textoBoton: AppLocalizations.of(context)!
-                        .leyDeAmpereEnFormaDiferencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyDeAmpereEnFormaDiferencial,
                   ),
                   BotonesMenu(
                     ruta: kRutaFlujoMagnetico,
@@ -121,8 +128,9 @@ class _MenuMagnetostaticaState extends State<MenuMagnetostatica> {
                   ),
                   BotonesMenu(
                     ruta: kRutaMotorDeCorrienteDirecta,
-                    textoBoton:
-                        AppLocalizations.of(context)!.motorDeCorrienteDirecta,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.motorDeCorrienteDirecta,
                   ),
                 ],
               ),

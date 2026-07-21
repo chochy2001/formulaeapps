@@ -26,13 +26,14 @@ class InAppPurchaseManager extends ChangeNotifier {
     this.platformOverride,
     EntitlementService? entitlementService,
     bool? bffIapValidationEnabled,
-  })  : _platform = platform ?? _defaultPlatform(),
-        _entitlementService = entitlementService ?? EntitlementService(),
-        _bffIapValidationEnabled =
-            bffIapValidationEnabled ?? kEnableBffIapValidation {
+  }) : _platform = platform ?? _defaultPlatform(),
+       _entitlementService = entitlementService ?? EntitlementService(),
+       _bffIapValidationEnabled =
+           bffIapValidationEnabled ?? kEnableBffIapValidation {
     if (listenToPurchases) {
-      _purchaseSubscription =
-          _platform.purchaseStream.listen(handlePurchaseUpdates);
+      _purchaseSubscription = _platform.purchaseStream.listen(
+        handlePurchaseUpdates,
+      );
     }
   }
 
@@ -77,7 +78,8 @@ class InAppPurchaseManager extends ChangeNotifier {
     for (var purchaseDetails in purchaseDetailsList) {
       if (kDebugMode) {
         print(
-            'Product ID: ${purchaseDetails.productID}, status: ${purchaseDetails.status}, pending complete purchase: ${purchaseDetails.pendingCompletePurchase}');
+          'Product ID: ${purchaseDetails.productID}, status: ${purchaseDetails.status}, pending complete purchase: ${purchaseDetails.pendingCompletePurchase}',
+        );
       }
       if ((purchaseDetails.status == PurchaseStatus.purchased ||
               purchaseDetails.status == PurchaseStatus.restored) &&
@@ -85,14 +87,16 @@ class InAppPurchaseManager extends ChangeNotifier {
         _platform.completePurchase(purchaseDetails);
         if (kDebugMode) {
           print(
-              'Completing purchase for product ID: ${purchaseDetails.productID}');
+            'Completing purchase for product ID: ${purchaseDetails.productID}',
+          );
         }
         _hasValidPurchase = true;
 
         if (_bffIapValidationEnabled) {
           unawaited(
-            IapValidationService(enabled: true)
-                .validatePurchase(purchaseDetails),
+            IapValidationService(
+              enabled: true,
+            ).validatePurchase(purchaseDetails),
           );
         }
 
@@ -132,8 +136,9 @@ class InAppPurchaseManager extends ChangeNotifier {
       }
     }
 
-    final PurchaseParam purchaseParam =
-        PurchaseParam(productDetails: productDetails);
+    final PurchaseParam purchaseParam = PurchaseParam(
+      productDetails: productDetails,
+    );
 
     try {
       final bool available = await _platform.isAvailable();
@@ -164,8 +169,8 @@ class InAppPurchaseManager extends ChangeNotifier {
   Future<void> getProducts() async {
     Set<String> productIds = platformProductIds();
     if (productIds.isNotEmpty) {
-      final ProductDetailsResponse response =
-          await _platform.queryProductDetails(productIds);
+      final ProductDetailsResponse response = await _platform
+          .queryProductDetails(productIds);
       if (response.notFoundIDs.isEmpty) {
         _products = response.productDetails;
         notifyListeners();
@@ -247,27 +252,15 @@ class InAppPurchaseManager extends ChangeNotifier {
                           width: 50.0,
                           urlImagen: kUrlImagenFormulae,
                         ),
-                        Expanded(
-                          child: TextoEcuaciones(
-                            product.title,
-                          ),
-                        ),
+                        Expanded(child: TextoEcuaciones(product.title)),
                       ],
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Text(
-                      product.description,
-                      style: kEstiloSubMenu,
-                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                    Text(product.description, style: kEstiloSubMenu),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          product.price,
-                          style: kTextoEcuaciones,
-                        ),
+                        Text(product.price, style: kTextoEcuaciones),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -285,21 +278,18 @@ class InAppPurchaseManager extends ChangeNotifier {
                           child: Text(
                             AppLocalizations.of(context)!.comprar,
                             style: TextStyle(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.white
-                                    : kColorFondo),
+                              color:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : kColorFondo,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const Divider(
-                      color: kColorBlanco,
-                      thickness: 1.0,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                    ),
+                    const Divider(color: kColorBlanco, thickness: 1.0),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                   ],
                 );
               }).toList(),

@@ -32,9 +32,11 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .leyesDelAlgebraDeBoole,
-                            widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.leyesDelAlgebraDeBoole,
+                          widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -46,16 +48,20 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDelAlgebraDeBoole,
-                                    widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDelAlgebraDeBoole,
+                                  widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDelAlgebraDeBoole,
-                                    widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDelAlgebraDeBoole,
+                                  widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                                ),
                               );
                             }
                           });
@@ -64,9 +70,7 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   // On wide screens the ten Boolean laws read as a responsive
                   // 2-column grid; on phones they stay a single column. Each
                   // law block stays intact inside its own cell.
@@ -90,17 +94,20 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                           Latex(formulaText: r"(x+y)+z=x+(y+z)"),
                           SizedBox(height: kEspacioEntreBotones),
                           Latex(
-                              formulaText:
-                                  r"(x\times y)\times z=x\times (y\times z)"),
+                            formulaText:
+                                r"(x\times y)\times z=x\times (y\times z)",
+                          ),
                         ]),
                         _leyGrupo(loc.distributiva, const [
                           Latex(
-                              formulaText:
-                                  r"x\times (y+z) = (x\times y)+(x \times z)"),
+                            formulaText:
+                                r"x\times (y+z) = (x\times y)+(x \times z)",
+                          ),
                           SizedBox(height: kEspacioEntreBotones),
                           Latex(
-                              formulaText:
-                                  r"x+ (y\times z) = (x + y)\times (x + z)"),
+                            formulaText:
+                                r"x+ (y\times z) = (x + y)\times (x + z)",
+                          ),
                         ]),
                         _leyGrupo(loc.idempotencia, const [
                           Latex(formulaText: r"x+ x = x"),
@@ -132,13 +139,9 @@ class LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetLeyesDelAlgebraDeBoole,
-                  ),
+                  const VerPDF(url: kWidgetLeyesDelAlgebraDeBoole),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetLeyesDelAlgebraDeBoole,
-                  ),
+                  const DescargarPDF(url: kWidgetLeyesDelAlgebraDeBoole),
                 ],
               ),
             ),

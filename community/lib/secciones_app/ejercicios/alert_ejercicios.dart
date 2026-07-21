@@ -23,15 +23,11 @@ class AlertEjercicios extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
-          title: TextoEcuaciones(
-            AppLocalizations.of(context)!.ejercicios,
-          ),
+          title: TextoEcuaciones(AppLocalizations.of(context)!.ejercicios),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextoEcuaciones(
-                textoEjercicio,
-              ),
+              TextoEcuaciones(textoEjercicio),
               //Imagen del logo capdesis para darle un mejor formato y más calidad
               const Padding(
                 padding: EdgeInsets.all(15.0),
@@ -61,7 +57,7 @@ class AlertEjercicios extends StatelessWidget {
                 AppLocalizations.of(context)!.verLosEjercicios,
                 style: kTexto,
               ),
-            )
+            ),
           ],
         ),
       ],

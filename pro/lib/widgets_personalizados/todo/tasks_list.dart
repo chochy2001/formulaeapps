@@ -30,7 +30,9 @@ class TasksList extends StatelessWidget {
     }
 
     Future<DateTime?> showDateTimeDialog(
-        BuildContext context, Task task) async {
+      BuildContext context,
+      Task task,
+    ) async {
       return showDialog<DateTime>(
         context: context,
         builder: (context) {
@@ -85,7 +87,8 @@ class TasksList extends StatelessWidget {
                     final time = await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.fromDateTime(
-                          currentValue ?? DateTime.now()),
+                        currentValue ?? DateTime.now(),
+                      ),
                     );
                     selectedDateTime = DateTimeField.combine(date, time);
                     return selectedDateTime;
@@ -214,7 +217,8 @@ class TasksList extends StatelessWidget {
             ? ImagenRemotaRobusta(
                 height: 300.0,
                 width: MediaQuery.of(context).size.width,
-                urlImagen: getImageUrlById(context, kImagenAgregarTarea) ??
+                urlImagen:
+                    getImageUrlById(context, kImagenAgregarTarea) ??
                     kUrlImagenAgregarTarea,
               )
             : ListView.builder(
@@ -238,20 +242,23 @@ class TasksList extends StatelessWidget {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
                                         ),
                                         backgroundColor: kColorBotones,
                                         title: Center(
                                           child: Text(
-                                            AppLocalizations.of(context)!
-                                                .eliminarTarea,
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.eliminarTarea,
                                             style: kTextoBotones,
                                           ),
                                         ),
                                         content: Text(
-                                          AppLocalizations.of(context)!
-                                              .confirmacionEliminarTarea,
+                                          AppLocalizations.of(
+                                            context,
+                                          )!.confirmacionEliminarTarea,
                                           style: kTexto,
                                         ),
                                         actions: [
@@ -259,8 +266,9 @@ class TasksList extends StatelessWidget {
                                             onPressed: () =>
                                                 Navigator.pop(context),
                                             child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .cancelar,
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.cancelar,
                                               style: kTextoBotones2,
                                             ),
                                           ),
@@ -270,8 +278,9 @@ class TasksList extends StatelessWidget {
                                               taskData.deleteTask(task);
                                             },
                                             child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .eliminar,
+                                              AppLocalizations.of(
+                                                context,
+                                              )!.eliminar,
                                               style: kTextoCerrar,
                                             ),
                                           ),
@@ -321,42 +330,49 @@ class TasksList extends StatelessWidget {
 
                                     // Programa la notificación
                                     const AndroidNotificationDetails
-                                        androidPlatformChannelSpecifics =
+                                    androidPlatformChannelSpecifics =
                                         AndroidNotificationDetails(
-                                            'your channel id',
-                                            'your channel name',
-                                            importance: Importance.max,
-                                            priority: Priority.high,
-                                            showWhen: false);
+                                          'your channel id',
+                                          'your channel name',
+                                          importance: Importance.max,
+                                          priority: Priority.high,
+                                          showWhen: false,
+                                        );
 
                                     const NotificationDetails
-                                        platformChannelSpecifics =
+                                    platformChannelSpecifics =
                                         NotificationDetails(
-                                            android:
-                                                androidPlatformChannelSpecifics);
+                                          android:
+                                              androidPlatformChannelSpecifics,
+                                        );
 
                                     await flutterLocalNotificationsPlugin
                                         .zonedSchedule(
-                                      id: 0,
-                                      title: 'Recordatorio de tarea',
-                                      body: task.name,
-                                      scheduledDate: tz.TZDateTime.from(
-                                          selectedDateTime, tz.local),
-                                      notificationDetails:
-                                          platformChannelSpecifics,
-                                      androidScheduleMode: AndroidScheduleMode
-                                          .exactAllowWhileIdle,
-                                      matchDateTimeComponents:
-                                          DateTimeComponents.dayOfWeekAndTime,
-                                    );
+                                          id: 0,
+                                          title: 'Recordatorio de tarea',
+                                          body: task.name,
+                                          scheduledDate: tz.TZDateTime.from(
+                                            selectedDateTime,
+                                            tz.local,
+                                          ),
+                                          notificationDetails:
+                                              platformChannelSpecifics,
+                                          androidScheduleMode:
+                                              AndroidScheduleMode
+                                                  .exactAllowWhileIdle,
+                                          matchDateTimeComponents:
+                                              DateTimeComponents
+                                                  .dayOfWeekAndTime,
+                                        );
                                     await taskData.saveTask(task);
                                   }
                                 },
                                 backgroundColor: kColorBotones,
                                 foregroundColor: kColorAmarilloCapdesis,
                                 icon: Icons.add_alert,
-                                label:
-                                    AppLocalizations.of(context)!.recordatorio,
+                                label: AppLocalizations.of(
+                                  context,
+                                )!.recordatorio,
                               ),
                               SlidableAction(
                                 onPressed: (context) async {
@@ -399,8 +415,9 @@ class TasksList extends StatelessWidget {
                                     ),
                                     backgroundColor: kColorBotones,
                                     title: Text(
-                                      AppLocalizations.of(context)!
-                                          .detallesTarea,
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.detallesTarea,
                                       style: kEstiloBotones,
                                     ),
                                     content: SingleChildScrollView(

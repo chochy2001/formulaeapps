@@ -20,9 +20,11 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   Widget get adContainer => _ads.banner;
@@ -64,9 +66,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 '${Provider.of<TaskData>(context).taskCount} ${AppLocalizations.of(context)!.tareas}',
                 style: kEstiloSubMenu,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
-              ),
+              SizedBox(height: MediaQuery.of(context).size.height * .02),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -75,9 +75,10 @@ class _TasksScreenState extends State<TasksScreen> {
                   children: [
                     GestureDetector(
                       onLongPress: () {
-                        int taskCount =
-                            Provider.of<TaskData>(context, listen: false)
-                                .taskCount;
+                        int taskCount = Provider.of<TaskData>(
+                          context,
+                          listen: false,
+                        ).taskCount;
                         if (taskCount > 0) {
                           showDialog(
                             context: context,
@@ -87,13 +88,15 @@ class _TasksScreenState extends State<TasksScreen> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               title: Text(
-                                AppLocalizations.of(context)!
-                                    .eliminarTodasLasTareas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.eliminarTodasLasTareas,
                                 style: kTextoBotones,
                               ),
                               content: Text(
-                                AppLocalizations.of(context)!
-                                    .confirmacionEliminarTareas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.confirmacionEliminarTareas,
                                 style: kTexto,
                               ),
                               actions: [
@@ -109,9 +112,10 @@ class _TasksScreenState extends State<TasksScreen> {
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    Provider.of<TaskData>(context,
-                                            listen: false)
-                                        .deleteAllTasks();
+                                    Provider.of<TaskData>(
+                                      context,
+                                      listen: false,
+                                    ).deleteAllTasks();
                                   },
                                   child: Text(
                                     AppLocalizations.of(context)!.eliminar,
@@ -133,13 +137,12 @@ class _TasksScreenState extends State<TasksScreen> {
                             curve: Curves.easeInOut,
                             duration: Duration(milliseconds: 100),
                           ),
-                          ScaleEffect(
-                            duration: Duration(milliseconds: 10),
-                          ),
+                          ScaleEffect(duration: Duration(milliseconds: 10)),
                         ],
                         child: FloatingActionButton.extended(
-                          extendedTextStyle:
-                              const TextStyle(color: Colors.white),
+                          extendedTextStyle: const TextStyle(
+                            color: Colors.white,
+                          ),
                           backgroundColor: kColorBotones,
                           elevation: 9,
                           onPressed: () {
@@ -150,9 +153,9 @@ class _TasksScreenState extends State<TasksScreen> {
                               builder: (context) => SingleChildScrollView(
                                 child: Container(
                                   padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom,
+                                    bottom: MediaQuery.of(
+                                      context,
+                                    ).viewInsets.bottom,
                                   ),
                                   child: const AddTaskScreen(),
                                 ),
@@ -162,17 +165,17 @@ class _TasksScreenState extends State<TasksScreen> {
                           label: Text(
                             AppLocalizations.of(context)!.agregar,
                             style: const TextStyle(
-                                color: Colors.white, fontFamily: "Poppins"),
+                              color: Colors.white,
+                              fontFamily: "Poppins",
+                            ),
                           ),
-                          icon: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
+                          icon: const Icon(Icons.add, color: Colors.white),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           (isMobile ? .08 : .07),
                     ),
                   ],

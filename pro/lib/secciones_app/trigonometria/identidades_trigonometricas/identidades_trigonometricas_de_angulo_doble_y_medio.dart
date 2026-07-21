@@ -33,10 +33,12 @@ class IdentidadesTrigonometricasDeAnguloDobleYMedioState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .deAnguloDobleYMedio,
-                            widgetName:
-                                kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.deAnguloDobleYMedio,
+                          widgetName:
+                              kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +50,22 @@ class IdentidadesTrigonometricasDeAnguloDobleYMedioState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deAnguloDobleYMedio,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deAnguloDobleYMedio,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deAnguloDobleYMedio,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deAnguloDobleYMedio,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeAngulosDobleYMedio,
+                                ),
                               );
                             }
                           });
@@ -68,45 +74,49 @@ class IdentidadesTrigonometricasDeAnguloDobleYMedioState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin 2\alpha = 2\sin\alpha\cos\alpha"),
+                          formulaText: r"\sin 2\alpha = 2\sin\alpha\cos\alpha",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos 2\alpha = \cos^2\alpha-\sin^2\alpha"),
+                          formulaText:
+                              r"\cos 2\alpha = \cos^2\alpha-\sin^2\alpha",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\cos 2\alpha = 1-2\sin^2\alpha"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\cos 2\alpha = 2\cos^2\alpha -1"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan 2\alpha = \frac{2\tan\alpha}{1-\tan^2\alpha}"),
+                          formulaText:
+                              r"\tan 2\alpha = \frac{2\tan\alpha}{1-\tan^2\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin \frac{\alpha}{2} = \pm \sqrt{\frac{1-\cos\alpha}{2}}"),
+                          formulaText:
+                              r"\sin \frac{\alpha}{2} = \pm \sqrt{\frac{1-\cos\alpha}{2}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos\frac{\alpha}{2} = \pm \sqrt{\frac{1+\cos\alpha}{2}}"),
+                          formulaText:
+                              r"\cos\frac{\alpha}{2} = \pm \sqrt{\frac{1+\cos\alpha}{2}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan\frac{\alpha}{2} = \pm \sqrt{\frac{1-\cos\alpha}{1+\cos\alpha}}"),
+                          formulaText:
+                              r"\tan\frac{\alpha}{2} = \pm \sqrt{\frac{1-\cos\alpha}{1+\cos\alpha}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan\frac{\alpha}{2} = \frac{1-\cos\alpha}{\sin\alpha} = \frac{\sin\alpha}{1+\cos\alpha}"),
+                          formulaText:
+                              r"\tan\frac{\alpha}{2} = \frac{1-\cos\alpha}{\sin\alpha} = \frac{\sin\alpha}{1+\cos\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],

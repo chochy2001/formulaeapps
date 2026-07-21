@@ -32,9 +32,11 @@ class ConjugadoNumerosComplejosState extends State<ConjugadoNumerosComplejos> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .conjugadoDeUnNumeroComplejo,
-                            widgetName: kWidgetConjugadoDeUnNumeroComplejo),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.conjugadoDeUnNumeroComplejo,
+                          widgetName: kWidgetConjugadoDeUnNumeroComplejo,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -46,18 +48,22 @@ class ConjugadoNumerosComplejosState extends State<ConjugadoNumerosComplejos> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conjugadoDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetConjugadoDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conjugadoDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetConjugadoDeUnNumeroComplejo,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conjugadoDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetConjugadoDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conjugadoDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetConjugadoDeUnNumeroComplejo,
+                                ),
                               );
                             }
                           });
@@ -66,72 +72,47 @@ class ConjugadoNumerosComplejosState extends State<ConjugadoNumerosComplejos> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         const Latex(formulaText: r"z=a+bi"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.conjugado,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones - 15,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones - 15),
                         const Latex(formulaText: r"z=a-bi"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.propiedadesDelConjugado,
                         ),
                         const Column(
                           children: [
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"\overline{z+w}=\bar z+\bar w"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"z+\bar z=2a"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"z-\bar z=2bi"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\overline{zw}=\bar z \cdot \bar w"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
+                              formulaText: r"\overline{zw}=\bar z \cdot \bar w",
                             ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"z\in \mathbb R \rightarrow \bar z = z"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
+                              formulaText:
+                                  r"z\in \mathbb R \rightarrow \bar z = z",
                             ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"|z|^2=z\bar z \geq 0"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\frac{1}{z}=\frac{\bar z}{|z|^2}"),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
+                              formulaText: r"\frac{1}{z}=\frac{\bar z}{|z|^2}",
                             ),
+                            SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
                       ],
@@ -139,13 +120,9 @@ class ConjugadoNumerosComplejosState extends State<ConjugadoNumerosComplejos> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConjugadoDeUnNumeroComplejo,
-                  ),
+                  const VerPDF(url: kWidgetConjugadoDeUnNumeroComplejo),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConjugadoDeUnNumeroComplejo,
-                  ),
+                  const DescargarPDF(url: kWidgetConjugadoDeUnNumeroComplejo),
                 ],
               ),
             ),

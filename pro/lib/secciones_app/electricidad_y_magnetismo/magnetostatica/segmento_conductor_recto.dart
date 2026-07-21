@@ -27,9 +27,9 @@ class _SegmentoConductorRectoState extends State<SegmentoConductorRecto> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.segmentoConductorRecto,
-                      widgetName: kWidgetSegmentoConductoRecto),
+                    title: AppLocalizations.of(context)!.segmentoConductorRecto,
+                    widgetName: kWidgetSegmentoConductoRecto,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -41,16 +41,20 @@ class _SegmentoConductorRectoState extends State<SegmentoConductorRecto> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .segmentoConductorRecto,
-                              widgetName: kWidgetSegmentoConductoRecto),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.segmentoConductorRecto,
+                            widgetName: kWidgetSegmentoConductoRecto,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .segmentoConductorRecto,
-                              widgetName: kWidgetSegmentoConductoRecto),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.segmentoConductorRecto,
+                            widgetName: kWidgetSegmentoConductoRecto,
+                          ),
                         );
                       }
                     });
@@ -63,39 +67,44 @@ class _SegmentoConductorRectoState extends State<SegmentoConductorRecto> {
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSegmentoDeConductorRecto),
+                  urlImagen: kUrlImagenSegmentoDeConductorRecto,
+                ),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  AppLocalizations.of(
+                    context,
+                  )!.magnitudDelCampoMagneticoMitadConductor,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .magnitudDelCampoMagneticoMitadConductor,
+                  formulaText:
+                      r"B = \frac{\mu_0}{4\pi}i \int_{\frac{-L}{2}}^{\frac{L}{2}} \frac{dl\sin{\alpha}}{r^2}",
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0}{4\pi}i \int_{\frac{-L}{2}}^{\frac{L}{2}} \frac{dl\sin{\alpha}}{r^2}"),
+                  formulaText:
+                      r"B = \frac{\mu_0}{4\pi}i \int_{\frac{-L}{2}}^{\frac{L}{2}} \frac{y dx}{(x^2+y^2)^{\frac{3}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0}{4\pi}i \int_{\frac{-L}{2}}^{\frac{L}{2}} \frac{y dx}{(x^2+y^2)^{\frac{3}{2}}}"),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0 i}{4\pi y} \frac{L}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}"),
+                  formulaText:
+                      r"B = \frac{\mu_0 i}{4\pi y} \frac{L}{(\frac{L^2}{4}+y^2)^{\frac{1}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.conductorMuyLargo,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{B} = \frac{\mu_0 i}{2\pi r}\hat{r}"),
+                  formulaText: r"\vec{B} = \frac{\mu_0 i}{2\pi r}\hat{r}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -103,15 +112,11 @@ class _SegmentoConductorRectoState extends State<SegmentoConductorRecto> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetSegmentoConductoRecto,
-                ),
+                VerPDF(url: kWidgetSegmentoConductoRecto),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetSegmentoConductoRecto,
-                ),
+                DescargarPDF(url: kWidgetSegmentoConductoRecto),
               ],
-            )
+            ),
           ],
         ),
       ),

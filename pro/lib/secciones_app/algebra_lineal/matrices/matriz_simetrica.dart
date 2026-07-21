@@ -31,9 +31,9 @@ class MatrizSimetricaState extends State<MatrizSimetrica> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.matrizSimetrica,
-                            widgetName: kWidgetMatrizSimetrica),
+                          title: AppLocalizations.of(context)!.matrizSimetrica,
+                          widgetName: kWidgetMatrizSimetrica,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +45,20 @@ class MatrizSimetricaState extends State<MatrizSimetrica> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizSimetrica,
-                                    widgetName: kWidgetMatrizSimetrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizSimetrica,
+                                  widgetName: kWidgetMatrizSimetrica,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizSimetrica,
-                                    widgetName: kWidgetMatrizSimetrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizSimetrica,
+                                  widgetName: kWidgetMatrizSimetrica,
+                                ),
                               );
                             }
                           });
@@ -69,57 +73,46 @@ class MatrizSimetricaState extends State<MatrizSimetrica> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Latex(
-                            formulaText:
-                                r"A = \begin{pmatrix}1 & 2 & 3\\2 & 5 & 6\\3 & 6 & 0\\\end{pmatrix}"),
+                          formulaText:
+                              r"A = \begin{pmatrix}1 & 2 & 3\\2 & 5 & 6\\3 & 6 & 0\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesDeLaMatrizSimetrica,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLaMatrizSimetrica,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesMatrizSimetrica,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesMatrizSimetrica,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMatrizSimetrica,
-                  ),
+                  const VerPDF(url: kWidgetMatrizSimetrica),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMatrizSimetrica,
-                  ),
+                  const DescargarPDF(url: kWidgetMatrizSimetrica),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .losElementosArribaYAbajoDeLaDiagonalSonLosMismos,
+                          AppLocalizations.of(
+                            context,
+                          )!.losElementosArribaYAbajoDeLaDiagonalSonLosMismos,
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

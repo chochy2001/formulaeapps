@@ -176,9 +176,7 @@ void main() {
     'PDF download screen gives the user a retry action after an invalid URL fails',
     (tester) async {
       await tester.pumpWidget(
-        _app(
-          child: const VerPDFNuevo(pdfUrl: 'not-a-valid-pdf-url'),
-        ),
+        _app(child: const VerPDFNuevo(pdfUrl: 'not-a-valid-pdf-url')),
       );
       await tester.pumpAndSettle();
 
@@ -189,34 +187,30 @@ void main() {
     },
   );
 
-  testWidgets(
-    'drawer routes the FAQ action through its named destination',
-    (tester) async {
-      await tester.binding.setSurfaceSize(const Size(800, 1200));
-      await tester.pumpWidget(
-        _app(
-          routes: {
-            '/preguntasFrecuentes': (_) =>
-                const Scaffold(body: Text('FAQ destination')),
-          },
-          child: const Scaffold(drawer: DrawerPersonalizado(0)),
-        ),
-      );
-      final scaffold = tester.state<ScaffoldState>(find.byType(Scaffold));
-      scaffold.openDrawer();
-      await tester.pumpAndSettle();
+  testWidgets('drawer routes the FAQ action through its named destination', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1200));
+    await tester.pumpWidget(
+      _app(
+        routes: {
+          '/preguntasFrecuentes': (_) =>
+              const Scaffold(body: Text('FAQ destination')),
+        },
+        child: const Scaffold(drawer: DrawerPersonalizado(0)),
+      ),
+    );
+    final scaffold = tester.state<ScaffoldState>(find.byType(Scaffold));
+    scaffold.openDrawer();
+    await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Preguntas frecuentes'));
-      await tester.pumpAndSettle();
-      expect(find.text('FAQ destination'), findsOneWidget);
-    },
-  );
+    await tester.tap(find.text('Preguntas frecuentes'));
+    await tester.pumpAndSettle();
+    expect(find.text('FAQ destination'), findsOneWidget);
+  });
 }
 
-Widget _app({
-  required Widget child,
-  Map<String, WidgetBuilder>? routes,
-}) {
+Widget _app({required Widget child, Map<String, WidgetBuilder>? routes}) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     locale: const Locale('es'),

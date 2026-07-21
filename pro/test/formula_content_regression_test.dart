@@ -45,8 +45,9 @@ void main() {
         .toList(growable: false);
   }
 
-  testWidgets('critical formula screens expose the audited identities',
-      (tester) async {
+  testWidgets('critical formula screens expose the audited identities', (
+    tester,
+  ) async {
     expect(
       await pumpFormulaScreen(tester, const LimitesLimitesImportantes()),
       contains(r'\lim_{\theta \to 0} \frac{\sin\theta}{\theta} = 1'),
@@ -76,9 +77,7 @@ void main() {
     );
     expect(
       inverseDerivatives,
-      contains(
-        r'\frac{d}{dx}\,\operatorname{arc\,tan} x = \frac{1}{1+x^{2}}',
-      ),
+      contains(r'\frac{d}{dx}\,\operatorname{arc\,tan} x = \frac{1}{1+x^{2}}'),
     );
 
     expect(

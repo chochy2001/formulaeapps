@@ -44,8 +44,9 @@ void main() {
     },
   );
 
-  testWidgets('task screen opens the add-task sheet from its primary action',
-      (tester) async {
+  testWidgets('task screen opens the add-task sheet from its primary action', (
+    tester,
+  ) async {
     final tasks = TaskData();
     await tester.pump();
     tasks.deleteAllTasks();

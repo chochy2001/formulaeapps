@@ -44,14 +44,18 @@ class PenduloSimpleState extends State<PenduloSimple> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.penduloSimple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.penduloSimple,
                                 widgetName: kWidgetPenduloSimple,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.penduloSimple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.penduloSimple,
                                 widgetName: kWidgetPenduloSimple,
                               ),
                             );
@@ -67,9 +71,14 @@ class PenduloSimpleState extends State<PenduloSimple> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\operatorname{sen}\theta = \frac{\gamma}{l}"),
+                  Latex(
+                    formulaText: r"\operatorname{sen}\theta = \frac{\gamma}{l}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen}\theta = \frac{F_{res}}{P}"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen}\theta = \frac{F_{res}}{P}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"T = 2\pi \sqrt{\frac{l}{g}}"),
                   SizedBox(height: kEspacioEntreBotones),

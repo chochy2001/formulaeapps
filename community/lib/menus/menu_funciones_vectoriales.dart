@@ -17,9 +17,12 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -39,9 +42,7 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -50,18 +51,18 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
                     AppLocalizations.of(context)!.funcionesVectoriales,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .derivadasFuncionesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.derivadasFuncionesVectoriales,
                     ruta: kRutaDerivadaFuncionesVectoriales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .limitesDerivadasIntegralesFuncionesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.limitesDerivadasIntegralesFuncionesVectoriales,
                     ruta: kRutaLimiteIntegralDerivadaFuncionVectorial,
                   ),
                 ],

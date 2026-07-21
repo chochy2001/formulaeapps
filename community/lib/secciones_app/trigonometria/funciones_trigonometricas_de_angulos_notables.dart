@@ -16,9 +16,12 @@ class _FuncionesTrigonometricasDeAngulosNotablesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,21 @@ class _FuncionesTrigonometricasDeAngulosNotablesState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .funcionesTrigonometricasDeAngulosNotables,
+                    AppLocalizations.of(
+                      context,
+                    )!.funcionesTrigonometricasDeAngulosNotables,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .funcionesTrigonometricasDeAngulosNotables,
-                            widgetName:
-                                kWidgetFuncionesTrigonometricasDeAngulosNotables),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.funcionesTrigonometricasDeAngulosNotables,
+                          widgetName:
+                              kWidgetFuncionesTrigonometricasDeAngulosNotables,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +69,22 @@ class _FuncionesTrigonometricasDeAngulosNotablesState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesTrigonometricasDeAngulosNotables,
-                                    widgetName:
-                                        kWidgetFuncionesTrigonometricasDeAngulosNotables),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesTrigonometricasDeAngulosNotables,
+                                  widgetName:
+                                      kWidgetFuncionesTrigonometricasDeAngulosNotables,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesTrigonometricasDeAngulosNotables,
-                                    widgetName:
-                                        kWidgetFuncionesTrigonometricasDeAngulosNotables),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesTrigonometricasDeAngulosNotables,
+                                  widgetName:
+                                      kWidgetFuncionesTrigonometricasDeAngulosNotables,
+                                ),
                               );
                             }
                           });
@@ -83,18 +93,15 @@ class _FuncionesTrigonometricasDeAngulosNotablesState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Column(
                     children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width),
                       const SizedBox(height: kEspacioEntreBotones),
                       const ZoomImagePersonalizado(
-                          urlImagen:
-                              kUrlImagenFuncionesTrigonometricasDeAngulosNotables),
+                        urlImagen:
+                            kUrlImagenFuncionesTrigonometricasDeAngulosNotables,
+                      ),
                       const SizedBox(height: kEspacioEntreBotones),
                     ],
                   ),

@@ -40,28 +40,18 @@ class AddTaskScreenState extends State<AddTaskScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .05,
-          ),
-          Text(
-            AppLocalizations.of(context)!.nuevaTarea,
-            style: kTextoBotones,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .05),
+          Text(AppLocalizations.of(context)!.nuevaTarea, style: kTextoBotones),
           TextField(
             controller: _taskController,
             autofocus: true,
             textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-              color: kColorBlanco,
-              fontSize: 20,
-            ),
+            style: GoogleFonts.roboto(color: kColorBlanco, fontSize: 20),
             onSubmitted: (newTaskTitle) {
               _addTask(context, newTaskTitle);
             },
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .04,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .04),
           TextButton(
             onPressed: () {
               _addTask(context, _taskController.text);
@@ -79,9 +69,7 @@ class AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                 ],
                 color: kColorFondo,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(15),
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
               ),
               child: Center(
                 child: Text(
@@ -103,11 +91,15 @@ class AddTaskScreenState extends State<AddTaskScreen> {
     if (newTaskTitle.isNotEmpty) {
       // Permitir al usuario seleccionar una fecha de recordatorio
       DateTime? reminderDateTime = await showDateTimeDialog(
-          context, AppLocalizations.of(context)!.fechaRecordatorio);
+        context,
+        AppLocalizations.of(context)!.fechaRecordatorio,
+      );
       if (!context.mounted) return;
       // Permitir al usuario seleccionar una fecha de vencimiento
       DateTime? dueDate = await showDateTimeDialog(
-          context, AppLocalizations.of(context)!.fechaEntrega);
+        context,
+        AppLocalizations.of(context)!.fechaEntrega,
+      );
       if (!context.mounted) return;
       // Crear una nueva tarea con las fechas seleccionadas
       Task newTask = Task(
@@ -122,7 +114,9 @@ class AddTaskScreenState extends State<AddTaskScreen> {
   }
 
   Future<DateTime?> showDateTimeDialog(
-      BuildContext context, String dialogTitle) async {
+    BuildContext context,
+    String dialogTitle,
+  ) async {
     DateTime? picked;
     await showDialog(
       context: context,
@@ -158,8 +152,13 @@ class AddTaskScreenState extends State<AddTaskScreen> {
                       initialTime: TimeOfDay.now(),
                     );
                     if (timePicked != null) {
-                      picked = DateTime(picked!.year, picked!.month,
-                          picked!.day, timePicked.hour, timePicked.minute);
+                      picked = DateTime(
+                        picked!.year,
+                        picked!.month,
+                        picked!.day,
+                        timePicked.hour,
+                        timePicked.minute,
+                      );
                     }
                   }
                   if (!context.mounted) return;

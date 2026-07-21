@@ -32,10 +32,12 @@ class FuncionesTrigonometricasState extends State<FuncionesTrigonometricas> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .funcionesTrigonometricas,
-                            widgetName:
-                                kWidgetFuncionesTrigonometricasTrigonometria),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.funcionesTrigonometricas,
+                          widgetName:
+                              kWidgetFuncionesTrigonometricasTrigonometria,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -47,18 +49,22 @@ class FuncionesTrigonometricasState extends State<FuncionesTrigonometricas> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesTrigonometricas,
-                                    widgetName:
-                                        kWidgetFuncionesTrigonometricasTrigonometria),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesTrigonometricas,
+                                  widgetName:
+                                      kWidgetFuncionesTrigonometricasTrigonometria,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesTrigonometricas,
-                                    widgetName:
-                                        kWidgetFuncionesTrigonometricasTrigonometria),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesTrigonometricas,
+                                  widgetName:
+                                      kWidgetFuncionesTrigonometricasTrigonometria,
+                                ),
                               );
                             }
                           });
@@ -67,9 +73,7 @@ class FuncionesTrigonometricasState extends State<FuncionesTrigonometricas> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -81,16 +85,16 @@ class FuncionesTrigonometricasState extends State<FuncionesTrigonometricas> {
                         Latex(formulaText: r"\tan = \frac{CO}{CA}"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot = \frac{CA}{CO} = \frac{1}{\tan}"),
+                          formulaText: r"\cot = \frac{CA}{CO} = \frac{1}{\tan}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sec = \frac{H}{CA} = \frac{1}{\cos}"),
+                          formulaText: r"\sec = \frac{H}{CA} = \frac{1}{\cos}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\csc = \frac{H}{CO} = \frac{1}{\sin}"),
+                          formulaText: r"\csc = \frac{H}{CO} = \frac{1}{\sin}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
@@ -99,9 +103,7 @@ class FuncionesTrigonometricasState extends State<FuncionesTrigonometricas> {
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetFuncionesTrigonometricasTrigonometria,
-                      ),
+                      VerPDF(url: kWidgetFuncionesTrigonometricasTrigonometria),
                       //Descargar PDF
                       DescargarPDF(
                         url: kWidgetFuncionesTrigonometricasTrigonometria,

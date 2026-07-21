@@ -44,14 +44,18 @@ class PesoYGravedadState extends State<PesoYGravedad> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.pesoYGravedad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.pesoYGravedad,
                                 widgetName: kWidgetPesoYGravedad,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.pesoYGravedad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.pesoYGravedad,
                                 widgetName: kWidgetPesoYGravedad,
                               ),
                             );
@@ -69,7 +73,10 @@ class PesoYGravedadState extends State<PesoYGravedad> {
                 children: [
                   Latex(formulaText: r"P = m\,g"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"g = 9.8\ \text{m/s}^{2} \quad \text{o} \quad 980\ \text{cm/s}^{2}"),
+                  Latex(
+                    formulaText:
+                        r"g = 9.8\ \text{m/s}^{2} \quad \text{o} \quad 980\ \text{cm/s}^{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

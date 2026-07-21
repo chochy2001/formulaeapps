@@ -25,9 +25,9 @@ class IapValidationService {
     BffClientFactory? clientFactory,
     Future<String> Function()? tokenProvider,
     bool? enabled,
-  })  : _clientFactory = clientFactory ?? _defaultClientFactory,
-        _tokenProvider = tokenProvider ?? AuthService.getToken,
-        _enabled = enabled ?? kEnableBffIapValidation;
+  }) : _clientFactory = clientFactory ?? _defaultClientFactory,
+       _tokenProvider = tokenProvider ?? AuthService.getToken,
+       _enabled = enabled ?? kEnableBffIapValidation;
 
   final BffClientFactory _clientFactory;
   final Future<String> Function() _tokenProvider;
@@ -51,7 +51,9 @@ class IapValidationService {
     final platform = platformOverride ?? _detectPlatform();
     if (platform == null) {
       if (kDebugMode) {
-        debugPrint('IapValidation: unsupported platform, skipping BFF validate');
+        debugPrint(
+          'IapValidation: unsupported platform, skipping BFF validate',
+        );
       }
       return null;
     }
@@ -80,8 +82,8 @@ class IapValidationService {
 
     try {
       final response = await client.getIapApi().iapValidatePost(
-            iapValidateRequest: request,
-          );
+        iapValidateRequest: request,
+      );
 
       final rotated = response.headers.value('x-auth-refresh');
       if (rotated != null && rotated.isNotEmpty) {

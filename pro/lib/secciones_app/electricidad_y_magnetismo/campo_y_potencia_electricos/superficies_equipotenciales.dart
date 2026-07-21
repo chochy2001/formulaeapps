@@ -29,9 +29,11 @@ class _SuperficiesEquipotencialesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .superficiesEquipotenciales,
-                      widgetName: kWidgetSuperficiesEquipotenciales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.superficiesEquipotenciales,
+                    widgetName: kWidgetSuperficiesEquipotenciales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _SuperficiesEquipotencialesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .superficiesEquipotenciales,
-                              widgetName: kWidgetSuperficiesEquipotenciales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.superficiesEquipotenciales,
+                            widgetName: kWidgetSuperficiesEquipotenciales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .superficiesEquipotenciales,
-                              widgetName: kWidgetSuperficiesEquipotenciales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.superficiesEquipotenciales,
+                            widgetName: kWidgetSuperficiesEquipotenciales,
+                          ),
                         );
                       }
                     });
@@ -64,25 +70,23 @@ class _SuperficiesEquipotencialesState
             Column(
               children: <Widget>[
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.teoremaUnicidad,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.teoremaUnicidad),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .superficiesConductorasCargadasParalelas,
+                  AppLocalizations.of(
+                    context,
+                  )!.superficiesConductorasCargadasParalelas,
                 ),
                 const ZoomImagePersonalizado(
-                    urlImagen:
-                        kUrlImagenSuperficiesConductorasCargadasParalelas),
-                const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.ecuacionLaplace,
+                  urlImagen: kUrlImagenSuperficiesConductorasCargadasParalelas,
                 ),
+                const SizedBox(height: 40.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.ecuacionLaplace),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\nabla ^2 V = \frac{\partial ^2 V}{\partial y^2} = 0"),
+                  formulaText:
+                      r"\nabla ^2 V = \frac{\partial ^2 V}{\partial y^2} = 0",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"V(y) = A_y + B"),
                 const SizedBox(height: 40.0),
@@ -95,7 +99,8 @@ class _SuperficiesEquipotencialesState
                 const Latex(formulaText: r"V(d) = V_0"),
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSuperficiesEquipotenciales),
+                  urlImagen: kUrlImagenSuperficiesEquipotenciales,
+                ),
                 const Latex(formulaText: r"V(y) = \frac{V_0}{d}y"),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
@@ -114,15 +119,11 @@ class _SuperficiesEquipotencialesState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetSuperficiesEquipotenciales,
-                ),
+                VerPDF(url: kWidgetSuperficiesEquipotenciales),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetSuperficiesEquipotenciales,
-                ),
+                DescargarPDF(url: kWidgetSuperficiesEquipotenciales),
               ],
-            )
+            ),
           ],
         ),
       ),

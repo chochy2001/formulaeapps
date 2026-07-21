@@ -19,16 +19,15 @@ class _LeyDeOhmState extends State<LeyDeOhm> {
         child: ListView(
           children: [
             ChatGPTButton(
-              child: TituloPersonalizado(
-                AppLocalizations.of(context)!.leyOhm,
-              ),
+              child: TituloPersonalizado(AppLocalizations.of(context)!.leyOhm),
             ),
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.leyOhm,
-                      widgetName: kWidgetLeyDeOhm),
+                    title: AppLocalizations.of(context)!.leyOhm,
+                    widgetName: kWidgetLeyDeOhm,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +39,16 @@ class _LeyDeOhmState extends State<LeyDeOhm> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.leyOhm,
-                              widgetName: kWidgetLeyDeOhm),
+                            title: AppLocalizations.of(context)!.leyOhm,
+                            widgetName: kWidgetLeyDeOhm,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.leyOhm,
-                              widgetName: kWidgetLeyDeOhm),
+                            title: AppLocalizations.of(context)!.leyOhm,
+                            widgetName: kWidgetLeyDeOhm,
+                          ),
                         );
                       }
                     });
@@ -69,13 +70,15 @@ class _LeyDeOhmState extends State<LeyDeOhm> {
                   const Latex(formulaText: r"[\rho]_u = [\Omega m]"),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .resistividadElectricaConstante,
+                    AppLocalizations.of(
+                      context,
+                    )!.resistividadElectricaConstante,
                   ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .densisdadCorrienteCampoElectrico,
+                    AppLocalizations.of(
+                      context,
+                    )!.densisdadCorrienteCampoElectrico,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\vec{j} n_{v'}q\mu \vec{E}"),
@@ -100,15 +103,11 @@ class _LeyDeOhmState extends State<LeyDeOhm> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeOhm,
-                ),
+                VerPDF(url: kWidgetLeyDeOhm),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeOhm,
-                ),
+                DescargarPDF(url: kWidgetLeyDeOhm),
               ],
-            )
+            ),
           ],
         ),
       ),

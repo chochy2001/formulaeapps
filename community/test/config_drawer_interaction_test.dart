@@ -90,7 +90,8 @@ void main() {
     _expectNoWidgetException(tester, 'Configuracion initial mount');
 
     final buttons = find.byType(ElevatedButton);
-    final hasSubscriptionManagement = subscriptionManagementUrl(
+    final hasSubscriptionManagement =
+        subscriptionManagementUrl(
           locale: const Locale('es'),
           platform: defaultTargetPlatform,
           isWeb: kIsWeb,
@@ -116,8 +117,9 @@ void main() {
     }
   });
 
-  testWidgets('Drawer taps navigate named routes without crashing',
-      (tester) async {
+  testWidgets('Drawer taps navigate named routes without crashing', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1800));
     for (final platform in [0, 1]) {
       await tester.pumpWidget(
@@ -173,8 +175,11 @@ void main() {
 }
 
 void _expectNoWidgetException(WidgetTester tester, String phase) {
-  expect(tester.takeException(), isNull,
-      reason: '$phase threw a widget exception');
+  expect(
+    tester.takeException(),
+    isNull,
+    reason: '$phase threw a widget exception',
+  );
 }
 
 Widget _harness({
@@ -232,10 +237,7 @@ Widget _harness({
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: L10n.all,
-      routes: {
-        '/': (_) => home,
-        ...routes,
-      },
+      routes: {'/': (_) => home, ...routes},
     ),
   );
 }

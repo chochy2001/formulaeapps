@@ -6,10 +6,12 @@ class BateriaRealVoltajeEnTerminales extends StatefulWidget {
   const BateriaRealVoltajeEnTerminales({super.key});
 
   @override
-  BateriaRealVoltajeEnTerminalesState createState() => BateriaRealVoltajeEnTerminalesState();
+  BateriaRealVoltajeEnTerminalesState createState() =>
+      BateriaRealVoltajeEnTerminalesState();
 }
 
-class BateriaRealVoltajeEnTerminalesState extends State<BateriaRealVoltajeEnTerminales> {
+class BateriaRealVoltajeEnTerminalesState
+    extends State<BateriaRealVoltajeEnTerminales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class BateriaRealVoltajeEnTerminalesState extends State<BateriaRealVoltajeEnTerm
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales,
+                    AppLocalizations.of(
+                      context,
+                    )!.bateriaRealVoltajeEnTerminales,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.bateriaRealVoltajeEnTerminales,
                         widgetName: kWidgetBateriaRealVoltajeEnTerminales,
                       ),
                     );
@@ -44,15 +50,21 @@ class BateriaRealVoltajeEnTerminalesState extends State<BateriaRealVoltajeEnTerm
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales,
-                                widgetName: kWidgetBateriaRealVoltajeEnTerminales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.bateriaRealVoltajeEnTerminales,
+                                widgetName:
+                                    kWidgetBateriaRealVoltajeEnTerminales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.bateriaRealVoltajeEnTerminales,
-                                widgetName: kWidgetBateriaRealVoltajeEnTerminales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.bateriaRealVoltajeEnTerminales,
+                                widgetName:
+                                    kWidgetBateriaRealVoltajeEnTerminales,
                               ),
                             );
                           }

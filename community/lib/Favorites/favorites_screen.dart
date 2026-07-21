@@ -18,9 +18,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   Widget get adContainer => _ads.banner;
@@ -55,9 +57,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       curve: Curves.easeInOut,
                       duration: Duration(milliseconds: 100),
                     ),
-                    ScaleEffect(
-                      duration: Duration(milliseconds: 10),
-                    ),
+                    ScaleEffect(duration: Duration(milliseconds: 10)),
                   ],
                   child: FloatingActionButton.extended(
                     label: Text(
@@ -65,10 +65,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       style: const TextStyle(color: Colors.white),
                     ),
                     backgroundColor: kColorBotones,
-                    icon: const Icon(
-                      Icons.delete_forever,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.delete_forever, color: Colors.white),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -82,8 +79,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             style: kTextoBotones,
                           ),
                           content: Text(
-                            AppLocalizations.of(context)!
-                                .confirmacionEliminarFavoritos,
+                            AppLocalizations.of(
+                              context,
+                            )!.confirmacionEliminarFavoritos,
                             style: kTexto,
                           ),
                           actions: [
@@ -119,13 +117,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         builder: (context, favoritesNotifier, child) {
           if (favoritesNotifier.favorites.isEmpty) {
             return Center(
-                //todo_poner imagen de no hay formulas favoritas
-                child: ImagenRemotaRobusta(
-              height: 300.0,
-              width: MediaQuery.of(context).size.width,
-              urlImagen: getImageUrlById(context, kImagenFavoritos) ??
-                  kUrlImagenFavoritos,
-            ));
+              //todo_poner imagen de no hay formulas favoritas
+              child: ImagenRemotaRobusta(
+                height: 300.0,
+                width: MediaQuery.of(context).size.width,
+                urlImagen:
+                    getImageUrlById(context, kImagenFavoritos) ??
+                    kUrlImagenFavoritos,
+              ),
+            );
           }
           return NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
@@ -156,8 +156,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             // Extensión de la sombra. Puedes modificarlo a tu gusto.
                             blurRadius: 10,
                             // Suavizado de la sombra. Puedes modificarlo a tu gusto.
-                            offset:
-                                const Offset(0, 15), // Dirección de la sombra.
+                            offset: const Offset(
+                              0,
+                              15,
+                            ), // Dirección de la sombra.
                           ),
                         ],
                         borderRadius: BorderRadius.circular(15.0),
@@ -191,8 +193,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                       ),
                                       backgroundColor: kColorBotones,
                                       title: Text(
-                                        AppLocalizations.of(context)!
-                                            .eliminarFavoritos,
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.eliminarFavoritos,
                                         style: kTextoBotones,
                                       ),
                                       content: Text(
@@ -202,8 +205,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                       actions: [
                                         TextButton(
                                           child: Text(
-                                            AppLocalizations.of(context)!
-                                                .cancelar,
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.cancelar,
                                             style: kTextoBotones2,
                                           ),
                                           onPressed: () {
@@ -212,8 +216,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                                         ),
                                         TextButton(
                                           child: Text(
-                                            AppLocalizations.of(context)!
-                                                .eliminar,
+                                            AppLocalizations.of(
+                                              context,
+                                            )!.eliminar,
                                             style: kTextoCerrar,
                                           ),
                                           onPressed: () {
@@ -243,9 +248,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                   ],
                 );
               },

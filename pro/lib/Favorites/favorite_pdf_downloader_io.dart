@@ -10,7 +10,7 @@ Future<void> downloadFavoritePdf(Uint8List bytes, String fileName) async {
   // every desktop target declared by this app.
   final output = io.Platform.isLinux
       ? await getDownloadsDirectory() ??
-          await getApplicationDocumentsDirectory()
+            await getApplicationDocumentsDirectory()
       : await getTemporaryDirectory();
   final file = io.File('${output.path}/$fileName');
   await file.writeAsBytes(bytes, flush: true);

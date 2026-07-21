@@ -27,8 +27,9 @@ class _CargaDeUnCapacitorState extends State<CargaDeUnCapacitor> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.cargaCapacitor,
-                      widgetName: kWidgetCargaDeUnCapacitor),
+                    title: AppLocalizations.of(context)!.cargaCapacitor,
+                    widgetName: kWidgetCargaDeUnCapacitor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,16 @@ class _CargaDeUnCapacitorState extends State<CargaDeUnCapacitor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cargaCapacitor,
-                              widgetName: kWidgetCargaDeUnCapacitor),
+                            title: AppLocalizations.of(context)!.cargaCapacitor,
+                            widgetName: kWidgetCargaDeUnCapacitor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cargaCapacitor,
-                              widgetName: kWidgetCargaDeUnCapacitor),
+                            title: AppLocalizations.of(context)!.cargaCapacitor,
+                            widgetName: kWidgetCargaDeUnCapacitor,
+                          ),
                         );
                       }
                     });
@@ -67,22 +68,19 @@ class _CargaDeUnCapacitorState extends State<CargaDeUnCapacitor> {
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCargaDeUnCapacitor),
+                  urlImagen: kUrlImagenCargaDeUnCapacitor,
+                ),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCargaDeUnCapacitor,
-                ),
+                VerPDF(url: kWidgetCargaDeUnCapacitor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCargaDeUnCapacitor,
-                ),
+                DescargarPDF(url: kWidgetCargaDeUnCapacitor),
               ],
-            )
+            ),
           ],
         ),
       ),

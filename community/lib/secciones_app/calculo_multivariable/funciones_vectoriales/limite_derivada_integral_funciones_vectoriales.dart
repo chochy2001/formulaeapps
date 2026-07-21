@@ -18,9 +18,12 @@ class _LimiteDerivadaIntegralFuncionesVectorialesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -38,18 +41,21 @@ class _LimiteDerivadaIntegralFuncionesVectorialesState
         child: ListView(
           children: [
             TituloPersonalizado(
-              AppLocalizations.of(context)!
-                  .limitesDerivadasIntegralesFuncionesVectoriales,
+              AppLocalizations.of(
+                context,
+              )!.limitesDerivadasIntegralesFuncionesVectoriales,
             ),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .limitesDerivadasIntegralesFuncionesVectoriales,
-                      widgetName:
-                          kWidgetLimiteDerivadaIntegralFuncionesVectoriales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.limitesDerivadasIntegralesFuncionesVectoriales,
+                    widgetName:
+                        kWidgetLimiteDerivadaIntegralFuncionesVectoriales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -61,18 +67,22 @@ class _LimiteDerivadaIntegralFuncionesVectorialesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .limitesDerivadasIntegralesFuncionesVectoriales,
-                              widgetName:
-                                  kWidgetLimiteDerivadaIntegralFuncionesVectoriales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.limitesDerivadasIntegralesFuncionesVectoriales,
+                            widgetName:
+                                kWidgetLimiteDerivadaIntegralFuncionesVectoriales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .limitesDerivadasIntegralesFuncionesVectoriales,
-                              widgetName:
-                                  kWidgetLimiteDerivadaIntegralFuncionesVectoriales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.limitesDerivadasIntegralesFuncionesVectoriales,
+                            widgetName:
+                                kWidgetLimiteDerivadaIntegralFuncionesVectoriales,
+                          ),
                         );
                       }
                     });
@@ -81,50 +91,45 @@ class _LimiteDerivadaIntegralFuncionesVectorialesState
               },
             ),
 
-            const SizedBox(
-              height: 40.0,
-            ),
+            const SizedBox(height: 40.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sea,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sea),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText: r"\vec{R}(t) = f(t)\hat{i} +g(t) \hat{j}"),
+                    formulaText: r"\vec{R}(t) = f(t)\hat{i} +g(t) \hat{j}",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.unaFuncionVectorial,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.limite,
+                  TextoEcuaciones(AppLocalizations.of(context)!.limite),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"\lim_{t \to t_1}\vec{R}(t) = \left[\lim_{t \to t_1} f(t)\right]\hat{i}+\left[\lim_{t \to t_1} g(t)\right]\hat{j}",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.derivada),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"\vec{R}'(t) = \lim_{t \to 0}\frac{\vec{R}(t+\Delta t)-\vec{R}(t)}{\Delta t}",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\lim_{t \to t_1}\vec{R}(t) = \left[\lim_{t \to t_1} f(t)\right]\hat{i}+\left[\lim_{t \to t_1} g(t)\right]\hat{j}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.derivada,
+                    formulaText: r"\vec{R}'(t) = f'(t)\hat{i}+g'(t)\hat{j}",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"\vec{R}'(t) = \lim_{t \to 0}\frac{\vec{R}(t+\Delta t)-\vec{R}(t)}{\Delta t}"),
+                  TextoEcuaciones(AppLocalizations.of(context)!.integral),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText: r"\vec{R}'(t) = f'(t)\hat{i}+g'(t)\hat{j}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.integral,
+                    formulaText:
+                        r"\int_a^b \vec{R}(t)dt = \left[\int_a^b f(t)dt\right]\hat{i}+\left[\int_a^b g(t)dt\right]\hat{j}",
                   ),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"\int_a^b \vec{R}(t)dt = \left[\int_a^b f(t)dt\right]\hat{i}+\left[\int_a^b g(t)dt\right]\hat{j}"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
@@ -138,9 +143,7 @@ class _LimiteDerivadaIntegralFuncionesVectorialesState
             const DescargarPDF(
               url: kWidgetLimiteDerivadaIntegralFuncionesVectoriales,
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

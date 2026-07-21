@@ -26,18 +26,20 @@ class ModuloyArgumentoNumerosComplejosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .moduloYArgumentoDeUnNumeroComplejo,
+                      AppLocalizations.of(
+                        context,
+                      )!.moduloYArgumentoDeUnNumeroComplejo,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .moduloYArgumentoDeUnNumeroComplejo,
-                            widgetName:
-                                kWidgetModuloYArgumentoDeUnNumeroComplejo),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.moduloYArgumentoDeUnNumeroComplejo,
+                          widgetName: kWidgetModuloYArgumentoDeUnNumeroComplejo,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +51,22 @@ class ModuloyArgumentoNumerosComplejosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .moduloYArgumentoDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetModuloYArgumentoDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.moduloYArgumentoDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetModuloYArgumentoDeUnNumeroComplejo,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .moduloYArgumentoDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetModuloYArgumentoDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.moduloYArgumentoDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetModuloYArgumentoDeUnNumeroComplejo,
+                                ),
                               );
                             }
                           });
@@ -69,78 +75,50 @@ class ModuloyArgumentoNumerosComplejosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.numeroComplejo,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"z=a+bi"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.modulo,
-                        ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.modulo),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"r=|z|=\sqrt{a^2+b^2}"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.argumento,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\theta =\tan^{-1} \frac{b}{a}"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
+                          formulaText: r"\theta =\tan^{-1} \frac{b}{a}",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesDelValorAbsoluto,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesDelValorAbsoluto,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"|z|=0\rightarrow z=0"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"|z+w|\leq |z|+|w|"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"|zw|= |z||w|"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"|z-w|\geq ||z|-|w||"),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetModuloYArgumentoDeUnNumeroComplejo,
-                  ),
+                  const VerPDF(url: kWidgetModuloYArgumentoDeUnNumeroComplejo),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetModuloYArgumentoDeUnNumeroComplejo,
@@ -148,36 +126,25 @@ class ModuloyArgumentoNumerosComplejosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a"),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.parteReal,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"bi"),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.parteImaginaria,
                         ),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),

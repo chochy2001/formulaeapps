@@ -20,9 +20,6 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String normalizedString = Intl.canonicalizedLocale(label);
-    return Text(
-      normalizedString,
-      style: kTextoBotonesDelgado,
-    );
+    return Text(normalizedString, style: kTextoBotonesDelgado);
   }
 }

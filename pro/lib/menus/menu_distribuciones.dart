@@ -22,9 +22,7 @@ class MenuDistribucionesState extends State<MenuDistribuciones> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -33,42 +31,47 @@ class MenuDistribucionesState extends State<MenuDistribuciones> {
                     AppLocalizations.of(context)!.distribuciones,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionBinomial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionBinomial,
                     ruta: kRutaDistribucionBinomial,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionPoisson,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionPoisson,
                     ruta: kRutaDistribucionDePoisson,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionExponencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionExponencial,
                     ruta: kRutaDistribucionExponencial,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionGeometrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionGeometrica,
                     ruta: kRutaDistribucionGeometrica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .distribucionHipergeometrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionHipergeometrica,
                     ruta: kRutaDistribucionHipergeometrica,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionNormal,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionNormal,
                     ruta: kRutaDistribucionNormal,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.distribucionTStudent,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionTStudent,
                     ruta: kRutaDistribucionTDeStudent,
                   ),
                 ],

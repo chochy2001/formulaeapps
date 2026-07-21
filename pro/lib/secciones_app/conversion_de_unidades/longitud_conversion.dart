@@ -44,14 +44,18 @@ class LongitudConversionState extends State<LongitudConversion> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.longitudConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.longitudConversion,
                                 widgetName: kWidgetLongitudConversion,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.longitudConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.longitudConversion,
                                 widgetName: kWidgetLongitudConversion,
                               ),
                             );
@@ -67,17 +71,35 @@ class LongitudConversionState extends State<LongitudConversion> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"1\ \text{cm} = 0.01\ \text{m} = 0.39370\ \text{pulg} = 0.032808\ \text{pie} = 0.010936\ \text{yd} = 6.2137\times10^{-6}\ \text{milla}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{cm} = 0.01\ \text{m} = 0.39370\ \text{pulg} = 0.032808\ \text{pie} = 0.010936\ \text{yd} = 6.2137\times10^{-6}\ \text{milla}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{m} = 100\ \text{cm} = 39.370\ \text{pulg} = 3.2808\ \text{pie} = 1.0936\ \text{yd} = 6.2137\times10^{-4}\ \text{milla}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{m} = 100\ \text{cm} = 39.370\ \text{pulg} = 3.2808\ \text{pie} = 1.0936\ \text{yd} = 6.2137\times10^{-4}\ \text{milla}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{pulg} = 2.54\ \text{cm} = 0.0254\ \text{m} = 0.083333\ \text{pie} = 0.027778\ \text{yd} = 1.5783\times10^{-5}\ \text{milla}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{pulg} = 2.54\ \text{cm} = 0.0254\ \text{m} = 0.083333\ \text{pie} = 0.027778\ \text{yd} = 1.5783\times10^{-5}\ \text{milla}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{pie} = 30.48\ \text{cm} = 0.3048\ \text{m} = 12\ \text{pulg} = 0.33333\ \text{yd} = 1.8939\times10^{-4}\ \text{milla}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{pie} = 30.48\ \text{cm} = 0.3048\ \text{m} = 12\ \text{pulg} = 0.33333\ \text{yd} = 1.8939\times10^{-4}\ \text{milla}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{yd} = 91.44\ \text{cm} = 0.9144\ \text{m} = 36\ \text{pulg} = 3\ \text{pie} = 5.6818\times10^{-4}\ \text{milla}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{yd} = 91.44\ \text{cm} = 0.9144\ \text{m} = 36\ \text{pulg} = 3\ \text{pie} = 5.6818\times10^{-4}\ \text{milla}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{milla} = 1.6093\times10^{5}\ \text{cm} = 1.6093\times10^{3}\ \text{m} = 6.336\times10^{4}\ \text{pulg} = 5280\ \text{pie} = 1760\ \text{yd}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{milla} = 1.6093\times10^{5}\ \text{cm} = 1.6093\times10^{3}\ \text{m} = 6.336\times10^{4}\ \text{pulg} = 5280\ \text{pie} = 1760\ \text{yd}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

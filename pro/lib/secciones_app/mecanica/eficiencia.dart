@@ -67,9 +67,15 @@ class EficienciaState extends State<Eficiencia> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"e = \frac{Q_{Ent} - Q_{Sal}}{Q_{Ent}} \times 100"),
+                  Latex(
+                    formulaText:
+                        r"e = \frac{Q_{Ent} - Q_{Sal}}{Q_{Ent}} \times 100",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"e = \frac{T_{Ent} - T_{Sal}}{T_{Ent}} \times 100"),
+                  Latex(
+                    formulaText:
+                        r"e = \frac{T_{Ent} - T_{Sal}}{T_{Ent}} \times 100",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E = \frac{T_s}{T_e} \times 100"),
                   SizedBox(height: kEspacioEntreBotones),

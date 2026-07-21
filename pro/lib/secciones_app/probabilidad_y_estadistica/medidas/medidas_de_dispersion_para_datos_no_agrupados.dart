@@ -26,18 +26,21 @@ class MedidasDeDispersionParaDatosNoAgrupadosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .dispersionParaDatosNoAgrupados,
+                      AppLocalizations.of(
+                        context,
+                      )!.dispersionParaDatosNoAgrupados,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .dispersionParaDatosNoAgrupados,
-                            widgetName:
-                                kWidgetMedidasDeDispersionParaDatosNoAgrupados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.dispersionParaDatosNoAgrupados,
+                          widgetName:
+                              kWidgetMedidasDeDispersionParaDatosNoAgrupados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +52,22 @@ class MedidasDeDispersionParaDatosNoAgrupadosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .dispersionParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeDispersionParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.dispersionParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeDispersionParaDatosNoAgrupados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .dispersionParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeDispersionParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.dispersionParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeDispersionParaDatosNoAgrupados,
+                                ),
                               );
                             }
                           });
@@ -69,27 +76,25 @@ class MedidasDeDispersionParaDatosNoAgrupadosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{X})^2}{n}"),
+                          formulaText:
+                              r"S^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{X})^2}{n}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.desviacionEstandar,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{X})^2}{n}}"),
+                          formulaText:
+                              r"S=\sqrt{\frac{\sum_{i=1}^{n}(x_i-\bar{X})^2}{n}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -108,10 +113,7 @@ class MedidasDeDispersionParaDatosNoAgrupadosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

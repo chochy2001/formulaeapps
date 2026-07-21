@@ -20,9 +20,12 @@ class _MenuInduccionElectromagneticaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,7 @@ class _MenuInduccionElectromagneticaState
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -53,14 +54,13 @@ class _MenuInduccionElectromagneticaState
                     AppLocalizations.of(context)!.induccionElectromagnetica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
                     ruta: kRutaGeneradorHomopolar,
-                    textoBoton:
-                        AppLocalizations.of(context)!.generadorHomopolar,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.generadorHomopolar,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaPropia,
@@ -72,28 +72,33 @@ class _MenuInduccionElectromagneticaState
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaPropiaDeUnSolenoide,
-                    textoBoton: AppLocalizations.of(context)!
-                        .inductanciaPropiaDeUnSolenoide,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaPropiaDeUnSolenoide,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaParaUnToroide,
-                    textoBoton:
-                        AppLocalizations.of(context)!.inductanciaParaUnToroide,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaParaUnToroide,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductanciaMutuaEntreDosSolenoidesCoaxiales,
-                    textoBoton: AppLocalizations.of(context)!
-                        .inductanciaMutuaEntreDosSolenoidesCoaxiales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.inductanciaMutuaEntreDosSolenoidesCoaxiales,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeInduccionDeFaraday,
-                    textoBoton: AppLocalizations.of(context)!
-                        .leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
                   ),
                   BotonesMenu(
                     ruta: kRutaEnergiaAlmacenadaEnUnCampoMagnetico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .energiaAlmacenadaEnUnCampoMagnetico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.energiaAlmacenadaEnUnCampoMagnetico,
                   ),
                   BotonesMenu(
                     ruta: kRutaInductor,

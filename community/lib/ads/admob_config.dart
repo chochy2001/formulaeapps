@@ -27,16 +27,16 @@ class AdMobConfig {
 
   static List<String> get _productionAdUnitIdsForCurrentPlatform =>
       Platform.isAndroid
-          ? <String>[
-              kBannerAdAndroidProduccion,
-              kIntersticialAndroidProduccion,
-              kCargaAppAnuncioAndroidProduccion,
-            ]
-          : <String>[
-              kBannerAdIOSProduccion,
-              kIntersticialIOSProduccion,
-              kCargaAppAnuncioIOSProduccion,
-            ];
+      ? <String>[
+          kBannerAdAndroidProduccion,
+          kIntersticialAndroidProduccion,
+          kCargaAppAnuncioAndroidProduccion,
+        ]
+      : <String>[
+          kBannerAdIOSProduccion,
+          kIntersticialIOSProduccion,
+          kCargaAppAnuncioIOSProduccion,
+        ];
 
   static bool get hasProductionAdUnitIds =>
       _productionAdUnitIdsForCurrentPlatform.every(isValidProductionAdUnitId);
@@ -99,7 +99,5 @@ class AdMobConfig {
     return kReleaseMode ? production : test;
   }
 
-  static const defaultRequest = AdRequest(
-    nonPersonalizedAds: true,
-  );
+  static const defaultRequest = AdRequest(nonPersonalizedAds: true);
 }

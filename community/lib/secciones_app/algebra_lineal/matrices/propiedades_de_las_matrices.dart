@@ -15,9 +15,12 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .propiedadesDeLasMatrices,
-                            widgetName: kWidgetPropiedadesDeLasMatrices),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLasMatrices,
+                          widgetName: kWidgetPropiedadesDeLasMatrices,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,18 +65,20 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLasMatrices,
-                                    widgetName:
-                                        kWidgetPropiedadesDeLasMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLasMatrices,
+                                  widgetName: kWidgetPropiedadesDeLasMatrices,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLasMatrices,
-                                    widgetName:
-                                        kWidgetPropiedadesDeLasMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLasMatrices,
+                                  widgetName: kWidgetPropiedadesDeLasMatrices,
+                                ),
                               );
                             }
                           });
@@ -80,9 +87,7 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,13 +95,12 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.definicionABC,
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
+                        const SizedBox(height: 30),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A=\begin{bmatrix}a_{11} & \dotsm & a_{1n}\\: & \ddots & :\\a_{m1} & \dotsm & a_{mn}\end{bmatrix}"),
+                          formulaText:
+                              r"A=\begin{bmatrix}a_{11} & \dotsm & a_{1n}\\: & \ddots & :\\a_{m1} & \dotsm & a_{mn}\end{bmatrix}",
+                        ),
                         const SizedBox(height: 70),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.propiedades,
@@ -107,28 +111,31 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                         const Latex(formulaText: r"(A+B)+C=A+(B+C)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"A\cdot (B+C)= A\cdot B+A\cdot C"),
+                          formulaText: r"A\cdot (B+C)= A\cdot B+A\cdot C",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"c\cdot (A+B)=c\cdot A+c\cdot B = cA+cB"),
+                          formulaText:
+                              r"c\cdot (A+B)=c\cdot A+c\cdot B = cA+cB",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(a+b)\cdot A = a \cdot A +b \cdot A"),
+                          formulaText: r"(a+b)\cdot A = a \cdot A +b \cdot A",
+                        ),
                         const SizedBox(height: 70),
                         const Latex(formulaText: r"1\cdot A =A"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A\cdot (B\cdot C)= (A\cdot B)\cdot C"),
+                          formulaText: r"A\cdot (B\cdot C)= (A\cdot B)\cdot C",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a\cdot(A\cdot B)=(a\cdot A)\cdot B"),
+                          formulaText: r"a\cdot(A\cdot B)=(a\cdot A)\cdot B",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(a\cdot b)\cdot A = a \cdot(b\cdot A)"),
+                          formulaText: r"(a\cdot b)\cdot A = a \cdot(b\cdot A)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"I\cdot A = A \cdot I = A"),
                         const SizedBox(height: 70),
@@ -139,20 +146,17 @@ class _PropiedadesDeLasMatricesState extends State<PropiedadesDeLasMatrices> {
                         const Latex(formulaText: r"0 \cdot A = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"A+(-1\cdot A)=(-1\cdot A)+A=0"),
+                          formulaText: r"A+(-1\cdot A)=(-1\cdot A)+A=0",
+                        ),
                         const SizedBox(height: 70),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPropiedadesDeLasMatrices,
-                  ),
+                  const VerPDF(url: kWidgetPropiedadesDeLasMatrices),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPropiedadesDeLasMatrices,
-                  ),
+                  const DescargarPDF(url: kWidgetPropiedadesDeLasMatrices),
                 ],
               ),
             ),

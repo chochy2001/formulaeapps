@@ -26,17 +26,20 @@ class PropiedadesNumerosComplejosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .propiedadesDeLosNumerosComplejos,
+                      AppLocalizations.of(
+                        context,
+                      )!.propiedadesDeLosNumerosComplejos,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .propiedadesDeLosNumerosComplejos,
-                            widgetName: kWidgetPropiedadesNumerosComplejos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLosNumerosComplejos,
+                          widgetName: kWidgetPropiedadesNumerosComplejos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +51,22 @@ class PropiedadesNumerosComplejosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLosNumerosComplejos,
-                                    widgetName:
-                                        kWidgetPropiedadesNumerosComplejos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLosNumerosComplejos,
+                                  widgetName:
+                                      kWidgetPropiedadesNumerosComplejos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLosNumerosComplejos,
-                                    widgetName:
-                                        kWidgetPropiedadesNumerosComplejos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLosNumerosComplejos,
+                                  widgetName:
+                                      kWidgetPropiedadesNumerosComplejos,
+                                ),
                               );
                             }
                           });
@@ -68,18 +75,14 @@ class PropiedadesNumerosComplejosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.propiedades,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
 
                         const Column(
                           children: [
@@ -103,15 +106,14 @@ class PropiedadesNumerosComplejosState
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"z\cdot z^{-1}=1"),
                             SizedBox(height: kEspacioEntreBotones),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
                         //Potencias de la unidad imaginaria
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .potenciasDeLaUnidadImaginaria,
+                          AppLocalizations.of(
+                            context,
+                          )!.potenciasDeLaUnidadImaginaria,
                         ),
                         const SizedBox(height: 20),
                         const Column(
@@ -124,9 +126,7 @@ class PropiedadesNumerosComplejosState
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"i^4=1"),
                             SizedBox(height: kEspacioEntreBotones),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -135,13 +135,9 @@ class PropiedadesNumerosComplejosState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPropiedadesNumerosComplejos,
-                  ),
+                  const VerPDF(url: kWidgetPropiedadesNumerosComplejos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPropiedadesNumerosComplejos,
-                  ),
+                  const DescargarPDF(url: kWidgetPropiedadesNumerosComplejos),
                 ],
               ),
             ),

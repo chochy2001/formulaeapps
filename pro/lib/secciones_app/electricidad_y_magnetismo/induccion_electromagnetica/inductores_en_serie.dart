@@ -27,8 +27,9 @@ class _InductoresEnSerieState extends State<InductoresEnSerie> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.inductoresEnSerie,
-                      widgetName: kWidgetInductoresEnSerie),
+                    title: AppLocalizations.of(context)!.inductoresEnSerie,
+                    widgetName: kWidgetInductoresEnSerie,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,20 @@ class _InductoresEnSerieState extends State<InductoresEnSerie> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductoresEnSerie,
-                              widgetName: kWidgetInductoresEnSerie),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductoresEnSerie,
+                            widgetName: kWidgetInductoresEnSerie,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductoresEnSerie,
-                              widgetName: kWidgetInductoresEnSerie),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductoresEnSerie,
+                            widgetName: kWidgetInductoresEnSerie,
+                          ),
                         );
                       }
                     });
@@ -66,7 +71,8 @@ class _InductoresEnSerieState extends State<InductoresEnSerie> {
                   AppLocalizations.of(context)!.conexionEnSerieSimbologia,
                 ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenConexionEnSerieInductor),
+                  urlImagen: kUrlImagenConexionEnSerieInductor,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.corrienteYDiferenciaDePotencial,
@@ -76,21 +82,22 @@ class _InductoresEnSerieState extends State<InductoresEnSerie> {
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"V_{AC} = V_{AB}+V_{BC}"),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.elSegundoAlambre,
+                TextoEcuaciones(AppLocalizations.of(context)!.elSegundoAlambre),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"V_{AB} = \frac{d}{dt}\Phi_B = \frac{d}{dt}(L_1I-MI)",
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"V_{AB} = \frac{d}{dt}\Phi_B = \frac{d}{dt}(L_1I-MI)"),
+                  formulaText:
+                      r"V_{BC} = \frac{d}{dt}\Phi_B = \frac{d}{dt}(L_2I-MI)",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"V_{BC} = \frac{d}{dt}\Phi_B = \frac{d}{dt}(L_2I-MI)"),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"V_{AC} = V_{BC}= (L_1 + L_2 - 2M) \frac{dI}{dt}"),
+                  formulaText:
+                      r"V_{AC} = V_{BC}= (L_1 + L_2 - 2M) \frac{dI}{dt}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -98,15 +105,11 @@ class _InductoresEnSerieState extends State<InductoresEnSerie> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetInductoresEnSerie,
-                ),
+                VerPDF(url: kWidgetInductoresEnSerie),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetInductoresEnSerie,
-                ),
+                DescargarPDF(url: kWidgetInductoresEnSerie),
               ],
-            )
+            ),
           ],
         ),
       ),

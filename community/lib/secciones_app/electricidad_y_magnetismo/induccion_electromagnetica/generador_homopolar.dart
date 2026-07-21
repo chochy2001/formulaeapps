@@ -14,9 +14,12 @@ class _GeneradorHomopolarState extends State<GeneradorHomopolar> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,9 +44,10 @@ class _GeneradorHomopolarState extends State<GeneradorHomopolar> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.generadorHomopolar,
-                      widgetName:
-                          kWidgetPrincipioDeOperacionDelGeneradorElectrico),
+                    title: AppLocalizations.of(context)!.generadorHomopolar,
+                    widgetName:
+                        kWidgetPrincipioDeOperacionDelGeneradorElectrico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -55,18 +59,22 @@ class _GeneradorHomopolarState extends State<GeneradorHomopolar> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .generadorHomopolar,
-                              widgetName:
-                                  kWidgetPrincipioDeOperacionDelGeneradorElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.generadorHomopolar,
+                            widgetName:
+                                kWidgetPrincipioDeOperacionDelGeneradorElectrico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .generadorHomopolar,
-                              widgetName:
-                                  kWidgetPrincipioDeOperacionDelGeneradorElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.generadorHomopolar,
+                            widgetName:
+                                kWidgetPrincipioDeOperacionDelGeneradorElectrico,
+                          ),
                         );
                       }
                     });
@@ -79,13 +87,13 @@ class _GeneradorHomopolarState extends State<GeneradorHomopolar> {
 
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.generador,
+                TextoEcuaciones(AppLocalizations.of(context)!.generador),
+                const ZoomImagePersonalizado(
+                  urlImagen: kUrlImagenGeneradorHomopolar1,
                 ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenGeneradorHomopolar1),
-                const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenGeneradorHomopolar2),
+                  urlImagen: kUrlImagenGeneradorHomopolar2,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.elMovimientoDeRotacionGenera,
@@ -104,19 +112,19 @@ class _GeneradorHomopolarState extends State<GeneradorHomopolar> {
                 const Latex(formulaText: r"d\varepsilon = Bv_Tdr"),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText:
-                        r"\varepsilon = \int Bv_Tdr = \int_0^R B\omega rdr"),
+                  formulaText:
+                      r"\varepsilon = \int Bv_Tdr = \int_0^R B\omega rdr",
+                ),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText: r"\varepsilon = B\omega \frac{R^2}{2}"),
+                  formulaText: r"\varepsilon = B\omega \frac{R^2}{2}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetPrincipioDeOperacionDelGeneradorElectrico,
-            ),
+            const VerPDF(url: kWidgetPrincipioDeOperacionDelGeneradorElectrico),
             //Descargar PDF
             const DescargarPDF(
               url: kWidgetPrincipioDeOperacionDelGeneradorElectrico,

@@ -20,27 +20,23 @@ class MenuVectoresLinealState extends State<MenuVectoresLineal> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const ImagenLogoFormulae(),
-              ),
+              TextButton(onPressed: () {}, child: const ImagenLogoFormulae()),
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.vectores,
                   style: kTextoBotones,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               Center(
                 child: MenuColumn(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //Ecuaciones Lineales
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.anguloEntreVectores,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.anguloEntreVectores,
                       ruta: kRutaAnguloEntreVectores,
                     ),
                     //Formulas de Productos
@@ -50,8 +46,9 @@ class MenuVectoresLinealState extends State<MenuVectoresLineal> {
                     ),
                     //Formula General
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.operacionesConVectores,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.operacionesConVectores,
                       ruta: kRutaOperacionesConVectores,
                     ),
                     BotonesMenu(
@@ -63,13 +60,15 @@ class MenuVectoresLinealState extends State<MenuVectoresLineal> {
                       ruta: kRutaProductoPunto,
                     ),
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .propiedadesDeLosVectores,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.propiedadesDeLosVectores,
                       ruta: kRutaPropiedadesDeLosVectores,
                     ),
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.proyeccionesDeVectores,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.proyeccionesDeVectores,
                       ruta: kRutaProyeccionesDeVectores,
                     ),
                     BotonesMenu(
@@ -77,8 +76,9 @@ class MenuVectoresLinealState extends State<MenuVectoresLineal> {
                       ruta: kRutaVectorUnitario,
                     ),
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.vectoresYSuMagnitud,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.vectoresYSuMagnitud,
                       ruta: kRutaVectoresYSuMagnitud,
                     ),
                   ],

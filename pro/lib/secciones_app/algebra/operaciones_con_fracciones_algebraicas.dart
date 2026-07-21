@@ -33,18 +33,21 @@ class OperacionesFraccionesAlgebraicasState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .operacionesFraccionesAlgebraicas,
+                      AppLocalizations.of(
+                        context,
+                      )!.operacionesFraccionesAlgebraicas,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .operacionesFraccionesAlgebraicas,
-                            widgetName:
-                                kWidgetOperacionesConFraccionesAlgebraicas),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.operacionesFraccionesAlgebraicas,
+                          widgetName:
+                              kWidgetOperacionesConFraccionesAlgebraicas,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -56,18 +59,22 @@ class OperacionesFraccionesAlgebraicasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesFraccionesAlgebraicas,
-                                    widgetName:
-                                        kWidgetOperacionesConFraccionesAlgebraicas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesFraccionesAlgebraicas,
+                                  widgetName:
+                                      kWidgetOperacionesConFraccionesAlgebraicas,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesFraccionesAlgebraicas,
-                                    widgetName:
-                                        kWidgetOperacionesConFraccionesAlgebraicas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesFraccionesAlgebraicas,
+                                  widgetName:
+                                      kWidgetOperacionesConFraccionesAlgebraicas,
+                                ),
                               );
                             }
                           });
@@ -75,153 +82,153 @@ class OperacionesFraccionesAlgebraicasState
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         //Suma
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.adicion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.adicion),
 
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\frac{a}{b}+\frac{c}{d}=\frac{ad}{bd}+\frac{cb}{bd}=\frac{ad+cb}{bd}"),
+                          formulaText:
+                              r"\frac{a}{b}+\frac{c}{d}=\frac{ad}{bd}+\frac{cb}{bd}=\frac{ad+cb}{bd}",
+                        ),
 
                         const SizedBox(height: 10),
                         //ignore_for_file: prefer_interpolation_to_compose_strings
                         Latex(
-                            formulaText: r"\frac{" +
-                                numeradorA.toString() +
-                                "}{" +
-                                denominadorB.toString() +
-                                r"}+\frac{" +
-                                numeradorC.toString() +
-                                "}{" +
-                                denominadorD.toString() +
-                                r"}=\frac{" +
-                                (numeradorA * denominadorD).toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}+\frac{" +
-                                (numeradorC * denominadorB).toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}=\frac{" +
-                                (numeradorA * denominadorD +
-                                        numeradorC * denominadorB)
-                                    .toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}"),
-
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
+                          formulaText:
+                              r"\frac{" +
+                              numeradorA.toString() +
+                              "}{" +
+                              denominadorB.toString() +
+                              r"}+\frac{" +
+                              numeradorC.toString() +
+                              "}{" +
+                              denominadorD.toString() +
+                              r"}=\frac{" +
+                              (numeradorA * denominadorD).toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}+\frac{" +
+                              (numeradorC * denominadorB).toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}=\frac{" +
+                              (numeradorA * denominadorD +
+                                      numeradorC * denominadorB)
+                                  .toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}",
                         ),
+
+                        const SizedBox(height: kEspacioEntreBotones),
                         //Resta
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.sustraccion,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\frac{a}{b}-\frac{c}{d}=\frac{ad}{bd}-\frac{cb}{bd}=\frac{ad-cb}{bd}"),
+                          formulaText:
+                              r"\frac{a}{b}-\frac{c}{d}=\frac{ad}{bd}-\frac{cb}{bd}=\frac{ad-cb}{bd}",
+                        ),
 
                         const SizedBox(height: 10),
                         Latex(
-                            formulaText: r"\frac{" +
-                                numeradorA.toString() +
-                                "}{" +
-                                denominadorB.toString() +
-                                r"}-\frac{" +
-                                numeradorC.toString() +
-                                "}{" +
-                                denominadorD.toString() +
-                                r"}=\frac{" +
-                                (numeradorA * denominadorD).toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}-\frac{" +
-                                (numeradorC * denominadorB).toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}=\frac{" +
-                                (numeradorA * denominadorD -
-                                        numeradorC * denominadorB)
-                                    .toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}"),
-
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
+                          formulaText:
+                              r"\frac{" +
+                              numeradorA.toString() +
+                              "}{" +
+                              denominadorB.toString() +
+                              r"}-\frac{" +
+                              numeradorC.toString() +
+                              "}{" +
+                              denominadorD.toString() +
+                              r"}=\frac{" +
+                              (numeradorA * denominadorD).toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}-\frac{" +
+                              (numeradorC * denominadorB).toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}=\frac{" +
+                              (numeradorA * denominadorD -
+                                      numeradorC * denominadorB)
+                                  .toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}",
                         ),
+
+                        const SizedBox(height: kEspacioEntreBotones),
                         //Multiplicacion
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.multiplicacion,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\frac{a}{b}\cdot\frac{c}{d}=\frac{ac}{bd}"),
+                          formulaText:
+                              r"\frac{a}{b}\cdot\frac{c}{d}=\frac{ac}{bd}",
+                        ),
 
                         const SizedBox(height: 10),
 
                         Latex(
-                            formulaText: r"  \frac{" +
-                                numeradorA.toString() +
-                                "}{" +
-                                denominadorB.toString() +
-                                r"}\cdot\frac{" +
-                                numeradorC.toString() +
-                                "}{" +
-                                denominadorD.toString() +
-                                r"}=\frac{" +
-                                (numeradorA * numeradorC).toString() +
-                                "}{" +
-                                (denominadorB * denominadorD).toString() +
-                                r"}    "),
+                          formulaText:
+                              r"  \frac{" +
+                              numeradorA.toString() +
+                              "}{" +
+                              denominadorB.toString() +
+                              r"}\cdot\frac{" +
+                              numeradorC.toString() +
+                              "}{" +
+                              denominadorD.toString() +
+                              r"}=\frac{" +
+                              (numeradorA * numeradorC).toString() +
+                              "}{" +
+                              (denominadorB * denominadorD).toString() +
+                              r"}    ",
+                        ),
 
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         //División
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.division,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.division),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\frac{a}{b}\div\frac{c}{d}=\frac{ad}{bc}=\frac{a}{b}\left(\frac{d}{c}\right)"),
+                          formulaText:
+                              r"\frac{a}{b}\div\frac{c}{d}=\frac{ad}{bc}=\frac{a}{b}\left(\frac{d}{c}\right)",
+                        ),
 
                         const SizedBox(height: 10),
 
                         Latex(
-                            formulaText: r"\frac{" +
-                                numeradorA.toString() +
-                                "}{" +
-                                denominadorB.toString() +
-                                r"}\div\frac{" +
-                                numeradorC.toString() +
-                                "}{" +
-                                denominadorD.toString() +
-                                r"}=\frac{" +
-                                (numeradorA * denominadorD).toString() +
-                                "}{" +
-                                (denominadorB * numeradorC).toString() +
-                                r"}=\frac{" +
-                                numeradorA.toString() +
-                                "}{" +
-                                denominadorB.toString() +
-                                r"}\left(\frac{" +
-                                denominadorD.toString() +
-                                "}{" +
-                                numeradorC.toString() +
-                                r"}\right)"),
+                          formulaText:
+                              r"\frac{" +
+                              numeradorA.toString() +
+                              "}{" +
+                              denominadorB.toString() +
+                              r"}\div\frac{" +
+                              numeradorC.toString() +
+                              "}{" +
+                              denominadorD.toString() +
+                              r"}=\frac{" +
+                              (numeradorA * denominadorD).toString() +
+                              "}{" +
+                              (denominadorB * numeradorC).toString() +
+                              r"}=\frac{" +
+                              numeradorA.toString() +
+                              "}{" +
+                              denominadorB.toString() +
+                              r"}\left(\frac{" +
+                              denominadorD.toString() +
+                              "}{" +
+                              numeradorC.toString() +
+                              r"}\right)",
+                        ),
 
                         const SizedBox(height: 30.0),
                         Theme(
@@ -230,25 +237,25 @@ class OperacionesFraccionesAlgebraicasState
                             primaryColorDark: Colors.white,
                             hintColor: Colors.white,
                             inputDecorationTheme: const InputDecorationTheme(
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                              ),
+                              hintStyle: TextStyle(color: Colors.white),
+                              labelStyle: TextStyle(color: Colors.white),
                             ),
                           ),
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height *
+                            height:
+                                MediaQuery.of(context).size.height *
                                 interactiveHeight,
-                            width: MediaQuery.of(context).size.width *
+                            width:
+                                MediaQuery.of(context).size.width *
                                 interactiveWidth,
                             child: TextField(
                               style: kTextoBotones,
                               cursorColor: Colors.white,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                                    signed: true,
+                                    decimal: true,
+                                  ),
                               decoration: InputDecoration(
                                 hintText: "5",
                                 hintStyle: const TextStyle(color: Colors.grey),
@@ -275,25 +282,25 @@ class OperacionesFraccionesAlgebraicasState
                             primaryColorDark: Colors.white,
                             hintColor: Colors.white,
                             inputDecorationTheme: const InputDecorationTheme(
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                              ),
+                              hintStyle: TextStyle(color: Colors.white),
+                              labelStyle: TextStyle(color: Colors.white),
                             ),
                           ),
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height *
+                            height:
+                                MediaQuery.of(context).size.height *
                                 interactiveHeight,
-                            width: MediaQuery.of(context).size.width *
+                            width:
+                                MediaQuery.of(context).size.width *
                                 interactiveWidth,
                             child: TextField(
                               style: kTextoBotones,
                               cursorColor: Colors.white,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                                    signed: true,
+                                    decimal: true,
+                                  ),
                               decoration: InputDecoration(
                                 hintText: "5",
                                 hintStyle: const TextStyle(color: Colors.grey),
@@ -320,25 +327,25 @@ class OperacionesFraccionesAlgebraicasState
                             primaryColorDark: Colors.white,
                             hintColor: Colors.white,
                             inputDecorationTheme: const InputDecorationTheme(
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                              ),
+                              hintStyle: TextStyle(color: Colors.white),
+                              labelStyle: TextStyle(color: Colors.white),
                             ),
                           ),
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height *
+                            height:
+                                MediaQuery.of(context).size.height *
                                 interactiveHeight,
-                            width: MediaQuery.of(context).size.width *
+                            width:
+                                MediaQuery.of(context).size.width *
                                 interactiveWidth,
                             child: TextField(
                               style: kTextoBotones,
                               cursorColor: Colors.white,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                                    signed: true,
+                                    decimal: true,
+                                  ),
                               decoration: InputDecoration(
                                 hintText: "5",
                                 hintStyle: const TextStyle(color: Colors.grey),
@@ -365,25 +372,25 @@ class OperacionesFraccionesAlgebraicasState
                             primaryColorDark: Colors.white,
                             hintColor: Colors.white,
                             inputDecorationTheme: const InputDecorationTheme(
-                              hintStyle: TextStyle(
-                                color: Colors.white,
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.white,
-                              ),
+                              hintStyle: TextStyle(color: Colors.white),
+                              labelStyle: TextStyle(color: Colors.white),
                             ),
                           ),
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height *
+                            height:
+                                MediaQuery.of(context).size.height *
                                 interactiveHeight,
-                            width: MediaQuery.of(context).size.width *
+                            width:
+                                MediaQuery.of(context).size.width *
                                 interactiveWidth,
                             child: TextField(
                               style: kTextoBotones,
                               cursorColor: Colors.white,
                               keyboardType:
                                   const TextInputType.numberWithOptions(
-                                      signed: true, decimal: true),
+                                    signed: true,
+                                    decimal: true,
+                                  ),
                               decoration: InputDecoration(
                                 hintText: "5",
                                 hintStyle: const TextStyle(color: Colors.grey),
@@ -405,14 +412,16 @@ class OperacionesFraccionesAlgebraicasState
                         ),
                         const SizedBox(height: kEspacioInteractivo),
                         _solucionFracciones(
-                            numeradorA, numeradorC, denominadorB, denominadorD),
+                          numeradorA,
+                          numeradorC,
+                          denominadorB,
+                          denominadorD,
+                        ),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetOperacionesConFraccionesAlgebraicas,
-                  ),
+                  const VerPDF(url: kWidgetOperacionesConFraccionesAlgebraicas),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetOperacionesConFraccionesAlgebraicas,
@@ -427,7 +436,11 @@ class OperacionesFraccionesAlgebraicasState
   }
 
   Widget _solucionFracciones(
-      numeradorA, numeradorC, denominadorB, denominadorD) {
+    numeradorA,
+    numeradorC,
+    denominadorB,
+    denominadorD,
+  ) {
     double fraccion1 = numeradorA / denominadorB;
     double fraccion2 = numeradorC / denominadorD;
     double suma = fraccion1 + fraccion2;
@@ -439,10 +452,7 @@ class OperacionesFraccionesAlgebraicasState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: SingleChildScrollView(
         child: ConstrainedBox(

@@ -30,7 +30,9 @@ class MovimientoDeProyectilesState extends State<MovimientoDeProyectiles> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.movimientoDeProyectiles,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.movimientoDeProyectiles,
                         widgetName: kWidgetMovimientoDeProyectiles,
                       ),
                     );
@@ -44,14 +46,18 @@ class MovimientoDeProyectilesState extends State<MovimientoDeProyectiles> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.movimientoDeProyectiles,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.movimientoDeProyectiles,
                                 widgetName: kWidgetMovimientoDeProyectiles,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.movimientoDeProyectiles,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.movimientoDeProyectiles,
                                 widgetName: kWidgetMovimientoDeProyectiles,
                               ),
                             );
@@ -67,13 +73,21 @@ class MovimientoDeProyectilesState extends State<MovimientoDeProyectiles> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"T = \frac{2 V \operatorname{sen}\theta}{g}"),
+                  Latex(
+                    formulaText: r"T = \frac{2 V \operatorname{sen}\theta}{g}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"H = \frac{(V \operatorname{sen}\theta)^{2}}{2g}"),
+                  Latex(
+                    formulaText:
+                        r"H = \frac{(V \operatorname{sen}\theta)^{2}}{2g}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tan\theta = \frac{h}{d}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"R = \frac{V^{2}}{g}\,\operatorname{sen} 2\theta"),
+                  Latex(
+                    formulaText:
+                        r"R = \frac{V^{2}}{g}\,\operatorname{sen} 2\theta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

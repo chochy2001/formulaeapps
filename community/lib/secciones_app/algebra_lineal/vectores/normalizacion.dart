@@ -14,9 +14,12 @@ class _NormalizacionState extends State<Normalizacion> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _NormalizacionState extends State<Normalizacion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.normalizacion,
-                            widgetName: kWidgetNormalizacion),
+                          title: AppLocalizations.of(context)!.normalizacion,
+                          widgetName: kWidgetNormalizacion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _NormalizacionState extends State<Normalizacion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .normalizacion,
-                                    widgetName: kWidgetNormalizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.normalizacion,
+                                  widgetName: kWidgetNormalizacion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .normalizacion,
-                                    widgetName: kWidgetNormalizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.normalizacion,
+                                  widgetName: kWidgetNormalizacion,
+                                ),
                               );
                             }
                           });
@@ -81,35 +89,30 @@ class _NormalizacionState extends State<Normalizacion> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.norma,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.norma),
                         const Latex(formulaText: r"p"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"||\mathrm{v}||_p = (|v_1|^p+|v_2|^p+\cdots + |v_n|^p)^{\frac{1}{p}}"),
+                          formulaText:
+                              r"||\mathrm{v}||_p = (|v_1|^p+|v_2|^p+\cdots + |v_n|^p)^{\frac{1}{p}}",
+                        ),
                         const SizedBox(height: 80),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.vectorNormalizado,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{\mathrm{v}}{||\mathrm{v}||_p}"),
+                          formulaText: r"\frac{\mathrm{v}}{||\mathrm{v}||_p}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetNormalizacion,
-                  ),
+                  const VerPDF(url: kWidgetNormalizacion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetNormalizacion,
-                  ),
+                  const DescargarPDF(url: kWidgetNormalizacion),
                 ],
               ),
             ),

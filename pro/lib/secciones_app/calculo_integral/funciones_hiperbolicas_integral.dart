@@ -25,17 +25,20 @@ class FuncionesHiperbolicasIntegralState
             children: [
               ChatGPTButton(
                 child: TituloPersonalizado(
-                  AppLocalizations.of(context)!
-                      .integralesDeFuncionesTrigonometricasHiperbolicas,
+                  AppLocalizations.of(
+                    context,
+                  )!.integralesDeFuncionesTrigonometricasHiperbolicas,
                 ),
               ),
               Consumer<FavoritesNotifier>(
                 builder: (context, favoritesNotifier, child) {
                   bool isFavorite = favoritesNotifier.isFavorite(
                     Favorite(
-                        title: AppLocalizations.of(context)!
-                            .integralesDeFuncionesTrigonometricasHiperbolicas,
-                        widgetName: kWidgetFuncionesHiperbolicasIntegral),
+                      title: AppLocalizations.of(
+                        context,
+                      )!.integralesDeFuncionesTrigonometricasHiperbolicas,
+                      widgetName: kWidgetFuncionesHiperbolicasIntegral,
+                    ),
                   );
                   return IconButton(
                     icon: isFavorite
@@ -47,18 +50,20 @@ class FuncionesHiperbolicasIntegralState
                         if (isFavorite) {
                           favoritesNotifier.removeFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integralesDeFuncionesTrigonometricasHiperbolicas,
-                                widgetName:
-                                    kWidgetFuncionesHiperbolicasIntegral),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integralesDeFuncionesTrigonometricasHiperbolicas,
+                              widgetName: kWidgetFuncionesHiperbolicasIntegral,
+                            ),
                           );
                         } else {
                           favoritesNotifier.addFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integralesDeFuncionesTrigonometricasHiperbolicas,
-                                widgetName:
-                                    kWidgetFuncionesHiperbolicasIntegral),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integralesDeFuncionesTrigonometricasHiperbolicas,
+                              widgetName: kWidgetFuncionesHiperbolicasIntegral,
+                            ),
                           );
                         }
                       });
@@ -67,86 +72,81 @@ class FuncionesHiperbolicasIntegralState
                 },
               ),
 
-              const SizedBox(
-                height: 30.0,
-              ),
+              const SizedBox(height: 30.0),
               const ZoomPersonalizado(
                 child: Column(
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \sinh \thinspace u \space du = \thinspace csch(u)+C"),
+                      formulaText:
+                          r"\int \sinh \thinspace u \space du = \thinspace csch(u)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \cosh \thinspace u \space du = \thinspace \sinh(u)+C"),
+                      formulaText:
+                          r"\int \cosh \thinspace u \space du = \thinspace \sinh(u)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int sech \thinspace u \space du = \thinspace \tanh^{-1}|\sinh\space u|+C"),
+                      formulaText:
+                          r"\int sech \thinspace u \space du = \thinspace \tanh^{-1}|\sinh\space u|+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int sech^2 \thinspace u \space du = \thinspace \tanh(u)+C"),
+                      formulaText:
+                          r"\int sech^2 \thinspace u \space du = \thinspace \tanh(u)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int sech \thinspace u \space \tanh\thinspace u\space du = -sech(u)+C"),
+                      formulaText:
+                          r"\int sech \thinspace u \space \tanh\thinspace u\space du = -sech(u)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int csch \thinspace u \space du = -\coth^{-1}(\cosh\thinspace u)+ C"),
+                      formulaText:
+                          r"\int csch \thinspace u \space du = -\coth^{-1}(\cosh\thinspace u)+ C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int csch^2 \thinspace u \space du = -\coth(u)+ C"),
+                      formulaText:
+                          r"\int csch^2 \thinspace u \space du = -\coth(u)+ C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int csch \thinspace u\thinspace \coth \thinspace u \space du = -csch(u)+ C"),
+                      formulaText:
+                          r"\int csch \thinspace u\thinspace \coth \thinspace u \space du = -csch(u)+ C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \tanh\thinspace u \space du = ln|\cosh \thinspace u| +C"),
+                      formulaText:
+                          r"\int \tanh\thinspace u \space du = ln|\cosh \thinspace u| +C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \coth\thinspace u \space du = ln|\sinh \thinspace u| +C"),
+                      formulaText:
+                          r"\int \coth\thinspace u \space du = ln|\sinh \thinspace u| +C",
+                    ),
                   ],
                 ),
               ),
 
-              const SizedBox(
-                height: kEspacioEntreBotones,
-              ),
+              const SizedBox(height: kEspacioEntreBotones),
 
-              const Padding(
-                padding: EdgeInsets.only(top: 10.0),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const Padding(padding: EdgeInsets.only(top: 10.0)),
+              const SizedBox(height: 20.0),
               //Boton para acceder al formulario en PDF
               const Column(
                 children: [
-                  VerPDF(
-                    url: kWidgetFuncionesHiperbolicasIntegral,
-                  ),
+                  VerPDF(url: kWidgetFuncionesHiperbolicasIntegral),
                   //Descargar PDF
-                  DescargarPDF(
-                    url: kWidgetFuncionesHiperbolicasIntegral,
-                  ),
+                  DescargarPDF(url: kWidgetFuncionesHiperbolicasIntegral),
                 ],
               ),
 
               Container(
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(

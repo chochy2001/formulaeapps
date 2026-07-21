@@ -44,14 +44,18 @@ class MomentoDeTorsionState extends State<MomentoDeTorsion> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.momentoDeTorsion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.momentoDeTorsion,
                                 widgetName: kWidgetMomentoDeTorsion,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.momentoDeTorsion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.momentoDeTorsion,
                                 widgetName: kWidgetMomentoDeTorsion,
                               ),
                             );
@@ -71,7 +75,10 @@ class MomentoDeTorsionState extends State<MomentoDeTorsion> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"F \perp d"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"M > 0 \;(\circlearrowleft) \quad , \quad M < 0 \;(\circlearrowright)"),
+                  Latex(
+                    formulaText:
+                        r"M > 0 \;(\circlearrowleft) \quad , \quad M < 0 \;(\circlearrowright)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

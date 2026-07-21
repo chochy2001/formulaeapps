@@ -16,9 +16,12 @@ class _EcuacionDiferencialHomogeneaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _EcuacionDiferencialHomogeneaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionDiferencialHomogenea,
-                            widgetName: kWidgetEcuacionDiferencialHomogenea),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionDiferencialHomogenea,
+                          widgetName: kWidgetEcuacionDiferencialHomogenea,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _EcuacionDiferencialHomogeneaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialHomogenea,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialHomogenea),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialHomogenea,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialHomogenea,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialHomogenea,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialHomogenea),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialHomogenea,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialHomogenea,
+                                ),
                               );
                             }
                           });
@@ -81,34 +90,37 @@ class _EcuacionDiferencialHomogeneaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY,
+                          AppLocalizations.of(
+                            context,
+                          )!.podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .sustitucionDeLasVariables,
+                          AppLocalizations.of(
+                            context,
+                          )!.sustitucionDeLasVariables,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"v = \frac{y}{x}\rightarrow y = vx \rightarrow dy = vdx + xdv"),
+                          formulaText:
+                              r"v = \frac{y}{x}\rightarrow y = vx \rightarrow dy = vdx + xdv",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"v = \frac{x}{y}\rightarrow x = vy \rightarrow dx = vdy + ydv"),
+                          formulaText:
+                              r"v = \frac{x}{y}\rightarrow x = vy \rightarrow dx = vdy + ydv",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales,
+                          AppLocalizations.of(
+                            context,
+                          )!.seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -116,29 +128,23 @@ class _EcuacionDiferencialHomogeneaState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetEcuacionDiferencialHomogenea,
-                  ),
+                  const VerPDF(url: kWidgetEcuacionDiferencialHomogenea),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetEcuacionDiferencialHomogenea,
-                  ),
+                  const DescargarPDF(url: kWidgetEcuacionDiferencialHomogenea),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seUtilizaLaSustitucionDiferencialQueTengaElCoeficienteMasSencillo,
+                          AppLocalizations.of(
+                            context,
+                          )!.seUtilizaLaSustitucionDiferencialQueTengaElCoeficienteMasSencillo,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

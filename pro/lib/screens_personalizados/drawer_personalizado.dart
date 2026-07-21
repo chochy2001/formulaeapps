@@ -26,25 +26,25 @@ class DrawerPersonalizado extends StatelessWidget {
             child: Center(
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  bool isNarrow = constraints.maxWidth <=
+                  bool isNarrow =
+                      constraints.maxWidth <=
                       widthFinal; // Establece el límite que consideras apropiado para el cambio de estilo del texto.
                   return ListView(
                     children: [
-                      Column(children: [
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            top: 20.0,
-                            bottom: 10.0,
+                      Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                            child: ProductMark(size: 72.0),
                           ),
-                          child: ProductMark(size: 72.0),
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.formulaePro,
-                          style: GoogleFonts.poppins(
-                            textStyle: kTextoBotones,
+                          Text(
+                            AppLocalizations.of(context)!.formulaePro,
+                            style: GoogleFonts.poppins(
+                              textStyle: kTextoBotones,
+                            ),
                           ),
-                        ),
-                      ]),
+                        ],
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -55,7 +55,9 @@ class DrawerPersonalizado extends StatelessWidget {
                         maxLines: isNarrow ? 2 : 1,
                         onTap: () {
                           Navigator.pushNamed(
-                              context, kRutaPreguntasFrecuentes);
+                            context,
+                            kRutaPreguntasFrecuentes,
+                          );
                         },
                       ),
                       SizedBox(
@@ -88,10 +90,7 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
-                      ),
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -100,7 +99,8 @@ class DrawerPersonalizado extends StatelessWidget {
                         icon: FontAwesomeIcons.googlePlay,
                         url: () {
                           openURLNuevo(
-                              'https://play.google.com/store/apps/details?id=com.capdesis.formulae_pro.formulae_calculo_pro');
+                            'https://play.google.com/store/apps/details?id=com.capdesis.formulae_pro.formulae_calculo_pro',
+                          );
                         },
                       ),
                       SizedBox(
@@ -112,181 +112,18 @@ class DrawerPersonalizado extends StatelessWidget {
                         text: AppLocalizations.of(context)!.compartirApp,
                         maxLines: isNarrow ? 2 : 1,
                         onTap: () {
-                          SharePlus.instance.share(ShareParams(
+                          SharePlus.instance.share(
+                            ShareParams(
                               text:
-                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae',
+                            ),
+                          );
                         },
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      BotonRedSocial(
-                        text: "Facebook",
-                        icon: FontAwesomeIcons.facebookF,
-                        url: () {
-                          openURLNuevo(kFacebookFormulae);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      BotonRedSocial(
-                        text: "Instagram",
-//create a instagram icon
-                        icon: FontAwesomeIcons.instagram,
-                        url: () {
-                          openURLNuevo(kInstagramFormulae);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      BotonRedSocial(
-                        text: AppLocalizations.of(context)!.paginaWeb,
-
-                        icon: FontAwesomeIcons.firefoxBrowser,
-//icon: FontAwesomeIcons.chrome,
-                        url: () {
-                          openURLNuevo(kPaginaWebFormulae);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      BotonRedSocial(
-                        text: AppLocalizations.of(context)!.mejorarApp,
-                        icon: FontAwesomeIcons.lightbulb,
-                        url: () {
-                          openURLNuevo1(context, kWidgetMejorarApp);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      const CapdesisAttribution(),
-                      const SizedBox(height: 12.0),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
-        );
-      //IOS
-      case 1:
-        return Drawer(
-          width: MediaQuery.of(context).size.width * 0.7,
-          backgroundColor: kColorFondo,
-          child: SafeArea(
-            child: Center(
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  bool isNarrow = constraints.maxWidth <=
-                      DrawerPersonalizado
-                          .widthFinal; // Establece el límite que consideras apropiado para el cambio de estilo del texto.
-
-                  return ListView(
-                    children: [
-                      Column(children: [
-                        const ProductMark(size: 72.0),
-                        Text(
-                          AppLocalizations.of(context)!.formulaePro,
-                          style: GoogleFonts.poppins(
-                            textStyle: kTextoBotones,
-                          ),
-                        ),
-                      ]),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      BotonDrawerItem(
-                        icon: Icons.question_mark_rounded,
-                        iconSize: 30.0,
-                        text: AppLocalizations.of(context)!.preguntasFrecuentes,
-                        maxLines: isNarrow ? 2 : 1,
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, kRutaPreguntasFrecuentes);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      BotonDrawerItem(
-                        icon: Icons.info_outline_rounded,
-                        iconSize: 30.0,
-                        text: AppLocalizations.of(context)!.informacion,
-                        maxLines: isNarrow ? 2 : 1,
-                        onTap: () {
-                          Navigator.pushNamed(context, kRutaInformacion);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      BotonDrawerItem(
-                        icon: Icons.settings,
-                        iconSize: 30.0,
-                        text: AppLocalizations.of(context)!.configuracion,
-                        maxLines: isNarrow ? 2 : 1,
-                        onTap: () {
-                          Navigator.pushNamed(context, kRutaConfiguracion);
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      BotonRedSocial(
-                        text: AppLocalizations.of(context)!.verApp,
-                        //create a instagram icon
-                        icon: FontAwesomeIcons.appStore,
-                        url: () {
-                          openURLNuevo(
-                              'https://apps.apple.com/us/app/formulae-pro/id1666691016');
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      BotonDrawerItem(
-                        icon: Icons.share,
-                        iconSize: 30.0,
-                        text: AppLocalizations.of(context)!.compartirApp,
-                        maxLines: isNarrow ? 2 : 1,
-                        onTap: () {
-                          SharePlus.instance.share(ShareParams(
-                              text:
-                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
-                        },
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
-                      ),
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -323,10 +160,170 @@ class DrawerPersonalizado extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
-                      const Divider(
-                        color: kColorTextoBotones,
-                        thickness: 0.2,
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
                       ),
+                      BotonRedSocial(
+                        text: AppLocalizations.of(context)!.mejorarApp,
+                        icon: FontAwesomeIcons.lightbulb,
+                        url: () {
+                          openURLNuevo1(context, kWidgetMejorarApp);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      const CapdesisAttribution(),
+                      const SizedBox(height: 12.0),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      //IOS
+      case 1:
+        return Drawer(
+          width: MediaQuery.of(context).size.width * 0.7,
+          backgroundColor: kColorFondo,
+          child: SafeArea(
+            child: Center(
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  bool isNarrow =
+                      constraints.maxWidth <=
+                      DrawerPersonalizado
+                          .widthFinal; // Establece el límite que consideras apropiado para el cambio de estilo del texto.
+
+                  return ListView(
+                    children: [
+                      Column(
+                        children: [
+                          const ProductMark(size: 72.0),
+                          Text(
+                            AppLocalizations.of(context)!.formulaePro,
+                            style: GoogleFonts.poppins(
+                              textStyle: kTextoBotones,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      BotonDrawerItem(
+                        icon: Icons.question_mark_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.preguntasFrecuentes,
+                        maxLines: isNarrow ? 2 : 1,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            kRutaPreguntasFrecuentes,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      BotonDrawerItem(
+                        icon: Icons.info_outline_rounded,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.informacion,
+                        maxLines: isNarrow ? 2 : 1,
+                        onTap: () {
+                          Navigator.pushNamed(context, kRutaInformacion);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      BotonDrawerItem(
+                        icon: Icons.settings,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.configuracion,
+                        maxLines: isNarrow ? 2 : 1,
+                        onTap: () {
+                          Navigator.pushNamed(context, kRutaConfiguracion);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      BotonRedSocial(
+                        text: AppLocalizations.of(context)!.verApp,
+                        //create a instagram icon
+                        icon: FontAwesomeIcons.appStore,
+                        url: () {
+                          openURLNuevo(
+                            'https://apps.apple.com/us/app/formulae-pro/id1666691016',
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      BotonDrawerItem(
+                        icon: Icons.share,
+                        iconSize: 30.0,
+                        text: AppLocalizations.of(context)!.compartirApp,
+                        maxLines: isNarrow ? 2 : 1,
+                        onTap: () {
+                          SharePlus.instance.share(
+                            ShareParams(
+                              text:
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae',
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      BotonRedSocial(
+                        text: "Facebook",
+                        icon: FontAwesomeIcons.facebookF,
+                        url: () {
+                          openURLNuevo(kFacebookFormulae);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      BotonRedSocial(
+                        text: "Instagram",
+                        //create a instagram icon
+                        icon: FontAwesomeIcons.instagram,
+                        url: () {
+                          openURLNuevo(kInstagramFormulae);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      BotonRedSocial(
+                        text: AppLocalizations.of(context)!.paginaWeb,
+
+                        icon: FontAwesomeIcons.firefoxBrowser,
+                        //icon: FontAwesomeIcons.chrome,
+                        url: () {
+                          openURLNuevo(kPaginaWebFormulae);
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      ),
+                      const Divider(color: kColorTextoBotones, thickness: 0.2),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
@@ -359,33 +356,39 @@ class DrawerPersonalizado extends StatelessWidget {
               child: Center(
                 child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    bool isNarrow = constraints.maxWidth <=
+                    bool isNarrow =
+                        constraints.maxWidth <=
                         DrawerPersonalizado
                             .widthFinal; // Establece el límite que consideras apropiado para el cambio de estilo del texto.
 
                     return ListView(
                       children: [
-                        Column(children: [
-                          const ProductMark(size: 72.0),
-                          Text(
-                            AppLocalizations.of(context)!.formulaePro,
-                            style: GoogleFonts.poppins(
-                              textStyle: kTextoBotones,
+                        Column(
+                          children: [
+                            const ProductMark(size: 72.0),
+                            Text(
+                              AppLocalizations.of(context)!.formulaePro,
+                              style: GoogleFonts.poppins(
+                                textStyle: kTextoBotones,
+                              ),
                             ),
-                          ),
-                        ]),
+                          ],
+                        ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.05,
                         ),
                         BotonDrawerItem(
                           icon: Icons.question_mark_rounded,
                           iconSize: 30.0,
-                          text: AppLocalizations.of(context)!
-                              .preguntasFrecuentes,
+                          text: AppLocalizations.of(
+                            context,
+                          )!.preguntasFrecuentes,
                           maxLines: isNarrow ? 2 : 1,
                           onTap: () {
                             Navigator.pushNamed(
-                                context, kRutaPreguntasFrecuentes);
+                              context,
+                              kRutaPreguntasFrecuentes,
+                            );
                           },
                         ),
                         SizedBox(
@@ -424,11 +427,12 @@ class DrawerPersonalizado extends StatelessWidget {
                         ),
                         BotonRedSocial(
                           text: AppLocalizations.of(context)!.verApp,
-//create a instagram icon
+                          //create a instagram icon
                           icon: FontAwesomeIcons.microsoft,
                           url: () {
                             openURLNuevo(
-                                'https://www.microsoft.com/store/productId/9PLJZVDNGWZL');
+                              'https://www.microsoft.com/store/productId/9PLJZVDNGWZL',
+                            );
                           },
                         ),
                         SizedBox(
@@ -440,9 +444,12 @@ class DrawerPersonalizado extends StatelessWidget {
                           text: AppLocalizations.of(context)!.compartirApp,
                           maxLines: isNarrow ? 2 : 1,
                           onTap: () {
-                            SharePlus.instance.share(ShareParams(
+                            SharePlus.instance.share(
+                              ShareParams(
                                 text:
-                                    '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
+                                    '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae',
+                              ),
+                            );
                           },
                         ),
                         SizedBox(
@@ -467,7 +474,7 @@ class DrawerPersonalizado extends StatelessWidget {
                         ),
                         BotonRedSocial(
                           text: "Instagram",
-//create a instagram icon
+                          //create a instagram icon
                           icon: FontAwesomeIcons.instagram,
                           url: () {
                             openURLNuevo(kInstagramFormulae);
@@ -480,7 +487,7 @@ class DrawerPersonalizado extends StatelessWidget {
                           text: AppLocalizations.of(context)!.paginaWeb,
 
                           icon: FontAwesomeIcons.firefoxBrowser,
-//icon: FontAwesomeIcons.chrome,
+                          //icon: FontAwesomeIcons.chrome,
                           url: () {
                             openURLNuevo(kPaginaWebFormulae);
                           },

@@ -26,17 +26,20 @@ class TransformadasBasicasDeFourierState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .transformadasBasicasDeFourier,
+                      AppLocalizations.of(
+                        context,
+                      )!.transformadasBasicasDeFourier,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .transformadasBasicasDeFourier,
-                            widgetName: kWidgetTransformadasBasicasDeFourier),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.transformadasBasicasDeFourier,
+                          widgetName: kWidgetTransformadasBasicasDeFourier,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +51,22 @@ class TransformadasBasicasDeFourierState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadasBasicasDeFourier,
-                                    widgetName:
-                                        kWidgetTransformadasBasicasDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadasBasicasDeFourier,
+                                  widgetName:
+                                      kWidgetTransformadasBasicasDeFourier,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadasBasicasDeFourier,
-                                    widgetName:
-                                        kWidgetTransformadasBasicasDeFourier),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadasBasicasDeFourier,
+                                  widgetName:
+                                      kWidgetTransformadasBasicasDeFourier,
+                                ),
                               );
                             }
                           });
@@ -68,16 +75,12 @@ class TransformadasBasicasDeFourierState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a_1f_1(t)+a_2f_2(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -86,13 +89,12 @@ class TransformadasBasicasDeFourierState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a_1F_1(\omega)+a_2F_2(\omega)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText: r"a_1F_1(\omega)+a_2F_2(\omega)",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f(at)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -101,14 +103,13 @@ class TransformadasBasicasDeFourierState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{1}{|a|}F\left(\frac{\omega}{a}\right)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText:
+                              r"\frac{1}{|a|}F\left(\frac{\omega}{a}\right)",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f(t-t_0)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -120,9 +121,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f(t)e^{j\omega _0t}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -134,9 +133,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"F(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -148,9 +145,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f^n(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -162,9 +157,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(-jt)^nf(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -176,9 +169,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\int_{-\infty}^{t}f(x)dx"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -187,14 +178,13 @@ class TransformadasBasicasDeFourierState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{F(\omega)}{j\omega}+\pi F(0)\delta(\omega)"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText:
+                              r"\frac{F(\omega)}{j\omega}+\pi F(0)\delta(\omega)",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_1(t)*f_2(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -206,9 +196,7 @@ class TransformadasBasicasDeFourierState
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_1(t)f_2(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -217,8 +205,8 @@ class TransformadasBasicasDeFourierState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{1}{2\pi}F_1(\omega)*F_2(\omega)"),
+                          formulaText: r"\frac{1}{2\pi}F_1(\omega)*F_2(\omega)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -227,13 +215,9 @@ class TransformadasBasicasDeFourierState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTransformadasBasicasDeFourier,
-                  ),
+                  const VerPDF(url: kWidgetTransformadasBasicasDeFourier),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTransformadasBasicasDeFourier,
-                  ),
+                  const DescargarPDF(url: kWidgetTransformadasBasicasDeFourier),
                 ],
               ),
             ),

@@ -16,9 +16,12 @@ class _BicondicionalMatematicasDiscretasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,8 +50,9 @@ class _BicondicionalMatematicasDiscretasState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.bicondicional,
-                            widgetName: kWidgetBicondicional),
+                          title: AppLocalizations.of(context)!.bicondicional,
+                          widgetName: kWidgetBicondicional,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +64,20 @@ class _BicondicionalMatematicasDiscretasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .bicondicional,
-                                    widgetName: kWidgetBicondicional),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.bicondicional,
+                                  widgetName: kWidgetBicondicional,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .bicondicional,
-                                    widgetName: kWidgetBicondicional),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.bicondicional,
+                                  widgetName: kWidgetBicondicional,
+                                ),
                               );
                             }
                           });
@@ -78,53 +86,41 @@ class _BicondicionalMatematicasDiscretasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.siysolosi,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{p \leftrightarrow q}"),
+                          formulaText: r"\mathsf{p \leftrightarrow q}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.tablaVerdad,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.tablaVerdad),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   ZoomImagePersonalizado(
-                      urlImagen:
-                          getImageUrlById(context, kImagenBicondicional) ??
-                              kUrlImagenBicondicional),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(context, kImagenBicondicional) ??
+                        kUrlImagenBicondicional,
                   ),
+                  const SizedBox(height: 30.0),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetBicondicional,
-                  ),
+                  const VerPDF(url: kWidgetBicondicional),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetBicondicional,
-                  ),
+                  const DescargarPDF(url: kWidgetBicondicional),
                 ],
               ),
             ),

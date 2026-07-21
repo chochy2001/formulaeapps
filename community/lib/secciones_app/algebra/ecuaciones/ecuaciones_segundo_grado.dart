@@ -22,9 +22,12 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,7 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: kEspacioTitulos,
-                  ),
+                  const SizedBox(height: kEspacioTitulos),
                   TituloPersonalizado(
                     AppLocalizations.of(context)!.ecuacionesDeSegundoGrado,
                   ),
@@ -56,9 +57,11 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionesDeSegundoGrado,
-                            widgetName: kWidgetEcuacionesDeSegundoGrado),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionesDeSegundoGrado,
+                          widgetName: kWidgetEcuacionesDeSegundoGrado,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -70,18 +73,20 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionesDeSegundoGrado,
-                                    widgetName:
-                                        kWidgetEcuacionesDeSegundoGrado),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesDeSegundoGrado,
+                                  widgetName: kWidgetEcuacionesDeSegundoGrado,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionesDeSegundoGrado,
-                                    widgetName:
-                                        kWidgetEcuacionesDeSegundoGrado),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesDeSegundoGrado,
+                                  widgetName: kWidgetEcuacionesDeSegundoGrado,
+                                ),
                               );
                             }
                           });
@@ -94,9 +99,11 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"ax^2+bx+c = d"),
                   const SizedBox(height: 20),
-                  Math.tex("$valorA x^2+$valorB x+ $valorC =$valorD",
-                      mathStyle: MathStyle.display,
-                      textStyle: kTextoLatexFormulas),
+                  Math.tex(
+                    "$valorA x^2+$valorB x+ $valorC =$valorD",
+                    mathStyle: MathStyle.display,
+                    textStyle: kTextoLatexFormulas,
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                   Theme(
@@ -105,16 +112,13 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -122,7 +126,9 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -149,16 +155,13 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -166,7 +169,9 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "2",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -193,16 +198,13 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -210,7 +212,9 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "10",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -237,16 +241,13 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -254,7 +255,9 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "10",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -295,20 +298,17 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
     valorC = ((valorC) - (valorD));
     double valorX1 =
         ((-1 * valorB) + sqrt((pow(valorB, 2) - 4 * valorA * valorC))) /
-            (2 * (valorA));
+        (2 * (valorA));
     double valorX2 =
         ((-1 * valorB) - sqrt((pow(valorB, 2) - 4 * valorA * valorC))) /
-            (2 * (valorA));
+        (2 * (valorA));
 
     if (valorX1.isNaN || valorX2.isNaN) {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: kColorBotones,
-          border: Border.all(
-            width: 10.0,
-            color: kColorFondo,
-          ),
+          border: Border.all(width: 10.0, color: kColorFondo),
         ),
         child: Column(
           children: [
@@ -326,10 +326,7 @@ class _EcuacionesDeSegundoGradoState extends State<EcuacionesDeSegundoGrado> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: kColorBotones,
-          border: Border.all(
-            width: 10.0,
-            color: kColorFondo,
-          ),
+          border: Border.all(width: 10.0, color: kColorFondo),
         ),
         child: Column(
           children: [

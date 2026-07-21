@@ -29,9 +29,11 @@ class _ElementosCapacitorYResistorState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .elementosCapacitorResistor,
-                      widgetName: kWidgetElementosCapacitorYResistor),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.elementosCapacitorResistor,
+                    widgetName: kWidgetElementosCapacitorYResistor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _ElementosCapacitorYResistorState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosCapacitorResistor,
-                              widgetName: kWidgetElementosCapacitorYResistor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosCapacitorResistor,
+                            widgetName: kWidgetElementosCapacitorYResistor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosCapacitorResistor,
-                              widgetName: kWidgetElementosCapacitorYResistor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosCapacitorResistor,
+                            widgetName: kWidgetElementosCapacitorYResistor,
+                          ),
                         );
                       }
                     });
@@ -65,9 +71,13 @@ class _ElementosCapacitorYResistorState
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenElementosCapacitorYResistor) ??
-                        kUrlImagenElementosCapacitorYResistor),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenElementosCapacitorYResistor,
+                      ) ??
+                      kUrlImagenElementosCapacitorYResistor,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -75,15 +85,11 @@ class _ElementosCapacitorYResistorState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetElementosCapacitorYResistor,
-                ),
+                VerPDF(url: kWidgetElementosCapacitorYResistor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetElementosCapacitorYResistor,
-                ),
+                DescargarPDF(url: kWidgetElementosCapacitorYResistor),
               ],
-            )
+            ),
           ],
         ),
       ),

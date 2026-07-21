@@ -41,8 +41,9 @@ void main() {
     );
   });
 
-  testWidgets('broken images reach a localized fallback instead of spinning',
-      (tester) async {
+  testWidgets('broken images reach a localized fallback instead of spinning', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       harness(
         const ZoomImagePersonalizado(
@@ -60,8 +61,9 @@ void main() {
     expect(find.byType(CachedNetworkImage), findsNothing);
   });
 
-  testWidgets('small logo fallbacks keep their caller size without overflow',
-      (tester) async {
+  testWidgets('small logo fallbacks keep their caller size without overflow', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       harness(
         const SizedBox(

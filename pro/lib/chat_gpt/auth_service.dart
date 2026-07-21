@@ -166,10 +166,13 @@ class AuthService {
     final parts = token.split('.');
     if (parts.length != 3) return null;
     try {
-      final padded = parts[1]
-          .padRight(parts[1].length + (4 - parts[1].length % 4) % 4, '=');
-      final payload = jsonDecode(utf8.decode(base64Url.decode(padded)))
-          as Map<String, dynamic>;
+      final padded = parts[1].padRight(
+        parts[1].length + (4 - parts[1].length % 4) % 4,
+        '=',
+      );
+      final payload =
+          jsonDecode(utf8.decode(base64Url.decode(padded)))
+              as Map<String, dynamic>;
       final exp = payload['exp'];
       if (exp is int) {
         return DateTime.fromMillisecondsSinceEpoch(exp * 1000, isUtc: true);

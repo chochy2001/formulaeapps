@@ -16,9 +16,12 @@ class _ConexionEnSerieResistorState extends State<ConexionEnSerieResistor> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,9 @@ class _ConexionEnSerieResistorState extends State<ConexionEnSerieResistor> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.conexionSerieResistor,
-                      widgetName: kWidgetConexionEnSerieResistor),
+                    title: AppLocalizations.of(context)!.conexionSerieResistor,
+                    widgetName: kWidgetConexionEnSerieResistor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +60,20 @@ class _ConexionEnSerieResistorState extends State<ConexionEnSerieResistor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionSerieResistor,
-                              widgetName: kWidgetConexionEnSerieResistor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionSerieResistor,
+                            widgetName: kWidgetConexionEnSerieResistor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .conexionSerieResistor,
-                              widgetName: kWidgetConexionEnSerieResistor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.conexionSerieResistor,
+                            widgetName: kWidgetConexionEnSerieResistor,
+                          ),
                         );
                       }
                     });
@@ -79,16 +86,21 @@ class _ConexionEnSerieResistorState extends State<ConexionEnSerieResistor> {
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenConexionEnSerieResistor) ??
-                        kUrlImagenConexionEnSerieResistor),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenConexionEnSerieResistor,
+                      ) ??
+                      kUrlImagenConexionEnSerieResistor,
+                ),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.conexionEnSerieTexto,
                 ),
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(
-                    urlImagen:
-                        kUrlImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente),
+                  urlImagen:
+                      kUrlImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente,
+                ),
                 const Latex(formulaText: r"i_T = i_1 = i_2 = i_3"),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"V_T=V_1 + V_2 + V_3"),
@@ -99,13 +111,9 @@ class _ConexionEnSerieResistorState extends State<ConexionEnSerieResistor> {
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetConexionEnSerieResistor,
-            ),
+            const VerPDF(url: kWidgetConexionEnSerieResistor),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetConexionEnSerieResistor,
-            ),
+            const DescargarPDF(url: kWidgetConexionEnSerieResistor),
           ],
         ),
       ),

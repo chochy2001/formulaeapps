@@ -14,9 +14,12 @@ class _ElementosFemState extends State<ElementosFem> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,9 +44,11 @@ class _ElementosFemState extends State<ElementosFem> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .elementosFuerzaElectromotriz,
-                      widgetName: kWidgetElementosFem),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.elementosFuerzaElectromotriz,
+                    widgetName: kWidgetElementosFem,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -55,16 +60,20 @@ class _ElementosFemState extends State<ElementosFem> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosFuerzaElectromotriz,
-                              widgetName: kWidgetElementosFem),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosFuerzaElectromotriz,
+                            widgetName: kWidgetElementosFem,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosFuerzaElectromotriz,
-                              widgetName: kWidgetElementosFem),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosFuerzaElectromotriz,
+                            widgetName: kWidgetElementosFem,
+                          ),
                         );
                       }
                     });
@@ -77,20 +86,18 @@ class _ElementosFemState extends State<ElementosFem> {
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenElementosFem) ??
-                        kUrlImagenElementosFem),
+                  urlImagen:
+                      getImageUrlById(context, kImagenElementosFem) ??
+                      kUrlImagenElementosFem,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetElementosFem,
-            ),
+            const VerPDF(url: kWidgetElementosFem),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetElementosFem,
-            ),
+            const DescargarPDF(url: kWidgetElementosFem),
           ],
         ),
       ),

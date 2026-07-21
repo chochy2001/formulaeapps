@@ -14,9 +14,12 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.leyDeBiotSavart,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.leyDeBiotSavart),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.leyDeBiotSavart,
-                      widgetName: kWidgetLeyDeBiotSavart),
+                    title: AppLocalizations.of(context)!.leyDeBiotSavart,
+                    widgetName: kWidgetLeyDeBiotSavart,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +56,20 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.leyDeBiotSavart,
-                              widgetName: kWidgetLeyDeBiotSavart),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeBiotSavart,
+                            widgetName: kWidgetLeyDeBiotSavart,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.leyDeBiotSavart,
-                              widgetName: kWidgetLeyDeBiotSavart),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeBiotSavart,
+                            widgetName: kWidgetLeyDeBiotSavart,
+                          ),
                         );
                       }
                     });
@@ -76,39 +82,38 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenLeyDeBiotSavart1) ??
-                            kUrlImagenLeyDeBiotSavart1),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"\vec{B}= \frac{\mu_0}{4\pi}\frac{q\vec{v}\times \bar{r}}{r^3}"),
-                const SizedBox(height: 50.0),
-                const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenLeyDeBiotSavart2),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  urlImagen:
+                      getImageUrlById(context, kImagenLeyDeBiotSavart1) ??
+                      kUrlImagenLeyDeBiotSavart1,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{B}= \frac{\mu_0}{4\pi}\frac{i\vec{L}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"\vec{B}= \frac{\mu_0}{4\pi}\frac{q\vec{v}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 50.0),
+                const ZoomImagePersonalizado(
+                  urlImagen: kUrlImagenLeyDeBiotSavart2,
+                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"\vec{B}= \frac{\mu_0}{4\pi}\frac{i\vec{L}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetLeyDeBiotSavart,
-            ),
+            const VerPDF(url: kWidgetLeyDeBiotSavart),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetLeyDeBiotSavart,
-            ),
+            const DescargarPDF(url: kWidgetLeyDeBiotSavart),
           ],
         ),
       ),

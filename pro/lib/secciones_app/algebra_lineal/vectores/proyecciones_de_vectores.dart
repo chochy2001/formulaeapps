@@ -31,9 +31,11 @@ class ProyeccionesDeVectoresState extends State<ProyeccionesDeVectores> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .proyeccionesDeVectores,
-                            widgetName: kWidgetProyeccionesDeVectores),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.proyeccionesDeVectores,
+                          widgetName: kWidgetProyeccionesDeVectores,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class ProyeccionesDeVectoresState extends State<ProyeccionesDeVectores> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .proyeccionesDeVectores,
-                                    widgetName: kWidgetProyeccionesDeVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.proyeccionesDeVectores,
+                                  widgetName: kWidgetProyeccionesDeVectores,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .proyeccionesDeVectores,
-                                    widgetName: kWidgetProyeccionesDeVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.proyeccionesDeVectores,
+                                  widgetName: kWidgetProyeccionesDeVectores,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class ProyeccionesDeVectoresState extends State<ProyeccionesDeVectores> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  const SizedBox(height: 50),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,16 +79,19 @@ class ProyeccionesDeVectoresState extends State<ProyeccionesDeVectores> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{proy}_v\mathrm{u}=\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right) \mathrm{v}"),
+                          formulaText:
+                              r"\mathrm{proy}_v\mathrm{u}=\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right) \mathrm{v}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}=\mathrm{proy}_\mathrm{v}\mathrm{u}+(\mathrm{u}-\mathrm{proy}_\mathrm{v}\mathrm{u})"),
+                          formulaText:
+                              r"\mathrm{u}=\mathrm{proy}_\mathrm{v}\mathrm{u}+(\mathrm{u}-\mathrm{proy}_\mathrm{v}\mathrm{u})",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}=\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right)\mathrm{v}+\left(\mathrm{u}-\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right)\mathrm{v}\right)"),
+                          formulaText:
+                              r"\mathrm{u}=\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right)\mathrm{v}+\left(\mathrm{u}-\left(\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|^2}\right)\mathrm{v}\right)",
+                        ),
                         const SizedBox(height: 60),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.componenteEscalar,
@@ -92,36 +99,28 @@ class ProyeccionesDeVectoresState extends State<ProyeccionesDeVectores> {
                         const SizedBox(height: 5),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"|\mathrm{u}|\cos{\theta}=\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|}=\mathrm{u}\cdot\frac{\mathrm{v}}{|\mathrm{v}|}"),
+                          formulaText:
+                              r"|\mathrm{u}|\cos{\theta}=\frac{\mathrm{u}\cdot\mathrm{v}}{|\mathrm{v}|}=\mathrm{u}\cdot\frac{\mathrm{v}}{|\mathrm{v}|}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetProyeccionesDeVectores,
-                  ),
+                  const VerPDF(url: kWidgetProyeccionesDeVectores),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetProyeccionesDeVectores,
-                  ),
+                  const DescargarPDF(url: kWidgetProyeccionesDeVectores),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.vectoresOrtogonales,
                         ),

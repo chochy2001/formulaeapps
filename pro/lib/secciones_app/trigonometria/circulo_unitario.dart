@@ -44,14 +44,18 @@ class CirculoUnitarioState extends State<CirculoUnitario> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.circuloUnitario,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.circuloUnitario,
                                 widgetName: kWidgetCirculoUnitario,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.circuloUnitario,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.circuloUnitario,
                                 widgetName: kWidgetCirculoUnitario,
                               ),
                             );
@@ -69,15 +73,30 @@ class CirculoUnitarioState extends State<CirculoUnitario> {
                 children: [
                   Latex(formulaText: r"x^{2} + y^{2} = 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(x,\; y) = (\cos\theta,\; \operatorname{sen}\theta)"),
+                  Latex(
+                    formulaText:
+                        r"(x,\; y) = (\cos\theta,\; \operatorname{sen}\theta)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(\cos 0^{\circ},\; \operatorname{sen} 0^{\circ}) = (1,\; 0)"),
+                  Latex(
+                    formulaText:
+                        r"(\cos 0^{\circ},\; \operatorname{sen} 0^{\circ}) = (1,\; 0)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(\cos 90^{\circ},\; \operatorname{sen} 90^{\circ}) = (0,\; 1)"),
+                  Latex(
+                    formulaText:
+                        r"(\cos 90^{\circ},\; \operatorname{sen} 90^{\circ}) = (0,\; 1)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(\cos 180^{\circ},\; \operatorname{sen} 180^{\circ}) = (-1,\; 0)"),
+                  Latex(
+                    formulaText:
+                        r"(\cos 180^{\circ},\; \operatorname{sen} 180^{\circ}) = (-1,\; 0)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(\cos 270^{\circ},\; \operatorname{sen} 270^{\circ}) = (0,\; -1)"),
+                  Latex(
+                    formulaText:
+                        r"(\cos 270^{\circ},\; \operatorname{sen} 270^{\circ}) = (0,\; -1)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

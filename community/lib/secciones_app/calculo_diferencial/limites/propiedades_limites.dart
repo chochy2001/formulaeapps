@@ -14,9 +14,12 @@ class _PropiedadesLimitesState extends State<PropiedadesLimites> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -44,9 +47,11 @@ class _PropiedadesLimitesState extends State<PropiedadesLimites> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                          title: AppLocalizations.of(context)!
-                              .propiedadesDeLosLimites,
-                          widgetName: kWidgetPropiedadesLimites),
+                        title: AppLocalizations.of(
+                          context,
+                        )!.propiedadesDeLosLimites,
+                        widgetName: kWidgetPropiedadesLimites,
+                      ),
                     );
                     return IconButton(
                       icon: isFavorite
@@ -58,16 +63,20 @@ class _PropiedadesLimitesState extends State<PropiedadesLimites> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .propiedadesDeLosLimites,
-                                  widgetName: kWidgetPropiedadesLimites),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesDeLosLimites,
+                                widgetName: kWidgetPropiedadesLimites,
+                              ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .propiedadesDeLosLimites,
-                                  widgetName: kWidgetPropiedadesLimites),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesDeLosLimites,
+                                widgetName: kWidgetPropiedadesLimites,
+                              ),
                             );
                           }
                         });
@@ -85,41 +94,48 @@ class _PropiedadesLimitesState extends State<PropiedadesLimites> {
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to c}k\cdot f(x)=k\cdot\lim_{x \to c}f(x)"),
+                        formulaText:
+                            r"\lim_{x \to c}k\cdot f(x)=k\cdot\lim_{x \to c}f(x)",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to c}[f(x)\pm g(x)]=\lim_{x \to c}f(x)\pm\lim_{x \to c}g(x)"),
+                        formulaText:
+                            r"\lim_{x \to c}[f(x)\pm g(x)]=\lim_{x \to c}f(x)\pm\lim_{x \to c}g(x)",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to c}[f(x)\cdot g(x)] = \lim_{x \to c}f(x)\cdot\lim_{x \to c}g(x)"),
+                        formulaText:
+                            r"\lim_{x \to c}[f(x)\cdot g(x)] = \lim_{x \to c}f(x)\cdot\lim_{x \to c}g(x)",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to c}\frac{f(x)}{g(x)} =  \frac{\lim_{x \to c}f(x)}{\lim_{x \to c}g(x)}"),
+                        formulaText:
+                            r"\lim_{x \to c}\frac{f(x)}{g(x)} =  \frac{\lim_{x \to c}f(x)}{\lim_{x \to c}g(x)}",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x\to c}[f(x)^{g(x)}]=\lim_{x\to c}f(x)^{\lim_{x\to c}g(x)}"),
+                        formulaText:
+                            r"\lim_{x\to c}[f(x)^{g(x)}]=\lim_{x\to c}f(x)^{\lim_{x\to c}g(x)}",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x\to c}\log \cdot f(x) =\log\cdot \lim_{x\to c}f(x)"),
+                        formulaText:
+                            r"\lim_{x\to c}\log \cdot f(x) =\log\cdot \lim_{x\to c}f(x)",
+                      ),
 
                       SizedBox(height: 70),
                       //Limites laterales
                       TextoEcuaciones('Límites Laterales'),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to c}f(x)=L \space\space\mathsf{Si\space y\space solo\space si}"),
+                        formulaText:
+                            r"\lim_{x \to c}f(x)=L \space\space\mathsf{Si\space y\space solo\space si}",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(formulaText: r"\lim_{x \to c^-}f(x)=L"),
@@ -130,33 +146,26 @@ class _PropiedadesLimitesState extends State<PropiedadesLimites> {
                       SizedBox(height: 70),
 
                       //Limites al infinito
-
                       TextoEcuaciones('Límites al infinito'),
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to +\infty}\frac{k}{x^n} = 0"),
+                        formulaText: r"\lim_{x \to +\infty}\frac{k}{x^n} = 0",
+                      ),
 
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\lim_{x \to -\infty}\frac{k}{x^n} = 0"),
-
-                      SizedBox(
-                        height: 40.0,
+                        formulaText: r"\lim_{x \to -\infty}\frac{k}{x^n} = 0",
                       ),
+
+                      SizedBox(height: 40.0),
                     ],
                   ),
                 ),
 
                 //Boton para acceder al formulario en PDF
-                const VerPDF(
-                  url: kWidgetPropiedadesLimites,
-                ),
+                const VerPDF(url: kWidgetPropiedadesLimites),
                 //Descargar PDF
-                const DescargarPDF(
-                  url: kWidgetPropiedadesLimites,
-                ),
+                const DescargarPDF(url: kWidgetPropiedadesLimites),
               ],
             ),
           ],

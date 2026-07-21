@@ -16,9 +16,12 @@ class _DeterminantesAlgebraLinealState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,8 +50,9 @@ class _DeterminantesAlgebraLinealState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.determinantes,
-                            widgetName: kWidgetDeterminantesAlgebraLineal),
+                          title: AppLocalizations.of(context)!.determinantes,
+                          widgetName: kWidgetDeterminantesAlgebraLineal,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,18 +64,20 @@ class _DeterminantesAlgebraLinealState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .determinantes,
-                                    widgetName:
-                                        kWidgetDeterminantesAlgebraLineal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.determinantes,
+                                  widgetName: kWidgetDeterminantesAlgebraLineal,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .determinantes,
-                                    widgetName:
-                                        kWidgetDeterminantesAlgebraLineal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.determinantes,
+                                  widgetName: kWidgetDeterminantesAlgebraLineal,
+                                ),
                               );
                             }
                           });
@@ -86,35 +92,34 @@ class _DeterminantesAlgebraLinealState
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A=\begin{pmatrix}a & b \\c & d \\\end{pmatrix}"),
+                          formulaText:
+                              r"A=\begin{pmatrix}a & b \\c & d \\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\det A = ad-bc"),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.porCofactores,
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.si,
-                        ),
+                        const SizedBox(height: 30),
+                        TextoEcuaciones(AppLocalizations.of(context)!.si),
                         const Latex(
-                            formulaText:
-                                r"\mathsf{Sea}\space B=\begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}"),
+                          formulaText:
+                              r"\mathsf{Sea}\space B=\begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\det B=(-1)^{1+1}a\begin{pmatrix}e & f\\h & i\\\end{pmatrix}+ (-1)^{1+2}b \begin{pmatrix}d & f\\g & i\\\end{pmatrix}+ (-1)^{1+3}c\begin{pmatrix}d & e\\g & h\\\end{pmatrix}= a(ei-fh)-b(di-fg)+c(dh-eg)"),
+                          formulaText:
+                              r"\det B=(-1)^{1+1}a\begin{pmatrix}e & f\\h & i\\\end{pmatrix}+ (-1)^{1+2}b \begin{pmatrix}d & f\\g & i\\\end{pmatrix}+ (-1)^{1+3}c\begin{pmatrix}d & e\\g & h\\\end{pmatrix}= a(ei-fh)-b(di-fg)+c(dh-eg)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.definicionCofactor,
                         ),
                         const SizedBox(height: 5),
                         const Latex(
-                            formulaText:
-                                r"C_{ij}=(-1)^{i+j}\cdot \det(M_{ij})"),
+                          formulaText: r"C_{ij}=(-1)^{i+j}\cdot \det(M_{ij})",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"M_{ij}"),
                         TextoEcuaciones(
@@ -124,37 +129,24 @@ class _DeterminantesAlgebraLinealState
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDeterminantesAlgebraLineal,
-                  ),
+                  const VerPDF(url: kWidgetDeterminantesAlgebraLineal),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDeterminantesAlgebraLineal,
-                  ),
+                  const DescargarPDF(url: kWidgetDeterminantesAlgebraLineal),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const Latex(formulaText: r"i,j"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.posicion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.posicion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\det (M_{ij})"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.menorDeA,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.menorDeA),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

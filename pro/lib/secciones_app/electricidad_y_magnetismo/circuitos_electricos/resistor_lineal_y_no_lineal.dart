@@ -28,9 +28,9 @@ class _ResistorLinealYNoLinealState extends State<ResistorLinealYNoLineal> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.resistorLinealNoLineal,
-                      widgetName: kWidgetResistorLinealYNoLineal),
+                    title: AppLocalizations.of(context)!.resistorLinealNoLineal,
+                    widgetName: kWidgetResistorLinealYNoLineal,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +42,20 @@ class _ResistorLinealYNoLinealState extends State<ResistorLinealYNoLineal> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistorLinealNoLineal,
-                              widgetName: kWidgetResistorLinealYNoLineal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistorLinealNoLineal,
+                            widgetName: kWidgetResistorLinealYNoLineal,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistorLinealNoLineal,
-                              widgetName: kWidgetResistorLinealYNoLineal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistorLinealNoLineal,
+                            widgetName: kWidgetResistorLinealYNoLineal,
+                          ),
                         );
                       }
                     });
@@ -62,21 +66,18 @@ class _ResistorLinealYNoLinealState extends State<ResistorLinealYNoLineal> {
 
             const SizedBox(height: 20.0),
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenResistorLinealYNoLineal) ??
-                        kUrlImagenResistorLinealYNoLineal),
+              urlImagen:
+                  getImageUrlById(context, kImagenResistorLinealYNoLineal) ??
+                  kUrlImagenResistorLinealYNoLineal,
+            ),
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetResistorLinealYNoLineal,
-                ),
+                VerPDF(url: kWidgetResistorLinealYNoLineal),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetResistorLinealYNoLineal,
-                ),
+                DescargarPDF(url: kWidgetResistorLinealYNoLineal),
               ],
-            )
+            ),
           ],
         ),
       ),

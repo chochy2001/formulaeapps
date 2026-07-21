@@ -16,9 +16,12 @@ class SolucionEcuacionesState extends State<SolucionEcuaciones> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -39,26 +42,24 @@ class SolucionEcuacionesState extends State<SolucionEcuaciones> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   adContainer,
                   const ImagenLogoFormulae(),
                   Text(
                     AppLocalizations.of(context)!.solucionEcuaciones,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionesDePrimerGrado,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionesDePrimerGrado,
                     ruta: kRutaEcuacionesDePrimerGrado,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionesDeSegundoGrado,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionesDeSegundoGrado,
                     ruta: kRutaEcuacionesDeSegundoGrado,
                   ),
                 ],

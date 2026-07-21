@@ -44,16 +44,18 @@ class PotenciasNEsimasState extends State<PotenciasNEsimas> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .potenciasNEsimas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.potenciasNEsimas,
                                 widgetName: kWidgetPotenciasNEsimas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .potenciasNEsimas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.potenciasNEsimas,
                                 widgetName: kWidgetPotenciasNEsimas,
                               ),
                             );
@@ -70,20 +72,24 @@ class PotenciasNEsimasState extends State<PotenciasNEsimas> {
               child: Column(
                 children: [
                   Latex(
-                      formulaText:
-                          r"a^{4} - b^{4} = (a-b)(a^{3} + a^{2}b + ab^{2} + b^{3})"),
+                    formulaText:
+                        r"a^{4} - b^{4} = (a-b)(a^{3} + a^{2}b + ab^{2} + b^{3})",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"a^{5} + b^{5} = (a+b)(a^{4} - a^{3}b + a^{2}b^{2} - ab^{3} + b^{4})"),
+                    formulaText:
+                        r"a^{5} + b^{5} = (a+b)(a^{4} - a^{3}b + a^{2}b^{2} - ab^{3} + b^{4})",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"a^{n} - b^{n} = (a-b)\left(a^{n-1} + a^{n-2}b + a^{n-3}b^{2} + \dots + ab^{n-2} + b^{n-1}\right)"),
+                    formulaText:
+                        r"a^{n} - b^{n} = (a-b)\left(a^{n-1} + a^{n-2}b + a^{n-3}b^{2} + \dots + ab^{n-2} + b^{n-1}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"a^{n} + b^{n} = (a+b)\left(a^{n-1} - a^{n-2}b + a^{n-3}b^{2} - \dots - ab^{n-2} + b^{n-1}\right),\quad n\in\mathbb{N}\ \text{impar}"),
+                    formulaText:
+                        r"a^{n} + b^{n} = (a+b)\left(a^{n-1} - a^{n-2}b + a^{n-3}b^{2} - \dots - ab^{n-2} + b^{n-1}\right),\quad n\in\mathbb{N}\ \text{impar}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

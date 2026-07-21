@@ -9,7 +9,7 @@ Future<void> downloadCommunityPdf(Uint8List bytes, String fileName) async {
   // Downloads directory there, matching the working Formulae Pro behavior.
   final output = io.Platform.isLinux
       ? await getDownloadsDirectory() ??
-          await getApplicationDocumentsDirectory()
+            await getApplicationDocumentsDirectory()
       : await getTemporaryDirectory();
   final file = io.File('${output.path}/$fileName');
   await file.writeAsBytes(bytes, flush: true);

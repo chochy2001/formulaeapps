@@ -14,9 +14,12 @@ class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .tasaDeInteresGlobal,
-                            widgetName: kWidgetTasaDeInteresGlobal),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.tasaDeInteresGlobal,
+                          widgetName: kWidgetTasaDeInteresGlobal,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tasaDeInteresGlobal,
-                                    widgetName: kWidgetTasaDeInteresGlobal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tasaDeInteresGlobal,
+                                  widgetName: kWidgetTasaDeInteresGlobal,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tasaDeInteresGlobal,
-                                    widgetName: kWidgetTasaDeInteresGlobal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tasaDeInteresGlobal,
+                                  widgetName: kWidgetTasaDeInteresGlobal,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -95,21 +102,14 @@ class _TasaDeInteresGlobalState extends State<TasaDeInteresGlobal> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTasaDeInteresGlobal,
-                  ),
+                  const VerPDF(url: kWidgetTasaDeInteresGlobal),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTasaDeInteresGlobal,
-                  ),
+                  const DescargarPDF(url: kWidgetTasaDeInteresGlobal),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

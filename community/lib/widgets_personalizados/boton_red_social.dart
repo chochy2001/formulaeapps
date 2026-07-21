@@ -24,13 +24,8 @@ class BotonRedSocial extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          FaIcon(
-            icon,
-            color: kColorBlanco,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
+          FaIcon(icon, color: kColorBlanco),
+          const SizedBox(width: 10),
           Flexible(
             child: Text(
               text,

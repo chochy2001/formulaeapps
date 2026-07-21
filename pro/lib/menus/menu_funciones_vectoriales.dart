@@ -23,9 +23,7 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -34,17 +32,17 @@ class MenuFuncionesVectorialesState extends State<MenuFuncionesVectoriales> {
                     AppLocalizations.of(context)!.funcionesVectoriales,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .derivadasFuncionesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.derivadasFuncionesVectoriales,
                     ruta: kRutaDerivadaFuncionesVectoriales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .limitesDerivadasIntegralesFuncionesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.limitesDerivadasIntegralesFuncionesVectoriales,
                     ruta: kRutaLimiteIntegralDerivadaFuncionVectorial,
                   ),
                 ],

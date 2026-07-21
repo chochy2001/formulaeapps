@@ -29,7 +29,10 @@ void main() {
   group('FavoritesNotifier', () {
     test('addFavorite stores and deduplicates entries', () {
       final notifier = FavoritesNotifier();
-      final favorite = Favorite(title: 'Derivatives', widgetName: 'DerivWidget');
+      final favorite = Favorite(
+        title: 'Derivatives',
+        widgetName: 'DerivWidget',
+      );
 
       notifier.addFavorite(favorite);
       notifier.addFavorite(favorite);

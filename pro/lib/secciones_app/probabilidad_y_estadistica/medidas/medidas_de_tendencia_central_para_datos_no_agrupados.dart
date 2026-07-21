@@ -26,18 +26,21 @@ class MedidasDeTendenciaCentralParaDatosNoAgrupadosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .tendenciaCentralParaDatosNoAgrupados,
+                      AppLocalizations.of(
+                        context,
+                      )!.tendenciaCentralParaDatosNoAgrupados,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .tendenciaCentralParaDatosNoAgrupados,
-                            widgetName:
-                                kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.tendenciaCentralParaDatosNoAgrupados,
+                          widgetName:
+                              kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +52,22 @@ class MedidasDeTendenciaCentralParaDatosNoAgrupadosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tendenciaCentralParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tendenciaCentralParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tendenciaCentralParaDatosNoAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tendenciaCentralParaDatosNoAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeTendenciaCentralParaDatosNoAgrupados,
+                                ),
                               );
                             }
                           });
@@ -69,19 +76,15 @@ class MedidasDeTendenciaCentralParaDatosNoAgrupadosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.media,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.media),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\bar{X} = \frac{\sum_{i=1}^{n}X_i}{n}"),
+                          formulaText: r"\bar{X} = \frac{\sum_{i=1}^{n}X_i}{n}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\bar{X}"),
                         TextoEcuaciones(
@@ -99,42 +102,33 @@ class MedidasDeTendenciaCentralParaDatosNoAgrupadosState
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.mediana,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.mediana),
                         const SizedBox(height: 10),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.valorCentralColeccion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.impar,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.impar),
+                        const SizedBox(height: 10),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.par),
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!.par,
+                          AppLocalizations.of(
+                            context,
+                          )!.modaValorMayorFrecuencia,
                         ),
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .modaValorMayorFrecuencia,
-                        ),
-                        const SizedBox(height: 10),
+                        TextoEcuaciones(AppLocalizations.of(context)!.modal),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.modal,
-                        ),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.bimodal,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.bimodal),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(

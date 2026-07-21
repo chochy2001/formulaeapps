@@ -44,14 +44,18 @@ class MasaConversionState extends State<MasaConversion> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.masaConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.masaConversion,
                                 widgetName: kWidgetMasaConversion,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.masaConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.masaConversion,
                                 widgetName: kWidgetMasaConversion,
                               ),
                             );
@@ -67,17 +71,35 @@ class MasaConversionState extends State<MasaConversion> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"1\ \text{g} = 1.0\times10^{-3}\ \text{kg} = 3.5274\times10^{-2}\ \text{oz} = 2.2046\times10^{-3}\ \text{lb} = 1.0\times10^{-6}\ \text{ton met.} = 1.1023\times10^{-6}\ \text{ton corta}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{g} = 1.0\times10^{-3}\ \text{kg} = 3.5274\times10^{-2}\ \text{oz} = 2.2046\times10^{-3}\ \text{lb} = 1.0\times10^{-6}\ \text{ton met.} = 1.1023\times10^{-6}\ \text{ton corta}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{kg} = 1000\ \text{g} = 35.274\ \text{oz} = 2.2046\ \text{lb} = 1.0\times10^{-3}\ \text{ton met.} = 1.1023\times10^{-3}\ \text{ton corta}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{kg} = 1000\ \text{g} = 35.274\ \text{oz} = 2.2046\ \text{lb} = 1.0\times10^{-3}\ \text{ton met.} = 1.1023\times10^{-3}\ \text{ton corta}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{oz} = 28.350\ \text{g} = 2.8350\times10^{-2}\ \text{kg} = 0.0625\ \text{lb} = 2.8350\times10^{-5}\ \text{ton met.} = 3.125\times10^{-5}\ \text{ton corta}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{oz} = 28.350\ \text{g} = 2.8350\times10^{-2}\ \text{kg} = 0.0625\ \text{lb} = 2.8350\times10^{-5}\ \text{ton met.} = 3.125\times10^{-5}\ \text{ton corta}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{lb} = 453.59\ \text{g} = 0.45359\ \text{kg} = 16\ \text{oz} = 4.5359\times10^{-4}\ \text{ton met.} = 5.0\times10^{-4}\ \text{ton corta}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{lb} = 453.59\ \text{g} = 0.45359\ \text{kg} = 16\ \text{oz} = 4.5359\times10^{-4}\ \text{ton met.} = 5.0\times10^{-4}\ \text{ton corta}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{ton met.} = 1.0\times10^{6}\ \text{g} = 1000\ \text{kg} = 3.5274\times10^{4}\ \text{oz} = 2204.6\ \text{lb} = 1.1023\ \text{ton corta}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{ton met.} = 1.0\times10^{6}\ \text{g} = 1000\ \text{kg} = 3.5274\times10^{4}\ \text{oz} = 2204.6\ \text{lb} = 1.1023\ \text{ton corta}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{ton corta} = 9.0718\times10^{5}\ \text{g} = 907.18\ \text{kg} = 3.2\times10^{4}\ \text{oz} = 2000\ \text{lb} = 0.90718\ \text{ton met.}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{ton corta} = 9.0718\times10^{5}\ \text{g} = 907.18\ \text{kg} = 3.2\times10^{4}\ \text{oz} = 2000\ \text{lb} = 0.90718\ \text{ton met.}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

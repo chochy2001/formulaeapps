@@ -16,9 +16,12 @@ class _DensidadDeCorrienteYCorrienteElectricaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,10 +46,11 @@ class _DensidadDeCorrienteYCorrienteElectricaState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .densidadCorrienteCorrienteElectrica,
-                      widgetName:
-                          kWidgetDensidadDeCorrienteYCorrienteElectrica),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.densidadCorrienteCorrienteElectrica,
+                    widgetName: kWidgetDensidadDeCorrienteYCorrienteElectrica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -58,18 +62,22 @@ class _DensidadDeCorrienteYCorrienteElectricaState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .densidadCorrienteCorrienteElectrica,
-                              widgetName:
-                                  kWidgetDensidadDeCorrienteYCorrienteElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.densidadCorrienteCorrienteElectrica,
+                            widgetName:
+                                kWidgetDensidadDeCorrienteYCorrienteElectrica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .densidadCorrienteCorrienteElectrica,
-                              widgetName:
-                                  kWidgetDensidadDeCorrienteYCorrienteElectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.densidadCorrienteCorrienteElectrica,
+                            widgetName:
+                                kWidgetDensidadDeCorrienteYCorrienteElectrica,
+                          ),
                         );
                       }
                     });
@@ -88,7 +96,8 @@ class _DensidadDeCorrienteYCorrienteElectricaState
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\Phi_j = \iint \vec{J} \cdot d\vec{A}"),
+                    formulaText: r"\Phi_j = \iint \vec{J} \cdot d\vec{A}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.cargaInstantanea,
@@ -99,7 +108,8 @@ class _DensidadDeCorrienteYCorrienteElectricaState
                   const Latex(formulaText: r"i= \frac{dq}{dt}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"[i]_u = \left[\frac{C}{s}\right] = [A]"),
+                    formulaText: r"[i]_u = \left[\frac{C}{s}\right] = [A]",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.corrienteElectrica,
@@ -110,9 +120,7 @@ class _DensidadDeCorrienteYCorrienteElectricaState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetDensidadDeCorrienteYCorrienteElectrica,
-            ),
+            const VerPDF(url: kWidgetDensidadDeCorrienteYCorrienteElectrica),
             //Descargar PDF
             const DescargarPDF(
               url: kWidgetDensidadDeCorrienteYCorrienteElectrica,

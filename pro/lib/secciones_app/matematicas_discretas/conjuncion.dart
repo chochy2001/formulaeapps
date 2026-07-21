@@ -33,8 +33,9 @@ class ConjuncionMatematicasDiscretasState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.conjuncion,
-                            widgetName: kWidgetConjuncion),
+                          title: AppLocalizations.of(context)!.conjuncion,
+                          widgetName: kWidgetConjuncion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -46,16 +47,20 @@ class ConjuncionMatematicasDiscretasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conjuncion,
-                                    widgetName: kWidgetConjuncion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conjuncion,
+                                  widgetName: kWidgetConjuncion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conjuncion,
-                                    widgetName: kWidgetConjuncion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conjuncion,
+                                  widgetName: kWidgetConjuncion,
+                                ),
                               );
                             }
                           });
@@ -64,50 +69,39 @@ class ConjuncionMatematicasDiscretasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{y}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{ p\land q}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{p \space\&\&\space q}"),
+                          formulaText: r"\mathsf{p \space\&\&\space q}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.tablaVerdad,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.tablaVerdad),
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(context, kImagenConjuncion) ??
-                          kUrlImagenConjuncion),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(context, kImagenConjuncion) ??
+                        kUrlImagenConjuncion,
                   ),
+                  const SizedBox(height: 30.0),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConjuncion,
-                  ),
+                  const VerPDF(url: kWidgetConjuncion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConjuncion,
-                  ),
+                  const DescargarPDF(url: kWidgetConjuncion),
                 ],
               ),
             ),

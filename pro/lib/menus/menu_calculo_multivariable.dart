@@ -16,18 +16,14 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -36,16 +32,15 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
                     AppLocalizations.of(context)!.calculoMultivariable,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
                     textoBoton: AppLocalizations.of(context)!.areaBajoCurva,
                     ruta: kRutaAreaBajoLaCurva,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.areaSuperficieRevolucion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaSuperficieRevolucion,
                     ruta: kRutaAreaDeUnaSuperficieDeRevolucion,
                   ),
                   BotonesMenu(
@@ -53,13 +48,15 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
                     ruta: kRutaCambioDeVariables,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.derivadasDireccionales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.derivadasDireccionales,
                     ruta: kRutaDerivadasDireccionales,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.derivadasParciales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.derivadasParciales,
                     ruta: kRutaDerivadasParciales,
                   ),
                   BotonesMenu(
@@ -67,8 +64,9 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
                     ruta: kRutaDiferencialTotal,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesVectoriales,
                     ruta: kRutaMenuFuncionesVectoriales,
                   ),
                   BotonesMenu(
@@ -76,13 +74,15 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
                     ruta: kRutaGradienteDeUnaFuncion,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.identidadesVectoriales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.identidadesVectoriales,
                     ruta: kRutaIdentidadesVectoriales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .integralCoordenadasCilindricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.integralCoordenadasCilindricas,
                     ruta: kRutaIntegralEnCoordenadasCilindricas,
                   ),
                   BotonesMenu(
@@ -94,8 +94,9 @@ class MenuCalculoMultivariableState extends State<MenuCalculoMultivariable> {
                     ruta: kRutaLongitudDeArco,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.operadoresDiferenciales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.operadoresDiferenciales,
                     ruta: kRutaOperadoresDiferenciales,
                   ),
                   BotonesMenu(

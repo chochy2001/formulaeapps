@@ -52,15 +52,9 @@ const kColorNavInactivo = Color(0xFF8A93C4);
 // o teal), donde el blanco no daria contraste suficiente.
 const kColorTextoSobreAcento = Color(0xFF27283D);
 
-const kEstiloTextoMenus = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 30,
-);
+const kEstiloTextoMenus = TextStyle(color: Color(0xFFE9E9E9), fontSize: 30);
 
-const kEstiloSubMenu = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 10,
-);
+const kEstiloSubMenu = TextStyle(color: Color(0xFFE9E9E9), fontSize: 10);
 
 const kEstiloBotones = TextStyle(
   color: kColorBlanco,
@@ -68,25 +62,16 @@ const kEstiloBotones = TextStyle(
   fontWeight: FontWeight.w100,
 );
 
-const kTextoBotones = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 20.0,
-);
+const kTextoBotones = TextStyle(color: Color(0xFFE9E9E9), fontSize: 20.0);
 
 const kTextoBotonesDelgado = TextStyle(
   color: Color(0xFFE9E9E9),
   fontSize: 15.0,
 );
 
-const kTextoBotones2 = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 15.0,
-);
+const kTextoBotones2 = TextStyle(color: Color(0xFFE9E9E9), fontSize: 15.0);
 
-const kTextoCerrar = TextStyle(
-  color: kColorDestructivo,
-  fontSize: 15.0,
-);
+const kTextoCerrar = TextStyle(color: kColorDestructivo, fontSize: 15.0);
 
 const kTexto = TextStyle(
   color: Color(0xFFE9E9E9),
@@ -100,10 +85,7 @@ const kTextoEcuaciones = TextStyle(
   decorationColor: kColorBotones,
 );
 
-const kHintStyle = TextStyle(
-  color: Color(0xFFA9A9A9),
-  fontSize: 15.0,
-);
+const kHintStyle = TextStyle(color: Color(0xFFA9A9A9), fontSize: 15.0);
 
 const kTextoMostrarOcultar = TextStyle(
   color: Color(0xFFE9E9E9),

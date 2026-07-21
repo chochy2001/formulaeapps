@@ -6,10 +6,12 @@ class FuncionesDeMasaDensidadYAcumulada extends StatefulWidget {
   const FuncionesDeMasaDensidadYAcumulada({super.key});
 
   @override
-  FuncionesDeMasaDensidadYAcumuladaState createState() => FuncionesDeMasaDensidadYAcumuladaState();
+  FuncionesDeMasaDensidadYAcumuladaState createState() =>
+      FuncionesDeMasaDensidadYAcumuladaState();
 }
 
-class FuncionesDeMasaDensidadYAcumuladaState extends State<FuncionesDeMasaDensidadYAcumulada> {
+class FuncionesDeMasaDensidadYAcumuladaState
+    extends State<FuncionesDeMasaDensidadYAcumulada> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class FuncionesDeMasaDensidadYAcumuladaState extends State<FuncionesDeMasaDensid
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada,
+                    AppLocalizations.of(
+                      context,
+                    )!.funcionesDeMasaDensidadYAcumulada,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.funcionesDeMasaDensidadYAcumulada,
                         widgetName: kWidgetFuncionesDeMasaDensidadYAcumulada,
                       ),
                     );
@@ -44,15 +50,21 @@ class FuncionesDeMasaDensidadYAcumuladaState extends State<FuncionesDeMasaDensid
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada,
-                                widgetName: kWidgetFuncionesDeMasaDensidadYAcumulada,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.funcionesDeMasaDensidadYAcumulada,
+                                widgetName:
+                                    kWidgetFuncionesDeMasaDensidadYAcumulada,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.funcionesDeMasaDensidadYAcumulada,
-                                widgetName: kWidgetFuncionesDeMasaDensidadYAcumulada,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.funcionesDeMasaDensidadYAcumulada,
+                                widgetName:
+                                    kWidgetFuncionesDeMasaDensidadYAcumulada,
                               ),
                             );
                           }
@@ -71,19 +83,34 @@ class FuncionesDeMasaDensidadYAcumuladaState extends State<FuncionesDeMasaDensid
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\sum_{X_{0}} P_{x}(X_{0}) = 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P(a < X \leq b) = \int_{X_{0}=a}^{b} f_{x}(X_{0}) \, dX_{0}"),
+                  Latex(
+                    formulaText:
+                        r"P(a < X \leq b) = \int_{X_{0}=a}^{b} f_{x}(X_{0}) \, dX_{0}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"0 \leq f_{x}(X_{0}) \leq \infty"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{X_{0}=-\infty}^{\infty} f_{x}(X_{0}) \, dX_{0} = 1"),
+                  Latex(
+                    formulaText:
+                        r"\int_{X_{0}=-\infty}^{\infty} f_{x}(X_{0}) \, dX_{0} = 1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P_{x}(X_{0}) = \begin{cases} \sum_{X \leq X_{0}} P_{x}(X_{0}) & X_{0} \ \text{discreta} \\ \int_{X_{0}=-\infty}^{X_{0}} f_{x}(X_{0}) \, dX_{0} & X_{0} \ \text{continua} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"P_{x}(X_{0}) = \begin{cases} \sum_{X \leq X_{0}} P_{x}(X_{0}) & X_{0} \ \text{discreta} \\ \int_{X_{0}=-\infty}^{X_{0}} f_{x}(X_{0}) \, dX_{0} & X_{0} \ \text{continua} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P_{x}(\infty) = 1, \qquad P_{x}(-\infty) = 0"),
+                  Latex(
+                    formulaText:
+                        r"P_{x}(\infty) = 1, \qquad P_{x}(-\infty) = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"P(a < X \leq b) = P_{x}(b) - P_{x}(a)"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dX_{0}} P_{x}(X_{0}) = f_{x}(X_{0})"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dX_{0}} P_{x}(X_{0}) = f_{x}(X_{0})",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

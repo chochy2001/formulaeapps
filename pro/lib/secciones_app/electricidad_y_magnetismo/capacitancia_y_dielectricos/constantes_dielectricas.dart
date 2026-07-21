@@ -27,9 +27,9 @@ class _ConstantesDielectricasState extends State<ConstantesDielectricas> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.constantesDielectricas,
-                      widgetName: kWidgetConstantesDielectricas),
+                    title: AppLocalizations.of(context)!.constantesDielectricas,
+                    widgetName: kWidgetConstantesDielectricas,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -41,16 +41,20 @@ class _ConstantesDielectricasState extends State<ConstantesDielectricas> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .constantesDielectricas,
-                              widgetName: kWidgetConstantesDielectricas),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.constantesDielectricas,
+                            widgetName: kWidgetConstantesDielectricas,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .constantesDielectricas,
-                              widgetName: kWidgetConstantesDielectricas),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.constantesDielectricas,
+                            widgetName: kWidgetConstantesDielectricas,
+                          ),
                         );
                       }
                     });
@@ -74,11 +78,10 @@ class _ConstantesDielectricasState extends State<ConstantesDielectricas> {
                   const Latex(formulaText: r"\vec{P} \propto \vec{E}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\vec{P} =  \varepsilon_0 \chi_e \vec{E}"),
-                  const SizedBox(height: 40.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.laConstante,
+                    formulaText: r"\vec{P} =  \varepsilon_0 \chi_e \vec{E}",
                   ),
+                  const SizedBox(height: 40.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.laConstante),
                   const Latex(formulaText: r"\chi _e"),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.seDenominaSusceptibilidad,
@@ -101,15 +104,11 @@ class _ConstantesDielectricasState extends State<ConstantesDielectricas> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetConstantesDielectricas,
-                ),
+                VerPDF(url: kWidgetConstantesDielectricas),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetConstantesDielectricas,
-                ),
+                DescargarPDF(url: kWidgetConstantesDielectricas),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -20,17 +20,20 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
           children: [
             ChatGPTButton(
               child: TituloPersonalizado(
-                AppLocalizations.of(context)!
-                    .descripcionDeLosImanesYExperimentosDeOersted,
+                AppLocalizations.of(
+                  context,
+                )!.descripcionDeLosImanesYExperimentosDeOersted,
               ),
             ),
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .descripcionDeLosImanesYExperimentosDeOersted,
-                      widgetName: kWidgetOrigenDeCampoMagnetico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.descripcionDeLosImanesYExperimentosDeOersted,
+                    widgetName: kWidgetOrigenDeCampoMagnetico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +45,20 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .descripcionDeLosImanesYExperimentosDeOersted,
-                              widgetName: kWidgetOrigenDeCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.descripcionDeLosImanesYExperimentosDeOersted,
+                            widgetName: kWidgetOrigenDeCampoMagnetico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .descripcionDeLosImanesYExperimentosDeOersted,
-                              widgetName: kWidgetOrigenDeCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.descripcionDeLosImanesYExperimentosDeOersted,
+                            widgetName: kWidgetOrigenDeCampoMagnetico,
+                          ),
                         );
                       }
                     });
@@ -69,9 +76,7 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenImanRojo),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.unImanEsUnObjeto,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.unImanEsUnObjeto),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.enLaNaturalezaElMineral,
@@ -90,7 +95,8 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenTierraComoIman),
+                  urlImagen: kUrlImagenTierraComoIman,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.laTierraSeComportaComo,
@@ -101,7 +107,8 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenExperimentoOersted),
+                  urlImagen: kUrlImagenExperimentoOersted,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.hansChristianOersted,
@@ -113,15 +120,11 @@ class _OrigenDeCampoMagneticoState extends State<OrigenDeCampoMagnetico> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetOrigenDeCampoMagnetico,
-                ),
+                VerPDF(url: kWidgetOrigenDeCampoMagnetico),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetOrigenDeCampoMagnetico,
-                ),
+                DescargarPDF(url: kWidgetOrigenDeCampoMagnetico),
               ],
-            )
+            ),
           ],
         ),
       ),

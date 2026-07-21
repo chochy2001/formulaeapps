@@ -6,10 +6,12 @@ class SignosDeFuncionesPorCuadrante extends StatefulWidget {
   const SignosDeFuncionesPorCuadrante({super.key});
 
   @override
-  SignosDeFuncionesPorCuadranteState createState() => SignosDeFuncionesPorCuadranteState();
+  SignosDeFuncionesPorCuadranteState createState() =>
+      SignosDeFuncionesPorCuadranteState();
 }
 
-class SignosDeFuncionesPorCuadranteState extends State<SignosDeFuncionesPorCuadrante> {
+class SignosDeFuncionesPorCuadranteState
+    extends State<SignosDeFuncionesPorCuadrante> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class SignosDeFuncionesPorCuadranteState extends State<SignosDeFuncionesPorCuadr
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.signosDeFuncionesPorCuadrante,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.signosDeFuncionesPorCuadrante,
                         widgetName: kWidgetSignosDeFuncionesPorCuadrante,
                       ),
                     );
@@ -44,15 +48,21 @@ class SignosDeFuncionesPorCuadranteState extends State<SignosDeFuncionesPorCuadr
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.signosDeFuncionesPorCuadrante,
-                                widgetName: kWidgetSignosDeFuncionesPorCuadrante,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.signosDeFuncionesPorCuadrante,
+                                widgetName:
+                                    kWidgetSignosDeFuncionesPorCuadrante,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.signosDeFuncionesPorCuadrante,
-                                widgetName: kWidgetSignosDeFuncionesPorCuadrante,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.signosDeFuncionesPorCuadrante,
+                                widgetName:
+                                    kWidgetSignosDeFuncionesPorCuadrante,
                               ),
                             );
                           }
@@ -67,15 +77,30 @@ class SignosDeFuncionesPorCuadranteState extends State<SignosDeFuncionesPorCuadr
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\begin{array}{c|ccc} \text{Cuadrante} & \operatorname{sen} & \cos & \operatorname{tg} \\ \hline \text{I} & + & + & + \\ \text{II} & + & - & - \\ \text{III} & - & - & + \\ \text{IV} & - & + & - \end{array}"),
+                  Latex(
+                    formulaText:
+                        r"\begin{array}{c|ccc} \text{Cuadrante} & \operatorname{sen} & \cos & \operatorname{tg} \\ \hline \text{I} & + & + & + \\ \text{II} & + & - & - \\ \text{III} & - & - & + \\ \text{IV} & - & + & - \end{array}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(A,\; B):\quad \operatorname{sen},\,\cos,\,\operatorname{tg},\,\operatorname{ctg},\,\sec,\,\csc \; > 0"),
+                  Latex(
+                    formulaText:
+                        r"(A,\; B):\quad \operatorname{sen},\,\cos,\,\operatorname{tg},\,\operatorname{ctg},\,\sec,\,\csc \; > 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(-A,\; B):\quad \operatorname{sen},\,\csc > 0;\quad \text{las demas} < 0"),
+                  Latex(
+                    formulaText:
+                        r"(-A,\; B):\quad \operatorname{sen},\,\csc > 0;\quad \text{las demas} < 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(-A,\; -B):\quad \operatorname{tg},\,\operatorname{ctg} > 0;\quad \text{las demas} < 0"),
+                  Latex(
+                    formulaText:
+                        r"(-A,\; -B):\quad \operatorname{tg},\,\operatorname{ctg} > 0;\quad \text{las demas} < 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"(A,\; -B):\quad \cos,\,\sec > 0;\quad \text{las demas} < 0"),
+                  Latex(
+                    formulaText:
+                        r"(A,\; -B):\quad \cos,\,\sec > 0;\quad \text{las demas} < 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

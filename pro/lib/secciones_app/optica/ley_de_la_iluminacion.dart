@@ -44,14 +44,18 @@ class LeyDeLaIluminacionState extends State<LeyDeLaIluminacion> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyDeLaIluminacion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyDeLaIluminacion,
                                 widgetName: kWidgetLeyDeLaIluminacion,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyDeLaIluminacion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyDeLaIluminacion,
                                 widgetName: kWidgetLeyDeLaIluminacion,
                               ),
                             );

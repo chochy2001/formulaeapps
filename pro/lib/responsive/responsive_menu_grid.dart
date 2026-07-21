@@ -48,8 +48,9 @@ class ResponsiveMenuGrid extends StatelessWidget {
         final double available = constraints.maxWidth.isFinite
             ? constraints.maxWidth
             : MediaQuery.sizeOf(context).width;
-        final double contentWidth =
-            available > kMaxContentWidth ? kMaxContentWidth : available;
+        final double contentWidth = available > kMaxContentWidth
+            ? kMaxContentWidth
+            : available;
         final int columns = menuColumnsForWidth(contentWidth);
         final double cellWidth = contentWidth / columns;
         return Center(
@@ -141,8 +142,9 @@ class ResponsiveFormulaColumns extends StatelessWidget {
         final double available = constraints.maxWidth.isFinite
             ? constraints.maxWidth
             : MediaQuery.sizeOf(context).width;
-        final double contentWidth =
-            available > kMaxContentWidth ? kMaxContentWidth : available;
+        final double contentWidth = available > kMaxContentWidth
+            ? kMaxContentWidth
+            : available;
         // Only split into multiple columns once there is comfortable room.
         final int columns = contentWidth >= kMediumMaxWidth
             ? 2
@@ -151,10 +153,7 @@ class ResponsiveFormulaColumns extends StatelessWidget {
           return Center(
             child: SizedBox(
               width: contentWidth,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: children,
-              ),
+              child: Column(mainAxisSize: MainAxisSize.min, children: children),
             ),
           );
         }

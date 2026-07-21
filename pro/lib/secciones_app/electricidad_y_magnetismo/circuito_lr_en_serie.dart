@@ -44,14 +44,18 @@ class CircuitoLrEnSerieState extends State<CircuitoLrEnSerie> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.circuitoLrEnSerie,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.circuitoLrEnSerie,
                                 widgetName: kWidgetCircuitoLrEnSerie,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.circuitoLrEnSerie,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.circuitoLrEnSerie,
                                 widgetName: kWidgetCircuitoLrEnSerie,
                               ),
                             );
@@ -71,9 +75,15 @@ class CircuitoLrEnSerieState extends State<CircuitoLrEnSerie> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"V_{L} = L\,\frac{\Delta i}{\Delta t}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\varepsilon - i R - L\,\frac{\Delta i}{\Delta t} = 0"),
+                  Latex(
+                    formulaText:
+                        r"\varepsilon - i R - L\,\frac{\Delta i}{\Delta t} = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\varepsilon = i R + L\,\frac{\Delta i}{\Delta t}"),
+                  Latex(
+                    formulaText:
+                        r"\varepsilon = i R + L\,\frac{\Delta i}{\Delta t}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

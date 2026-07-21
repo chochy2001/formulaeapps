@@ -6,10 +6,12 @@ class ConstantesTerrestresAstronomicas extends StatefulWidget {
   const ConstantesTerrestresAstronomicas({super.key});
 
   @override
-  ConstantesTerrestresAstronomicasState createState() => ConstantesTerrestresAstronomicasState();
+  ConstantesTerrestresAstronomicasState createState() =>
+      ConstantesTerrestresAstronomicasState();
 }
 
-class ConstantesTerrestresAstronomicasState extends State<ConstantesTerrestresAstronomicas> {
+class ConstantesTerrestresAstronomicasState
+    extends State<ConstantesTerrestresAstronomicas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class ConstantesTerrestresAstronomicasState extends State<ConstantesTerrestresAs
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.constantesTerrestresAstronomicas,
+                    AppLocalizations.of(
+                      context,
+                    )!.constantesTerrestresAstronomicas,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.constantesTerrestresAstronomicas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.constantesTerrestresAstronomicas,
                         widgetName: kWidgetConstantesTerrestresAstronomicas,
                       ),
                     );
@@ -44,15 +50,21 @@ class ConstantesTerrestresAstronomicasState extends State<ConstantesTerrestresAs
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesTerrestresAstronomicas,
-                                widgetName: kWidgetConstantesTerrestresAstronomicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesTerrestresAstronomicas,
+                                widgetName:
+                                    kWidgetConstantesTerrestresAstronomicas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesTerrestresAstronomicas,
-                                widgetName: kWidgetConstantesTerrestresAstronomicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesTerrestresAstronomicas,
+                                widgetName:
+                                    kWidgetConstantesTerrestresAstronomicas,
                               ),
                             );
                           }
@@ -67,19 +79,31 @@ class ConstantesTerrestresAstronomicasState extends State<ConstantesTerrestresAs
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"g = 9.8\ \mathrm{m/s^2} = 32\ \mathrm{ft/s^2}"),
+                  Latex(
+                    formulaText:
+                        r"g = 9.8\ \mathrm{m/s^2} = 32\ \mathrm{ft/s^2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"R_T = 6.37 \times 10^{6}\ \mathrm{m}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"M_T = 5.976 \times 10^{24}\ \mathrm{kg}"),
+                  Latex(
+                    formulaText: r"M_T = 5.976 \times 10^{24}\ \mathrm{kg}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"M_L = 7.36 \times 10^{22}\ \mathrm{kg}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\rho_{\text{agua}} = 1\ \mathrm{g/cm^3} = 62.4\ \mathrm{lb/pie^3}"),
+                  Latex(
+                    formulaText:
+                        r"\rho_{\text{agua}} = 1\ \mathrm{g/cm^3} = 62.4\ \mathrm{lb/pie^3}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\rho_{\text{aire}} = 1.293\ \mathrm{g/L}"),
+                  Latex(
+                    formulaText: r"\rho_{\text{aire}} = 1.293\ \mathrm{g/L}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"v_{\text{sonido}} = 340.292\ \mathrm{m/s}"),
+                  Latex(
+                    formulaText: r"v_{\text{sonido}} = 340.292\ \mathrm{m/s}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

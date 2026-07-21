@@ -30,7 +30,9 @@ class AxiomasDeProbabilidadState extends State<AxiomasDeProbabilidad> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.axiomasDeProbabilidad,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.axiomasDeProbabilidad,
                         widgetName: kWidgetAxiomasDeProbabilidad,
                       ),
                     );
@@ -44,14 +46,18 @@ class AxiomasDeProbabilidadState extends State<AxiomasDeProbabilidad> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeProbabilidad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeProbabilidad,
                                 widgetName: kWidgetAxiomasDeProbabilidad,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeProbabilidad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeProbabilidad,
                                 widgetName: kWidgetAxiomasDeProbabilidad,
                               ),
                             );
@@ -71,7 +77,10 @@ class AxiomasDeProbabilidadState extends State<AxiomasDeProbabilidad> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"P(U) = 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"P(A + B) = P(A) + P(B) \quad \text{si } AB = \varnothing"),
+                  Latex(
+                    formulaText:
+                        r"P(A + B) = P(A) + P(B) \quad \text{si } AB = \varnothing",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"P(A \mid B) = \frac{P(AB)}{P(B)}"),
                   SizedBox(height: kEspacioEntreBotones),

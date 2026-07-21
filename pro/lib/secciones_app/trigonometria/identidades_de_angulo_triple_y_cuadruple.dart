@@ -6,10 +6,12 @@ class IdentidadesDeAnguloTripleYCuadruple extends StatefulWidget {
   const IdentidadesDeAnguloTripleYCuadruple({super.key});
 
   @override
-  IdentidadesDeAnguloTripleYCuadrupleState createState() => IdentidadesDeAnguloTripleYCuadrupleState();
+  IdentidadesDeAnguloTripleYCuadrupleState createState() =>
+      IdentidadesDeAnguloTripleYCuadrupleState();
 }
 
-class IdentidadesDeAnguloTripleYCuadrupleState extends State<IdentidadesDeAnguloTripleYCuadruple> {
+class IdentidadesDeAnguloTripleYCuadrupleState
+    extends State<IdentidadesDeAnguloTripleYCuadruple> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class IdentidadesDeAnguloTripleYCuadrupleState extends State<IdentidadesDeAngulo
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple,
+                    AppLocalizations.of(
+                      context,
+                    )!.identidadesDeAnguloTripleYCuadruple,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.identidadesDeAnguloTripleYCuadruple,
                         widgetName: kWidgetIdentidadesDeAnguloTripleYCuadruple,
                       ),
                     );
@@ -44,15 +50,21 @@ class IdentidadesDeAnguloTripleYCuadrupleState extends State<IdentidadesDeAngulo
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple,
-                                widgetName: kWidgetIdentidadesDeAnguloTripleYCuadruple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesDeAnguloTripleYCuadruple,
+                                widgetName:
+                                    kWidgetIdentidadesDeAnguloTripleYCuadruple,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesDeAnguloTripleYCuadruple,
-                                widgetName: kWidgetIdentidadesDeAnguloTripleYCuadruple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesDeAnguloTripleYCuadruple,
+                                widgetName:
+                                    kWidgetIdentidadesDeAnguloTripleYCuadruple,
                               ),
                             );
                           }
@@ -67,17 +79,29 @@ class IdentidadesDeAnguloTripleYCuadrupleState extends State<IdentidadesDeAngulo
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\operatorname{sen} 3A = 3\,\operatorname{sen} A - 4\,\operatorname{sen}^{3}A"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen} 3A = 3\,\operatorname{sen} A - 4\,\operatorname{sen}^{3}A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\cos 3A = 4\cos^{3}A - 3\cos A"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan 3A = \dfrac{3\tan A - \tan^{3}A}{1 - 3\tan^{2}A}"),
+                  Latex(
+                    formulaText:
+                        r"\tan 3A = \dfrac{3\tan A - \tan^{3}A}{1 - 3\tan^{2}A}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen} 4A = 4\,\operatorname{sen} A\cos A - 8\,\operatorname{sen}^{3}A\cos A"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen} 4A = 4\,\operatorname{sen} A\cos A - 8\,\operatorname{sen}^{3}A\cos A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\cos 4A = 8\cos^{4}A - 8\cos^{2}A + 1"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan 4A = \dfrac{4\tan A - 4\tan^{3}A}{1 - 6\tan^{2}A + \tan^{4}A}"),
+                  Latex(
+                    formulaText:
+                        r"\tan 4A = \dfrac{4\tan A - 4\tan^{3}A}{1 - 6\tan^{2}A + \tan^{4}A}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -15,9 +15,12 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,9 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.diferencialTotal,
-                            widgetName: kWidgetEcuacionDiferencialExacta),
+                          title: AppLocalizations.of(context)!.diferencialTotal,
+                          widgetName: kWidgetEcuacionDiferencialExacta,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,18 +63,20 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .diferencialTotal,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialExacta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.diferencialTotal,
+                                  widgetName: kWidgetEcuacionDiferencialExacta,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .diferencialTotal,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialExacta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.diferencialTotal,
+                                  widgetName: kWidgetEcuacionDiferencialExacta,
+                                ),
                               );
                             }
                           });
@@ -84,8 +89,9 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                     child: Column(
                       children: [
                         const Latex(
-                            formulaText:
-                                r"d[f(x,y)] = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy"),
+                          formulaText:
+                              r"d[f(x,y)] = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathrm{M}"),
                         TextoEcuaciones(
@@ -98,45 +104,50 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathrm{M}dx+\mathrm{N}dy = 0"),
+                          formulaText: r"\mathrm{M}dx+\mathrm{N}dy = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.esExactaSi,
                         ),
                         const Latex(
-                            formulaText:
-                                r"\frac{\partial \mathrm{M}}{\partial  y}= \frac{\partial \mathrm{N}}{\partial x}"),
+                          formulaText:
+                              r"\frac{\partial \mathrm{M}}{\partial  y}= \frac{\partial \mathrm{N}}{\partial x}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.paraHacerlaExacta,
                         ),
                         const Latex(
-                            formulaText:
-                                r"u(x,y)\mathrm{M}(x,y)dx + u(x,y)\mathrm{N}(x,y)dy = 0"),
+                          formulaText:
+                              r"u(x,y)\mathrm{M}(x,y)dx + u(x,y)\mathrm{N}(x,y)dy = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.factorIntegrante,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"u = e^{\int \frac{\mathrm{M}y-\mathrm{N}x}{\mathrm{N}}dx}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"u = e^{\int \frac{\mathrm{N}x-\mathrm{M}y}{\mathrm{M}}dy}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.donde,
+                          formulaText:
+                              r"u = e^{\int \frac{\mathrm{M}y-\mathrm{N}x}{\mathrm{N}}dx}",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{M}y = \frac{\partial \mathrm{M}}{\partial y}"),
+                          formulaText:
+                              r"u = e^{\int \frac{\mathrm{N}x-\mathrm{M}y}{\mathrm{M}}dy}",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.donde),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{N}x = \frac{\partial \mathrm{N}}{\partial x}"),
+                          formulaText:
+                              r"\mathrm{M}y = \frac{\partial \mathrm{M}}{\partial y}",
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"\mathrm{N}x = \frac{\partial \mathrm{N}}{\partial x}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.integranDiferenciales,
@@ -155,21 +166,14 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetEcuacionDiferencialExacta,
-                  ),
+                  const VerPDF(url: kWidgetEcuacionDiferencialExacta),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetEcuacionDiferencialExacta,
-                  ),
+                  const DescargarPDF(url: kWidgetEcuacionDiferencialExacta),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -177,8 +181,9 @@ class _EcuacionDiferencialExactaState extends State<EcuacionDiferencialExacta> {
                         const Notas(),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla,
+                          AppLocalizations.of(
+                            context,
+                          )!.elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

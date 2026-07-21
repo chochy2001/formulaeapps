@@ -36,9 +36,11 @@ class CombinacionesYPermutacionesState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .combinacionesYPermutaciones,
-                            widgetName: kWidgetCombinacionesYPermutaciones),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.combinacionesYPermutaciones,
+                          widgetName: kWidgetCombinacionesYPermutaciones,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -50,18 +52,22 @@ class CombinacionesYPermutacionesState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .combinacionesYPermutaciones,
-                                    widgetName:
-                                        kWidgetCombinacionesYPermutaciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.combinacionesYPermutaciones,
+                                  widgetName:
+                                      kWidgetCombinacionesYPermutaciones,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .combinacionesYPermutaciones,
-                                    widgetName:
-                                        kWidgetCombinacionesYPermutaciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.combinacionesYPermutaciones,
+                                  widgetName:
+                                      kWidgetCombinacionesYPermutaciones,
+                                ),
                               );
                             }
                           });
@@ -70,16 +76,12 @@ class CombinacionesYPermutacionesState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         Column(
                           children: [
                             const SizedBox(height: kEspacioEntreBotones),
@@ -88,7 +90,8 @@ class CombinacionesYPermutacionesState
                             ),
                             const SizedBox(height: kEspacioEntreBotones),
                             const Latex(
-                                formulaText: r"_nC_r = \frac{n!}{(n-r)!r!}"),
+                              formulaText: r"_nC_r = \frac{n!}{(n-r)!r!}",
+                            ),
                             const SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
@@ -100,7 +103,8 @@ class CombinacionesYPermutacionesState
                             ),
                             const SizedBox(height: kEspacioEntreBotones),
                             const Latex(
-                                formulaText: r"_nP_r = \frac{n!}{(n-r)!}"),
+                              formulaText: r"_nP_r = \frac{n!}{(n-r)!}",
+                            ),
                             const SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
@@ -113,16 +117,13 @@ class CombinacionesYPermutacionesState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -130,7 +131,9 @@ class CombinacionesYPermutacionesState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -157,16 +160,13 @@ class CombinacionesYPermutacionesState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -174,7 +174,9 @@ class CombinacionesYPermutacionesState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -197,21 +199,14 @@ class CombinacionesYPermutacionesState
                   _solucionCombinacionesPermutaciones(n, r),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetCombinacionesYPermutaciones,
-                  ),
+                  const VerPDF(url: kWidgetCombinacionesYPermutaciones),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetCombinacionesYPermutaciones,
-                  ),
+                  const DescargarPDF(url: kWidgetCombinacionesYPermutaciones),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -222,8 +217,9 @@ class CombinacionesYPermutacionesState
                             children: [
                               const SizedBox(height: kEspacioEntreBotones),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .combinacionesElementos,
+                                AppLocalizations.of(
+                                  context,
+                                )!.combinacionesElementos,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const CapdesisLatex(),
@@ -254,10 +250,7 @@ class CombinacionesYPermutacionesState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(

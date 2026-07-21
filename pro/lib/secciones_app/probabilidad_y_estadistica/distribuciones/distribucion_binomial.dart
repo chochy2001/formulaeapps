@@ -31,9 +31,11 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionBinomial,
-                            widgetName: kWidgetDistribucionBinomial),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionBinomial,
+                          widgetName: kWidgetDistribucionBinomial,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionBinomial,
-                                    widgetName: kWidgetDistribucionBinomial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionBinomial,
+                                  widgetName: kWidgetDistribucionBinomial,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionBinomial,
-                                    widgetName: kWidgetDistribucionBinomial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionBinomial,
+                                  widgetName: kWidgetDistribucionBinomial,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -75,8 +79,8 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"P(x)= \frac{n!}{x!(n-x)!}p^xq^{n-x}"),
+                          formulaText: r"P(x)= \frac{n!}{x!(n-x)!}p^xq^{n-x}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"q=1-p"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -86,9 +90,7 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"np"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"npq"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -97,21 +99,14 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionBinomial,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionBinomial),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionBinomial,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionBinomial),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -123,8 +118,9 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"n"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .numeroExperimentos,
+                                AppLocalizations.of(
+                                  context,
+                                )!.numeroExperimentos,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"x"),
@@ -139,8 +135,9 @@ class DistribucionBinomialState extends State<DistribucionBinomial> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"q"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .probabilidadFracaso,
+                                AppLocalizations.of(
+                                  context,
+                                )!.probabilidadFracaso,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const CapdesisLatex(),

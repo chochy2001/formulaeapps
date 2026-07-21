@@ -136,44 +136,43 @@ void main() {
     },
   );
 
-  testWidgets(
-    'due-date picker persists the selected deadline on the task',
-    (tester) async {
-      final tasks = TaskData();
-      await tester.pumpAndSettle();
-      tasks.deleteAllTasks();
-      final task = Task(name: 'Enviar proyecto');
-      tasks.addTask(task);
+  testWidgets('due-date picker persists the selected deadline on the task', (
+    tester,
+  ) async {
+    final tasks = TaskData();
+    await tester.pumpAndSettle();
+    tasks.deleteAllTasks();
+    final task = Task(name: 'Enviar proyecto');
+    tasks.addTask(task);
 
-      await tester.pumpWidget(
-        _app(
-          child: ChangeNotifierProvider<TaskData>.value(
-            value: tasks,
-            child: const Scaffold(body: TasksList()),
-          ),
+    await tester.pumpWidget(
+      _app(
+        child: ChangeNotifierProvider<TaskData>.value(
+          value: tasks,
+          child: const Scaffold(body: TasksList()),
         ),
-      );
-      await tester.pumpAndSettle();
+      ),
+    );
+    await tester.pumpAndSettle();
 
-      await tester.drag(find.byType(Slidable), const Offset(-500, 0));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Plazo'));
-      await tester.pumpAndSettle();
-      expect(find.byType(DatePickerDialog), findsOneWidget);
+    await tester.drag(find.byType(Slidable), const Offset(-500, 0));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Plazo'));
+    await tester.pumpAndSettle();
+    expect(find.byType(DatePickerDialog), findsOneWidget);
 
-      await tester.tap(
-        find
-            .descendant(
-              of: find.byType(DatePickerDialog),
-              matching: find.byType(TextButton),
-            )
-            .last,
-      );
-      await tester.pumpAndSettle();
-      expect(task.dueDate, isNotNull);
-      expect(tasks.tasks.single.dueDate, task.dueDate);
-    },
-  );
+    await tester.tap(
+      find
+          .descendant(
+            of: find.byType(DatePickerDialog),
+            matching: find.byType(TextButton),
+          )
+          .last,
+    );
+    await tester.pumpAndSettle();
+    expect(task.dueDate, isNotNull);
+    expect(tasks.tasks.single.dueDate, task.dueDate);
+  });
 
   testWidgets(
     'iOS drawer routes the FAQ action through its named destination',
@@ -200,30 +199,29 @@ void main() {
     },
   );
 
-  testWidgets(
-    'desktop drawer routes settings through its named destination',
-    (tester) async {
-      await tester.binding.setSurfaceSize(const Size(900, 1200));
-      addTearDown(() => tester.binding.setSurfaceSize(null));
+  testWidgets('desktop drawer routes settings through its named destination', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(900, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
 
-      await tester.pumpWidget(
-        _app(
-          routes: {
-            '/configuracion': (_) =>
-                const Scaffold(body: Text('desktop settings destination')),
-          },
-          child: const Scaffold(drawer: DrawerPersonalizado(2)),
-        ),
-      );
-      final scaffold = tester.state<ScaffoldState>(find.byType(Scaffold));
-      scaffold.openDrawer();
-      await tester.pumpAndSettle();
+    await tester.pumpWidget(
+      _app(
+        routes: {
+          '/configuracion': (_) =>
+              const Scaffold(body: Text('desktop settings destination')),
+        },
+        child: const Scaffold(drawer: DrawerPersonalizado(2)),
+      ),
+    );
+    final scaffold = tester.state<ScaffoldState>(find.byType(Scaffold));
+    scaffold.openDrawer();
+    await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Configuración'));
-      await tester.pumpAndSettle();
-      expect(find.text('desktop settings destination'), findsOneWidget);
-    },
-  );
+    await tester.tap(find.text('Configuración'));
+    await tester.pumpAndSettle();
+    expect(find.text('desktop settings destination'), findsOneWidget);
+  });
 
   testWidgets(
     'favorites switches folders and persists the formula export size selected by the user',
@@ -288,10 +286,7 @@ void main() {
   );
 }
 
-Widget _app({
-  required Widget child,
-  Map<String, WidgetBuilder>? routes,
-}) {
+Widget _app({required Widget child, Map<String, WidgetBuilder>? routes}) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     locale: const Locale('es'),

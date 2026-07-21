@@ -29,9 +29,9 @@ const List<int> _pngSignature = [
 const String _captureFormula = r'\frac{a}{b}';
 
 Finder _latexScrollView() => find.descendant(
-      of: find.byType(Latex),
-      matching: find.byType(SingleChildScrollView),
-    );
+  of: find.byType(Latex),
+  matching: find.byType(SingleChildScrollView),
+);
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -146,8 +146,9 @@ void main() {
       final block = await tester.runAsync(() async {
         final image = await boundary.toImage(pixelRatio: 3.0);
         try {
-          final byteData =
-              await image.toByteData(format: ui.ImageByteFormat.png);
+          final byteData = await image.toByteData(
+            format: ui.ImageByteFormat.png,
+          );
           final bytes = byteData!.buffer.asUint8List(
             byteData.offsetInBytes,
             byteData.lengthInBytes,
@@ -296,8 +297,9 @@ void main() {
 
       // The download filename reuses _sanitizeFileName over that real title, so
       // the shared/printed file is recognisable (e.g. formulae_<screen>.pdf).
-      final fileName =
-          FavoritesPdfGenerator.downloadFileNameForTitle(content.title);
+      final fileName = FavoritesPdfGenerator.downloadFileNameForTitle(
+        content.title,
+      );
       expect(
         fileName,
         FavoritesPdfGenerator.downloadFileNameForTitle(
@@ -318,7 +320,10 @@ void main() {
     test('scale grows monotonically with medium at the neutral 1.0', () {
       expect(PdfFormulaSize.medium.scale, 1.0);
       expect(PdfFormulaSize.small.scale, lessThan(PdfFormulaSize.medium.scale));
-      expect(PdfFormulaSize.large.scale, greaterThan(PdfFormulaSize.medium.scale));
+      expect(
+        PdfFormulaSize.large.scale,
+        greaterThan(PdfFormulaSize.medium.scale),
+      );
     });
 
     test('storage value round-trips through the enum name', () {

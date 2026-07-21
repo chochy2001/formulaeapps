@@ -62,11 +62,7 @@ class ApiService {
   /// selection ships through the contract.
   static Future<List<ModelsModel>> getModels() async {
     return [
-      ModelsModel(
-        id: 'openai/gpt-4o-mini',
-        created: 0,
-        root: 'formulae-bff',
-      ),
+      ModelsModel(id: 'openai/gpt-4o-mini', created: 0, root: 'formulae-bff'),
     ];
   }
 
@@ -89,7 +85,8 @@ class ApiService {
 
     final client = FormulaeappsBffClient(
       basePathOverride: bffBaseUrl,
-      dio: dioOverride ??
+      dio:
+          dioOverride ??
           Dio(
             dioOptionsOverride ??
                 BaseOptions(
@@ -103,12 +100,12 @@ class ApiService {
 
     try {
       final response = await client.getChatApi().openaiChatPost(
-            chatRequest: ChatRequest(
-              (b) => b
-                ..message = message
-                ..modelId = modelId,
-            ),
-          );
+        chatRequest: ChatRequest(
+          (b) => b
+            ..message = message
+            ..modelId = modelId,
+        ),
+      );
 
       // Adopt rotated JWT if the BFF surfaced one (research §R4 + FR-005).
       final rotated = response.headers.value('x-auth-refresh');
@@ -121,9 +118,7 @@ class ApiService {
         throw const HttpException('BFF returned no message content');
       }
 
-      return [
-        ChatModel(msg: data.message, chatIndex: 1),
-      ];
+      return [ChatModel(msg: data.message, chatIndex: 1)];
     } on DioException catch (e) {
       throw HttpException(
         'BFF ${e.response?.statusCode ?? "??"}: ${_summarizeDioError(e)}',

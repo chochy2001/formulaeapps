@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constantes/constantes_codigo.dart';
@@ -48,9 +48,7 @@ class AppBarHome extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      title: const Center(
-        child: HeaderBar(),
-      ),
+      title: const Center(child: HeaderBar()),
     );
   }
 

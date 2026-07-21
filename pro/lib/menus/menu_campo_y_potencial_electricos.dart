@@ -17,9 +17,7 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -28,9 +26,7 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                     AppLocalizations.of(context)!.campoYPotencialElectricos,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
                     ruta: kRutaElectricidad,
                     textoBoton: AppLocalizations.of(context)!.electricidad,
@@ -41,13 +37,15 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaCargaProtonElectron,
-                    textoBoton: AppLocalizations.of(context)!
-                        .cargaElectricaProtonElectron,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.cargaElectricaProtonElectron,
                   ),
                   BotonesMenu(
                     ruta: kRutaDistribucionesDeCargaElectrica,
-                    textoBoton: AppLocalizations.of(context)!
-                        .distribucionesCargaElectrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.distribucionesCargaElectrica,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeCoulomb,
@@ -55,8 +53,9 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaPrincipioDeSuperposicion,
-                    textoBoton:
-                        AppLocalizations.of(context)!.principioSuperposicion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.principioSuperposicion,
                   ),
                   BotonesMenu(
                     ruta: kRutaCampoElectrico,
@@ -64,13 +63,15 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaCampoElectricoOriginadoPorDistribucionesDeCarga,
-                    textoBoton: AppLocalizations.of(context)!
-                        .campoElectricoDistribucionesCarga,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.campoElectricoDistribucionesCarga,
                   ),
                   BotonesMenu(
                     ruta: kRutaFlujoDeUnCampoVectorial,
-                    textoBoton: AppLocalizations.of(context)!
-                        .flujoElectricoCampoVectorial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.flujoElectricoCampoVectorial,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeGauss,
@@ -78,18 +79,21 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaEnergiaPotencialElectrica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.energiaPotencialElectrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.energiaPotencialElectrica,
                   ),
                   BotonesMenu(
                     ruta: kRutaCalculoDeDiferenciasDePotencial,
-                    textoBoton: AppLocalizations.of(context)!
-                        .calculoDiferenciasPotencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.calculoDiferenciasPotencial,
                   ),
                   BotonesMenu(
                     ruta: kRutaTeoremaDeLaDivergencia,
-                    textoBoton:
-                        AppLocalizations.of(context)!.teoremaDivergencia,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDivergencia,
                   ),
                   BotonesMenu(
                     ruta: kRutaTeoremaDelRotacional,
@@ -97,13 +101,15 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaCirculacionDelCampoElectrostatico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .circulacionCampoElectrostatico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.circulacionCampoElectrostatico,
                   ),
                   BotonesMenu(
                     ruta: kRutaRotacionalDelCampoElectrostatico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .rotacionalCampoElectrostatico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.rotacionalCampoElectrostatico,
                   ),
                   BotonesMenu(
                     ruta: kRutaOperadorGradiente,
@@ -111,28 +117,33 @@ class MenuCampoYPotencialElectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaGradienteDeUnaFuncionEscalar,
-                    textoBoton:
-                        AppLocalizations.of(context)!.gradienteFuncionEscalar,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.gradienteFuncionEscalar,
                   ),
                   BotonesMenu(
                     ruta: kRutaGradienteDePotencialElectrico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .gradientePotencialElectrico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.gradientePotencialElectrico,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeGaussEnFormaDiferencial,
-                    textoBoton:
-                        AppLocalizations.of(context)!.leyGaussFormaDiferencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyGaussFormaDiferencial,
                   ),
                   BotonesMenu(
                     ruta: kRutaEcuacionDePoissonYLaplace,
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionPoissonLaplace,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionPoissonLaplace,
                   ),
                   BotonesMenu(
                     ruta: kRutaSuperficiesEquipotenciales,
-                    textoBoton: AppLocalizations.of(context)!
-                        .superficiesEquipotenciales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.superficiesEquipotenciales,
                   ),
                 ],
               ),

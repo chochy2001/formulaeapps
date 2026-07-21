@@ -6,10 +6,12 @@ class AceleracionYFuerzaCentripeta extends StatefulWidget {
   const AceleracionYFuerzaCentripeta({super.key});
 
   @override
-  AceleracionYFuerzaCentripetaState createState() => AceleracionYFuerzaCentripetaState();
+  AceleracionYFuerzaCentripetaState createState() =>
+      AceleracionYFuerzaCentripetaState();
 }
 
-class AceleracionYFuerzaCentripetaState extends State<AceleracionYFuerzaCentripeta> {
+class AceleracionYFuerzaCentripetaState
+    extends State<AceleracionYFuerzaCentripeta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class AceleracionYFuerzaCentripetaState extends State<AceleracionYFuerzaCentripe
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.aceleracionYFuerzaCentripeta,
                         widgetName: kWidgetAceleracionYFuerzaCentripeta,
                       ),
                     );
@@ -44,14 +48,18 @@ class AceleracionYFuerzaCentripetaState extends State<AceleracionYFuerzaCentripe
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aceleracionYFuerzaCentripeta,
                                 widgetName: kWidgetAceleracionYFuerzaCentripeta,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aceleracionYFuerzaCentripeta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aceleracionYFuerzaCentripeta,
                                 widgetName: kWidgetAceleracionYFuerzaCentripeta,
                               ),
                             );

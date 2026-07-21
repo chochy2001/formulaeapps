@@ -34,7 +34,9 @@ void main() {
     FlutterError.onError = (_) {};
   });
 
-  testWidgets('FavoritesScreen with favorites and clear dialog', (tester) async {
+  testWidgets('FavoritesScreen with favorites and clear dialog', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final favs = FavoritesNotifier();
     favs.addFavorite(
@@ -78,12 +80,17 @@ void main() {
   testWidgets('Todo screens interact', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final tasks = TaskData();
-    await tester.pumpWidget(_harness(taskData: tasks, home: const TasksScreen()));
+    await tester.pumpWidget(
+      _harness(taskData: tasks, home: const TasksScreen()),
+    );
     await tester.pump();
     while (tester.takeException() != null) {}
 
     await tester.pumpWidget(
-      _harness(taskData: tasks, home: const Scaffold(body: TasksList())),
+      _harness(
+        taskData: tasks,
+        home: const Scaffold(body: TasksList()),
+      ),
     );
     await tester.pump();
     while (tester.takeException() != null) {}
@@ -97,7 +104,10 @@ void main() {
     }
 
     await tester.pumpWidget(
-      _harness(taskData: tasks, home: const Scaffold(body: AddTaskScreen())),
+      _harness(
+        taskData: tasks,
+        home: const Scaffold(body: AddTaskScreen()),
+      ),
     );
     await tester.pump();
     final fields = find.byType(TextField);
@@ -120,8 +130,9 @@ void main() {
     }
   });
 
-  testWidgets('Formula screens: favorite toggles and ExpansionTiles',
-      (tester) async {
+  testWidgets('Formula screens: favorite toggles and ExpansionTiles', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 2000));
     final screens = <Widget>[
       const FormulaGeneral(),
@@ -164,7 +175,9 @@ void main() {
 
   testWidgets('VerPDF known id', (tester) async {
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: VerPDF(url: kWidgetFormulaGeneral))),
+      _harness(
+        home: const Scaffold(body: VerPDF(url: kWidgetFormulaGeneral)),
+      ),
     );
     await tester.pump();
     while (tester.takeException() != null) {}

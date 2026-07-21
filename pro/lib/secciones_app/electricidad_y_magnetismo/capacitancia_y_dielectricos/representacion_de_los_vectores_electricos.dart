@@ -29,9 +29,11 @@ class _RepresentacionDeLosVectoresElectricosState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .representacionVectoresElectricos,
-                      widgetName: kWidgetRepresentacionDeLosVectoresElectricos),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.representacionVectoresElectricos,
+                    widgetName: kWidgetRepresentacionDeLosVectoresElectricos,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,18 +45,22 @@ class _RepresentacionDeLosVectoresElectricosState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .representacionVectoresElectricos,
-                              widgetName:
-                                  kWidgetRepresentacionDeLosVectoresElectricos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.representacionVectoresElectricos,
+                            widgetName:
+                                kWidgetRepresentacionDeLosVectoresElectricos,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .representacionVectoresElectricos,
-                              widgetName:
-                                  kWidgetRepresentacionDeLosVectoresElectricos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.representacionVectoresElectricos,
+                            widgetName:
+                                kWidgetRepresentacionDeLosVectoresElectricos,
+                          ),
                         );
                       }
                     });
@@ -68,9 +74,13 @@ class _RepresentacionDeLosVectoresElectricosState
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context,
-                            kImagenRepresentacionDeLosVectoresElectricos) ??
-                        kUrlImagenRepresentacionDeLosVectoresElectricos),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenRepresentacionDeLosVectoresElectricos,
+                      ) ??
+                      kUrlImagenRepresentacionDeLosVectoresElectricos,
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.capacitorDePlacas,
@@ -81,11 +91,13 @@ class _RepresentacionDeLosVectoresElectricosState
                 const Latex(formulaText: r"E = \frac{Q}{\varepsilon A}"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"V = - \int_B^A \vec{E} \cdot d\vec{l} = Ed"),
+                  formulaText: r"V = - \int_B^A \vec{E} \cdot d\vec{l} = Ed",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"C = \frac{A\varepsilon}{d} = k_e \frac{A\varepsilon_0}{d}"),
+                  formulaText:
+                      r"C = \frac{A\varepsilon}{d} = k_e \frac{A\varepsilon_0}{d}",
+                ),
                 const SizedBox(height: 30.0),
               ],
             ),
@@ -93,15 +105,11 @@ class _RepresentacionDeLosVectoresElectricosState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetRepresentacionDeLosVectoresElectricos,
-                ),
+                VerPDF(url: kWidgetRepresentacionDeLosVectoresElectricos),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetRepresentacionDeLosVectoresElectricos,
-                ),
+                DescargarPDF(url: kWidgetRepresentacionDeLosVectoresElectricos),
               ],
-            )
+            ),
           ],
         ),
       ),

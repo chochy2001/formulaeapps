@@ -34,31 +34,29 @@ void main() {
     expect(tester.takeException(), isNull);
   }
 
-  testWidgets(
-    'VerImagen turns a remote timeout into a visible fallback',
-    (tester) async {
-      await tester.pumpWidget(
-        harness(const Scaffold(body: VerImagen(url: kImagenCapacitor1))),
-      );
+  testWidgets('VerImagen turns a remote timeout into a visible fallback', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      harness(const Scaffold(body: VerImagen(url: kImagenCapacitor1))),
+    );
 
-      expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
-      await expectTimeoutFallback(tester);
-    },
-  );
+    expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
+    await expectTimeoutFallback(tester);
+  });
 
-  testWidgets(
-    'VerImagenNuevo turns a remote timeout into a visible fallback',
-    (tester) async {
-      await tester.pumpWidget(
-        harness(
-          const VerImagenNuevo(
-            imageUrl: 'https://example.invalid/diagrama-inexistente.png',
-          ),
+  testWidgets('VerImagenNuevo turns a remote timeout into a visible fallback', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      harness(
+        const VerImagenNuevo(
+          imageUrl: 'https://example.invalid/diagrama-inexistente.png',
         ),
-      );
+      ),
+    );
 
-      expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
-      await expectTimeoutFallback(tester);
-    },
-  );
+    expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
+    await expectTimeoutFallback(tester);
+  });
 }

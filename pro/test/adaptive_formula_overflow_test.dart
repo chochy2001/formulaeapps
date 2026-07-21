@@ -26,48 +26,48 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
       MaterialApp(
-        home: Scaffold(
-          body: Center(child: child),
-        ),
+        home: Scaffold(body: Center(child: child)),
       ),
     );
     await tester.pumpAndSettle();
   }
 
   testWidgets(
-      'very wide formula never overflows and shows the scrollable fade layout',
-      (tester) async {
-    await pump(tester, const Latex(formulaText: wideFormula));
+    'very wide formula never overflows and shows the scrollable fade layout',
+    (tester) async {
+      await pump(tester, const Latex(formulaText: wideFormula));
 
-    // Ningun error de overflow (RenderFlex/paint) fue lanzado.
-    expect(tester.takeException(), isNull);
+      // Ningun error de overflow (RenderFlex/paint) fue lanzado.
+      expect(tester.takeException(), isNull);
 
-    // Cae en el modo scroll + desvanecido, no en un recorte silencioso.
-    expect(find.byKey(kAdaptiveFormulaFadeKey), findsOneWidget);
-    expect(find.byType(ShaderMask), findsWidgets);
+      // Cae en el modo scroll + desvanecido, no en un recorte silencioso.
+      expect(find.byKey(kAdaptiveFormulaFadeKey), findsOneWidget);
+      expect(find.byType(ShaderMask), findsWidgets);
 
-    // El contenido es realmente mas ancho que el viewport (hay que deslizar).
-    final scrollable = tester.widget<Scrollable>(
-      find.descendant(
-        of: find.byKey(kAdaptiveFormulaFadeKey),
-        matching: find.byType(Scrollable),
-      ),
-    );
-    expect(scrollable.axis, Axis.horizontal);
-    await tester.pump();
-    final position = tester
-        .state<ScrollableState>(
-          find.descendant(
-            of: find.byKey(kAdaptiveFormulaFadeKey),
-            matching: find.byType(Scrollable),
-          ),
-        )
-        .position;
-    expect(position.maxScrollExtent, greaterThan(0.0));
-  });
+      // El contenido es realmente mas ancho que el viewport (hay que deslizar).
+      final scrollable = tester.widget<Scrollable>(
+        find.descendant(
+          of: find.byKey(kAdaptiveFormulaFadeKey),
+          matching: find.byType(Scrollable),
+        ),
+      );
+      expect(scrollable.axis, Axis.horizontal);
+      await tester.pump();
+      final position = tester
+          .state<ScrollableState>(
+            find.descendant(
+              of: find.byKey(kAdaptiveFormulaFadeKey),
+              matching: find.byType(Scrollable),
+            ),
+          )
+          .position;
+      expect(position.maxScrollExtent, greaterThan(0.0));
+    },
+  );
 
-  testWidgets('short formula is centered without scroll or fade',
-      (tester) async {
+  testWidgets('short formula is centered without scroll or fade', (
+    tester,
+  ) async {
     await pump(tester, const Latex(formulaText: shortFormula));
 
     expect(tester.takeException(), isNull);
@@ -75,8 +75,9 @@ void main() {
     expect(find.byKey(kAdaptiveFormulaFadeKey), findsNothing);
   });
 
-  testWidgets('a formula is always either fitted or faded, never clipped',
-      (tester) async {
+  testWidgets('a formula is always either fitted or faded, never clipped', (
+    tester,
+  ) async {
     // Barrido de anchos para asegurar que siempre hay una de las dos
     // afordancias presentes y jamas un recorte silencioso.
     for (final width in <double>[320, 390, 768, 1280]) {
@@ -86,8 +87,7 @@ void main() {
         surface: Size(width, 900),
       );
       expect(tester.takeException(), isNull, reason: 'width=$width');
-      final hasFade =
-          find.byKey(kAdaptiveFormulaFadeKey).evaluate().isNotEmpty;
+      final hasFade = find.byKey(kAdaptiveFormulaFadeKey).evaluate().isNotEmpty;
       final hasFit = find.byKey(kAdaptiveFormulaFitKey).evaluate().isNotEmpty;
       expect(hasFade || hasFit, isTrue, reason: 'width=$width');
     }

@@ -29,8 +29,9 @@ class TeoremaIntegralesState extends State<TeoremaIntegrales> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.teoremaIntegrales,
-                      widgetName: kWidgetTeoremaIntegrales),
+                    title: AppLocalizations.of(context)!.teoremaIntegrales,
+                    widgetName: kWidgetTeoremaIntegrales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,20 @@ class TeoremaIntegralesState extends State<TeoremaIntegrales> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .teoremaIntegrales,
-                              widgetName: kWidgetTeoremaIntegrales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoremaIntegrales,
+                            widgetName: kWidgetTeoremaIntegrales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .teoremaIntegrales,
-                              widgetName: kWidgetTeoremaIntegrales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoremaIntegrales,
+                            widgetName: kWidgetTeoremaIntegrales,
+                          ),
                         );
                       }
                     });
@@ -70,17 +75,17 @@ class TeoremaIntegralesState extends State<TeoremaIntegrales> {
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\int_C \vec{F}\cdot d\vec{r} = \iint_S \nabla \times F\cdot dS"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.teoremaDeGreen,
+                    formulaText:
+                        r"\int_C \vec{F}\cdot d\vec{r} = \iint_S \nabla \times F\cdot dS",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.teoremaDeGreen),
+                  const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\int_D\int\left(\frac{\partial Q}{\partial x}- \frac{\partial P}{\partial y}\right)dA = \int_C\vec{F}\cdot d\vec{r}= \int_C Pdx+Qdy"),
+                    formulaText:
+                        r"\int_D\int\left(\frac{\partial Q}{\partial x}- \frac{\partial P}{\partial y}\right)dA = \int_C\vec{F}\cdot d\vec{r}= \int_C Pdx+Qdy",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
@@ -89,19 +94,13 @@ class TeoremaIntegralesState extends State<TeoremaIntegrales> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetTeoremaIntegrales,
-                ),
+                VerPDF(url: kWidgetTeoremaIntegrales),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetTeoremaIntegrales,
-                ),
+                DescargarPDF(url: kWidgetTeoremaIntegrales),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

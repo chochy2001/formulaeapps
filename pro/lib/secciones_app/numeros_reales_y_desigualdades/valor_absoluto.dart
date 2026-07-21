@@ -44,14 +44,18 @@ class ValorAbsolutoState extends State<ValorAbsoluto> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.valorAbsoluto,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.valorAbsoluto,
                                 widgetName: kWidgetValorAbsoluto,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.valorAbsoluto,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.valorAbsoluto,
                                 widgetName: kWidgetValorAbsoluto,
                               ),
                             );
@@ -67,13 +71,20 @@ class ValorAbsolutoState extends State<ValorAbsoluto> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"|a| = \begin{cases} a & \text{si } a \ge 0 \\ -a & \text{si } a < 0 \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"|a| = \begin{cases} a & \text{si } a \ge 0 \\ -a & \text{si } a < 0 \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"|a| = |-a|"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"a \le |a| \quad \text{y} \quad -a \le |-a|"),
+                  Latex(
+                    formulaText: r"a \le |a| \quad \text{y} \quad -a \le |-a|",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"|a| \ge 0, \quad |a| = 0 \implies a = 0"),
+                  Latex(
+                    formulaText: r"|a| \ge 0, \quad |a| = 0 \implies a = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"|a|\,|b| = |ab|"),
                   SizedBox(height: kEspacioEntreBotones),

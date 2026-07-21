@@ -29,8 +29,9 @@ class DiferencialTotalState extends State<DiferencialTotal> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.diferencialTotal,
-                      widgetName: kWidgetDiferencialTotal),
+                    title: AppLocalizations.of(context)!.diferencialTotal,
+                    widgetName: kWidgetDiferencialTotal,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,20 @@ class DiferencialTotalState extends State<DiferencialTotal> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .diferencialTotal,
-                              widgetName: kWidgetDiferencialTotal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.diferencialTotal,
+                            widgetName: kWidgetDiferencialTotal,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .diferencialTotal,
-                              widgetName: kWidgetDiferencialTotal),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.diferencialTotal,
+                            widgetName: kWidgetDiferencialTotal,
+                          ),
                         );
                       }
                     });
@@ -60,21 +65,18 @@ class DiferencialTotalState extends State<DiferencialTotal> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sea,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sea),
                   const Latex(formulaText: r"W = f(x,y,z)"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"dW= \frac{\partial W}{\partial x}dx+\frac{\partial W}{\partial y}dy +\frac{\partial W}{\partial z}dz"),
+                    formulaText:
+                        r"dW= \frac{\partial W}{\partial x}dx+\frac{\partial W}{\partial y}dy +\frac{\partial W}{\partial z}dz",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
@@ -82,19 +84,13 @@ class DiferencialTotalState extends State<DiferencialTotal> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetDiferencialTotal,
-                ),
+                VerPDF(url: kWidgetDiferencialTotal),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetDiferencialTotal,
-                ),
+                DescargarPDF(url: kWidgetDiferencialTotal),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

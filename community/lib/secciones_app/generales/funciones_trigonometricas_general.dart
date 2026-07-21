@@ -20,9 +20,12 @@ class _FuncionesTrigonometricasGeneralesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _FuncionesTrigonometricasGeneralesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .funcionesTrigonometricas,
-                      widgetName: kWidgetFuncionesTrigonometricasGeneral),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.funcionesTrigonometricas,
+                    widgetName: kWidgetFuncionesTrigonometricasGeneral,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -61,18 +66,20 @@ class _FuncionesTrigonometricasGeneralesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .funcionesTrigonometricas,
-                              widgetName:
-                                  kWidgetFuncionesTrigonometricasGeneral),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.funcionesTrigonometricas,
+                            widgetName: kWidgetFuncionesTrigonometricasGeneral,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .funcionesTrigonometricas,
-                              widgetName:
-                                  kWidgetFuncionesTrigonometricasGeneral),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.funcionesTrigonometricas,
+                            widgetName: kWidgetFuncionesTrigonometricasGeneral,
+                          ),
                         );
                       }
                     });
@@ -81,9 +88,7 @@ class _FuncionesTrigonometricasGeneralesState
               },
             ),
 
-            const SizedBox(
-              height: 40.0,
-            ),
+            const SizedBox(height: 40.0),
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -105,9 +110,7 @@ class _FuncionesTrigonometricasGeneralesState
                 duration: const Duration(milliseconds: 600),
                 child: Wrap(
                   children: [
-                    SizedBox(
-                      width: seleccionadoMostrar ? 5.0 : 10.0,
-                    ),
+                    SizedBox(width: seleccionadoMostrar ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoMostrar,
                       child: Column(
@@ -150,12 +153,11 @@ class _FuncionesTrigonometricasGeneralesState
             ),
             //Imagen
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenTrianguloRectangulo) ??
-                        kUrlImagenTrianguloRectangulo),
-            const SizedBox(
-              height: 30.0,
+              urlImagen:
+                  getImageUrlById(context, kImagenTrianguloRectangulo) ??
+                  kUrlImagenTrianguloRectangulo,
             ),
+            const SizedBox(height: 30.0),
             Visibility(
               visible: seleccionadoMostrar,
               child: const ZoomPersonalizado(
@@ -184,19 +186,17 @@ class _FuncionesTrigonometricasGeneralesState
                 primaryColorDark: Colors.white,
                 hintColor: Colors.white,
                 inputDecorationTheme: const InputDecorationTheme(
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  labelStyle: TextStyle(
-                    color: Colors.white,
-                  ),
+                  hintStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
               child: TextField(
                 style: kTextoBotones,
                 cursorColor: Colors.white,
                 keyboardType: const TextInputType.numberWithOptions(
-                    signed: true, decimal: true),
+                  signed: true,
+                  decimal: true,
+                ),
                 decoration: InputDecoration(
                   hintText: "5",
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -222,19 +222,17 @@ class _FuncionesTrigonometricasGeneralesState
                 primaryColorDark: Colors.white,
                 hintColor: Colors.white,
                 inputDecorationTheme: const InputDecorationTheme(
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  labelStyle: TextStyle(
-                    color: Colors.white,
-                  ),
+                  hintStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
               child: TextField(
                 style: kTextoBotones,
                 cursorColor: Colors.white,
                 keyboardType: const TextInputType.numberWithOptions(
-                    signed: true, decimal: true),
+                  signed: true,
+                  decimal: true,
+                ),
                 decoration: InputDecoration(
                   hintText: "5",
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -260,19 +258,17 @@ class _FuncionesTrigonometricasGeneralesState
                 primaryColorDark: Colors.white,
                 hintColor: Colors.white,
                 inputDecorationTheme: const InputDecorationTheme(
-                  hintStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                  labelStyle: TextStyle(
-                    color: Colors.white,
-                  ),
+                  hintStyle: TextStyle(color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.white),
                 ),
               ),
               child: TextField(
                 style: kTextoBotones,
                 cursorColor: Colors.white,
                 keyboardType: const TextInputType.numberWithOptions(
-                    signed: true, decimal: true),
+                  signed: true,
+                  decimal: true,
+                ),
                 decoration: InputDecoration(
                   hintText: "5",
                   hintStyle: const TextStyle(color: Colors.grey),
@@ -293,30 +289,22 @@ class _FuncionesTrigonometricasGeneralesState
             ),
             const SizedBox(height: 30.0),
             _solucionFuncionesTrigonometricas(
-                catetoOpuesto, catetoAdyacente, hipotenusa),
+              catetoOpuesto,
+              catetoAdyacente,
+              hipotenusa,
+            ),
             const VideosYoutube(kVideoFuncionesTrigonometricas),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const Padding(padding: EdgeInsets.only(top: 10.0)),
+            const SizedBox(height: 20.0),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetFuncionesTrigonometricasGeneral,
-            ),
+            const VerPDF(url: kWidgetFuncionesTrigonometricasGeneral),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetFuncionesTrigonometricasGeneral,
-            ),
+            const DescargarPDF(url: kWidgetFuncionesTrigonometricasGeneral),
             //Notas
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -324,14 +312,10 @@ class _FuncionesTrigonometricasGeneralesState
                   const Notas(),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"Hi"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.hipotenusa,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.hipotenusa),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"Co"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.catetoOpuesto,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.catetoOpuesto),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"Ca"),
                   TextoEcuaciones(
@@ -348,7 +332,10 @@ class _FuncionesTrigonometricasGeneralesState
   }
 
   Widget _solucionFuncionesTrigonometricas(
-      catetoOpuesto, catetoAdyacente, hipotenusa) {
+    catetoOpuesto,
+    catetoAdyacente,
+    hipotenusa,
+  ) {
     double seno, coseno, tangente, cosecante, secante, cotangente;
     seno = catetoOpuesto / hipotenusa;
     coseno = catetoAdyacente / hipotenusa;

@@ -30,7 +30,9 @@ class TransferenciaDeCalorState extends State<TransferenciaDeCalor> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.transferenciaDeCalor,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.transferenciaDeCalor,
                         widgetName: kWidgetTransferenciaDeCalor,
                       ),
                     );
@@ -44,14 +46,18 @@ class TransferenciaDeCalorState extends State<TransferenciaDeCalor> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.transferenciaDeCalor,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.transferenciaDeCalor,
                                 widgetName: kWidgetTransferenciaDeCalor,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.transferenciaDeCalor,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.transferenciaDeCalor,
                                 widgetName: kWidgetTransferenciaDeCalor,
                               ),
                             );

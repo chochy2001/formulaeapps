@@ -28,8 +28,9 @@ class _LeyDeVoltajesDeKirchhoffState extends State<LeyDeVoltajesDeKirchhoff> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.leyVoltajesKirchhoff,
-                      widgetName: kWidgetLeyDeVoltajesDeKirchhoff),
+                    title: AppLocalizations.of(context)!.leyVoltajesKirchhoff,
+                    widgetName: kWidgetLeyDeVoltajesDeKirchhoff,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -41,16 +42,20 @@ class _LeyDeVoltajesDeKirchhoffState extends State<LeyDeVoltajesDeKirchhoff> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyVoltajesKirchhoff,
-                              widgetName: kWidgetLeyDeVoltajesDeKirchhoff),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyVoltajesKirchhoff,
+                            widgetName: kWidgetLeyDeVoltajesDeKirchhoff,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyVoltajesKirchhoff,
-                              widgetName: kWidgetLeyDeVoltajesDeKirchhoff),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyVoltajesKirchhoff,
+                            widgetName: kWidgetLeyDeVoltajesDeKirchhoff,
+                          ),
                         );
                       }
                     });
@@ -67,7 +72,8 @@ class _LeyDeVoltajesDeKirchhoffState extends State<LeyDeVoltajesDeKirchhoff> {
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenLeyDeVoltajesDeKirchhoff),
+                  urlImagen: kUrlImagenLeyDeVoltajesDeKirchhoff,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\sum_{k=1}^n V_k = 0"),
                 const SizedBox(height: 20.0),
@@ -84,8 +90,8 @@ class _LeyDeVoltajesDeKirchhoffState extends State<LeyDeVoltajesDeKirchhoff> {
                 const Latex(formulaText: r"\Delta U = 0"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\Delta U_T = \Delta U_1 + \Delta U_2 + \cdots"),
+                  formulaText: r"\Delta U_T = \Delta U_1 + \Delta U_2 + \cdots",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -93,15 +99,11 @@ class _LeyDeVoltajesDeKirchhoffState extends State<LeyDeVoltajesDeKirchhoff> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeVoltajesDeKirchhoff,
-                ),
+                VerPDF(url: kWidgetLeyDeVoltajesDeKirchhoff),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeVoltajesDeKirchhoff,
-                ),
+                DescargarPDF(url: kWidgetLeyDeVoltajesDeKirchhoff),
               ],
-            )
+            ),
           ],
         ),
       ),

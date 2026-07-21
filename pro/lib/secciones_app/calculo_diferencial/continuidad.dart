@@ -44,14 +44,18 @@ class ContinuidadState extends State<Continuidad> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.continuidad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.continuidad,
                                 widgetName: kWidgetContinuidad,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.continuidad,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.continuidad,
                                 widgetName: kWidgetContinuidad,
                               ),
                             );

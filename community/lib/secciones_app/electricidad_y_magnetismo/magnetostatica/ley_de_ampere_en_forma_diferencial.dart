@@ -16,9 +16,12 @@ class _LeyDeAmpereEnFormaDiferencialState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _LeyDeAmpereEnFormaDiferencialState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .leyDeAmpereEnFormaDiferencial,
-                      widgetName: kWidgetLeyDeAmpereEnFormaDiferencial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.leyDeAmpereEnFormaDiferencial,
+                    widgetName: kWidgetLeyDeAmpereEnFormaDiferencial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _LeyDeAmpereEnFormaDiferencialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyDeAmpereEnFormaDiferencial,
-                              widgetName: kWidgetLeyDeAmpereEnFormaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeAmpereEnFormaDiferencial,
+                            widgetName: kWidgetLeyDeAmpereEnFormaDiferencial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyDeAmpereEnFormaDiferencial,
-                              widgetName: kWidgetLeyDeAmpereEnFormaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeAmpereEnFormaDiferencial,
+                            widgetName: kWidgetLeyDeAmpereEnFormaDiferencial,
+                          ),
                         );
                       }
                     });
@@ -80,8 +89,9 @@ class _LeyDeAmpereEnFormaDiferencialState
                 children: <Widget>[
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .definicionDeCorrienteElectrica,
+                    AppLocalizations.of(
+                      context,
+                    )!.definicionDeCorrienteElectrica,
                   ),
                   const SizedBox(height: 30.0),
                   const Latex(formulaText: r"i= \iint \vec{J}\cdot d\vec{A}"),
@@ -91,43 +101,44 @@ class _LeyDeAmpereEnFormaDiferencialState
                   ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText: r"\oint \vec{B}\cdot d\vec{l} = \mu _0 i"),
+                    formulaText: r"\oint \vec{B}\cdot d\vec{l} = \mu _0 i",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\oint \vec{B} \cdot d \vec{l} = \mu _0 \iint \vec{J} \cdot d\vec{A}"),
+                    formulaText:
+                        r"\oint \vec{B} \cdot d \vec{l} = \mu _0 \iint \vec{J} \cdot d\vec{A}",
+                  ),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.deAcuerdoConElTeoremaDeStokes,
                   ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\iint(\nabla \times \vec{F})\cdot d\vec{S} = \oint \vec{F}\cdot d\vec{l}"),
+                    formulaText:
+                        r"\iint(\nabla \times \vec{F})\cdot d\vec{S} = \oint \vec{F}\cdot d\vec{l}",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\iint(\nabla \times \vec{B})\cdot d\vec{A} = \mu_0 \iint \vec{J}\cdot d\vec{A}"),
+                    formulaText:
+                        r"\iint(\nabla \times \vec{B})\cdot d\vec{A} = \mu_0 \iint \vec{J}\cdot d\vec{A}",
+                  ),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.leyDeAmpereEnFormaDiferencial,
                   ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText: r"\nabla \times \vec{B} = \mu_0 \vec{J}"),
+                    formulaText: r"\nabla \times \vec{B} = \mu_0 \vec{J}",
+                  ),
                   const SizedBox(height: 40.0),
                 ],
               ),
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetLeyDeAmpereEnFormaDiferencial,
-            ),
+            const VerPDF(url: kWidgetLeyDeAmpereEnFormaDiferencial),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetLeyDeAmpereEnFormaDiferencial,
-            ),
+            const DescargarPDF(url: kWidgetLeyDeAmpereEnFormaDiferencial),
           ],
         ),
       ),

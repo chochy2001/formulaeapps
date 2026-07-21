@@ -6,10 +6,12 @@ class HiperbolicasInversasIntegral extends StatefulWidget {
   const HiperbolicasInversasIntegral({super.key});
 
   @override
-  HiperbolicasInversasIntegralState createState() => HiperbolicasInversasIntegralState();
+  HiperbolicasInversasIntegralState createState() =>
+      HiperbolicasInversasIntegralState();
 }
 
-class HiperbolicasInversasIntegralState extends State<HiperbolicasInversasIntegral> {
+class HiperbolicasInversasIntegralState
+    extends State<HiperbolicasInversasIntegral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class HiperbolicasInversasIntegralState extends State<HiperbolicasInversasIntegr
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.hiperbolicasInversasIntegral,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.hiperbolicasInversasIntegral,
                         widgetName: kWidgetHiperbolicasInversasIntegral,
                       ),
                     );
@@ -44,14 +48,18 @@ class HiperbolicasInversasIntegralState extends State<HiperbolicasInversasIntegr
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hiperbolicasInversasIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hiperbolicasInversasIntegral,
                                 widgetName: kWidgetHiperbolicasInversasIntegral,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hiperbolicasInversasIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hiperbolicasInversasIntegral,
                                 widgetName: kWidgetHiperbolicasInversasIntegral,
                               ),
                             );
@@ -67,13 +75,25 @@ class HiperbolicasInversasIntegralState extends State<HiperbolicasInversasIntegr
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\int \sinh^{-1}x\,dx = x\,\sinh^{-1}x - \sqrt{x^{2}+1} + C"),
+                  Latex(
+                    formulaText:
+                        r"\int \sinh^{-1}x\,dx = x\,\sinh^{-1}x - \sqrt{x^{2}+1} + C",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int \cosh^{-1}x\,dx = x\,\cosh^{-1}x - \sqrt{x^{2}-1} + C"),
+                  Latex(
+                    formulaText:
+                        r"\int \cosh^{-1}x\,dx = x\,\cosh^{-1}x - \sqrt{x^{2}-1} + C",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int \tanh^{-1}x\,dx = x\,\tanh^{-1}x + \frac{1}{2}\ln\left(1-x^{2}\right) + C"),
+                  Latex(
+                    formulaText:
+                        r"\int \tanh^{-1}x\,dx = x\,\tanh^{-1}x + \frac{1}{2}\ln\left(1-x^{2}\right) + C",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int \coth^{-1}x\,dx = x\,\coth^{-1}x + \frac{1}{2}\ln\left(x^{2}-1\right) + C"),
+                  Latex(
+                    formulaText:
+                        r"\int \coth^{-1}x\,dx = x\,\coth^{-1}x + \frac{1}{2}\ln\left(x^{2}-1\right) + C",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

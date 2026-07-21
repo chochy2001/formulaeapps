@@ -18,9 +18,12 @@ class _AreaYPerimetroDeCuadrilaterosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -61,9 +64,11 @@ class _AreaYPerimetroDeCuadrilaterosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .areaPerimetroCuadrilateros,
-                            widgetName: kWidgetAreaYPerimetroDeCuadrilateros),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.areaPerimetroCuadrilateros,
+                          widgetName: kWidgetAreaYPerimetroDeCuadrilateros,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -75,18 +80,22 @@ class _AreaYPerimetroDeCuadrilaterosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroCuadrilateros,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDeCuadrilateros),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroCuadrilateros,
+                                  widgetName:
+                                      kWidgetAreaYPerimetroDeCuadrilateros,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroCuadrilateros,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDeCuadrilateros),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroCuadrilateros,
+                                  widgetName:
+                                      kWidgetAreaYPerimetroDeCuadrilateros,
+                                ),
                               );
                             }
                           });
@@ -95,24 +104,16 @@ class _AreaYPerimetroDeCuadrilaterosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cuadrado,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cuadrado),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"l^2"),
 
                   const SizedBox(height: 10),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"4l"),
 
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenCuadrado),
@@ -122,16 +123,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -139,7 +137,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -161,23 +161,15 @@ class _AreaYPerimetroDeCuadrilaterosState
                   ),
                   _solucionCuadrado(ladoCuadrado),
                   const SizedBox(height: kEspacioEntreBotones),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.rectangulo,
-                  ),
+                  const SizedBox(height: 20.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.rectangulo),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"bh"),
 
                   const SizedBox(height: 10),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"2b+2h"),
 
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenRectangulo),
@@ -187,16 +179,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -204,7 +193,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -231,16 +222,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -248,7 +236,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -269,24 +259,16 @@ class _AreaYPerimetroDeCuadrilaterosState
                     ),
                   ),
                   _solucionRectangulo(baseRectangulo, alturaRectangulo),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.trapecio,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.trapecio),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"\frac{(B+b)h}{2}"),
 
                   const SizedBox(height: 10),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"a+b+c+B"),
 
                   const SizedBox(height: kEspacioEntreBotones),
@@ -297,16 +279,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -314,7 +293,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -341,16 +322,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -358,7 +336,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -385,16 +365,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -402,7 +379,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -429,16 +408,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -446,7 +422,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -473,16 +451,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -490,7 +465,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -510,26 +487,23 @@ class _AreaYPerimetroDeCuadrilaterosState
                       ),
                     ),
                   ),
-                  _solucionTrapecio(baseMayorTrapecio, baseMenorTrapecio,
-                      alturaTrapecio, ladoATrapecio, ladoCTrapecio),
-                  const SizedBox(
-                    height: 20.0,
+                  _solucionTrapecio(
+                    baseMayorTrapecio,
+                    baseMenorTrapecio,
+                    alturaTrapecio,
+                    ladoATrapecio,
+                    ladoCTrapecio,
                   ),
+                  const SizedBox(height: 20.0),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.paralelogramo,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.paralelogramo),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"bh"),
 
                   const SizedBox(height: 10),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"2b+2a"),
 
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenRomboide),
@@ -539,16 +513,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -556,7 +527,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -583,16 +556,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -600,7 +570,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -627,16 +599,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -644,7 +613,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -665,23 +636,20 @@ class _AreaYPerimetroDeCuadrilaterosState
                     ),
                   ),
                   const SizedBox(height: kEspacioInteractivo),
-                  _solucionParalelogramo(baseParalelogramo, alturaParalelogramo,
-                      ladoAParalelogramo),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.rombo,
+                  _solucionParalelogramo(
+                    baseParalelogramo,
+                    alturaParalelogramo,
+                    ladoAParalelogramo,
                   ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.rombo),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"\frac{Dd}{2}"),
 
                   const SizedBox(height: 10),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"4l"),
 
                   const SizedBox(height: kEspacioEntreBotones),
@@ -692,16 +660,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -709,7 +674,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -719,8 +686,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          labelText:
-                              AppLocalizations.of(context)!.diagonalMayor,
+                          labelText: AppLocalizations.of(
+                            context,
+                          )!.diagonalMayor,
                         ),
                         onChanged: (valor) {
                           setState(() {
@@ -737,16 +705,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -754,7 +719,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -764,8 +731,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          labelText:
-                              AppLocalizations.of(context)!.diagonalMenor,
+                          labelText: AppLocalizations.of(
+                            context,
+                          )!.diagonalMenor,
                         ),
                         onChanged: (valor) {
                           setState(() {
@@ -782,16 +750,13 @@ class _AreaYPerimetroDeCuadrilaterosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -799,7 +764,9 @@ class _AreaYPerimetroDeCuadrilaterosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -819,52 +786,36 @@ class _AreaYPerimetroDeCuadrilaterosState
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   _solucionRombo(
-                      diagonalMayorRombo, diagonalMenorRombo, ladoRombo),
-                  const SizedBox(
-                    height: 20.0,
+                    diagonalMayorRombo,
+                    diagonalMenorRombo,
+                    ladoRombo,
                   ),
+                  const SizedBox(height: 20.0),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAreaYPerimetroDeCuadrilateros,
-                  ),
+                  const VerPDF(url: kWidgetAreaYPerimetroDeCuadrilateros),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAreaYPerimetroDeCuadrilateros,
-                  ),
+                  const DescargarPDF(url: kWidgetAreaYPerimetroDeCuadrilateros),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.lado,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.lado),
                         const Latex(formulaText: r"l"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.base,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.base),
                         const Latex(formulaText: r"b"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.altura,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.altura),
                         const Latex(formulaText: r"h"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
@@ -888,10 +839,7 @@ class _AreaYPerimetroDeCuadrilaterosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -909,10 +857,7 @@ class _AreaYPerimetroDeCuadrilaterosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -923,8 +868,13 @@ class _AreaYPerimetroDeCuadrilaterosState
     );
   }
 
-  Widget _solucionTrapecio(baseMayorTrapecio, baseMenorTrapecio, alturaTrapecio,
-      ladoATrapecio, ladoCTrapecio) {
+  Widget _solucionTrapecio(
+    baseMayorTrapecio,
+    baseMenorTrapecio,
+    alturaTrapecio,
+    ladoATrapecio,
+    ladoCTrapecio,
+  ) {
     double areaTrapecio =
         ((baseMayorTrapecio + baseMenorTrapecio) * alturaTrapecio) / 2;
     double perimetroTrapecio =
@@ -933,10 +883,7 @@ class _AreaYPerimetroDeCuadrilaterosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -948,7 +895,10 @@ class _AreaYPerimetroDeCuadrilaterosState
   }
 
   Widget _solucionParalelogramo(
-      baseParalelogramo, alturaParalelogramo, ladoAParalelogramo) {
+    baseParalelogramo,
+    alturaParalelogramo,
+    ladoAParalelogramo,
+  ) {
     double areaParalelogramo = baseParalelogramo * alturaParalelogramo;
     num perimetroParalelogramo =
         (2 * baseParalelogramo) + (2 * ladoAParalelogramo);
@@ -956,10 +906,7 @@ class _AreaYPerimetroDeCuadrilaterosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -977,10 +924,7 @@ class _AreaYPerimetroDeCuadrilaterosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(

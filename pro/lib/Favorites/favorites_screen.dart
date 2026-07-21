@@ -131,9 +131,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   ) async {
     await showDialog<void>(
       context: context,
-      builder: (_) => _CreateFolderDialog(
-        onCreate: favoritesNotifier.createFolder,
-      ),
+      builder: (_) =>
+          _CreateFolderDialog(onCreate: favoritesNotifier.createFolder),
     );
   }
 
@@ -168,8 +167,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) {
           return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             backgroundColor: kColorBotones,
             title: Text(localizations.moverACarpeta, style: kTextoBotones),
             content: DropdownButton<String>(
@@ -290,9 +290,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       _isExporting = true;
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(localizations.generandoPDF)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(localizations.generandoPDF)));
 
     try {
       await FavoritesPdfGenerator.exportFolder(
@@ -303,18 +303,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.pdfGenerado)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.pdfGenerado)));
     } catch (error, stackTrace) {
       debugPrint('Formulae folder PDF export failed: $error');
       debugPrintStack(stackTrace: stackTrace);
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.mensajeError)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.mensajeError)));
     } finally {
       if (mounted) {
         setState(() {
@@ -442,8 +442,9 @@ class _FormulaSizeButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
         decoration: BoxDecoration(
-          color:
-              enabled ? kColorBotones : kColorBotones.withValues(alpha: 0.35),
+          color: enabled
+              ? kColorBotones
+              : kColorBotones.withValues(alpha: 0.35),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
@@ -452,8 +453,9 @@ class _FormulaSizeButton extends StatelessWidget {
             Icon(
               Icons.format_size_rounded,
               size: 18,
-              color:
-                  enabled ? kColorBlanco : kColorBlanco.withValues(alpha: 0.45),
+              color: enabled
+                  ? kColorBlanco
+                  : kColorBlanco.withValues(alpha: 0.45),
             ),
             const SizedBox(width: 8),
             Text(
@@ -555,10 +557,7 @@ class _FolderSelector extends StatelessWidget {
                           style: kTextoBotonesDelgado,
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          '${folder.favorites.length}',
-                          style: kTexto,
-                        ),
+                        Text('${folder.favorites.length}', style: kTexto),
                       ],
                     ),
                   ),
@@ -686,17 +685,9 @@ class _EmptyFavorites extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
-            Icons.folder_off_rounded,
-            size: 92,
-            color: kColorBlanco,
-          ),
+          const Icon(Icons.folder_off_rounded, size: 92, color: kColorBlanco),
           const SizedBox(height: 12),
-          Text(
-            folderName,
-            style: kTextoBotones,
-            textAlign: TextAlign.center,
-          ),
+          Text(folderName, style: kTextoBotones, textAlign: TextAlign.center),
           const SizedBox(height: 8),
           Text(
             localizations.carpetaVacia,

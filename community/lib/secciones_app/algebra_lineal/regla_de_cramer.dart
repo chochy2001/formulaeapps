@@ -14,9 +14,12 @@ class _ReglaDeCramerState extends State<ReglaDeCramer> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _ReglaDeCramerState extends State<ReglaDeCramer> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.reglaCramer,
-                            widgetName: kWidgetReglaDeCramer),
+                          title: AppLocalizations.of(context)!.reglaCramer,
+                          widgetName: kWidgetReglaDeCramer,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _ReglaDeCramerState extends State<ReglaDeCramer> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .reglaCramer,
-                                    widgetName: kWidgetReglaDeCramer),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.reglaCramer,
+                                  widgetName: kWidgetReglaDeCramer,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .reglaCramer,
-                                    widgetName: kWidgetReglaDeCramer),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.reglaCramer,
+                                  widgetName: kWidgetReglaDeCramer,
+                                ),
                               );
                             }
                           });
@@ -81,35 +89,25 @@ class _ReglaDeCramerState extends State<ReglaDeCramer> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.si,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.si),
                         const Latex(formulaText: r"Ax = b"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.entonces,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.entonces),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"x_j = \frac{\det A_j}{\det A}"),
+                          formulaText: r"x_j = \frac{\det A_j}{\det A}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetReglaDeCramer,
-                  ),
+                  const VerPDF(url: kWidgetReglaDeCramer),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetReglaDeCramer,
-                  ),
+                  const DescargarPDF(url: kWidgetReglaDeCramer),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

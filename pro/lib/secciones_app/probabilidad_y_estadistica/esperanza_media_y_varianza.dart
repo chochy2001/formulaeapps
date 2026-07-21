@@ -30,7 +30,9 @@ class EsperanzaMediaYVarianzaState extends State<EsperanzaMediaYVarianza> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.esperanzaMediaYVarianza,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.esperanzaMediaYVarianza,
                         widgetName: kWidgetEsperanzaMediaYVarianza,
                       ),
                     );
@@ -44,14 +46,18 @@ class EsperanzaMediaYVarianzaState extends State<EsperanzaMediaYVarianza> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.esperanzaMediaYVarianza,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.esperanzaMediaYVarianza,
                                 widgetName: kWidgetEsperanzaMediaYVarianza,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.esperanzaMediaYVarianza,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.esperanzaMediaYVarianza,
                                 widgetName: kWidgetEsperanzaMediaYVarianza,
                               ),
                             );
@@ -67,15 +73,26 @@ class EsperanzaMediaYVarianzaState extends State<EsperanzaMediaYVarianza> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"E[g(X)] = \begin{cases} \displaystyle\sum_{X_0} g(X_0)\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} g(X_0)\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"E[g(X)] = \begin{cases} \displaystyle\sum_{X_0} g(X_0)\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} g(X_0)\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\bar{X} = E(X) = \begin{cases} \displaystyle\sum_{X_0} X_0\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} X_0\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"\bar{X} = E(X) = \begin{cases} \displaystyle\sum_{X_0} X_0\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} X_0\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma_x^{2} = E\!\left[(X-\bar{X})^{2}\right] = \begin{cases} \displaystyle\sum_{X_0} (X_0-\bar{X})^{2}\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} (X_0-\bar{X})^{2}\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"\sigma_x^{2} = E\!\left[(X-\bar{X})^{2}\right] = \begin{cases} \displaystyle\sum_{X_0} (X_0-\bar{X})^{2}\, P_x(X_0) & X \text{ discreta} \\ \displaystyle\int_{X_0=-\infty}^{\infty} (X_0-\bar{X})^{2}\, f_x(X_0)\, dX_0 & X \text{ continua} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\sigma_x^{2} = E(X^{2}) - [E(X)]^{2}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma_x = \sqrt{E(X^{2}) - [E(X)]^{2}}"),
+                  Latex(
+                    formulaText: r"\sigma_x = \sqrt{E(X^{2}) - [E(X)]^{2}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

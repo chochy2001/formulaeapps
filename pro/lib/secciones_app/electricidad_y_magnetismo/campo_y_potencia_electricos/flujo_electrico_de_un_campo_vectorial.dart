@@ -28,9 +28,11 @@ class _FlujoDeUnCampoVectorialState extends State<FlujoDeUnCampoVectorial> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .flujoElectricoCampoVectorial,
-                      widgetName: kWidgetFlujoElectricoDeUnCampoVectorial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.flujoElectricoCampoVectorial,
+                    widgetName: kWidgetFlujoElectricoDeUnCampoVectorial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,18 +44,20 @@ class _FlujoDeUnCampoVectorialState extends State<FlujoDeUnCampoVectorial> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .flujoElectricoCampoVectorial,
-                              widgetName:
-                                  kWidgetFlujoElectricoDeUnCampoVectorial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.flujoElectricoCampoVectorial,
+                            widgetName: kWidgetFlujoElectricoDeUnCampoVectorial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .flujoElectricoCampoVectorial,
-                              widgetName:
-                                  kWidgetFlujoElectricoDeUnCampoVectorial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.flujoElectricoCampoVectorial,
+                            widgetName: kWidgetFlujoElectricoDeUnCampoVectorial,
+                          ),
                         );
                       }
                     });
@@ -65,8 +69,9 @@ class _FlujoDeUnCampoVectorialState extends State<FlujoDeUnCampoVectorial> {
             const SizedBox(height: 20.0),
 
             TextoEcuaciones(
-              AppLocalizations.of(context)!
-                  .flujoCampoVectorialSuperficieFijaImaginaria,
+              AppLocalizations.of(
+                context,
+              )!.flujoCampoVectorialSuperficieFijaImaginaria,
             ),
 
             const SizedBox(height: 20.0),
@@ -80,40 +85,50 @@ class _FlujoDeUnCampoVectorialState extends State<FlujoDeUnCampoVectorial> {
             Column(
               children: <Widget>[
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .flujoCampoVectorialRespectoSuperficie,
+                  AppLocalizations.of(
+                    context,
+                  )!.flujoCampoVectorialRespectoSuperficie,
                 ),
                 const Latex(
-                    formulaText:
-                        r"\phi = V A \cos \theta = \vec{V} \cdot \vec{A}"),
+                  formulaText:
+                      r"\phi = V A \cos \theta = \vec{V} \cdot \vec{A}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenFlujoRespectoASuperficie),
+                  urlImagen: kUrlImagenFlujoRespectoASuperficie,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .flujoCampoVectorialRespectoSuperficiesDiscretas,
+                  AppLocalizations.of(
+                    context,
+                  )!.flujoCampoVectorialRespectoSuperficiesDiscretas,
                 ),
                 const Latex(
-                    formulaText:
-                        r"\phi = \sum_{i=1}^{n} V_i A_i \cos \theta_i = \sum_{i=1}^{n} \vec{V_i} \cdot \vec{A_i}"),
+                  formulaText:
+                      r"\phi = \sum_{i=1}^{n} V_i A_i \cos \theta_i = \sum_{i=1}^{n} \vec{V_i} \cdot \vec{A_i}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenFlujoRespectoASuperficies),
+                  urlImagen: kUrlImagenFlujoRespectoASuperficies,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .flujoCampoVectorialSuperficieContinua,
+                  AppLocalizations.of(
+                    context,
+                  )!.flujoCampoVectorialSuperficieContinua,
                 ),
                 const Latex(
-                    formulaText: r"\phi = \iint \vec{V} \cdot d\vec{A}"),
+                  formulaText: r"\phi = \iint \vec{V} \cdot d\vec{A}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenFlujoRespectoASuperficieContinua),
+                  urlImagen: kUrlImagenFlujoRespectoASuperficieContinua,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.flujoCampoElectricoEntenderse,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\phi _E = \iint \vec{E} \cdot d\vec{A}"),
+                  formulaText: r"\phi _E = \iint \vec{E} \cdot d\vec{A}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.flujoCampoElectricoNumeroLineas,
@@ -129,15 +144,11 @@ class _FlujoDeUnCampoVectorialState extends State<FlujoDeUnCampoVectorial> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetFlujoElectricoDeUnCampoVectorial,
-                ),
+                VerPDF(url: kWidgetFlujoElectricoDeUnCampoVectorial),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetFlujoElectricoDeUnCampoVectorial,
-                ),
+                DescargarPDF(url: kWidgetFlujoElectricoDeUnCampoVectorial),
               ],
-            )
+            ),
           ],
         ),
       ),

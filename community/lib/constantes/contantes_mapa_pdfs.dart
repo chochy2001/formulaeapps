@@ -1480,7 +1480,9 @@ Map<String, Map<String, String>> urlPdfMap = {
 };
 
 String? getUrlPdfById(BuildContext context, String id) {
-  Locale currentLocale =
-      Provider.of<LocaleProvider>(context, listen: false).locale;
+  Locale currentLocale = Provider.of<LocaleProvider>(
+    context,
+    listen: false,
+  ).locale;
   return urlPdfMap[id]?[currentLocale.languageCode];
 }

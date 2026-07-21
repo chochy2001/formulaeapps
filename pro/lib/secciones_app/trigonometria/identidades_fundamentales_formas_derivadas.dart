@@ -6,10 +6,12 @@ class IdentidadesFundamentalesFormasDerivadas extends StatefulWidget {
   const IdentidadesFundamentalesFormasDerivadas({super.key});
 
   @override
-  IdentidadesFundamentalesFormasDerivadasState createState() => IdentidadesFundamentalesFormasDerivadasState();
+  IdentidadesFundamentalesFormasDerivadasState createState() =>
+      IdentidadesFundamentalesFormasDerivadasState();
 }
 
-class IdentidadesFundamentalesFormasDerivadasState extends State<IdentidadesFundamentalesFormasDerivadas> {
+class IdentidadesFundamentalesFormasDerivadasState
+    extends State<IdentidadesFundamentalesFormasDerivadas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class IdentidadesFundamentalesFormasDerivadasState extends State<IdentidadesFund
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas,
+                    AppLocalizations.of(
+                      context,
+                    )!.identidadesFundamentalesFormasDerivadas,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas,
-                        widgetName: kWidgetIdentidadesFundamentalesFormasDerivadas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.identidadesFundamentalesFormasDerivadas,
+                        widgetName:
+                            kWidgetIdentidadesFundamentalesFormasDerivadas,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class IdentidadesFundamentalesFormasDerivadasState extends State<IdentidadesFund
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas,
-                                widgetName: kWidgetIdentidadesFundamentalesFormasDerivadas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesFundamentalesFormasDerivadas,
+                                widgetName:
+                                    kWidgetIdentidadesFundamentalesFormasDerivadas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesFundamentalesFormasDerivadas,
-                                widgetName: kWidgetIdentidadesFundamentalesFormasDerivadas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesFundamentalesFormasDerivadas,
+                                widgetName:
+                                    kWidgetIdentidadesFundamentalesFormasDerivadas,
                               ),
                             );
                           }
@@ -69,15 +82,25 @@ class IdentidadesFundamentalesFormasDerivadasState extends State<IdentidadesFund
                 children: [
                   Latex(formulaText: r"\operatorname{sen} A = \tan A \cos A"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos A = \dfrac{\operatorname{sen} A}{\tan A}"),
+                  Latex(
+                    formulaText:
+                        r"\cos A = \dfrac{\operatorname{sen} A}{\tan A}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\cos A = \cot A \,\operatorname{sen} A"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen} A = \dfrac{\cos A}{\cot A}"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen} A = \dfrac{\cos A}{\cot A}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen}^{2}A = 1 - \cos^{2}A"),
+                  Latex(
+                    formulaText: r"\operatorname{sen}^{2}A = 1 - \cos^{2}A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos^{2}A = 1 - \operatorname{sen}^{2}A"),
+                  Latex(
+                    formulaText: r"\cos^{2}A = 1 - \operatorname{sen}^{2}A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tan^{2}A = \sec^{2}A - 1"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -92,7 +115,9 @@ class IdentidadesFundamentalesFormasDerivadasState extends State<IdentidadesFund
             ),
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetIdentidadesFundamentalesFormasDerivadas),
-            const DescargarPDF(url: kWidgetIdentidadesFundamentalesFormasDerivadas),
+            const DescargarPDF(
+              url: kWidgetIdentidadesFundamentalesFormasDerivadas,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

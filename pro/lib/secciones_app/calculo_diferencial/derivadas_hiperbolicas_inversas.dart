@@ -6,10 +6,12 @@ class DerivadasHiperbolicasInversas extends StatefulWidget {
   const DerivadasHiperbolicasInversas({super.key});
 
   @override
-  DerivadasHiperbolicasInversasState createState() => DerivadasHiperbolicasInversasState();
+  DerivadasHiperbolicasInversasState createState() =>
+      DerivadasHiperbolicasInversasState();
 }
 
-class DerivadasHiperbolicasInversasState extends State<DerivadasHiperbolicasInversas> {
+class DerivadasHiperbolicasInversasState
+    extends State<DerivadasHiperbolicasInversas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class DerivadasHiperbolicasInversasState extends State<DerivadasHiperbolicasInve
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.derivadasHiperbolicasInversas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.derivadasHiperbolicasInversas,
                         widgetName: kWidgetDerivadasHiperbolicasInversas,
                       ),
                     );
@@ -44,15 +48,21 @@ class DerivadasHiperbolicasInversasState extends State<DerivadasHiperbolicasInve
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivadasHiperbolicasInversas,
-                                widgetName: kWidgetDerivadasHiperbolicasInversas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasHiperbolicasInversas,
+                                widgetName:
+                                    kWidgetDerivadasHiperbolicasInversas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivadasHiperbolicasInversas,
-                                widgetName: kWidgetDerivadasHiperbolicasInversas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasHiperbolicasInversas,
+                                widgetName:
+                                    kWidgetDerivadasHiperbolicasInversas,
                               ),
                             );
                           }
@@ -67,17 +77,35 @@ class DerivadasHiperbolicasInversasState extends State<DerivadasHiperbolicasInve
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{d}{dx}\operatorname{senh}^{-1}u=\frac{1}{\sqrt{u^{2}+1}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\operatorname{senh}^{-1}u=\frac{1}{\sqrt{u^{2}+1}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\cosh^{-1}u=\frac{1}{\sqrt{u^{2}-1}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\cosh^{-1}u=\frac{1}{\sqrt{u^{2}-1}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\tanh^{-1}u=\frac{1}{1-u^{2}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\tanh^{-1}u=\frac{1}{1-u^{2}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\coth^{-1}u=\frac{1}{1-u^{2}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\coth^{-1}u=\frac{1}{1-u^{2}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\operatorname{sech}^{-1}u=-\frac{1}{u\sqrt{1-u^{2}}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\operatorname{sech}^{-1}u=-\frac{1}{u\sqrt{1-u^{2}}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\operatorname{csch}^{-1}u=-\frac{1}{u\sqrt{u^{2}+1}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\operatorname{csch}^{-1}u=-\frac{1}{u\sqrt{u^{2}+1}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

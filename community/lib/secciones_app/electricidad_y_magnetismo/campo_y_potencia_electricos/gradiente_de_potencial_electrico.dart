@@ -16,9 +16,12 @@ class _GradienteDePotencialElectricoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _GradienteDePotencialElectricoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .gradientePotencialElectrico,
-                      widgetName: kWidgetGradienteDePotencialElectrico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.gradientePotencialElectrico,
+                    widgetName: kWidgetGradienteDePotencialElectrico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _GradienteDePotencialElectricoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradientePotencialElectrico,
-                              widgetName: kWidgetGradienteDePotencialElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradientePotencialElectrico,
+                            widgetName: kWidgetGradienteDePotencialElectrico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradientePotencialElectrico,
-                              widgetName: kWidgetGradienteDePotencialElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradientePotencialElectrico,
+                            widgetName: kWidgetGradienteDePotencialElectrico,
+                          ),
                         );
                       }
                     });
@@ -80,35 +89,41 @@ class _GradienteDePotencialElectricoState
                 children: <Widget>[
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .diferenciaPotencialCampoElectricoyCampo,
+                    AppLocalizations.of(
+                      context,
+                    )!.diferenciaPotencialCampoElectricoyCampo,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{B}^{A} \vec{E} \cdot d\vec{l}"),
+                    formulaText:
+                        r"V_{AB} = - \int_{B}^{A} \vec{E} \cdot d\vec{l}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.terminosDiferenciales,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"V_{AB} = \alpha \Rightarrow d\alpha = dV"),
+                    formulaText: r"V_{AB} = \alpha \Rightarrow d\alpha = dV",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\int_{B}^{A} \vec{E} \cdot d\vec{l} = \beta \Rightarrow d\beta = \vec{E} \cdot d\vec{l}"),
+                    formulaText:
+                        r"\int_{B}^{A} \vec{E} \cdot d\vec{l} = \beta \Rightarrow d\beta = \vec{E} \cdot d\vec{l}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .gradientePotencialCampoElectrico,
+                    AppLocalizations.of(
+                      context,
+                    )!.gradientePotencialCampoElectrico,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"dV = -\vec{E} \cdot d\vec{l}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla}V \cdot d\vec{l} = -\vec{E} \cdot d\vec{l}"),
+                    formulaText:
+                        r"\vec{\nabla}V \cdot d\vec{l} = -\vec{E} \cdot d\vec{l}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\vec{E} = -\vec{\nabla}V"),
                   const SizedBox(height: 40.0),
@@ -117,13 +132,9 @@ class _GradienteDePotencialElectricoState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetGradienteDePotencialElectrico,
-            ),
+            const VerPDF(url: kWidgetGradienteDePotencialElectrico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetGradienteDePotencialElectrico,
-            ),
+            const DescargarPDF(url: kWidgetGradienteDePotencialElectrico),
           ],
         ),
       ),

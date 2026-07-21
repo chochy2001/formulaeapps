@@ -44,14 +44,18 @@ class LeyesDeNewtonState extends State<LeyesDeNewton> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyesDeNewton,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyesDeNewton,
                                 widgetName: kWidgetLeyesDeNewton,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyesDeNewton,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyesDeNewton,
                                 widgetName: kWidgetLeyesDeNewton,
                               ),
                             );
@@ -69,11 +73,19 @@ class LeyesDeNewtonState extends State<LeyesDeNewton> {
                 children: [
                   Latex(formulaText: r"a = \frac{F}{m}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"F = m\,a = \mathrm{kg}\,\frac{m}{s^{2}} = \text{Newton (N)}"),
+                  Latex(
+                    formulaText:
+                        r"F = m\,a = \mathrm{kg}\,\frac{m}{s^{2}} = \text{Newton (N)}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"F = m\,a = \mathrm{g}\,\frac{cm}{s^{2}} = \text{Dina}"),
+                  Latex(
+                    formulaText:
+                        r"F = m\,a = \mathrm{g}\,\frac{cm}{s^{2}} = \text{Dina}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{N} = 1 \times 10^{5}\ \text{Dinas}"),
+                  Latex(
+                    formulaText: r"1\ \text{N} = 1 \times 10^{5}\ \text{Dinas}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"F - P = m\,a"),
                   SizedBox(height: kEspacioEntreBotones),

@@ -17,9 +17,12 @@ class _PropiedadesRadicalesState extends State<PropiedadesRadicales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -48,9 +51,11 @@ class _PropiedadesRadicalesState extends State<PropiedadesRadicales> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .propiedadesRadicales,
-                            widgetName: kWidgetPropiedadesRadicales),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.propiedadesRadicales,
+                          widgetName: kWidgetPropiedadesRadicales,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,16 +67,20 @@ class _PropiedadesRadicalesState extends State<PropiedadesRadicales> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesRadicales,
-                                    widgetName: kWidgetPropiedadesRadicales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesRadicales,
+                                  widgetName: kWidgetPropiedadesRadicales,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesRadicales,
-                                    widgetName: kWidgetPropiedadesRadicales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesRadicales,
+                                  widgetName: kWidgetPropiedadesRadicales,
+                                ),
                               );
                             }
                           });
@@ -80,56 +89,53 @@ class _PropiedadesRadicalesState extends State<PropiedadesRadicales> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Teorias
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
+                        SizedBox(width: MediaQuery.of(context).size.width),
+                        const Latex(
+                          formulaText: r"a^n=b\rightarrow a=\sqrt[n]{b}",
                         ),
-                        const Latex(
-                            formulaText: r"a^n=b\rightarrow a=\sqrt[n]{b}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a^{\frac{1}{n}}=\sqrt[n]{a}"),
+                          formulaText: r"a^{\frac{1}{n}}=\sqrt[n]{a}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a^{\frac{m}{n}}=(\sqrt[n]{a})^m=(a^{\frac{1}{n}})^m"),
+                          formulaText:
+                              r"a^{\frac{m}{n}}=(\sqrt[n]{a})^m=(a^{\frac{1}{n}})^m",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a^{\frac{m}{n}}=(\sqrt[n]{a^m})=(a^{m})^{\frac{1}{n}}"),
+                          formulaText:
+                              r"a^{\frac{m}{n}}=(\sqrt[n]{a^m})=(a^{m})^{\frac{1}{n}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sqrt{x^2}=|x|"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sqrt[n]{a}\sqrt[n]{b}=\sqrt[n]{ab}"),
+                          formulaText: r"\sqrt[n]{a}\sqrt[n]{b}=\sqrt[n]{ab}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{\sqrt[n]{a}}{\sqrt[n]{b}}=\sqrt[n]{\frac{a}{b}}"),
+                          formulaText:
+                              r"\frac{\sqrt[n]{a}}{\sqrt[n]{b}}=\sqrt[n]{\frac{a}{b}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPropiedadesRadicales,
-                  ),
+                  const VerPDF(url: kWidgetPropiedadesRadicales),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPropiedadesRadicales,
-                  ),
+                  const DescargarPDF(url: kWidgetPropiedadesRadicales),
                 ],
               ),
             ),

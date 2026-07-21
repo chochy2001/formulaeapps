@@ -29,15 +29,18 @@ void main() {
     expect(search.searchFieldLabel, 'Buscar');
   });
 
-  testWidgets('getSearchResults and getSearchResultss build full catalogs',
-      (tester) async {
+  testWidgets('getSearchResults and getSearchResultss build full catalogs', (
+    tester,
+  ) async {
     late BuildContext captured;
     await tester.pumpWidget(
       _harness(
-        home: Builder(builder: (context) {
-          captured = context;
-          return const SizedBox.shrink();
-        }),
+        home: Builder(
+          builder: (context) {
+            captured = context;
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
     await tester.pump();
@@ -53,15 +56,18 @@ void main() {
     expect(search.appBarTheme(captured), isA<ThemeData>());
   });
 
-  testWidgets('DataSearch buildSuggestions/buildResults execute',
-      (tester) async {
+  testWidgets('DataSearch buildSuggestions/buildResults execute', (
+    tester,
+  ) async {
     late BuildContext captured;
     await tester.pumpWidget(
       _harness(
-        home: Builder(builder: (context) {
-          captured = context;
-          return const SizedBox.shrink();
-        }),
+        home: Builder(
+          builder: (context) {
+            captured = context;
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
     await tester.pump();
@@ -77,20 +83,14 @@ void main() {
     expect(search.buildActions(captured), isNotEmpty);
     expect(search.buildLeading(captured), isA<Widget>());
 
-    await tester.pumpWidget(
-      _harness(
-        home: Scaffold(body: results),
-      ),
-    );
+    await tester.pumpWidget(_harness(home: Scaffold(body: results)));
     await tester.pump();
     while (tester.takeException() != null) {}
   });
 
   testWidgets('Busqueda menu list mounts', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 2400));
-    await tester.pumpWidget(
-      _harness(home: const Scaffold(body: Busqueda())),
-    );
+    await tester.pumpWidget(_harness(home: const Scaffold(body: Busqueda())));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 16));
     while (tester.takeException() != null) {}

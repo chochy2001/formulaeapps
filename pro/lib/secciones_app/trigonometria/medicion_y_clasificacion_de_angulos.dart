@@ -26,17 +26,20 @@ class MedicionYClasificacionDeAngulosState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .medicionYClasificacionDeAngulos,
+                      AppLocalizations.of(
+                        context,
+                      )!.medicionYClasificacionDeAngulos,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .medicionYClasificacionDeAngulos,
-                            widgetName: kWidgetMedicionYClasificacionDeAngulos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.medicionYClasificacionDeAngulos,
+                          widgetName: kWidgetMedicionYClasificacionDeAngulos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +51,22 @@ class MedicionYClasificacionDeAngulosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .medicionYClasificacionDeAngulos,
-                                    widgetName:
-                                        kWidgetMedicionYClasificacionDeAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.medicionYClasificacionDeAngulos,
+                                  widgetName:
+                                      kWidgetMedicionYClasificacionDeAngulos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .medicionYClasificacionDeAngulos,
-                                    widgetName:
-                                        kWidgetMedicionYClasificacionDeAngulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.medicionYClasificacionDeAngulos,
+                                  widgetName:
+                                      kWidgetMedicionYClasificacionDeAngulos,
+                                ),
                               );
                             }
                           });
@@ -68,9 +75,7 @@ class MedicionYClasificacionDeAngulosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,17 +85,23 @@ class MedicionYClasificacionDeAngulosState
                           text:
                               '${AppLocalizations.of(context)!.sistema}               ',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15.0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
                           children: <TextSpan>[
                             TextSpan(
-                                text:
-                                    '${AppLocalizations.of(context)!.sexagesimal}    ',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.normal)),
+                              text:
+                                  '${AppLocalizations.of(context)!.sexagesimal}    ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                             TextSpan(
-                                text: AppLocalizations.of(context)!.circular,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.normal)),
+                              text: AppLocalizations.of(context)!.circular,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -99,17 +110,23 @@ class MedicionYClasificacionDeAngulosState
                           text:
                               '${AppLocalizations.of(context)!.unidad}                 ',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15.0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
                           children: <TextSpan>[
                             TextSpan(
-                                text:
-                                    '${AppLocalizations.of(context)!.grados}              ',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.normal)),
+                              text:
+                                  '${AppLocalizations.of(context)!.grados}              ',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                             TextSpan(
-                                text: AppLocalizations.of(context)!.radian,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.normal)),
+                              text: AppLocalizations.of(context)!.radian,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -118,16 +135,18 @@ class MedicionYClasificacionDeAngulosState
                           text:
                               '${AppLocalizations.of(context)!.circunferencia}   ',
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15.0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15.0,
+                          ),
                           children: const <TextSpan>[
                             TextSpan(
-                                text: '360°                   ',
-                                style:
-                                    TextStyle(fontWeight: FontWeight.normal)),
+                              text: '360°                   ',
+                              style: TextStyle(fontWeight: FontWeight.normal),
+                            ),
                             TextSpan(
-                                text: 'πd',
-                                style:
-                                    TextStyle(fontWeight: FontWeight.normal)),
+                              text: 'πd',
+                              style: TextStyle(fontWeight: FontWeight.normal),
+                            ),
                           ],
                         ),
                       ),
@@ -137,21 +156,21 @@ class MedicionYClasificacionDeAngulosState
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.grados,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.grados),
                         Latex(
-                            formulaText: r"\frac{(180^\circ " +
-                                AppLocalizations.of(context)!.radianes +
-                                r")}{\pi}"),
+                          formulaText:
+                              r"\frac{(180^\circ " +
+                              AppLocalizations.of(context)!.radianes +
+                              r")}{\pi}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.radianes,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.radianes),
                         Latex(
-                            formulaText: r"\frac{(\pi )" +
-                                AppLocalizations.of(context)!.grados +
-                                r"}{180^\circ}"),
+                          formulaText:
+                              r"\frac{(\pi )" +
+                              AppLocalizations.of(context)!.grados +
+                              r"}{180^\circ}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -160,10 +179,13 @@ class MedicionYClasificacionDeAngulosState
 
                   RichText(
                     text: TextSpan(
-                      text: AppLocalizations.of(context)!
-                          .clasificacionSegunMedida,
+                      text: AppLocalizations.of(
+                        context,
+                      )!.clasificacionSegunMedida,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                   Column(
@@ -173,41 +195,50 @@ class MedicionYClasificacionDeAngulosState
                         text: TextSpan(
                           text: AppLocalizations.of(context)!.anguloRecto,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       RichText(
                         text: TextSpan(
                           text: AppLocalizations.of(context)!.anguloLlano,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       RichText(
                         text: TextSpan(
                           text: AppLocalizations.of(context)!.anguloAgudo,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       RichText(
                         text: TextSpan(
                           text: AppLocalizations.of(context)!.anguloObtuso,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   RichText(
                     text: TextSpan(
-                      text: AppLocalizations.of(context)!
-                          .clasificacionSegunValorSuma,
+                      text: AppLocalizations.of(
+                        context,
+                      )!.clasificacionSegunValorSuma,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                   Column(
@@ -215,25 +246,33 @@ class MedicionYClasificacionDeAngulosState
                     children: [
                       RichText(
                         text: TextSpan(
-                          text: AppLocalizations.of(context)!
-                              .angulosComplementarios,
+                          text: AppLocalizations.of(
+                            context,
+                          )!.angulosComplementarios,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       RichText(
                         text: TextSpan(
-                          text: AppLocalizations.of(context)!
-                              .angulosSuplementarios,
+                          text: AppLocalizations.of(
+                            context,
+                          )!.angulosSuplementarios,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                       RichText(
                         text: TextSpan(
                           text: AppLocalizations.of(context)!.angulosConjugados,
                           style: const TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 15.0),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 15.0,
+                          ),
                         ),
                       ),
                     ],
@@ -242,13 +281,9 @@ class MedicionYClasificacionDeAngulosState
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetMedicionYClasificacionDeAngulos,
-                      ),
+                      VerPDF(url: kWidgetMedicionYClasificacionDeAngulos),
                       //Descargar PDF
-                      DescargarPDF(
-                        url: kWidgetMedicionYClasificacionDeAngulos,
-                      ),
+                      DescargarPDF(url: kWidgetMedicionYClasificacionDeAngulos),
                     ],
                   ),
                 ],

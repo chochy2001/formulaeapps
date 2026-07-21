@@ -25,8 +25,9 @@ void main() {
     AdMobConfig.adsEnabled = true;
   });
 
-  testWidgets('derivation cards fit every supported locale and viewport',
-      (tester) async {
+  testWidgets('derivation cards fit every supported locale and viewport', (
+    tester,
+  ) async {
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
     for (final locale in const [Locale('es'), Locale('en')]) {
@@ -50,7 +51,8 @@ Widget _harness(Locale locale) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<LocaleProvider>(
-          create: (_) => LocaleProvider(locale)),
+        create: (_) => LocaleProvider(locale),
+      ),
       ChangeNotifierProvider<ModelsProvider>(create: (_) => ModelsProvider()),
       ChangeNotifierProvider<ChatProvider>(create: (_) => ChatProvider()),
       ChangeNotifierProvider<TaskData>(create: (_) => TaskData()),

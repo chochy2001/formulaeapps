@@ -31,9 +31,11 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .transformadasDeLaplace,
-                            widgetName: kWidgetTransformadasDeLaplace),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.transformadasDeLaplace,
+                          widgetName: kWidgetTransformadasDeLaplace,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadasDeLaplace,
-                                    widgetName: kWidgetTransformadasDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadasDeLaplace,
+                                  widgetName: kWidgetTransformadasDeLaplace,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadasDeLaplace,
-                                    widgetName: kWidgetTransformadasDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadasDeLaplace,
+                                  widgetName: kWidgetTransformadasDeLaplace,
+                                ),
                               );
                             }
                           });
@@ -63,16 +69,12 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const Latex(formulaText: r"f(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"K"),
@@ -91,9 +93,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"t^n\space (n=1,2,3...)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -105,9 +105,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"t^n\space (n=1,2,3...)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -119,9 +117,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"e^{\pm at}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -133,12 +129,11 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"t^ne^{\pm at}\space (n=1,2,3...)"),
+                          formulaText: r"t^ne^{\pm at}\space (n=1,2,3...)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.transformada,
@@ -148,9 +143,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sin\space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -162,9 +155,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\cos \space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -176,9 +167,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"t\space \sin\space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -190,9 +179,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"t\space \cos\space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -201,13 +188,12 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\frac{s^2-a^2}{(s^2+a^2)^2}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
+                          formulaText: r"\frac{s^2-a^2}{(s^2+a^2)^2}",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sinh\space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -219,9 +205,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\cosh\space at"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -233,9 +217,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"e^{at}\sin bt"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -247,9 +229,7 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.funcion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.funcion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"e^{at}\cos bt"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -266,13 +246,9 @@ class TransformadasDeLaplaceState extends State<TransformadasDeLaplace> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTransformadasDeLaplace,
-                  ),
+                  const VerPDF(url: kWidgetTransformadasDeLaplace),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTransformadasDeLaplace,
-                  ),
+                  const DescargarPDF(url: kWidgetTransformadasDeLaplace),
                 ],
               ),
             ),

@@ -6,10 +6,12 @@ class InstrumentosDeMedicionElectrica extends StatefulWidget {
   const InstrumentosDeMedicionElectrica({super.key});
 
   @override
-  InstrumentosDeMedicionElectricaState createState() => InstrumentosDeMedicionElectricaState();
+  InstrumentosDeMedicionElectricaState createState() =>
+      InstrumentosDeMedicionElectricaState();
 }
 
-class InstrumentosDeMedicionElectricaState extends State<InstrumentosDeMedicionElectrica> {
+class InstrumentosDeMedicionElectricaState
+    extends State<InstrumentosDeMedicionElectrica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class InstrumentosDeMedicionElectricaState extends State<InstrumentosDeMedicionE
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.instrumentosDeMedicionElectrica,
+                    AppLocalizations.of(
+                      context,
+                    )!.instrumentosDeMedicionElectrica,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.instrumentosDeMedicionElectrica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.instrumentosDeMedicionElectrica,
                         widgetName: kWidgetInstrumentosDeMedicionElectrica,
                       ),
                     );
@@ -44,15 +50,21 @@ class InstrumentosDeMedicionElectricaState extends State<InstrumentosDeMedicionE
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.instrumentosDeMedicionElectrica,
-                                widgetName: kWidgetInstrumentosDeMedicionElectrica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.instrumentosDeMedicionElectrica,
+                                widgetName:
+                                    kWidgetInstrumentosDeMedicionElectrica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.instrumentosDeMedicionElectrica,
-                                widgetName: kWidgetInstrumentosDeMedicionElectrica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.instrumentosDeMedicionElectrica,
+                                widgetName:
+                                    kWidgetInstrumentosDeMedicionElectrica,
                               ),
                             );
                           }
@@ -71,7 +83,9 @@ class InstrumentosDeMedicionElectricaState extends State<InstrumentosDeMedicionE
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"R_{x} = R_{3}\,\frac{I_{2}}{I_{1}}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"R_{m} = \frac{V_{B} - I_{g} R_{g}}{I_{g}}"),
+                  Latex(
+                    formulaText: r"R_{m} = \frac{V_{B} - I_{g} R_{g}}{I_{g}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"R = \frac{I_{g} R_{g}}{I - I_{g}}"),
                   SizedBox(height: kEspacioEntreBotones),

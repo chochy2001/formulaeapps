@@ -31,9 +31,11 @@ class FormulasDeFactorizacionState extends State<FormulasDeFactorizacion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .formulasFactorizacion,
-                            widgetName: kWidgetFormulasDeFactorizacion),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.formulasFactorizacion,
+                          widgetName: kWidgetFormulasDeFactorizacion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class FormulasDeFactorizacionState extends State<FormulasDeFactorizacion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulasFactorizacion,
-                                    widgetName: kWidgetFormulasDeFactorizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulasFactorizacion,
+                                  widgetName: kWidgetFormulasDeFactorizacion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulasFactorizacion,
-                                    widgetName: kWidgetFormulasDeFactorizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulasFactorizacion,
+                                  widgetName: kWidgetFormulasDeFactorizacion,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class FormulasDeFactorizacionState extends State<FormulasDeFactorizacion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
 
                   const ZoomPersonalizado(
                     child: Column(
@@ -79,16 +83,19 @@ class FormulasDeFactorizacionState extends State<FormulasDeFactorizacion> {
                         Latex(formulaText: r"a^2-b^2=(a+b)(a-b)"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"a^3+b^3=(a+b)(a^2-ab+b^2)=(a+b)^3-3ab(a+b)"),
+                          formulaText:
+                              r"a^3+b^3=(a+b)(a^2-ab+b^2)=(a+b)^3-3ab(a+b)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"a^3-b^3=(a-b)(a^2+ab+b^2)=(a-b)^3+3ab(a-b)"),
+                          formulaText:
+                              r"a^3-b^3=(a-b)(a^2+ab+b^2)=(a-b)^3+3ab(a-b)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)"),
+                          formulaText:
+                              r"a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"a^4+b^4=(a+b)(a-b)[(a+b)^2-2ab]"),
                         SizedBox(height: kEspacioEntreBotones),
@@ -105,13 +112,9 @@ class FormulasDeFactorizacionState extends State<FormulasDeFactorizacion> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetFormulasDeFactorizacion,
-                  ),
+                  const VerPDF(url: kWidgetFormulasDeFactorizacion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetFormulasDeFactorizacion,
-                  ),
+                  const DescargarPDF(url: kWidgetFormulasDeFactorizacion),
                 ],
               ),
             ),

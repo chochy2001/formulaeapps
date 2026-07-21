@@ -15,9 +15,11 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   Widget get adContainer => _ads.banner;
@@ -34,7 +36,6 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
       child: ListView(
         children: [
           //Imagen Formulae (Boton Capdesis)
-
           GestureDetector(
             onTap: () {
               openURLNuevo('https://capdesis.com/');
@@ -46,9 +47,7 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
             ),
           ),
           adContainer,
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           BotonRedSocial(
             icon: FontAwesomeIcons.solidStar,
             //create a instagram icon
@@ -57,9 +56,7 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               openURLNuevo('https://linktr.ee/formulae_');
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Center(
             child: SingleChildScrollView(
               child: Column(
@@ -83,8 +80,9 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   /*Boton de Calculo Diferencial*/
                   BotonesMenu(
                     ruta: kRutaCalculoDiferencial,
-                    textoBoton:
-                        AppLocalizations.of(context)!.calculoDiferencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.calculoDiferencial,
                   ),
                   /*Boton de Calculo Integral*/
                   BotonesMenu(
@@ -94,20 +92,23 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   /*Boton de Calculo Multivariable*/
                   BotonesMenu(
                     ruta: kRutaMenuCalculoMultivariable,
-                    textoBoton:
-                        AppLocalizations.of(context)!.calculoMultivariable,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.calculoMultivariable,
                   ),
                   /*Boton de Ecuaciones Diferenciales*/
                   BotonesMenu(
                     ruta: kRutaEcuacionesDiferenciales,
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionesDiferenciales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionesDiferenciales,
                   ),
                   //Boton de Electricidad y Magnetismo
                   BotonesMenu(
                     ruta: kRutaMenuElectricidadYMagnetismo,
-                    textoBoton:
-                        AppLocalizations.of(context)!.electricidadMagnetismo,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.electricidadMagnetismo,
                   ),
                   //Boton de Geometria
                   BotonesMenu(
@@ -117,20 +118,23 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   //Boton Matematicas Discretas
                   BotonesMenu(
                     ruta: kRutaMenuMatematicasDiscretas,
-                    textoBoton:
-                        AppLocalizations.of(context)!.matematicasDiscretas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.matematicasDiscretas,
                   ),
                   //Boton Matematicas Financieras
                   BotonesMenu(
                     ruta: kRutaMenuMatematicasFinancieras,
-                    textoBoton:
-                        AppLocalizations.of(context)!.matematicasFinancieras,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.matematicasFinancieras,
                   ),
                   /*Boton de Probabilidad y Estadistica*/
                   BotonesMenu(
                     ruta: kRutaMenuProbabilidadYEstadistica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.probabilidadEstadistica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.probabilidadEstadistica,
                   ),
                   /*Boton de Series de Fourier*/
                   BotonesMenu(
