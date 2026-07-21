@@ -18,6 +18,9 @@ analyzer:
     - "packages/**"
     - "**.g.dart"
     - "**.freezed.dart"
+    # Plugin artifacts checked out under build/ during local iOS builds are
+    # not project source and can conflict with pub-cache copies.
+    - "build/**"
 
 linter:
   # The lint rules applied to this project can be customized in the
