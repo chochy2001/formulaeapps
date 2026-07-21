@@ -123,10 +123,10 @@ Monorepo `origin/main` validated at `6c2bbfb`.
   stale artifact.
 - `pro/docs/BACKLOG_REDISENO_PRO.md` (dated 2026-07-13, current) states
   verbatim: **"FormulaeCommunity standalone = app de Play Store (no tocar)."**
-- **No CI workflow in formulaeapps builds apk/aab/ipa** (`.github/workflows/`:
-  ci.yml, deploy-web.yml, gitleaks.yml, jwt-pr-preflight.yml, release-policy.yml,
-  release.yml — none produce mobile store artifacts). `community/MASTER_SPEC.md`
-  marks the release build untested (T097).
+- `deploy-stores.yml` now exists in `.github/workflows/` but is delivered
+  **DESARMADO** (its `guard` job aborts until `STORE_AUTODEPLOY='true'`). No
+  validated mobile release has been cut from the monorepo yet, so
+  `community/MASTER_SPEC.md` still marks the release build untested (T097).
 - **Deleting now removes the only documented source of the shipping Community
   binary with no validated replacement pipeline.**
 
@@ -138,12 +138,21 @@ Monorepo `origin/main` validated at `6c2bbfb`.
   unlocking premium chat indefinitely (and burning BFF/OpenRouter spend), while
   still working offline.
 - The monorepo replacement `community/lib/chat_gpt/in_app_purchase_manager.dart`
-  has **no equivalent**: `_hasValidPurchase` is a plain in-memory bool — zero
+  had **no equivalent**: `_hasValidPurchase` was a plain in-memory bool — zero
   persistence, zero timestamp, zero TTL, zero forced re-validation.
-  `git grep -i entitlement` across monorepo `community/lib` returns **zero hits**.
-- This is real, load-bearing purchase-validation/cost-control logic that would be
-  **permanently lost** on deletion and would not surface until a
-  refunded/lapsed subscriber exploits it.
+- **2026-07-21:** the TTL/persistence hardening has been ported into the
+  monorepo:
+  - `community/lib/chat_gpt/purchase_entitlement_cache.dart` (24h TTL helper,
+    future-dated timestamp guard).
+  - `community/lib/chat_gpt/in_app_purchase_manager.dart` now persists
+    `hasValidPurchase` + `hasValidPurchaseCheckedAt` to SharedPreferences,
+    trusts only fresh cached entitlements, refreshes the timestamp only after a
+    successful store validation, and falls back to the cached value on store
+    errors without extending the TTL.
+  - `community/test/chat_gpt/purchase_entitlement_cache_test.dart` and updates
+    to `community/test/in_app_purchase_manager_test.dart` cover the behavior.
+  - `flutter analyze --no-pub --fatal-infos --fatal-warnings` and
+    `flutter test --no-pub` pass in `community/`.
 
 ### 5.3 Ops references that break on rename/delete
 - `CAPDESIS/secrets-rotation/schedule.toml` names `FormulaeCommunity` as a hard
@@ -164,8 +173,9 @@ Monorepo `origin/main` validated at `6c2bbfb`.
    key entry in `secrets-rotation/inventory.toml`.
 
 **FormulaeCommunity (DO_NOT_DELETE → revisit only after):**
-1. Stand up + validate a CI-owned mobile release pipeline in formulaeapps
-   (community T097) and cut the Play Store release over to the monorepo.
+1. Arm the existing `deploy-stores.yml` pipeline (remove the `STORE_AUTODEPLOY`
+   guard), validate it produces signed apk/aab/ipa, and cut the Play Store
+   release over to the monorepo (community T097).
 2. Port `purchase_entitlement_cache.dart` TTL/persistence hardening into
    `in_app_purchase_manager.dart` (or obtain explicit team sign-off to accept
    the regression).
@@ -176,16 +186,27 @@ Monorepo `origin/main` validated at `6c2bbfb`.
 
 ## 7. Known pre-existing issues (independent of deletion)
 
+These issues are now resolved or superseded as of 2026-07-21:
+
 - **bff test harness bug (CI-breaking, not Windows-specific):** `tests/setup.ts`
-  does `process.env['JWT_LEGACY_VERIFY_START'] = undefined` (and CUTOFF), which
-  JS coerces to the string `'undefined'`; the `env.ts` zod absolute-UTC-timestamp
-  validator then rejects it and throws from `parseEnv()`, failing all 19
-  `env.test.ts` cases plus cascading aborts. Fix:
-  `delete process.env['JWT_LEGACY_VERIFY_START']`. File separately.
-- **deploy-web.yml FTP promotion disabled** (missing authenticated FTPS
-  endpoint / protected prod environment / dedicated runner).
-- **No CI mobile store pipeline for either app** in formulaeapps (Pro T085/T086,
-  Community T097 all pending).
+  handled `JWT_LEGACY_VERIFY_START`/`CUTOFF` in a way that coerced `undefined` to
+  the string `'undefined'`, failing `env.ts` validation. **Resolved** by aligning
+  the test harness cleanup with `env.ts` expectations; the IAP isolation work in
+  `e9d8a13` hardened the overall BFF test setup against shared-state
+  contamination.
+- **deploy-web.yml FTP promotion disabled:** Superseded by the active FTPS
+  promotion job in `.github/workflows/deploy-web.yml` (see
+  `docs/DEPLOY_CI_WEB.md`). It runs on a dedicated `deploy-only` runner inside a
+  protected `production` environment, connects to Hostinger IP
+  `31.170.161.105`, and includes a post-deploy smoke. The interim
+  `ssl:check-hostname false` configuration still needs to be replaced with a
+  hostname-verified endpoint once the real hostname is provisioned.
+- **No CI mobile store pipeline for either app in formulaeapps:** Superseded by
+  `.github/workflows/deploy-stores.yml`, which is delivered but **DESARMADO**
+  (its `guard` job aborts until the repository variable `STORE_AUTODEPLOY` is
+  set to `'true'`). The pipeline exists; activating it requires provisioning
+  the keystore, Play service account, App Store Connect, and Match secrets
+  documented in the workflow header.
 
 ---
 

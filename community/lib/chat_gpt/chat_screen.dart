@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../chat_gpt/chats_provider.dart';
 import '../chat_gpt/export_chat_gpt.dart';
@@ -31,29 +30,8 @@ class _ChatScreenState extends State<ChatScreen>
   Future<bool>? _purchaseValidated;
   Timer? _validationTimer;
 
-  void _storePurchaseState(bool hasValidPurchase) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('hasValidPurchase', hasValidPurchase);
-  }
-
   Future<bool> _getPurchaseValidation() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? hasValidPurchase = prefs.getBool('hasValidPurchase');
-
-    if (hasValidPurchase != null && hasValidPurchase) {
-      return hasValidPurchase;
-    }
-
-    bool validated = await _inAppPurchaseManager
-        .checkValidPurchase()
-        .catchError((error) {
-          if (kDebugMode) {
-            print('Error al validar la compra: $error');
-          }
-          return false;
-        });
-    _storePurchaseState(validated);
-    return validated;
+    return _inAppPurchaseManager.checkValidPurchase();
   }
 
   @override
@@ -89,7 +67,6 @@ class _ChatScreenState extends State<ChatScreen>
           if (kDebugMode) {
             print('Validación de compra completada, valor: $value');
           }
-          _storePurchaseState(value);
           _validationTimer = Timer.periodic(
             const Duration(hours: 1),
             (Timer t) => _getPurchaseValidation(),

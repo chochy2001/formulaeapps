@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constantes/export_constantes.dart';
+import 'purchase_entitlement_cache.dart';
 
 /// Product catalog + purchase stream handler for Community IAP.
 ///
@@ -35,6 +37,11 @@ class InAppPurchaseManager extends ChangeNotifier {
   final InAppPurchasePlatform _platform;
   final String? platformOverride;
   StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
+
+  /// SharedPreferences keys for the cached entitlement and when it was last
+  /// successfully validated against the store.
+  static const String _kHasValidPurchasePref = 'hasValidPurchase';
+  static const String _kPurchaseCheckedAtPref = 'hasValidPurchaseCheckedAt';
 
   bool disposed = false;
   late String device;
@@ -147,6 +154,37 @@ class InAppPurchaseManager extends ChangeNotifier {
     if (Platform.isMacOS) return 'macos';
     if (Platform.isWindows) return 'windows';
     return 'other';
+  }
+
+  /// Returns `true` when the persisted entitlement is present and still inside
+  /// the 24-hour TTL. A missing timestamp or stale value forces a store round-trip.
+  Future<bool> _cachedEntitlementIsFresh() async {
+    final prefs = await SharedPreferences.getInstance();
+    final cachedValid = prefs.getBool(_kHasValidPurchasePref) ?? false;
+    final checkedAtMs = prefs.getInt(_kPurchaseCheckedAtPref);
+    return isCachedEntitlementFresh(
+      cachedValid: cachedValid,
+      checkedAtMs: checkedAtMs,
+      now: DateTime.now(),
+    );
+  }
+
+  /// Persist the entitlement flag. [refreshCheckedAt] is only `true` after a
+  /// successful store validation: a fallback to the cached value (failed/offline
+  /// re-validation) must not extend the cached-`true` TTL nor reduce how often
+  /// we retry once the store is reachable again.
+  Future<void> _persistPurchaseState(
+    bool hasValidPurchase, {
+    bool refreshCheckedAt = true,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_kHasValidPurchasePref, hasValidPurchase);
+    if (refreshCheckedAt) {
+      await prefs.setInt(
+        _kPurchaseCheckedAtPref,
+        DateTime.now().millisecondsSinceEpoch,
+      );
+    }
   }
 
   void showProductsDialog(BuildContext context) {
@@ -264,6 +302,35 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   Future<bool> checkValidPurchase() async {
+    // Trust a recent cached entitlement (keeps offline/quick-launch UX), but
+    // only until the TTL elapses so a lapsed subscription stops unlocking chat.
+    if (await _cachedEntitlementIsFresh()) {
+      _hasValidPurchase = true;
+      return true;
+    }
+
+    try {
+      final validated = await _checkStoreForValidPurchase();
+      _hasValidPurchase = validated;
+      // Only a verified store result refreshes the checked-at timestamp.
+      await _persistPurchaseState(validated);
+      return validated;
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error al validar la compra: $error');
+      }
+      // On a failed/offline re-validation fall back to the last known state so
+      // a paying subscriber is not locked out by a flaky store response, but do
+      // not refresh the TTL: the store was never successfully reached.
+      final prefs = await SharedPreferences.getInstance();
+      final cachedValid = prefs.getBool(_kHasValidPurchasePref) ?? false;
+      _hasValidPurchase = cachedValid;
+      await _persistPurchaseState(cachedValid, refreshCheckedAt: false);
+      return cachedValid;
+    }
+  }
+
+  Future<bool> _checkStoreForValidPurchase() async {
     Completer<bool> purchaseCompleter = Completer();
 
     StreamSubscription<List<PurchaseDetails>>? purchaseUpdatedSubscription;
