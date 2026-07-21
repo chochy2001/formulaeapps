@@ -14,4 +14,27 @@ platform :android do
       skip_upload_screenshots: true,
     )
   end
+
+  desc "Fail if the pubspec versionCode already exists on Google Play"
+  lane :guard_version_code do |options|
+    build_number = options[:build_number].to_i
+    UI.user_error!("build_number is required and must be positive") if build_number <= 0
+
+    tracks = %w[production internal]
+    used_codes = tracks.flat_map do |t|
+      google_play_track_version_codes(
+        track: t,
+        json_key_data: ENV["GOOGLE_PLAY_SERVICE_ACCOUNT_JSON"],
+        package_name: "com.capdesis.formulae_pro.formulae_calculo_pro",
+      )
+    end
+    if used_codes.include?(build_number)
+      UI.user_error!(
+        "versionCode #{build_number} ya existe en Google Play (tracks #{tracks.join(' + ')}). " \
+        "Play no permite re-publicar un versionCode: bumpa la version en pro/pubspec.yaml y mergea de nuevo."
+      )
+    else
+      UI.success("versionCode #{build_number} disponible en Google Play.")
+    end
+  end
 end

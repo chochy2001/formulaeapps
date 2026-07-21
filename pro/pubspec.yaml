@@ -3,7 +3,9 @@ title: Formulae Pro
 description: formulario sin anuncios
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+# 3.3.9+60 continua la secuencia del versionCode/versionName que el build.gradle
+# de Android tenia hardcodeado (3.3.8+59) por si Play ya conoce esos numeros.
+version: 3.3.9+60
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
