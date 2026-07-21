@@ -145,7 +145,18 @@ class StagingLibTests(unittest.TestCase):
             marker = Path(tmp) / 'role'
             marker.write_text('production\n')
             with self.assertRaises(RuntimeError):
+                lib.verify_host_role(marker)
+            with self.assertRaises(RuntimeError):
                 lib.verify_host_role(marker, 'staging')
+
+    def test_staging_and_staging_node_roles_accepted(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            marker = Path(tmp) / 'role'
+            for role in ('staging', 'staging-node'):
+                marker.write_text(f'{role}\n')
+                lib.verify_host_role(marker)
+            marker.write_text('staging-node\n')
+            lib.verify_host_role(marker, frozenset({'staging', 'staging-node'}))
 
     def test_bootstrap_without_baseline_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

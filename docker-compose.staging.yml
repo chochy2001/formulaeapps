@@ -1,5 +1,10 @@
 # Staging-only BFF stack. Never use production domains, networks, or secret paths.
 # Deploy with: docker compose -f docker-compose.staging.yml -p formulaeapps-staging
+#
+# Traefik: attach to the shared CapGym staging edge network on staging-node
+# (`staging_proxy` by default). Override with STAGING_PROXY_NETWORK if needed.
+# Labels match CapGym staging-traefik (entrypoint HTTPS redirect, letsencrypt,
+# security-headers / api-ratelimit / gzip-compress @file).
 
 name: formulaeapps-staging
 
@@ -10,7 +15,7 @@ services:
     container_name: formulaeapps-staging-bff
     restart: unless-stopped
     env_file: [.env]
-    networks: [staging_web_proxy, staging_bff_internal]
+    networks: [staging_proxy, staging_bff_internal]
     healthcheck:
       test: ['CMD', 'wget', '-q', '--spider', 'http://localhost:3000/health']
       interval: 30s
@@ -18,19 +23,17 @@ services:
       retries: 3
     labels:
       - 'traefik.enable=true'
-      - 'traefik.docker.network=staging_web_proxy'
-      - 'traefik.http.routers.formulae-staging-bff-http.rule=Host(`staging.api.formulaeapps.com`)'
-      - 'traefik.http.routers.formulae-staging-bff-http.entrypoints=web'
-      - 'traefik.http.routers.formulae-staging-bff-http.middlewares=cl-redirect-https@file'
+      - 'traefik.docker.network=${STAGING_PROXY_NETWORK:-staging_proxy}'
       - 'traefik.http.routers.formulae-staging-bff.rule=Host(`staging.api.formulaeapps.com`)'
       - 'traefik.http.routers.formulae-staging-bff.entrypoints=websecure'
       - 'traefik.http.routers.formulae-staging-bff.tls=true'
-      - 'traefik.http.routers.formulae-staging-bff.tls.certresolver=myresolver'
+      - 'traefik.http.routers.formulae-staging-bff.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.formulae-staging-bff.middlewares=security-headers@file,api-ratelimit@file,gzip-compress@file'
       - 'traefik.http.services.formulae-staging-bff.loadbalancer.server.port=3000'
 
 networks:
-  staging_web_proxy:
+  staging_proxy:
+    name: ${STAGING_PROXY_NETWORK:-staging_proxy}
     external: true
   staging_bff_internal:
     driver: bridge

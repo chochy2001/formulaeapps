@@ -20,7 +20,9 @@ from urllib.parse import urlparse
 DEFAULT_STAGING_ROOT = '/opt/staging/apps/formulaeapps'
 APPROVED_STAGING_BFF_BASE_URL = 'https://staging.api.formulaeapps.com'
 HOST_ROLE_MARKER = Path('/etc/capdesis-role')
-EXPECTED_HOST_ROLE = 'staging'
+# Fleet SoT uses staging-node; older markers may still say staging.
+ALLOWED_HOST_ROLES = frozenset({'staging', 'staging-node'})
+EXPECTED_HOST_ROLE = 'staging'  # legacy single-value default for callers
 SYNC_TMP_PREFIX = '.sync-'
 RSYNC_EXCLUDE_TOP_LEVEL = frozenset(
     {'.git', '.env', '.staging-state', 'current', 'releases', 'pro', 'community', 'landing'}
@@ -155,13 +157,28 @@ def resolve_allowed_root(app_path: str, allowed_root: str = DEFAULT_STAGING_ROOT
     return resolved
 
 
-def verify_host_role(marker_path: Path | None = None, expected: str = EXPECTED_HOST_ROLE) -> None:
+def verify_host_role(
+    marker_path: Path | None = None,
+    expected: str | frozenset[str] | set[str] | None = None,
+) -> None:
+    """Require /etc/capdesis-role to be a known staging host role.
+
+    Accepts both ``staging`` and ``staging-node`` by default (fleet SoT is
+    ``staging-node``; some hosts still use the shorter marker).
+    """
     marker = marker_path if marker_path is not None else HOST_ROLE_MARKER
     if not marker.is_file():
         raise RuntimeError(f'missing host role marker: {marker}')
     role = marker.read_text().strip()
-    if role != expected:
-        raise RuntimeError(f'host role marker must be exactly {expected!r}, got {role!r}')
+    if expected is None:
+        allowed: frozenset[str] = ALLOWED_HOST_ROLES
+    elif isinstance(expected, str):
+        allowed = frozenset({expected})
+    else:
+        allowed = frozenset(expected)
+    if role not in allowed:
+        allowed_list = ', '.join(repr(r) for r in sorted(allowed))
+        raise RuntimeError(f'host role marker must be one of {{{allowed_list}}}, got {role!r}')
 
 
 def state_dir(root: Path) -> Path:

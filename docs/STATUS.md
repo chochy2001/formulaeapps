@@ -93,7 +93,7 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | **FML-101** | Ops | **BLOCKED** | FTPS promote of `landing/public/imagenes/` — sample remote smoke still **404** `text/html` |
 | **FML-129** | Security ops | **BLOCKED** | Rotate historical OpenAI key in secret manager; clean old clones |
 | **FML-116** | Ops / GitHub | **BLOCKED** | Protected envs, required checks, staging SHA, FTPS/VPS backup/rollback evidence |
-| **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Cloudflare A `staging.api` → `144.126.159.214` (DNS only) + Traefik/`staging_web_proxy` + `/opt/staging/apps/formulaeapps` bootstrap — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
+| **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Role+network **code fixed** (accept `staging`/`staging-node`; compose → `staging_proxy`). Remaining: Cloudflare A `staging.api` → staging-node IP (DNS only) + `/opt/staging/apps/formulaeapps` + `.env.staging` + `STAGING_SSH_*` — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
 | **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
