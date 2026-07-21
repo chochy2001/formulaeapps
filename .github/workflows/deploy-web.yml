@@ -161,11 +161,14 @@ jobs:
         with:
           name: pro-web-${{ needs.preflight.outputs.release_sha }}
           path: pro-web
-      - name: Ensure lftp is available
+      - name: Verify preloaded lftp
         run: |
+          set -euo pipefail
           command -v lftp >/dev/null 2>&1 || {
-            sudo apt-get update -qq && sudo apt-get install -y lftp
+            echo "::error::lftp must be preloaded by the deploy runner bootstrap"
+            exit 1
           }
+          lftp --version | head -1
       - name: Record current live version (rollback reference)
         run: |
           set -euo pipefail
