@@ -12,7 +12,8 @@ const IapValidateRequestPlatformEnum _$iapValidateRequestPlatformEnum_google =
     const IapValidateRequestPlatformEnum._('google');
 
 IapValidateRequestPlatformEnum _$iapValidateRequestPlatformEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'apple':
       return _$iapValidateRequestPlatformEnum_apple;
@@ -24,14 +25,16 @@ IapValidateRequestPlatformEnum _$iapValidateRequestPlatformEnumValueOf(
 }
 
 final BuiltSet<IapValidateRequestPlatformEnum>
-    _$iapValidateRequestPlatformEnumValues = BuiltSet<
-        IapValidateRequestPlatformEnum>(const <IapValidateRequestPlatformEnum>[
-  _$iapValidateRequestPlatformEnum_apple,
-  _$iapValidateRequestPlatformEnum_google,
-]);
+_$iapValidateRequestPlatformEnumValues =
+    BuiltSet<IapValidateRequestPlatformEnum>(
+      const <IapValidateRequestPlatformEnum>[
+        _$iapValidateRequestPlatformEnum_apple,
+        _$iapValidateRequestPlatformEnum_google,
+      ],
+    );
 
 Serializer<IapValidateRequestPlatformEnum>
-    _$iapValidateRequestPlatformEnumSerializer =
+_$iapValidateRequestPlatformEnumSerializer =
     _$IapValidateRequestPlatformEnumSerializer();
 
 class _$IapValidateRequestPlatformEnumSerializer
@@ -52,16 +55,19 @@ class _$IapValidateRequestPlatformEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, IapValidateRequestPlatformEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    IapValidateRequestPlatformEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   IapValidateRequestPlatformEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      IapValidateRequestPlatformEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => IapValidateRequestPlatformEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$IapValidateRequest extends IapValidateRequest {
@@ -76,21 +82,21 @@ class _$IapValidateRequest extends IapValidateRequest {
   @override
   final bool subscription;
 
-  factory _$IapValidateRequest(
-          [void Function(IapValidateRequestBuilder)? updates]) =>
-      (IapValidateRequestBuilder()..update(updates))._build();
+  factory _$IapValidateRequest([
+    void Function(IapValidateRequestBuilder)? updates,
+  ]) => (IapValidateRequestBuilder()..update(updates))._build();
 
-  _$IapValidateRequest._(
-      {required this.platform,
-      required this.productId,
-      required this.transactionId,
-      required this.receiptData,
-      required this.subscription})
-      : super._();
+  _$IapValidateRequest._({
+    required this.platform,
+    required this.productId,
+    required this.transactionId,
+    required this.receiptData,
+    required this.subscription,
+  }) : super._();
   @override
   IapValidateRequest rebuild(
-          void Function(IapValidateRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(IapValidateRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   IapValidateRequestBuilder toBuilder() =>
@@ -188,18 +194,34 @@ class IapValidateRequestBuilder
   IapValidateRequest build() => _build();
 
   _$IapValidateRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$IapValidateRequest._(
           platform: BuiltValueNullFieldError.checkNotNull(
-              platform, r'IapValidateRequest', 'platform'),
+            platform,
+            r'IapValidateRequest',
+            'platform',
+          ),
           productId: BuiltValueNullFieldError.checkNotNull(
-              productId, r'IapValidateRequest', 'productId'),
+            productId,
+            r'IapValidateRequest',
+            'productId',
+          ),
           transactionId: BuiltValueNullFieldError.checkNotNull(
-              transactionId, r'IapValidateRequest', 'transactionId'),
+            transactionId,
+            r'IapValidateRequest',
+            'transactionId',
+          ),
           receiptData: BuiltValueNullFieldError.checkNotNull(
-              receiptData, r'IapValidateRequest', 'receiptData'),
+            receiptData,
+            r'IapValidateRequest',
+            'receiptData',
+          ),
           subscription: BuiltValueNullFieldError.checkNotNull(
-              subscription, r'IapValidateRequest', 'subscription'),
+            subscription,
+            r'IapValidateRequest',
+            'subscription',
+          ),
         );
     replace(_$result);
     return _$result;

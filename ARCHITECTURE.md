@@ -222,7 +222,7 @@ Funciona la UI completa, navegación, fórmulas, búsqueda, favoritos. NO funcio
 | IAP | `in_app_purchase` v3.x (validación server-side pendiente) |
 | Chat | OpenAI vía BFF JWT-firmado (BFF no deployado todavía) |
 | PDF | `pdf` + `flutter_math_fork` (calidad LaTeX revisión pendiente) |
-| Build web | Dockerfile en `pro/Dockerfile` con `ghcr.io/cirruslabs/flutter:3.41.1` y check anti-AdMob |
+| Build web | Dockerfile en `pro/Dockerfile` con `ghcr.io/cirruslabs/flutter:3.44.7` y check anti-AdMob |
 | Server config Hostinger | `pro/web/.htaccess` (SPA fallback + redirect apex→subdominio) |
 
 ### 3.3 Community (`community/`)

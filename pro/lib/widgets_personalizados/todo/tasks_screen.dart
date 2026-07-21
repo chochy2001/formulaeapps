@@ -120,7 +120,8 @@ class TasksScreen extends StatelessWidget {
                                   }).join('\n');
 
                                   // Comparte el texto de todas las tareas
-                                  Share.share(allTasksText);
+                                  SharePlus.instance.share(
+                                      ShareParams(text: allTasksText));
                                 }
                               },
                               label: Text(

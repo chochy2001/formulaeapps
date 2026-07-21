@@ -71,17 +71,15 @@ Future<void> bootstrap(FormulaeConfig config) async {
     iOS: DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification),
+        requestSoundPermission: true),
     macOS: DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification),
+        requestSoundPermission: true),
   );
 
   await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
+    settings: initializationSettings,
   );
 
   final favoritesNotifier = await FavoritesNotifier.loadFavorites();

@@ -26,7 +26,7 @@ class TasksList extends StatelessWidget {
       String shareText =
           '$taskName: ${task.name}, ${AppLocalizations.of(context)!.estado}: $status';
 
-      Share.share(shareText);
+      SharePlus.instance.share(ShareParams(text: shareText));
     }
 
     Future<DateTime?> showDateTimeDialog(
@@ -337,15 +337,15 @@ class TasksList extends StatelessWidget {
 
                                     await flutterLocalNotificationsPlugin
                                         .zonedSchedule(
-                                      0,
-                                      'Recordatorio de tarea',
-                                      task.name,
-                                      tz.TZDateTime.from(
+                                      id: 0,
+                                      title: 'Recordatorio de tarea',
+                                      body: task.name,
+                                      scheduledDate: tz.TZDateTime.from(
                                           selectedDateTime, tz.local),
-                                      platformChannelSpecifics,
-                                      uiLocalNotificationDateInterpretation:
-                                          UILocalNotificationDateInterpretation
-                                              .absoluteTime,
+                                      notificationDetails:
+                                          platformChannelSpecifics,
+                                      androidScheduleMode: AndroidScheduleMode
+                                          .exactAllowWhileIdle,
                                       matchDateTimeComponents:
                                           DateTimeComponents.dayOfWeekAndTime,
                                     );

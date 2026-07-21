@@ -7,20 +7,21 @@ part of 'account_register_request.dart';
 // **************************************************************************
 
 const AccountRegisterRequestPlatformEnum
-    _$accountRegisterRequestPlatformEnum_web =
+_$accountRegisterRequestPlatformEnum_web =
     const AccountRegisterRequestPlatformEnum._('web');
 const AccountRegisterRequestPlatformEnum
-    _$accountRegisterRequestPlatformEnum_android =
+_$accountRegisterRequestPlatformEnum_android =
     const AccountRegisterRequestPlatformEnum._('android');
 const AccountRegisterRequestPlatformEnum
-    _$accountRegisterRequestPlatformEnum_ios =
+_$accountRegisterRequestPlatformEnum_ios =
     const AccountRegisterRequestPlatformEnum._('ios');
 const AccountRegisterRequestPlatformEnum
-    _$accountRegisterRequestPlatformEnum_macos =
+_$accountRegisterRequestPlatformEnum_macos =
     const AccountRegisterRequestPlatformEnum._('macos');
 
 AccountRegisterRequestPlatformEnum _$accountRegisterRequestPlatformEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'web':
       return _$accountRegisterRequestPlatformEnum_web;
@@ -36,16 +37,18 @@ AccountRegisterRequestPlatformEnum _$accountRegisterRequestPlatformEnumValueOf(
 }
 
 final BuiltSet<AccountRegisterRequestPlatformEnum>
-    _$accountRegisterRequestPlatformEnumValues = BuiltSet<
-        AccountRegisterRequestPlatformEnum>(const <AccountRegisterRequestPlatformEnum>[
-  _$accountRegisterRequestPlatformEnum_web,
-  _$accountRegisterRequestPlatformEnum_android,
-  _$accountRegisterRequestPlatformEnum_ios,
-  _$accountRegisterRequestPlatformEnum_macos,
-]);
+_$accountRegisterRequestPlatformEnumValues =
+    BuiltSet<AccountRegisterRequestPlatformEnum>(
+      const <AccountRegisterRequestPlatformEnum>[
+        _$accountRegisterRequestPlatformEnum_web,
+        _$accountRegisterRequestPlatformEnum_android,
+        _$accountRegisterRequestPlatformEnum_ios,
+        _$accountRegisterRequestPlatformEnum_macos,
+      ],
+    );
 
 Serializer<AccountRegisterRequestPlatformEnum>
-    _$accountRegisterRequestPlatformEnumSerializer =
+_$accountRegisterRequestPlatformEnumSerializer =
     _$AccountRegisterRequestPlatformEnumSerializer();
 
 class _$AccountRegisterRequestPlatformEnumSerializer
@@ -70,16 +73,19 @@ class _$AccountRegisterRequestPlatformEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, AccountRegisterRequestPlatformEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    AccountRegisterRequestPlatformEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   AccountRegisterRequestPlatformEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      AccountRegisterRequestPlatformEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => AccountRegisterRequestPlatformEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$AccountRegisterRequest extends AccountRegisterRequest {
@@ -92,20 +98,20 @@ class _$AccountRegisterRequest extends AccountRegisterRequest {
   @override
   final String? appVersion;
 
-  factory _$AccountRegisterRequest(
-          [void Function(AccountRegisterRequestBuilder)? updates]) =>
-      (AccountRegisterRequestBuilder()..update(updates))._build();
+  factory _$AccountRegisterRequest([
+    void Function(AccountRegisterRequestBuilder)? updates,
+  ]) => (AccountRegisterRequestBuilder()..update(updates))._build();
 
-  _$AccountRegisterRequest._(
-      {required this.email,
-      required this.password,
-      this.platform,
-      this.appVersion})
-      : super._();
+  _$AccountRegisterRequest._({
+    required this.email,
+    required this.password,
+    this.platform,
+    this.appVersion,
+  }) : super._();
   @override
   AccountRegisterRequest rebuild(
-          void Function(AccountRegisterRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AccountRegisterRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AccountRegisterRequestBuilder toBuilder() =>
@@ -194,12 +200,19 @@ class AccountRegisterRequestBuilder
   AccountRegisterRequest build() => _build();
 
   _$AccountRegisterRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AccountRegisterRequest._(
           email: BuiltValueNullFieldError.checkNotNull(
-              email, r'AccountRegisterRequest', 'email'),
+            email,
+            r'AccountRegisterRequest',
+            'email',
+          ),
           password: BuiltValueNullFieldError.checkNotNull(
-              password, r'AccountRegisterRequest', 'password'),
+            password,
+            r'AccountRegisterRequest',
+            'password',
+          ),
           platform: platform,
           appVersion: appVersion,
         );

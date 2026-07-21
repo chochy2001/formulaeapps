@@ -7,14 +7,15 @@ part of 'iap_validate_response.dart';
 // **************************************************************************
 
 const IapValidateResponseEnvironmentEnum
-    _$iapValidateResponseEnvironmentEnum_sandbox =
+_$iapValidateResponseEnvironmentEnum_sandbox =
     const IapValidateResponseEnvironmentEnum._('sandbox');
 const IapValidateResponseEnvironmentEnum
-    _$iapValidateResponseEnvironmentEnum_production =
+_$iapValidateResponseEnvironmentEnum_production =
     const IapValidateResponseEnvironmentEnum._('production');
 
 IapValidateResponseEnvironmentEnum _$iapValidateResponseEnvironmentEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'sandbox':
       return _$iapValidateResponseEnvironmentEnum_sandbox;
@@ -26,14 +27,16 @@ IapValidateResponseEnvironmentEnum _$iapValidateResponseEnvironmentEnumValueOf(
 }
 
 final BuiltSet<IapValidateResponseEnvironmentEnum>
-    _$iapValidateResponseEnvironmentEnumValues = BuiltSet<
-        IapValidateResponseEnvironmentEnum>(const <IapValidateResponseEnvironmentEnum>[
-  _$iapValidateResponseEnvironmentEnum_sandbox,
-  _$iapValidateResponseEnvironmentEnum_production,
-]);
+_$iapValidateResponseEnvironmentEnumValues =
+    BuiltSet<IapValidateResponseEnvironmentEnum>(
+      const <IapValidateResponseEnvironmentEnum>[
+        _$iapValidateResponseEnvironmentEnum_sandbox,
+        _$iapValidateResponseEnvironmentEnum_production,
+      ],
+    );
 
 Serializer<IapValidateResponseEnvironmentEnum>
-    _$iapValidateResponseEnvironmentEnumSerializer =
+_$iapValidateResponseEnvironmentEnumSerializer =
     _$IapValidateResponseEnvironmentEnumSerializer();
 
 class _$IapValidateResponseEnvironmentEnumSerializer
@@ -54,16 +57,19 @@ class _$IapValidateResponseEnvironmentEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, IapValidateResponseEnvironmentEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    IapValidateResponseEnvironmentEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   IapValidateResponseEnvironmentEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      IapValidateResponseEnvironmentEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => IapValidateResponseEnvironmentEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$IapValidateResponse extends IapValidateResponse {
@@ -80,22 +86,22 @@ class _$IapValidateResponse extends IapValidateResponse {
   @override
   final String? providerReason;
 
-  factory _$IapValidateResponse(
-          [void Function(IapValidateResponseBuilder)? updates]) =>
-      (IapValidateResponseBuilder()..update(updates))._build();
+  factory _$IapValidateResponse([
+    void Function(IapValidateResponseBuilder)? updates,
+  ]) => (IapValidateResponseBuilder()..update(updates))._build();
 
-  _$IapValidateResponse._(
-      {required this.valid,
-      this.expiresAt,
-      required this.productId,
-      required this.transactionId,
-      required this.environment,
-      this.providerReason})
-      : super._();
+  _$IapValidateResponse._({
+    required this.valid,
+    this.expiresAt,
+    required this.productId,
+    required this.transactionId,
+    required this.environment,
+    this.providerReason,
+  }) : super._();
   @override
   IapValidateResponse rebuild(
-          void Function(IapValidateResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(IapValidateResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   IapValidateResponseBuilder toBuilder() =>
@@ -202,17 +208,30 @@ class IapValidateResponseBuilder
   IapValidateResponse build() => _build();
 
   _$IapValidateResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$IapValidateResponse._(
           valid: BuiltValueNullFieldError.checkNotNull(
-              valid, r'IapValidateResponse', 'valid'),
+            valid,
+            r'IapValidateResponse',
+            'valid',
+          ),
           expiresAt: expiresAt,
           productId: BuiltValueNullFieldError.checkNotNull(
-              productId, r'IapValidateResponse', 'productId'),
+            productId,
+            r'IapValidateResponse',
+            'productId',
+          ),
           transactionId: BuiltValueNullFieldError.checkNotNull(
-              transactionId, r'IapValidateResponse', 'transactionId'),
+            transactionId,
+            r'IapValidateResponse',
+            'transactionId',
+          ),
           environment: BuiltValueNullFieldError.checkNotNull(
-              environment, r'IapValidateResponse', 'environment'),
+            environment,
+            r'IapValidateResponse',
+            'environment',
+          ),
           providerReason: providerReason,
         );
     replace(_$result);

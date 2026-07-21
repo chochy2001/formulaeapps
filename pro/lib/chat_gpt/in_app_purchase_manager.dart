@@ -23,11 +23,10 @@ class InAppPurchaseManager extends ChangeNotifier {
   InAppPurchaseManager({
     InAppPurchasePlatform? platform,
     bool listenToPurchases = true,
-    String? platformOverride,
+    this.platformOverride,
     EntitlementService? entitlementService,
     bool? bffIapValidationEnabled,
   })  : _platform = platform ?? _defaultPlatform(),
-        _platformOverride = platformOverride,
         _entitlementService = entitlementService ?? EntitlementService(),
         _bffIapValidationEnabled =
             bffIapValidationEnabled ?? kEnableBffIapValidation {
@@ -44,7 +43,7 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   final InAppPurchasePlatform _platform;
-  final String? _platformOverride;
+  final String? platformOverride;
   final EntitlementService _entitlementService;
   final bool _bffIapValidationEnabled;
   StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
@@ -177,7 +176,7 @@ class InAppPurchaseManager extends ChangeNotifier {
   /// Store product IDs for the current (or overridden) platform.
   @visibleForTesting
   Set<String> platformProductIds() {
-    final name = _platformOverride ?? _detectPlatformName();
+    final name = platformOverride ?? _detectPlatformName();
     if (name == 'android') {
       return {
         'chat_anual_2023',
@@ -204,7 +203,7 @@ class InAppPurchaseManager extends ChangeNotifier {
   }
 
   void showProductsDialog(BuildContext context) {
-    final name = _platformOverride ?? _detectPlatformName();
+    final name = platformOverride ?? _detectPlatformName();
     if (name == 'android') {
       device = 'Google';
     } else if (name == 'ios' || name == 'macos') {

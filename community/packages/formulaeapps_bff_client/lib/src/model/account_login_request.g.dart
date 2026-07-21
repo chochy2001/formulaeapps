@@ -9,7 +9,7 @@ part of 'account_login_request.dart';
 const AccountLoginRequestPlatformEnum _$accountLoginRequestPlatformEnum_web =
     const AccountLoginRequestPlatformEnum._('web');
 const AccountLoginRequestPlatformEnum
-    _$accountLoginRequestPlatformEnum_android =
+_$accountLoginRequestPlatformEnum_android =
     const AccountLoginRequestPlatformEnum._('android');
 const AccountLoginRequestPlatformEnum _$accountLoginRequestPlatformEnum_ios =
     const AccountLoginRequestPlatformEnum._('ios');
@@ -17,7 +17,8 @@ const AccountLoginRequestPlatformEnum _$accountLoginRequestPlatformEnum_macos =
     const AccountLoginRequestPlatformEnum._('macos');
 
 AccountLoginRequestPlatformEnum _$accountLoginRequestPlatformEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'web':
       return _$accountLoginRequestPlatformEnum_web;
@@ -33,16 +34,18 @@ AccountLoginRequestPlatformEnum _$accountLoginRequestPlatformEnumValueOf(
 }
 
 final BuiltSet<AccountLoginRequestPlatformEnum>
-    _$accountLoginRequestPlatformEnumValues = BuiltSet<
-        AccountLoginRequestPlatformEnum>(const <AccountLoginRequestPlatformEnum>[
-  _$accountLoginRequestPlatformEnum_web,
-  _$accountLoginRequestPlatformEnum_android,
-  _$accountLoginRequestPlatformEnum_ios,
-  _$accountLoginRequestPlatformEnum_macos,
-]);
+_$accountLoginRequestPlatformEnumValues =
+    BuiltSet<AccountLoginRequestPlatformEnum>(
+      const <AccountLoginRequestPlatformEnum>[
+        _$accountLoginRequestPlatformEnum_web,
+        _$accountLoginRequestPlatformEnum_android,
+        _$accountLoginRequestPlatformEnum_ios,
+        _$accountLoginRequestPlatformEnum_macos,
+      ],
+    );
 
 Serializer<AccountLoginRequestPlatformEnum>
-    _$accountLoginRequestPlatformEnumSerializer =
+_$accountLoginRequestPlatformEnumSerializer =
     _$AccountLoginRequestPlatformEnumSerializer();
 
 class _$AccountLoginRequestPlatformEnumSerializer
@@ -67,16 +70,19 @@ class _$AccountLoginRequestPlatformEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, AccountLoginRequestPlatformEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    AccountLoginRequestPlatformEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   AccountLoginRequestPlatformEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      AccountLoginRequestPlatformEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => AccountLoginRequestPlatformEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$AccountLoginRequest extends AccountLoginRequest {
@@ -89,20 +95,20 @@ class _$AccountLoginRequest extends AccountLoginRequest {
   @override
   final String? appVersion;
 
-  factory _$AccountLoginRequest(
-          [void Function(AccountLoginRequestBuilder)? updates]) =>
-      (AccountLoginRequestBuilder()..update(updates))._build();
+  factory _$AccountLoginRequest([
+    void Function(AccountLoginRequestBuilder)? updates,
+  ]) => (AccountLoginRequestBuilder()..update(updates))._build();
 
-  _$AccountLoginRequest._(
-      {required this.email,
-      required this.password,
-      this.platform,
-      this.appVersion})
-      : super._();
+  _$AccountLoginRequest._({
+    required this.email,
+    required this.password,
+    this.platform,
+    this.appVersion,
+  }) : super._();
   @override
   AccountLoginRequest rebuild(
-          void Function(AccountLoginRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AccountLoginRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AccountLoginRequestBuilder toBuilder() =>
@@ -191,12 +197,19 @@ class AccountLoginRequestBuilder
   AccountLoginRequest build() => _build();
 
   _$AccountLoginRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AccountLoginRequest._(
           email: BuiltValueNullFieldError.checkNotNull(
-              email, r'AccountLoginRequest', 'email'),
+            email,
+            r'AccountLoginRequest',
+            'email',
+          ),
           password: BuiltValueNullFieldError.checkNotNull(
-              password, r'AccountLoginRequest', 'password'),
+            password,
+            r'AccountLoginRequest',
+            'password',
+          ),
           platform: platform,
           appVersion: appVersion,
         );

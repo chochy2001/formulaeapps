@@ -45,10 +45,9 @@ class VideosYoutube extends StatelessWidget {
       shadowColor: kColorTextoBotones,
       elevation: 10.0,
       child: YoutubePlayer(
-        controller: YoutubePlayerController(
-          initialVideoId: YoutubePlayer.convertUrlToId(urlVideo!)!,
+        controller: YoutubePlayerController.fromVideoId(
+          videoId: YoutubePlayerController.convertUrlToId(urlVideo!)!,
         ),
-        liveUIColor: kColorBotones,
       ),
     );
   }

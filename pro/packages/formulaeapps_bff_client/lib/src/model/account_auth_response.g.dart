@@ -14,17 +14,19 @@ class _$AccountAuthResponse extends AccountAuthResponse {
   @override
   final String userId;
 
-  factory _$AccountAuthResponse(
-          [void Function(AccountAuthResponseBuilder)? updates]) =>
-      (AccountAuthResponseBuilder()..update(updates))._build();
+  factory _$AccountAuthResponse([
+    void Function(AccountAuthResponseBuilder)? updates,
+  ]) => (AccountAuthResponseBuilder()..update(updates))._build();
 
-  _$AccountAuthResponse._(
-      {required this.token, required this.expiresAt, required this.userId})
-      : super._();
+  _$AccountAuthResponse._({
+    required this.token,
+    required this.expiresAt,
+    required this.userId,
+  }) : super._();
   @override
   AccountAuthResponse rebuild(
-          void Function(AccountAuthResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AccountAuthResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AccountAuthResponseBuilder toBuilder() =>
@@ -104,14 +106,24 @@ class AccountAuthResponseBuilder
   AccountAuthResponse build() => _build();
 
   _$AccountAuthResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AccountAuthResponse._(
           token: BuiltValueNullFieldError.checkNotNull(
-              token, r'AccountAuthResponse', 'token'),
+            token,
+            r'AccountAuthResponse',
+            'token',
+          ),
           expiresAt: BuiltValueNullFieldError.checkNotNull(
-              expiresAt, r'AccountAuthResponse', 'expiresAt'),
+            expiresAt,
+            r'AccountAuthResponse',
+            'expiresAt',
+          ),
           userId: BuiltValueNullFieldError.checkNotNull(
-              userId, r'AccountAuthResponse', 'userId'),
+            userId,
+            r'AccountAuthResponse',
+            'userId',
+          ),
         );
     replace(_$result);
     return _$result;

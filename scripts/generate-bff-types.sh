@@ -81,6 +81,12 @@ generate_for_app() {
     fi
   done
 
+  # Fleet policy: the generated package must enforce the fleet Dart SDK floor.
+  # The dart-dio template emits '>=2.18.0 <4.0.0'; normalize it here so
+  # `verify-parity` stays deterministic across regenerations.
+  perl -0pi -e "s/sdk: '>=2\.18\.0 <4\.0\.0'/sdk: '>=3.12.2 <4.0.0'/" \
+    "$dest/pubspec.yaml"
+
   # `apiDocs=false,modelDocs=false` intentionally keeps the generated package
   # small, but the stock dart-dio README still links to doc/*.md files that do
   # not exist. Replace those sections with the canonical OpenAPI contract so

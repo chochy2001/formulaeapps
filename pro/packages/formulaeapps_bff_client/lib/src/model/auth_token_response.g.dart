@@ -16,16 +16,16 @@ class _$AuthTokenResponse extends AuthTokenResponse {
   @override
   final String promptsVersion;
 
-  factory _$AuthTokenResponse(
-          [void Function(AuthTokenResponseBuilder)? updates]) =>
-      (AuthTokenResponseBuilder()..update(updates))._build();
+  factory _$AuthTokenResponse([
+    void Function(AuthTokenResponseBuilder)? updates,
+  ]) => (AuthTokenResponseBuilder()..update(updates))._build();
 
-  _$AuthTokenResponse._(
-      {required this.token,
-      required this.expiresAt,
-      required this.refreshAfter,
-      required this.promptsVersion})
-      : super._();
+  _$AuthTokenResponse._({
+    required this.token,
+    required this.expiresAt,
+    required this.refreshAfter,
+    required this.promptsVersion,
+  }) : super._();
   @override
   AuthTokenResponse rebuild(void Function(AuthTokenResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -118,16 +118,29 @@ class AuthTokenResponseBuilder
   AuthTokenResponse build() => _build();
 
   _$AuthTokenResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AuthTokenResponse._(
           token: BuiltValueNullFieldError.checkNotNull(
-              token, r'AuthTokenResponse', 'token'),
+            token,
+            r'AuthTokenResponse',
+            'token',
+          ),
           expiresAt: BuiltValueNullFieldError.checkNotNull(
-              expiresAt, r'AuthTokenResponse', 'expiresAt'),
+            expiresAt,
+            r'AuthTokenResponse',
+            'expiresAt',
+          ),
           refreshAfter: BuiltValueNullFieldError.checkNotNull(
-              refreshAfter, r'AuthTokenResponse', 'refreshAfter'),
+            refreshAfter,
+            r'AuthTokenResponse',
+            'refreshAfter',
+          ),
           promptsVersion: BuiltValueNullFieldError.checkNotNull(
-              promptsVersion, r'AuthTokenResponse', 'promptsVersion'),
+            promptsVersion,
+            r'AuthTokenResponse',
+            'promptsVersion',
+          ),
         );
     replace(_$result);
     return _$result;

@@ -162,8 +162,9 @@ class DrawerPersonalizado extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Share.share(
-                              '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                          SharePlus.instance.share(ShareParams(
+                              text:
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -380,8 +381,9 @@ class DrawerPersonalizado extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Share.share(
-                              '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                          SharePlus.instance.share(ShareParams(
+                              text:
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -601,8 +603,9 @@ class DrawerPersonalizado extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Share.share(
-                                '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                            SharePlus.instance.share(ShareParams(
+                                text:
+                                    '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

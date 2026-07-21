@@ -16,7 +16,8 @@ const AuthTokenRequestPlatformEnum _$authTokenRequestPlatformEnum_macos =
     const AuthTokenRequestPlatformEnum._('macos');
 
 AuthTokenRequestPlatformEnum _$authTokenRequestPlatformEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'web':
       return _$authTokenRequestPlatformEnum_web;
@@ -32,16 +33,16 @@ AuthTokenRequestPlatformEnum _$authTokenRequestPlatformEnumValueOf(
 }
 
 final BuiltSet<AuthTokenRequestPlatformEnum>
-    _$authTokenRequestPlatformEnumValues =
+_$authTokenRequestPlatformEnumValues =
     BuiltSet<AuthTokenRequestPlatformEnum>(const <AuthTokenRequestPlatformEnum>[
-  _$authTokenRequestPlatformEnum_web,
-  _$authTokenRequestPlatformEnum_android,
-  _$authTokenRequestPlatformEnum_ios,
-  _$authTokenRequestPlatformEnum_macos,
-]);
+      _$authTokenRequestPlatformEnum_web,
+      _$authTokenRequestPlatformEnum_android,
+      _$authTokenRequestPlatformEnum_ios,
+      _$authTokenRequestPlatformEnum_macos,
+    ]);
 
 Serializer<AuthTokenRequestPlatformEnum>
-    _$authTokenRequestPlatformEnumSerializer =
+_$authTokenRequestPlatformEnumSerializer =
     _$AuthTokenRequestPlatformEnumSerializer();
 
 class _$AuthTokenRequestPlatformEnumSerializer
@@ -65,16 +66,20 @@ class _$AuthTokenRequestPlatformEnumSerializer
   final String wireName = 'AuthTokenRequestPlatformEnum';
 
   @override
-  Object serialize(Serializers serializers, AuthTokenRequestPlatformEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    AuthTokenRequestPlatformEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   AuthTokenRequestPlatformEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      AuthTokenRequestPlatformEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => AuthTokenRequestPlatformEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$AuthTokenRequest extends AuthTokenRequest {
@@ -89,17 +94,17 @@ class _$AuthTokenRequest extends AuthTokenRequest {
   @override
   final String appVersion;
 
-  factory _$AuthTokenRequest(
-          [void Function(AuthTokenRequestBuilder)? updates]) =>
-      (AuthTokenRequestBuilder()..update(updates))._build();
+  factory _$AuthTokenRequest([
+    void Function(AuthTokenRequestBuilder)? updates,
+  ]) => (AuthTokenRequestBuilder()..update(updates))._build();
 
-  _$AuthTokenRequest._(
-      {required this.clientId,
-      required this.clientProof,
-      required this.buildNonce,
-      required this.platform,
-      required this.appVersion})
-      : super._();
+  _$AuthTokenRequest._({
+    required this.clientId,
+    required this.clientProof,
+    required this.buildNonce,
+    required this.platform,
+    required this.appVersion,
+  }) : super._();
   @override
   AuthTokenRequest rebuild(void Function(AuthTokenRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -199,18 +204,34 @@ class AuthTokenRequestBuilder
   AuthTokenRequest build() => _build();
 
   _$AuthTokenRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AuthTokenRequest._(
           clientId: BuiltValueNullFieldError.checkNotNull(
-              clientId, r'AuthTokenRequest', 'clientId'),
+            clientId,
+            r'AuthTokenRequest',
+            'clientId',
+          ),
           clientProof: BuiltValueNullFieldError.checkNotNull(
-              clientProof, r'AuthTokenRequest', 'clientProof'),
+            clientProof,
+            r'AuthTokenRequest',
+            'clientProof',
+          ),
           buildNonce: BuiltValueNullFieldError.checkNotNull(
-              buildNonce, r'AuthTokenRequest', 'buildNonce'),
+            buildNonce,
+            r'AuthTokenRequest',
+            'buildNonce',
+          ),
           platform: BuiltValueNullFieldError.checkNotNull(
-              platform, r'AuthTokenRequest', 'platform'),
+            platform,
+            r'AuthTokenRequest',
+            'platform',
+          ),
           appVersion: BuiltValueNullFieldError.checkNotNull(
-              appVersion, r'AuthTokenRequest', 'appVersion'),
+            appVersion,
+            r'AuthTokenRequest',
+            'appVersion',
+          ),
         );
     replace(_$result);
     return _$result;

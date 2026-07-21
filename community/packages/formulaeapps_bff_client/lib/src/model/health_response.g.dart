@@ -19,12 +19,12 @@ class _$HealthResponse extends HealthResponse {
   factory _$HealthResponse([void Function(HealthResponseBuilder)? updates]) =>
       (HealthResponseBuilder()..update(updates))._build();
 
-  _$HealthResponse._(
-      {required this.status,
-      required this.version,
-      required this.promptsVersion,
-      required this.uptimeSeconds})
-      : super._();
+  _$HealthResponse._({
+    required this.status,
+    required this.version,
+    required this.promptsVersion,
+    required this.uptimeSeconds,
+  }) : super._();
   @override
   HealthResponse rebuild(void Function(HealthResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -116,16 +116,29 @@ class HealthResponseBuilder
   HealthResponse build() => _build();
 
   _$HealthResponse _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$HealthResponse._(
           status: BuiltValueNullFieldError.checkNotNull(
-              status, r'HealthResponse', 'status'),
+            status,
+            r'HealthResponse',
+            'status',
+          ),
           version: BuiltValueNullFieldError.checkNotNull(
-              version, r'HealthResponse', 'version'),
+            version,
+            r'HealthResponse',
+            'version',
+          ),
           promptsVersion: BuiltValueNullFieldError.checkNotNull(
-              promptsVersion, r'HealthResponse', 'promptsVersion'),
+            promptsVersion,
+            r'HealthResponse',
+            'promptsVersion',
+          ),
           uptimeSeconds: BuiltValueNullFieldError.checkNotNull(
-              uptimeSeconds, r'HealthResponse', 'uptimeSeconds'),
+            uptimeSeconds,
+            r'HealthResponse',
+            'uptimeSeconds',
+          ),
         );
     replace(_$result);
     return _$result;

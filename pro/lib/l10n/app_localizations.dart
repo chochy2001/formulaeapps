@@ -63,7 +63,7 @@ import 'app_localizations_es.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,16 +86,16 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('es')
+    Locale('es'),
   ];
 
   /// No description provided for @generales.
@@ -3673,7 +3673,7 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Posteriormente se Resuelve por Homogéneas y al Final se Regresa a sus Valores Originales'**
   String
-      get posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales;
+  get posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales;
 
   /// No description provided for @alResolverPorHomogeneasSeSustituyenLasVariablesPor.
   ///
@@ -3698,7 +3698,7 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Se Resuelve por Variables Separables y al Final se Regresan sus Valores Originales'**
   String
-      get seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales;
+  get seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales;
 
   /// No description provided for @seHacenDeLaFormaDeLasRestantesUtilizandolaSustitucion.
   ///
@@ -3741,21 +3741,21 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Posteriormente se Sustituyen Cada Una en su Respectiva Integral y se Iguala a C para Obtener la Solución General'**
   String
-      get posteriormenteSeSustituyenCadaUnaEnSuRespectivaIntegralYSeIgualaACParaObtenerLaSolucionGeneral;
+  get posteriormenteSeSustituyenCadaUnaEnSuRespectivaIntegralYSeIgualaACParaObtenerLaSolucionGeneral;
 
   /// No description provided for @elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla.
   ///
   /// In es, this message translates to:
   /// **'El Factor Integrante Puede Depender de Cualquiera de las Dos Variables Esto se Determina a la Hora de Integrar donde nos Damos Cuenta Cuál es Más Sencilla'**
   String
-      get elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla;
+  get elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla;
 
   /// No description provided for @podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY.
   ///
   /// In es, this message translates to:
   /// **'Podemos Saber Si es Homogénea Si el Orden de Todos los Términos de la Ecuación es el Mismo al Sustituir T en X y Y'**
   String
-      get podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY;
+  get podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY;
 
   /// No description provided for @sustitucionDeLasVariables.
   ///
@@ -3768,7 +3768,7 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Se Resuelve por Separación de Variables y Posteriormente se Devuelven a sus Valores Originales'**
   String
-      get seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales;
+  get seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales;
 
   /// No description provided for @seUtilizaLaSustitucionDiferencialQueTengaElCoeficienteMasSencillo.
   ///
@@ -3859,7 +3859,7 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'El Factor Integrante es Igual al Inverso de la Multiplicación de los Factores que No Contienen la Variable del Diferencial, Se Multiplica por Ambos Lados'**
   String
-      get elFactorIntegranteEsIgualAlInversoDeLaMultiplicacionDeLosFactoresQueNoContienenLaVariableDelDiferencialSeMultiplicaPorAmbosLados;
+  get elFactorIntegranteEsIgualAlInversoDeLaMultiplicacionDeLosFactoresQueNoContienenLaVariableDelDiferencialSeMultiplicaPorAmbosLados;
 
   /// No description provided for @diferenciaPotencial.
   ///
@@ -9337,8 +9337,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

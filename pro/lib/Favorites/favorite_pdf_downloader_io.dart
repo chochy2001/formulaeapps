@@ -19,8 +19,10 @@ Future<void> downloadFavoritePdf(Uint8List bytes, String fileName) async {
     return;
   }
 
-  await Share.shareXFiles(
-    [XFile(file.path, mimeType: 'application/pdf')],
-    subject: fileName,
+  await SharePlus.instance.share(
+    ShareParams(
+      files: [XFile(file.path, mimeType: 'application/pdf')],
+      subject: fileName,
+    ),
   );
 }

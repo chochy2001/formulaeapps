@@ -112,8 +112,9 @@ class DrawerPersonalizado extends StatelessWidget {
                         text: AppLocalizations.of(context)!.compartirApp,
                         maxLines: isNarrow ? 2 : 1,
                         onTap: () {
-                          Share.share(
-                              '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                          SharePlus.instance.share(ShareParams(
+                              text:
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                         },
                       ),
                       SizedBox(
@@ -274,8 +275,9 @@ class DrawerPersonalizado extends StatelessWidget {
                         text: AppLocalizations.of(context)!.compartirApp,
                         maxLines: isNarrow ? 2 : 1,
                         onTap: () {
-                          Share.share(
-                              '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                          SharePlus.instance.share(ShareParams(
+                              text:
+                                  '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                         },
                       ),
                       SizedBox(
@@ -438,8 +440,9 @@ class DrawerPersonalizado extends StatelessWidget {
                           text: AppLocalizations.of(context)!.compartirApp,
                           maxLines: isNarrow ? 2 : 1,
                           onTap: () {
-                            Share.share(
-                                '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae');
+                            SharePlus.instance.share(ShareParams(
+                                text:
+                                    '${AppLocalizations.of(context)!.descargaApp} $kURLFormulae'));
                           },
                         ),
                         SizedBox(

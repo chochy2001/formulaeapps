@@ -480,7 +480,7 @@ class FavoritesPdfGenerator {
         ..add(
           pw.Text(
             content.title,
-            style: pw.TextStyle(
+            style: const pw.TextStyle(
               fontSize: 15,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -515,7 +515,7 @@ class FavoritesPdfGenerator {
       padding: const pw.EdgeInsets.only(top: 10, bottom: 6),
       child: pw.Text(
         text.trim(),
-        style: pw.TextStyle(
+        style: const pw.TextStyle(
           fontSize: 12,
           fontWeight: pw.FontWeight.bold,
         ),
@@ -608,7 +608,7 @@ class FavoritesPdfGenerator {
             children: [
               pw.Text(
                 title,
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
                 ),

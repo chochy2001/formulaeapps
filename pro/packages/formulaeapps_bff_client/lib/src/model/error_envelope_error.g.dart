@@ -16,20 +16,20 @@ class _$ErrorEnvelopeError extends ErrorEnvelopeError {
   @override
   final String requestId;
 
-  factory _$ErrorEnvelopeError(
-          [void Function(ErrorEnvelopeErrorBuilder)? updates]) =>
-      (ErrorEnvelopeErrorBuilder()..update(updates))._build();
+  factory _$ErrorEnvelopeError([
+    void Function(ErrorEnvelopeErrorBuilder)? updates,
+  ]) => (ErrorEnvelopeErrorBuilder()..update(updates))._build();
 
-  _$ErrorEnvelopeError._(
-      {required this.kind,
-      required this.message,
-      this.code,
-      required this.requestId})
-      : super._();
+  _$ErrorEnvelopeError._({
+    required this.kind,
+    required this.message,
+    this.code,
+    required this.requestId,
+  }) : super._();
   @override
   ErrorEnvelopeError rebuild(
-          void Function(ErrorEnvelopeErrorBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(ErrorEnvelopeErrorBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   ErrorEnvelopeErrorBuilder toBuilder() =>
@@ -117,15 +117,25 @@ class ErrorEnvelopeErrorBuilder
   ErrorEnvelopeError build() => _build();
 
   _$ErrorEnvelopeError _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$ErrorEnvelopeError._(
           kind: BuiltValueNullFieldError.checkNotNull(
-              kind, r'ErrorEnvelopeError', 'kind'),
+            kind,
+            r'ErrorEnvelopeError',
+            'kind',
+          ),
           message: BuiltValueNullFieldError.checkNotNull(
-              message, r'ErrorEnvelopeError', 'message'),
+            message,
+            r'ErrorEnvelopeError',
+            'message',
+          ),
           code: code,
           requestId: BuiltValueNullFieldError.checkNotNull(
-              requestId, r'ErrorEnvelopeError', 'requestId'),
+            requestId,
+            r'ErrorEnvelopeError',
+            'requestId',
+          ),
         );
     replace(_$result);
     return _$result;

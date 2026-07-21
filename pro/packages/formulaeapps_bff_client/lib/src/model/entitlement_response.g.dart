@@ -10,7 +10,8 @@ const EntitlementResponseScopeEnum _$entitlementResponseScopeEnum_mobile =
     const EntitlementResponseScopeEnum._('mobile');
 
 EntitlementResponseScopeEnum _$entitlementResponseScopeEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'mobile':
       return _$entitlementResponseScopeEnum_mobile;
@@ -20,13 +21,12 @@ EntitlementResponseScopeEnum _$entitlementResponseScopeEnumValueOf(
 }
 
 final BuiltSet<EntitlementResponseScopeEnum>
-    _$entitlementResponseScopeEnumValues =
-    BuiltSet<EntitlementResponseScopeEnum>(const <EntitlementResponseScopeEnum>[
-  _$entitlementResponseScopeEnum_mobile,
-]);
+_$entitlementResponseScopeEnumValues = BuiltSet<EntitlementResponseScopeEnum>(
+  const <EntitlementResponseScopeEnum>[_$entitlementResponseScopeEnum_mobile],
+);
 
 Serializer<EntitlementResponseScopeEnum>
-    _$entitlementResponseScopeEnumSerializer =
+_$entitlementResponseScopeEnumSerializer =
     _$EntitlementResponseScopeEnumSerializer();
 
 class _$EntitlementResponseScopeEnumSerializer
@@ -44,16 +44,20 @@ class _$EntitlementResponseScopeEnumSerializer
   final String wireName = 'EntitlementResponseScopeEnum';
 
   @override
-  Object serialize(Serializers serializers, EntitlementResponseScopeEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    EntitlementResponseScopeEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   EntitlementResponseScopeEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      EntitlementResponseScopeEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => EntitlementResponseScopeEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$EntitlementResponse extends EntitlementResponse {
@@ -62,16 +66,16 @@ class _$EntitlementResponse extends EntitlementResponse {
   @override
   final BuiltList<EntitlementSource> sources;
 
-  factory _$EntitlementResponse(
-          [void Function(EntitlementResponseBuilder)? updates]) =>
-      (EntitlementResponseBuilder()..update(updates))._build();
+  factory _$EntitlementResponse([
+    void Function(EntitlementResponseBuilder)? updates,
+  ]) => (EntitlementResponseBuilder()..update(updates))._build();
 
   _$EntitlementResponse._({required this.scope, required this.sources})
-      : super._();
+    : super._();
   @override
   EntitlementResponse rebuild(
-          void Function(EntitlementResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(EntitlementResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   EntitlementResponseBuilder toBuilder() =>
@@ -147,10 +151,14 @@ class EntitlementResponseBuilder
   _$EntitlementResponse _build() {
     _$EntitlementResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$EntitlementResponse._(
             scope: BuiltValueNullFieldError.checkNotNull(
-                scope, r'EntitlementResponse', 'scope'),
+              scope,
+              r'EntitlementResponse',
+              'scope',
+            ),
             sources: sources.build(),
           );
     } catch (_) {
@@ -160,7 +168,10 @@ class EntitlementResponseBuilder
         sources.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'EntitlementResponse', _$failedField, e.toString());
+          r'EntitlementResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
