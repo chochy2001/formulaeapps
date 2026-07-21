@@ -87,7 +87,7 @@ class ApiService {
     try {
       final response = await client.getChatApi().openaiChatPost(
         chatRequest: ChatRequest(
-          (b) => b
+          (ChatRequestBuilder b) => b
             ..message = message
             ..modelId = modelId,
         ),

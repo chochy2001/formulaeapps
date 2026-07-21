@@ -38,5 +38,6 @@ prod /health:    {"status":"ok","version":"1.0.0","prompts_version":"1.0.0"}
 
 ## Related
 
-- Feature 002 audits: `specs/002-formulae-fe-be-sync/audit/round-10-production-cutover-2026-05-19.md`, `round-11-chat-live-2026-05-19.md`
+- Current contract source of truth: `contracts/bff.openapi.yaml`
+- Operational tracker and follow-ups: `docs/TICKETS.md`
 - Release tag: `v1.0.0-bff`

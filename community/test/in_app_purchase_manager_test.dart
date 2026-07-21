@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/chat_gpt/in_app_purchase_manager.dart';
 import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_interface.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helpers/fake_iap_platform.dart';
 
@@ -9,6 +10,7 @@ void main() {
   late InAppPurchaseManager manager;
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     platform = FakeInAppPurchasePlatform();
     manager = InAppPurchaseManager(
       platform: platform,

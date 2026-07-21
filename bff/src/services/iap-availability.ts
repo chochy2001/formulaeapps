@@ -3,7 +3,9 @@ import { env, type Env } from '../lib/env';
 /**
  * Runtime check for Apple/Google IAP secret availability.
  *
- * Spec §FR-024 + Research §R5. In production the BFF needs:
+ * Source of truth for the contract and operational context:
+ * contracts/bff.openapi.yaml and docs/TICKETS.md (FML-115/FML-117). In
+ * production the BFF needs:
  *   Apple:  APPLE_P8_FILE (path) + APPLE_ISSUER_ID + APPLE_KEY_ID + APPLE_BUNDLE_ID
  *   Google: GOOGLE_SA_FILE (path) + GOOGLE_PACKAGE_NAME
  *

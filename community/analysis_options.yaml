@@ -8,3 +8,6 @@ analyzer:
     - "packages/**"
     - "**.g.dart"
     - "**.freezed.dart"
+    # Plugin artifacts checked out under build/ios/SourcePackages/ during local
+    # iOS builds are not project source and can conflict with pub-cache copies.
+    - "build/**"
