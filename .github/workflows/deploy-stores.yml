@@ -38,9 +38,11 @@ name: Deploy to stores
 # Si un bump no tiene CI verde aún, ejecuta ci.yml (workflow_dispatch) sobre
 # main antes de esperar la publicación.
 #
-# El guard anti-duplicados de versionCode/build del diseño (doc 56 §3) queda
-# como follow-up: las tiendas rechazan duplicados, pero el pipeline aún no
-# falla antes de firmar.
+# Guard anti-duplicados (doc 56 §3): antes de publicar en Play, cada job
+# Android ejecuta la lane guard_version_code, que consulta los versionCodes
+# ya usados en los tracks production e internal y aborta si el versionCode
+# del pubspec ya existe. En iOS no hay guard equivalente: App Store Connect
+# rechaza CFBundleVersion duplicados en la subida.
 
 on:
   push:
@@ -412,6 +414,26 @@ jobs:
           working-directory: community/android
           bundler-cache: true
 
+      # Guard anti-duplicados (fleet doc 56 seccion 3): Play no permite
+      # re-publicar un versionCode ya usado en production/internal.
+      - name: Guard against duplicate versionCode
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          APP_VERSION: ${{ needs.resolve.outputs.community_version }}
+        working-directory: community/android
+        run: |
+          set -euo pipefail
+          if [ -z "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::error::GOOGLE_PLAY_SERVICE_ACCOUNT_JSON secret is required for the versionCode guard."
+            exit 1
+          fi
+          build_number="${APP_VERSION##*+}"
+          if ! [[ "$build_number" =~ ^[0-9]+$ ]]; then
+            echo "::error::Unable to derive a numeric versionCode from pubspec version '$APP_VERSION'."
+            exit 1
+          fi
+          bundle exec fastlane android guard_version_code "build_number:${build_number}"
+
       - name: Publish AAB to Play production track
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
@@ -598,6 +620,26 @@ jobs:
         with:
           working-directory: pro/android
           bundler-cache: true
+
+      # Guard anti-duplicados (fleet doc 56 seccion 3): Play no permite
+      # re-publicar un versionCode ya usado en production/internal.
+      - name: Guard against duplicate versionCode
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          APP_VERSION: ${{ needs.resolve.outputs.pro_version }}
+        working-directory: pro/android
+        run: |
+          set -euo pipefail
+          if [ -z "$GOOGLE_PLAY_SERVICE_ACCOUNT_JSON" ]; then
+            echo "::error::GOOGLE_PLAY_SERVICE_ACCOUNT_JSON secret is required for the versionCode guard."
+            exit 1
+          fi
+          build_number="${APP_VERSION##*+}"
+          if ! [[ "$build_number" =~ ^[0-9]+$ ]]; then
+            echo "::error::Unable to derive a numeric versionCode from pubspec version '$APP_VERSION'."
+            exit 1
+          fi
+          bundle exec fastlane android guard_version_code "build_number:${build_number}"
 
       - name: Publish AAB to Play production track
         env:
