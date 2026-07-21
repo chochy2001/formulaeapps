@@ -1,5 +1,26 @@
 # Formulae Session Status
 
+## 2026-07-21 (health-audit follow-up)
+
+- Community standalone (`FormulaeCommunity`) PR **#29** merged: strict
+  `flutter analyze --fatal-infos --fatal-warnings` is clean; `flutter_lints`
+  aligned to `^4.0.0`; tests **89/89**. `main` = `b133e55`.
+- Monorepo docs refreshed (this file + parent `Formulae/README.md` local map).
+- T10–T14 hotspot metas remain **HECHO** (PR #116/#117). Global Pro raw coverage
+  after shell/formula behavior tests: **82.60%** (**23 548 / 28 507**), command:
+  `FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact`
+  with `JWT_SHARED_SECRET=test-shared-secret`,
+  `FORMULAE_BUILD_NONCE=ci-test-build-nonce`,
+  `FORMULAE_APP_VERSION=0.0.0-ci`. Suite **214/214**; analyze 0. Fleet 85% still
+  open (~682 lines). Do **not** claim 85% until measured ≥85%.
+- T31: bun **1.3.14**, Node **24**, Astro **7** already on `main`. Residual fixed
+  this session: removed dual `landing/package-lock.json` (CI uses Bun
+  `--frozen-lockfile` only; `landing/bun.lock` remains).
+- Worktrees `formulae-pr-hosted` / `formulae-preload-failclosed` removed after
+  confirming squash-superseded (PR #118 / #111) and clean trees. No force-push.
+- Still **BLOCKED** without user secrets/hostnames: T04 FTPS, VPS #9/#13,
+  FML-101 images, FML-129 OpenAI rotation, AdMob/OAuth.
+
 ## 2026-07-21
 
 - PRs #98 through #111 merged since 2026-07-17.
