@@ -22,6 +22,10 @@ class TasksScreen extends StatelessWidget {
   static Future<void> Function(Uint8List bytes, String fileName)?
   debugDownloadOverride;
 
+  // Solo para tests: sustituye SharePlus.instance.share del exporto de texto.
+  @visibleForTesting
+  static Future<void> Function(String text)? debugShareTextOverride;
+
   @override
   Widget build(BuildContext context) {
     //comenzando con las notificaciones push locales
@@ -125,9 +129,14 @@ class TasksScreen extends StatelessWidget {
                                       .join('\n');
 
                                   // Comparte el texto de todas las tareas
-                                  SharePlus.instance.share(
-                                    ShareParams(text: allTasksText),
-                                  );
+                                  final shareOverride = debugShareTextOverride;
+                                  if (shareOverride != null) {
+                                    await shareOverride(allTasksText);
+                                  } else {
+                                    await SharePlus.instance.share(
+                                      ShareParams(text: allTasksText),
+                                    );
+                                  }
                                 }
                               },
                               label: Text(

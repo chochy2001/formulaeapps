@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:formulae/Favorites/favorites_pdf_generator.dart';
 import 'package:formulae/Favorites/pdf_capture_scope.dart';
-import 'package:formulae/l10n/app_localizations.dart';
+import 'package:formulae/constantes/export_constantes.dart';
 import 'package:formulae/l10n/l10n.dart';
 import 'package:formulae/widgets_personalizados/ver_pdf.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -94,6 +93,17 @@ void main() {
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
+    debugAvoidSyncfusionPdfViewer = false;
+    VerPDFNuevoState.debugDownloadBytesOverride = null;
+    FavoritesPdfGenerator.debugDisableFormulaCapture = false;
+    FavoritesPdfGenerator.debugDownloadOverride = null;
+  });
+
+  tearDown(() {
+    debugAvoidSyncfusionPdfViewer = false;
+    VerPDFNuevoState.debugDownloadBytesOverride = null;
+    FavoritesPdfGenerator.debugDisableFormulaCapture = false;
+    FavoritesPdfGenerator.debugDownloadOverride = null;
   });
 
   testWidgets(
@@ -312,6 +322,223 @@ void main() {
 
     expect(rebuilds, 0);
   });
+
+  testWidgets(
+    'VerPDFGenerado applies rebuilt bytes after a successful size change',
+    (tester) async {
+      debugAvoidSyncfusionPdfViewer = true;
+      var rebuilds = 0;
+
+      await tester.pumpWidget(
+        _app(
+          child: VerPDFGenerado(
+            title: 'Resize ok',
+            initialSize: PdfFormulaSize.medium,
+            pdfData: _tinyPdf,
+            previewContents: const [
+              FavoriteFormulaContent(
+                title: 'Resize ok',
+                blocks: [
+                  FormulaPdfBlock(
+                    type: FormulaPdfBlockType.text,
+                    text: 'Vista previa',
+                  ),
+                ],
+              ),
+            ],
+            buildBytes: (size) async {
+              rebuilds++;
+              expect(size, PdfFormulaSize.large);
+              return _tinyPdf;
+            },
+          ),
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.byIcon(Icons.format_size_rounded));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Grande'));
+      await tester.pumpAndSettle();
+
+      expect(rebuilds, 1);
+      expect(find.text('Vista previa'), findsOneWidget);
+      expect(
+        await FavoritesPdfGenerator.loadFormulaSize(),
+        PdfFormulaSize.large,
+      );
+    },
+  );
+
+  testWidgets(
+    'VerPDF opens a generated preview through formula extraction',
+    (tester) async {
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      debugAvoidSyncfusionPdfViewer = true;
+
+      await tester.pumpWidget(
+        _favoritesApp(
+          child: const VerPDF(url: kWidgetTeoremaDelRotacional),
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.text('Ver PDF'));
+      await tester.pump();
+      for (var i = 0; i < 80; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+        if (find.byType(VerPDFGenerado).evaluate().isNotEmpty) {
+          break;
+        }
+      }
+
+      expect(find.byType(VerPDFGenerado), findsOneWidget);
+      expect(find.text('Generando PDF...'), findsNothing);
+    },
+    timeout: const Timeout(Duration(seconds: 90)),
+  );
+
+  testWidgets(
+    'VerPDF surfaces an error snackbar when favorites context is missing',
+    (tester) async {
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      debugAvoidSyncfusionPdfViewer = true;
+
+      // No FavoritesNotifier → extractFavoriteFormulaContent throws into catch.
+      await tester.pumpWidget(
+        _app(child: const VerPDF(url: kWidgetTeoremaDelRotacional)),
+      );
+      await tester.pump();
+
+      await tester.tap(find.text('Ver PDF'));
+      await tester.pump();
+      for (var i = 0; i < 40; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+        if (find.byType(SnackBar).evaluate().isNotEmpty) {
+          break;
+        }
+      }
+
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.byType(VerPDFGenerado), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'DescargarPDF exports bytes through the favorites download seam',
+    (tester) async {
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      final downloads = <({Uint8List bytes, String fileName})>[];
+      FavoritesPdfGenerator.debugDownloadOverride = (bytes, fileName) async {
+        downloads.add((bytes: bytes, fileName: fileName));
+      };
+
+      await tester.pumpWidget(
+        _favoritesApp(
+          child: const DescargarPDF(url: kWidgetTeoremaDelRotacional),
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Descargar'));
+      await tester.pump();
+      for (var i = 0; i < 80; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+        if (downloads.isNotEmpty) {
+          break;
+        }
+      }
+      await tester.pumpAndSettle();
+
+      expect(downloads, hasLength(1));
+      expect(String.fromCharCodes(downloads.single.bytes.take(4)), '%PDF');
+      expect(find.text('PDF generado'), findsOneWidget);
+    },
+    timeout: const Timeout(Duration(seconds: 90)),
+  );
+
+  testWidgets(
+    'DescargarPDF shows an error snackbar when export fails',
+    (tester) async {
+      FavoritesPdfGenerator.debugDisableFormulaCapture = true;
+      FavoritesPdfGenerator.debugDownloadOverride = (_, __) async {
+        throw StateError('download-blocked');
+      };
+
+      await tester.pumpWidget(
+        _favoritesApp(
+          child: const DescargarPDF(url: kWidgetTeoremaDelRotacional),
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Descargar'));
+      await tester.pump();
+      for (var i = 0; i < 80; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+        if (find.byType(SnackBar).evaluate().isNotEmpty) {
+          break;
+        }
+      }
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(find.text('PDF generado'), findsNothing);
+    },
+    timeout: const Timeout(Duration(seconds: 90)),
+  );
+
+  testWidgets(
+    'VerPDFNuevo renders downloaded bytes through the download seam',
+    (tester) async {
+      debugAvoidSyncfusionPdfViewer = true;
+      var requestedUrl = '';
+      VerPDFNuevoState.debugDownloadBytesOverride = (url) async {
+        requestedUrl = url;
+        return _tinyPdf;
+      };
+
+      await tester.pumpWidget(
+        _app(child: const VerPDFNuevo(pdfUrl: 'https://example.test/ok.pdf')),
+      );
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(requestedUrl, 'https://example.test/ok.pdf');
+      expect(find.byKey(const Key('pdf-bytes-ready')), findsOneWidget);
+      expect(find.text('Intentar de nuevo'), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'VerPDFNuevo retry succeeds after a failed download',
+    (tester) async {
+      debugAvoidSyncfusionPdfViewer = true;
+      var calls = 0;
+      VerPDFNuevoState.debugDownloadBytesOverride = (url) async {
+        calls++;
+        if (calls == 1) {
+          throw Exception('first-fail');
+        }
+        return _tinyPdf;
+      };
+
+      await tester.pumpWidget(
+        _app(child: const VerPDFNuevo(pdfUrl: 'https://example.test/retry.pdf')),
+      );
+      await tester.pump();
+      await tester.pumpAndSettle();
+      expect(find.text('Intentar de nuevo'), findsOneWidget);
+
+      await tester.tap(find.text('Intentar de nuevo'));
+      await tester.pump();
+      await tester.pumpAndSettle();
+
+      expect(calls, 2);
+      expect(find.byKey(const Key('pdf-bytes-ready')), findsOneWidget);
+      expect(find.text('Intentar de nuevo'), findsNothing);
+    },
+  );
 }
 
 Widget _app({required Widget child}) {
@@ -326,5 +553,26 @@ Widget _app({required Widget child}) {
     ],
     supportedLocales: L10n.all,
     home: Scaffold(body: child),
+  );
+}
+
+Widget _favoritesApp({required Widget child}) {
+  return ChangeNotifierProvider<FavoritesNotifier>(
+    create: (_) => FavoritesNotifier(),
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      locale: const Locale('es'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: L10n.all,
+      home: Scaffold(
+        body: child,
+        // Overlay is required for offscreen formula extraction.
+      ),
+    ),
   );
 }

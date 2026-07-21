@@ -15,6 +15,10 @@ bool isWebPlatform() {
   return kIsWeb;
 }
 
+/// Test-only: skip Syncfusion [SfPdfViewer.memory] (pending timers in widget tests).
+@visibleForTesting
+bool debugAvoidSyncfusionPdfViewer = false;
+
 class VerPDF extends StatefulWidget {
   final String url;
 
@@ -91,7 +95,9 @@ class VerPDFState extends State<VerPDF> {
       // dentro del arbol de Flutter web (CanvasKit), asi que en web mostramos una
       // vista previa nativa del mismo contenido. En movil el visor de Syncfusion
       // dibuja los bytes reales, por lo que se generan por adelantado.
-      final initialBytes = kIsWeb ? null : await buildBytes(size);
+      final initialBytes = (kIsWeb || debugAvoidSyncfusionPdfViewer)
+          ? null
+          : await buildBytes(size);
 
       navigator.push(
         MaterialPageRoute(
@@ -237,12 +243,16 @@ class _VerPDFGeneradoState extends State<VerPDFGenerado> {
     }
 
     final bytes = _bytes;
-    if (bytes != null) {
+    if (bytes != null && !debugAvoidSyncfusionPdfViewer) {
       return buildPdfInlineViewer(bytes);
     }
 
     if (previewContents != null) {
       return FormulaePdfPreview(contents: previewContents, size: _size);
+    }
+
+    if (bytes != null) {
+      return const SizedBox(key: Key('pdf-bytes-ready'));
     }
 
     return const Center(
@@ -557,6 +567,10 @@ class VerPDFNuevo extends StatefulWidget {
 }
 
 class VerPDFNuevoState extends State<VerPDFNuevo> {
+  /// Test-only seam that replaces the network download in [_downloadPDF].
+  @visibleForTesting
+  static Future<Uint8List> Function(String url)? debugDownloadBytesOverride;
+
   Uint8List? _pdfData;
   String? _errorMessage;
 
@@ -583,6 +597,10 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
   }
 
   Future<Uint8List> _downloadPDF(String url) async {
+    final override = debugDownloadBytesOverride;
+    if (override != null) {
+      return override(url);
+    }
     try {
       final effectiveUrl = isWebPlatform() ? getCorsProxyUrl(url) : url;
       final response = await http
@@ -661,7 +679,9 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
                       ],
                     ),
                   )
-          : buildPdfInlineViewer(_pdfData!),
+          : debugAvoidSyncfusionPdfViewer
+                ? const SizedBox(key: Key('pdf-bytes-ready'))
+                : buildPdfInlineViewer(_pdfData!),
     );
   }
 
