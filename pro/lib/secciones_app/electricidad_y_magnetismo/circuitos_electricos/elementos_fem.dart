@@ -27,9 +27,11 @@ class _ElementosFemState extends State<ElementosFem> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .elementosFuerzaElectromotriz,
-                      widgetName: kWidgetElementosFem),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.elementosFuerzaElectromotriz,
+                    widgetName: kWidgetElementosFem,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -41,16 +43,20 @@ class _ElementosFemState extends State<ElementosFem> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosFuerzaElectromotriz,
-                              widgetName: kWidgetElementosFem),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosFuerzaElectromotriz,
+                            widgetName: kWidgetElementosFem,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .elementosFuerzaElectromotriz,
-                              widgetName: kWidgetElementosFem),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.elementosFuerzaElectromotriz,
+                            widgetName: kWidgetElementosFem,
+                          ),
                         );
                       }
                     });
@@ -63,8 +69,10 @@ class _ElementosFemState extends State<ElementosFem> {
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenElementosFem) ??
-                        kUrlImagenElementosFem),
+                  urlImagen:
+                      getImageUrlById(context, kImagenElementosFem) ??
+                      kUrlImagenElementosFem,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -72,15 +80,11 @@ class _ElementosFemState extends State<ElementosFem> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetElementosFem,
-                ),
+                VerPDF(url: kWidgetElementosFem),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetElementosFem,
-                ),
+                DescargarPDF(url: kWidgetElementosFem),
               ],
-            )
+            ),
           ],
         ),
       ),

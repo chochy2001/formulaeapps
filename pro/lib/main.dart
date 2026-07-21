@@ -69,19 +69,19 @@ Future<void> bootstrap(FormulaeConfig config) async {
   const InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: DarwinInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification),
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    ),
     macOS: DarwinInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification),
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    ),
   );
 
   await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
+    settings: initializationSettings,
   );
 
   final favoritesNotifier = await FavoritesNotifier.loadFavorites();
@@ -92,19 +92,19 @@ Future<void> bootstrap(FormulaeConfig config) async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<LocaleProvider>(
-            create: (context) => LocaleProvider(deviceLocale)),
+          create: (context) => LocaleProvider(deviceLocale),
+        ),
         ChangeNotifierProvider<ModelsProvider>(
           create: (context) => ModelsProvider(),
         ),
         ChangeNotifierProvider<ChatProvider>(
           create: (context) => ChatProvider(),
         ),
-        ChangeNotifierProvider<TaskData>(
-          create: (context) => TaskData(),
-        ),
+        ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
         // Usa el favoritesNotifier que ya has inicializado y cargado
         ChangeNotifierProvider<FavoritesNotifier>.value(
-            value: favoritesNotifier),
+          value: favoritesNotifier,
+        ),
       ],
       child: MyApp(favoritesNotifier: favoritesNotifier, config: config),
     ),
@@ -112,7 +112,11 @@ Future<void> bootstrap(FormulaeConfig config) async {
 }
 
 Future<void> onDidReceiveLocalNotification(
-    int id, String? title, String? body, String? payload) async {
+  int id,
+  String? title,
+  String? body,
+  String? payload,
+) async {
   // Aquí puedes agregar la lógica para manejar la acción de recibir la notificación
   // Por ejemplo, podrías mostrar un diálogo con el título y el cuerpo de la notificación
 }
@@ -176,26 +180,26 @@ class MyAppState extends State<MyApp> {
       supportedLocales: L10n.all,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-            //Menu Icon color changed to white
-            iconTheme: IconThemeData(color: Colors.white)),
+          //Menu Icon color changed to white
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         fontFamily: 'Poppins',
         primarySwatch: PaletaColores.kFondo,
         scaffoldBackgroundColor: kColorFondo,
         primaryColor: kColorFondo,
       ),
       darkTheme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: kColorFondo,
-          primaryColor: kColorFondo,
-          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Poppins')
-          //Added darkTheme to fix the buttons visibility issues in dark mode (Android).
-          //Trying to ensure proper contrast.
-          ),
+        scaffoldBackgroundColor: kColorFondo,
+        primaryColor: kColorFondo,
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Poppins'),
+        //Added darkTheme to fix the buttons visibility issues in dark mode (Android).
+        //Trying to ensure proper contrast.
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: getApplicationRoutes(),
-      onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
-        builder: (BuildContext context) => const Menu(),
-      ),
+      onGenerateRoute: (RouteSettings settings) =>
+          MaterialPageRoute(builder: (BuildContext context) => const Menu()),
     );
   }
 }

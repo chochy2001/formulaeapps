@@ -31,9 +31,11 @@ class EstadisticaInferencialState extends State<EstadisticaInferencial> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .estadisticaInferencial,
-                            widgetName: kWidgetEstadisticaInferencial),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.estadisticaInferencial,
+                          widgetName: kWidgetEstadisticaInferencial,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class EstadisticaInferencialState extends State<EstadisticaInferencial> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .estadisticaInferencial,
-                                    widgetName: kWidgetEstadisticaInferencial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.estadisticaInferencial,
+                                  widgetName: kWidgetEstadisticaInferencial,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .estadisticaInferencial,
-                                    widgetName: kWidgetEstadisticaInferencial),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.estadisticaInferencial,
+                                  widgetName: kWidgetEstadisticaInferencial,
+                                ),
                               );
                             }
                           });
@@ -63,66 +69,60 @@ class EstadisticaInferencialState extends State<EstadisticaInferencial> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S^2 = \frac{\sum_{i=1}^{n}(x_i -\bar{X})^2}{n-1}"),
+                          formulaText:
+                              r"S^2 = \frac{\sum_{i=1}^{n}(x_i -\bar{X})^2}{n-1}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.desviacionEstandar,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S= \sqrt{\frac{\sum_{i=1}^{n}(x_i -\bar{X})^2}{n-1}}"),
+                          formulaText:
+                              r"S= \sqrt{\frac{\sum_{i=1}^{n}(x_i -\bar{X})^2}{n-1}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.errorMuestral,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sigma _{\bar{X}} = \sqrt{\frac{\sigma^2}{n}\cdot \frac{N-n}{N-1}} = \frac{\sigma}{\sqrt{n}}\cdot\sqrt{\frac{N-n}{N-1}}"),
+                          formulaText:
+                              r"\sigma _{\bar{X}} = \sqrt{\frac{\sigma^2}{n}\cdot \frac{N-n}{N-1}} = \frac{\sigma}{\sqrt{n}}\cdot\sqrt{\frac{N-n}{N-1}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .probabilidadOcurrenciaMediaMuestral,
+                          AppLocalizations.of(
+                            context,
+                          )!.probabilidadOcurrenciaMediaMuestral,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"z = \frac{\bar{X}-\mu }{\sigma _{\bar{X}}}"),
+                          formulaText:
+                              r"z = \frac{\bar{X}-\mu }{\sigma _{\bar{X}}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetEstadisticaInferencial,
-                  ),
+                  const VerPDF(url: kWidgetEstadisticaInferencial),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetEstadisticaInferencial,
-                  ),
+                  const DescargarPDF(url: kWidgetEstadisticaInferencial),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -135,9 +135,7 @@ class EstadisticaInferencialState extends State<EstadisticaInferencial> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"\mu"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.media,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.media),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sigma"),
                         TextoEcuaciones(
@@ -150,14 +148,10 @@ class EstadisticaInferencialState extends State<EstadisticaInferencial> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.muestra,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.muestra),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"\bar{X}"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.media,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.media),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"S"),
                         TextoEcuaciones(

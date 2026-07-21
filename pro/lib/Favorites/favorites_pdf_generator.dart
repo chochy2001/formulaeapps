@@ -20,11 +20,7 @@ import 'pdf_capture_scope.dart';
 // Tamano con el que las formulas se dibujan dentro del PDF. Escala el tamano
 // fisico de la imagen capturada en la pagina sin tocar la nitidez de captura
 // (pixelRatio) ni el respaldo de texto.
-enum PdfFormulaSize {
-  small,
-  medium,
-  large,
-}
+enum PdfFormulaSize { small, medium, large }
 
 extension PdfFormulaSizeScale on PdfFormulaSize {
   double get scale {
@@ -41,11 +37,7 @@ extension PdfFormulaSizeScale on PdfFormulaSize {
   String get storageValue => name;
 }
 
-enum FormulaPdfBlockType {
-  heading,
-  text,
-  formula,
-}
+enum FormulaPdfBlockType { heading, text, formula }
 
 class FormulaPdfBlock {
   final FormulaPdfBlockType type;
@@ -70,10 +62,7 @@ class FavoriteFormulaContent {
   final String title;
   final List<FormulaPdfBlock> blocks;
 
-  const FavoriteFormulaContent({
-    required this.title,
-    required this.blocks,
-  });
+  const FavoriteFormulaContent({required this.title, required this.blocks});
 }
 
 class FavoritesPdfGenerator {
@@ -138,10 +127,7 @@ class FavoritesPdfGenerator {
       contents: contents,
       size: size,
     );
-    await downloadFavoritePdf(
-      pdfBytes,
-      downloadFileNameForTitle(folder.name),
-    );
+    await downloadFavoritePdf(pdfBytes, downloadFileNameForTitle(folder.name));
   }
 
   // Genera el PDF y devuelve tambien el titulo real de la pantalla origen para
@@ -237,8 +223,10 @@ class FavoritesPdfGenerator {
       throw StateError('overlay-not-found');
     }
 
-    final favoritesNotifier =
-        Provider.of<FavoritesNotifier>(context, listen: false);
+    final favoritesNotifier = Provider.of<FavoritesNotifier>(
+      context,
+      listen: false,
+    );
     final mediaQuery = MediaQuery.of(context);
     final rootKey = GlobalKey();
     late final OverlayEntry entry;
@@ -429,8 +417,9 @@ class FavoritesPdfGenerator {
     final logoBytes = await _readAssetBytes('assets/images/capdesis_logo.png');
     final logoImage = pw.MemoryImage(logoBytes);
     final font = pw.Font.ttf(await rootBundle.load('fonts/Poppins-Bold.ttf'));
-    final mathFont =
-        pw.Font.ttf(await rootBundle.load('fonts/NotoSansMath-Regular.ttf'));
+    final mathFont = pw.Font.ttf(
+      await rootBundle.load('fonts/NotoSansMath-Regular.ttf'),
+    );
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -480,7 +469,7 @@ class FavoritesPdfGenerator {
         ..add(
           pw.Text(
             content.title,
-            style: pw.TextStyle(
+            style: const pw.TextStyle(
               fontSize: 15,
               fontWeight: pw.FontWeight.bold,
             ),
@@ -515,10 +504,7 @@ class FavoritesPdfGenerator {
       padding: const pw.EdgeInsets.only(top: 10, bottom: 6),
       child: pw.Text(
         text.trim(),
-        style: pw.TextStyle(
-          fontSize: 12,
-          fontWeight: pw.FontWeight.bold,
-        ),
+        style: const pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold),
       ),
     );
   }
@@ -526,14 +512,14 @@ class FavoritesPdfGenerator {
   static pw.Widget _buildTextBlock(String text) {
     return pw.Padding(
       padding: const pw.EdgeInsets.only(bottom: 7),
-      child: pw.Text(
-        text.trim(),
-        style: const pw.TextStyle(fontSize: 10.5),
-      ),
+      child: pw.Text(text.trim(), style: const pw.TextStyle(fontSize: 10.5)),
     );
   }
 
-  static pw.Widget _buildFormulaBlock(FormulaPdfBlock block, PdfFormulaSize size) {
+  static pw.Widget _buildFormulaBlock(
+    FormulaPdfBlock block,
+    PdfFormulaSize size,
+  ) {
     final image = block.image;
     final pw.Widget child;
 
@@ -542,7 +528,10 @@ class FavoritesPdfGenerator {
       // formulas anchas (matrices) se reducen proporcionalmente sin superar el
       // ancho util de la pagina.
       final pointsPerPixel = _formulaPointsPerPixel * size.scale;
-      final maxWidth = math.min(_formulaMaxWidth * size.scale, _pageUsableWidth);
+      final maxWidth = math.min(
+        _formulaMaxWidth * size.scale,
+        _pageUsableWidth,
+      );
       var width = block.imageWidth * pointsPerPixel;
       var height = block.imageHeight * pointsPerPixel;
       if (width > maxWidth) {
@@ -561,10 +550,7 @@ class FavoritesPdfGenerator {
     } else {
       child = pw.Text(
         _formatFormulaForPdf(block.text),
-        style: const pw.TextStyle(
-          fontSize: 10.2,
-          lineSpacing: 3,
-        ),
+        style: const pw.TextStyle(fontSize: 10.2, lineSpacing: 3),
       );
     }
 
@@ -596,28 +582,20 @@ class FavoritesPdfGenerator {
       child: pw.Row(
         crossAxisAlignment: pw.CrossAxisAlignment.center,
         children: [
-          pw.Image(
-            logoImage,
-            width: 52,
-            height: 52,
-            fit: pw.BoxFit.contain,
-          ),
+          pw.Image(logoImage, width: 52, height: 52, fit: pw.BoxFit.contain),
           pw.SizedBox(width: 12),
           pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text(
                 title,
-                style: pw.TextStyle(
+                style: const pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: 4),
-              pw.Text(
-                subtitle,
-                style: const pw.TextStyle(fontSize: 11),
-              ),
+              pw.Text(subtitle, style: const pw.TextStyle(fontSize: 11)),
             ],
           ),
         ],

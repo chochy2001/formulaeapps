@@ -58,7 +58,7 @@ class _$ErrorKindMeta {
   BuiltSet<ErrorKind> get values => _$values;
 }
 
-abstract class _$ErrorKindMixin {
+mixin _$ErrorKindMixin {
   // ignore: non_constant_identifier_names
   _$ErrorKindMeta get ErrorKind => const _$ErrorKindMeta();
 }
@@ -91,15 +91,20 @@ class _$ErrorKindSerializer implements PrimitiveSerializer<ErrorKind> {
   final String wireName = 'ErrorKind';
 
   @override
-  Object serialize(Serializers serializers, ErrorKind object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    ErrorKind object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  ErrorKind deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      ErrorKind.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  ErrorKind deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => ErrorKind.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

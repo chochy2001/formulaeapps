@@ -16,9 +16,12 @@ class MenuAreasGeometriaState extends State<MenuAreasGeometria> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -38,9 +41,7 @@ class MenuAreasGeometriaState extends State<MenuAreasGeometria> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -49,23 +50,24 @@ class MenuAreasGeometriaState extends State<MenuAreasGeometria> {
                     AppLocalizations.of(context)!.areasGeometria,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .areaPerimetroCuadrilateros,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroCuadrilateros,
                     ruta: kRutaAreaYPerimetroDeCuadrilateros,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.areaPerimetroTriangulos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroTriangulos,
                     ruta: kRutaAreaYPerimetroDeTriangulos,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.areaPerimetroCirculo,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroCirculo,
                     ruta: kRutaAreaYPerimetroDelCirculo,
                   ),
                 ],

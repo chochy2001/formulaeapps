@@ -16,9 +16,12 @@ class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,9 @@ class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.derivadasDireccionales,
-                      widgetName: kWidgetDerivadasDireccionales),
+                    title: AppLocalizations.of(context)!.derivadasDireccionales,
+                    widgetName: kWidgetDerivadasDireccionales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +60,20 @@ class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasDireccionales,
-                              widgetName: kWidgetDerivadasDireccionales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasDireccionales,
+                            widgetName: kWidgetDerivadasDireccionales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasDireccionales,
-                              widgetName: kWidgetDerivadasDireccionales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasDireccionales,
+                            widgetName: kWidgetDerivadasDireccionales,
+                          ),
                         );
                       }
                     });
@@ -75,16 +82,12 @@ class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sean,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sean),
                   const Latex(formulaText: r"f(x,y)"),
                   const SizedBox(height: 4),
                   TextoEcuaciones(
@@ -102,23 +105,18 @@ class _DerivadasDireccionalesState extends State<DerivadasDireccionales> {
                   ),
                   const SizedBox(height: 30),
                   const Latex(
-                      formulaText:
-                          r"D_u F(x,y) =\lim_{S \to 0}\frac{f(x+Su_1,y+Su_2)-f(x,y)}{S}"),
+                    formulaText:
+                        r"D_u F(x,y) =\lim_{S \to 0}\frac{f(x+Su_1,y+Su_2)-f(x,y)}{S}",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetDerivadasDireccionales,
-            ),
+            const VerPDF(url: kWidgetDerivadasDireccionales),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetDerivadasDireccionales,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetDerivadasDireccionales),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

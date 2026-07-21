@@ -6,10 +6,12 @@ class CotangenteDeSumaYRestaDeAngulos extends StatefulWidget {
   const CotangenteDeSumaYRestaDeAngulos({super.key});
 
   @override
-  CotangenteDeSumaYRestaDeAngulosState createState() => CotangenteDeSumaYRestaDeAngulosState();
+  CotangenteDeSumaYRestaDeAngulosState createState() =>
+      CotangenteDeSumaYRestaDeAngulosState();
 }
 
-class CotangenteDeSumaYRestaDeAngulosState extends State<CotangenteDeSumaYRestaDeAngulos> {
+class CotangenteDeSumaYRestaDeAngulosState
+    extends State<CotangenteDeSumaYRestaDeAngulos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class CotangenteDeSumaYRestaDeAngulosState extends State<CotangenteDeSumaYRestaD
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos,
+                    AppLocalizations.of(
+                      context,
+                    )!.cotangenteDeSumaYRestaDeAngulos,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.cotangenteDeSumaYRestaDeAngulos,
                         widgetName: kWidgetCotangenteDeSumaYRestaDeAngulos,
                       ),
                     );
@@ -44,15 +50,21 @@ class CotangenteDeSumaYRestaDeAngulosState extends State<CotangenteDeSumaYRestaD
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos,
-                                widgetName: kWidgetCotangenteDeSumaYRestaDeAngulos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cotangenteDeSumaYRestaDeAngulos,
+                                widgetName:
+                                    kWidgetCotangenteDeSumaYRestaDeAngulos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cotangenteDeSumaYRestaDeAngulos,
-                                widgetName: kWidgetCotangenteDeSumaYRestaDeAngulos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cotangenteDeSumaYRestaDeAngulos,
+                                widgetName:
+                                    kWidgetCotangenteDeSumaYRestaDeAngulos,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class CotangenteDeSumaYRestaDeAngulosState extends State<CotangenteDeSumaYRestaD
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\cot(A \pm B) = \dfrac{\cot A \cot B \mp 1}{\cot B \pm \cot A}"),
+                  Latex(
+                    formulaText:
+                        r"\cot(A \pm B) = \dfrac{\cot A \cot B \mp 1}{\cot B \pm \cot A}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

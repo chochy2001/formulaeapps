@@ -27,8 +27,9 @@ class _SolenoideState extends State<Solenoide> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.solenoide,
-                      widgetName: kWidgetSolenoide),
+                    title: AppLocalizations.of(context)!.solenoide,
+                    widgetName: kWidgetSolenoide,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _SolenoideState extends State<Solenoide> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.solenoide,
-                              widgetName: kWidgetSolenoide),
+                            title: AppLocalizations.of(context)!.solenoide,
+                            widgetName: kWidgetSolenoide,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.solenoide,
-                              widgetName: kWidgetSolenoide),
+                            title: AppLocalizations.of(context)!.solenoide,
+                            widgetName: kWidgetSolenoide,
+                          ),
                         );
                       }
                     });
@@ -59,44 +62,41 @@ class _SolenoideState extends State<Solenoide> {
             Column(
               children: <Widget>[
                 const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.solenoideBobina,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.solenoideBobina),
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenSolenoide),
                 const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  AppLocalizations.of(
+                    context,
+                  )!.magnitudDelCampoMagneticoParaUnaEspira,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"B = \frac{\mu_0 i R^2}{2(R^2 + x^2)^{\frac{3}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .magnitudDelCampoMagneticoParaUnaEspira,
+                TextoEcuaciones(AppLocalizations.of(context)!.paraUnaPosicionD),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"B = \int_{\frac{-h}{2}}^{\frac{h}{2}}\frac{\mu_0(ndz)R^2}{2(R^2+(z-d)^2)^{\frac{3}{2}}}",
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0 i R^2}{2(R^2 + x^2)^{\frac{3}{2}}}"),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.paraUnaPosicionD,
+                  formulaText:
+                      r"B = \frac{\mu _0 ni}{2}\left(\frac{\frac{h}{2}+d}{\sqrt{R^2 +(\frac{h}{2}+d)^2}}+\frac{\frac{h}{2}-d}{\sqrt{R^2 + (\frac{h}{2}-d)^2}}\right)",
                 ),
                 const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"B = \int_{\frac{-h}{2}}^{\frac{h}{2}}\frac{\mu_0(ndz)R^2}{2(R^2+(z-d)^2)^{\frac{3}{2}}}"),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"B = \frac{\mu _0 ni}{2}\left(\frac{\frac{h}{2}+d}{\sqrt{R^2 +(\frac{h}{2}+d)^2}}+\frac{\frac{h}{2}-d}{\sqrt{R^2 + (\frac{h}{2}-d)^2}}\right)"),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.solenoideIdeal,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.solenoideIdeal),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"B = \mu_0 ni"),
                 const SizedBox(height: 40.0),
@@ -106,15 +106,11 @@ class _SolenoideState extends State<Solenoide> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetSolenoide,
-                ),
+                VerPDF(url: kWidgetSolenoide),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetSolenoide,
-                ),
+                DescargarPDF(url: kWidgetSolenoide),
               ],
-            )
+            ),
           ],
         ),
       ),

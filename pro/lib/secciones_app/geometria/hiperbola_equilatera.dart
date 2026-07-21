@@ -30,7 +30,9 @@ class HiperbolaEquilateraState extends State<HiperbolaEquilatera> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.hiperbolaEquilatera,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.hiperbolaEquilatera,
                         widgetName: kWidgetHiperbolaEquilatera,
                       ),
                     );
@@ -44,14 +46,18 @@ class HiperbolaEquilateraState extends State<HiperbolaEquilatera> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hiperbolaEquilatera,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hiperbolaEquilatera,
                                 widgetName: kWidgetHiperbolaEquilatera,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.hiperbolaEquilatera,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.hiperbolaEquilatera,
                                 widgetName: kWidgetHiperbolaEquilatera,
                               ),
                             );
@@ -69,7 +75,10 @@ class HiperbolaEquilateraState extends State<HiperbolaEquilatera> {
                 children: [
                   Latex(formulaText: r"a = b"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan\alpha = m = \pm 1 \quad (\alpha = 45^{\circ})"),
+                  Latex(
+                    formulaText:
+                        r"\tan\alpha = m = \pm 1 \quad (\alpha = 45^{\circ})",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"x\,y = c^2"),
                   SizedBox(height: kEspacioEntreBotones),

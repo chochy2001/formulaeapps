@@ -10,10 +10,7 @@ import 'package:flutter/material.dart';
 class ProductMark extends StatelessWidget {
   final double size;
 
-  const ProductMark({
-    super.key,
-    this.size = 72.0,
-  });
+  const ProductMark({super.key, this.size = 72.0});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +33,7 @@ class ProductMark extends StatelessWidget {
 class ImagenLogoFormulae extends StatelessWidget {
   final double size;
 
-  const ImagenLogoFormulae({
-    super.key,
-    this.size = 66.0,
-  });
+  const ImagenLogoFormulae({super.key, this.size = 66.0});
 
   @override
   Widget build(BuildContext context) {

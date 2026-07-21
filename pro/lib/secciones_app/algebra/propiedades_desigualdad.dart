@@ -31,9 +31,11 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .propiedadesDesigualdades,
-                            widgetName: kWidgetPropiedadesDesigualdad),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.propiedadesDesigualdades,
+                          widgetName: kWidgetPropiedadesDesigualdad,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDesigualdades,
-                                    widgetName: kWidgetPropiedadesDesigualdad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDesigualdades,
+                                  widgetName: kWidgetPropiedadesDesigualdad,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDesigualdades,
-                                    widgetName: kWidgetPropiedadesDesigualdad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDesigualdades,
+                                  widgetName: kWidgetPropiedadesDesigualdad,
+                                ),
                               );
                             }
                           });
@@ -63,36 +69,35 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         //Principal
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.desigualdadSumaResta,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a>b\rightarrow a+c>b+c\rightarrow a-c>b-c"),
+                          formulaText:
+                              r"a>b\rightarrow a+c>b+c\rightarrow a-c>b-c",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         //sentido desigualdad
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .desigualdadMultiplicaDivide,
+                          AppLocalizations.of(
+                            context,
+                          )!.desigualdadMultiplicaDivide,
                         ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a>b\rightarrow ac< bc \rightarrow\frac{a}{c}<\frac{b}{c}"),
+                          formulaText:
+                              r"a>b\rightarrow ac< bc \rightarrow\frac{a}{c}<\frac{b}{c}",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         //Exponentes
@@ -105,28 +110,28 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a^{(-c)} < b^{(-c)}"),
 
-                        const SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
                         //Propiedad Transitiva
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.propiedadTransitiva,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a>b\space y \space b>c\rightarrow a>c"),
+                          formulaText: r"a>b\space y \space b>c\rightarrow a>c",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a< b\space y \space b< c\rightarrow a< c"),
+                          formulaText:
+                              r"a< b\space y \space b< c\rightarrow a< c",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         //Propiedad de la no negatividad
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadDeLaNoNegatividad,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadDeLaNoNegatividad,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a^2\geq 0"),
@@ -138,7 +143,8 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a>0 \rightarrow \frac{1}{a}>0"),
+                          formulaText: r"a>0 \rightarrow \frac{1}{a}>0",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -146,13 +152,9 @@ class PropiedadesDesigualdadState extends State<PropiedadesDesigualdad> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPropiedadesDesigualdad,
-                  ),
+                  const VerPDF(url: kWidgetPropiedadesDesigualdad),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPropiedadesDesigualdad,
-                  ),
+                  const DescargarPDF(url: kWidgetPropiedadesDesigualdad),
                 ],
               ),
             ),

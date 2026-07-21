@@ -28,9 +28,11 @@ class _MotorDeCorrienteDirectaState extends State<MotorDeCorrienteDirecta> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.motorDeCorrienteDirecta,
-                      widgetName: kWidgetMotorDeCorrienteDirecta),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.motorDeCorrienteDirecta,
+                    widgetName: kWidgetMotorDeCorrienteDirecta,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +44,20 @@ class _MotorDeCorrienteDirectaState extends State<MotorDeCorrienteDirecta> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .motorDeCorrienteDirecta,
-                              widgetName: kWidgetMotorDeCorrienteDirecta),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.motorDeCorrienteDirecta,
+                            widgetName: kWidgetMotorDeCorrienteDirecta,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .motorDeCorrienteDirecta,
-                              widgetName: kWidgetMotorDeCorrienteDirecta),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.motorDeCorrienteDirecta,
+                            widgetName: kWidgetMotorDeCorrienteDirecta,
+                          ),
                         );
                       }
                     });
@@ -65,16 +71,22 @@ class _MotorDeCorrienteDirectaState extends State<MotorDeCorrienteDirecta> {
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenMotorDeCorrienteDirecta) ??
-                        kUrlImagenMotorDeCorrienteDirecta),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.motorMaquina,
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenMotorDeCorrienteDirecta,
+                      ) ??
+                      kUrlImagenMotorDeCorrienteDirecta,
                 ),
+                TextoEcuaciones(AppLocalizations.of(context)!.motorMaquina),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenMotorDeCorrienteDirecta1) ??
-                        kUrlImagenMotorDeCorrienteDirecta1),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenMotorDeCorrienteDirecta1,
+                      ) ??
+                      kUrlImagenMotorDeCorrienteDirecta1,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"W= - \vec{p}_m \cdot \vec{B}"),
                 const SizedBox(height: 40.0),
@@ -84,15 +96,11 @@ class _MotorDeCorrienteDirectaState extends State<MotorDeCorrienteDirecta> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetMotorDeCorrienteDirecta,
-                ),
+                VerPDF(url: kWidgetMotorDeCorrienteDirecta),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetMotorDeCorrienteDirecta,
-                ),
+                DescargarPDF(url: kWidgetMotorDeCorrienteDirecta),
               ],
-            )
+            ),
           ],
         ),
       ),

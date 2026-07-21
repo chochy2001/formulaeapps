@@ -14,9 +14,12 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.teoriaCircuitos,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.teoriaCircuitos),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.teoriaCircuitos,
-                      widgetName: kWidgetTeoriaDeCircuitos),
+                    title: AppLocalizations.of(context)!.teoriaCircuitos,
+                    widgetName: kWidgetTeoriaDeCircuitos,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +56,20 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoriaCircuitos,
-                              widgetName: kWidgetTeoriaDeCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoriaCircuitos,
+                            widgetName: kWidgetTeoriaDeCircuitos,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoriaCircuitos,
-                              widgetName: kWidgetTeoriaDeCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoriaCircuitos,
+                            widgetName: kWidgetTeoriaDeCircuitos,
+                          ),
                         );
                       }
                     });
@@ -79,43 +85,31 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
                   AppLocalizations.of(context)!.circuitoElectrico,
                 ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.rama,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.rama),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.nodo,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.nodo),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.malla,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.malla),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenTeoriaDeCircuitos),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.nodoPrincipal,
+                  urlImagen: kUrlImagenTeoriaDeCircuitos,
                 ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.ramaPrincipal,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.nodoPrincipal),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.ramaPrincipal),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenTerminosAdicionales),
+                  urlImagen: kUrlImagenTerminosAdicionales,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetTeoriaDeCircuitos,
-            ),
+            const VerPDF(url: kWidgetTeoriaDeCircuitos),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetTeoriaDeCircuitos,
-            ),
+            const DescargarPDF(url: kWidgetTeoriaDeCircuitos),
           ],
         ),
       ),

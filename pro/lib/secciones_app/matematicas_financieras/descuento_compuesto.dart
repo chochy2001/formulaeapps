@@ -31,9 +31,9 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.descuentoSimple,
-                            widgetName: kWidgetDescuentoCompuesto),
+                          title: AppLocalizations.of(context)!.descuentoSimple,
+                          widgetName: kWidgetDescuentoCompuesto,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +45,20 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .descuentoSimple,
-                                    widgetName: kWidgetDescuentoCompuesto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.descuentoSimple,
+                                  widgetName: kWidgetDescuentoCompuesto,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .descuentoSimple,
-                                    widgetName: kWidgetDescuentoCompuesto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.descuentoSimple,
+                                  widgetName: kWidgetDescuentoCompuesto,
+                                ),
                               );
                             }
                           });
@@ -63,9 +67,7 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -76,28 +78,21 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"P = M\left(1+\frac{d}{p}\right)^{-np}"),
+                          formulaText: r"P = M\left(1+\frac{d}{p}\right)^{-np}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDescuentoCompuesto,
-                  ),
+                  const VerPDF(url: kWidgetDescuentoCompuesto),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDescuentoCompuesto,
-                  ),
+                  const DescargarPDF(url: kWidgetDescuentoCompuesto),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -114,8 +109,9 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"d"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .tasaDescuentoNominal,
+                                AppLocalizations.of(
+                                  context,
+                                )!.tasaDescuentoNominal,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"M"),
@@ -125,8 +121,9 @@ class DescuentoCompuestoState extends State<DescuentoCompuesto> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"p"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .frecuenciaDescuentoCompuesto,
+                                AppLocalizations.of(
+                                  context,
+                                )!.frecuenciaDescuentoCompuesto,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"n"),

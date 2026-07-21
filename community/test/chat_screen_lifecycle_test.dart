@@ -25,9 +25,7 @@ void main() {
   testWidgets(
     'does not update ChatScreen after a delayed assistant response completes post-disposal',
     (tester) async {
-      SharedPreferences.setMockInitialValues({
-        'hasValidPurchase': true,
-      });
+      SharedPreferences.setMockInitialValues({'hasValidPurchase': true});
       final platform = _RestoringIapPlatform();
       final chatProvider = _DelayedChatProvider();
       debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;

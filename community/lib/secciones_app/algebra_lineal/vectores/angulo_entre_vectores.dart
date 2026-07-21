@@ -14,9 +14,12 @@ class _AnguloEntreVectoresState extends State<AnguloEntreVectores> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _AnguloEntreVectoresState extends State<AnguloEntreVectores> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .anguloEntreVectores,
-                            widgetName: kWidgetAnguloEntreVectores),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.anguloEntreVectores,
+                          widgetName: kWidgetAnguloEntreVectores,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _AnguloEntreVectoresState extends State<AnguloEntreVectores> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anguloEntreVectores,
-                                    widgetName: kWidgetAnguloEntreVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anguloEntreVectores,
+                                  widgetName: kWidgetAnguloEntreVectores,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anguloEntreVectores,
-                                    widgetName: kWidgetAnguloEntreVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anguloEntreVectores,
+                                  widgetName: kWidgetAnguloEntreVectores,
+                                ),
                               );
                             }
                           });
@@ -77,37 +86,31 @@ class _AnguloEntreVectoresState extends State<AnguloEntreVectores> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
                         const Latex(
-                            formulaText:
-                                r"u = \langle u_1,u_2,u_3 \rangle,\space v = \langle v_1,v_2,v_3 \rangle"),
+                          formulaText:
+                              r"u = \langle u_1,u_2,u_3 \rangle,\space v = \langle v_1,v_2,v_3 \rangle",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\theta = cos^{-1}\left( \frac{u_1v_1+u_2v_2+u_3v_3}{|u||v|}\right)"),
+                          formulaText:
+                              r"\theta = cos^{-1}\left( \frac{u_1v_1+u_2v_2+u_3v_3}{|u||v|}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAnguloEntreVectores,
-                  ),
+                  const VerPDF(url: kWidgetAnguloEntreVectores),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAnguloEntreVectores,
-                  ),
+                  const DescargarPDF(url: kWidgetAnguloEntreVectores),
                 ],
               ),
             ),

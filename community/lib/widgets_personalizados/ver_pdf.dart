@@ -9,13 +9,10 @@ import '../constantes/contantes_mapa_pdfs.dart';
 import '../pdf/community_pdf_document.dart';
 import '../pdf/community_pdf_downloader.dart';
 
-typedef CommunityPdfBuilder = Future<Uint8List> Function(
-  CommunityPdfContent content,
-);
-typedef CommunityPdfExporter = Future<void> Function(
-  Uint8List bytes,
-  String fileName,
-);
+typedef CommunityPdfBuilder =
+    Future<Uint8List> Function(CommunityPdfContent content);
+typedef CommunityPdfExporter =
+    Future<void> Function(Uint8List bytes, String fileName);
 
 class VerPDF extends StatefulWidget {
   final String url;
@@ -34,9 +31,11 @@ class _VerPDFState extends State<VerPDF> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   @override
@@ -108,9 +107,11 @@ class _DescargarPDFState extends State<DescargarPDF> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () {
-      if (mounted) setState(() {});
-    });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
 
   @override
@@ -129,7 +130,8 @@ class _DescargarPDFState extends State<DescargarPDF> {
       );
       if (!CommunityPdfDocument.hasPdfSignature(bytes)) {
         throw const FormatException(
-            'Local PDF generator returned invalid data');
+          'Local PDF generator returned invalid data',
+        );
       }
 
       await (widget.pdfExporter ?? downloadCommunityPdf)(
@@ -271,7 +273,8 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
       final data = await loader(widget.pdfUrl);
       if (!CommunityPdfDocument.hasPdfSignature(data)) {
         throw const FormatException(
-            'Local PDF data does not contain a PDF header');
+          'Local PDF data does not contain a PDF header',
+        );
       }
       if (!mounted) return;
       setState(() {
@@ -295,29 +298,29 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
       body: _pdfData != null
           ? SfPdfViewer.memory(_pdfData!)
           : _loading
-              ? const Center(child: CircularProgressIndicator())
-              : Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.picture_as_pdf_outlined, size: 44),
-                        const SizedBox(height: 12),
-                        Text(
-                          localizations.pdfNoDisponible,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 12),
-                        OutlinedButton.icon(
-                          onPressed: _hasError ? _loadPdf : null,
-                          icon: const Icon(Icons.refresh),
-                          label: Text(localizations.reintentar),
-                        ),
-                      ],
+          ? const Center(child: CircularProgressIndicator())
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.picture_as_pdf_outlined, size: 44),
+                    const SizedBox(height: 12),
+                    Text(
+                      localizations.pdfNoDisponible,
+                      textAlign: TextAlign.center,
                     ),
-                  ),
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      onPressed: _hasError ? _loadPdf : null,
+                      icon: const Icon(Icons.refresh),
+                      label: Text(localizations.reintentar),
+                    ),
+                  ],
                 ),
+              ),
+            ),
     );
   }
 }

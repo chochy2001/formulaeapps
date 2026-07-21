@@ -27,8 +27,9 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.teoriaCircuitos,
-                      widgetName: kWidgetTeoriaDeCircuitos),
+                    title: AppLocalizations.of(context)!.teoriaCircuitos,
+                    widgetName: kWidgetTeoriaDeCircuitos,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,20 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoriaCircuitos,
-                              widgetName: kWidgetTeoriaDeCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoriaCircuitos,
+                            widgetName: kWidgetTeoriaDeCircuitos,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoriaCircuitos,
-                              widgetName: kWidgetTeoriaDeCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.teoriaCircuitos,
+                            widgetName: kWidgetTeoriaDeCircuitos,
+                          ),
                         );
                       }
                     });
@@ -65,31 +70,23 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
                   AppLocalizations.of(context)!.circuitoElectrico,
                 ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.rama,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.rama),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.nodo,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.nodo),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.malla,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.malla),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenTeoriaDeCircuitos),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.nodoPrincipal,
+                  urlImagen: kUrlImagenTeoriaDeCircuitos,
                 ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.ramaPrincipal,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.nodoPrincipal),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.ramaPrincipal),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenTerminosAdicionales),
+                  urlImagen: kUrlImagenTerminosAdicionales,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -97,15 +94,11 @@ class _TeoriaDeCircuitosState extends State<TeoriaDeCircuitos> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetTeoriaDeCircuitos,
-                ),
+                VerPDF(url: kWidgetTeoriaDeCircuitos),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetTeoriaDeCircuitos,
-                ),
+                DescargarPDF(url: kWidgetTeoriaDeCircuitos),
               ],
-            )
+            ),
           ],
         ),
       ),

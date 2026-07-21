@@ -42,7 +42,8 @@ class MenuState extends State<Menu> {
   void initState() {
     super.initState();
 
-    _chatEnabled = !UniversalPlatform.isWindows &&
+    _chatEnabled =
+        !UniversalPlatform.isWindows &&
         !UniversalPlatform.isLinux &&
         !UniversalPlatform.isWeb;
     if (_chatEnabled) {
@@ -56,41 +57,36 @@ class MenuState extends State<Menu> {
     });
   }
 
-  List<_MenuDestination> _destinations(BuildContext context) =>
-      <_MenuDestination>[
-        _MenuDestination(
-          label: AppLocalizations.of(context)!.menu,
-          activeIcon: const FaIcon(
-            FontAwesomeIcons.houseChimneyCrack,
-            size: 20,
-          ),
-          icon: const FaIcon(
-            FontAwesomeIcons.houseCrack,
-            size: 20,
-          ),
-        ),
-        _MenuDestination(
-          label: AppLocalizations.of(context)!.tareas,
-          activeIcon: const Icon(Icons.format_list_numbered_rounded),
-          icon: const Icon(Icons.format_list_bulleted),
-        ),
-        _MenuDestination(
-          label: AppLocalizations.of(context)!.busqueda,
-          activeIcon: const Icon(Icons.content_paste_search),
-          icon: const Icon(Icons.search_rounded),
-        ),
-        _MenuDestination(
-          label: AppLocalizations.of(context)!.favoritos,
-          activeIcon: const Icon(Icons.favorite_rounded),
-          icon: const Icon(Icons.favorite_border),
-        ),
-        if (_chatEnabled)
-          _MenuDestination(
-            label: AppLocalizations.of(context)!.chat,
-            activeIcon: const Icon(Icons.chat_bubble),
-            icon: const Icon(Icons.chat_bubble_outline),
-          ),
-      ];
+  List<_MenuDestination> _destinations(
+    BuildContext context,
+  ) => <_MenuDestination>[
+    _MenuDestination(
+      label: AppLocalizations.of(context)!.menu,
+      activeIcon: const FaIcon(FontAwesomeIcons.houseChimneyCrack, size: 20),
+      icon: const FaIcon(FontAwesomeIcons.houseCrack, size: 20),
+    ),
+    _MenuDestination(
+      label: AppLocalizations.of(context)!.tareas,
+      activeIcon: const Icon(Icons.format_list_numbered_rounded),
+      icon: const Icon(Icons.format_list_bulleted),
+    ),
+    _MenuDestination(
+      label: AppLocalizations.of(context)!.busqueda,
+      activeIcon: const Icon(Icons.content_paste_search),
+      icon: const Icon(Icons.search_rounded),
+    ),
+    _MenuDestination(
+      label: AppLocalizations.of(context)!.favoritos,
+      activeIcon: const Icon(Icons.favorite_rounded),
+      icon: const Icon(Icons.favorite_border),
+    ),
+    if (_chatEnabled)
+      _MenuDestination(
+        label: AppLocalizations.of(context)!.chat,
+        activeIcon: const Icon(Icons.chat_bubble),
+        icon: const Icon(Icons.chat_bubble_outline),
+      ),
+  ];
 
   Widget _buildCompactNavigation(List<_MenuDestination> destinations) {
     return Scaffold(
@@ -98,9 +94,7 @@ class MenuState extends State<Menu> {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: kBottomNavigationBarHeight),
-            child: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
+            child: Center(child: _widgetOptions.elementAt(_selectedIndex)),
           ),
           Positioned(
             bottom: 0,
@@ -148,7 +142,8 @@ class MenuState extends State<Menu> {
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: MediaQuery.sizeOf(context).height -
+                  minHeight:
+                      MediaQuery.sizeOf(context).height -
                       MediaQuery.paddingOf(context).vertical,
                 ),
                 child: IntrinsicHeight(
@@ -158,12 +153,15 @@ class MenuState extends State<Menu> {
                     onDestinationSelected: _onItemTapped,
                     labelType: NavigationRailLabelType.all,
                     selectedIconTheme: const IconThemeData(color: kColorBlanco),
-                    unselectedIconTheme:
-                        const IconThemeData(color: kColorNavInactivo),
-                    selectedLabelTextStyle:
-                        const TextStyle(color: kColorBlanco),
-                    unselectedLabelTextStyle:
-                        const TextStyle(color: kColorNavInactivo),
+                    unselectedIconTheme: const IconThemeData(
+                      color: kColorNavInactivo,
+                    ),
+                    selectedLabelTextStyle: const TextStyle(
+                      color: kColorBlanco,
+                    ),
+                    unselectedLabelTextStyle: const TextStyle(
+                      color: kColorNavInactivo,
+                    ),
                     destinations: <NavigationRailDestination>[
                       for (final _MenuDestination destination in destinations)
                         NavigationRailDestination(

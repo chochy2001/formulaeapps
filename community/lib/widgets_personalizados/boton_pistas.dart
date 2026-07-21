@@ -21,7 +21,7 @@ class VerPistas extends StatelessWidget {
               latex,
               const SizedBox(height: 20),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -42,15 +42,13 @@ class BotonVerPistas extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child: Text(
-        AppLocalizations.of(context)!.pista,
-        style: kTextoBotones,
-      ),
+      child: Text(AppLocalizations.of(context)!.pista, style: kTextoBotones),
       onPressed: () {
         showModalBottomSheet(
-            backgroundColor: kColorBotones,
-            builder: (context) => VerPistas(latex),
-            context: context);
+          backgroundColor: kColorBotones,
+          builder: (context) => VerPistas(latex),
+          context: context,
+        );
       },
     );
   }
@@ -76,9 +74,10 @@ class BotonVerRespuesta extends StatelessWidget {
       ),
       onPressed: () {
         showModalBottomSheet(
-            backgroundColor: kColorBotones,
-            builder: (context) => VerPistas(latex),
-            context: context);
+          backgroundColor: kColorBotones,
+          builder: (context) => VerPistas(latex),
+          context: context,
+        );
       },
     );
   }

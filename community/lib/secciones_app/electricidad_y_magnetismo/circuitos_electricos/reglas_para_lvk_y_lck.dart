@@ -14,9 +14,12 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.reglasLVKLCK,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.reglasLVKLCK),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.reglasLVKLCK,
-                      widgetName: kWidgetReglasParaLVKyLCK),
+                    title: AppLocalizations.of(context)!.reglasLVKLCK,
+                    widgetName: kWidgetReglasParaLVKyLCK,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,14 +56,16 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.reglasLVKLCK,
-                              widgetName: kWidgetReglasParaLVKyLCK),
+                            title: AppLocalizations.of(context)!.reglasLVKLCK,
+                            widgetName: kWidgetReglasParaLVKyLCK,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.reglasLVKLCK,
-                              widgetName: kWidgetReglasParaLVKyLCK),
+                            title: AppLocalizations.of(context)!.reglasLVKLCK,
+                            widgetName: kWidgetReglasParaLVKyLCK,
+                          ),
                         );
                       }
                     });
@@ -87,8 +91,9 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
                   ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .considerarUnaCorrientePositiva,
+                    AppLocalizations.of(
+                      context,
+                    )!.considerarUnaCorrientePositiva,
                   ),
                   const SizedBox(height: 40.0),
                 ],
@@ -96,13 +101,9 @@ class _ReglasParaLVKyLCKState extends State<ReglasParaLVKyLCK> {
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetReglasParaLVKyLCK,
-            ),
+            const VerPDF(url: kWidgetReglasParaLVKyLCK),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetReglasParaLVKyLCK,
-            ),
+            const DescargarPDF(url: kWidgetReglasParaLVKyLCK),
           ],
         ),
       ),

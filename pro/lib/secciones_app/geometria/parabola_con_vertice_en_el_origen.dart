@@ -26,17 +26,20 @@ class ParabolaConVerticeEnElOrigenState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .parabolaConVerticeEnElOrigen,
+                      AppLocalizations.of(
+                        context,
+                      )!.parabolaConVerticeEnElOrigen,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .parabolaConVerticeEnElOrigen,
-                            widgetName: kWidgetParabolaConVerticeEnElOrigen),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.parabolaConVerticeEnElOrigen,
+                          widgetName: kWidgetParabolaConVerticeEnElOrigen,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -48,18 +51,22 @@ class ParabolaConVerticeEnElOrigenState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .parabolaConVerticeEnElOrigen,
-                                    widgetName:
-                                        kWidgetParabolaConVerticeEnElOrigen),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.parabolaConVerticeEnElOrigen,
+                                  widgetName:
+                                      kWidgetParabolaConVerticeEnElOrigen,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .parabolaConVerticeEnElOrigen,
-                                    widgetName:
-                                        kWidgetParabolaConVerticeEnElOrigen),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.parabolaConVerticeEnElOrigen,
+                                  widgetName:
+                                      kWidgetParabolaConVerticeEnElOrigen,
+                                ),
                               );
                             }
                           });
@@ -68,11 +75,10 @@ class ParabolaConVerticeEnElOrigenState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomImagePersonalizado(
-                      urlImagen: kUrlImagenParabolaConVerticeEnElOrigen),
+                    urlImagen: kUrlImagenParabolaConVerticeEnElOrigen,
+                  ),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -95,24 +101,29 @@ class ParabolaConVerticeEnElOrigenState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"y^2 = 4ax \space\space\space\space x^2 = 4ay"),
+                          formulaText:
+                              r"y^2 = 4ax \space\space\space\space x^2 = 4ay",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"x = -a \space\space\space\space y = -a"),
+                          formulaText:
+                              r"x = -a \space\space\space\space y = -a",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"L(a,2a)\space\space\space\space L(-2a,a)"),
+                          formulaText:
+                              r"L(a,2a)\space\space\space\space L(-2a,a)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"R(a,-2a)\space\space\space\space R(2a,a)"),
+                          formulaText:
+                              r"R(a,-2a)\space\space\space\space R(2a,a)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\overline{LR} = |4a|\space\space\space\space\overline{LR} = |4a|"),
+                          formulaText:
+                              r"\overline{LR} = |4a|\space\space\space\space\overline{LR} = |4a|",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         Row(
@@ -133,24 +144,28 @@ class ParabolaConVerticeEnElOrigenState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"y^2 = -4ax\space\space\space\space x^2 = -4ay"),
+                          formulaText:
+                              r"y^2 = -4ax\space\space\space\space x^2 = -4ay",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"x = a\space\space\space\space y = a"),
+                          formulaText: r"x = a\space\space\space\space y = a",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"L(-a,2a)\space\space\space\space L(-2a,-a)"),
+                          formulaText:
+                              r"L(-a,2a)\space\space\space\space L(-2a,-a)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"R(-a,-2a)\space\space\space\space R(2a,-a)"),
+                          formulaText:
+                              r"R(-a,-2a)\space\space\space\space R(2a,-a)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\overline{LR} = |4a|\space\space\space\space\overline{LR} = |4a|"),
+                          formulaText:
+                              r"\overline{LR} = |4a|\space\space\space\space\overline{LR} = |4a|",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -176,13 +191,9 @@ class ParabolaConVerticeEnElOrigenState
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetParabolaConVerticeEnElOrigen,
-                  ),
+                  const VerPDF(url: kWidgetParabolaConVerticeEnElOrigen),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetParabolaConVerticeEnElOrigen,
-                  ),
+                  const DescargarPDF(url: kWidgetParabolaConVerticeEnElOrigen),
                 ],
               ),
             ),

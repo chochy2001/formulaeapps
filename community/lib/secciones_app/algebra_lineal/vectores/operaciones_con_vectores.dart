@@ -14,9 +14,12 @@ class _OperacionesConVectoresState extends State<OperacionesConVectores> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _OperacionesConVectoresState extends State<OperacionesConVectores> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .operacionesConVectores,
-                            widgetName: kWidgetOperacionesConVectores),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.operacionesConVectores,
+                          widgetName: kWidgetOperacionesConVectores,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _OperacionesConVectoresState extends State<OperacionesConVectores> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesConVectores,
-                                    widgetName: kWidgetOperacionesConVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesConVectores,
+                                  widgetName: kWidgetOperacionesConVectores,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesConVectores,
-                                    widgetName: kWidgetOperacionesConVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesConVectores,
+                                  widgetName: kWidgetOperacionesConVectores,
+                                ),
                               );
                             }
                           });
@@ -82,47 +91,42 @@ class _OperacionesConVectoresState extends State<OperacionesConVectores> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u} = \langle u_1,u_2,u_3 \rangle,\space \mathrm{v} = \langle v_1,v_2,v_3 \rangle"),
+                          formulaText:
+                              r"\mathrm{u} = \langle u_1,u_2,u_3 \rangle,\space \mathrm{v} = \langle v_1,v_2,v_3 \rangle",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"k"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.escalar,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.escalar),
                         const SizedBox(height: 100),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.sumaYResta,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}\pm\mathrm{v}=\langle u_1\pm v_1,\thinspace u_2\pm v_2,\thinspace u_3\pm v_3 \rangle"),
+                          formulaText:
+                              r"\mathrm{u}\pm\mathrm{v}=\langle u_1\pm v_1,\thinspace u_2\pm v_2,\thinspace u_3\pm v_3 \rangle",
+                        ),
                         const SizedBox(height: 100),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.multiplicacion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"k\mathrm{u} = \langle ku_1,\thinspace ku_2,\thinspace ku_3\rangle"),
+                          formulaText:
+                              r"k\mathrm{u} = \langle ku_1,\thinspace ku_2,\thinspace ku_3\rangle",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetOperacionesConVectores,
-                  ),
+                  const VerPDF(url: kWidgetOperacionesConVectores),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetOperacionesConVectores,
-                  ),
+                  const DescargarPDF(url: kWidgetOperacionesConVectores),
                 ],
               ),
             ),

@@ -44,14 +44,18 @@ class ReglaLhopitalState extends State<ReglaLhopital> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reglaLhopital,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reglaLhopital,
                                 widgetName: kWidgetReglaLhopital,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reglaLhopital,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reglaLhopital,
                                 widgetName: kWidgetReglaLhopital,
                               ),
                             );
@@ -67,11 +71,20 @@ class ReglaLhopitalState extends State<ReglaLhopital> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\lim_{x \to a} f(x) = 0 \quad \text{y} \quad \lim_{x \to a} g(x) = 0"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to a} f(x) = 0 \quad \text{y} \quad \lim_{x \to a} g(x) = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} f(x) = \pm\infty \quad \text{y} \quad \lim_{x \to a} g(x) = \pm\infty"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to a} f(x) = \pm\infty \quad \text{y} \quad \lim_{x \to a} g(x) = \pm\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

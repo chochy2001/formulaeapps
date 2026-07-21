@@ -31,10 +31,7 @@ class PropiedadesDeLosExponentesState
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(
-                    Icons.info,
-                    color: Colors.white,
-                  ),
+                  icon: const Icon(Icons.info, color: Colors.white),
                   onPressed: () {
                     mostrarInfo(
                       context,
@@ -46,9 +43,11 @@ class PropiedadesDeLosExponentesState
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                          title: AppLocalizations.of(context)!
-                              .propiedadesExponentes,
-                          widgetName: kWidgetPropiedadesDeLosExponentes),
+                        title: AppLocalizations.of(
+                          context,
+                        )!.propiedadesExponentes,
+                        widgetName: kWidgetPropiedadesDeLosExponentes,
+                      ),
                     );
                     return IconButton(
                       icon: isFavorite
@@ -60,18 +59,20 @@ class PropiedadesDeLosExponentesState
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .propiedadesExponentes,
-                                  widgetName:
-                                      kWidgetPropiedadesDeLosExponentes),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesExponentes,
+                                widgetName: kWidgetPropiedadesDeLosExponentes,
+                              ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                  title: AppLocalizations.of(context)!
-                                      .propiedadesExponentes,
-                                  widgetName:
-                                      kWidgetPropiedadesDeLosExponentes),
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesExponentes,
+                                widgetName: kWidgetPropiedadesDeLosExponentes,
+                              ),
                             );
                           }
                         });
@@ -93,7 +94,8 @@ class PropiedadesDeLosExponentesState
                         const Latex(formulaText: r"a^n \cdot a^m = a^{n+m}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"{\frac{a^{n}}{{a^m}}} = {a^{n-m}}"),
+                          formulaText: r"{\frac{a^{n}}{{a^m}}} = {a^{n-m}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"{a^0 = 1 }"),
                         TextoEcuaciones(
@@ -101,30 +103,36 @@ class PropiedadesDeLosExponentesState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"{{(a^m)^n={a^{m\cdot  n}}}}"),
+                          formulaText: r"{{(a^m)^n={a^{m\cdot  n}}}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(a\cdot b)^m=a^m\cdot b^m"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(a\cdot b\cdot c)^m = a^m\cdot b^m\cdot c^m"),
+                          formulaText:
+                              r"(a\cdot b\cdot c)^m = a^m\cdot b^m\cdot c^m",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a^{\frac{n}{m}}=\sqrt[m]{a^{n}}"),
+                          formulaText: r"a^{\frac{n}{m}}=\sqrt[m]{a^{n}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\left(\frac{a}{b}\right)^{n}={\frac{a^n}{b^n}}"),
+                          formulaText:
+                              r"\left(\frac{a}{b}\right)^{n}={\frac{a^n}{b^n}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"{\left(\frac{a}{b}\right)^{-n}=\frac{b^n}{a^n}}"),
+                          formulaText:
+                              r"{\left(\frac{a}{b}\right)^{-n}=\frac{b^n}{a^n}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a^{-n}=\frac{1}{a^n}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\left(\frac{a}{b}\right)^{-1}=\frac{b}{a}"),
+                          formulaText:
+                              r"\left(\frac{a}{b}\right)^{-1}=\frac{b}{a}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
@@ -132,40 +140,23 @@ class PropiedadesDeLosExponentesState
                 ),
                 ElevatedButton(
                   onPressed: () => mostrarEjemplos(context),
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.ejercicios,
-                  ),
-                )
+                  style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
+                  child: Text(AppLocalizations.of(context)!.ejercicios),
+                ),
               ],
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
+            const Padding(padding: EdgeInsets.only(top: 10.0)),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetPropiedadesDeLosExponentes,
-            ),
+            const VerPDF(url: kWidgetPropiedadesDeLosExponentes),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetPropiedadesDeLosExponentes,
-            ),
+            const DescargarPDF(url: kWidgetPropiedadesDeLosExponentes),
             const VideosYoutube(kVideoPropiedadesDeLosExponentes),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -173,14 +164,10 @@ class PropiedadesDeLosExponentesState
                   const Notas(),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"(\cdot)"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.multiplicacion,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.multiplicacion),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"a^{n}= {a} \cdot {a} \cdot {a} "),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.nVeces,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.nVeces),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"ab = a\cdot b"),
                   const SizedBox(height: kEspacioEntreBotones),

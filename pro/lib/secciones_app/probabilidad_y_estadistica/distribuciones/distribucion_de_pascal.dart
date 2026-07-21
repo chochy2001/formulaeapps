@@ -6,10 +6,12 @@ class DistribucionesDistribucionDePascal extends StatefulWidget {
   const DistribucionesDistribucionDePascal({super.key});
 
   @override
-  DistribucionesDistribucionDePascalState createState() => DistribucionesDistribucionDePascalState();
+  DistribucionesDistribucionDePascalState createState() =>
+      DistribucionesDistribucionDePascalState();
 }
 
-class DistribucionesDistribucionDePascalState extends State<DistribucionesDistribucionDePascal> {
+class DistribucionesDistribucionDePascalState
+    extends State<DistribucionesDistribucionDePascal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DistribucionesDistribucionDePascalState extends State<DistribucionesDistri
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionDePascal,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionDePascal,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionDePascal,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionDePascal,
                         widgetName: kWidgetDistribucionesDistribucionDePascal,
                       ),
                     );
@@ -44,15 +50,21 @@ class DistribucionesDistribucionDePascalState extends State<DistribucionesDistri
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDePascal,
-                                widgetName: kWidgetDistribucionesDistribucionDePascal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDePascal,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDePascal,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDePascal,
-                                widgetName: kWidgetDistribucionesDistribucionDePascal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDePascal,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDePascal,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class DistribucionesDistribucionDePascalState extends State<DistribucionesDistri
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"P_x(X_0) = \begin{cases} \dbinom{X_0-1}{n-1} P^{n} (1-P)^{\,X_0-n} & X_0 = n, n+1, n+2, \ldots \\ 0 & \text{cualquier otro caso} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"P_x(X_0) = \begin{cases} \dbinom{X_0-1}{n-1} P^{n} (1-P)^{\,X_0-n} & X_0 = n, n+1, n+2, \ldots \\ 0 & \text{cualquier otro caso} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = \frac{n}{P}"),
                   SizedBox(height: kEspacioEntreBotones),

@@ -15,9 +15,12 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .propiedadesDeLosVectores,
-                            widgetName: kWidgetPropiedadesDeLosVectores),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLosVectores,
+                          widgetName: kWidgetPropiedadesDeLosVectores,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,18 +65,20 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLosVectores,
-                                    widgetName:
-                                        kWidgetPropiedadesDeLosVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLosVectores,
+                                  widgetName: kWidgetPropiedadesDeLosVectores,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .propiedadesDeLosVectores,
-                                    widgetName:
-                                        kWidgetPropiedadesDeLosVectores),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.propiedadesDeLosVectores,
+                                  widgetName: kWidgetPropiedadesDeLosVectores,
+                                ),
                               );
                             }
                           });
@@ -85,16 +92,13 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u},\thinspace  \mathrm{v},\thinspace \mathrm{w}"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.vectores,
+                          formulaText:
+                              r"\mathrm{u},\thinspace  \mathrm{v},\thinspace \mathrm{w}",
                         ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.vectores),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"a,\thinspace b"),
                         TextoEcuaciones(
@@ -102,12 +106,14 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
                         ),
                         const SizedBox(height: 50),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}+\mathrm{v} = \mathrm{v}+\mathrm{u}"),
+                          formulaText:
+                              r"\mathrm{u}+\mathrm{v} = \mathrm{v}+\mathrm{u}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(\mathrm{u}+\mathrm{v})+\mathrm{w}=\mathrm{u}+(\mathrm{v}+\mathrm{w})"),
+                          formulaText:
+                              r"(\mathrm{u}+\mathrm{v})+\mathrm{w}=\mathrm{u}+(\mathrm{v}+\mathrm{w})",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathrm{u}+0 = \mathrm{u}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -118,28 +124,27 @@ class _PropiedadesDeLosVectoresState extends State<PropiedadesDeLosVectores> {
                         const Latex(formulaText: r"1\mathrm{u}=0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"a(b\mathrm{u})=(ab)\mathrm{u}"),
+                          formulaText: r"a(b\mathrm{u})=(ab)\mathrm{u}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"a(\mathrm{u}+\mathrm{v})=a\mathrm{u}+a\mathrm{v}"),
+                          formulaText:
+                              r"a(\mathrm{u}+\mathrm{v})=a\mathrm{u}+a\mathrm{v}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(a+b)\mathrm{u}=a\mathrm{u}+b\mathrm{v}"),
+                          formulaText:
+                              r"(a+b)\mathrm{u}=a\mathrm{u}+b\mathrm{v}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetPropiedadesDeLosVectores,
-                  ),
+                  const VerPDF(url: kWidgetPropiedadesDeLosVectores),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetPropiedadesDeLosVectores,
-                  ),
+                  const DescargarPDF(url: kWidgetPropiedadesDeLosVectores),
                 ],
               ),
             ),

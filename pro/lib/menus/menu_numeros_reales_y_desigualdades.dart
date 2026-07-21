@@ -7,16 +7,16 @@ class MenuNumerosRealesYDesigualdades extends StatefulWidget {
   const MenuNumerosRealesYDesigualdades({super.key});
 
   @override
-  MenuNumerosRealesYDesigualdadesState createState() => MenuNumerosRealesYDesigualdadesState();
+  MenuNumerosRealesYDesigualdadesState createState() =>
+      MenuNumerosRealesYDesigualdadesState();
 }
 
-class MenuNumerosRealesYDesigualdadesState extends State<MenuNumerosRealesYDesigualdades> {
+class MenuNumerosRealesYDesigualdadesState
+    extends State<MenuNumerosRealesYDesigualdades> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -29,24 +29,34 @@ class MenuNumerosRealesYDesigualdadesState extends State<MenuNumerosRealesYDesig
                     child: const ImagenLogoFormulae(),
                   ),
                   Text(
-                    AppLocalizations.of(context)!.seccionNumerosRealesYDesigualdades,
+                    AppLocalizations.of(
+                      context,
+                    )!.seccionNumerosRealesYDesigualdades,
                     style: kTextoBotones,
                   ),
                   const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.axiomasDeCampoNumerosReales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.axiomasDeCampoNumerosReales,
                     ruta: kRutaAxiomasDeCampoNumerosReales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.axiomasDeOrdenYTeoremasReales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.axiomasDeOrdenYTeoremasReales,
                     ruta: kRutaAxiomasDeOrdenYTeoremasReales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.desigualdadesTeoremasDeOrden,
                     ruta: kRutaDesigualdadesTeoremasDeOrden,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.conjuntosEIntervalos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conjuntosEIntervalos,
                     ruta: kRutaConjuntosEIntervalos,
                   ),
                   BotonesMenu(

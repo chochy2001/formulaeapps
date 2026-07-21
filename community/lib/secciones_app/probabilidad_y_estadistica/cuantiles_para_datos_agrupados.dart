@@ -16,9 +16,12 @@ class _CuantilesParaDatosAgrupadosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _CuantilesParaDatosAgrupadosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .cuantilesParaDatosAgrupados,
-                            widgetName: kWidgetCuantilesParaDatosAgrupados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.cuantilesParaDatosAgrupados,
+                          widgetName: kWidgetCuantilesParaDatosAgrupados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _CuantilesParaDatosAgrupadosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .cuantilesParaDatosAgrupados,
-                                    widgetName:
-                                        kWidgetCuantilesParaDatosAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.cuantilesParaDatosAgrupados,
+                                  widgetName:
+                                      kWidgetCuantilesParaDatosAgrupados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .cuantilesParaDatosAgrupados,
-                                    widgetName:
-                                        kWidgetCuantilesParaDatosAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.cuantilesParaDatosAgrupados,
+                                  widgetName:
+                                      kWidgetCuantilesParaDatosAgrupados,
+                                ),
                               );
                             }
                           });
@@ -81,37 +90,29 @@ class _CuantilesParaDatosAgrupadosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"P_p = LIR_p + \frac{\left(\frac{P}{100}\cdot n\right)-fa_{antP}}{f_p}\cdot c"),
+                          formulaText:
+                              r"P_p = LIR_p + \frac{\left(\frac{P}{100}\cdot n\right)-fa_{antP}}{f_p}\cdot c",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetCuantilesParaDatosAgrupados,
-                  ),
+                  const VerPDF(url: kWidgetCuantilesParaDatosAgrupados),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetCuantilesParaDatosAgrupados,
-                  ),
+                  const DescargarPDF(url: kWidgetCuantilesParaDatosAgrupados),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -125,20 +126,23 @@ class _CuantilesParaDatosAgrupadosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"LIR_p"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .limiteInferiorRealClasePercentilP,
+                          AppLocalizations.of(
+                            context,
+                          )!.limiteInferiorRealClasePercentilP,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"fa_{antP}"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaAcumuladaClaseAnteriorPercentil,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaAcumuladaClaseAnteriorPercentil,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_p"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaClasePercentil,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaClasePercentil,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"n"),

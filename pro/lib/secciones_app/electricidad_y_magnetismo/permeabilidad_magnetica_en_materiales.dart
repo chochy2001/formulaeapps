@@ -6,10 +6,12 @@ class PermeabilidadMagneticaEnMateriales extends StatefulWidget {
   const PermeabilidadMagneticaEnMateriales({super.key});
 
   @override
-  PermeabilidadMagneticaEnMaterialesState createState() => PermeabilidadMagneticaEnMaterialesState();
+  PermeabilidadMagneticaEnMaterialesState createState() =>
+      PermeabilidadMagneticaEnMaterialesState();
 }
 
-class PermeabilidadMagneticaEnMaterialesState extends State<PermeabilidadMagneticaEnMateriales> {
+class PermeabilidadMagneticaEnMaterialesState
+    extends State<PermeabilidadMagneticaEnMateriales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class PermeabilidadMagneticaEnMaterialesState extends State<PermeabilidadMagneti
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales,
+                    AppLocalizations.of(
+                      context,
+                    )!.permeabilidadMagneticaEnMateriales,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.permeabilidadMagneticaEnMateriales,
                         widgetName: kWidgetPermeabilidadMagneticaEnMateriales,
                       ),
                     );
@@ -44,15 +50,21 @@ class PermeabilidadMagneticaEnMaterialesState extends State<PermeabilidadMagneti
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales,
-                                widgetName: kWidgetPermeabilidadMagneticaEnMateriales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.permeabilidadMagneticaEnMateriales,
+                                widgetName:
+                                    kWidgetPermeabilidadMagneticaEnMateriales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.permeabilidadMagneticaEnMateriales,
-                                widgetName: kWidgetPermeabilidadMagneticaEnMateriales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.permeabilidadMagneticaEnMateriales,
+                                widgetName:
+                                    kWidgetPermeabilidadMagneticaEnMateriales,
                               ),
                             );
                           }

@@ -22,17 +22,20 @@ class _LeyDeInduccionDeFaradayEnergiaEnUnInductorState
           children: [
             ChatGPTButton(
               child: TituloPersonalizado(
-                AppLocalizations.of(context)!
-                    .leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                AppLocalizations.of(
+                  context,
+                )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
               ),
             ),
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .leyDeInduccionDeFaradayYEnergisEnUnInductor,
-                      widgetName: kWidgetLeyDeFaradayYEnergiaEnUnInductor),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                    widgetName: kWidgetLeyDeFaradayYEnergiaEnUnInductor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -44,18 +47,20 @@ class _LeyDeInduccionDeFaradayEnergiaEnUnInductorState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyDeInduccionDeFaradayYEnergisEnUnInductor,
-                              widgetName:
-                                  kWidgetLeyDeFaradayYEnergiaEnUnInductor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                            widgetName: kWidgetLeyDeFaradayYEnergiaEnUnInductor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyDeInduccionDeFaradayYEnergisEnUnInductor,
-                              widgetName:
-                                  kWidgetLeyDeFaradayYEnergiaEnUnInductor),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeInduccionDeFaradayYEnergisEnUnInductor,
+                            widgetName: kWidgetLeyDeFaradayYEnergiaEnUnInductor,
+                          ),
                         );
                       }
                     });
@@ -77,7 +82,8 @@ class _LeyDeInduccionDeFaradayEnergiaEnUnInductorState
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\varepsilon_i = -\frac{d}{dt}\lambda"),
+                    formulaText: r"\varepsilon_i = -\frac{d}{dt}\lambda",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\varepsilon_i = -L\frac{d}{dt}I"),
                   const SizedBox(height: 30.0),
@@ -90,12 +96,13 @@ class _LeyDeInduccionDeFaradayEnergiaEnUnInductorState
                   const Latex(formulaText: r"dw = \varepsilon_i dq"),
                   const SizedBox(height: 10.0),
                   const Latex(
-                      formulaText:
-                          r"=L\frac{dl}{dt}dq=L\frac{dq}{dt}dI = LIdI"),
+                    formulaText: r"=L\frac{dl}{dt}dq=L\frac{dq}{dt}dI = LIdI",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"U = W = \frac{1}{2}LI^2 = \frac{1}{2}LI^2\frac{1}{2}\lambda I"),
+                    formulaText:
+                        r"U = W = \frac{1}{2}LI^2 = \frac{1}{2}LI^2\frac{1}{2}\lambda I",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(formulaText: r"[U]_u = [J]"),
                   const SizedBox(height: 40.0),
@@ -106,15 +113,11 @@ class _LeyDeInduccionDeFaradayEnergiaEnUnInductorState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeFaradayYEnergiaEnUnInductor,
-                ),
+                VerPDF(url: kWidgetLeyDeFaradayYEnergiaEnUnInductor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeFaradayYEnergiaEnUnInductor,
-                ),
+                DescargarPDF(url: kWidgetLeyDeFaradayYEnergiaEnUnInductor),
               ],
-            )
+            ),
           ],
         ),
       ),

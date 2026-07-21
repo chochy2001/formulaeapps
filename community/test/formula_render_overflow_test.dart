@@ -43,10 +43,12 @@ void main() {
           isNull,
           reason: 'initial formulas must fit at $width px',
         );
-        final initialFormulas =
-            tester.widgetList<Latex>(find.byType(Latex)).map((latex) {
-          return latex.formulaText;
-        }).toList();
+        final initialFormulas = tester
+            .widgetList<Latex>(find.byType(Latex))
+            .map((latex) {
+              return latex.formulaText;
+            })
+            .toList();
         expect(
           initialFormulas,
           contains('0.0 x+0.0=0.0'),
@@ -65,10 +67,12 @@ void main() {
           isNull,
           reason: 'updated formulas must fit at $width px',
         );
-        final updatedFormulas =
-            tester.widgetList<Latex>(find.byType(Latex)).map((latex) {
-          return latex.formulaText;
-        }).toList();
+        final updatedFormulas = tester
+            .widgetList<Latex>(find.byType(Latex))
+            .map((latex) {
+              return latex.formulaText;
+            })
+            .toList();
         expect(
           updatedFormulas,
           contains('5.0 x+2.0=12.0'),

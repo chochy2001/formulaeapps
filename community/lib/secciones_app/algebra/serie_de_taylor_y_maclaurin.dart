@@ -17,9 +17,12 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -48,9 +51,11 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .serieTaylorMaclaurin,
-                            widgetName: kWidgetSerieDeTaylorYMaClaurin),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.serieTaylorMaclaurin,
+                          widgetName: kWidgetSerieDeTaylorYMaClaurin,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,16 +67,20 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .serieTaylorMaclaurin,
-                                    widgetName: kWidgetSerieDeTaylorYMaClaurin),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.serieTaylorMaclaurin,
+                                  widgetName: kWidgetSerieDeTaylorYMaClaurin,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .serieTaylorMaclaurin,
-                                    widgetName: kWidgetSerieDeTaylorYMaClaurin),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.serieTaylorMaclaurin,
+                                  widgetName: kWidgetSerieDeTaylorYMaClaurin,
+                                ),
                               );
                             }
                           });
@@ -80,16 +89,12 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.serieDeTaylor,
                         ),
@@ -98,8 +103,9 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                           children: [
                             SizedBox(height: 10),
                             Latex(
-                                formulaText:
-                                    r"f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n"),
+                              formulaText:
+                                  r"f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n",
+                            ),
                             SizedBox(height: 10),
                           ],
                         ),
@@ -112,8 +118,9 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                           children: [
                             SizedBox(height: 10),
                             Latex(
-                                formulaText:
-                                    r"f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n"),
+                              formulaText:
+                                  r"f(x)=\sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n",
+                            ),
                             SizedBox(height: 10),
                           ],
                         ),
@@ -126,24 +133,29 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                             SizedBox(height: kEspacioEntreBotones),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+..."),
+                              formulaText:
+                                  r"e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+...",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+..."),
+                              formulaText:
+                                  r"\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+...",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+..."),
+                              formulaText:
+                                  r"\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+...",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\tan^{-1}x=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+..."),
+                              formulaText:
+                                  r"\tan^{-1}x=x-\frac{x^3}{3}+\frac{x^5}{5}-\frac{x^7}{7}+...",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+..."),
+                              formulaText:
+                                  r"\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+...",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             SizedBox(height: kEspacioEntreBotones),
                           ],
@@ -153,13 +165,9 @@ class _SerieTaylorMaClaurinState extends State<SerieTaylorMaClaurin> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSerieDeTaylorYMaClaurin,
-                  ),
+                  const VerPDF(url: kWidgetSerieDeTaylorYMaClaurin),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSerieDeTaylorYMaClaurin,
-                  ),
+                  const DescargarPDF(url: kWidgetSerieDeTaylorYMaClaurin),
                 ],
               ),
             ),

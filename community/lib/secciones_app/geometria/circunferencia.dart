@@ -14,9 +14,12 @@ class _CircunferenciaState extends State<Circunferencia> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _CircunferenciaState extends State<Circunferencia> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.circunferencia,
-                            widgetName: kWidgetCircunferencia),
+                          title: AppLocalizations.of(context)!.circunferencia,
+                          widgetName: kWidgetCircunferencia,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _CircunferenciaState extends State<Circunferencia> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .circunferencia,
-                                    widgetName: kWidgetCircunferencia),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.circunferencia,
+                                  widgetName: kWidgetCircunferencia,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .circunferencia,
-                                    widgetName: kWidgetCircunferencia),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.circunferencia,
+                                  widgetName: kWidgetCircunferencia,
+                                ),
                               );
                             }
                           });
@@ -76,9 +84,7 @@ class _CircunferenciaState extends State<Circunferencia> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -99,9 +105,7 @@ class _CircunferenciaState extends State<Circunferencia> {
                         const Latex(formulaText: r"x^2+y^2+Dx+Ey+F = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.donde,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.donde),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"D = -2h"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -113,13 +117,9 @@ class _CircunferenciaState extends State<Circunferencia> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetCircunferencia,
-                  ),
+                  const VerPDF(url: kWidgetCircunferencia),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetCircunferencia,
-                  ),
+                  const DescargarPDF(url: kWidgetCircunferencia),
                 ],
               ),
             ),

@@ -14,9 +14,12 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,9 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.descuentoSimple,
-                            widgetName: kWidgetDescuentoSimple),
+                          title: AppLocalizations.of(context)!.descuentoSimple,
+                          widgetName: kWidgetDescuentoSimple,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +62,20 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .descuentoSimple,
-                                    widgetName: kWidgetDescuentoSimple),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.descuentoSimple,
+                                  widgetName: kWidgetDescuentoSimple,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .descuentoSimple,
-                                    widgetName: kWidgetDescuentoSimple),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.descuentoSimple,
+                                  widgetName: kWidgetDescuentoSimple,
+                                ),
                               );
                             }
                           });
@@ -77,9 +84,7 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -111,21 +116,14 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDescuentoSimple,
-                  ),
+                  const VerPDF(url: kWidgetDescuentoSimple),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDescuentoSimple,
-                  ),
+                  const DescargarPDF(url: kWidgetDescuentoSimple),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -157,8 +155,9 @@ class _DescuentoSimpleState extends State<DescuentoSimple> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"d"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .tasaDescuentoSimple,
+                                AppLocalizations.of(
+                                  context,
+                                )!.tasaDescuentoSimple,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"P"),

@@ -27,8 +27,9 @@ class _CargaElectricaState extends State<CargaElectrica> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.cargaElectrica,
-                      widgetName: kWidgetCargaElectrica),
+                    title: AppLocalizations.of(context)!.cargaElectrica,
+                    widgetName: kWidgetCargaElectrica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,16 @@ class _CargaElectricaState extends State<CargaElectrica> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cargaElectrica,
-                              widgetName: kWidgetCargaElectrica),
+                            title: AppLocalizations.of(context)!.cargaElectrica,
+                            widgetName: kWidgetCargaElectrica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cargaElectrica,
-                              widgetName: kWidgetCargaElectrica),
+                            title: AppLocalizations.of(context)!.cargaElectrica,
+                            widgetName: kWidgetCargaElectrica,
+                          ),
                         );
                       }
                     });
@@ -59,87 +60,59 @@ class _CargaElectricaState extends State<CargaElectrica> {
             ),
 
             const SizedBox(height: 20.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.convencionFranklin,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.convencionFranklin),
             const SizedBox(height: 10.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.procesoCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.procesoCarga),
 
             const SizedBox(height: 10.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.dosTiposCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.dosTiposCarga),
 
             const SizedBox(height: 30.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.definicionCarga,
-            ),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.cargaElectrostatica,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.definicionCarga),
+            TextoEcuaciones(AppLocalizations.of(context)!.cargaElectrostatica),
 
             const SizedBox(height: 10.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.propiedadCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.propiedadCarga),
 
             const SizedBox(height: 30.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.produccionCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.produccionCarga),
             const SizedBox(height: 20.0),
             TextoEcuaciones(
               AppLocalizations.of(context)!.principioConservacion,
             ),
 
             const SizedBox(height: 20.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.transferenciaCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.transferenciaCarga),
 
             const SizedBox(height: 30.0),
             TextoEcuaciones(
               AppLocalizations.of(context)!.procesosTransferencia,
             ),
             const SizedBox(height: 15.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.procesoCarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.procesoCarga),
 
             const SizedBox(height: 15.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.procesosDescarga,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.procesosDescarga),
 
             const SizedBox(height: 20.0),
             TextoEcuaciones(
               AppLocalizations.of(context)!.clasificacionMateriales,
             ),
             const SizedBox(height: 10.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.materialConductor,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.materialConductor),
 
             const SizedBox(height: 20.0),
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.materialDielectrico,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.materialDielectrico),
 
             const SizedBox(height: 20.0),
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCargaElectrica,
-                ),
+                VerPDF(url: kWidgetCargaElectrica),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCargaElectrica,
-                ),
+                DescargarPDF(url: kWidgetCargaElectrica),
               ],
-            )
+            ),
           ],
         ),
       ),

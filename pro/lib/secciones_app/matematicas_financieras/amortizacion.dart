@@ -31,8 +31,9 @@ class AmortizacionState extends State<Amortizacion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.amortizacion,
-                            widgetName: kWidgetAmortizacion),
+                          title: AppLocalizations.of(context)!.amortizacion,
+                          widgetName: kWidgetAmortizacion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class AmortizacionState extends State<Amortizacion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .amortizacion,
-                                    widgetName: kWidgetAmortizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.amortizacion,
+                                  widgetName: kWidgetAmortizacion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .amortizacion,
-                                    widgetName: kWidgetAmortizacion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.amortizacion,
+                                  widgetName: kWidgetAmortizacion,
+                                ),
                               );
                             }
                           });
@@ -62,16 +67,15 @@ class AmortizacionState extends State<Amortizacion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .rentaInteresAmortizacion,
+                          AppLocalizations.of(
+                            context,
+                          )!.rentaInteresAmortizacion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -81,14 +85,15 @@ class AmortizacionState extends State<Amortizacion> {
                         const Latex(formulaText: r"A = \frac{C}{n}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .interesesSaldosInsolutos,
+                          AppLocalizations.of(
+                            context,
+                          )!.interesesSaldosInsolutos,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"R=\left(\frac{C}{2n}\right)[(n+1)i+2]"),
+                          formulaText: r"R=\left(\frac{C}{2n}\right)[(n+1)i+2]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -96,21 +101,14 @@ class AmortizacionState extends State<Amortizacion> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAmortizacion,
-                  ),
+                  const VerPDF(url: kWidgetAmortizacion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAmortizacion,
-                  ),
+                  const DescargarPDF(url: kWidgetAmortizacion),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

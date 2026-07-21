@@ -23,14 +23,11 @@ void main() {
   });
 
   test('platformProductIds returns Community iOS catalog', () {
-    expect(
-      manager.platformProductIds(),
-      {
-        'chat_anual_2023_community',
-        'chat_mensual_2023_community',
-        'chat_semanal_2023_community',
-      },
-    );
+    expect(manager.platformProductIds(), {
+      'chat_anual_2023_community',
+      'chat_mensual_2023_community',
+      'chat_semanal_2023_community',
+    });
   });
 
   test('platformProductIds returns Community Android catalog', () {
@@ -39,14 +36,11 @@ void main() {
       listenToPurchases: false,
       platformOverride: 'android',
     );
-    expect(
-      androidManager.platformProductIds(),
-      {
-        'chat_anual_2023_community',
-        'android_chat_mensual_2023_community',
-        'chat_semanal_2023_community',
-      },
-    );
+    expect(androidManager.platformProductIds(), {
+      'chat_anual_2023_community',
+      'android_chat_mensual_2023_community',
+      'chat_semanal_2023_community',
+    });
     androidManager.dispose();
   });
 
@@ -84,11 +78,7 @@ void main() {
       fakePurchase(
         productId: 'chat_mensual_2023_community',
         status: PurchaseStatus.error,
-        error: IAPError(
-          source: 'test',
-          code: 'billing',
-          message: 'failed',
-        ),
+        error: IAPError(source: 'test', code: 'billing', message: 'failed'),
       ),
     ]);
 
@@ -106,14 +96,11 @@ void main() {
     await manager.getProducts();
 
     expect(manager.products, hasLength(3));
-    expect(
-      platform.lastQueriedIds,
-      {
-        'chat_anual_2023_community',
-        'chat_mensual_2023_community',
-        'chat_semanal_2023_community',
-      },
-    );
+    expect(platform.lastQueriedIds, {
+      'chat_anual_2023_community',
+      'chat_mensual_2023_community',
+      'chat_semanal_2023_community',
+    });
   });
 
   test('getProducts keeps empty catalog when any id is missing', () async {

@@ -19,9 +19,12 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,9 +44,7 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -52,34 +53,37 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
                     AppLocalizations.of(context)!.circuitosElectricos,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
                     ruta: kRutaPortadoresDeCargaLibre,
-                    textoBoton:
-                        AppLocalizations.of(context)!.portadoresCargaLibre,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.portadoresCargaLibre,
                   ),
                   BotonesMenu(
                     ruta: kRutaMovimientoDePortadoresDeCargaLibre,
-                    textoBoton: AppLocalizations.of(context)!
-                        .movimientoPortadoresCargaLibreDensidadCorriente,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.movimientoPortadoresCargaLibreDensidadCorriente,
                   ),
                   BotonesMenu(
                     ruta: kRutaDensidadDeCorrienteYCorrienteElectrica,
-                    textoBoton: AppLocalizations.of(context)!
-                        .densidadCorrienteCorrienteElectrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.densidadCorrienteCorrienteElectrica,
                   ),
                   BotonesMenu(
                     ruta: kRutaTiposDeCorrienteElectrica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.tiposCorrienteElectrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.tiposCorrienteElectrica,
                   ),
                   BotonesMenu(
                     ruta: kRutaConductividadYResistividad,
-                    textoBoton:
-                        AppLocalizations.of(context)!.conductividadResistividad,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conductividadResistividad,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeOhm,
@@ -91,8 +95,9 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
                   ),
                   BotonesMenu(
                     ruta: kRutaResistividadYTemperatura,
-                    textoBoton:
-                        AppLocalizations.of(context)!.resistividadTemperatura,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.resistividadTemperatura,
                   ),
                   BotonesMenu(
                     ruta: kRutaEfectoJoule,
@@ -100,38 +105,45 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
                   ),
                   BotonesMenu(
                     ruta: kRutaResistorSimbologiaBasica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.resistorSimbologiaBasica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.resistorSimbologiaBasica,
                   ),
                   BotonesMenu(
                     ruta: kRutaResistorLinealYNoLineal,
-                    textoBoton:
-                        AppLocalizations.of(context)!.resistorLinealNoLineal,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.resistorLinealNoLineal,
                   ),
                   BotonesMenu(
                     ruta: kRutaConexionEnSerieResistor,
-                    textoBoton:
-                        AppLocalizations.of(context)!.conexionSerieResistor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conexionSerieResistor,
                   ),
                   BotonesMenu(
                     ruta: kRutaConexionEnParaleloResistor,
-                    textoBoton:
-                        AppLocalizations.of(context)!.conexionParaleloResistor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conexionParaleloResistor,
                   ),
                   BotonesMenu(
                     ruta: kRutaFuenteDeFuerzaElectromotriz,
-                    textoBoton:
-                        AppLocalizations.of(context)!.fuenteFuerzaElectromotriz,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.fuenteFuerzaElectromotriz,
                   ),
                   BotonesMenu(
                     ruta: kRutaElementosCapacitorYResistor,
-                    textoBoton: AppLocalizations.of(context)!
-                        .elementosCapacitorResistor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.elementosCapacitorResistor,
                   ),
                   BotonesMenu(
                     ruta: kRutaElementosFem,
-                    textoBoton: AppLocalizations.of(context)!
-                        .elementosFuerzaElectromotriz,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.elementosFuerzaElectromotriz,
                   ),
                   BotonesMenu(
                     ruta: kRutaTeoriaDeCircuitos,
@@ -139,13 +151,15 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeVoltajesDeKirchhoff,
-                    textoBoton:
-                        AppLocalizations.of(context)!.leyVoltajesKirchhoff,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyVoltajesKirchhoff,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyDeCorrientesDeKirchhoff,
-                    textoBoton:
-                        AppLocalizations.of(context)!.leyCorrientesKirchhoff,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyCorrientesKirchhoff,
                   ),
                   BotonesMenu(
                     ruta: kRutaReglasParaLVKyLCK,
@@ -153,18 +167,21 @@ class _MenuCircuitosElectricosState extends State<MenuCircuitosElectricos> {
                   ),
                   BotonesMenu(
                     ruta: kRutaCircuitoRCyVoltajeContinuo,
-                    textoBoton:
-                        AppLocalizations.of(context)!.circuitoRCVoltajeContinuo,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.circuitoRCVoltajeContinuo,
                   ),
                   BotonesMenu(
                     ruta: kRutaLeyesDeKirchhoffCircuitoRC,
-                    textoBoton:
-                        AppLocalizations.of(context)!.leyesKirchhoffCircuitoRC,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.leyesKirchhoffCircuitoRC,
                   ),
                   BotonesMenu(
                     ruta: kRutaNomenclaturaBasicaEmpleadaEnCircuitos,
-                    textoBoton: AppLocalizations.of(context)!
-                        .nomenclaturaBasicaCircuitos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.nomenclaturaBasicaCircuitos,
                   ),
                 ],
               ),

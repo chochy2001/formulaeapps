@@ -17,9 +17,12 @@ class _FormulasDeProductosState extends State<FormulasDeProductos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -48,9 +51,9 @@ class _FormulasDeProductosState extends State<FormulasDeProductos> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.formulaProductos,
-                            widgetName: kWidgetFormulasDeProductos),
+                          title: AppLocalizations.of(context)!.formulaProductos,
+                          widgetName: kWidgetFormulasDeProductos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,16 +65,20 @@ class _FormulasDeProductosState extends State<FormulasDeProductos> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulaProductos,
-                                    widgetName: kWidgetFormulasDeProductos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulaProductos,
+                                  widgetName: kWidgetFormulasDeProductos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .formulaProductos,
-                                    widgetName: kWidgetFormulasDeProductos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.formulaProductos,
+                                  widgetName: kWidgetFormulasDeProductos,
+                                ),
                               );
                             }
                           });
@@ -80,25 +87,24 @@ class _FormulasDeProductosState extends State<FormulasDeProductos> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
 
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
+                        SizedBox(width: MediaQuery.of(context).size.width),
+                        const Latex(
+                          formulaText: r"(a+b)^2=a^2+2ab+b^2=(a-b)^2+4ab",
                         ),
-                        const Latex(
-                            formulaText: r"(a+b)^2=a^2+2ab+b^2=(a-b)^2+4ab"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(a-b)^2=a^2-2ab+b^2=(a+b)^2-4ab"),
+                          formulaText: r"(a-b)^2=a^2-2ab+b^2=(a+b)^2-4ab",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(a+b)^3=a^3+3a^2+3ab^2+b^3 =(a+b)(a^2+2ab+b^2)"),
+                          formulaText:
+                              r"(a+b)^3=a^3+3a^2+3ab^2+b^3 =(a+b)(a^2+2ab+b^2)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(a+b)^2-(a-b)^2=4ab"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -109,26 +115,25 @@ class _FormulasDeProductosState extends State<FormulasDeProductos> {
                         const Latex(formulaText: r"2(a^2+b^2)=(a+b)^2+(a-b)^2"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(a+b+c)^2=a^2+b^2+c^2+2ab+2bc+2ca"),
+                          formulaText: r"(a+b+c)^2=a^2+b^2+c^2+2ab+2bc+2ca",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(a+b-c)^2=a^2+b^2+c^2+2ab-2bc-2ca"),
+                          formulaText: r"(a+b-c)^2=a^2+b^2+c^2+2ab-2bc-2ca",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(a-b-c)^2=a^2+b^2+c^2-2ab+2bc-2ca"),
+                          formulaText: r"(a-b-c)^2=a^2+b^2+c^2-2ab+2bc-2ca",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetFormulasDeProductos,
-                  ),
+                  const VerPDF(url: kWidgetFormulasDeProductos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetFormulasDeProductos,
-                  ),
+                  const DescargarPDF(url: kWidgetFormulasDeProductos),
                 ],
               ),
             ),

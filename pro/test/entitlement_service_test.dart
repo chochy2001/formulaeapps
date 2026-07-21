@@ -6,10 +6,10 @@ import 'package:formulaeapps_bff_client/formulaeapps_bff_client.dart';
 
 class _RecordingClient extends FormulaeappsBffClient {
   _RecordingClient({this.response, this.throwDio = false})
-      : super(
-          basePathOverride: 'http://test-bff',
-          dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
-        );
+    : super(
+        basePathOverride: 'http://test-bff',
+        dio: Dio(BaseOptions(baseUrl: 'http://test-bff')),
+      );
 
   final EntitlementResponse? response;
   final bool throwDio;
@@ -21,7 +21,7 @@ class _RecordingClient extends FormulaeappsBffClient {
 
 class _RecordingEntitlementApi extends EntitlementApi {
   _RecordingEntitlementApi(this._parent)
-      : super(_parent.dio, standardSerializers);
+    : super(_parent.dio, standardSerializers);
 
   final _RecordingClient _parent;
 
@@ -53,23 +53,18 @@ class _RecordingEntitlementApi extends EntitlementApi {
 void main() {
   group('EntitlementService', () {
     test('fetchEntitlement returns BFF payload on 200', () async {
-      final payload = EntitlementResponse(
-        (b) {
-          final builder = b;
-          builder.scope = EntitlementResponseScopeEnum.mobile;
-          builder.sources = ListBuilder<EntitlementSource>([
-            EntitlementSource(
-              (s) {
-                final source = s;
-                source.paymentSource =
-                    EntitlementSourcePaymentSourceEnum.appStore;
-                source.productId = 'chat_mensual_2023_01';
-                source.grantedAt = DateTime.utc(2026, 7, 13);
-              },
-            ),
-          ]);
-        },
-      );
+      final payload = EntitlementResponse((b) {
+        final builder = b;
+        builder.scope = EntitlementResponseScopeEnum.mobile;
+        builder.sources = ListBuilder<EntitlementSource>([
+          EntitlementSource((s) {
+            final source = s;
+            source.paymentSource = EntitlementSourcePaymentSourceEnum.appStore;
+            source.productId = 'chat_mensual_2023_01';
+            source.grantedAt = DateTime.utc(2026, 7, 13);
+          }),
+        ]);
+      });
       final recording = _RecordingClient(response: payload);
 
       final service = EntitlementService(
@@ -98,26 +93,26 @@ void main() {
       expect(await service.fetchEntitlement(), isNull);
     });
 
-    test('fetchEntitlement returns null on DioException (fail-closed)',
-        () async {
-      final recording = _RecordingClient(throwDio: true);
-      final service = EntitlementService(
-        tokenProvider: () async => 'session-jwt',
-        clientFactory: (_) => recording,
-      );
+    test(
+      'fetchEntitlement returns null on DioException (fail-closed)',
+      () async {
+        final recording = _RecordingClient(throwDio: true);
+        final service = EntitlementService(
+          tokenProvider: () async => 'session-jwt',
+          clientFactory: (_) => recording,
+        );
 
-      expect(await service.fetchEntitlement(), isNull);
-      expect(recording.called, isTrue);
-    });
+        expect(await service.fetchEntitlement(), isNull);
+        expect(recording.called, isTrue);
+      },
+    );
 
     test('fetchEntitlement returns empty sources when none granted', () async {
-      final payload = EntitlementResponse(
-        (b) {
-          final builder = b;
-          builder.scope = EntitlementResponseScopeEnum.mobile;
-          builder.sources = ListBuilder<EntitlementSource>();
-        },
-      );
+      final payload = EntitlementResponse((b) {
+        final builder = b;
+        builder.scope = EntitlementResponseScopeEnum.mobile;
+        builder.sources = ListBuilder<EntitlementSource>();
+      });
       final recording = _RecordingClient(response: payload);
       final service = EntitlementService(
         tokenProvider: () async => 'session-jwt',

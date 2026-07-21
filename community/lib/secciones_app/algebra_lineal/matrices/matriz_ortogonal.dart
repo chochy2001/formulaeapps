@@ -14,9 +14,12 @@ class _MatrizOrtogonalState extends State<MatrizOrtogonal> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,9 @@ class _MatrizOrtogonalState extends State<MatrizOrtogonal> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.matrizOrtogonal,
-                            widgetName: kWidgetMatrizOrtogonal),
+                          title: AppLocalizations.of(context)!.matrizOrtogonal,
+                          widgetName: kWidgetMatrizOrtogonal,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +62,20 @@ class _MatrizOrtogonalState extends State<MatrizOrtogonal> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizOrtogonal,
-                                    widgetName: kWidgetMatrizOrtogonal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizOrtogonal,
+                                  widgetName: kWidgetMatrizOrtogonal,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizOrtogonal,
-                                    widgetName: kWidgetMatrizOrtogonal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizOrtogonal,
+                                  widgetName: kWidgetMatrizOrtogonal,
+                                ),
                               );
                             }
                           });
@@ -83,13 +90,15 @@ class _MatrizOrtogonalState extends State<MatrizOrtogonal> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Latex(
-                            formulaText:
-                                r"AA^{T} = \begin{pmatrix}a & b \\c & d \\ \end{pmatrix} \begin{pmatrix}a & c \\b & d \\ \end{pmatrix}= \begin{pmatrix}1 & 0\\0 & 1\\ \end{pmatrix}"),
+                          formulaText:
+                              r"AA^{T} = \begin{pmatrix}a & b \\c & d \\ \end{pmatrix} \begin{pmatrix}a & c \\b & d \\ \end{pmatrix}= \begin{pmatrix}1 & 0\\0 & 1\\ \end{pmatrix}",
+                        ),
 
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesDeLaMatrizOrtogonal,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLaMatrizOrtogonal,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"A^{-1}=A^T"),
@@ -103,32 +112,24 @@ class _MatrizOrtogonalState extends State<MatrizOrtogonal> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMatrizOrtogonal,
-                  ),
+                  const VerPDF(url: kWidgetMatrizOrtogonal),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMatrizOrtogonal,
-                  ),
+                  const DescargarPDF(url: kWidgetMatrizOrtogonal),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .laInversaDeUnaOrtogonalEsUnaMatrizOrtogonal,
+                          AppLocalizations.of(
+                            context,
+                          )!.laInversaDeUnaOrtogonalEsUnaMatrizOrtogonal,
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

@@ -30,7 +30,9 @@ class ProductoDeCosenoPorSenoState extends State<ProductoDeCosenoPorSeno> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.productoDeCosenoPorSeno,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.productoDeCosenoPorSeno,
                         widgetName: kWidgetProductoDeCosenoPorSeno,
                       ),
                     );
@@ -44,14 +46,18 @@ class ProductoDeCosenoPorSenoState extends State<ProductoDeCosenoPorSeno> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.productoDeCosenoPorSeno,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.productoDeCosenoPorSeno,
                                 widgetName: kWidgetProductoDeCosenoPorSeno,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.productoDeCosenoPorSeno,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.productoDeCosenoPorSeno,
                                 widgetName: kWidgetProductoDeCosenoPorSeno,
                               ),
                             );
@@ -67,7 +73,10 @@ class ProductoDeCosenoPorSenoState extends State<ProductoDeCosenoPorSeno> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\cos a\,\operatorname{sen} b = \dfrac{1}{2}\left[\operatorname{sen}(a+b) - \operatorname{sen}(a-b)\right]"),
+                  Latex(
+                    formulaText:
+                        r"\cos a\,\operatorname{sen} b = \dfrac{1}{2}\left[\operatorname{sen}(a+b) - \operatorname{sen}(a-b)\right]",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

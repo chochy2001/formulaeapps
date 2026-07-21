@@ -5,9 +5,7 @@ import '../../../widgets_personalizados/export_widgets_personalizados.dart';
 import '../constantes/contantes_rutas.dart';
 
 class PrincipalMenu extends StatefulWidget {
-  const PrincipalMenu({
-    super.key,
-  });
+  const PrincipalMenu({super.key});
 
   @override
   State<PrincipalMenu> createState() => _PrincipalMenuState();
@@ -20,7 +18,6 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
       child: ListView(
         children: [
           //Imagen Formulae (Boton Capdesis)
-
           GestureDetector(
             onTap: () {
               openURLNuevo('https://capdesis.com/');
@@ -37,12 +34,16 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
               child: MenuColumn(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                                    BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.seccionConstantesMatematicas,
+                  BotonesMenu(
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.seccionConstantesMatematicas,
                     ruta: kRutaMenuConstantesMatematicas,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.seccionConversionDeUnidades,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.seccionConversionDeUnidades,
                     ruta: kRutaMenuConversionDeUnidades,
                   ),
                   BotonesMenu(
@@ -50,7 +51,9 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                     ruta: kRutaMenuMecanica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.seccionNumerosRealesYDesigualdades,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.seccionNumerosRealesYDesigualdades,
                     ruta: kRutaMenuNumerosRealesYDesigualdades,
                   ),
                   BotonesMenu(
@@ -58,7 +61,9 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                     ruta: kRutaMenuOptica,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.seccionTermodinamica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.seccionTermodinamica,
                     ruta: kRutaMenuTermodinamica,
                   ),
                   /* Boton de Generales*/
@@ -79,8 +84,9 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   /*Boton de Calculo Diferencial*/
                   BotonesMenu(
                     ruta: kRutaCalculoDiferencial,
-                    textoBoton:
-                        AppLocalizations.of(context)!.calculoDiferencial,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.calculoDiferencial,
                   ),
                   /*Boton de Calculo Integral*/
                   BotonesMenu(
@@ -90,20 +96,23 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   /*Boton de Calculo Multivariable*/
                   BotonesMenu(
                     ruta: kRutaMenuCalculoMultivariable,
-                    textoBoton:
-                        AppLocalizations.of(context)!.calculoMultivariable,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.calculoMultivariable,
                   ),
                   /*Boton de Ecuaciones Diferenciales*/
                   BotonesMenu(
                     ruta: kRutaMenuEcuacionesDiferenciales,
-                    textoBoton:
-                        AppLocalizations.of(context)!.ecuacionesDiferenciales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.ecuacionesDiferenciales,
                   ),
                   //Boton de Electricidad y Magnetismo
                   BotonesMenu(
                     ruta: kRutaMenuElectricidadYMagnetismo,
-                    textoBoton:
-                        AppLocalizations.of(context)!.electricidadMagnetismo,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.electricidadMagnetismo,
                   ),
                   //Boton de Geometria
                   BotonesMenu(
@@ -113,20 +122,23 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
                   //Boton Matematicas Discretas
                   BotonesMenu(
                     ruta: kRutaMenuMatematicasDiscretas,
-                    textoBoton:
-                        AppLocalizations.of(context)!.matematicasDiscretas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.matematicasDiscretas,
                   ),
                   //Boton Matematicas Financieras
                   BotonesMenu(
                     ruta: kRutaMenuMatematicasFinancieras,
-                    textoBoton:
-                        AppLocalizations.of(context)!.matematicasFinancieras,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.matematicasFinancieras,
                   ),
                   /*Boton de Probabilidad y Estadistica*/
                   BotonesMenu(
                     ruta: kRutaMenuProbabilidadYEstadistica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.probabilidadEstadistica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.probabilidadEstadistica,
                   ),
                   /*Boton de Series de Fourier*/
                   BotonesMenu(

@@ -6,10 +6,12 @@ class IntegralDefinidaPropiedadesIntegral extends StatefulWidget {
   const IntegralDefinidaPropiedadesIntegral({super.key});
 
   @override
-  IntegralDefinidaPropiedadesIntegralState createState() => IntegralDefinidaPropiedadesIntegralState();
+  IntegralDefinidaPropiedadesIntegralState createState() =>
+      IntegralDefinidaPropiedadesIntegralState();
 }
 
-class IntegralDefinidaPropiedadesIntegralState extends State<IntegralDefinidaPropiedadesIntegral> {
+class IntegralDefinidaPropiedadesIntegralState
+    extends State<IntegralDefinidaPropiedadesIntegral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class IntegralDefinidaPropiedadesIntegralState extends State<IntegralDefinidaPro
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral,
+                    AppLocalizations.of(
+                      context,
+                    )!.integralDefinidaPropiedadesIntegral,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.integralDefinidaPropiedadesIntegral,
                         widgetName: kWidgetIntegralDefinidaPropiedadesIntegral,
                       ),
                     );
@@ -44,15 +50,21 @@ class IntegralDefinidaPropiedadesIntegralState extends State<IntegralDefinidaPro
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral,
-                                widgetName: kWidgetIntegralDefinidaPropiedadesIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.integralDefinidaPropiedadesIntegral,
+                                widgetName:
+                                    kWidgetIntegralDefinidaPropiedadesIntegral,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.integralDefinidaPropiedadesIntegral,
-                                widgetName: kWidgetIntegralDefinidaPropiedadesIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.integralDefinidaPropiedadesIntegral,
+                                widgetName:
+                                    kWidgetIntegralDefinidaPropiedadesIntegral,
                               ),
                             );
                           }
@@ -67,13 +79,25 @@ class IntegralDefinidaPropiedadesIntegralState extends State<IntegralDefinidaPro
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx = \left.F(x)\right]_{a}^{b} = F(b) - F(a)"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx = \left.F(x)\right]_{a}^{b} = F(b) - F(a)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx = -\int_{b}^{a} f(x)\,dx"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx = -\int_{b}^{a} f(x)\,dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx = \int_{a}^{c} f(x)\,dx + \int_{c}^{b} f(x)\,dx"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx = \int_{a}^{c} f(x)\,dx + \int_{c}^{b} f(x)\,dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx = (b-a)\,f(c), \quad a < c < b"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx = (b-a)\,f(c), \quad a < c < b",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

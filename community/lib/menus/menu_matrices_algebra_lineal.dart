@@ -16,9 +16,12 @@ class MenuMatricesLinealState extends State<MenuMatricesLineal> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -36,19 +39,14 @@ class MenuMatricesLinealState extends State<MenuMatricesLineal> {
         child: FondoDegradado(
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const ImagenLogoFormulae(),
-              ),
+              TextButton(onPressed: () {}, child: const ImagenLogoFormulae()),
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.matrices,
                   style: kTextoBotones,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               adContainer,
               Center(
                 child: Column(
@@ -81,32 +79,37 @@ class MenuMatricesLinealState extends State<MenuMatricesLineal> {
                     ),
                     //Operaciones con Fracciones Algebraicas
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.matrizTranspuesta,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.matrizTranspuesta,
                       ruta: kRutaMatrizTranspuesta,
                     ),
                     //Propiedades de los Exponentes
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.matrizTriangular,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.matrizTriangular,
                       ruta: kRutaMatrizTriangular,
                     ),
                     //Propiedades de las Desigualdades
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .multiplicacionDeMatrices,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.multiplicacionDeMatrices,
                       ruta: kRutaMultiplicacionDeMatrices,
                     ),
                     //Propiedades de los radicales
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .propiedadesDeLasMatrices,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.propiedadesDeLasMatrices,
                       ruta: kRutaPropiedadesDeLasMatrices,
                     ),
                     //Serie taylor y MaClaurin
                     BotonesMenu(
-                      textoBoton:
-                          AppLocalizations.of(context)!.sumaYRestaDeMatrices,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.sumaYRestaDeMatrices,
                       ruta: kRutaSumaRestaDeMatrices,
                     ),
                   ],

@@ -7,9 +7,7 @@ class Services {
   static Future<void> showModalSheet({required BuildContext context}) async {
     await showModalBottomSheet(
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       backgroundColor: kColorFondo,
       context: context,
@@ -26,10 +24,7 @@ class Services {
                   color: kColorBlanco,
                 ),
               ),
-              const Flexible(
-                flex: 2,
-                child: ModelsDropDownWidget(),
-              ),
+              const Flexible(flex: 2, child: ModelsDropDownWidget()),
             ],
           ),
         );

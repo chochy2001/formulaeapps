@@ -51,11 +51,7 @@ class ApiService {
     // BFF contract v1.0.0 does not expose /openai/models. Stub list keeps
     // the existing models_provider.dart + drop_down.dart UI working.
     return [
-      ModelsModel(
-        id: 'openai/gpt-4o-mini',
-        created: 0,
-        root: 'formulae-bff',
-      ),
+      ModelsModel(id: 'openai/gpt-4o-mini', created: 0, root: 'formulae-bff'),
     ];
   }
 
@@ -70,7 +66,8 @@ class ApiService {
   }) async {
     final token = await (tokenProvider ?? AuthService.getToken)();
 
-    final dio = dioOverride ??
+    final dio =
+        dioOverride ??
         dioForTest ??
         Dio(
           dioOptionsOverride ??
@@ -89,12 +86,12 @@ class ApiService {
 
     try {
       final response = await client.getChatApi().openaiChatPost(
-            chatRequest: ChatRequest(
-              (b) => b
-                ..message = message
-                ..modelId = modelId,
-            ),
-          );
+        chatRequest: ChatRequest(
+          (b) => b
+            ..message = message
+            ..modelId = modelId,
+        ),
+      );
 
       final rotated = response.headers.value('x-auth-refresh');
       if (rotated != null && rotated.isNotEmpty) {
@@ -106,9 +103,7 @@ class ApiService {
         throw const HttpException('BFF returned no message content');
       }
 
-      return [
-        ChatModel(msg: data.message, chatIndex: 1),
-      ];
+      return [ChatModel(msg: data.message, chatIndex: 1)];
     } on DioException catch (e) {
       throw HttpException(
         'BFF ${e.response?.statusCode ?? "??"}: ${_summarizeDioError(e)}',

@@ -1899,7 +1899,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get losIgualamosACero => 'We Set Them Equal to Zero';
 
   @override
-  String get posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales =>
+  String
+  get posteriormenteSeResuelvePorHomogeneasYAlFinalSeRegresaASusValoresOriginales =>
       'Subsequently, it is Solved by Homogeneous and Finally it Returns to its Original Values';
 
   @override
@@ -1914,7 +1915,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Already made the Substitution of the Variables as well as the Differential';
 
   @override
-  String get seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales =>
+  String
+  get seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales =>
       'It is Solved by Separable Variables and in the End its Original Values are Returned';
 
   @override
@@ -1938,26 +1940,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paraHacerlaExacta => 'To Make It Exact';
 
   @override
-  String get posteriormenteSeSustituyenCadaUnaEnSuRespectivaIntegralYSeIgualaACParaObtenerLaSolucionGeneral =>
+  String
+  get posteriormenteSeSustituyenCadaUnaEnSuRespectivaIntegralYSeIgualaACParaObtenerLaSolucionGeneral =>
       'Subsequently, Each One is Substituted in its Respective Integral and is Equal to C to Obtain the General Solution';
 
   @override
-  String get elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla =>
+  String
+  get elFactorIntegrantePuedeDependerDeCualquieraDeLasDosVariablesEstoSeDeterminaALaHoraDeIntegrarDondeNosDamosCuentaCualEsMasSencilla =>
       'The Integrating Factor can Depend on Either of the Two Variables, this is Determined when Integrating, where we Realize which is Simpler';
 
   @override
-  String get podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY =>
+  String
+  get podemosSaberSiEsHomogeneaSiElOrdenDeTodosLosTerminosDeLaEcuacionEsElMismoAlSustituirTEnXY =>
       'We can determine if it is homogeneous if the order of all the terms in the equation remains the same when substituting T for X and Y.';
 
   @override
   String get sustitucionDeLasVariables => 'Substitution of the Variables';
 
   @override
-  String get seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales =>
+  String
+  get seResuelvePorSeparacionDeVariablesYPosteriormenteSeDevuelvenASusValoresOriginales =>
       'It is Solved by Separation of Variables and then Returned to their Original Values';
 
   @override
-  String get seUtilizaLaSustitucionDiferencialQueTengaElCoeficienteMasSencillo =>
+  String
+  get seUtilizaLaSustitucionDiferencialQueTengaElCoeficienteMasSencillo =>
       'The Differential Substitution that has the Simplest Coefficient is Used';
 
   @override
@@ -2006,7 +2013,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'It is Integrated on Both Sides to Obtain the General Solution';
 
   @override
-  String get elFactorIntegranteEsIgualAlInversoDeLaMultiplicacionDeLosFactoresQueNoContienenLaVariableDelDiferencialSeMultiplicaPorAmbosLados =>
+  String
+  get elFactorIntegranteEsIgualAlInversoDeLaMultiplicacionDeLosFactoresQueNoContienenLaVariableDelDiferencialSeMultiplicaPorAmbosLados =>
       'The Integrating Factor is Equal to the Inverse of the Multiplication of the Factors that Do Not Contain the Differential Variable, it is Multiplied on Both Sides';
 
   @override

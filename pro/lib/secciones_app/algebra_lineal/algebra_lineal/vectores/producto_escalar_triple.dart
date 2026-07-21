@@ -6,10 +6,12 @@ class AlgebraLinealVectoresProductoEscalarTriple extends StatefulWidget {
   const AlgebraLinealVectoresProductoEscalarTriple({super.key});
 
   @override
-  AlgebraLinealVectoresProductoEscalarTripleState createState() => AlgebraLinealVectoresProductoEscalarTripleState();
+  AlgebraLinealVectoresProductoEscalarTripleState createState() =>
+      AlgebraLinealVectoresProductoEscalarTripleState();
 }
 
-class AlgebraLinealVectoresProductoEscalarTripleState extends State<AlgebraLinealVectoresProductoEscalarTriple> {
+class AlgebraLinealVectoresProductoEscalarTripleState
+    extends State<AlgebraLinealVectoresProductoEscalarTriple> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class AlgebraLinealVectoresProductoEscalarTripleState extends State<AlgebraLinea
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealVectoresProductoEscalarTriple,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple,
-                        widgetName: kWidgetAlgebraLinealVectoresProductoEscalarTriple,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealVectoresProductoEscalarTriple,
+                        widgetName:
+                            kWidgetAlgebraLinealVectoresProductoEscalarTriple,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class AlgebraLinealVectoresProductoEscalarTripleState extends State<AlgebraLinea
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple,
-                                widgetName: kWidgetAlgebraLinealVectoresProductoEscalarTriple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresProductoEscalarTriple,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresProductoEscalarTriple,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresProductoEscalarTriple,
-                                widgetName: kWidgetAlgebraLinealVectoresProductoEscalarTriple,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresProductoEscalarTriple,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresProductoEscalarTriple,
                               ),
                             );
                           }
@@ -67,18 +80,31 @@ class AlgebraLinealVectoresProductoEscalarTripleState extends State<AlgebraLinea
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\left| \vec{V}_A \times \vec{V}_B \right| = V_A\,V_B\,\operatorname{sen}\alpha"),
+                  Latex(
+                    formulaText:
+                        r"\left| \vec{V}_A \times \vec{V}_B \right| = V_A\,V_B\,\operatorname{sen}\alpha",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\vec{V}_A \cdot \left( \vec{V}_B \times \vec{V}_C \right)"),
+                  Latex(
+                    formulaText:
+                        r"\vec{V}_A \cdot \left( \vec{V}_B \times \vec{V}_C \right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"V = V_A\,V_B\,V_C\,\operatorname{sen}\alpha\,\cos\beta"),
+                  Latex(
+                    formulaText:
+                        r"V = V_A\,V_B\,V_C\,\operatorname{sen}\alpha\,\cos\beta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             const SizedBox(height: kEspacioEntreBotones),
-            const VerPDF(url: kWidgetAlgebraLinealVectoresProductoEscalarTriple),
-            const DescargarPDF(url: kWidgetAlgebraLinealVectoresProductoEscalarTriple),
+            const VerPDF(
+              url: kWidgetAlgebraLinealVectoresProductoEscalarTriple,
+            ),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealVectoresProductoEscalarTriple,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

@@ -99,10 +99,10 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.text('¿Qué es una integral?'), findsOneWidget);
-      expect(
-        chatProvider.getChatList.map((message) => message.msg),
-        ['¿Qué es una integral?', 'Respuesta de prueba'],
-      );
+      expect(chatProvider.getChatList.map((message) => message.msg), [
+        '¿Qué es una integral?',
+        'Respuesta de prueba',
+      ]);
       expect(find.byType(AlertDialog), findsNothing);
     },
   );

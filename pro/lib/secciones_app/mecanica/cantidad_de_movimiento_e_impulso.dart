@@ -6,10 +6,12 @@ class CantidadDeMovimientoEImpulso extends StatefulWidget {
   const CantidadDeMovimientoEImpulso({super.key});
 
   @override
-  CantidadDeMovimientoEImpulsoState createState() => CantidadDeMovimientoEImpulsoState();
+  CantidadDeMovimientoEImpulsoState createState() =>
+      CantidadDeMovimientoEImpulsoState();
 }
 
-class CantidadDeMovimientoEImpulsoState extends State<CantidadDeMovimientoEImpulso> {
+class CantidadDeMovimientoEImpulsoState
+    extends State<CantidadDeMovimientoEImpulso> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class CantidadDeMovimientoEImpulsoState extends State<CantidadDeMovimientoEImpul
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.cantidadDeMovimientoEImpulso,
                         widgetName: kWidgetCantidadDeMovimientoEImpulso,
                       ),
                     );
@@ -44,14 +48,18 @@ class CantidadDeMovimientoEImpulsoState extends State<CantidadDeMovimientoEImpul
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cantidadDeMovimientoEImpulso,
                                 widgetName: kWidgetCantidadDeMovimientoEImpulso,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cantidadDeMovimientoEImpulso,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cantidadDeMovimientoEImpulso,
                                 widgetName: kWidgetCantidadDeMovimientoEImpulso,
                               ),
                             );
@@ -71,7 +79,9 @@ class CantidadDeMovimientoEImpulsoState extends State<CantidadDeMovimientoEImpul
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"F\,t = m\,V_{f} - m\,V_{0}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"F = m\left(\frac{V_{f} - V_{0}}{t}\right)"),
+                  Latex(
+                    formulaText: r"F = m\left(\frac{V_{f} - V_{0}}{t}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"F\,t = m\,V"),
                   SizedBox(height: kEspacioEntreBotones),

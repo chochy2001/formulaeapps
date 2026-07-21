@@ -18,9 +18,12 @@ class _IdentidadesHiperbolicasGeneralesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _IdentidadesHiperbolicasGeneralesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.identidadesHiperbolicas,
-                      widgetName: kWidgetIdentidadesHiperbolicasGenerales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.identidadesHiperbolicas,
+                    widgetName: kWidgetIdentidadesHiperbolicasGenerales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -59,18 +64,20 @@ class _IdentidadesHiperbolicasGeneralesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .identidadesHiperbolicas,
-                              widgetName:
-                                  kWidgetIdentidadesHiperbolicasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.identidadesHiperbolicas,
+                            widgetName: kWidgetIdentidadesHiperbolicasGenerales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .identidadesHiperbolicas,
-                              widgetName:
-                                  kWidgetIdentidadesHiperbolicasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.identidadesHiperbolicas,
+                            widgetName: kWidgetIdentidadesHiperbolicasGenerales,
+                          ),
                         );
                       }
                     });
@@ -79,68 +86,64 @@ class _IdentidadesHiperbolicasGeneralesState
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             const ZoomPersonalizado(
               child: Column(
                 children: [
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText: r"\cosh\thinspace(-x) = \cosh\thinspace x"),
+                    formulaText: r"\cosh\thinspace(-x) = \cosh\thinspace x",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"1- \tanh{^2}\thinspace = sech{^2}\thinspace x"),
+                    formulaText:
+                        r"1- \tanh{^2}\thinspace = sech{^2}\thinspace x",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tanh(-x) = -\tanh\thinspace  x"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\sinh (-x) = -\sinh\thinspace x"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\cosh\thinspace x - \sinh\thinspace x = e^{-x}"),
+                    formulaText:
+                        r"\cosh\thinspace x - \sinh\thinspace x = e^{-x}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\cosh^2 \thinspace x \thinspace -\thinspace \sinh^2\thinspace x = 1"),
+                    formulaText:
+                        r"\cosh^2 \thinspace x \thinspace -\thinspace \sinh^2\thinspace x = 1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\sinh (2x) = 2\sinh\thinspace x \cdot \cosh\thinspace x"),
+                    formulaText:
+                        r"\sinh (2x) = 2\sinh\thinspace x \cdot \cosh\thinspace x",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\sinh (x \pm y) = \sinh\thinspace x \cdot \cosh\thinspace y \pm \cosh\thinspace x \cdot \sinh \thinspace y"),
+                    formulaText:
+                        r"\sinh (x \pm y) = \sinh\thinspace x \cdot \cosh\thinspace y \pm \cosh\thinspace x \cdot \sinh \thinspace y",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\cosh (x \pm y) = \cosh\thinspace x \cdot \cosh\thinspace y \pm \sinh\thinspace x \cdot \sinh \thinspace y"),
+                    formulaText:
+                        r"\cosh (x \pm y) = \cosh\thinspace x \cdot \cosh\thinspace y \pm \sinh\thinspace x \cdot \sinh \thinspace y",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetIdentidadesHiperbolicasGenerales,
-            ),
+            const VerPDF(url: kWidgetIdentidadesHiperbolicasGenerales),
 
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetIdentidadesHiperbolicasGenerales,
-            ),
+            const DescargarPDF(url: kWidgetIdentidadesHiperbolicasGenerales),
 
             //Notas
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(

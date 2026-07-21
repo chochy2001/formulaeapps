@@ -6,10 +6,12 @@ class AxiomasDeCampoNumerosReales extends StatefulWidget {
   const AxiomasDeCampoNumerosReales({super.key});
 
   @override
-  AxiomasDeCampoNumerosRealesState createState() => AxiomasDeCampoNumerosRealesState();
+  AxiomasDeCampoNumerosRealesState createState() =>
+      AxiomasDeCampoNumerosRealesState();
 }
 
-class AxiomasDeCampoNumerosRealesState extends State<AxiomasDeCampoNumerosReales> {
+class AxiomasDeCampoNumerosRealesState
+    extends State<AxiomasDeCampoNumerosReales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class AxiomasDeCampoNumerosRealesState extends State<AxiomasDeCampoNumerosReales
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.axiomasDeCampoNumerosReales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.axiomasDeCampoNumerosReales,
                         widgetName: kWidgetAxiomasDeCampoNumerosReales,
                       ),
                     );
@@ -44,14 +48,18 @@ class AxiomasDeCampoNumerosRealesState extends State<AxiomasDeCampoNumerosReales
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeCampoNumerosReales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeCampoNumerosReales,
                                 widgetName: kWidgetAxiomasDeCampoNumerosReales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.axiomasDeCampoNumerosReales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.axiomasDeCampoNumerosReales,
                                 widgetName: kWidgetAxiomasDeCampoNumerosReales,
                               ),
                             );
@@ -67,27 +75,55 @@ class AxiomasDeCampoNumerosRealesState extends State<AxiomasDeCampoNumerosReales
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ a + b \in \mathbb{R}"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b \in \mathbb{R},\ a + b \in \mathbb{R}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ a + b = b + a"),
+                  Latex(
+                    formulaText: r"\forall a, b \in \mathbb{R},\ a + b = b + a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b, c \in \mathbb{R},\ (a + b) + c = a + (b + c)"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b, c \in \mathbb{R},\ (a + b) + c = a + (b + c)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a \in \mathbb{R},\ a + 0 = a = 0 + a"),
+                  Latex(
+                    formulaText:
+                        r"\forall a \in \mathbb{R},\ a + 0 = a = 0 + a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a \in \mathbb{R},\ a + (-a) = 0 = -a + a"),
+                  Latex(
+                    formulaText:
+                        r"\forall a \in \mathbb{R},\ a + (-a) = 0 = -a + a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ a\,b \in \mathbb{R}"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b \in \mathbb{R},\ a\,b \in \mathbb{R}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b \in \mathbb{R},\ a\,b = b\,a"),
+                  Latex(
+                    formulaText: r"\forall a, b \in \mathbb{R},\ a\,b = b\,a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b, c \in \mathbb{R},\ (a\,b)\,c = a\,(b\,c)"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b, c \in \mathbb{R},\ (a\,b)\,c = a\,(b\,c)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a \in \mathbb{R},\ a \cdot 1 = a = 1 \cdot a"),
+                  Latex(
+                    formulaText:
+                        r"\forall a \in \mathbb{R},\ a \cdot 1 = a = 1 \cdot a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"a \cdot a^{-1} = 1 = a^{-1} \cdot a"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\forall a, b, c \in \mathbb{R},\quad a(b + c) = ab + ac \quad \text{y} \quad (b + c)a = ba + ca"),
+                  Latex(
+                    formulaText:
+                        r"\forall a, b, c \in \mathbb{R},\quad a(b + c) = ab + ac \quad \text{y} \quad (b + c)a = ba + ca",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

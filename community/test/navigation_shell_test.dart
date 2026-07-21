@@ -28,87 +28,92 @@ void main() {
     AdMobConfig.adsEnabled = true;
   });
 
-  testWidgets('Home returns to the existing root route without duplicating it',
-      (tester) async {
-    final navigatorKey = GlobalKey<NavigatorState>();
-    await tester.pumpWidget(
-      MaterialApp(
-        navigatorKey: navigatorKey,
-        routes: <String, WidgetBuilder>{
-          '/': (_) => const Scaffold(body: Text('root route')),
-          '/detail': (_) => const Scaffold(
-                appBar: AppBarHome(),
-                body: Text('detail route'),
-              ),
-        },
-      ),
-    );
+  testWidgets(
+    'Home returns to the existing root route without duplicating it',
+    (tester) async {
+      final navigatorKey = GlobalKey<NavigatorState>();
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigatorKey,
+          routes: <String, WidgetBuilder>{
+            '/': (_) => const Scaffold(body: Text('root route')),
+            '/detail': (_) => const Scaffold(
+              appBar: AppBarHome(),
+              body: Text('detail route'),
+            ),
+          },
+        ),
+      );
 
-    navigatorKey.currentState!.pushNamed('/detail');
-    await tester.pumpAndSettle();
-    expect(find.text('detail route'), findsOneWidget);
-    expect(navigatorKey.currentState!.canPop(), isTrue);
+      navigatorKey.currentState!.pushNamed('/detail');
+      await tester.pumpAndSettle();
+      expect(find.text('detail route'), findsOneWidget);
+      expect(navigatorKey.currentState!.canPop(), isTrue);
 
-    await tester.tap(find.byIcon(FontAwesomeIcons.houseChimneyCrack.data));
-    await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(FontAwesomeIcons.houseChimneyCrack.data));
+      await tester.pumpAndSettle();
 
-    expect(find.text('root route'), findsOneWidget);
-    expect(find.text('detail route'), findsNothing);
-    expect(
-      navigatorKey.currentState!.canPop(),
-      isFalse,
-      reason: 'Home must not push another instance of the root route.',
-    );
-  });
+      expect(find.text('root route'), findsOneWidget);
+      expect(find.text('detail route'), findsNothing);
+      expect(
+        navigatorKey.currentState!.canPop(),
+        isFalse,
+        reason: 'Home must not push another instance of the root route.',
+      );
+    },
+  );
 
   testWidgets(
-      'Menu uses compact and expanded navigation at the shared breakpoint',
-      (tester) async {
-    addTearDown(() {
-      tester.view.resetPhysicalSize();
-      tester.view.resetDevicePixelRatio();
-    });
+    'Menu uses compact and expanded navigation at the shared breakpoint',
+    (tester) async {
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
 
-    for (final (double width, bool expectsRail) in <(double, bool)>[
-      (320, false),
-      (899, false),
-      (900, true),
-      (1440, true),
-    ]) {
-      tester.view.devicePixelRatio = 1.0;
-      tester.view.physicalSize = Size(width, 900);
-      await tester.pump();
-      await tester.pumpWidget(_menuHarness());
-      await tester.pump();
+      for (final (double width, bool expectsRail) in <(double, bool)>[
+        (320, false),
+        (899, false),
+        (900, true),
+        (1440, true),
+      ]) {
+        tester.view.devicePixelRatio = 1.0;
+        tester.view.physicalSize = Size(width, 900);
+        await tester.pump();
+        await tester.pumpWidget(_menuHarness());
+        await tester.pump();
 
-      final BuildContext menuContext = tester.element(find.byType(Menu));
-      expect(MediaQuery.sizeOf(menuContext).width, width);
-      expect(
-        tester.takeException(),
-        isNull,
-        reason: 'Menu must fit a ${width.toInt()} px viewport.',
-      );
-      expect(
-        find.byType(NavigationRail),
-        expectsRail ? findsOneWidget : findsNothing,
-        reason: 'Unexpected desktop navigation state at ${width.toInt()} px.',
-      );
-      expect(
-        find.byType(BottomNavigationBar),
-        expectsRail ? findsNothing : findsOneWidget,
-      );
-      if (expectsRail) {
-        final rail = tester.widget<NavigationRail>(find.byType(NavigationRail));
-        expect(rail.unselectedIconTheme?.color, kColorNavInactivo);
-        expect(rail.unselectedLabelTextStyle?.color, kColorNavInactivo);
-      } else {
-        final navigation = tester.widget<BottomNavigationBar>(
-          find.byType(BottomNavigationBar),
+        final BuildContext menuContext = tester.element(find.byType(Menu));
+        expect(MediaQuery.sizeOf(menuContext).width, width);
+        expect(
+          tester.takeException(),
+          isNull,
+          reason: 'Menu must fit a ${width.toInt()} px viewport.',
         );
-        expect(navigation.unselectedItemColor, kColorNavInactivo);
+        expect(
+          find.byType(NavigationRail),
+          expectsRail ? findsOneWidget : findsNothing,
+          reason: 'Unexpected desktop navigation state at ${width.toInt()} px.',
+        );
+        expect(
+          find.byType(BottomNavigationBar),
+          expectsRail ? findsNothing : findsOneWidget,
+        );
+        if (expectsRail) {
+          final rail = tester.widget<NavigationRail>(
+            find.byType(NavigationRail),
+          );
+          expect(rail.unselectedIconTheme?.color, kColorNavInactivo);
+          expect(rail.unselectedLabelTextStyle?.color, kColorNavInactivo);
+        } else {
+          final navigation = tester.widget<BottomNavigationBar>(
+            find.byType(BottomNavigationBar),
+          );
+          expect(navigation.unselectedItemColor, kColorNavInactivo);
+        }
       }
-    }
-  });
+    },
+  );
 }
 
 Widget _menuHarness() {

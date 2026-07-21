@@ -30,7 +30,9 @@ class FuerzaYTorcaMagneticaState extends State<FuerzaYTorcaMagnetica> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.fuerzaYTorcaMagnetica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.fuerzaYTorcaMagnetica,
                         widgetName: kWidgetFuerzaYTorcaMagnetica,
                       ),
                     );
@@ -44,14 +46,18 @@ class FuerzaYTorcaMagneticaState extends State<FuerzaYTorcaMagnetica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.fuerzaYTorcaMagnetica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.fuerzaYTorcaMagnetica,
                                 widgetName: kWidgetFuerzaYTorcaMagnetica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.fuerzaYTorcaMagnetica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.fuerzaYTorcaMagnetica,
                                 widgetName: kWidgetFuerzaYTorcaMagnetica,
                               ),
                             );

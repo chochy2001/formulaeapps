@@ -14,9 +14,12 @@ class _NegacionState extends State<Negacion> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -37,16 +40,15 @@ class _NegacionState extends State<Negacion> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TituloPersonalizado(
-                    AppLocalizations.of(context)!.negacion,
-                  ),
+                  TituloPersonalizado(AppLocalizations.of(context)!.negacion),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.negacion,
-                            widgetName: kWidgetNegacion),
+                          title: AppLocalizations.of(context)!.negacion,
+                          widgetName: kWidgetNegacion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +60,16 @@ class _NegacionState extends State<Negacion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title:
-                                        AppLocalizations.of(context)!.negacion,
-                                    widgetName: kWidgetNegacion),
+                                  title: AppLocalizations.of(context)!.negacion,
+                                  widgetName: kWidgetNegacion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title:
-                                        AppLocalizations.of(context)!.negacion,
-                                    widgetName: kWidgetNegacion),
+                                  title: AppLocalizations.of(context)!.negacion,
+                                  widgetName: kWidgetNegacion,
+                                ),
                               );
                             }
                           });
@@ -76,24 +78,16 @@ class _NegacionState extends State<Negacion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.no,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.no),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{\neg p}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -103,25 +97,19 @@ class _NegacionState extends State<Negacion> {
                     ),
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.tablaVerdad,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.tablaVerdad),
 
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(context, kImagenNegacion) ??
-                          kUrlImagenNegacion),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(context, kImagenNegacion) ??
+                        kUrlImagenNegacion,
                   ),
+                  const SizedBox(height: 30.0),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetNegacion,
-                  ),
+                  const VerPDF(url: kWidgetNegacion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetNegacion,
-                  ),
+                  const DescargarPDF(url: kWidgetNegacion),
                 ],
               ),
             ),

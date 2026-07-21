@@ -16,9 +16,12 @@ class _DistanciaDeUnPuntoAUnaRectaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _DistanciaDeUnPuntoAUnaRectaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distanciaDeUnPuntoAUnaRecta,
-                            widgetName: kWidgetDistanciaDeUnPuntoAUnaRecta),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distanciaDeUnPuntoAUnaRecta,
+                          widgetName: kWidgetDistanciaDeUnPuntoAUnaRecta,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _DistanciaDeUnPuntoAUnaRectaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distanciaDeUnPuntoAUnaRecta,
-                                    widgetName:
-                                        kWidgetDistanciaDeUnPuntoAUnaRecta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distanciaDeUnPuntoAUnaRecta,
+                                  widgetName:
+                                      kWidgetDistanciaDeUnPuntoAUnaRecta,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distanciaDeUnPuntoAUnaRecta,
-                                    widgetName:
-                                        kWidgetDistanciaDeUnPuntoAUnaRecta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distanciaDeUnPuntoAUnaRecta,
+                                  widgetName:
+                                      kWidgetDistanciaDeUnPuntoAUnaRecta,
+                                ),
                               );
                             }
                           });
@@ -81,9 +90,7 @@ class _DistanciaDeUnPuntoAUnaRectaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -95,9 +102,7 @@ class _DistanciaDeUnPuntoAUnaRectaState
                         const Latex(formulaText: r"Ax+By = C"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.punto,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.punto),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"P(x_0,y_0)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -108,8 +113,9 @@ class _DistanciaDeUnPuntoAUnaRectaState
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"d = \frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}"),
+                          formulaText:
+                              r"d = \frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -117,13 +123,9 @@ class _DistanciaDeUnPuntoAUnaRectaState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistanciaDeUnPuntoAUnaRecta,
-                  ),
+                  const VerPDF(url: kWidgetDistanciaDeUnPuntoAUnaRecta),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistanciaDeUnPuntoAUnaRecta,
-                  ),
+                  const DescargarPDF(url: kWidgetDistanciaDeUnPuntoAUnaRecta),
                 ],
               ),
             ),

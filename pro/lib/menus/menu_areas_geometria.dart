@@ -22,9 +22,7 @@ class MenuAreasGeometriaState extends State<MenuAreasGeometria> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -33,22 +31,23 @@ class MenuAreasGeometriaState extends State<MenuAreasGeometria> {
                     AppLocalizations.of(context)!.areasGeometria,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .areaPerimetroCuadrilateros,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroCuadrilateros,
                     ruta: kRutaAreaYPerimetroDeCuadrilateros,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.areaPerimetroTriangulos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroTriangulos,
                     ruta: kRutaAreaYPerimetroDeTriangulos,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.areaPerimetroCirculo,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.areaPerimetroCirculo,
                     ruta: kRutaAreaYPerimetroDelCirculo,
                   ),
                 ],

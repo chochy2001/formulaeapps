@@ -18,12 +18,7 @@ class PreguntasEjercicios extends StatelessWidget {
     return Column(
       children: [
         //Número de Pregunta
-        Center(
-          child: Text(
-            texto,
-            style: kTextoEcuaciones,
-          ),
-        ),
+        Center(child: Text(texto, style: kTextoEcuaciones)),
         pregunta,
       ],
     );
@@ -45,12 +40,7 @@ class RespuestaEjercicios extends StatelessWidget {
     return Column(
       children: [
         //Número de Pregunta
-        Center(
-          child: Text(
-            texto,
-            style: kTextoEcuaciones,
-          ),
-        ),
+        Center(child: Text(texto, style: kTextoEcuaciones)),
         respuesta,
       ],
     );

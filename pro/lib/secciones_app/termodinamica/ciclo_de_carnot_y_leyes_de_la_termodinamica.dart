@@ -6,10 +6,12 @@ class CicloDeCarnotYLeyesDeLaTermodinamica extends StatefulWidget {
   const CicloDeCarnotYLeyesDeLaTermodinamica({super.key});
 
   @override
-  CicloDeCarnotYLeyesDeLaTermodinamicaState createState() => CicloDeCarnotYLeyesDeLaTermodinamicaState();
+  CicloDeCarnotYLeyesDeLaTermodinamicaState createState() =>
+      CicloDeCarnotYLeyesDeLaTermodinamicaState();
 }
 
-class CicloDeCarnotYLeyesDeLaTermodinamicaState extends State<CicloDeCarnotYLeyesDeLaTermodinamica> {
+class CicloDeCarnotYLeyesDeLaTermodinamicaState
+    extends State<CicloDeCarnotYLeyesDeLaTermodinamica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class CicloDeCarnotYLeyesDeLaTermodinamicaState extends State<CicloDeCarnotYLeye
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica,
+                    AppLocalizations.of(
+                      context,
+                    )!.cicloDeCarnotYLeyesDeLaTermodinamica,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.cicloDeCarnotYLeyesDeLaTermodinamica,
                         widgetName: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
                       ),
                     );
@@ -44,15 +50,21 @@ class CicloDeCarnotYLeyesDeLaTermodinamicaState extends State<CicloDeCarnotYLeye
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica,
-                                widgetName: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cicloDeCarnotYLeyesDeLaTermodinamica,
+                                widgetName:
+                                    kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cicloDeCarnotYLeyesDeLaTermodinamica,
-                                widgetName: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cicloDeCarnotYLeyesDeLaTermodinamica,
+                                widgetName:
+                                    kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
                               ),
                             );
                           }
@@ -75,20 +87,32 @@ class CicloDeCarnotYLeyesDeLaTermodinamicaState extends State<CicloDeCarnotYLeye
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"W = Q_{ent} - Q_{sal}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\eta = \frac{Q_{ent} - Q_{sal}}{Q_{ent}}"),
+                  Latex(
+                    formulaText: r"\eta = \frac{Q_{ent} - Q_{sal}}{Q_{ent}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\eta = \frac{T_{ent} - T_{sal}}{T_{ent}}"),
+                  Latex(
+                    formulaText: r"\eta = \frac{T_{ent} - T_{sal}}{T_{ent}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\eta = \frac{Q_{frio}}{W} = \frac{Q_{frio}}{Q_{caliente} - Q_{frio}}"),
+                  Latex(
+                    formulaText:
+                        r"\eta = \frac{Q_{frio}}{W} = \frac{Q_{frio}}{Q_{caliente} - Q_{frio}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\eta = \frac{T_{frio}}{T_{caliente} - T_{frio}}"),
+                  Latex(
+                    formulaText:
+                        r"\eta = \frac{T_{frio}}{T_{caliente} - T_{frio}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica),
-            const DescargarPDF(url: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica),
+            const DescargarPDF(
+              url: kWidgetCicloDeCarnotYLeyesDeLaTermodinamica,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

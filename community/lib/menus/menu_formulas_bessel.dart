@@ -16,9 +16,12 @@ class MenuFormulasBesselState extends State<MenuFormulasBessel> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -38,9 +41,7 @@ class MenuFormulasBesselState extends State<MenuFormulasBessel> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -49,23 +50,24 @@ class MenuFormulasBesselState extends State<MenuFormulasBessel> {
                     AppLocalizations.of(context)!.formulasDeBessel,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.teoremaDeLaCotangente,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDeLaCotangente,
                     ruta: kRutaTeoremaDeLaCotangente,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .teoremaDelCosenoParaAngulos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDelCosenoParaAngulos,
                     ruta: kRutaTeoremaDelCosenoParaAngulos,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.teoremaDelCosenoParaLados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDelCosenoParaLados,
                     ruta: kRutaTeoremaDelCosenoParaLados,
                   ),
                   BotonesMenu(

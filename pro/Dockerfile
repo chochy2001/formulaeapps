@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-ARG FLUTTER_IMAGE=ghcr.io/cirruslabs/flutter:3.41.1
+ARG FLUTTER_IMAGE=ghcr.io/cirruslabs/flutter:3.44.7
 
 FROM ${FLUTTER_IMAGE} AS build
 

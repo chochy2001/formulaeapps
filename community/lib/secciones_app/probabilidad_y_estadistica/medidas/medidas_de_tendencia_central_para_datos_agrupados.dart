@@ -16,9 +16,12 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,21 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .tendenciaCentralParaDatosAgrupados,
+                    AppLocalizations.of(
+                      context,
+                    )!.tendenciaCentralParaDatosAgrupados,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .tendenciaCentralParaDatosAgrupados,
-                            widgetName:
-                                kWidgetMedidasDeTendenciaCentralParaDatosAgrupados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.tendenciaCentralParaDatosAgrupados,
+                          widgetName:
+                              kWidgetMedidasDeTendenciaCentralParaDatosAgrupados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +69,22 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tendenciaCentralParaDatosAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeTendenciaCentralParaDatosAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tendenciaCentralParaDatosAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeTendenciaCentralParaDatosAgrupados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tendenciaCentralParaDatosAgrupados,
-                                    widgetName:
-                                        kWidgetMedidasDeTendenciaCentralParaDatosAgrupados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tendenciaCentralParaDatosAgrupados,
+                                  widgetName:
+                                      kWidgetMedidasDeTendenciaCentralParaDatosAgrupados,
+                                ),
                               );
                             }
                           });
@@ -83,9 +93,7 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -99,31 +107,28 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         const Latex(formulaText: r"c = L_{iB}-L_{iA}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.media,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.media),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\bar{X} = \frac{\sum_{i=1}^{n}f_iMC_i}{n}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.mediana,
+                          formulaText:
+                              r"\bar{X} = \frac{\sum_{i=1}^{n}f_iMC_i}{n}",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.mediana),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"M_d = LIR_{M_d}+\frac{\frac{n}{2}-fa_{antM_d}}{f_{M_d}}\cdot c"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.moda,
+                          formulaText:
+                              r"M_d = LIR_{M_d}+\frac{\frac{n}{2}-fa_{antM_d}}{f_{M_d}}\cdot c",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.moda),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"M_o = LIR_{M_o}+\frac{(f_{M_o}-f_1)}{(f_{M_o}-f_1)+(f_{M_o}-f_2)}\cdot c"),
+                          formulaText:
+                              r"M_o = LIR_{M_o}+\frac{(f_{M_o}-f_1)}{(f_{M_o}-f_1)+(f_{M_o}-f_2)}\cdot c",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
@@ -141,10 +146,7 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -167,14 +169,10 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"M_d"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.mediana,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.mediana),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"M_o"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.moda,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.moda),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"MC"),
                         TextoEcuaciones(
@@ -193,8 +191,9 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_1"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaAnteriorClaseModal,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaAnteriorClaseModal,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_i"),
@@ -204,8 +203,9 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_2"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaPosteriorClaseModal,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaPosteriorClaseModal,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"f_{M_o}"),
@@ -215,8 +215,9 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"fa_{antM_d}"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaAcumuladaClaseAnteriorMediana,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaAcumuladaClaseAnteriorMediana,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"L_i"),
@@ -241,14 +242,16 @@ class _MedidasDeTendenciaCentralParaDatosAgrupadosState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"LIR_{M_d}"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .limiteInferiorRealClaseMediana,
+                          AppLocalizations.of(
+                            context,
+                          )!.limiteInferiorRealClaseMediana,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"LIR_{M_o}"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .limiteInferiorRealClaseModal,
+                          AppLocalizations.of(
+                            context,
+                          )!.limiteInferiorRealClaseModal,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

@@ -42,8 +42,9 @@ void main() {
     );
   }
 
-  testWidgets('information and configuration use the robust remote loader',
-      (tester) async {
+  testWidgets('information and configuration use the robust remote loader', (
+    tester,
+  ) async {
     await tester.pumpWidget(harness(const Informacion()));
     await tester.pump();
     expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
@@ -67,8 +68,9 @@ void main() {
     expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
   });
 
-  testWidgets('information and exercise dialogs use the robust remote loader',
-      (tester) async {
+  testWidgets('information and exercise dialogs use the robust remote loader', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       harness(
         Builder(
@@ -99,8 +101,9 @@ void main() {
     expect(find.byType(ImagenRemotaRobusta), findsOneWidget);
   });
 
-  testWidgets('purchase dialog uses a compact robust remote loader',
-      (tester) async {
+  testWidgets('purchase dialog uses a compact robust remote loader', (
+    tester,
+  ) async {
     final platform = FakeInAppPurchasePlatform();
     final manager = InAppPurchaseManager(
       platform: platform,
@@ -132,8 +135,9 @@ void main() {
     );
   });
 
-  testWidgets('chat uses robust loaders for its header and empty state',
-      (tester) async {
+  testWidgets('chat uses robust loaders for its header and empty state', (
+    tester,
+  ) async {
     // Initialize the facade first so setting the fake is not overwritten by
     // the platform registration performed by InAppPurchase.instance.
     InAppPurchase.instance;
@@ -151,9 +155,7 @@ void main() {
           ChangeNotifierProvider<ModelsProvider>(
             create: (_) => ModelsProvider(),
           ),
-          ChangeNotifierProvider<ChatProvider>(
-            create: (_) => ChatProvider(),
-          ),
+          ChangeNotifierProvider<ChatProvider>(create: (_) => ChatProvider()),
         ],
         child: harness(const ChatScreen()),
       ),

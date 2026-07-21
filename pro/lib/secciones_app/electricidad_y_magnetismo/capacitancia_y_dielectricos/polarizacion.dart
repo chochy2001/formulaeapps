@@ -27,8 +27,9 @@ class _PolarizacionState extends State<Polarizacion> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.polarizacion,
-                      widgetName: kWidgetPolarizacion),
+                    title: AppLocalizations.of(context)!.polarizacion,
+                    widgetName: kWidgetPolarizacion,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _PolarizacionState extends State<Polarizacion> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.polarizacion,
-                              widgetName: kWidgetPolarizacion),
+                            title: AppLocalizations.of(context)!.polarizacion,
+                            widgetName: kWidgetPolarizacion,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.polarizacion,
-                              widgetName: kWidgetPolarizacion),
+                            title: AppLocalizations.of(context)!.polarizacion,
+                            widgetName: kWidgetPolarizacion,
+                          ),
                         );
                       }
                     });
@@ -64,37 +67,40 @@ class _PolarizacionState extends State<Polarizacion> {
                   AppLocalizations.of(context)!.alAplicarUnCampoElectrico,
                 ),
                 const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.enUnDielectrico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.enUnDielectrico),
                 const SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenPolarizacion) ??
-                        kUrlImagenPolarizacion),
+                  urlImagen:
+                      getImageUrlById(context, kImagenPolarizacion) ??
+                      kUrlImagenPolarizacion,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.unDipoloElectrico,
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenPolarizacionCargas),
+                  urlImagen: kUrlImagenPolarizacionCargas,
+                ),
                 const Latex(formulaText: r"\vec{p} = q\vec{d}"),
                 const SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenNoPolarizado) ??
-                        kUrlImagenNoPolarizado),
-                const SizedBox(height: 20.0),
-                ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenPolarizado) ??
-                        kUrlImagenPolarizado),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.laPolarizacion,
+                  urlImagen:
+                      getImageUrlById(context, kImagenNoPolarizado) ??
+                      kUrlImagenNoPolarizado,
                 ),
                 const SizedBox(height: 20.0),
+                ZoomImagePersonalizado(
+                  urlImagen:
+                      getImageUrlById(context, kImagenPolarizado) ??
+                      kUrlImagenPolarizado,
+                ),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.laPolarizacion),
+                const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{P} = \frac{\sum_{i = 1}^n\vec{p}i}{V'}"),
+                  formulaText: r"\vec{P} = \frac{\sum_{i = 1}^n\vec{p}i}{V'}",
+                ),
                 const SizedBox(height: 20.0),
               ],
             ),
@@ -102,15 +108,11 @@ class _PolarizacionState extends State<Polarizacion> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetPolarizacion,
-                ),
+                VerPDF(url: kWidgetPolarizacion),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetPolarizacion,
-                ),
+                DescargarPDF(url: kWidgetPolarizacion),
               ],
-            )
+            ),
           ],
         ),
       ),

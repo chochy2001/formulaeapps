@@ -16,9 +16,12 @@ class _RotacionalDelCampoElectrostaticoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _RotacionalDelCampoElectrostaticoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .rotacionalCampoElectrostatico,
-                      widgetName: kWidgetRotacionalDelCampoElectrostatico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.rotacionalCampoElectrostatico,
+                    widgetName: kWidgetRotacionalDelCampoElectrostatico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,20 @@ class _RotacionalDelCampoElectrostaticoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .rotacionalCampoElectrostatico,
-                              widgetName:
-                                  kWidgetRotacionalDelCampoElectrostatico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.rotacionalCampoElectrostatico,
+                            widgetName: kWidgetRotacionalDelCampoElectrostatico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .rotacionalCampoElectrostatico,
-                              widgetName:
-                                  kWidgetRotacionalDelCampoElectrostatico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.rotacionalCampoElectrostatico,
+                            widgetName: kWidgetRotacionalDelCampoElectrostatico,
+                          ),
                         );
                       }
                     });
@@ -81,16 +88,19 @@ class _RotacionalDelCampoElectrostaticoState
               child: Column(
                 children: <Widget>[
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .rotacionalCampoElectrostaticoCero,
+                    AppLocalizations.of(
+                      context,
+                    )!.rotacionalCampoElectrostaticoCero,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"c_e = \oint \vec{E} \cdot d\vec{l}= \iint \left(\vec{\nabla}\times \vec{E}\right) \cdot d\vec{S} = 0"),
+                    formulaText:
+                        r"c_e = \oint \vec{E} \cdot d\vec{l}= \iint \left(\vec{\nabla}\times \vec{E}\right) \cdot d\vec{S} = 0",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\vec{\nabla}\times \vec{E} = \vec{0}"),
+                    formulaText: r"\vec{\nabla}\times \vec{E} = \vec{0}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.segundaLeyMaxwell,
@@ -101,13 +111,9 @@ class _RotacionalDelCampoElectrostaticoState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetRotacionalDelCampoElectrostatico,
-            ),
+            const VerPDF(url: kWidgetRotacionalDelCampoElectrostatico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetRotacionalDelCampoElectrostatico,
-            ),
+            const DescargarPDF(url: kWidgetRotacionalDelCampoElectrostatico),
           ],
         ),
       ),

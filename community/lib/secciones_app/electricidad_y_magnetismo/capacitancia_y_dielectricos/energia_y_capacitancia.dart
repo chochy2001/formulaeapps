@@ -14,9 +14,12 @@ class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,8 +44,9 @@ class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.energiaCapacitancia,
-                      widgetName: kWidgetEnergiaYCapacitancia),
+                    title: AppLocalizations.of(context)!.energiaCapacitancia,
+                    widgetName: kWidgetEnergiaYCapacitancia,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +58,20 @@ class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaCapacitancia,
-                              widgetName: kWidgetEnergiaYCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaCapacitancia,
+                            widgetName: kWidgetEnergiaYCapacitancia,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaCapacitancia,
-                              widgetName: kWidgetEnergiaYCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaCapacitancia,
+                            widgetName: kWidgetEnergiaYCapacitancia,
+                          ),
                         );
                       }
                     });
@@ -75,18 +83,18 @@ class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
             Column(
               children: <Widget>[
                 const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.capacitancia,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.capacitancia),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"C = \frac{Q}{V}"),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenEnergiaYCapacitancia) ??
-                            kUrlImagenEnergiaYCapacitancia),
+                  urlImagen:
+                      getImageUrlById(context, kImagenEnergiaYCapacitancia) ??
+                      kUrlImagenEnergiaYCapacitancia,
+                ),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .energiaPotencialElectricaDiferenciaPotencial,
+                  AppLocalizations.of(
+                    context,
+                  )!.energiaPotencialElectricaDiferenciaPotencial,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"V = \frac{u}{q}"),
@@ -99,23 +107,21 @@ class _EnergiaYCapacitanciaState extends State<EnergiaYCapacitancia> {
                 const SizedBox(height: 20.0),
                 const SizedBox(height: 40.0),
                 const Latex(
-                    formulaText: r"\int_o^U du  = \int_0^Q \frac{q}{C}dq"),
+                  formulaText: r"\int_o^U du  = \int_0^Q \frac{q}{C}dq",
+                ),
                 const SizedBox(height: 40.0),
                 const Latex(
-                    formulaText:
-                        r"U = \frac{1}{2} \frac{Q^2}{C} = \frac{1}{2}CV^2 = \frac{1}{2}QV"),
+                  formulaText:
+                      r"U = \frac{1}{2} \frac{Q^2}{C} = \frac{1}{2}CV^2 = \frac{1}{2}QV",
+                ),
                 const SizedBox(height: 20.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetEnergiaYCapacitancia,
-            ),
+            const VerPDF(url: kWidgetEnergiaYCapacitancia),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetEnergiaYCapacitancia,
-            ),
+            const DescargarPDF(url: kWidgetEnergiaYCapacitancia),
           ],
         ),
       ),

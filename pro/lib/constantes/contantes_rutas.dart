@@ -405,17 +405,26 @@ const kRutaConfiguracion = '/configuracion';
 const kRutaCoeficientesBinomiales = '/coeficientesBinomiales';
 const kRutaPotenciasNEsimas = '/potenciasNEsimas';
 const kRutaEcuacionCubica = '/ecuacionCubica';
-const kRutaEcuacionCuadraticaFormaMonicaVieta = '/ecuacionCuadraticaFormaMonicaVieta';
-const kRutaNumerosComplejosFormaExponencialNumeroComplejo = '/numerosComplejosFormaExponencialNumeroComplejo';
-const kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos = '/numerosComplejosRaicesEIgualdadNumerosComplejos';
+const kRutaEcuacionCuadraticaFormaMonicaVieta =
+    '/ecuacionCuadraticaFormaMonicaVieta';
+const kRutaNumerosComplejosFormaExponencialNumeroComplejo =
+    '/numerosComplejosFormaExponencialNumeroComplejo';
+const kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos =
+    '/numerosComplejosRaicesEIgualdadNumerosComplejos';
 const kRutaPropiedadesLogaritmos2 = '/propiedadesLogaritmos2';
 const kRutaDeterminantesCramerSarrus = '/determinantesCramerSarrus';
-const kRutaAlgebraLinealMatricesTiposDeMatrices = '/algebraLinealMatricesTiposDeMatrices';
-const kRutaAlgebraLinealVectoresProductosBaseCanonica = '/algebraLinealVectoresProductosBaseCanonica';
-const kRutaAlgebraLinealVectoresProductoEscalarTriple = '/algebraLinealVectoresProductoEscalarTriple';
-const kRutaAlgebraLinealVectoresSumaVectoresComponentes = '/algebraLinealVectoresSumaVectoresComponentes';
-const kRutaAlgebraLinealVectoresLeySenosCosenos = '/algebraLinealVectoresLeySenosCosenos';
-const kRutaAlgebraLinealVectoresRazonesTrigonometricas = '/algebraLinealVectoresRazonesTrigonometricas';
+const kRutaAlgebraLinealMatricesTiposDeMatrices =
+    '/algebraLinealMatricesTiposDeMatrices';
+const kRutaAlgebraLinealVectoresProductosBaseCanonica =
+    '/algebraLinealVectoresProductosBaseCanonica';
+const kRutaAlgebraLinealVectoresProductoEscalarTriple =
+    '/algebraLinealVectoresProductoEscalarTriple';
+const kRutaAlgebraLinealVectoresSumaVectoresComponentes =
+    '/algebraLinealVectoresSumaVectoresComponentes';
+const kRutaAlgebraLinealVectoresLeySenosCosenos =
+    '/algebraLinealVectoresLeySenosCosenos';
+const kRutaAlgebraLinealVectoresRazonesTrigonometricas =
+    '/algebraLinealVectoresRazonesTrigonometricas';
 const kRutaLimitesTeoremasLimites = '/limitesTeoremasLimites';
 const kRutaLimitesLimitesInfinitos = '/limitesLimitesInfinitos';
 const kRutaLimitesLimitesImportantes = '/limitesLimitesImportantes';
@@ -425,26 +434,34 @@ const kRutaReglaLhopital = '/reglaLhopital';
 const kRutaDiferenciales = '/diferenciales';
 const kRutaDerivadasAlgebraicasRadicales = '/derivadasAlgebraicasRadicales';
 const kRutaReglaCadenaFuncionInversa = '/reglaCadenaFuncionInversa';
-const kRutaDerivadasTrigonometricasComplementarias = '/derivadasTrigonometricasComplementarias';
+const kRutaDerivadasTrigonometricasComplementarias =
+    '/derivadasTrigonometricasComplementarias';
 const kRutaDerivadasHiperbolicasInversas = '/derivadasHiperbolicasInversas';
 const kRutaDerivacionLogaritmica = '/derivacionLogaritmica';
 const kRutaRazonCambioTangenteNormal = '/razonCambioTangenteNormal';
 const kRutaAplicacionFisicaDerivada = '/aplicacionFisicaDerivada';
-const kRutaIntegralesInmediatasAdicionalesIntegral = '/integralesInmediatasAdicionalesIntegral';
-const kRutaPotenciasReduccionTrigonometricasIntegral = '/potenciasReduccionTrigonometricasIntegral';
-const kRutaTrigonometricasRacionalesProductosIntegral = '/trigonometricasRacionalesProductosIntegral';
-const kRutaPotenciasReduccionHiperbolicasIntegral = '/potenciasReduccionHiperbolicasIntegral';
+const kRutaIntegralesInmediatasAdicionalesIntegral =
+    '/integralesInmediatasAdicionalesIntegral';
+const kRutaPotenciasReduccionTrigonometricasIntegral =
+    '/potenciasReduccionTrigonometricasIntegral';
+const kRutaTrigonometricasRacionalesProductosIntegral =
+    '/trigonometricasRacionalesProductosIntegral';
+const kRutaPotenciasReduccionHiperbolicasIntegral =
+    '/potenciasReduccionHiperbolicasIntegral';
 const kRutaHiperbolicasInversasIntegral = '/hiperbolicasInversasIntegral';
-const kRutaIntegralDefinidaPropiedadesIntegral = '/integralDefinidaPropiedadesIntegral';
+const kRutaIntegralDefinidaPropiedadesIntegral =
+    '/integralDefinidaPropiedadesIntegral';
 const kRutaIntegracionNumericaIntegral = '/integracionNumericaIntegral';
-const kRutaSustitucionTrigonometricaIntegral = '/sustitucionTrigonometricaIntegral';
+const kRutaSustitucionTrigonometricaIntegral =
+    '/sustitucionTrigonometricaIntegral';
 const kRutaAreaLongitudArcoIntegral = '/areaLongitudArcoIntegral';
 const kRutaFraccionesParcialesIntegral = '/fraccionesParcialesIntegral';
 const kRutaConstantesMatematicas = '/constantesMatematicas';
 const kRutaConstantesFisicasUniversales = '/constantesFisicasUniversales';
 const kRutaConstantesElectromagneticas = '/constantesElectromagneticas';
 const kRutaConstantesAtomicasMoleculares = '/constantesAtomicasMoleculares';
-const kRutaConstantesTerrestresAstronomicas = '/constantesTerrestresAstronomicas';
+const kRutaConstantesTerrestresAstronomicas =
+    '/constantesTerrestresAstronomicas';
 const kRutaMenuConstantesMatematicas = '/menuConstantesMatematicas';
 const kRutaLongitudConversion = '/longitudConversion';
 const kRutaSuperficieConversion = '/superficieConversion';
@@ -461,10 +478,12 @@ const kRutaInstrumentosDeMedicionElectrica = '/instrumentosDeMedicionElectrica';
 const kRutaCircuitoLrEnSerie = '/circuitoLrEnSerie';
 const kRutaFuerzaYTorcaMagnetica = '/fuerzaYTorcaMagnetica';
 const kRutaCapacitoresCilindricoYEsferico = '/capacitoresCilindricoYEsferico';
-const kRutaPermeabilidadMagneticaEnMateriales = '/permeabilidadMagneticaEnMateriales';
+const kRutaPermeabilidadMagneticaEnMateriales =
+    '/permeabilidadMagneticaEnMateriales';
 const kRutaBateriaRealVoltajeEnTerminales = '/bateriaRealVoltajeEnTerminales';
 const kRutaLaRectaYElTriangulo = '/laRectaYElTriangulo';
-const kRutaTangentesYPropiedadesDeLasConicas = '/tangentesYPropiedadesDeLasConicas';
+const kRutaTangentesYPropiedadesDeLasConicas =
+    '/tangentesYPropiedadesDeLasConicas';
 const kRutaHiperbolaEquilatera = '/hiperbolaEquilatera';
 const kRutaLaCurvaExponencial = '/laCurvaExponencial';
 const kRutaAceleracionYMrua = '/aceleracionYMrua';
@@ -492,40 +511,57 @@ const kRutaConjuntosEIntervalos = '/conjuntosEIntervalos';
 const kRutaValorAbsoluto = '/valorAbsoluto';
 const kRutaMenuNumerosRealesYDesigualdades = '/menuNumerosRealesYDesigualdades';
 const kRutaLeyDeLaIluminacion = '/leyDeLaIluminacion';
-const kRutaReflexionYAumentoFormaNewtoniana = '/reflexionYAumentoFormaNewtoniana';
-const kRutaEcuacionDeLasLentesFormaGaussiana = '/ecuacionDeLasLentesFormaGaussiana';
+const kRutaReflexionYAumentoFormaNewtoniana =
+    '/reflexionYAumentoFormaNewtoniana';
+const kRutaEcuacionDeLasLentesFormaGaussiana =
+    '/ecuacionDeLasLentesFormaGaussiana';
 const kRutaRefraccionDeLaLuzLeyDeSnell = '/refraccionDeLaLuzLeyDeSnell';
 const kRutaTiposDeLentesYMarchaDeRayos = '/tiposDeLentesYMarchaDeRayos';
 const kRutaMenuOptica = '/menuOptica';
 const kRutaAxiomasDeProbabilidad = '/axiomasDeProbabilidad';
-const kRutaFuncionesDeMasaDensidadYAcumulada = '/funcionesDeMasaDensidadYAcumulada';
-const kRutaFuncionesDeProbabilidadConjuntasYCondicionales = '/funcionesDeProbabilidadConjuntasYCondicionales';
+const kRutaFuncionesDeMasaDensidadYAcumulada =
+    '/funcionesDeMasaDensidadYAcumulada';
+const kRutaFuncionesDeProbabilidadConjuntasYCondicionales =
+    '/funcionesDeProbabilidadConjuntasYCondicionales';
 const kRutaEsperanzaMediaYVarianza = '/esperanzaMediaYVarianza';
-const kRutaDistribucionesDistribucionDeBernoulli = '/distribucionesDistribucionDeBernoulli';
-const kRutaDistribucionesDistribucionDePascal = '/distribucionesDistribucionDePascal';
+const kRutaDistribucionesDistribucionDeBernoulli =
+    '/distribucionesDistribucionDeBernoulli';
+const kRutaDistribucionesDistribucionDePascal =
+    '/distribucionesDistribucionDePascal';
 const kRutaDistribucionesDistribucionBeta = '/distribucionesDistribucionBeta';
-const kRutaDistribucionesDistribucionDeCauchy = '/distribucionesDistribucionDeCauchy';
-const kRutaDistribucionesDistribucionDeErlang = '/distribucionesDistribucionDeErlang';
-const kRutaDistribucionesDistribucionUniforme = '/distribucionesDistribucionUniforme';
+const kRutaDistribucionesDistribucionDeCauchy =
+    '/distribucionesDistribucionDeCauchy';
+const kRutaDistribucionesDistribucionDeErlang =
+    '/distribucionesDistribucionDeErlang';
+const kRutaDistribucionesDistribucionUniforme =
+    '/distribucionesDistribucionUniforme';
 const kRutaRegresionLineal = '/regresionLineal';
-const kRutaDesigualdadDeChebyshevYConvergencia = '/desigualdadDeChebyshevYConvergencia';
+const kRutaDesigualdadDeChebyshevYConvergencia =
+    '/desigualdadDeChebyshevYConvergencia';
 const kRutaTransferenciaDeCalor = '/transferenciaDeCalor';
-const kRutaCapacidadCalorificaYCalorLatente = '/capacidadCalorificaYCalorLatente';
+const kRutaCapacidadCalorificaYCalorLatente =
+    '/capacidadCalorificaYCalorLatente';
 const kRutaLeyesDeLosGases = '/leyesDeLosGases';
-const kRutaCicloDeCarnotYLeyesDeLaTermodinamica = '/cicloDeCarnotYLeyesDeLaTermodinamica';
+const kRutaCicloDeCarnotYLeyesDeLaTermodinamica =
+    '/cicloDeCarnotYLeyesDeLaTermodinamica';
 const kRutaTrabajoTermodinamico = '/trabajoTermodinamico';
 const kRutaEntalpiaYEnergiaInterna = '/entalpiaYEnergiaInterna';
 const kRutaDilatacionLineal = '/dilatacionLineal';
-const kRutaDilatacionSuperficialYVolumetrica = '/dilatacionSuperficialYVolumetrica';
+const kRutaDilatacionSuperficialYVolumetrica =
+    '/dilatacionSuperficialYVolumetrica';
 const kRutaEntropiaYTeoriaCinetica = '/entropiaYTeoriaCinetica';
 const kRutaProcesosTermodinamicos = '/procesosTermodinamicos';
 const kRutaMenuTermodinamica = '/menuTermodinamica';
 const kRutaCirculoUnitario = '/circuloUnitario';
 const kRutaSignosDeFuncionesPorCuadrante = '/signosDeFuncionesPorCuadrante';
 const kRutaAngulosNotablesGradosRadianes = '/angulosNotablesGradosRadianes';
-const kRutaRelacionEntreFuncionesTrigonometricas = '/relacionEntreFuncionesTrigonometricas';
-const kRutaIdentidadesDeAnguloTripleYCuadruple = '/identidadesDeAnguloTripleYCuadruple';
-const kRutaIdentidadesDeReduccionDePotencias = '/identidadesDeReduccionDePotencias';
-const kRutaIdentidadesFundamentalesFormasDerivadas = '/identidadesFundamentalesFormasDerivadas';
+const kRutaRelacionEntreFuncionesTrigonometricas =
+    '/relacionEntreFuncionesTrigonometricas';
+const kRutaIdentidadesDeAnguloTripleYCuadruple =
+    '/identidadesDeAnguloTripleYCuadruple';
+const kRutaIdentidadesDeReduccionDePotencias =
+    '/identidadesDeReduccionDePotencias';
+const kRutaIdentidadesFundamentalesFormasDerivadas =
+    '/identidadesFundamentalesFormasDerivadas';
 const kRutaCotangenteDeSumaYRestaDeAngulos = '/cotangenteDeSumaYRestaDeAngulos';
 const kRutaProductoDeCosenoPorSeno = '/productoDeCosenoPorSeno';

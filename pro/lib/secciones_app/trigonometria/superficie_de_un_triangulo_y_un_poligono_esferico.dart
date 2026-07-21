@@ -26,18 +26,21 @@ class SuperficieDeUnTrianguloYUnPoligonoEsfericoState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .superficieDeUnTrianguloYUnPoligonoEsferico,
+                      AppLocalizations.of(
+                        context,
+                      )!.superficieDeUnTrianguloYUnPoligonoEsferico,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .superficieDeUnTrianguloYUnPoligonoEsferico,
-                            widgetName:
-                                kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.superficieDeUnTrianguloYUnPoligonoEsferico,
+                          widgetName:
+                              kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +52,22 @@ class SuperficieDeUnTrianguloYUnPoligonoEsfericoState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .superficieDeUnTrianguloYUnPoligonoEsferico,
-                                    widgetName:
-                                        kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.superficieDeUnTrianguloYUnPoligonoEsferico,
+                                  widgetName:
+                                      kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .superficieDeUnTrianguloYUnPoligonoEsferico,
-                                    widgetName:
-                                        kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.superficieDeUnTrianguloYUnPoligonoEsferico,
+                                  widgetName:
+                                      kWidgetSuperficieDeUnTrianguloYUnPoligonoEsferico,
+                                ),
                               );
                             }
                           });
@@ -69,29 +76,31 @@ class SuperficieDeUnTrianguloYUnPoligonoEsfericoState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .superficieTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.superficieTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S = \frac{\pi r^2}{180^\circ}(\alpha+\beta+\gamma-180^\circ)"),
+                          formulaText:
+                              r"S = \frac{\pi r^2}{180^\circ}(\alpha+\beta+\gamma-180^\circ)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .superficiePoligonoEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.superficiePoligonoEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"S = \frac{\pi r^2}{180^\circ}(A_1+A_2+\cdots + A_n - (n-2)\cdot 180^\circ)"),
+                          formulaText:
+                              r"S = \frac{\pi r^2}{180^\circ}(A_1+A_2+\cdots + A_n - (n-2)\cdot 180^\circ)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
@@ -113,10 +122,7 @@ class SuperficieDeUnTrianguloYUnPoligonoEsfericoState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -131,8 +137,9 @@ class SuperficieDeUnTrianguloYUnPoligonoEsfericoState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\alpha\space \beta\space \gamma\space "),
+                          formulaText:
+                              r"\alpha\space \beta\space \gamma\space ",
+                        ),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.angulosTriangulo,
                         ),

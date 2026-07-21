@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../constantes/export_constantes.dart';
@@ -12,7 +13,9 @@ class VideosYoutube extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (UniversalPlatform.isWeb || UniversalPlatform.isWindows) {
+    if (UniversalPlatform.isWeb ||
+        UniversalPlatform.isWindows ||
+        WebViewPlatform.instance == null) {
       return Center(
         child: Text(
           AppLocalizations.of(context)!.disponibilidadVideos,
@@ -40,10 +43,9 @@ class VideosYoutube extends StatelessWidget {
       shadowColor: kColorTextoBotones,
       elevation: 10.0,
       child: YoutubePlayer(
-        controller: YoutubePlayerController(
-          initialVideoId: YoutubePlayer.convertUrlToId(urlVideo!)!,
+        controller: YoutubePlayerController.fromVideoId(
+          videoId: YoutubePlayerController.convertUrlToId(urlVideo!)!,
         ),
-        liveUIColor: kColorBotones,
       ),
     );
   }

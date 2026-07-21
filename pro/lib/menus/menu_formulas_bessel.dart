@@ -22,9 +22,7 @@ class MenuFormulasBesselState extends State<MenuFormulasBessel> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -33,22 +31,23 @@ class MenuFormulasBesselState extends State<MenuFormulasBessel> {
                     AppLocalizations.of(context)!.formulasDeBessel,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.teoremaDeLaCotangente,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDeLaCotangente,
                     ruta: kRutaTeoremaDeLaCotangente,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .teoremaDelCosenoParaAngulos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDelCosenoParaAngulos,
                     ruta: kRutaTeoremaDelCosenoParaAngulos,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.teoremaDelCosenoParaLados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.teoremaDelCosenoParaLados,
                     ruta: kRutaTeoremaDelCosenoParaLados,
                   ),
                   BotonesMenu(

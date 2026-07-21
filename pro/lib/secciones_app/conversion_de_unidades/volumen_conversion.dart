@@ -44,14 +44,18 @@ class VolumenConversionState extends State<VolumenConversion> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.volumenConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.volumenConversion,
                                 widgetName: kWidgetVolumenConversion,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.volumenConversion,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.volumenConversion,
                                 widgetName: kWidgetVolumenConversion,
                               ),
                             );
@@ -67,17 +71,35 @@ class VolumenConversionState extends State<VolumenConversion> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"1\ \text{cm}^{3} = 1.0\times10^{-3}\ \text{L} = 1.0\times10^{-6}\ \text{m}^{3} = 6.1024\times10^{-2}\ \text{pulg}^{3} = 3.5315\times10^{-5}\ \text{pie}^{3} = 2.6417\times10^{-4}\ \text{gal}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{cm}^{3} = 1.0\times10^{-3}\ \text{L} = 1.0\times10^{-6}\ \text{m}^{3} = 6.1024\times10^{-2}\ \text{pulg}^{3} = 3.5315\times10^{-5}\ \text{pie}^{3} = 2.6417\times10^{-4}\ \text{gal}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{L} = 1000\ \text{cm}^{3} = 1.0\times10^{-3}\ \text{m}^{3} = 61.024\ \text{pulg}^{3} = 3.5315\times10^{-2}\ \text{pie}^{3} = 0.26417\ \text{gal}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{L} = 1000\ \text{cm}^{3} = 1.0\times10^{-3}\ \text{m}^{3} = 61.024\ \text{pulg}^{3} = 3.5315\times10^{-2}\ \text{pie}^{3} = 0.26417\ \text{gal}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{m}^{3} = 1.0\times10^{6}\ \text{cm}^{3} = 1000\ \text{L} = 6.1024\times10^{4}\ \text{pulg}^{3} = 35.315\ \text{pie}^{3} = 264.17\ \text{gal}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{m}^{3} = 1.0\times10^{6}\ \text{cm}^{3} = 1000\ \text{L} = 6.1024\times10^{4}\ \text{pulg}^{3} = 35.315\ \text{pie}^{3} = 264.17\ \text{gal}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{pulg}^{3} = 16.387\ \text{cm}^{3} = 1.6387\times10^{-2}\ \text{L} = 1.6387\times10^{-5}\ \text{m}^{3} = 5.7870\times10^{-4}\ \text{pie}^{3} = 4.3290\times10^{-3}\ \text{gal}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{pulg}^{3} = 16.387\ \text{cm}^{3} = 1.6387\times10^{-2}\ \text{L} = 1.6387\times10^{-5}\ \text{m}^{3} = 5.7870\times10^{-4}\ \text{pie}^{3} = 4.3290\times10^{-3}\ \text{gal}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{pie}^{3} = 28317\ \text{cm}^{3} = 28.317\ \text{L} = 2.8317\times10^{-2}\ \text{m}^{3} = 1728\ \text{pulg}^{3} = 7.4805\ \text{gal}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{pie}^{3} = 28317\ \text{cm}^{3} = 28.317\ \text{L} = 2.8317\times10^{-2}\ \text{m}^{3} = 1728\ \text{pulg}^{3} = 7.4805\ \text{gal}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"1\ \text{gal} = 3785.4\ \text{cm}^{3} = 3.7854\ \text{L} = 3.7854\times10^{-3}\ \text{m}^{3} = 231\ \text{pulg}^{3} = 0.13368\ \text{pie}^{3}"),
+                  Latex(
+                    formulaText:
+                        r"1\ \text{gal} = 3785.4\ \text{cm}^{3} = 3.7854\ \text{L} = 3.7854\times10^{-3}\ \text{m}^{3} = 231\ \text{pulg}^{3} = 0.13368\ \text{pie}^{3}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

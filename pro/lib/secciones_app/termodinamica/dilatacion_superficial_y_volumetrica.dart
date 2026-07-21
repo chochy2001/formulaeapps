@@ -6,10 +6,12 @@ class DilatacionSuperficialYVolumetrica extends StatefulWidget {
   const DilatacionSuperficialYVolumetrica({super.key});
 
   @override
-  DilatacionSuperficialYVolumetricaState createState() => DilatacionSuperficialYVolumetricaState();
+  DilatacionSuperficialYVolumetricaState createState() =>
+      DilatacionSuperficialYVolumetricaState();
 }
 
-class DilatacionSuperficialYVolumetricaState extends State<DilatacionSuperficialYVolumetrica> {
+class DilatacionSuperficialYVolumetricaState
+    extends State<DilatacionSuperficialYVolumetrica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DilatacionSuperficialYVolumetricaState extends State<DilatacionSuperficial
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica,
+                    AppLocalizations.of(
+                      context,
+                    )!.dilatacionSuperficialYVolumetrica,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.dilatacionSuperficialYVolumetrica,
                         widgetName: kWidgetDilatacionSuperficialYVolumetrica,
                       ),
                     );
@@ -44,15 +50,21 @@ class DilatacionSuperficialYVolumetricaState extends State<DilatacionSuperficial
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica,
-                                widgetName: kWidgetDilatacionSuperficialYVolumetrica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.dilatacionSuperficialYVolumetrica,
+                                widgetName:
+                                    kWidgetDilatacionSuperficialYVolumetrica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.dilatacionSuperficialYVolumetrica,
-                                widgetName: kWidgetDilatacionSuperficialYVolumetrica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.dilatacionSuperficialYVolumetrica,
+                                widgetName:
+                                    kWidgetDilatacionSuperficialYVolumetrica,
                               ),
                             );
                           }
@@ -77,9 +89,15 @@ class DilatacionSuperficialYVolumetricaState extends State<DilatacionSuperficial
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\beta = 3\alpha"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\alpha = \frac{1}{V}\left(\frac{\partial V}{\partial T}\right)"),
+                  Latex(
+                    formulaText:
+                        r"\alpha = \frac{1}{V}\left(\frac{\partial V}{\partial T}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\alpha_v \approx \frac{1}{V(T)}\,\frac{\Delta V(T)}{\Delta T} = \frac{d\ln V(T)}{dT}"),
+                  Latex(
+                    formulaText:
+                        r"\alpha_v \approx \frac{1}{V(T)}\,\frac{\Delta V(T)}{\Delta T} = \frac{d\ln V(T)}{dT}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\Delta V = \frac{(T_2 - T_1)\,nR}{P}"),
                   SizedBox(height: kEspacioEntreBotones),

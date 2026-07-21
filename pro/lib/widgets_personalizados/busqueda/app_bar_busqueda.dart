@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:formulae/widgets_personalizados/busqueda/search_delegate.dart';
@@ -13,10 +13,11 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Activar la bÃºsqueda automÃ¡ticamente al entrar a la pÃ¡gina
       showSearch(
-          context: context,
-          delegate: DataSearch(
-            buscarFormula: AppLocalizations.of(context)!.buscarFormula,
-          ));
+        context: context,
+        delegate: DataSearch(
+          buscarFormula: AppLocalizations.of(context)!.buscarFormula,
+        ),
+      );
     });
 
     return PreferredSize(
@@ -25,7 +26,10 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0.0,
         backgroundColor: kColorFondo,
         titleTextStyle: const TextStyle(
-            color: Colors.white, fontFamily: 'Poppins', fontSize: 20),
+          color: Colors.white,
+          fontFamily: 'Poppins',
+          fontSize: 20,
+        ),
         actions: <Widget>[
           Animate(
             effects: const [
@@ -43,26 +47,23 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
             child: IconButton(
-              icon: const FaIcon(FontAwesomeIcons.magnifyingGlass,
+              icon: const FaIcon(
+                FontAwesomeIcons.magnifyingGlass,
                 color: kColorBlanco,
                 size: 22.0,
               ),
               onPressed: () {
                 showSearch(
-                    context: context,
-                    delegate: DataSearch(
-                      buscarFormula:
-                          AppLocalizations.of(context)!.buscarFormula,
-                    ));
+                  context: context,
+                  delegate: DataSearch(
+                    buscarFormula: AppLocalizations.of(context)!.buscarFormula,
+                  ),
+                );
               },
             ),
           ),
         ],
-        title: Center(
-          child: Text(
-            AppLocalizations.of(context)!.buscarFormula,
-          ),
-        ),
+        title: Center(child: Text(AppLocalizations.of(context)!.buscarFormula)),
       ),
     );
   }

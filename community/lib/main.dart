@@ -61,19 +61,19 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<LocaleProvider>(
-            create: (context) => LocaleProvider(deviceLocale)),
+          create: (context) => LocaleProvider(deviceLocale),
+        ),
         ChangeNotifierProvider<ModelsProvider>(
           create: (context) => ModelsProvider(),
         ),
         ChangeNotifierProvider<ChatProvider>(
           create: (context) => ChatProvider(),
         ),
-        ChangeNotifierProvider<TaskData>(
-          create: (context) => TaskData(),
-        ),
+        ChangeNotifierProvider<TaskData>(create: (context) => TaskData()),
         // Usa el favoritesNotifier que ya has inicializado y cargado
         ChangeNotifierProvider<FavoritesNotifier>.value(
-            value: favoritesNotifier),
+          value: favoritesNotifier,
+        ),
       ],
       child: MyApp(favoritesNotifier: favoritesNotifier),
     ),
@@ -127,23 +127,24 @@ class MyAppState extends State<MyApp> {
       supportedLocales: L10n.all,
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-            //Menu Icon color changed to white
-            iconTheme: IconThemeData(color: Colors.white)),
+          //Menu Icon color changed to white
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         fontFamily: 'Poppins',
         primarySwatch: PaletaColores.kFondo,
         scaffoldBackgroundColor: kColorFondo,
         primaryColor: kColorFondo,
       ),
       darkTheme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: kColorFondo,
-          primaryColor: kColorFondo,
-          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Poppins')),
+        scaffoldBackgroundColor: kColorFondo,
+        primaryColor: kColorFondo,
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Poppins'),
+      ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: getApplicationRoutes(),
-      onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
-        builder: (BuildContext context) => const Menu(),
-      ),
+      onGenerateRoute: (RouteSettings settings) =>
+          MaterialPageRoute(builder: (BuildContext context) => const Menu()),
     );
   }
 }

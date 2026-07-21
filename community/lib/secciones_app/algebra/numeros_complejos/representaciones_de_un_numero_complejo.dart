@@ -19,9 +19,12 @@ class _RepresentacionesDeNumerosComplejosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,18 +46,20 @@ class _RepresentacionesDeNumerosComplejosState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .representacionesDeUnNumeroComplejo,
+                    AppLocalizations.of(
+                      context,
+                    )!.representacionesDeUnNumeroComplejo,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .representacionesDeUnNumeroComplejo,
-                            widgetName:
-                                kWidgetRepresentacionesDeUnNumeroComplejo),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.representacionesDeUnNumeroComplejo,
+                          widgetName: kWidgetRepresentacionesDeUnNumeroComplejo,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -66,18 +71,22 @@ class _RepresentacionesDeNumerosComplejosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .representacionesDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetRepresentacionesDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.representacionesDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetRepresentacionesDeUnNumeroComplejo,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .representacionesDeUnNumeroComplejo,
-                                    widgetName:
-                                        kWidgetRepresentacionesDeUnNumeroComplejo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.representacionesDeUnNumeroComplejo,
+                                  widgetName:
+                                      kWidgetRepresentacionesDeUnNumeroComplejo,
+                                ),
                               );
                             }
                           });
@@ -86,9 +95,7 @@ class _RepresentacionesDeNumerosComplejosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -101,8 +108,9 @@ class _RepresentacionesDeNumerosComplejosState
                             Latex(formulaText: r"z=a+bi"),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(
-                                formulaText:
-                                    r"z=r(\cos\theta +i\cdot \sin \theta)"),
+                              formulaText:
+                                  r"z=r(\cos\theta +i\cdot \sin \theta)",
+                            ),
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"\cos \theta = \frac{a}{r}"),
                             SizedBox(height: kEspacioEntreBotones),
@@ -126,9 +134,7 @@ class _RepresentacionesDeNumerosComplejosState
                             SizedBox(height: kEspacioEntreBotones),
                             Latex(formulaText: r"i^4=1"),
                             SizedBox(height: kEspacioEntreBotones),
-                            SizedBox(
-                              height: kEspacioEntreBotones,
-                            ),
+                            SizedBox(height: kEspacioEntreBotones),
                           ],
                         ),
                       ],
@@ -136,9 +142,7 @@ class _RepresentacionesDeNumerosComplejosState
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetRepresentacionesDeUnNumeroComplejo,
-                  ),
+                  const VerPDF(url: kWidgetRepresentacionesDeUnNumeroComplejo),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetRepresentacionesDeUnNumeroComplejo,
@@ -147,10 +151,7 @@ class _RepresentacionesDeNumerosComplejosState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -168,9 +169,7 @@ class _RepresentacionesDeNumerosComplejosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"r"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.modulo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.modulo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

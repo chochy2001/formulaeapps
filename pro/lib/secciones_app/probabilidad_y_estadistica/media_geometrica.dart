@@ -31,9 +31,9 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.mediaGeometrica,
-                            widgetName: kWidgetMediaGeometrica),
+                          title: AppLocalizations.of(context)!.mediaGeometrica,
+                          widgetName: kWidgetMediaGeometrica,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +45,20 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .mediaGeometrica,
-                                    widgetName: kWidgetMediaGeometrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.mediaGeometrica,
+                                  widgetName: kWidgetMediaGeometrica,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .mediaGeometrica,
-                                    widgetName: kWidgetMediaGeometrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.mediaGeometrica,
+                                  widgetName: kWidgetMediaGeometrica,
+                                ),
                               );
                             }
                           });
@@ -63,9 +67,7 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -75,8 +77,9 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\bar{X}_{G} = \sqrt[n]{x_1\cdot x_2 \cdot x_3\cdots x_n}"),
+                          formulaText:
+                              r"\bar{X}_{G} = \sqrt[n]{x_1\cdot x_2 \cdot x_3\cdots x_n}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -85,8 +88,9 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\ln{(\bar{X}_{G})} = \frac{\sum_{i=1}^{n} f_i \cdot \ln{(MC_i)}}{n}"),
+                          formulaText:
+                              r"\ln{(\bar{X}_{G})} = \frac{\sum_{i=1}^{n} f_i \cdot \ln{(MC_i)}}{n}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -94,21 +98,14 @@ class MediaGeometricaState extends State<MediaGeometrica> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMediaGeometrica,
-                  ),
+                  const VerPDF(url: kWidgetMediaGeometrica),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMediaGeometrica,
-                  ),
+                  const DescargarPDF(url: kWidgetMediaGeometrica),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

@@ -7,16 +7,15 @@ class MenuConstantesMatematicas extends StatefulWidget {
   const MenuConstantesMatematicas({super.key});
 
   @override
-  MenuConstantesMatematicasState createState() => MenuConstantesMatematicasState();
+  MenuConstantesMatematicasState createState() =>
+      MenuConstantesMatematicasState();
 }
 
 class MenuConstantesMatematicasState extends State<MenuConstantesMatematicas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -34,23 +33,33 @@ class MenuConstantesMatematicasState extends State<MenuConstantesMatematicas> {
                   ),
                   const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.constantesMatematicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesMatematicas,
                     ruta: kRutaConstantesMatematicas,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.constantesFisicasUniversales,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesFisicasUniversales,
                     ruta: kRutaConstantesFisicasUniversales,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.constantesElectromagneticas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesElectromagneticas,
                     ruta: kRutaConstantesElectromagneticas,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.constantesAtomicasMoleculares,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesAtomicasMoleculares,
                     ruta: kRutaConstantesAtomicasMoleculares,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.constantesTerrestresAstronomicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesTerrestresAstronomicas,
                     ruta: kRutaConstantesTerrestresAstronomicas,
                   ),
                 ],

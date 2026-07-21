@@ -16,9 +16,12 @@ class CalculoIntegralState extends State<CalculoIntegral> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -31,18 +34,14 @@ class CalculoIntegralState extends State<CalculoIntegral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -51,9 +50,7 @@ class CalculoIntegralState extends State<CalculoIntegral> {
                     AppLocalizations.of(context)!.calculoIntegral,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   //Integracion Básica
                   BotonesMenu(
@@ -62,25 +59,29 @@ class CalculoIntegralState extends State<CalculoIntegral> {
                   ),
                   //Funciones Trigonometricas Integral
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesTrigonometricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesTrigonometricas,
                     ruta: kRutaFuncionesTrigonometricasIntegral,
                   ),
                   //trigonometricas inversas Integral
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.trigonometricasInversas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasInversas,
                     ruta: kRutaFuncionesTrigonometricasInversasIntegral,
                   ),
                   //Funciones Hiperbolicas Integral
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .trigonometricasHiperbolicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasHiperbolicas,
                     ruta: kRutaFuncionesHiperbolicasIntegral,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.exponencialLogaritmos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.exponencialLogaritmos,
                     ruta: kRutaFuncionesExponencialyLogaritmosIntegral,
                   ),
                   BotonesMenu(

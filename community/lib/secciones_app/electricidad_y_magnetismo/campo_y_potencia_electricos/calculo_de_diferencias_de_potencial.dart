@@ -16,9 +16,12 @@ class _CalculoDeDiferenciasDePotencialState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _CalculoDeDiferenciasDePotencialState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .calculoDiferenciasPotencial,
-                      widgetName: kWidgetCalculoDeDiferenciasDePotencial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.calculoDiferenciasPotencial,
+                    widgetName: kWidgetCalculoDeDiferenciasDePotencial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,20 @@ class _CalculoDeDiferenciasDePotencialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .calculoDiferenciasPotencial,
-                              widgetName:
-                                  kWidgetCalculoDeDiferenciasDePotencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.calculoDiferenciasPotencial,
+                            widgetName: kWidgetCalculoDeDiferenciasDePotencial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .calculoDiferenciasPotencial,
-                              widgetName:
-                                  kWidgetCalculoDeDiferenciasDePotencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.calculoDiferenciasPotencial,
+                            widgetName: kWidgetCalculoDeDiferenciasDePotencial,
+                          ),
                         );
                       }
                     });
@@ -86,104 +93,101 @@ class _CalculoDeDiferenciasDePotencialState
                     AppLocalizations.of(context)!.diferenciaDePotencial,
                   ),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{B}^{A} \vec{E} \cdot d\vec{l}"),
-                  const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cargaPuntual,
+                    formulaText:
+                        r"V_{AB} = - \int_{B}^{A} \vec{E} \cdot d\vec{l}",
                   ),
                   const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.campoElectrico,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cargaPuntual),
+                  const SizedBox(height: 20.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.campoElectrico),
                   const Latex(
-                      formulaText: r"\vec{E} = k \frac{q}{r^2} \hat{r}"),
+                    formulaText: r"\vec{E} = k \frac{q}{r^2} \hat{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.diferenciaDePotencial,
                   ),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{rB}^{rA} k \frac{q}{r^2} \hat{r} \cdot d\vec{r}"),
+                    formulaText:
+                        r"V_{AB} = - \int_{rB}^{rA} k \frac{q}{r^2} \hat{r} \cdot d\vec{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = kq\left( \frac{1}{r_A} - \frac{1}{r_B}\right)"),
+                    formulaText:
+                        r"V_{AB} = kq\left( \frac{1}{r_A} - \frac{1}{r_B}\right)",
+                  ),
                   const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.lineaInfinita,
-                  ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.campoElectrico,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.lineaInfinita),
+                  TextoEcuaciones(AppLocalizations.of(context)!.campoElectrico),
                   const Latex(
-                      formulaText: r"\vec{E} =  \frac{2k\lambda}{r} \hat{r}"),
+                    formulaText: r"\vec{E} =  \frac{2k\lambda}{r} \hat{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.diferenciaDePotencial,
                   ),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{rB}^{rA} \frac{2k\lambda}{r} \hat{r} \cdot d\vec{r}"),
+                    formulaText:
+                        r"V_{AB} = - \int_{rB}^{rA} \frac{2k\lambda}{r} \hat{r} \cdot d\vec{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = 2k\lambda \ln\left( \frac{r_B}{r_A} \right)"),
+                    formulaText:
+                        r"V_{AB} = 2k\lambda \ln\left( \frac{r_B}{r_A} \right)",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.superficieInfinita,
                   ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.campoElectrico,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.campoElectrico),
                   const Latex(
-                      formulaText:
-                          r"\vec{E} =  \frac{\sigma}{2 \varepsilon _0 } \hat{r}"),
+                    formulaText:
+                        r"\vec{E} =  \frac{\sigma}{2 \varepsilon _0 } \hat{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.diferenciaDePotencial,
                   ),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{rB}^{rA} \frac{\sigma}{2\varepsilon _0} \hat{r} \cdot d\vec{r}"),
+                    formulaText:
+                        r"V_{AB} = - \int_{rB}^{rA} \frac{\sigma}{2\varepsilon _0} \hat{r} \cdot d\vec{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = \frac{\sigma}{2\varepsilon _0} \left( r_B - r_A \right)"),
+                    formulaText:
+                        r"V_{AB} = \frac{\sigma}{2\varepsilon _0} \left( r_B - r_A \right)",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.placasConductoras,
                   ),
                   const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.campoElectrico,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.campoElectrico),
                   const Latex(
-                      formulaText:
-                          r"\vec{E} =  -\frac{\sigma}{\varepsilon _0 } \hat{r}"),
+                    formulaText:
+                        r"\vec{E} =  -\frac{\sigma}{\varepsilon _0 } \hat{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.diferenciaDePotencial,
                   ),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = - \int_{rB}^{rA} \frac{\sigma}{\varepsilon _0} \hat{r} \cdot d\vec{r}"),
+                    formulaText:
+                        r"V_{AB} = - \int_{rB}^{rA} \frac{\sigma}{\varepsilon _0} \hat{r} \cdot d\vec{r}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"V_{AB} = \frac{\sigma}{\varepsilon _0} \left( r_A - r_B \right)"),
+                    formulaText:
+                        r"V_{AB} = \frac{\sigma}{\varepsilon _0} \left( r_A - r_B \right)",
+                  ),
                 ],
               ),
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetCalculoDeDiferenciasDePotencial,
-            ),
+            const VerPDF(url: kWidgetCalculoDeDiferenciasDePotencial),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetCalculoDeDiferenciasDePotencial,
-            ),
+            const DescargarPDF(url: kWidgetCalculoDeDiferenciasDePotencial),
           ],
         ),
       ),

@@ -15,18 +15,14 @@ class CalculoDiferencialState extends State<CalculoDiferencial> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -35,9 +31,7 @@ class CalculoDiferencialState extends State<CalculoDiferencial> {
                     AppLocalizations.of(context)!.calculoDiferencial,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   //Limites
                   BotonesMenu(
                     textoBoton: AppLocalizations.of(context)!.limites,
@@ -50,26 +44,30 @@ class CalculoDiferencialState extends State<CalculoDiferencial> {
                   ),
                   //Funciones Trigonometricas
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesTrigonometricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesTrigonometricas,
                     ruta: kRutaFuncionesTrigonometricasDiferencial,
                   ),
                   //Trigonometricas Inversas
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.trigonometricasInversas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasInversas,
                     ruta: kRutaFuncionesTrigonometricasInversasDiferencial,
                   ),
                   //Trigonometricas Hiperbólicas
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .trigonometricasHiperbolicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasHiperbolicas,
                     ruta: kRutaFuncionesTrigonometricasHiperbolicasDiferencial,
                   ),
                   //Exponencial y Logaritmos
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.exponencialLogaritmos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.exponencialLogaritmos,
                     ruta: kRutaExponencialyLogaritmosDiferencial,
                   ),
                 ],

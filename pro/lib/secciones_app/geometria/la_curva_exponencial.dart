@@ -44,14 +44,18 @@ class LaCurvaExponencialState extends State<LaCurvaExponencial> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.laCurvaExponencial,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.laCurvaExponencial,
                                 widgetName: kWidgetLaCurvaExponencial,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.laCurvaExponencial,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.laCurvaExponencial,
                                 widgetName: kWidgetLaCurvaExponencial,
                               ),
                             );

@@ -16,9 +16,12 @@ class _FuenteDeFuerzaElectromotrizFemState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _FuenteDeFuerzaElectromotrizFemState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .fuenteFuerzaElectromotriz,
-                      widgetName: kWidgetFuenteDeFuerzaElectromotriz),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.fuenteFuerzaElectromotriz,
+                    widgetName: kWidgetFuenteDeFuerzaElectromotriz,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _FuenteDeFuerzaElectromotrizFemState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .fuenteFuerzaElectromotriz,
-                              widgetName: kWidgetFuenteDeFuerzaElectromotriz),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuenteFuerzaElectromotriz,
+                            widgetName: kWidgetFuenteDeFuerzaElectromotriz,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .fuenteFuerzaElectromotriz,
-                              widgetName: kWidgetFuenteDeFuerzaElectromotriz),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuenteFuerzaElectromotriz,
+                            widgetName: kWidgetFuenteDeFuerzaElectromotriz,
+                          ),
                         );
                       }
                     });
@@ -82,20 +91,25 @@ class _FuenteDeFuerzaElectromotrizFemState
                   AppLocalizations.of(context)!.dispositivoTransformador,
                 ),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .dispositivosDiferenciaDePotencial,
+                  AppLocalizations.of(
+                    context,
+                  )!.dispositivosDiferenciaDePotencial,
                 ),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenFuenteDeFuerzaElectromotriz) ??
-                        kUrlImagenFuenteDeFuerzaElectromotriz),
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenFuenteDeFuerzaElectromotriz,
+                      ) ??
+                      kUrlImagenFuenteDeFuerzaElectromotriz,
+                ),
                 const Latex(formulaText: r"\varepsilon \equiv V"),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.fuentesFEM,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.fuentesFEM),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(context, kImagenFemIdealYReal) ??
-                        kUrlImagenFemIdealYReal),
+                  urlImagen:
+                      getImageUrlById(context, kImagenFemIdealYReal) ??
+                      kUrlImagenFemIdealYReal,
+                ),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.femAspectosRelevantes,
                 ),
@@ -103,33 +117,29 @@ class _FuenteDeFuerzaElectromotrizFemState
                   AppLocalizations.of(context)!.teoriaDeCircuitos,
                 ),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenFemAspectosRelevantes) ??
-                        kUrlImagenFemAspectosRelevantes),
+                  urlImagen:
+                      getImageUrlById(context, kImagenFemAspectosRelevantes) ??
+                      kUrlImagenFemAspectosRelevantes,
+                ),
                 const Latex(formulaText: r"P = R_{T}i^2 = V _Ti"),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"P = (r+R)i^2 = \epsilon i"),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"i = \frac{\epsilon}{r+R}"),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.femIdeal,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.femIdeal),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"i = \frac{\epsilon}{R} = \frac{V}{R}"),
+                  formulaText: r"i = \frac{\epsilon}{R} = \frac{V}{R}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetFuenteDeFuerzaElectromotriz,
-            ),
+            const VerPDF(url: kWidgetFuenteDeFuerzaElectromotriz),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetFuenteDeFuerzaElectromotriz,
-            ),
+            const DescargarPDF(url: kWidgetFuenteDeFuerzaElectromotriz),
           ],
         ),
       ),

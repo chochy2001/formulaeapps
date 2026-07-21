@@ -14,9 +14,12 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.conectoresLogicos,
-                            widgetName: kWidgetConectoresLogicos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.conectoresLogicos,
+                          widgetName: kWidgetConectoresLogicos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conectoresLogicos,
-                                    widgetName: kWidgetConectoresLogicos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conectoresLogicos,
+                                  widgetName: kWidgetConectoresLogicos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .conectoresLogicos,
-                                    widgetName: kWidgetConectoresLogicos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.conectoresLogicos,
+                                  widgetName: kWidgetConectoresLogicos,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -89,20 +96,17 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                           AppLocalizations.of(context)!.conjuncion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{y}"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{ p\land q}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{p \space\&\&\space q}"),
+                          formulaText: r"\mathsf{p \space\&\&\space q}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -110,38 +114,27 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                           AppLocalizations.of(context)!.disyuncion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{o}"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{ p\lor q}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{ p\space \| \space  q}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.negacion,
+                          formulaText: r"\mathsf{ p\space \| \space  q}",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.no,
-                        ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.negacion),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.no),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{\neg p}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -153,54 +146,42 @@ class _ConectoresLogicosState extends State<ConectoresLogicos> {
                           AppLocalizations.of(context)!.implicacionCondicional,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.implica,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.implica),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{p \rightarrow q}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .equivalenteBicondicional,
+                          AppLocalizations.of(
+                            context,
+                          )!.equivalenteBicondicional,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.siysolosi,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{p \leftrightarrow q}"),
+                          formulaText: r"\mathsf{p \leftrightarrow q}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConectoresLogicos,
-                  ),
+                  const VerPDF(url: kWidgetConectoresLogicos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConectoresLogicos,
-                  ),
+                  const DescargarPDF(url: kWidgetConectoresLogicos),
                 ],
               ),
             ),

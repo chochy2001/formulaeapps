@@ -27,8 +27,9 @@ class _RigidezDielectricaState extends State<RigidezDielectrica> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.rigidezDielectrica,
-                      widgetName: kWidgetRigidezDielectrica),
+                    title: AppLocalizations.of(context)!.rigidezDielectrica,
+                    widgetName: kWidgetRigidezDielectrica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,20 @@ class _RigidezDielectricaState extends State<RigidezDielectrica> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .rigidezDielectrica,
-                              widgetName: kWidgetRigidezDielectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.rigidezDielectrica,
+                            widgetName: kWidgetRigidezDielectrica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .rigidezDielectrica,
-                              widgetName: kWidgetRigidezDielectrica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.rigidezDielectrica,
+                            widgetName: kWidgetRigidezDielectrica,
+                          ),
                         );
                       }
                     });
@@ -70,7 +75,8 @@ class _RigidezDielectricaState extends State<RigidezDielectrica> {
                 const SizedBox(height: 30.0),
                 const Latex(formulaText: r"E_r = \frac{V_{max}}{d}"),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenRigidezDielectrica),
+                  urlImagen: kUrlImagenRigidezDielectrica,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.elDesplazamientoDeCarga,
@@ -82,15 +88,11 @@ class _RigidezDielectricaState extends State<RigidezDielectrica> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetRigidezDielectrica,
-                ),
+                VerPDF(url: kWidgetRigidezDielectrica),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetRigidezDielectrica,
-                ),
+                DescargarPDF(url: kWidgetRigidezDielectrica),
               ],
-            )
+            ),
           ],
         ),
       ),

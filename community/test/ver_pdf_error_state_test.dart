@@ -25,8 +25,9 @@ void main() {
     );
   }
 
-  testWidgets('failed PDF loading is localized and can be retried',
-      (tester) async {
+  testWidgets('failed PDF loading is localized and can be retried', (
+    tester,
+  ) async {
     var attempts = 0;
     Future<Uint8List> failingLoader(String _) async {
       attempts++;
@@ -36,14 +37,17 @@ void main() {
     await tester.pumpWidget(
       harness(
         VerPDFNuevo(
-            pdfUrl: 'https://example.test/missing.pdf',
-            pdfLoader: failingLoader),
+          pdfUrl: 'https://example.test/missing.pdf',
+          pdfLoader: failingLoader,
+        ),
       ),
     );
     await tester.pump();
 
-    expect(find.text('El PDF no está disponible en este momento.'),
-        findsOneWidget);
+    expect(
+      find.text('El PDF no está disponible en este momento.'),
+      findsOneWidget,
+    );
     expect(find.text('Reintentar'), findsOneWidget);
     expect(attempts, 1);
 
@@ -53,23 +57,24 @@ void main() {
   });
 
   testWidgets(
-      'disposing while a PDF is loading never calls setState after dispose',
-      (tester) async {
-    final completion = Completer<Uint8List>();
+    'disposing while a PDF is loading never calls setState after dispose',
+    (tester) async {
+      final completion = Completer<Uint8List>();
 
-    await tester.pumpWidget(
-      harness(
-        VerPDFNuevo(
-          pdfUrl: 'https://example.test/pending.pdf',
-          pdfLoader: (_) => completion.future,
+      await tester.pumpWidget(
+        harness(
+          VerPDFNuevo(
+            pdfUrl: 'https://example.test/pending.pdf',
+            pdfLoader: (_) => completion.future,
+          ),
         ),
-      ),
-    );
-    await tester.pump();
-    await tester.pumpWidget(const SizedBox.shrink());
+      );
+      await tester.pump();
+      await tester.pumpWidget(const SizedBox.shrink());
 
-    completion.complete(Uint8List.fromList([0x25, 0x50, 0x44, 0x46, 0x2D]));
-    await tester.pump();
-    expect(tester.takeException(), isNull);
-  });
+      completion.complete(Uint8List.fromList([0x25, 0x50, 0x44, 0x46, 0x2D]));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    },
+  );
 }

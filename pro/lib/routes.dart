@@ -25,642 +25,677 @@ import '../secciones_app/conversion_de_unidades/export_conversion_de_unidades.da
 import '../secciones_app/mecanica/export_mecanica.dart';
 import '../secciones_app/numeros_reales_y_desigualdades/export_numeros_reales_y_desigualdades.dart';
 import '../secciones_app/optica/export_optica.dart';
-import '../secciones_app/termodinamica/export_termodinamica.dart';import '../widgets_personalizados/export_widgets_personalizados.dart';
+import '../secciones_app/termodinamica/export_termodinamica.dart';
+import '../widgets_personalizados/export_widgets_personalizados.dart';
 import 'Favorites/favorites_screen.dart';
 import 'menus/menu.dart';
 
 //Trigonometria
 Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
-      kRutaCoeficientesBinomiales: (context) => const CoeficientesBinomiales(),
-      kRutaPotenciasNEsimas: (context) => const PotenciasNEsimas(),
-      kRutaEcuacionCubica: (context) => const EcuacionCubica(),
-      kRutaEcuacionCuadraticaFormaMonicaVieta: (context) => const EcuacionCuadraticaFormaMonicaVieta(),
-      kRutaNumerosComplejosFormaExponencialNumeroComplejo: (context) => const NumerosComplejosFormaExponencialNumeroComplejo(),
-      kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos: (context) => const NumerosComplejosRaicesEIgualdadNumerosComplejos(),
-      kRutaPropiedadesLogaritmos2: (context) => const PropiedadesLogaritmos(),
-      kRutaDeterminantesCramerSarrus: (context) => const DeterminantesCramerSarrus(),
-      kRutaAlgebraLinealMatricesTiposDeMatrices: (context) => const AlgebraLinealMatricesTiposDeMatrices(),
-      kRutaAlgebraLinealVectoresProductosBaseCanonica: (context) => const AlgebraLinealVectoresProductosBaseCanonica(),
-      kRutaAlgebraLinealVectoresProductoEscalarTriple: (context) => const AlgebraLinealVectoresProductoEscalarTriple(),
-      kRutaAlgebraLinealVectoresSumaVectoresComponentes: (context) => const AlgebraLinealVectoresSumaVectoresComponentes(),
-      kRutaAlgebraLinealVectoresLeySenosCosenos: (context) => const AlgebraLinealVectoresLeySenosCosenos(),
-      kRutaAlgebraLinealVectoresRazonesTrigonometricas: (context) => const AlgebraLinealVectoresRazonesTrigonometricas(),
-      kRutaLimitesTeoremasLimites: (context) => const LimitesTeoremasLimites(),
-      kRutaLimitesLimitesInfinitos: (context) => const LimitesLimitesInfinitos(),
-      kRutaLimitesLimitesImportantes: (context) => const LimitesLimitesImportantes(),
-      kRutaAsintotasHorizontalesOblicuas: (context) => const AsintotasHorizontalesOblicuas(),
-      kRutaContinuidad: (context) => const Continuidad(),
-      kRutaReglaLhopital: (context) => const ReglaLhopital(),
-      kRutaDiferenciales: (context) => const Diferenciales(),
-      kRutaDerivadasAlgebraicasRadicales: (context) => const DerivadasAlgebraicasRadicales(),
-      kRutaReglaCadenaFuncionInversa: (context) => const ReglaCadenaFuncionInversa(),
-      kRutaDerivadasTrigonometricasComplementarias: (context) => const DerivadasTrigonometricasComplementarias(),
-      kRutaDerivadasHiperbolicasInversas: (context) => const DerivadasHiperbolicasInversas(),
-      kRutaDerivacionLogaritmica: (context) => const DerivacionLogaritmica(),
-      kRutaRazonCambioTangenteNormal: (context) => const RazonCambioTangenteNormal(),
-      kRutaAplicacionFisicaDerivada: (context) => const AplicacionFisicaDerivada(),
-      kRutaIntegralesInmediatasAdicionalesIntegral: (context) => const IntegralesInmediatasAdicionalesIntegral(),
-      kRutaPotenciasReduccionTrigonometricasIntegral: (context) => const PotenciasReduccionTrigonometricasIntegral(),
-      kRutaTrigonometricasRacionalesProductosIntegral: (context) => const TrigonometricasRacionalesProductosIntegral(),
-      kRutaPotenciasReduccionHiperbolicasIntegral: (context) => const PotenciasReduccionHiperbolicasIntegral(),
-      kRutaHiperbolicasInversasIntegral: (context) => const HiperbolicasInversasIntegral(),
-      kRutaIntegralDefinidaPropiedadesIntegral: (context) => const IntegralDefinidaPropiedadesIntegral(),
-      kRutaIntegracionNumericaIntegral: (context) => const IntegracionNumericaIntegral(),
-      kRutaSustitucionTrigonometricaIntegral: (context) => const SustitucionTrigonometricaIntegral(),
-      kRutaAreaLongitudArcoIntegral: (context) => const AreaLongitudArcoIntegral(),
-      kRutaFraccionesParcialesIntegral: (context) => const FraccionesParcialesIntegral(),
-      kRutaConstantesMatematicas: (context) => const ConstantesMatematicas(),
-      kRutaConstantesFisicasUniversales: (context) => const ConstantesFisicasUniversales(),
-      kRutaConstantesElectromagneticas: (context) => const ConstantesElectromagneticas(),
-      kRutaConstantesAtomicasMoleculares: (context) => const ConstantesAtomicasMoleculares(),
-      kRutaConstantesTerrestresAstronomicas: (context) => const ConstantesTerrestresAstronomicas(),
-      kRutaMenuConstantesMatematicas: (context) => const MenuConstantesMatematicas(),
-      kRutaLongitudConversion: (context) => const LongitudConversion(),
-      kRutaSuperficieConversion: (context) => const SuperficieConversion(),
-      kRutaVolumenConversion: (context) => const VolumenConversion(),
-      kRutaMasaConversion: (context) => const MasaConversion(),
-      kRutaDensidadConversion: (context) => const DensidadConversion(),
-      kRutaPresionConversion: (context) => const PresionConversion(),
-      kRutaEnergiaConversion: (context) => const EnergiaConversion(),
-      kRutaPotenciaConversion: (context) => const PotenciaConversion(),
-      kRutaMenuConversionDeUnidades: (context) => const MenuConversionDeUnidades(),
-      kRutaPotenciaYReactanciasEnCa: (context) => const PotenciaYReactanciasEnCa(),
-      kRutaCaValoresEficacesTransformador: (context) => const CaValoresEficacesTransformador(),
-      kRutaInstrumentosDeMedicionElectrica: (context) => const InstrumentosDeMedicionElectrica(),
-      kRutaCircuitoLrEnSerie: (context) => const CircuitoLrEnSerie(),
-      kRutaFuerzaYTorcaMagnetica: (context) => const FuerzaYTorcaMagnetica(),
-      kRutaCapacitoresCilindricoYEsferico: (context) => const CapacitoresCilindricoYEsferico(),
-      kRutaPermeabilidadMagneticaEnMateriales: (context) => const PermeabilidadMagneticaEnMateriales(),
-      kRutaBateriaRealVoltajeEnTerminales: (context) => const BateriaRealVoltajeEnTerminales(),
-      kRutaLaRectaYElTriangulo: (context) => const LaRectaYElTriangulo(),
-      kRutaTangentesYPropiedadesDeLasConicas: (context) => const TangentesYPropiedadesDeLasConicas(),
-      kRutaHiperbolaEquilatera: (context) => const HiperbolaEquilatera(),
-      kRutaLaCurvaExponencial: (context) => const LaCurvaExponencial(),
-      kRutaAceleracionYMrua: (context) => const AceleracionYMrua(),
-      kRutaCaidaLibreYTiroVertical: (context) => const CaidaLibreYTiroVertical(),
-      kRutaMovimientoDeProyectiles: (context) => const MovimientoDeProyectiles(),
-      kRutaMovimientoCircularUniforme: (context) => const MovimientoCircularUniforme(),
-      kRutaCinematicaAngular: (context) => const CinematicaAngular(),
-      kRutaAceleracionYFuerzaCentripeta: (context) => const AceleracionYFuerzaCentripeta(),
-      kRutaLeyesDeNewton: (context) => const LeyesDeNewton(),
-      kRutaPesoYGravedad: (context) => const PesoYGravedad(),
-      kRutaCantidadDeMovimientoEImpulso: (context) => const CantidadDeMovimientoEImpulso(),
-      kRutaFriccion: (context) => const Friccion(),
-      kRutaMovimientoArmonicoSimple: (context) => const MovimientoArmonicoSimple(),
-      kRutaPenduloSimple: (context) => const PenduloSimple(),
-      kRutaEquilibrioDeCuerposRigidos: (context) => const EquilibrioDeCuerposRigidos(),
-      kRutaMomentoDeTorsion: (context) => const MomentoDeTorsion(),
-      kRutaEficiencia: (context) => const Eficiencia(),
-      kRutaHidrostatica: (context) => const Hidrostatica(),
-      kRutaHidrodinamica: (context) => const Hidrodinamica(),
-      kRutaMenuMecanica: (context) => const MenuMecanica(),
-      kRutaAxiomasDeCampoNumerosReales: (context) => const AxiomasDeCampoNumerosReales(),
-      kRutaAxiomasDeOrdenYTeoremasReales: (context) => const AxiomasDeOrdenYTeoremasReales(),
-      kRutaDesigualdadesTeoremasDeOrden: (context) => const DesigualdadesTeoremasDeOrden(),
-      kRutaConjuntosEIntervalos: (context) => const ConjuntosEIntervalos(),
-      kRutaValorAbsoluto: (context) => const ValorAbsoluto(),
-      kRutaMenuNumerosRealesYDesigualdades: (context) => const MenuNumerosRealesYDesigualdades(),
-      kRutaLeyDeLaIluminacion: (context) => const LeyDeLaIluminacion(),
-      kRutaReflexionYAumentoFormaNewtoniana: (context) => const ReflexionYAumentoFormaNewtoniana(),
-      kRutaEcuacionDeLasLentesFormaGaussiana: (context) => const EcuacionDeLasLentesFormaGaussiana(),
-      kRutaRefraccionDeLaLuzLeyDeSnell: (context) => const RefraccionDeLaLuzLeyDeSnell(),
-      kRutaTiposDeLentesYMarchaDeRayos: (context) => const TiposDeLentesYMarchaDeRayos(),
-      kRutaMenuOptica: (context) => const MenuOptica(),
-      kRutaAxiomasDeProbabilidad: (context) => const AxiomasDeProbabilidad(),
-      kRutaFuncionesDeMasaDensidadYAcumulada: (context) => const FuncionesDeMasaDensidadYAcumulada(),
-      kRutaFuncionesDeProbabilidadConjuntasYCondicionales: (context) => const FuncionesDeProbabilidadConjuntasYCondicionales(),
-      kRutaEsperanzaMediaYVarianza: (context) => const EsperanzaMediaYVarianza(),
-      kRutaDistribucionesDistribucionDeBernoulli: (context) => const DistribucionesDistribucionDeBernoulli(),
-      kRutaDistribucionesDistribucionDePascal: (context) => const DistribucionesDistribucionDePascal(),
-      kRutaDistribucionesDistribucionBeta: (context) => const DistribucionesDistribucionBeta(),
-      kRutaDistribucionesDistribucionDeCauchy: (context) => const DistribucionesDistribucionDeCauchy(),
-      kRutaDistribucionesDistribucionDeErlang: (context) => const DistribucionesDistribucionDeErlang(),
-      kRutaDistribucionesDistribucionUniforme: (context) => const DistribucionesDistribucionUniforme(),
-      kRutaRegresionLineal: (context) => const RegresionLineal(),
-      kRutaDesigualdadDeChebyshevYConvergencia: (context) => const DesigualdadDeChebyshevYConvergencia(),
-      kRutaTransferenciaDeCalor: (context) => const TransferenciaDeCalor(),
-      kRutaCapacidadCalorificaYCalorLatente: (context) => const CapacidadCalorificaYCalorLatente(),
-      kRutaLeyesDeLosGases: (context) => const LeyesDeLosGases(),
-      kRutaCicloDeCarnotYLeyesDeLaTermodinamica: (context) => const CicloDeCarnotYLeyesDeLaTermodinamica(),
-      kRutaTrabajoTermodinamico: (context) => const TrabajoTermodinamico(),
-      kRutaEntalpiaYEnergiaInterna: (context) => const EntalpiaYEnergiaInterna(),
-      kRutaDilatacionLineal: (context) => const DilatacionLineal(),
-      kRutaDilatacionSuperficialYVolumetrica: (context) => const DilatacionSuperficialYVolumetrica(),
-      kRutaEntropiaYTeoriaCinetica: (context) => const EntropiaYTeoriaCinetica(),
-      kRutaProcesosTermodinamicos: (context) => const ProcesosTermodinamicos(),
-      kRutaMenuTermodinamica: (context) => const MenuTermodinamica(),
-      kRutaCirculoUnitario: (context) => const CirculoUnitario(),
-      kRutaSignosDeFuncionesPorCuadrante: (context) => const SignosDeFuncionesPorCuadrante(),
-      kRutaAngulosNotablesGradosRadianes: (context) => const AngulosNotablesGradosRadianes(),
-      kRutaRelacionEntreFuncionesTrigonometricas: (context) => const RelacionEntreFuncionesTrigonometricas(),
-      kRutaIdentidadesDeAnguloTripleYCuadruple: (context) => const IdentidadesDeAnguloTripleYCuadruple(),
-      kRutaIdentidadesDeReduccionDePotencias: (context) => const IdentidadesDeReduccionDePotencias(),
-      kRutaIdentidadesFundamentalesFormasDerivadas: (context) => const IdentidadesFundamentalesFormasDerivadas(),
-      kRutaCotangenteDeSumaYRestaDeAngulos: (context) => const CotangenteDeSumaYRestaDeAngulos(),
-      kRutaProductoDeCosenoPorSeno: (context) => const ProductoDeCosenoPorSeno(),
-      kRutaMenu: (context) => const Menu(),
-      kRutaChatGPT: (context) => const ChatScreen(),
-      kRutaFavorites: (context) => const FavoritesScreen(),
-      kRutaPreguntasFrecuentes: (context) => const PreguntasFrecuentes(),
-      kRutaCalculoIntegral: (context) => const CalculoIntegral(),
-      kRutaCalculoDiferencial: (context) => const CalculoDiferencial(),
-      kRutaGenerales: (context) => const Generales(),
+  kRutaCoeficientesBinomiales: (context) => const CoeficientesBinomiales(),
+  kRutaPotenciasNEsimas: (context) => const PotenciasNEsimas(),
+  kRutaEcuacionCubica: (context) => const EcuacionCubica(),
+  kRutaEcuacionCuadraticaFormaMonicaVieta: (context) =>
+      const EcuacionCuadraticaFormaMonicaVieta(),
+  kRutaNumerosComplejosFormaExponencialNumeroComplejo: (context) =>
+      const NumerosComplejosFormaExponencialNumeroComplejo(),
+  kRutaNumerosComplejosRaicesEIgualdadNumerosComplejos: (context) =>
+      const NumerosComplejosRaicesEIgualdadNumerosComplejos(),
+  kRutaPropiedadesLogaritmos2: (context) => const PropiedadesLogaritmos(),
+  kRutaDeterminantesCramerSarrus: (context) =>
+      const DeterminantesCramerSarrus(),
+  kRutaAlgebraLinealMatricesTiposDeMatrices: (context) =>
+      const AlgebraLinealMatricesTiposDeMatrices(),
+  kRutaAlgebraLinealVectoresProductosBaseCanonica: (context) =>
+      const AlgebraLinealVectoresProductosBaseCanonica(),
+  kRutaAlgebraLinealVectoresProductoEscalarTriple: (context) =>
+      const AlgebraLinealVectoresProductoEscalarTriple(),
+  kRutaAlgebraLinealVectoresSumaVectoresComponentes: (context) =>
+      const AlgebraLinealVectoresSumaVectoresComponentes(),
+  kRutaAlgebraLinealVectoresLeySenosCosenos: (context) =>
+      const AlgebraLinealVectoresLeySenosCosenos(),
+  kRutaAlgebraLinealVectoresRazonesTrigonometricas: (context) =>
+      const AlgebraLinealVectoresRazonesTrigonometricas(),
+  kRutaLimitesTeoremasLimites: (context) => const LimitesTeoremasLimites(),
+  kRutaLimitesLimitesInfinitos: (context) => const LimitesLimitesInfinitos(),
+  kRutaLimitesLimitesImportantes: (context) =>
+      const LimitesLimitesImportantes(),
+  kRutaAsintotasHorizontalesOblicuas: (context) =>
+      const AsintotasHorizontalesOblicuas(),
+  kRutaContinuidad: (context) => const Continuidad(),
+  kRutaReglaLhopital: (context) => const ReglaLhopital(),
+  kRutaDiferenciales: (context) => const Diferenciales(),
+  kRutaDerivadasAlgebraicasRadicales: (context) =>
+      const DerivadasAlgebraicasRadicales(),
+  kRutaReglaCadenaFuncionInversa: (context) =>
+      const ReglaCadenaFuncionInversa(),
+  kRutaDerivadasTrigonometricasComplementarias: (context) =>
+      const DerivadasTrigonometricasComplementarias(),
+  kRutaDerivadasHiperbolicasInversas: (context) =>
+      const DerivadasHiperbolicasInversas(),
+  kRutaDerivacionLogaritmica: (context) => const DerivacionLogaritmica(),
+  kRutaRazonCambioTangenteNormal: (context) =>
+      const RazonCambioTangenteNormal(),
+  kRutaAplicacionFisicaDerivada: (context) => const AplicacionFisicaDerivada(),
+  kRutaIntegralesInmediatasAdicionalesIntegral: (context) =>
+      const IntegralesInmediatasAdicionalesIntegral(),
+  kRutaPotenciasReduccionTrigonometricasIntegral: (context) =>
+      const PotenciasReduccionTrigonometricasIntegral(),
+  kRutaTrigonometricasRacionalesProductosIntegral: (context) =>
+      const TrigonometricasRacionalesProductosIntegral(),
+  kRutaPotenciasReduccionHiperbolicasIntegral: (context) =>
+      const PotenciasReduccionHiperbolicasIntegral(),
+  kRutaHiperbolicasInversasIntegral: (context) =>
+      const HiperbolicasInversasIntegral(),
+  kRutaIntegralDefinidaPropiedadesIntegral: (context) =>
+      const IntegralDefinidaPropiedadesIntegral(),
+  kRutaIntegracionNumericaIntegral: (context) =>
+      const IntegracionNumericaIntegral(),
+  kRutaSustitucionTrigonometricaIntegral: (context) =>
+      const SustitucionTrigonometricaIntegral(),
+  kRutaAreaLongitudArcoIntegral: (context) => const AreaLongitudArcoIntegral(),
+  kRutaFraccionesParcialesIntegral: (context) =>
+      const FraccionesParcialesIntegral(),
+  kRutaConstantesMatematicas: (context) => const ConstantesMatematicas(),
+  kRutaConstantesFisicasUniversales: (context) =>
+      const ConstantesFisicasUniversales(),
+  kRutaConstantesElectromagneticas: (context) =>
+      const ConstantesElectromagneticas(),
+  kRutaConstantesAtomicasMoleculares: (context) =>
+      const ConstantesAtomicasMoleculares(),
+  kRutaConstantesTerrestresAstronomicas: (context) =>
+      const ConstantesTerrestresAstronomicas(),
+  kRutaMenuConstantesMatematicas: (context) =>
+      const MenuConstantesMatematicas(),
+  kRutaLongitudConversion: (context) => const LongitudConversion(),
+  kRutaSuperficieConversion: (context) => const SuperficieConversion(),
+  kRutaVolumenConversion: (context) => const VolumenConversion(),
+  kRutaMasaConversion: (context) => const MasaConversion(),
+  kRutaDensidadConversion: (context) => const DensidadConversion(),
+  kRutaPresionConversion: (context) => const PresionConversion(),
+  kRutaEnergiaConversion: (context) => const EnergiaConversion(),
+  kRutaPotenciaConversion: (context) => const PotenciaConversion(),
+  kRutaMenuConversionDeUnidades: (context) => const MenuConversionDeUnidades(),
+  kRutaPotenciaYReactanciasEnCa: (context) => const PotenciaYReactanciasEnCa(),
+  kRutaCaValoresEficacesTransformador: (context) =>
+      const CaValoresEficacesTransformador(),
+  kRutaInstrumentosDeMedicionElectrica: (context) =>
+      const InstrumentosDeMedicionElectrica(),
+  kRutaCircuitoLrEnSerie: (context) => const CircuitoLrEnSerie(),
+  kRutaFuerzaYTorcaMagnetica: (context) => const FuerzaYTorcaMagnetica(),
+  kRutaCapacitoresCilindricoYEsferico: (context) =>
+      const CapacitoresCilindricoYEsferico(),
+  kRutaPermeabilidadMagneticaEnMateriales: (context) =>
+      const PermeabilidadMagneticaEnMateriales(),
+  kRutaBateriaRealVoltajeEnTerminales: (context) =>
+      const BateriaRealVoltajeEnTerminales(),
+  kRutaLaRectaYElTriangulo: (context) => const LaRectaYElTriangulo(),
+  kRutaTangentesYPropiedadesDeLasConicas: (context) =>
+      const TangentesYPropiedadesDeLasConicas(),
+  kRutaHiperbolaEquilatera: (context) => const HiperbolaEquilatera(),
+  kRutaLaCurvaExponencial: (context) => const LaCurvaExponencial(),
+  kRutaAceleracionYMrua: (context) => const AceleracionYMrua(),
+  kRutaCaidaLibreYTiroVertical: (context) => const CaidaLibreYTiroVertical(),
+  kRutaMovimientoDeProyectiles: (context) => const MovimientoDeProyectiles(),
+  kRutaMovimientoCircularUniforme: (context) =>
+      const MovimientoCircularUniforme(),
+  kRutaCinematicaAngular: (context) => const CinematicaAngular(),
+  kRutaAceleracionYFuerzaCentripeta: (context) =>
+      const AceleracionYFuerzaCentripeta(),
+  kRutaLeyesDeNewton: (context) => const LeyesDeNewton(),
+  kRutaPesoYGravedad: (context) => const PesoYGravedad(),
+  kRutaCantidadDeMovimientoEImpulso: (context) =>
+      const CantidadDeMovimientoEImpulso(),
+  kRutaFriccion: (context) => const Friccion(),
+  kRutaMovimientoArmonicoSimple: (context) => const MovimientoArmonicoSimple(),
+  kRutaPenduloSimple: (context) => const PenduloSimple(),
+  kRutaEquilibrioDeCuerposRigidos: (context) =>
+      const EquilibrioDeCuerposRigidos(),
+  kRutaMomentoDeTorsion: (context) => const MomentoDeTorsion(),
+  kRutaEficiencia: (context) => const Eficiencia(),
+  kRutaHidrostatica: (context) => const Hidrostatica(),
+  kRutaHidrodinamica: (context) => const Hidrodinamica(),
+  kRutaMenuMecanica: (context) => const MenuMecanica(),
+  kRutaAxiomasDeCampoNumerosReales: (context) =>
+      const AxiomasDeCampoNumerosReales(),
+  kRutaAxiomasDeOrdenYTeoremasReales: (context) =>
+      const AxiomasDeOrdenYTeoremasReales(),
+  kRutaDesigualdadesTeoremasDeOrden: (context) =>
+      const DesigualdadesTeoremasDeOrden(),
+  kRutaConjuntosEIntervalos: (context) => const ConjuntosEIntervalos(),
+  kRutaValorAbsoluto: (context) => const ValorAbsoluto(),
+  kRutaMenuNumerosRealesYDesigualdades: (context) =>
+      const MenuNumerosRealesYDesigualdades(),
+  kRutaLeyDeLaIluminacion: (context) => const LeyDeLaIluminacion(),
+  kRutaReflexionYAumentoFormaNewtoniana: (context) =>
+      const ReflexionYAumentoFormaNewtoniana(),
+  kRutaEcuacionDeLasLentesFormaGaussiana: (context) =>
+      const EcuacionDeLasLentesFormaGaussiana(),
+  kRutaRefraccionDeLaLuzLeyDeSnell: (context) =>
+      const RefraccionDeLaLuzLeyDeSnell(),
+  kRutaTiposDeLentesYMarchaDeRayos: (context) =>
+      const TiposDeLentesYMarchaDeRayos(),
+  kRutaMenuOptica: (context) => const MenuOptica(),
+  kRutaAxiomasDeProbabilidad: (context) => const AxiomasDeProbabilidad(),
+  kRutaFuncionesDeMasaDensidadYAcumulada: (context) =>
+      const FuncionesDeMasaDensidadYAcumulada(),
+  kRutaFuncionesDeProbabilidadConjuntasYCondicionales: (context) =>
+      const FuncionesDeProbabilidadConjuntasYCondicionales(),
+  kRutaEsperanzaMediaYVarianza: (context) => const EsperanzaMediaYVarianza(),
+  kRutaDistribucionesDistribucionDeBernoulli: (context) =>
+      const DistribucionesDistribucionDeBernoulli(),
+  kRutaDistribucionesDistribucionDePascal: (context) =>
+      const DistribucionesDistribucionDePascal(),
+  kRutaDistribucionesDistribucionBeta: (context) =>
+      const DistribucionesDistribucionBeta(),
+  kRutaDistribucionesDistribucionDeCauchy: (context) =>
+      const DistribucionesDistribucionDeCauchy(),
+  kRutaDistribucionesDistribucionDeErlang: (context) =>
+      const DistribucionesDistribucionDeErlang(),
+  kRutaDistribucionesDistribucionUniforme: (context) =>
+      const DistribucionesDistribucionUniforme(),
+  kRutaRegresionLineal: (context) => const RegresionLineal(),
+  kRutaDesigualdadDeChebyshevYConvergencia: (context) =>
+      const DesigualdadDeChebyshevYConvergencia(),
+  kRutaTransferenciaDeCalor: (context) => const TransferenciaDeCalor(),
+  kRutaCapacidadCalorificaYCalorLatente: (context) =>
+      const CapacidadCalorificaYCalorLatente(),
+  kRutaLeyesDeLosGases: (context) => const LeyesDeLosGases(),
+  kRutaCicloDeCarnotYLeyesDeLaTermodinamica: (context) =>
+      const CicloDeCarnotYLeyesDeLaTermodinamica(),
+  kRutaTrabajoTermodinamico: (context) => const TrabajoTermodinamico(),
+  kRutaEntalpiaYEnergiaInterna: (context) => const EntalpiaYEnergiaInterna(),
+  kRutaDilatacionLineal: (context) => const DilatacionLineal(),
+  kRutaDilatacionSuperficialYVolumetrica: (context) =>
+      const DilatacionSuperficialYVolumetrica(),
+  kRutaEntropiaYTeoriaCinetica: (context) => const EntropiaYTeoriaCinetica(),
+  kRutaProcesosTermodinamicos: (context) => const ProcesosTermodinamicos(),
+  kRutaMenuTermodinamica: (context) => const MenuTermodinamica(),
+  kRutaCirculoUnitario: (context) => const CirculoUnitario(),
+  kRutaSignosDeFuncionesPorCuadrante: (context) =>
+      const SignosDeFuncionesPorCuadrante(),
+  kRutaAngulosNotablesGradosRadianes: (context) =>
+      const AngulosNotablesGradosRadianes(),
+  kRutaRelacionEntreFuncionesTrigonometricas: (context) =>
+      const RelacionEntreFuncionesTrigonometricas(),
+  kRutaIdentidadesDeAnguloTripleYCuadruple: (context) =>
+      const IdentidadesDeAnguloTripleYCuadruple(),
+  kRutaIdentidadesDeReduccionDePotencias: (context) =>
+      const IdentidadesDeReduccionDePotencias(),
+  kRutaIdentidadesFundamentalesFormasDerivadas: (context) =>
+      const IdentidadesFundamentalesFormasDerivadas(),
+  kRutaCotangenteDeSumaYRestaDeAngulos: (context) =>
+      const CotangenteDeSumaYRestaDeAngulos(),
+  kRutaProductoDeCosenoPorSeno: (context) => const ProductoDeCosenoPorSeno(),
+  kRutaMenu: (context) => const Menu(),
+  kRutaChatGPT: (context) => const ChatScreen(),
+  kRutaFavorites: (context) => const FavoritesScreen(),
+  kRutaPreguntasFrecuentes: (context) => const PreguntasFrecuentes(),
+  kRutaCalculoIntegral: (context) => const CalculoIntegral(),
+  kRutaCalculoDiferencial: (context) => const CalculoDiferencial(),
+  kRutaGenerales: (context) => const Generales(),
 
-      //Algebra
-      kRutaMenuAlgebra: (context) => const MenuAlgebra(),
-      kRutaPropiedadesDeLosExponentes: (context) =>
-          const PropiedadesDeLosExponentes(),
-      kRutaEcuacionesLineales: (context) => const EcuacionesLineales(),
-      kRutaFormulaGeneral: (context) => const FormulaGeneral(),
-      kRutaFormulasDeProductos: (context) => const FormulasDeProductos(),
-      kRutaFormulasDeFactorizacion: (context) =>
-          const FormulasDeFactorizacion(),
-      kRutaNumerosComplejos: (context) => const NumerosComplejos(),
-      kRutaOperacionesFraccionesAlgebraicas: (context) =>
-          const OperacionesFraccionesAlgebraicas(),
-      kRutaOperacionesConPolinomios: (context) =>
-          const OperacionesConPolinomios(),
-      kRutaPropiedadesDesigualdad: (context) => const PropiedadesDesigualdad(),
-      kRutaPropiedadesRadicales: (context) => const PropiedadesRadicales(),
-      kRutaSerieTaylorMaClaurin: (context) => const SerieTaylorMaClaurin(),
-      kRutaTeoremaSumatorias: (context) => const TeoremaSumatorias(),
-      kRutaEcuacionesDePrimerGrado: (context) =>
-          const EcuacionesDePrimerGrado(),
-      kRutaEcuacionesDeSegundoGrado: (context) =>
-          const EcuacionesDeSegundoGrado(),
-      kRutaSolucionEcuaciones: (context) => const SolucionEcuaciones(),
+  //Algebra
+  kRutaMenuAlgebra: (context) => const MenuAlgebra(),
+  kRutaPropiedadesDeLosExponentes: (context) =>
+      const PropiedadesDeLosExponentes(),
+  kRutaEcuacionesLineales: (context) => const EcuacionesLineales(),
+  kRutaFormulaGeneral: (context) => const FormulaGeneral(),
+  kRutaFormulasDeProductos: (context) => const FormulasDeProductos(),
+  kRutaFormulasDeFactorizacion: (context) => const FormulasDeFactorizacion(),
+  kRutaNumerosComplejos: (context) => const NumerosComplejos(),
+  kRutaOperacionesFraccionesAlgebraicas: (context) =>
+      const OperacionesFraccionesAlgebraicas(),
+  kRutaOperacionesConPolinomios: (context) => const OperacionesConPolinomios(),
+  kRutaPropiedadesDesigualdad: (context) => const PropiedadesDesigualdad(),
+  kRutaPropiedadesRadicales: (context) => const PropiedadesRadicales(),
+  kRutaSerieTaylorMaClaurin: (context) => const SerieTaylorMaClaurin(),
+  kRutaTeoremaSumatorias: (context) => const TeoremaSumatorias(),
+  kRutaEcuacionesDePrimerGrado: (context) => const EcuacionesDePrimerGrado(),
+  kRutaEcuacionesDeSegundoGrado: (context) => const EcuacionesDeSegundoGrado(),
+  kRutaSolucionEcuaciones: (context) => const SolucionEcuaciones(),
 
-      //Numeros Complejos
-      kRutaConjugadoNumerosComplejos: (context) =>
-          const ConjugadoNumerosComplejos(),
-      kRutaModuloyArgumentoNumerosComplejos: (context) =>
-          const ModuloyArgumentoNumerosComplejos(),
-      kRutaOperacionesNumerosComplejos: (context) =>
-          const OperacionesNumerosComplejos(),
-      kRutaPropiedadesNumerosComplejos: (context) =>
-          const PropiedadesNumerosComplejos(),
-      kRutaRepresentacionesDeNumerosComplejos: (context) =>
-          const RepresentacionesDeNumerosComplejos(),
+  //Numeros Complejos
+  kRutaConjugadoNumerosComplejos: (context) =>
+      const ConjugadoNumerosComplejos(),
+  kRutaModuloyArgumentoNumerosComplejos: (context) =>
+      const ModuloyArgumentoNumerosComplejos(),
+  kRutaOperacionesNumerosComplejos: (context) =>
+      const OperacionesNumerosComplejos(),
+  kRutaPropiedadesNumerosComplejos: (context) =>
+      const PropiedadesNumerosComplejos(),
+  kRutaRepresentacionesDeNumerosComplejos: (context) =>
+      const RepresentacionesDeNumerosComplejos(),
 
-      //Ejercicios Algebra
-      kRutaPropiedadesDeLosExponentesEjercicios: (context) =>
-          const PropiedadesDeLosExponentesEjercicios(),
+  //Ejercicios Algebra
+  kRutaPropiedadesDeLosExponentesEjercicios: (context) =>
+      const PropiedadesDeLosExponentesEjercicios(),
 
-      //Algebra Lineal
-      kRutaAlgebraLinealMenu: (context) => const AlgebraLinealMenu(),
-      kRutaDeterminantesAlgebraLineal: (context) =>
-          const DeterminantesAlgebraLineal(),
-      kRutaPuntoMedioEntreDosPuntos: (context) =>
-          const PuntoMedioEntreDosPuntos(),
-      kRutaReglaDeCramer: (context) => const ReglaDeCramer(),
-      kRutaReglaDeSarrus: (context) => const ReglaDeSarrus(),
+  //Algebra Lineal
+  kRutaAlgebraLinealMenu: (context) => const AlgebraLinealMenu(),
+  kRutaDeterminantesAlgebraLineal: (context) =>
+      const DeterminantesAlgebraLineal(),
+  kRutaPuntoMedioEntreDosPuntos: (context) => const PuntoMedioEntreDosPuntos(),
+  kRutaReglaDeCramer: (context) => const ReglaDeCramer(),
+  kRutaReglaDeSarrus: (context) => const ReglaDeSarrus(),
 
-      //Matrices
-      kRutaMatrizAdjunta: (context) => const MatrizAdjunta(),
-      kRutaMatrizIdentidad: (context) => const MatrizIdentidad(),
-      kRutaMatrizInversa: (context) => const MatrizInversa(),
-      kRutaMatrizOrtogonal: (context) => const MatrizOrtogonal(),
-      kRutaMatrizSimetrica: (context) => const MatrizSimetrica(),
-      kRutaMatrizTranspuesta: (context) => const MatrizTranspuesta(),
-      kRutaMatrizTriangular: (context) => const MatrizTriangular(),
-      kRutaMenuMatricesAlgebraLineal: (context) => const MenuMatricesLineal(),
-      kRutaMultiplicacionDeMatrices: (context) =>
-          const MultiplicacionDeMatrices(),
-      kRutaPropiedadesDeLasMatrices: (context) =>
-          const PropiedadesDeLasMatrices(),
-      kRutaSumaRestaDeMatrices: (context) => const SumaRestaDeMatrices(),
-      //Vectores
-      kRutaMenuVectores: (context) => const MenuVectoresLineal(),
-      kRutaAnguloEntreVectores: (context) => const AnguloEntreVectores(),
-      kRutaNormalizacion: (context) => const Normalizacion(),
-      kRutaOperacionesConVectores: (context) => const OperacionesConVectores(),
-      kRutaProductoCruz: (context) => const ProductoCruz(),
-      kRutaProductoPunto: (context) => const ProductoPunto(),
-      kRutaPropiedadesDeLosVectores: (context) =>
-          const PropiedadesDeLosVectores(),
-      kRutaProyeccionesDeVectores: (context) => const ProyeccionesDeVectores(),
-      kRutaVectorUnitario: (context) => const VectorUnitario(),
-      kRutaVectoresYSuMagnitud: (context) => const VectoresYSuMagnitud(),
+  //Matrices
+  kRutaMatrizAdjunta: (context) => const MatrizAdjunta(),
+  kRutaMatrizIdentidad: (context) => const MatrizIdentidad(),
+  kRutaMatrizInversa: (context) => const MatrizInversa(),
+  kRutaMatrizOrtogonal: (context) => const MatrizOrtogonal(),
+  kRutaMatrizSimetrica: (context) => const MatrizSimetrica(),
+  kRutaMatrizTranspuesta: (context) => const MatrizTranspuesta(),
+  kRutaMatrizTriangular: (context) => const MatrizTriangular(),
+  kRutaMenuMatricesAlgebraLineal: (context) => const MenuMatricesLineal(),
+  kRutaMultiplicacionDeMatrices: (context) => const MultiplicacionDeMatrices(),
+  kRutaPropiedadesDeLasMatrices: (context) => const PropiedadesDeLasMatrices(),
+  kRutaSumaRestaDeMatrices: (context) => const SumaRestaDeMatrices(),
+  //Vectores
+  kRutaMenuVectores: (context) => const MenuVectoresLineal(),
+  kRutaAnguloEntreVectores: (context) => const AnguloEntreVectores(),
+  kRutaNormalizacion: (context) => const Normalizacion(),
+  kRutaOperacionesConVectores: (context) => const OperacionesConVectores(),
+  kRutaProductoCruz: (context) => const ProductoCruz(),
+  kRutaProductoPunto: (context) => const ProductoPunto(),
+  kRutaPropiedadesDeLosVectores: (context) => const PropiedadesDeLosVectores(),
+  kRutaProyeccionesDeVectores: (context) => const ProyeccionesDeVectores(),
+  kRutaVectorUnitario: (context) => const VectorUnitario(),
+  kRutaVectoresYSuMagnitud: (context) => const VectoresYSuMagnitud(),
 
-      //General
-      kRutaPropiedadesLogaritmos: (context) =>
-          const PropiedadesLogaritmosGenerales(),
-      kRutaFuncionesTrigonometricasGenerales: (context) =>
-          const FuncionesTrigonometricasGenerales(),
-      kRutaIdentidadesTrigonometricas: (context) =>
-          const IdentidadesTrigonometricasGenerales(),
-      kRutaTrigonometricasHiperbolicas: (context) =>
-          const TrigonometricasHiperbolicasGenerales(),
-      kRutaIdentidadesHiperbolicas: (context) =>
-          const IdentidadesHiperbolicasGenerales(),
+  //General
+  kRutaPropiedadesLogaritmos: (context) =>
+      const PropiedadesLogaritmosGenerales(),
+  kRutaFuncionesTrigonometricasGenerales: (context) =>
+      const FuncionesTrigonometricasGenerales(),
+  kRutaIdentidadesTrigonometricas: (context) =>
+      const IdentidadesTrigonometricasGenerales(),
+  kRutaTrigonometricasHiperbolicas: (context) =>
+      const TrigonometricasHiperbolicasGenerales(),
+  kRutaIdentidadesHiperbolicas: (context) =>
+      const IdentidadesHiperbolicasGenerales(),
 
-      //Calculo Diferencial
-      kRutaLimites: (context) => const MenuLimites(),
-      kRutaPropiedadesLimites: (context) => const PropiedadesLimites(),
-      kRutaLimitesTrigonometricos: (context) => const LimitesTrigonometricos(),
-      kRutaDerivacionBasica: (context) => const DerivacionBasicaDiferencial(),
-      kRutaFuncionesTrigonometricasDiferencial: (context) =>
-          const FuncionesTrigonometricasDiferencial(),
-      kRutaFuncionesTrigonometricasInversasDiferencial: (context) =>
-          const TrigonometricasInversasDiferencial(),
-      kRutaFuncionesTrigonometricasHiperbolicasDiferencial: (context) =>
-          const TrigonometricasHiperbolicasDiferencial(),
-      kRutaExponencialyLogaritmosDiferencial: (context) =>
-          const ExponencialyLogaritmosDiferencial(),
+  //Calculo Diferencial
+  kRutaLimites: (context) => const MenuLimites(),
+  kRutaPropiedadesLimites: (context) => const PropiedadesLimites(),
+  kRutaLimitesTrigonometricos: (context) => const LimitesTrigonometricos(),
+  kRutaDerivacionBasica: (context) => const DerivacionBasicaDiferencial(),
+  kRutaFuncionesTrigonometricasDiferencial: (context) =>
+      const FuncionesTrigonometricasDiferencial(),
+  kRutaFuncionesTrigonometricasInversasDiferencial: (context) =>
+      const TrigonometricasInversasDiferencial(),
+  kRutaFuncionesTrigonometricasHiperbolicasDiferencial: (context) =>
+      const TrigonometricasHiperbolicasDiferencial(),
+  kRutaExponencialyLogaritmosDiferencial: (context) =>
+      const ExponencialyLogaritmosDiferencial(),
 
-      //Calculo Integral
-      kRutaIntegracionBasica: (context) => const IntegracionBasicaIntegral(),
-      kRutaFuncionesTrigonometricasIntegral: (context) =>
-          const FuncionesTrigonometricasIntegral(),
-      kRutaFuncionesTrigonometricasInversasIntegral: (context) =>
-          const TrigonometricasInversasIntegral(),
-      kRutaFuncionesHiperbolicasIntegral: (context) =>
-          const FuncionesHiperbolicasIntegral(),
-      kRutaFuncionesExponencialyLogaritmosIntegral: (context) =>
-          const ExponencialyLogaritmoIntegral(),
-      kRutaIntegralesExtras: (context) => const IntegralesExtraIntegral(),
+  //Calculo Integral
+  kRutaIntegracionBasica: (context) => const IntegracionBasicaIntegral(),
+  kRutaFuncionesTrigonometricasIntegral: (context) =>
+      const FuncionesTrigonometricasIntegral(),
+  kRutaFuncionesTrigonometricasInversasIntegral: (context) =>
+      const TrigonometricasInversasIntegral(),
+  kRutaFuncionesHiperbolicasIntegral: (context) =>
+      const FuncionesHiperbolicasIntegral(),
+  kRutaFuncionesExponencialyLogaritmosIntegral: (context) =>
+      const ExponencialyLogaritmoIntegral(),
+  kRutaIntegralesExtras: (context) => const IntegralesExtraIntegral(),
 
-      //Calculo Multivariable
-      kRutaMenuCalculoMultivariable: (context) =>
-          const MenuCalculoMultivariable(),
-      kRutaMenuFuncionesVectoriales: (context) =>
-          const MenuFuncionesVectoriales(),
-      kRutaLimiteIntegralDerivadaFuncionVectorial: (context) =>
-          const LimiteDerivadaIntegralFuncionesVectoriales(),
-      kRutaDerivadaFuncionesVectoriales: (context) =>
-          const DerivadaFuncionesVectoriales(),
-      kRutaAreaBajoLaCurva: (context) => const AreaBajoLaCurva(),
-      kRutaAreaDeUnaSuperficieDeRevolucion: (context) =>
-          const AreaDeUnaSuperficieDeRevolucion(),
-      kRutaCambioDeVariables: (context) => const CambioDeVariables(),
-      kRutaDerivadasDireccionales: (context) => const DerivadasDireccionales(),
-      kRutaDerivadasParciales: (context) => const DerivadasParciales(),
-      kRutaDiferencialTotal: (context) => const DiferencialTotal(),
-      kRutaGradienteDeUnaFuncion: (context) => const GradienteDeUnaFuncion(),
-      kRutaIdentidadesVectoriales: (context) => const IdentidadesVectoriales(),
-      kRutaIntegralEnCoordenadasCilindricas: (context) =>
-          const IntegralEnCoordenadasCilindricas(),
-      kRutaIntegralesDeLinea: (context) => const IntegralesDeLinea(),
-      kRutaLongitudDeArco: (context) => const LongitudDeArco(),
-      kRutaOperadoresDiferenciales: (context) =>
-          const OperadoresDiferenciales(),
-      kRutaTeoremaDeFubini: (context) => const TeoremaDeFubini(),
-      kRutaTeoremaIntegrales: (context) => const TeoremaIntegrales(),
+  //Calculo Multivariable
+  kRutaMenuCalculoMultivariable: (context) => const MenuCalculoMultivariable(),
+  kRutaMenuFuncionesVectoriales: (context) => const MenuFuncionesVectoriales(),
+  kRutaLimiteIntegralDerivadaFuncionVectorial: (context) =>
+      const LimiteDerivadaIntegralFuncionesVectoriales(),
+  kRutaDerivadaFuncionesVectoriales: (context) =>
+      const DerivadaFuncionesVectoriales(),
+  kRutaAreaBajoLaCurva: (context) => const AreaBajoLaCurva(),
+  kRutaAreaDeUnaSuperficieDeRevolucion: (context) =>
+      const AreaDeUnaSuperficieDeRevolucion(),
+  kRutaCambioDeVariables: (context) => const CambioDeVariables(),
+  kRutaDerivadasDireccionales: (context) => const DerivadasDireccionales(),
+  kRutaDerivadasParciales: (context) => const DerivadasParciales(),
+  kRutaDiferencialTotal: (context) => const DiferencialTotal(),
+  kRutaGradienteDeUnaFuncion: (context) => const GradienteDeUnaFuncion(),
+  kRutaIdentidadesVectoriales: (context) => const IdentidadesVectoriales(),
+  kRutaIntegralEnCoordenadasCilindricas: (context) =>
+      const IntegralEnCoordenadasCilindricas(),
+  kRutaIntegralesDeLinea: (context) => const IntegralesDeLinea(),
+  kRutaLongitudDeArco: (context) => const LongitudDeArco(),
+  kRutaOperadoresDiferenciales: (context) => const OperadoresDiferenciales(),
+  kRutaTeoremaDeFubini: (context) => const TeoremaDeFubini(),
+  kRutaTeoremaIntegrales: (context) => const TeoremaIntegrales(),
 
-      //Ecuaciones Diferenciales
-      kRutaConstantesDeIntegracion: (context) =>
-          const ConstantesDeIntegracion(),
-      kRutaEcuacionDiferencialConCoeficientesConstantes: (context) =>
-          const EcuacionDiferencialConCoeficientesConstantes(),
-      kRutaEcuacionDiferencialDeRectasNoParalelas: (context) =>
-          const EcuacionDiferencialDeRectasNoParalelas(),
-      kRutaEcuacionDiferencialDeRectasParalelas: (context) =>
-          const EcuacionDiferencialDeRectasParalelas(),
-      kRutaEcuacionDiferencialExacta: (context) =>
-          const EcuacionDiferencialExacta(),
-      kRutaEcuacionDiferencialHomogenea: (context) =>
-          const EcuacionDiferencialHomogenea(),
-      kRutaEcuacionDiferencialLinealDeOrdenSuperior: (context) =>
-          const EcuacionDiferencialLinealDeOrdenSuperior(),
-      kRutaEcuacionDiferencialLinealDePrimerOrden: (context) =>
-          const EcuacionDiferencialLinealDePrimerOrden(),
-      kRutaEcuacionDiferencialSeparable: (context) =>
-          const EcuacionDiferencialSeparable(),
-      kRutaMenuEcuacionesDiferenciales: (context) =>
-          const MenuEcuacionesDiferenciales(),
+  //Ecuaciones Diferenciales
+  kRutaConstantesDeIntegracion: (context) => const ConstantesDeIntegracion(),
+  kRutaEcuacionDiferencialConCoeficientesConstantes: (context) =>
+      const EcuacionDiferencialConCoeficientesConstantes(),
+  kRutaEcuacionDiferencialDeRectasNoParalelas: (context) =>
+      const EcuacionDiferencialDeRectasNoParalelas(),
+  kRutaEcuacionDiferencialDeRectasParalelas: (context) =>
+      const EcuacionDiferencialDeRectasParalelas(),
+  kRutaEcuacionDiferencialExacta: (context) =>
+      const EcuacionDiferencialExacta(),
+  kRutaEcuacionDiferencialHomogenea: (context) =>
+      const EcuacionDiferencialHomogenea(),
+  kRutaEcuacionDiferencialLinealDeOrdenSuperior: (context) =>
+      const EcuacionDiferencialLinealDeOrdenSuperior(),
+  kRutaEcuacionDiferencialLinealDePrimerOrden: (context) =>
+      const EcuacionDiferencialLinealDePrimerOrden(),
+  kRutaEcuacionDiferencialSeparable: (context) =>
+      const EcuacionDiferencialSeparable(),
+  kRutaMenuEcuacionesDiferenciales: (context) =>
+      const MenuEcuacionesDiferenciales(),
 
-      //Electricidad y Magnetismo
-      kRutaMenuElectricidadYMagnetismo: (context) =>
-          const MenuElectricidadYMagnetismo(),
-      kRutaMenuCampoYPotencialElectricos: (context) =>
-          const MenuCampoYPotencialElectricos(),
-      kRutaMenuCapacitanciaYDielectricos: (context) =>
-          const MenuCapacitanciaYDielectricos(),
-      kRutaElectricidad: (context) => const Electricidad(),
-      kRutaCargaElectrica: (context) => const CargaElectrica(),
-      kRutaCargaProtonElectron: (context) => const CargaProtonElectron(),
-      kRutaDistribucionesDeCargaElectrica: (context) =>
-          const DistribucionesDeCargaElectrica(),
-      kRutaLeyDeCoulomb: (context) => const LeyDeCoulomb(),
-      kRutaPrincipioDeSuperposicion: (context) =>
-          const PrincipioDeSuperposicion(),
-      kRutaCampoElectrico: (context) => const CampoElectrico(),
-      kRutaCampoElectricoOriginadoPorDistribucionesDeCarga: (context) =>
-          const CampoElectricoOriginadoPorDistribucionesDeCarga(),
-      kRutaFlujoDeUnCampoVectorial: (context) =>
-          const FlujoDeUnCampoVectorial(),
-      kRutaLeyDeGauss: (context) => const LeyDeGauss(),
-      kRutaEnergiaPotencialElectrica: (context) =>
-          const EnergiaPotencialElectrica(),
-      kRutaCalculoDeDiferenciasDePotencial: (context) =>
-          const CalculoDeDiferenciasDePotencial(),
-      kRutaTeoremaDeLaDivergencia: (context) => const TeoremaDeLaDivergencia(),
-      kRutaTeoremaDelRotacional: (context) => const TeoremaDelRotacional(),
-      kRutaCirculacionDelCampoElectrostatico: (context) =>
-          const CirculacionDelCampoElectrostatico(),
-      kRutaRotacionalDelCampoElectrostatico: (context) =>
-          const RotacionalDelCampoElectrostatico(),
-      kRutaOperadorGradiente: (context) => const OperadorGradiente(),
-      kRutaGradienteDeUnaFuncionEscalar: (context) =>
-          const GradienteDeUnaFuncionEscalar(),
-      kRutaGradienteDePotencialElectrico: (context) =>
-          const GradienteDePotencialElectrico(),
-      kRutaLeyDeGaussEnFormaDiferencial: (context) =>
-          const LeyDeGaussEnFormaDiferencial(),
-      kRutaEcuacionDePoissonYLaplace: (context) =>
-          const EcuacionDePoissonYLaplace(),
-      kRutaSuperficiesEquipotenciales: (context) =>
-          const SuperficiesEquipotenciales(),
-      kRutaCapacitor: (context) => const Capacitor(),
-      kRutaCargaDeUnCapacitor: (context) => const CargaDeUnCapacitor(),
-      kRutaDefinicionDeCapacitancia: (context) =>
-          const DefinicionDeCapacitancia(),
-      kRutaGraficaDeCapacitancia: (context) => const GraficaDeCapacitancia(),
-      kRutaSimbologiaCapacitores: (context) => const SimbologiaCapacitores(),
-      kRutaCapacitorDePlacasPlanasYParalelas: (context) =>
-          const CapacitorDePlacasPlanasYParalelas(),
-      kRutaEnergiaYCapacitancia: (context) => const EnergiaYCapacitancia(),
-      kRutaEnergiaAlmacenadaPorUnCapacitor: (context) =>
-          const EnergiaAlmacenadaPorUnCapacitor(),
-      kRutaConexionEnSerieCapacitor: (context) =>
-          const ConexionEnSerieCapacitor(),
-      kRutaConexionEnParaleloCapacitor: (context) =>
-          const ConexionEnParaleloCapacitor(),
-      kRutaPolarizacion: (context) => const Polarizacion(),
-      kRutaPolarizacionYCargaInducida: (context) =>
-          const PolarizacionYCargaInducida(),
-      kRutaConstantesDielectricas: (context) => const ConstantesDielectricas(),
-      kRutaRigidezDielectrica: (context) => const RigidezDielectrica(),
-      kRutaVectorDeDesplazamientoElectrico: (context) =>
-          const VectorDeDesplazamientoElectrico(),
-      kRutaRepresentacionDeLosVectoresElectricos: (context) =>
-          const RepresentacionDeLosVectoresElectricos(),
-      kRutaMenuCircuitosElectricos: (context) =>
-          const MenuCircuitosElectricos(),
-      kRutaConductividadYResistividad: (context) =>
-          const ConductividadYResistividad(),
-      kRutaLeyDeOhm: (context) => const LeyDeOhm(),
-      kRutaEcuacionDeOhm: (context) => const EcuacionDeOhm(),
-      kRutaResistividadYTemperatura: (context) =>
-          const ResistividadYTemperatura(),
-      kRutaEfectoJoule: (context) => const EfectoJoule(),
-      kRutaResistorSimbologiaBasica: (context) =>
-          const ResistorSimbologiaBasica(),
-      kRutaResistorLinealYNoLineal: (context) =>
-          const ResistorLinealYNoLineal(),
-      kRutaConexionEnSerieResistor: (context) =>
-          const ConexionEnSerieResistor(),
-      kRutaConexionEnParaleloResistor: (context) =>
-          const ConexionEnParaleloResistor(),
-      kRutaFuenteDeFuerzaElectromotriz: (context) =>
-          const FuenteDeFuerzaElectromotrizFem(),
-      kRutaElementosCapacitorYResistor: (context) =>
-          const ElementosCapacitorYResistor(),
-      kRutaElementosFem: (context) => const ElementosFem(),
-      kRutaTeoriaDeCircuitos: (context) => const TeoriaDeCircuitos(),
-      kRutaLeyDeVoltajesDeKirchhoff: (context) =>
-          const LeyDeVoltajesDeKirchhoff(),
-      kRutaLeyDeCorrientesDeKirchhoff: (context) =>
-          const LeyDeCorrientesDeKirchhoff(),
-      kRutaReglasParaLVKyLCK: (context) => const ReglasParaLVKyLCK(),
-      kRutaCircuitoRCyVoltajeContinuo: (context) =>
-          const CircuitoRCyVoltajeContinuo(),
-      kRutaLeyesDeKirchhoffCircuitoRC: (context) =>
-          const LeyesDeKirchhoffCircuitoRC(),
-      kRutaMenuMagnetostatica: (context) => const MenuMagnetostatica(),
-      kRutaOrigenDeCampoMagnetico: (context) => const OrigenDeCampoMagnetico(),
-      kRutaFuerzaMagneticaComoVectorSobreCargasEnMovimiento: (context) =>
-          const FuerzaMagneticaComoVectorSobreCargasEnMovimiento(),
-      kRutaDefinicionDeCampoMagnetico: (context) =>
-          const DefinicionDeCampoMagnetico(),
-      kRutaFuerzaDeLorentz: (context) => const FuerzaDeLorentz(),
-      kRutaLeyDeBiotSavart: (context) => const LeyDeBiotSavart(),
-      kRutaSegmentoConductorRecto: (context) => const SegmentoConductorRecto(),
-      kRutaEspiraEnFormaDeCircunferencia: (context) =>
-          const EspiraEnFormaDeCircunferencia(),
+  //Electricidad y Magnetismo
+  kRutaMenuElectricidadYMagnetismo: (context) =>
+      const MenuElectricidadYMagnetismo(),
+  kRutaMenuCampoYPotencialElectricos: (context) =>
+      const MenuCampoYPotencialElectricos(),
+  kRutaMenuCapacitanciaYDielectricos: (context) =>
+      const MenuCapacitanciaYDielectricos(),
+  kRutaElectricidad: (context) => const Electricidad(),
+  kRutaCargaElectrica: (context) => const CargaElectrica(),
+  kRutaCargaProtonElectron: (context) => const CargaProtonElectron(),
+  kRutaDistribucionesDeCargaElectrica: (context) =>
+      const DistribucionesDeCargaElectrica(),
+  kRutaLeyDeCoulomb: (context) => const LeyDeCoulomb(),
+  kRutaPrincipioDeSuperposicion: (context) => const PrincipioDeSuperposicion(),
+  kRutaCampoElectrico: (context) => const CampoElectrico(),
+  kRutaCampoElectricoOriginadoPorDistribucionesDeCarga: (context) =>
+      const CampoElectricoOriginadoPorDistribucionesDeCarga(),
+  kRutaFlujoDeUnCampoVectorial: (context) => const FlujoDeUnCampoVectorial(),
+  kRutaLeyDeGauss: (context) => const LeyDeGauss(),
+  kRutaEnergiaPotencialElectrica: (context) =>
+      const EnergiaPotencialElectrica(),
+  kRutaCalculoDeDiferenciasDePotencial: (context) =>
+      const CalculoDeDiferenciasDePotencial(),
+  kRutaTeoremaDeLaDivergencia: (context) => const TeoremaDeLaDivergencia(),
+  kRutaTeoremaDelRotacional: (context) => const TeoremaDelRotacional(),
+  kRutaCirculacionDelCampoElectrostatico: (context) =>
+      const CirculacionDelCampoElectrostatico(),
+  kRutaRotacionalDelCampoElectrostatico: (context) =>
+      const RotacionalDelCampoElectrostatico(),
+  kRutaOperadorGradiente: (context) => const OperadorGradiente(),
+  kRutaGradienteDeUnaFuncionEscalar: (context) =>
+      const GradienteDeUnaFuncionEscalar(),
+  kRutaGradienteDePotencialElectrico: (context) =>
+      const GradienteDePotencialElectrico(),
+  kRutaLeyDeGaussEnFormaDiferencial: (context) =>
+      const LeyDeGaussEnFormaDiferencial(),
+  kRutaEcuacionDePoissonYLaplace: (context) =>
+      const EcuacionDePoissonYLaplace(),
+  kRutaSuperficiesEquipotenciales: (context) =>
+      const SuperficiesEquipotenciales(),
+  kRutaCapacitor: (context) => const Capacitor(),
+  kRutaCargaDeUnCapacitor: (context) => const CargaDeUnCapacitor(),
+  kRutaDefinicionDeCapacitancia: (context) => const DefinicionDeCapacitancia(),
+  kRutaGraficaDeCapacitancia: (context) => const GraficaDeCapacitancia(),
+  kRutaSimbologiaCapacitores: (context) => const SimbologiaCapacitores(),
+  kRutaCapacitorDePlacasPlanasYParalelas: (context) =>
+      const CapacitorDePlacasPlanasYParalelas(),
+  kRutaEnergiaYCapacitancia: (context) => const EnergiaYCapacitancia(),
+  kRutaEnergiaAlmacenadaPorUnCapacitor: (context) =>
+      const EnergiaAlmacenadaPorUnCapacitor(),
+  kRutaConexionEnSerieCapacitor: (context) => const ConexionEnSerieCapacitor(),
+  kRutaConexionEnParaleloCapacitor: (context) =>
+      const ConexionEnParaleloCapacitor(),
+  kRutaPolarizacion: (context) => const Polarizacion(),
+  kRutaPolarizacionYCargaInducida: (context) =>
+      const PolarizacionYCargaInducida(),
+  kRutaConstantesDielectricas: (context) => const ConstantesDielectricas(),
+  kRutaRigidezDielectrica: (context) => const RigidezDielectrica(),
+  kRutaVectorDeDesplazamientoElectrico: (context) =>
+      const VectorDeDesplazamientoElectrico(),
+  kRutaRepresentacionDeLosVectoresElectricos: (context) =>
+      const RepresentacionDeLosVectoresElectricos(),
+  kRutaMenuCircuitosElectricos: (context) => const MenuCircuitosElectricos(),
+  kRutaConductividadYResistividad: (context) =>
+      const ConductividadYResistividad(),
+  kRutaLeyDeOhm: (context) => const LeyDeOhm(),
+  kRutaEcuacionDeOhm: (context) => const EcuacionDeOhm(),
+  kRutaResistividadYTemperatura: (context) => const ResistividadYTemperatura(),
+  kRutaEfectoJoule: (context) => const EfectoJoule(),
+  kRutaResistorSimbologiaBasica: (context) => const ResistorSimbologiaBasica(),
+  kRutaResistorLinealYNoLineal: (context) => const ResistorLinealYNoLineal(),
+  kRutaConexionEnSerieResistor: (context) => const ConexionEnSerieResistor(),
+  kRutaConexionEnParaleloResistor: (context) =>
+      const ConexionEnParaleloResistor(),
+  kRutaFuenteDeFuerzaElectromotriz: (context) =>
+      const FuenteDeFuerzaElectromotrizFem(),
+  kRutaElementosCapacitorYResistor: (context) =>
+      const ElementosCapacitorYResistor(),
+  kRutaElementosFem: (context) => const ElementosFem(),
+  kRutaTeoriaDeCircuitos: (context) => const TeoriaDeCircuitos(),
+  kRutaLeyDeVoltajesDeKirchhoff: (context) => const LeyDeVoltajesDeKirchhoff(),
+  kRutaLeyDeCorrientesDeKirchhoff: (context) =>
+      const LeyDeCorrientesDeKirchhoff(),
+  kRutaReglasParaLVKyLCK: (context) => const ReglasParaLVKyLCK(),
+  kRutaCircuitoRCyVoltajeContinuo: (context) =>
+      const CircuitoRCyVoltajeContinuo(),
+  kRutaLeyesDeKirchhoffCircuitoRC: (context) =>
+      const LeyesDeKirchhoffCircuitoRC(),
+  kRutaMenuMagnetostatica: (context) => const MenuMagnetostatica(),
+  kRutaOrigenDeCampoMagnetico: (context) => const OrigenDeCampoMagnetico(),
+  kRutaFuerzaMagneticaComoVectorSobreCargasEnMovimiento: (context) =>
+      const FuerzaMagneticaComoVectorSobreCargasEnMovimiento(),
+  kRutaDefinicionDeCampoMagnetico: (context) =>
+      const DefinicionDeCampoMagnetico(),
+  kRutaFuerzaDeLorentz: (context) => const FuerzaDeLorentz(),
+  kRutaLeyDeBiotSavart: (context) => const LeyDeBiotSavart(),
+  kRutaSegmentoConductorRecto: (context) => const SegmentoConductorRecto(),
+  kRutaEspiraEnFormaDeCircunferencia: (context) =>
+      const EspiraEnFormaDeCircunferencia(),
 
-      kRutaEspiraCuadrada: (context) => const EspiraCuadrada(),
-      kRutaBobina: (context) => const Bobina(),
-      kRutaSolenoide: (context) => const Solenoide(),
-      kRutaCirculacionDeUnCampoVectorial: (context) =>
-          const CirculacionDeUnCampoVectorial(),
-      kRutaCampoMagneticoAPartirDeLeyDeAmpere: (context) =>
-          const CampoMagneticoAPartirDeLeyDeAmpere(),
-      kRutaLeyDeAmpereEnFormaDiferencial: (context) =>
-          const LeyDeAmpereEnFormaDiferencial(),
-      kRutaNomenclaturaBasicaEmpleadaEnCircuitos: (context) =>
-          const NomenclaturaBasicaEmpleadaEnCircuitos(),
-      kRutaFlujoMagnetico: (context) => const FlujoMagnetico(),
-      kRutaMotorDeCorrienteDirecta: (context) =>
-          const MotorDeCorrienteDirecta(),
-      kRutaGeneradorHomopolar: (context) => const GeneradorHomopolar(),
-      kRutaInductanciaPropia: (context) => const InductanciaPropia(),
-      kRutaInductanciaMutua: (context) => const InductanciaMutua(),
-      kRutaMenuInduccionElectromagnetica: (context) =>
-          const MenuInduccionElectromagnetica(),
-      kRutaInductanciaPropiaDeUnSolenoide: (context) =>
-          const InductanciaPropiaDeUnSolenoide(),
-      kRutaInductanciaParaUnToroide: (context) =>
-          const InductanciaParaUnToroide(),
-      kRutaInductanciaMutuaEntreDosSolenoidesCoaxiales: (context) =>
-          const InductanciaMutuaEntreDosSolenoidesCoaxiales(),
-      kRutaLeyDeInduccionDeFaraday: (context) =>
-          const LeyDeInduccionDeFaradayEnergiaEnUnInductor(),
-      kRutaEnergiaAlmacenadaEnUnCampoMagnetico: (context) =>
-          const EnergiaAlmacenadaEnUnCampoMagnetico(),
-      kRutaInductor: (context) => const Inductor(),
-      kRutaInductorEnSerie: (context) => const InductoresEnSerie(),
-      kRutaPortadoresDeCargaLibre: (context) => const PortadoresDeCargaLibre(),
-      kRutaMovimientoDePortadoresDeCargaLibre: (context) =>
-          const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente(),
-      kRutaDensidadDeCorrienteYCorrienteElectrica: (context) =>
-          const DensidadDeCorrienteYCorrienteElectrica(),
-      kRutaTiposDeCorrienteElectrica: (context) =>
-          const TiposDeCorrienteElectrica(),
+  kRutaEspiraCuadrada: (context) => const EspiraCuadrada(),
+  kRutaBobina: (context) => const Bobina(),
+  kRutaSolenoide: (context) => const Solenoide(),
+  kRutaCirculacionDeUnCampoVectorial: (context) =>
+      const CirculacionDeUnCampoVectorial(),
+  kRutaCampoMagneticoAPartirDeLeyDeAmpere: (context) =>
+      const CampoMagneticoAPartirDeLeyDeAmpere(),
+  kRutaLeyDeAmpereEnFormaDiferencial: (context) =>
+      const LeyDeAmpereEnFormaDiferencial(),
+  kRutaNomenclaturaBasicaEmpleadaEnCircuitos: (context) =>
+      const NomenclaturaBasicaEmpleadaEnCircuitos(),
+  kRutaFlujoMagnetico: (context) => const FlujoMagnetico(),
+  kRutaMotorDeCorrienteDirecta: (context) => const MotorDeCorrienteDirecta(),
+  kRutaGeneradorHomopolar: (context) => const GeneradorHomopolar(),
+  kRutaInductanciaPropia: (context) => const InductanciaPropia(),
+  kRutaInductanciaMutua: (context) => const InductanciaMutua(),
+  kRutaMenuInduccionElectromagnetica: (context) =>
+      const MenuInduccionElectromagnetica(),
+  kRutaInductanciaPropiaDeUnSolenoide: (context) =>
+      const InductanciaPropiaDeUnSolenoide(),
+  kRutaInductanciaParaUnToroide: (context) => const InductanciaParaUnToroide(),
+  kRutaInductanciaMutuaEntreDosSolenoidesCoaxiales: (context) =>
+      const InductanciaMutuaEntreDosSolenoidesCoaxiales(),
+  kRutaLeyDeInduccionDeFaraday: (context) =>
+      const LeyDeInduccionDeFaradayEnergiaEnUnInductor(),
+  kRutaEnergiaAlmacenadaEnUnCampoMagnetico: (context) =>
+      const EnergiaAlmacenadaEnUnCampoMagnetico(),
+  kRutaInductor: (context) => const Inductor(),
+  kRutaInductorEnSerie: (context) => const InductoresEnSerie(),
+  kRutaPortadoresDeCargaLibre: (context) => const PortadoresDeCargaLibre(),
+  kRutaMovimientoDePortadoresDeCargaLibre: (context) =>
+      const MovimientoDePortadoresDeCargaLibreYDensidadDeCorriente(),
+  kRutaDensidadDeCorrienteYCorrienteElectrica: (context) =>
+      const DensidadDeCorrienteYCorrienteElectrica(),
+  kRutaTiposDeCorrienteElectrica: (context) =>
+      const TiposDeCorrienteElectrica(),
 
-      //Probabilidad y Estadistica
+  //Probabilidad y Estadistica
+  kRutaCombinacionesYPermutaciones: (context) =>
+      const CombinacionesYPermutaciones(),
+  kRutaCuantilesParaDatosAgrupados: (context) =>
+      const CuantilesParaDatosAgrupados(),
+  kRutaEstadisticaInferencial: (context) => const EstadisticaInferencial(),
+  kRutaIntervalosDeConfianza: (context) => const IntervalosDeConfianza(),
+  kRutaMediaGeometrica: (context) => const MediaGeometrica(),
+  kRutaMenuProbabilidadYEstadistica: (context) =>
+      const MenuProbabilidadYEstadistica(),
+  kRutaMomentosEstadisticos: (context) => const MomentosEstadisticos(),
+  kRutaProbabilidad: (context) => const Probabilidad(),
+  kRutaTamanioMuestral: (context) => const TamanioMuestral(),
 
-      kRutaCombinacionesYPermutaciones: (context) =>
-          const CombinacionesYPermutaciones(),
-      kRutaCuantilesParaDatosAgrupados: (context) =>
-          const CuantilesParaDatosAgrupados(),
-      kRutaEstadisticaInferencial: (context) => const EstadisticaInferencial(),
-      kRutaIntervalosDeConfianza: (context) => const IntervalosDeConfianza(),
-      kRutaMediaGeometrica: (context) => const MediaGeometrica(),
-      kRutaMenuProbabilidadYEstadistica: (context) =>
-          const MenuProbabilidadYEstadistica(),
-      kRutaMomentosEstadisticos: (context) => const MomentosEstadisticos(),
-      kRutaProbabilidad: (context) => const Probabilidad(),
-      kRutaTamanioMuestral: (context) => const TamanioMuestral(),
-      //Distribuciones
+  //Distribuciones
+  kRutaDistribucionBinomial: (context) => const DistribucionBinomial(),
+  kRutaDistribucionDePoisson: (context) => const DistribucionDePoisson(),
+  kRutaDistribucionExponencial: (context) => const DistribucionExponencial(),
+  kRutaDistribucionGeometrica: (context) => const DistribucionGeometrica(),
+  kRutaDistribucionHipergeometrica: (context) =>
+      const DistribucionHipergeometrica(),
+  kRutaDistribucionNormal: (context) => const DistribucionNormal(),
+  kRutaDistribucionTDeStudent: (context) => const DistribucionTDeStudent(),
+  kRutaMenuDistribuciones: (context) => const MenuDistribuciones(),
 
-      kRutaDistribucionBinomial: (context) => const DistribucionBinomial(),
-      kRutaDistribucionDePoisson: (context) => const DistribucionDePoisson(),
-      kRutaDistribucionExponencial: (context) =>
-          const DistribucionExponencial(),
-      kRutaDistribucionGeometrica: (context) => const DistribucionGeometrica(),
-      kRutaDistribucionHipergeometrica: (context) =>
-          const DistribucionHipergeometrica(),
-      kRutaDistribucionNormal: (context) => const DistribucionNormal(),
-      kRutaDistribucionTDeStudent: (context) => const DistribucionTDeStudent(),
-      kRutaMenuDistribuciones: (context) => const MenuDistribuciones(),
-      //Medidas
+  //Medidas
+  kRutaMedidasDeDispersionParaDatosNoAgrupados: (context) =>
+      const MedidasDeDispersionParaDatosNoAgrupados(),
+  kRutaMedidasDePosicionParaDatosNoAgrupados: (context) =>
+      const MedidasDePosicionParaDatosNoAgrupados(),
+  kRutaMedidasDeTendenciaCentralParaDatosAgrupados: (context) =>
+      const MedidasDeTendenciaCentralParaDatosAgrupados(),
+  kRutaMedidasDeTendenciaCentralParaDatosNoAgrupados: (context) =>
+      const MedidasDeTendenciaCentralParaDatosNoAgrupados(),
+  kRutaMenuMedidas: (context) => const MenuMedidas(),
 
-      kRutaMedidasDeDispersionParaDatosNoAgrupados: (context) =>
-          const MedidasDeDispersionParaDatosNoAgrupados(),
-      kRutaMedidasDePosicionParaDatosNoAgrupados: (context) =>
-          const MedidasDePosicionParaDatosNoAgrupados(),
-      kRutaMedidasDeTendenciaCentralParaDatosAgrupados: (context) =>
-          const MedidasDeTendenciaCentralParaDatosAgrupados(),
-      kRutaMedidasDeTendenciaCentralParaDatosNoAgrupados: (context) =>
-          const MedidasDeTendenciaCentralParaDatosNoAgrupados(),
-      kRutaMenuMedidas: (context) => const MenuMedidas(),
+  //Series de Fourier
+  kRutaConvolucion: (context) => const Convolucion(),
+  kRutaFormaComplejaDeLasSeriesDeFourier: (context) =>
+      const FormaComplejaDeLasSeriesDeFourier(),
+  kRutaFormulasOperacionalesDeLaTransformadaDeLaplace: (context) =>
+      const FormulasOperacionalesDeLaTransformadaDeLaplace(),
+  kRutaFuncionImpulsoUnitario: (context) => const FuncionImpulsoUnitario(),
+  kRutaFuncionUnitariaDeHeaviside: (context) =>
+      const FuncionUnitariaDeHeaviside(),
+  kRutaMenuSeriesDeFourier: (context) => const MenuSeriesDeFourier(),
+  kRutaSerieYCoeficientesDeFourier: (context) =>
+      const SerieYCoeficientesDeFourier(),
 
-      //Series de Fourier
+  //Simetrias
+  kRutaSimetriaDeMediaOnda: (context) => const SimetriaDeMediaOnda(),
+  kRutaSimetriaDeUnCuartoDeOndaImpar: (context) =>
+      const SimetriaDeUnCuartoDeOndaImpar(),
+  kRutaMenuSimetrias: (context) => const MenuSimetrias(),
+  kRutaSimetriaDeUnCuartoDeOndaPar: (context) =>
+      const SimetriaDeUnCuartoDeOndaPar(),
+  kRutaSimetriaImpar: (context) => const SimetriaImpar(),
+  kRutaSimetriaPar: (context) => const SimetriaPar(),
 
-      kRutaConvolucion: (context) => const Convolucion(),
-      kRutaFormaComplejaDeLasSeriesDeFourier: (context) =>
-          const FormaComplejaDeLasSeriesDeFourier(),
-      kRutaFormulasOperacionalesDeLaTransformadaDeLaplace: (context) =>
-          const FormulasOperacionalesDeLaTransformadaDeLaplace(),
-      kRutaFuncionImpulsoUnitario: (context) => const FuncionImpulsoUnitario(),
-      kRutaFuncionUnitariaDeHeaviside: (context) =>
-          const FuncionUnitariaDeHeaviside(),
-      kRutaMenuSeriesDeFourier: (context) => const MenuSeriesDeFourier(),
-      kRutaSerieYCoeficientesDeFourier: (context) =>
-          const SerieYCoeficientesDeFourier(),
-      //Simetrias
+  //Transformadas
+  kRutaMenuTransformadas: (context) => const MenuTransformadas(),
+  kRutaTransformadaDeFourier: (context) => const TransformadaDeFourier(),
+  kRutaTransformadaDeLaplace: (context) => const TransformadaDeLaplace(),
+  kRutaTransformadaSenoYCosenoDeFourier: (context) =>
+      const TransformadaSenoYCosenoDeFourier(),
+  kRutaTransformadasBasicasDeFourier: (context) =>
+      const TransformadasBasicasDeFourier(),
+  kRutaTransformadasDeFourier: (context) => const TransformadasDeFourier(),
+  kRutaTransformadasDeLaplace: (context) => const TransformadasDeLaplace(),
 
-      kRutaSimetriaDeMediaOnda: (context) => const SimetriaDeMediaOnda(),
-      kRutaSimetriaDeUnCuartoDeOndaImpar: (context) =>
-          const SimetriaDeUnCuartoDeOndaImpar(),
-      kRutaMenuSimetrias: (context) => const MenuSimetrias(),
-      kRutaSimetriaDeUnCuartoDeOndaPar: (context) =>
-          const SimetriaDeUnCuartoDeOndaPar(),
-      kRutaSimetriaImpar: (context) => const SimetriaImpar(),
-      kRutaSimetriaPar: (context) => const SimetriaPar(),
-      //Transformadas
+  //Trigonometria
+  kRutaFuncionesTrigonometricas: (context) => const FuncionesTrigonometricas(),
+  kRutaFuncionesTrigonometricasDeAngulosNotables: (context) =>
+      const FuncionesTrigonometricasDeAngulosNotables(),
+  kRutaLeyDeProyecciones: (context) => const LeyDeProyecciones(),
+  kRutaLeyesDeSenosCosenosTangentes: (context) =>
+      const LeyesDeSenosCosenosTangentes(),
+  kRutaMedicionYClasificacionDeAngulos: (context) =>
+      const MedicionYClasificacionDeAngulos(),
+  kRutaMenuTrigonometria: (context) => const MenuTrigonometria(),
+  kRutaSuperficieDeUnTrianguloYUnPoligonoEsferico: (context) =>
+      const SuperficieDeUnTrianguloYUnPoligonoEsferico(),
+  kRutaTeoremaDePitagoras: (context) => const TeoremaDePitagoras(),
+  kRutaValoresDeSenoYCoseno: (context) => const ValoresDeSenoYCoseno(),
 
-      kRutaMenuTransformadas: (context) => const MenuTransformadas(),
-      kRutaTransformadaDeFourier: (context) => const TransformadaDeFourier(),
-      kRutaTransformadaDeLaplace: (context) => const TransformadaDeLaplace(),
-      kRutaTransformadaSenoYCosenoDeFourier: (context) =>
-          const TransformadaSenoYCosenoDeFourier(),
-      kRutaTransformadasBasicasDeFourier: (context) =>
-          const TransformadasBasicasDeFourier(),
-      kRutaTransformadasDeFourier: (context) => const TransformadasDeFourier(),
-      kRutaTransformadasDeLaplace: (context) => const TransformadasDeLaplace(),
+  //Formulas de Bessel
+  kRutaMenuFormulasBessel: (context) => const MenuFormulasBessel(),
+  kRutaTeoremaDelCosenoParaAngulos: (context) =>
+      const TeoremaDelCosenoParaAngulos(),
+  kRutaTeoremaDeLaCotangente: (context) => const TeoremaDeLaCotangente(),
+  kRutaTeoremaDelCosenoParaLados: (context) =>
+      const TeoremaDelCosenoParaLados(),
+  kRutaTeoremaDelSeno: (context) => const TeoremaDelSeno(),
 
-      //Trigonometria
-      kRutaFuncionesTrigonometricas: (context) =>
-          const FuncionesTrigonometricas(),
-      kRutaFuncionesTrigonometricasDeAngulosNotables: (context) =>
-          const FuncionesTrigonometricasDeAngulosNotables(),
-      kRutaLeyDeProyecciones: (context) => const LeyDeProyecciones(),
-      kRutaLeyesDeSenosCosenosTangentes: (context) =>
-          const LeyesDeSenosCosenosTangentes(),
-      kRutaMedicionYClasificacionDeAngulos: (context) =>
-          const MedicionYClasificacionDeAngulos(),
-      kRutaMenuTrigonometria: (context) => const MenuTrigonometria(),
-      kRutaSuperficieDeUnTrianguloYUnPoligonoEsferico: (context) =>
-          const SuperficieDeUnTrianguloYUnPoligonoEsferico(),
-      kRutaTeoremaDePitagoras: (context) => const TeoremaDePitagoras(),
-      kRutaValoresDeSenoYCoseno: (context) => const ValoresDeSenoYCoseno(),
+  //Identidades Trigonometricas
+  kRutaIdentidadesTrigonometricasDeAnguloDobleYMedio: (context) =>
+      const IdentidadesTrigonometricasDeAnguloDobleYMedio(),
+  kRutaIdentidadesTrigonometricasDeSumaAProductoYViceversa: (context) =>
+      const IdentidadesTrigonometricasDeSumaAProductoYViceversa(),
+  kRutaIdentidadesTrigonometricasDeSumaYRestaDeAngulos: (context) =>
+      const IdentidadesTrigonometricasDeSumaYRestaDeAngulos(),
+  kRutaIdentidadesTrigonometricasExtras: (context) =>
+      const IdentidadesTrigonometricasExtras(),
+  kRutaIdentidadesTrigonometricasFundamentales: (context) =>
+      const IdentidadesTrigonometricasFundamentales(),
+  kRutaMenuIdentidadesTrigonometricas: (context) =>
+      const MenuIdentidadesTrigonometricas(),
 
-      //Formulas de Bessel
-      kRutaMenuFormulasBessel: (context) => const MenuFormulasBessel(),
-      kRutaTeoremaDelCosenoParaAngulos: (context) =>
-          const TeoremaDelCosenoParaAngulos(),
-      kRutaTeoremaDeLaCotangente: (context) => const TeoremaDeLaCotangente(),
-      kRutaTeoremaDelCosenoParaLados: (context) =>
-          const TeoremaDelCosenoParaLados(),
-      kRutaTeoremaDelSeno: (context) => const TeoremaDelSeno(),
+  //Trigonometria Esferica
+  kRutaAnalogiasDeGaussDelambre: (context) => const AnalogiasDeGaussDelambre(),
+  kRutaAnalogiasDeNeper: (context) => const AnalogiasDeNeper(),
+  kRutaFuncionesDelAnguloMitad: (context) => const FuncionesDelAnguloMitad(),
+  kRutaMenuTrigonometriaEsferica: (context) =>
+      const MenuTrigonometriaEsferica(),
 
-      //Identidades Trigonometricas
-      kRutaIdentidadesTrigonometricasDeAnguloDobleYMedio: (context) =>
-          const IdentidadesTrigonometricasDeAnguloDobleYMedio(),
-      kRutaIdentidadesTrigonometricasDeSumaAProductoYViceversa: (context) =>
-          const IdentidadesTrigonometricasDeSumaAProductoYViceversa(),
-      kRutaIdentidadesTrigonometricasDeSumaYRestaDeAngulos: (context) =>
-          const IdentidadesTrigonometricasDeSumaYRestaDeAngulos(),
-      kRutaIdentidadesTrigonometricasExtras: (context) =>
-          const IdentidadesTrigonometricasExtras(),
-      kRutaIdentidadesTrigonometricasFundamentales: (context) =>
-          const IdentidadesTrigonometricasFundamentales(),
-      kRutaMenuIdentidadesTrigonometricas: (context) =>
-          const MenuIdentidadesTrigonometricas(),
+  //Matemáticas Discretas
+  kRutaBicondicional: (context) => const BicondicionalMatematicasDiscretas(),
+  kRutaCondicional: (context) => const CondicionalMatematicasDiscretas(),
+  kRutaConectoresLogicos: (context) => const ConectoresLogicos(),
+  kRutaConjuncion: (context) => const ConjuncionMatematicasDiscretas(),
+  kRutaDisyuncion: (context) => const DisyuncionMatematicasDiscretas(),
+  kRutaLeyesDeLaLogicaProposicional: (context) =>
+      const LeyesDeLaLogicaProposicional(),
+  kRutaLeyesDeLaTeoriaDeConjuntos: (context) =>
+      const LeyesDeLaTeoriaDeConjuntos(),
+  kRutaLeyesDelAlgebraDeBoole: (context) => const LeyesDelAlgebraDeBoole(),
+  kRutaNegacion: (context) => const Negacion(),
+  kRutaMenuMatematicasDiscretas: (context) => const MenuMatematicasDiscretas(),
 
-      //Trigonometria Esferica
-      kRutaAnalogiasDeGaussDelambre: (context) =>
-          const AnalogiasDeGaussDelambre(),
-      kRutaAnalogiasDeNeper: (context) => const AnalogiasDeNeper(),
-      kRutaFuncionesDelAnguloMitad: (context) =>
-          const FuncionesDelAnguloMitad(),
-      kRutaMenuTrigonometriaEsferica: (context) =>
-          const MenuTrigonometriaEsferica(),
+  //Matematicas Financieras
+  kRutaAmortizacion: (context) => const Amortizacion(),
+  kRutaAnualidadAnticipadaSimpleYCierta: (context) =>
+      const AnualidadAnticipadaSimpleYCierta(),
+  kRutaAnualidadVencidaSimpleYCierta: (context) =>
+      const AnualidadVencidaSimpleYCierta(),
+  kRutaDescuentoCompuesto: (context) => const DescuentoCompuesto(),
+  kRutaDescuentoSimple: (context) => const DescuentoSimple(),
+  kRutaInteresCompuesto: (context) => const InteresCompuesto(),
+  kRutaInteresSimple: (context) => const InteresSimple(),
+  kRutaMenuMatematicasFinancieras: (context) =>
+      const MenuMatematicasFinancieras(),
+  kRutaSaldoInsoluto: (context) => const SaldoInsoluto(),
+  kRutaTasaDeInteresGlobal: (context) => const TasaDeInteresGlobal(),
+  kRutaTasaEfectiva: (context) => const TasaEfectiva(),
 
-      //Matemáticas Discretas
-      kRutaBicondicional: (context) =>
-          const BicondicionalMatematicasDiscretas(),
-      kRutaCondicional: (context) => const CondicionalMatematicasDiscretas(),
-      kRutaConectoresLogicos: (context) => const ConectoresLogicos(),
-      kRutaConjuncion: (context) => const ConjuncionMatematicasDiscretas(),
-      kRutaDisyuncion: (context) => const DisyuncionMatematicasDiscretas(),
-      kRutaLeyesDeLaLogicaProposicional: (context) =>
-          const LeyesDeLaLogicaProposicional(),
-      kRutaLeyesDeLaTeoriaDeConjuntos: (context) =>
-          const LeyesDeLaTeoriaDeConjuntos(),
-      kRutaLeyesDelAlgebraDeBoole: (context) => const LeyesDelAlgebraDeBoole(),
-      kRutaNegacion: (context) => const Negacion(),
-      kRutaMenuMatematicasDiscretas: (context) =>
-          const MenuMatematicasDiscretas(),
-
-      //Matematicas Financieras
-      kRutaAmortizacion: (context) => const Amortizacion(),
-      kRutaAnualidadAnticipadaSimpleYCierta: (context) =>
-          const AnualidadAnticipadaSimpleYCierta(),
-      kRutaAnualidadVencidaSimpleYCierta: (context) =>
-          const AnualidadVencidaSimpleYCierta(),
-      kRutaDescuentoCompuesto: (context) => const DescuentoCompuesto(),
-      kRutaDescuentoSimple: (context) => const DescuentoSimple(),
-      kRutaInteresCompuesto: (context) => const InteresCompuesto(),
-      kRutaInteresSimple: (context) => const InteresSimple(),
-      kRutaMenuMatematicasFinancieras: (context) =>
-          const MenuMatematicasFinancieras(),
-      kRutaSaldoInsoluto: (context) => const SaldoInsoluto(),
-      kRutaTasaDeInteresGlobal: (context) => const TasaDeInteresGlobal(),
-      kRutaTasaEfectiva: (context) => const TasaEfectiva(),
-
-      //Geometria
-      kRutaAreaYPerimetroDeCuadrilateros: (context) =>
-          const AreaYPerimetroDeCuadrilateros(),
-      kRutaAreaYPerimetroDeTriangulos: (context) =>
-          const AreaYPerimetroDeTriangulos(),
-      kRutaAreaYPerimetroDelCirculo: (context) =>
-          const AreaYPerimetroDelCirculo(),
-      kRutaMenuAreasGeometria: (context) => const MenuAreasGeometria(),
-      kRutaAngulosEnUnPoligono: (context) => const AngulosEnUnPoligono(),
-      kRutaCircunferencia: (context) => const Circunferencia(),
-      kRutaDistanciaDeUnPuntoAUnaRecta: (context) =>
-          const DistanciaDeUnPuntoAUnaRecta(),
-      kRutaDistanciaEntreDosPuntos: (context) =>
-          const DistanciaEntreDosPuntos(),
-      kRutaEcuacionDeLaRecta: (context) => const EcuacionDeLaRecta(),
-      kRutaElipseConCentroDiferenteDelOrigen: (context) =>
-          const ElipseConCentroDiferenteDelOrigen(),
-      kRutaElipseConCentroEnElOrigen: (context) =>
-          const ElipseConCentroEnElOrigen(),
-      kRutaHiperbola: (context) => const Hiperbola(),
-      kRutaMenuGeometria: (context) => const MenuGeometria(),
-      kRutaParabolaConVerticeDiferenteDelOrigen: (context) =>
-          const ParabolaConVerticeDiferenteDelOrigen(),
-      kRutaParabolaConVerticeEnElOrigen: (context) =>
-          const ParabolaConVerticeEnElOrigen(),
-      kRutaPuntoMedioEntreDosPuntosGeometria: (context) =>
-          const PuntoMedioEntreDosPuntos(),
-      kRutaVolumenDeCuerposGeometricos: (context) =>
-          const VolumenDeCuerposGeometricos(),
-      //Drawer
-      kRutaInformacion: (context) => const Informacion(),
-      kRutaConfiguracion: (context) => const Configuracion(),
-    };
+  //Geometria
+  kRutaAreaYPerimetroDeCuadrilateros: (context) =>
+      const AreaYPerimetroDeCuadrilateros(),
+  kRutaAreaYPerimetroDeTriangulos: (context) =>
+      const AreaYPerimetroDeTriangulos(),
+  kRutaAreaYPerimetroDelCirculo: (context) => const AreaYPerimetroDelCirculo(),
+  kRutaMenuAreasGeometria: (context) => const MenuAreasGeometria(),
+  kRutaAngulosEnUnPoligono: (context) => const AngulosEnUnPoligono(),
+  kRutaCircunferencia: (context) => const Circunferencia(),
+  kRutaDistanciaDeUnPuntoAUnaRecta: (context) =>
+      const DistanciaDeUnPuntoAUnaRecta(),
+  kRutaDistanciaEntreDosPuntos: (context) => const DistanciaEntreDosPuntos(),
+  kRutaEcuacionDeLaRecta: (context) => const EcuacionDeLaRecta(),
+  kRutaElipseConCentroDiferenteDelOrigen: (context) =>
+      const ElipseConCentroDiferenteDelOrigen(),
+  kRutaElipseConCentroEnElOrigen: (context) =>
+      const ElipseConCentroEnElOrigen(),
+  kRutaHiperbola: (context) => const Hiperbola(),
+  kRutaMenuGeometria: (context) => const MenuGeometria(),
+  kRutaParabolaConVerticeDiferenteDelOrigen: (context) =>
+      const ParabolaConVerticeDiferenteDelOrigen(),
+  kRutaParabolaConVerticeEnElOrigen: (context) =>
+      const ParabolaConVerticeEnElOrigen(),
+  kRutaPuntoMedioEntreDosPuntosGeometria: (context) =>
+      const PuntoMedioEntreDosPuntos(),
+  kRutaVolumenDeCuerposGeometricos: (context) =>
+      const VolumenDeCuerposGeometricos(),
+  //Drawer
+  kRutaInformacion: (context) => const Informacion(),
+  kRutaConfiguracion: (context) => const Configuracion(),
+};

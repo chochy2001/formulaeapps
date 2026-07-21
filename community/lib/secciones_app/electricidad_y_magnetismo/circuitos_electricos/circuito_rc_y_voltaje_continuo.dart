@@ -16,9 +16,12 @@ class _CircuitoRCyVoltajeContinuoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _CircuitoRCyVoltajeContinuoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .circuitoRCVoltajeContinuo,
-                      widgetName: kWidgetCircuitoRCyVoltajeContinuo),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.circuitoRCVoltajeContinuo,
+                    widgetName: kWidgetCircuitoRCyVoltajeContinuo,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +62,20 @@ class _CircuitoRCyVoltajeContinuoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circuitoRCVoltajeContinuo,
-                              widgetName: kWidgetCircuitoRCyVoltajeContinuo),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circuitoRCVoltajeContinuo,
+                            widgetName: kWidgetCircuitoRCyVoltajeContinuo,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circuitoRCVoltajeContinuo,
-                              widgetName: kWidgetCircuitoRCyVoltajeContinuo),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circuitoRCVoltajeContinuo,
+                            widgetName: kWidgetCircuitoRCyVoltajeContinuo,
+                          ),
                         );
                       }
                     });
@@ -79,13 +88,15 @@ class _CircuitoRCyVoltajeContinuoState
             Column(
               children: <Widget>[
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenCircuitoRCYVoltajeContinuo) ??
-                        kUrlImagenCircuitoRCYVoltajeContinuo),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.alTiempoT0,
+                  urlImagen:
+                      getImageUrlById(
+                        context,
+                        kImagenCircuitoRCYVoltajeContinuo,
+                      ) ??
+                      kUrlImagenCircuitoRCYVoltajeContinuo,
                 ),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.alTiempoT0),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.procesoDeCargaEnUnCapacitor,
@@ -95,13 +106,9 @@ class _CircuitoRCyVoltajeContinuoState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetCircuitoRCyVoltajeContinuo,
-            ),
+            const VerPDF(url: kWidgetCircuitoRCyVoltajeContinuo),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetCircuitoRCyVoltajeContinuo,
-            ),
+            const DescargarPDF(url: kWidgetCircuitoRCyVoltajeContinuo),
           ],
         ),
       ),

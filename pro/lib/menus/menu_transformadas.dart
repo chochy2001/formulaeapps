@@ -22,9 +22,7 @@ class MenuTransformadasState extends State<MenuTransformadas> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -33,37 +31,41 @@ class MenuTransformadasState extends State<MenuTransformadas> {
                     AppLocalizations.of(context)!.transformadas,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.transformadaDeFourier,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadaDeFourier,
                     ruta: kRutaTransformadaDeFourier,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.transformadaDeLaplace,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadaDeLaplace,
                     ruta: kRutaTransformadaDeLaplace,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .transformadaSenoYCosenoDeFourier,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadaSenoYCosenoDeFourier,
                     ruta: kRutaTransformadaSenoYCosenoDeFourier,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .transformadasBasicasDeFourier,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadasBasicasDeFourier,
                     ruta: kRutaTransformadasBasicasDeFourier,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.transformadasDeFourier,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadasDeFourier,
                     ruta: kRutaTransformadasDeFourier,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.transformadasDeLaplace,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.transformadasDeLaplace,
                     ruta: kRutaTransformadasDeLaplace,
                   ),
                 ],

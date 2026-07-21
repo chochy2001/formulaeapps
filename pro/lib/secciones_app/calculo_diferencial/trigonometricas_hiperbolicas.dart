@@ -26,17 +26,20 @@ class TrigonometricasHiperbolicasDiferencialState
             children: [
               ChatGPTButton(
                 child: TituloPersonalizado(
-                  AppLocalizations.of(context)!
-                      .derivadasDeFuncionesTrigonometriasHiperbolicas,
+                  AppLocalizations.of(
+                    context,
+                  )!.derivadasDeFuncionesTrigonometriasHiperbolicas,
                 ),
               ),
               Consumer<FavoritesNotifier>(
                 builder: (context, favoritesNotifier, child) {
                   bool isFavorite = favoritesNotifier.isFavorite(
                     Favorite(
-                        title: AppLocalizations.of(context)!
-                            .derivadasDeFuncionesTrigonometriasHiperbolicas,
-                        widgetName: kWidgetFuncionesHiperbolicas),
+                      title: AppLocalizations.of(
+                        context,
+                      )!.derivadasDeFuncionesTrigonometriasHiperbolicas,
+                      widgetName: kWidgetFuncionesHiperbolicas,
+                    ),
                   );
                   return IconButton(
                     icon: isFavorite
@@ -48,16 +51,20 @@ class TrigonometricasHiperbolicasDiferencialState
                         if (isFavorite) {
                           favoritesNotifier.removeFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasDeFuncionesTrigonometriasHiperbolicas,
-                                widgetName: kWidgetFuncionesHiperbolicas),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.derivadasDeFuncionesTrigonometriasHiperbolicas,
+                              widgetName: kWidgetFuncionesHiperbolicas,
+                            ),
                           );
                         } else {
                           favoritesNotifier.addFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasDeFuncionesTrigonometriasHiperbolicas,
-                                widgetName: kWidgetFuncionesHiperbolicas),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.derivadasDeFuncionesTrigonometriasHiperbolicas,
+                              widgetName: kWidgetFuncionesHiperbolicas,
+                            ),
                           );
                         }
                       });
@@ -72,60 +79,55 @@ class TrigonometricasHiperbolicasDiferencialState
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\sinh\thinspace u) = \cosh\thinspace u u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\sinh\thinspace u) = \cosh\thinspace u u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\cosh\thinspace u) = -\sinh\thinspace u u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\cosh\thinspace u) = -\sinh\thinspace u u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\tanh\thinspace u) = sech{^2}\thinspace u u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\tanh\thinspace u) = sech{^2}\thinspace u u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(csch\thinspace u) = -csch\thinspace u \cdot \cot\thinspace uu'"),
+                      formulaText:
+                          r"\frac{d}{dx}(csch\thinspace u) = -csch\thinspace u \cdot \cot\thinspace uu'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(sech\thinspace u) = sech\thinspace u \cdot \tanh\thinspace uu'"),
+                      formulaText:
+                          r"\frac{d}{dx}(sech\thinspace u) = sech\thinspace u \cdot \tanh\thinspace uu'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\coth\thinspace u) = -csch{^2}\thinspace u u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\coth\thinspace u) = -csch{^2}\thinspace u u'",
+                    ),
 
                     //Boton para acceder al formulario en PDF
                     SizedBox(height: kEspacioEntreBotones),
-                    VerPDF(
-                      url: kWidgetFuncionesHiperbolicas,
-                    ),
+                    VerPDF(url: kWidgetFuncionesHiperbolicas),
                     //Descargar PDF
-                    DescargarPDF(
-                      url: kWidgetFuncionesHiperbolicas,
-                    ),
+                    DescargarPDF(url: kWidgetFuncionesHiperbolicas),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: kEspacioEntreBotones,
-              ),
+              const SizedBox(height: kEspacioEntreBotones),
 
-              const SizedBox(
-                height: 30.0,
-              ),
+              const SizedBox(height: 30.0),
               Container(
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(

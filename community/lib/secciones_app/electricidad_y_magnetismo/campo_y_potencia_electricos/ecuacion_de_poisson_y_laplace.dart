@@ -16,9 +16,12 @@ class _EcuacionDePoissonYLaplaceState extends State<EcuacionDePoissonYLaplace> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,9 @@ class _EcuacionDePoissonYLaplaceState extends State<EcuacionDePoissonYLaplace> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.ecuacionPoissonLaplace,
-                      widgetName: kWidgetEcuacionDePossionYLaplace),
+                    title: AppLocalizations.of(context)!.ecuacionPoissonLaplace,
+                    widgetName: kWidgetEcuacionDePossionYLaplace,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +60,20 @@ class _EcuacionDePoissonYLaplaceState extends State<EcuacionDePoissonYLaplace> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .ecuacionPoissonLaplace,
-                              widgetName: kWidgetEcuacionDePossionYLaplace),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.ecuacionPoissonLaplace,
+                            widgetName: kWidgetEcuacionDePossionYLaplace,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .ecuacionPoissonLaplace,
-                              widgetName: kWidgetEcuacionDePossionYLaplace),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.ecuacionPoissonLaplace,
+                            widgetName: kWidgetEcuacionDePossionYLaplace,
+                          ),
                         );
                       }
                     });
@@ -84,12 +91,14 @@ class _EcuacionDePoissonYLaplaceState extends State<EcuacionDePoissonYLaplace> {
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \cdot \vec{E} = \frac{\rho}{\epsilon _0}"),
+                    formulaText:
+                        r"\vec{\nabla} \cdot \vec{E} = \frac{\rho}{\epsilon _0}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .gradientePotencialCampoElectrico,
+                    AppLocalizations.of(
+                      context,
+                    )!.gradientePotencialCampoElectrico,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\vec{E} = - \vec{\nabla}V"),
@@ -99,41 +108,41 @@ class _EcuacionDePoissonYLaplaceState extends State<EcuacionDePoissonYLaplace> {
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \cdot \vec{\nabla}V = \nabla ^2 V = -\frac{\rho}{\varepsilon _0}"),
+                    formulaText:
+                        r"\vec{\nabla} \cdot \vec{\nabla}V = \nabla ^2 V = -\frac{\rho}{\varepsilon _0}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.ecuacionLaplace,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \cdot \vec{\nabla}V = \nabla ^2 V = 0"),
+                    formulaText:
+                        r"\vec{\nabla} \cdot \vec{\nabla}V = \nabla ^2 V = 0",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.operadorLaplaciano,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \cdot \vec{\nabla}\varphi = \nabla ^2 \varphi = \Delta\varphi ="),
+                    formulaText:
+                        r"\vec{\nabla} \cdot \vec{\nabla}\varphi = \nabla ^2 \varphi = \Delta\varphi =",
+                  ),
                   const SizedBox(height: 40.0),
                   const Latex(
-                      formulaText:
-                          r"\frac{\partial ^2 \varphi}{\partial x^2} + \frac{\partial ^2 \varphi}{\partial y^2} + \frac{\partial ^2 \varphi}{\partial z^2}"),
+                    formulaText:
+                        r"\frac{\partial ^2 \varphi}{\partial x^2} + \frac{\partial ^2 \varphi}{\partial y^2} + \frac{\partial ^2 \varphi}{\partial z^2}",
+                  ),
                   const SizedBox(height: 40.0),
                 ],
               ),
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetEcuacionDePossionYLaplace,
-            ),
+            const VerPDF(url: kWidgetEcuacionDePossionYLaplace),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetEcuacionDePossionYLaplace,
-            ),
+            const DescargarPDF(url: kWidgetEcuacionDePossionYLaplace),
           ],
         ),
       ),

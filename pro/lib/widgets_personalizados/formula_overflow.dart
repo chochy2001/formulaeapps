@@ -57,10 +57,10 @@ class _AdaptiveFormulaState extends State<AdaptiveFormula> {
   Size? _intrinsic;
 
   Widget _math() => Math.tex(
-        widget.formulaText,
-        mathStyle: MathStyle.display,
-        textStyle: widget.textStyle,
-      );
+    widget.formulaText,
+    mathStyle: MathStyle.display,
+    textStyle: widget.textStyle,
+  );
 
   @override
   void didUpdateWidget(covariant AdaptiveFormula oldWidget) {
@@ -98,19 +98,13 @@ class _AdaptiveFormulaState extends State<AdaptiveFormula> {
         final measure = Offstage(
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: _MeasureSize(
-              onChange: _onMeasured,
-              child: _math(),
-            ),
+            child: _MeasureSize(onChange: _onMeasured, child: _math()),
           ),
         );
 
         final content = _buildContent(available);
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [content, measure],
-        );
+        return Stack(alignment: Alignment.center, children: [content, measure]);
       },
     );
   }
@@ -122,10 +116,7 @@ class _AdaptiveFormulaState extends State<AdaptiveFormula> {
     if (intrinsic == null || intrinsic.width <= 0) {
       return SizedBox(
         width: available,
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: _math(),
-        ),
+        child: FittedBox(fit: BoxFit.scaleDown, child: _math()),
       );
     }
 
@@ -157,10 +148,7 @@ class _AdaptiveFormulaState extends State<AdaptiveFormula> {
     final scaled = SizedBox(
       width: scaledWidth,
       height: scaledHeight,
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: _math(),
-      ),
+      child: FittedBox(fit: BoxFit.contain, child: _math()),
     );
 
     return _ScrollableFadingFormula(
@@ -317,10 +305,7 @@ class _ChevronHint extends StatelessWidget {
 class _MeasureSize extends SingleChildRenderObjectWidget {
   final _OnSizeChange onChange;
 
-  const _MeasureSize({
-    required this.onChange,
-    required Widget super.child,
-  });
+  const _MeasureSize({required this.onChange, required Widget super.child});
 
   @override
   RenderObject createRenderObject(BuildContext context) =>

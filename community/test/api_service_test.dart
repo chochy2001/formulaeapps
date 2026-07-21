@@ -11,10 +11,7 @@ import 'package:formulae/chat_gpt/auth_service.dart';
 import 'auth_service_test.dart' show testJwt;
 
 class _MockChatAdapter implements HttpClientAdapter {
-  _MockChatAdapter({
-    required this.responseBody,
-    this.rotatedToken,
-  });
+  _MockChatAdapter({required this.responseBody, this.rotatedToken});
 
   final Map<String, dynamic> responseBody;
   final String? rotatedToken;
@@ -111,24 +108,26 @@ void main() {
         expUnix: rotatedExp.millisecondsSinceEpoch ~/ 1000,
       );
 
-      final dio = Dio(
-        BaseOptions(
-          baseUrl: 'https://example.test',
-          validateStatus: (_) => true,
-        ),
-      )..httpClientAdapter = _MockChatAdapter(
-          rotatedToken: rotated,
-          responseBody: {
-            'message': 'ok',
-            'model_id': 'openai/gpt-4o-mini',
-            'usage': {
-              'prompt_tokens': 1,
-              'completion_tokens': 1,
-              'total_tokens': 2,
-            },
-            'prompts_version': 'test-v1',
-          },
-        );
+      final dio =
+          Dio(
+              BaseOptions(
+                baseUrl: 'https://example.test',
+                validateStatus: (_) => true,
+              ),
+            )
+            ..httpClientAdapter = _MockChatAdapter(
+              rotatedToken: rotated,
+              responseBody: {
+                'message': 'ok',
+                'model_id': 'openai/gpt-4o-mini',
+                'usage': {
+                  'prompt_tokens': 1,
+                  'completion_tokens': 1,
+                  'total_tokens': 2,
+                },
+                'prompts_version': 'test-v1',
+              },
+            );
 
       await ApiService.sendMessage(
         message: 'ping',

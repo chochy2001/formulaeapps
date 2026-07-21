@@ -6,10 +6,12 @@ class DesigualdadesTeoremasDeOrden extends StatefulWidget {
   const DesigualdadesTeoremasDeOrden({super.key});
 
   @override
-  DesigualdadesTeoremasDeOrdenState createState() => DesigualdadesTeoremasDeOrdenState();
+  DesigualdadesTeoremasDeOrdenState createState() =>
+      DesigualdadesTeoremasDeOrdenState();
 }
 
-class DesigualdadesTeoremasDeOrdenState extends State<DesigualdadesTeoremasDeOrden> {
+class DesigualdadesTeoremasDeOrdenState
+    extends State<DesigualdadesTeoremasDeOrden> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class DesigualdadesTeoremasDeOrdenState extends State<DesigualdadesTeoremasDeOrd
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.desigualdadesTeoremasDeOrden,
                         widgetName: kWidgetDesigualdadesTeoremasDeOrden,
                       ),
                     );
@@ -44,14 +48,18 @@ class DesigualdadesTeoremasDeOrdenState extends State<DesigualdadesTeoremasDeOrd
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.desigualdadesTeoremasDeOrden,
                                 widgetName: kWidgetDesigualdadesTeoremasDeOrden,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.desigualdadesTeoremasDeOrden,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.desigualdadesTeoremasDeOrden,
                                 widgetName: kWidgetDesigualdadesTeoremasDeOrden,
                               ),
                             );
@@ -67,9 +75,15 @@ class DesigualdadesTeoremasDeOrdenState extends State<DesigualdadesTeoremasDeOrd
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"a < b \ \text{y}\ c < d \implies a + c < b + d"),
+                  Latex(
+                    formulaText:
+                        r"a < b \ \text{y}\ c < d \implies a + c < b + d",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"0 \le a < b \ \text{y}\ 0 \le c < d \implies a\,c < b\,d"),
+                  Latex(
+                    formulaText:
+                        r"0 \le a < b \ \text{y}\ 0 \le c < d \implies a\,c < b\,d",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"a\,b > 0"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -79,9 +93,14 @@ class DesigualdadesTeoremasDeOrdenState extends State<DesigualdadesTeoremasDeOrd
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"a^{2} > b^{2} \iff a > b"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"a^{2} > b \iff a > \sqrt{b} \ \text{o}\ a < -\sqrt{b}"),
+                  Latex(
+                    formulaText:
+                        r"a^{2} > b \iff a > \sqrt{b} \ \text{o}\ a < -\sqrt{b}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"a^{2} < b \iff -\sqrt{b} < a < \sqrt{b}"),
+                  Latex(
+                    formulaText: r"a^{2} < b \iff -\sqrt{b} < a < \sqrt{b}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

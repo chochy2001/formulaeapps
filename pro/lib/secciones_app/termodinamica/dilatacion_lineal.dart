@@ -44,14 +44,18 @@ class DilatacionLinealState extends State<DilatacionLineal> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.dilatacionLineal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.dilatacionLineal,
                                 widgetName: kWidgetDilatacionLineal,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.dilatacionLineal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.dilatacionLineal,
                                 widgetName: kWidgetDilatacionLineal,
                               ),
                             );
@@ -73,9 +77,14 @@ class DilatacionLinealState extends State<DilatacionLineal> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\Delta L = \alpha L_0\,\Delta t"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\alpha = \frac{\Delta L}{L_0\,\Delta t}"),
+                  Latex(
+                    formulaText: r"\alpha = \frac{\Delta L}{L_0\,\Delta t}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\alpha_L = \frac{1}{L}\left(\frac{dL}{dT}\right)_p = \left(\frac{d\ln L}{dT}\right)_p \approx \frac{1}{L}\left(\frac{\Delta L}{\Delta T}\right)_p"),
+                  Latex(
+                    formulaText:
+                        r"\alpha_L = \frac{1}{L}\left(\frac{dL}{dT}\right)_p = \left(\frac{d\ln L}{dT}\right)_p \approx \frac{1}{L}\left(\frac{\Delta L}{\Delta T}\right)_p",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

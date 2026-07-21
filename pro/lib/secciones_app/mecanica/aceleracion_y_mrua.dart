@@ -44,14 +44,18 @@ class AceleracionYMruaState extends State<AceleracionYMrua> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aceleracionYMrua,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aceleracionYMrua,
                                 widgetName: kWidgetAceleracionYMrua,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.aceleracionYMrua,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.aceleracionYMrua,
                                 widgetName: kWidgetAceleracionYMrua,
                               ),
                             );
@@ -73,7 +77,9 @@ class AceleracionYMruaState extends State<AceleracionYMrua> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"V_f = V_0 + a t"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"d = \left( \frac{V_f + V_0}{2} \right) t"),
+                  Latex(
+                    formulaText: r"d = \left( \frac{V_f + V_0}{2} \right) t",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"d = V_0 t + \frac{a t^{2}}{2}"),
                   SizedBox(height: kEspacioEntreBotones),

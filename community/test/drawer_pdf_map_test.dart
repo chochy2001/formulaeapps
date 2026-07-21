@@ -28,8 +28,9 @@ void main() {
     AdMobConfig.adsEnabled = true;
   });
 
-  testWidgets('DrawerPersonalizado mounts Android and iOS variants',
-      (tester) async {
+  testWidgets('DrawerPersonalizado mounts Android and iOS variants', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     for (final platform in [0, 1]) {
       await tester.pumpWidget(
@@ -41,21 +42,26 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 50));
       _expectNoWidgetException(
-          tester, 'DrawerPersonalizado platform $platform');
+        tester,
+        'DrawerPersonalizado platform $platform',
+      );
       expect(find.byType(Drawer), findsOneWidget);
       expect(find.byType(ListView), findsWidgets);
     }
   });
 
-  testWidgets('urlPdfMap and getUrlPdfById resolve known widgets',
-      (tester) async {
+  testWidgets('urlPdfMap and getUrlPdfById resolve known widgets', (
+    tester,
+  ) async {
     late BuildContext captured;
     await tester.pumpWidget(
       _harness(
-        home: Builder(builder: (context) {
-          captured = context;
-          return const SizedBox.shrink();
-        }),
+        home: Builder(
+          builder: (context) {
+            captured = context;
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
     await tester.pump();
@@ -80,14 +86,18 @@ void main() {
 
   testWidgets('VerPDF shrinks for empty/missing urls', (tester) async {
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: VerPDF(url: ''))),
+      _harness(
+        home: const Scaffold(body: VerPDF(url: '')),
+      ),
     );
     await tester.pump();
     _expectNoWidgetException(tester, 'VerPDF empty URL');
     expect(find.byType(SizedBox), findsWidgets);
 
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: VerPDF(url: 'no-such-id'))),
+      _harness(
+        home: const Scaffold(body: VerPDF(url: 'no-such-id')),
+      ),
     );
     await tester.pump();
     _expectNoWidgetException(tester, 'VerPDF unknown widget ID');
@@ -95,7 +105,9 @@ void main() {
 
   testWidgets('DescargarPDF shrinks for missing urls', (tester) async {
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: DescargarPDF(url: 'no-such-id'))),
+      _harness(
+        home: const Scaffold(body: DescargarPDF(url: 'no-such-id')),
+      ),
     );
     await tester.pump();
     _expectNoWidgetException(tester, 'DescargarPDF unknown widget ID');
@@ -103,8 +115,11 @@ void main() {
 }
 
 void _expectNoWidgetException(WidgetTester tester, String phase) {
-  expect(tester.takeException(), isNull,
-      reason: '$phase threw a widget exception');
+  expect(
+    tester.takeException(),
+    isNull,
+    reason: '$phase threw a widget exception',
+  );
 }
 
 Widget _harness({required Widget home}) {

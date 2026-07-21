@@ -7,7 +7,5 @@ openURL(String url) {
 }
 
 openURLNuevo(String url) {
-  launchUrl(
-    Uri.parse(url).removeFragment(),
-  );
+  launchUrl(Uri.parse(url).removeFragment());
 }

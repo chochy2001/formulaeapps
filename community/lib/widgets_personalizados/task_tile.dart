@@ -31,32 +31,20 @@ class TaskTile extends StatelessWidget {
               ),
               backgroundColor: kColorBotones,
               title: Center(
-                child: Text(
-                  l10n.eliminarTarea,
-                  style: kTextoBotones,
-                ),
+                child: Text(l10n.eliminarTarea, style: kTextoBotones),
               ),
-              content: Text(
-                l10n.confirmacionEliminarTarea,
-                style: kTexto,
-              ),
+              content: Text(l10n.confirmacionEliminarTarea, style: kTexto),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    l10n.cancelar,
-                    style: kTextoBotones2,
-                  ),
+                  child: Text(l10n.cancelar, style: kTextoBotones2),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                     longPressCallback();
                   },
-                  child: Text(
-                    l10n.eliminar,
-                    style: kTextoCerrar,
-                  ),
+                  child: Text(l10n.eliminar, style: kTextoCerrar),
                 ),
               ],
             );
@@ -74,10 +62,7 @@ class TaskTile extends StatelessWidget {
       ),
       trailing: Checkbox(
         checkColor: kColorBlanco,
-        side: const BorderSide(
-          width: 2,
-          color: kColorBlanco,
-        ),
+        side: const BorderSide(width: 2, color: kColorBlanco),
         activeColor: kColorBotones,
         value: isChecked,
         onChanged: checkboxCallback,

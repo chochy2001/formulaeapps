@@ -4,15 +4,16 @@ class Task {
   final String name;
   bool isDone;
   DateTime?
-      reminderDateTime; // Campo para almacenar la fecha y hora del recordatorio
+  reminderDateTime; // Campo para almacenar la fecha y hora del recordatorio
   DateTime?
-      dueDate; // Nuevo campo para almacenar la fecha de vencimiento de la tarea
+  dueDate; // Nuevo campo para almacenar la fecha de vencimiento de la tarea
 
-  Task(
-      {required this.name,
-      this.isDone = false,
-      this.reminderDateTime,
-      this.dueDate});
+  Task({
+    required this.name,
+    this.isDone = false,
+    this.reminderDateTime,
+    this.dueDate,
+  });
 
   void toggleDone() {
     isDone = !isDone;

@@ -54,8 +54,9 @@ void main() {
     }
   });
 
-  testWidgets('Drawer taps navigate named routes without crashing',
-      (tester) async {
+  testWidgets('Drawer taps navigate named routes without crashing', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1800));
     for (final platform in [0, 1]) {
       await tester.pumpWidget(
@@ -165,10 +166,7 @@ Widget _harness({
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: L10n.all,
-      routes: {
-        '/': (_) => home,
-        ...routes,
-      },
+      routes: {'/': (_) => home, ...routes},
     ),
   );
 }

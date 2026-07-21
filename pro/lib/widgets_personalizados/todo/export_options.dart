@@ -18,9 +18,7 @@ class ExportOptionsDialogState extends State<ExportOptionsDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: kColorBotones,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         AppLocalizations.of(context)!.opcionesExportacion,
         style: kTexto,
@@ -77,16 +75,15 @@ class ExportOptionsDialogState extends State<ExportOptionsDialog> {
           },
         ),
         TextButton(
-          child: Text(
-            AppLocalizations.of(context)!.aceptar,
-            style: kTexto,
-          ),
+          child: Text(AppLocalizations.of(context)!.aceptar, style: kTexto),
           onPressed: () {
-            Navigator.of(context).pop(ExportOptions(
-              includeDueDate: includeDueDate,
-              includeReminderDate: includeReminderDate,
-              includeTaskStatus: includeTaskStatus,
-            ));
+            Navigator.of(context).pop(
+              ExportOptions(
+                includeDueDate: includeDueDate,
+                includeReminderDate: includeReminderDate,
+                includeTaskStatus: includeTaskStatus,
+              ),
+            );
           },
         ),
       ],

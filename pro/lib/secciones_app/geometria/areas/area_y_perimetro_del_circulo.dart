@@ -37,9 +37,11 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .areaPerimetroCirculo,
-                            widgetName: kWidgetAreaYPerimetroDelCirculo),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.areaPerimetroCirculo,
+                          widgetName: kWidgetAreaYPerimetroDelCirculo,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -51,18 +53,20 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroCirculo,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDelCirculo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroCirculo,
+                                  widgetName: kWidgetAreaYPerimetroDelCirculo,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroCirculo,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDelCirculo),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroCirculo,
+                                  widgetName: kWidgetAreaYPerimetroDelCirculo,
+                                ),
                               );
                             }
                           });
@@ -71,26 +75,21 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Column(
                     children: [
                       const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.area,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.area),
                       const Latex(formulaText: r"\pi r^2"),
                       const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.perimetro,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                       const Latex(formulaText: r"2\pi r = \pi d"),
                       const SizedBox(height: kEspacioEntreBotones),
                     ],
                   ),
                   const ZoomImagePersonalizado(
-                      urlImagen: kUrlImagenAreaYPerimetrosDelCirculo),
+                    urlImagen: kUrlImagenAreaYPerimetrosDelCirculo,
+                  ),
                   const SizedBox(height: kEspacioInteractivo * 3),
                   Theme(
                     data: ThemeData(
@@ -98,16 +97,13 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -115,7 +111,9 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -139,42 +137,27 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
                   _solucionCirculo(radio),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAreaYPerimetroDelCirculo,
-                  ),
+                  const VerPDF(url: kWidgetAreaYPerimetroDelCirculo),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAreaYPerimetroDelCirculo,
-                  ),
+                  const DescargarPDF(url: kWidgetAreaYPerimetroDelCirculo),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.pi,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.pi),
                         const Latex(formulaText: r"\pi"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.radio,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.radio),
                         const Latex(formulaText: r"r"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.diametro,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.diametro),
                         const Latex(formulaText: r"d"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
@@ -198,10 +181,7 @@ class AreaYPerimetroDelCirculoState extends State<AreaYPerimetroDelCirculo> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(

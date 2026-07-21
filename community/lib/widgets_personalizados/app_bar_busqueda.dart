@@ -13,10 +13,11 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Activar la búsqueda automáticamente al entrar a la página
       showSearch(
-          context: context,
-          delegate: DataSearch(
-            buscarFormula: AppLocalizations.of(context)!.buscarFormula,
-          ));
+        context: context,
+        delegate: DataSearch(
+          buscarFormula: AppLocalizations.of(context)!.buscarFormula,
+        ),
+      );
     });
 
     return PreferredSize(
@@ -25,7 +26,10 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0.0,
         backgroundColor: kColorFondo,
         titleTextStyle: const TextStyle(
-            color: Colors.white, fontFamily: 'Poppins', fontSize: 20),
+          color: Colors.white,
+          fontFamily: 'Poppins',
+          fontSize: 20,
+        ),
         actions: <Widget>[
           Animate(
             effects: const [
@@ -50,20 +54,16 @@ class AppBarBusqueda extends StatelessWidget implements PreferredSizeWidget {
               ),
               onPressed: () {
                 showSearch(
-                    context: context,
-                    delegate: DataSearch(
-                      buscarFormula:
-                          AppLocalizations.of(context)!.buscarFormula,
-                    ));
+                  context: context,
+                  delegate: DataSearch(
+                    buscarFormula: AppLocalizations.of(context)!.buscarFormula,
+                  ),
+                );
               },
             ),
           ),
         ],
-        title: Center(
-          child: Text(
-            AppLocalizations.of(context)!.buscarFormula,
-          ),
-        ),
+        title: Center(child: Text(AppLocalizations.of(context)!.buscarFormula)),
       ),
     );
   }

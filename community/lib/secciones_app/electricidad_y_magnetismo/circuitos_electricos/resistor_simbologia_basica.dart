@@ -15,9 +15,12 @@ class _ResistorSimbologiaBasicaState extends State<ResistorSimbologiaBasica> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,11 @@ class _ResistorSimbologiaBasicaState extends State<ResistorSimbologiaBasica> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .resistorSimbologiaBasica,
-                      widgetName: kWidgetResistorSimbologiaBasica),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.resistorSimbologiaBasica,
+                    widgetName: kWidgetResistorSimbologiaBasica,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +61,20 @@ class _ResistorSimbologiaBasicaState extends State<ResistorSimbologiaBasica> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistorSimbologiaBasica,
-                              widgetName: kWidgetResistorSimbologiaBasica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistorSimbologiaBasica,
+                            widgetName: kWidgetResistorSimbologiaBasica,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistorSimbologiaBasica,
-                              widgetName: kWidgetResistorSimbologiaBasica),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistorSimbologiaBasica,
+                            widgetName: kWidgetResistorSimbologiaBasica,
+                          ),
                         );
                       }
                     });
@@ -76,18 +85,15 @@ class _ResistorSimbologiaBasicaState extends State<ResistorSimbologiaBasica> {
 
             const SizedBox(height: 20.0),
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenResistorSimbologiaBasica) ??
-                        kUrlImagenResistorSimbologiaBasica),
+              urlImagen:
+                  getImageUrlById(context, kImagenResistorSimbologiaBasica) ??
+                  kUrlImagenResistorSimbologiaBasica,
+            ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetResistorSimbologiaBasica,
-            ),
+            const VerPDF(url: kWidgetResistorSimbologiaBasica),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetResistorSimbologiaBasica,
-            ),
+            const DescargarPDF(url: kWidgetResistorSimbologiaBasica),
           ],
         ),
       ),

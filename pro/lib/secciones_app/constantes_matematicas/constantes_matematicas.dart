@@ -30,7 +30,9 @@ class ConstantesMatematicasState extends State<ConstantesMatematicas> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.constantesMatematicas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.constantesMatematicas,
                         widgetName: kWidgetConstantesMatematicas,
                       ),
                     );
@@ -44,14 +46,18 @@ class ConstantesMatematicasState extends State<ConstantesMatematicas> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesMatematicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesMatematicas,
                                 widgetName: kWidgetConstantesMatematicas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesMatematicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesMatematicas,
                                 widgetName: kWidgetConstantesMatematicas,
                               ),
                             );

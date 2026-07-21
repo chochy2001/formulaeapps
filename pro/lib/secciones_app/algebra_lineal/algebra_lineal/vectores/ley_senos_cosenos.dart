@@ -6,10 +6,12 @@ class AlgebraLinealVectoresLeySenosCosenos extends StatefulWidget {
   const AlgebraLinealVectoresLeySenosCosenos({super.key});
 
   @override
-  AlgebraLinealVectoresLeySenosCosenosState createState() => AlgebraLinealVectoresLeySenosCosenosState();
+  AlgebraLinealVectoresLeySenosCosenosState createState() =>
+      AlgebraLinealVectoresLeySenosCosenosState();
 }
 
-class AlgebraLinealVectoresLeySenosCosenosState extends State<AlgebraLinealVectoresLeySenosCosenos> {
+class AlgebraLinealVectoresLeySenosCosenosState
+    extends State<AlgebraLinealVectoresLeySenosCosenos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class AlgebraLinealVectoresLeySenosCosenosState extends State<AlgebraLinealVecto
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealVectoresLeySenosCosenos,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealVectoresLeySenosCosenos,
                         widgetName: kWidgetAlgebraLinealVectoresLeySenosCosenos,
                       ),
                     );
@@ -44,15 +50,21 @@ class AlgebraLinealVectoresLeySenosCosenosState extends State<AlgebraLinealVecto
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos,
-                                widgetName: kWidgetAlgebraLinealVectoresLeySenosCosenos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresLeySenosCosenos,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresLeySenosCosenos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresLeySenosCosenos,
-                                widgetName: kWidgetAlgebraLinealVectoresLeySenosCosenos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresLeySenosCosenos,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresLeySenosCosenos,
                               ),
                             );
                           }
@@ -67,13 +79,22 @@ class AlgebraLinealVectoresLeySenosCosenosState extends State<AlgebraLinealVecto
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{a}{\operatorname{sen} A} = \frac{b}{\operatorname{sen} B} = \frac{c}{\operatorname{sen} C}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{a}{\operatorname{sen} A} = \frac{b}{\operatorname{sen} B} = \frac{c}{\operatorname{sen} C}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos A = \frac{b^{2} + c^{2} - a^{2}}{2bc}"),
+                  Latex(
+                    formulaText: r"\cos A = \frac{b^{2} + c^{2} - a^{2}}{2bc}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos B = \frac{a^{2} + c^{2} - b^{2}}{2ac}"),
+                  Latex(
+                    formulaText: r"\cos B = \frac{a^{2} + c^{2} - b^{2}}{2ac}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos C = \frac{a^{2} + b^{2} - c^{2}}{2ab}"),
+                  Latex(
+                    formulaText: r"\cos C = \frac{a^{2} + b^{2} - c^{2}}{2ab}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"a^{2} = b^{2} + c^{2} - 2bc\cos A"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -86,7 +107,9 @@ class AlgebraLinealVectoresLeySenosCosenosState extends State<AlgebraLinealVecto
             ),
             const SizedBox(height: kEspacioEntreBotones),
             const VerPDF(url: kWidgetAlgebraLinealVectoresLeySenosCosenos),
-            const DescargarPDF(url: kWidgetAlgebraLinealVectoresLeySenosCosenos),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealVectoresLeySenosCosenos,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

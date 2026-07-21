@@ -6,10 +6,12 @@ class TangentesYPropiedadesDeLasConicas extends StatefulWidget {
   const TangentesYPropiedadesDeLasConicas({super.key});
 
   @override
-  TangentesYPropiedadesDeLasConicasState createState() => TangentesYPropiedadesDeLasConicasState();
+  TangentesYPropiedadesDeLasConicasState createState() =>
+      TangentesYPropiedadesDeLasConicasState();
 }
 
-class TangentesYPropiedadesDeLasConicasState extends State<TangentesYPropiedadesDeLasConicas> {
+class TangentesYPropiedadesDeLasConicasState
+    extends State<TangentesYPropiedadesDeLasConicas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class TangentesYPropiedadesDeLasConicasState extends State<TangentesYPropiedades
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas,
+                    AppLocalizations.of(
+                      context,
+                    )!.tangentesYPropiedadesDeLasConicas,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.tangentesYPropiedadesDeLasConicas,
                         widgetName: kWidgetTangentesYPropiedadesDeLasConicas,
                       ),
                     );
@@ -44,15 +50,21 @@ class TangentesYPropiedadesDeLasConicasState extends State<TangentesYPropiedades
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas,
-                                widgetName: kWidgetTangentesYPropiedadesDeLasConicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.tangentesYPropiedadesDeLasConicas,
+                                widgetName:
+                                    kWidgetTangentesYPropiedadesDeLasConicas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.tangentesYPropiedadesDeLasConicas,
-                                widgetName: kWidgetTangentesYPropiedadesDeLasConicas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.tangentesYPropiedadesDeLasConicas,
+                                widgetName:
+                                    kWidgetTangentesYPropiedadesDeLasConicas,
                               ),
                             );
                           }
@@ -67,29 +79,45 @@ class TangentesYPropiedadesDeLasConicasState extends State<TangentesYPropiedades
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"y = \frac{r^2 - (x - x_0)(x_1 - x_0)}{y_1 - y_0} + y_0"),
+                  Latex(
+                    formulaText:
+                        r"y = \frac{r^2 - (x - x_0)(x_1 - x_0)}{y_1 - y_0} + y_0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\overline{PF} = \overline{PQ}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"r = p"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"y = \frac{2(y_1 - y_0)(x - x_1)}{x_1 - x_0} + y_1"),
+                  Latex(
+                    formulaText:
+                        r"y = \frac{2(y_1 - y_0)(x - x_1)}{x_1 - x_0} + y_1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\overline{F_2 P} - \overline{F_1 P} = 2a"),
+                  Latex(
+                    formulaText: r"\overline{F_2 P} - \overline{F_1 P} = 2a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"p = \frac{b^2}{a}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\tan\alpha = m = \pm\frac{b}{a}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"y = \frac{b^2}{a^2}\cdot\frac{(x_1 - x_0)(x - x_1)}{y_1 - y_0} + y_1"),
+                  Latex(
+                    formulaText:
+                        r"y = \frac{b^2}{a^2}\cdot\frac{(x_1 - x_0)(x - x_1)}{y_1 - y_0} + y_1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\overline{F_1 P} + \overline{F_2 P} = 2a"),
+                  Latex(
+                    formulaText: r"\overline{F_1 P} + \overline{F_2 P} = 2a",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"r_N = \frac{b^2}{a}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"r_H = \frac{a^2}{b}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"y = -\frac{b^2}{a^2}\cdot\frac{(x_1 - x_0)(x - x_1)}{y_1 - y_0} + y_1"),
+                  Latex(
+                    formulaText:
+                        r"y = -\frac{b^2}{a^2}\cdot\frac{(x_1 - x_0)(x - x_1)}{y_1 - y_0} + y_1",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

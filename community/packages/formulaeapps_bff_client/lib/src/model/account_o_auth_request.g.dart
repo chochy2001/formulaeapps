@@ -12,7 +12,8 @@ const AccountOAuthRequestProviderEnum _$accountOAuthRequestProviderEnum_apple =
     const AccountOAuthRequestProviderEnum._('apple');
 
 AccountOAuthRequestProviderEnum _$accountOAuthRequestProviderEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'google':
       return _$accountOAuthRequestProviderEnum_google;
@@ -24,16 +25,18 @@ AccountOAuthRequestProviderEnum _$accountOAuthRequestProviderEnumValueOf(
 }
 
 final BuiltSet<AccountOAuthRequestProviderEnum>
-    _$accountOAuthRequestProviderEnumValues = BuiltSet<
-        AccountOAuthRequestProviderEnum>(const <AccountOAuthRequestProviderEnum>[
-  _$accountOAuthRequestProviderEnum_google,
-  _$accountOAuthRequestProviderEnum_apple,
-]);
+_$accountOAuthRequestProviderEnumValues =
+    BuiltSet<AccountOAuthRequestProviderEnum>(
+      const <AccountOAuthRequestProviderEnum>[
+        _$accountOAuthRequestProviderEnum_google,
+        _$accountOAuthRequestProviderEnum_apple,
+      ],
+    );
 
 const AccountOAuthRequestPlatformEnum _$accountOAuthRequestPlatformEnum_web =
     const AccountOAuthRequestPlatformEnum._('web');
 const AccountOAuthRequestPlatformEnum
-    _$accountOAuthRequestPlatformEnum_android =
+_$accountOAuthRequestPlatformEnum_android =
     const AccountOAuthRequestPlatformEnum._('android');
 const AccountOAuthRequestPlatformEnum _$accountOAuthRequestPlatformEnum_ios =
     const AccountOAuthRequestPlatformEnum._('ios');
@@ -41,7 +44,8 @@ const AccountOAuthRequestPlatformEnum _$accountOAuthRequestPlatformEnum_macos =
     const AccountOAuthRequestPlatformEnum._('macos');
 
 AccountOAuthRequestPlatformEnum _$accountOAuthRequestPlatformEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'web':
       return _$accountOAuthRequestPlatformEnum_web;
@@ -57,19 +61,21 @@ AccountOAuthRequestPlatformEnum _$accountOAuthRequestPlatformEnumValueOf(
 }
 
 final BuiltSet<AccountOAuthRequestPlatformEnum>
-    _$accountOAuthRequestPlatformEnumValues = BuiltSet<
-        AccountOAuthRequestPlatformEnum>(const <AccountOAuthRequestPlatformEnum>[
-  _$accountOAuthRequestPlatformEnum_web,
-  _$accountOAuthRequestPlatformEnum_android,
-  _$accountOAuthRequestPlatformEnum_ios,
-  _$accountOAuthRequestPlatformEnum_macos,
-]);
+_$accountOAuthRequestPlatformEnumValues =
+    BuiltSet<AccountOAuthRequestPlatformEnum>(
+      const <AccountOAuthRequestPlatformEnum>[
+        _$accountOAuthRequestPlatformEnum_web,
+        _$accountOAuthRequestPlatformEnum_android,
+        _$accountOAuthRequestPlatformEnum_ios,
+        _$accountOAuthRequestPlatformEnum_macos,
+      ],
+    );
 
 Serializer<AccountOAuthRequestProviderEnum>
-    _$accountOAuthRequestProviderEnumSerializer =
+_$accountOAuthRequestProviderEnumSerializer =
     _$AccountOAuthRequestProviderEnumSerializer();
 Serializer<AccountOAuthRequestPlatformEnum>
-    _$accountOAuthRequestPlatformEnumSerializer =
+_$accountOAuthRequestPlatformEnumSerializer =
     _$AccountOAuthRequestPlatformEnumSerializer();
 
 class _$AccountOAuthRequestProviderEnumSerializer
@@ -90,16 +96,19 @@ class _$AccountOAuthRequestProviderEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, AccountOAuthRequestProviderEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    AccountOAuthRequestProviderEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   AccountOAuthRequestProviderEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      AccountOAuthRequestProviderEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => AccountOAuthRequestProviderEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$AccountOAuthRequestPlatformEnumSerializer
@@ -124,16 +133,19 @@ class _$AccountOAuthRequestPlatformEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, AccountOAuthRequestPlatformEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    AccountOAuthRequestPlatformEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   AccountOAuthRequestPlatformEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      AccountOAuthRequestPlatformEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => AccountOAuthRequestPlatformEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$AccountOAuthRequest extends AccountOAuthRequest {
@@ -146,20 +158,20 @@ class _$AccountOAuthRequest extends AccountOAuthRequest {
   @override
   final String? appVersion;
 
-  factory _$AccountOAuthRequest(
-          [void Function(AccountOAuthRequestBuilder)? updates]) =>
-      (AccountOAuthRequestBuilder()..update(updates))._build();
+  factory _$AccountOAuthRequest([
+    void Function(AccountOAuthRequestBuilder)? updates,
+  ]) => (AccountOAuthRequestBuilder()..update(updates))._build();
 
-  _$AccountOAuthRequest._(
-      {required this.provider,
-      required this.idToken,
-      this.platform,
-      this.appVersion})
-      : super._();
+  _$AccountOAuthRequest._({
+    required this.provider,
+    required this.idToken,
+    this.platform,
+    this.appVersion,
+  }) : super._();
   @override
   AccountOAuthRequest rebuild(
-          void Function(AccountOAuthRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(AccountOAuthRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   AccountOAuthRequestBuilder toBuilder() =>
@@ -249,12 +261,19 @@ class AccountOAuthRequestBuilder
   AccountOAuthRequest build() => _build();
 
   _$AccountOAuthRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AccountOAuthRequest._(
           provider: BuiltValueNullFieldError.checkNotNull(
-              provider, r'AccountOAuthRequest', 'provider'),
+            provider,
+            r'AccountOAuthRequest',
+            'provider',
+          ),
           idToken: BuiltValueNullFieldError.checkNotNull(
-              idToken, r'AccountOAuthRequest', 'idToken'),
+            idToken,
+            r'AccountOAuthRequest',
+            'idToken',
+          ),
           platform: platform,
           appVersion: appVersion,
         );

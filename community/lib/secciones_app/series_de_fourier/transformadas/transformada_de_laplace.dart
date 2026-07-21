@@ -14,9 +14,12 @@ class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .transformadaDeLaplace,
-                            widgetName: kWidgetTransformadasDeLaplace),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.transformadaDeLaplace,
+                          widgetName: kWidgetTransformadasDeLaplace,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaDeLaplace,
-                                    widgetName: kWidgetTransformadasDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaDeLaplace,
+                                  widgetName: kWidgetTransformadasDeLaplace,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .transformadaDeLaplace,
-                                    widgetName: kWidgetTransformadasDeLaplace),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.transformadaDeLaplace,
+                                  widgetName: kWidgetTransformadasDeLaplace,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -89,21 +96,18 @@ class _TransformadaDeLaplaceState extends State<TransformadaDeLaplace> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"\mathcal{L}[f(t)] = F(s) = \int_{0}^{\infty}f(t)e^{-st}dt"),
+                          formulaText:
+                              r"\mathcal{L}[f(t)] = F(s) = \int_{0}^{\infty}f(t)e^{-st}dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTransformadaDeLaplace,
-                  ),
+                  const VerPDF(url: kWidgetTransformadaDeLaplace),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTransformadaDeLaplace,
-                  ),
+                  const DescargarPDF(url: kWidgetTransformadaDeLaplace),
                 ],
               ),
             ),

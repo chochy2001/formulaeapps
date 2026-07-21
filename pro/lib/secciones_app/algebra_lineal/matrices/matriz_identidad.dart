@@ -31,9 +31,9 @@ class MatrizIdentidadState extends State<MatrizIdentidad> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.matrizIdentidad,
-                            widgetName: kWidgetMatrizidentidad),
+                          title: AppLocalizations.of(context)!.matrizIdentidad,
+                          widgetName: kWidgetMatrizidentidad,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +45,20 @@ class MatrizIdentidadState extends State<MatrizIdentidad> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizIdentidad,
-                                    widgetName: kWidgetMatrizidentidad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizIdentidad,
+                                  widgetName: kWidgetMatrizidentidad,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizIdentidad,
-                                    widgetName: kWidgetMatrizidentidad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizIdentidad,
+                                  widgetName: kWidgetMatrizidentidad,
+                                ),
                               );
                             }
                           });
@@ -63,9 +67,7 @@ class MatrizIdentidadState extends State<MatrizIdentidad> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -73,16 +75,16 @@ class MatrizIdentidadState extends State<MatrizIdentidad> {
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.matrizIdentidadI,
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
+                        const SizedBox(height: 30),
                         const Latex(
-                            formulaText:
-                                r"{I = \begin{pmatrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{pmatrix} }"),
+                          formulaText:
+                              r"{I = \begin{pmatrix}1 & 0 & 0\\0 & 1 & 0\\0 & 0 & 1\end{pmatrix} }",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesDeLaMatrizIdentidad,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLaMatrizIdentidad,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"I^{-1} = I"),
@@ -96,35 +98,27 @@ class MatrizIdentidadState extends State<MatrizIdentidad> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMatrizidentidad,
-                  ),
+                  const VerPDF(url: kWidgetMatrizidentidad),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMatrizidentidad,
-                  ),
+                  const DescargarPDF(url: kWidgetMatrizidentidad),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .laDiagonalPrincipalEstaCompuestaPorUnos,
+                          AppLocalizations.of(
+                            context,
+                          )!.laDiagonalPrincipalEstaCompuestaPorUnos,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                       ],
                     ),
                   ),

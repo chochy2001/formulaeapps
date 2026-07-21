@@ -25,17 +25,20 @@ class TrigonometricasInversasIntegralState
             children: [
               ChatGPTButton(
                 child: TituloPersonalizado(
-                  AppLocalizations.of(context)!
-                      .integralesDeFuncionesTrigonometricasInversas,
+                  AppLocalizations.of(
+                    context,
+                  )!.integralesDeFuncionesTrigonometricasInversas,
                 ),
               ),
               Consumer<FavoritesNotifier>(
                 builder: (context, favoritesNotifier, child) {
                   bool isFavorite = favoritesNotifier.isFavorite(
                     Favorite(
-                        title: AppLocalizations.of(context)!
-                            .integralesDeFuncionesTrigonometricasInversas,
-                        widgetName: kWidgetTrigonometricasInversasIntegral),
+                      title: AppLocalizations.of(
+                        context,
+                      )!.integralesDeFuncionesTrigonometricasInversas,
+                      widgetName: kWidgetTrigonometricasInversasIntegral,
+                    ),
                   );
                   return IconButton(
                     icon: isFavorite
@@ -47,18 +50,22 @@ class TrigonometricasInversasIntegralState
                         if (isFavorite) {
                           favoritesNotifier.removeFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integralesDeFuncionesTrigonometricasInversas,
-                                widgetName:
-                                    kWidgetTrigonometricasInversasIntegral),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integralesDeFuncionesTrigonometricasInversas,
+                              widgetName:
+                                  kWidgetTrigonometricasInversasIntegral,
+                            ),
                           );
                         } else {
                           favoritesNotifier.addFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integralesDeFuncionesTrigonometricasInversas,
-                                widgetName:
-                                    kWidgetTrigonometricasInversasIntegral),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integralesDeFuncionesTrigonometricasInversas,
+                              widgetName:
+                                  kWidgetTrigonometricasInversasIntegral,
+                            ),
                           );
                         }
                       });
@@ -67,36 +74,40 @@ class TrigonometricasInversasIntegralState
                 },
               ),
 
-              const SizedBox(
-                height: 40.0,
-              ),
+              const SizedBox(height: 40.0),
               const ZoomPersonalizado(
                 child: Column(
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \sin^{-1} \thinspace u \space du = u\cdot \sin^{-1}(u)+\sqrt{1-u^2}+C"),
+                      formulaText:
+                          r"\int \sin^{-1} \thinspace u \space du = u\cdot \sin^{-1}(u)+\sqrt{1-u^2}+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \csc^{-1} \thinspace u \space du = u\cdot \csc^{-1}(u)+ln(u+\sqrt{u^2-1})+C"),
+                      formulaText:
+                          r"\int \csc^{-1} \thinspace u \space du = u\cdot \csc^{-1}(u)+ln(u+\sqrt{u^2-1})+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \cos^{-1} \thinspace u \space du = u\cdot \cos^{-1}(u)-\sqrt{1-u^2}+C"),
+                      formulaText:
+                          r"\int \cos^{-1} \thinspace u \space du = u\cdot \cos^{-1}(u)-\sqrt{1-u^2}+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \sec^{-1} \thinspace u \space du = u\cdot \sec^{-1}(u)-ln(u+\sqrt{u^2-1})+C"),
+                      formulaText:
+                          r"\int \sec^{-1} \thinspace u \space du = u\cdot \sec^{-1}(u)-ln(u+\sqrt{u^2-1})+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \tan^{-1} \thinspace u \space du = u\cdot \tan^{-1}(u)-\frac{1}{2}\thinspace ln(1+u^2)+C"),
+                      formulaText:
+                          r"\int \tan^{-1} \thinspace u \space du = u\cdot \tan^{-1}(u)-\frac{1}{2}\thinspace ln(1+u^2)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\int \cot^{-1} \thinspace u \space du = u\cdot \cot^{-1}(u)+\frac{1}{2}\thinspace ln(1+u^2)+C"),
+                      formulaText:
+                          r"\int \cot^{-1} \thinspace u \space du = u\cdot \cot^{-1}(u)+\frac{1}{2}\thinspace ln(1+u^2)+C",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     SizedBox(height: kEspacioEntreBotones),
                   ],
@@ -105,23 +116,16 @@ class TrigonometricasInversasIntegralState
               //Boton para acceder al formulario en PDF
               const Column(
                 children: [
-                  VerPDF(
-                    url: kWidgetTrigonometricasInversasIntegral,
-                  ),
+                  VerPDF(url: kWidgetTrigonometricasInversasIntegral),
                   //Descargar PDF
-                  DescargarPDF(
-                    url: kWidgetTrigonometricasInversasIntegral,
-                  ),
+                  DescargarPDF(url: kWidgetTrigonometricasInversasIntegral),
                 ],
               ),
 
               Container(
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -129,34 +133,22 @@ class TrigonometricasInversasIntegralState
                     const Notas(),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\sin"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.seno,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.seno),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cos"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.coseno,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.coseno),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\tan"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.tangente,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.tangente),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\csc"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.cosecante,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.cosecante),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\sec"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.secante,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.secante),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cot"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.cotangente,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.cotangente),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\frac{du}{dx} = u^{'}"),
                     const SizedBox(height: kEspacioEntreBotones),

@@ -54,7 +54,8 @@ class MenuState extends State<Menu> {
     _routes = getApplicationRoutes();
     // Chat is a first-class tab only where the in-app chat screen ships; on
     // web / Windows / Linux it stays reachable through the "ask AI" buttons.
-    _chatEnabled = !UniversalPlatform.isWindows &&
+    _chatEnabled =
+        !UniversalPlatform.isWindows &&
         !UniversalPlatform.isLinux &&
         !UniversalPlatform.isWeb;
     _tabRoots = <Widget>[
@@ -71,34 +72,33 @@ class MenuState extends State<Menu> {
   }
 
   List<_ShellDestination> get _destinations => <_ShellDestination>[
-        _ShellDestination(
-          label: (context) => AppLocalizations.of(context)!.menu,
-          activeIcon:
-              const FaIcon(FontAwesomeIcons.houseChimneyCrack, size: 20),
-          icon: const FaIcon(FontAwesomeIcons.houseCrack, size: 20),
-        ),
-        _ShellDestination(
-          label: (context) => AppLocalizations.of(context)!.tareas,
-          activeIcon: const Icon(Icons.format_list_numbered_rounded),
-          icon: const Icon(Icons.format_list_bulleted),
-        ),
-        _ShellDestination(
-          label: (context) => AppLocalizations.of(context)!.busqueda,
-          activeIcon: const Icon(Icons.content_paste_search),
-          icon: const Icon(Icons.search_rounded),
-        ),
-        _ShellDestination(
-          label: (context) => AppLocalizations.of(context)!.favoritos,
-          activeIcon: const Icon(Icons.favorite_rounded),
-          icon: const Icon(Icons.favorite_border),
-        ),
-        if (_chatEnabled)
-          _ShellDestination(
-            label: (context) => AppLocalizations.of(context)!.chat,
-            activeIcon: const Icon(Icons.chat_bubble),
-            icon: const Icon(Icons.chat_bubble_outline),
-          ),
-      ];
+    _ShellDestination(
+      label: (context) => AppLocalizations.of(context)!.menu,
+      activeIcon: const FaIcon(FontAwesomeIcons.houseChimneyCrack, size: 20),
+      icon: const FaIcon(FontAwesomeIcons.houseCrack, size: 20),
+    ),
+    _ShellDestination(
+      label: (context) => AppLocalizations.of(context)!.tareas,
+      activeIcon: const Icon(Icons.format_list_numbered_rounded),
+      icon: const Icon(Icons.format_list_bulleted),
+    ),
+    _ShellDestination(
+      label: (context) => AppLocalizations.of(context)!.busqueda,
+      activeIcon: const Icon(Icons.content_paste_search),
+      icon: const Icon(Icons.search_rounded),
+    ),
+    _ShellDestination(
+      label: (context) => AppLocalizations.of(context)!.favoritos,
+      activeIcon: const Icon(Icons.favorite_rounded),
+      icon: const Icon(Icons.favorite_border),
+    ),
+    if (_chatEnabled)
+      _ShellDestination(
+        label: (context) => AppLocalizations.of(context)!.chat,
+        activeIcon: const Icon(Icons.chat_bubble),
+        icon: const Icon(Icons.chat_bubble_outline),
+      ),
+  ];
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) {
@@ -187,10 +187,7 @@ class MenuState extends State<Menu> {
       backgroundColor: kColorFondo,
       body: Stack(
         children: <Widget>[
-          Positioned.fill(
-            bottom: kBottomNavigationBarHeight,
-            child: body,
-          ),
+          Positioned.fill(bottom: kBottomNavigationBarHeight, child: body),
           Positioned(
             bottom: 0,
             left: 0,
@@ -237,7 +234,8 @@ class MenuState extends State<Menu> {
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: MediaQuery.sizeOf(context).height -
+                  minHeight:
+                      MediaQuery.sizeOf(context).height -
                       MediaQuery.paddingOf(context).vertical,
                 ),
                 child: IntrinsicHeight(
@@ -248,14 +246,18 @@ class MenuState extends State<Menu> {
                     labelType: NavigationRailLabelType.all,
                     // Acento PRIMARIO dorado para el destino activo; el inactivo
                     // usa un tono con contraste AA (antes #646D9E, 2.90:1).
-                    selectedIconTheme:
-                        const IconThemeData(color: kColorAcentoPrimario),
-                    unselectedIconTheme:
-                        const IconThemeData(color: kColorNavInactivo),
-                    selectedLabelTextStyle:
-                        const TextStyle(color: kColorAcentoPrimario),
-                    unselectedLabelTextStyle:
-                        const TextStyle(color: kColorNavInactivo),
+                    selectedIconTheme: const IconThemeData(
+                      color: kColorAcentoPrimario,
+                    ),
+                    unselectedIconTheme: const IconThemeData(
+                      color: kColorNavInactivo,
+                    ),
+                    selectedLabelTextStyle: const TextStyle(
+                      color: kColorAcentoPrimario,
+                    ),
+                    unselectedLabelTextStyle: const TextStyle(
+                      color: kColorNavInactivo,
+                    ),
                     destinations: <NavigationRailDestination>[
                       for (final _ShellDestination destination in destinations)
                         NavigationRailDestination(

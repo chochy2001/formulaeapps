@@ -6,10 +6,12 @@ class DistribucionesDistribucionDeErlang extends StatefulWidget {
   const DistribucionesDistribucionDeErlang({super.key});
 
   @override
-  DistribucionesDistribucionDeErlangState createState() => DistribucionesDistribucionDeErlangState();
+  DistribucionesDistribucionDeErlangState createState() =>
+      DistribucionesDistribucionDeErlangState();
 }
 
-class DistribucionesDistribucionDeErlangState extends State<DistribucionesDistribucionDeErlang> {
+class DistribucionesDistribucionDeErlangState
+    extends State<DistribucionesDistribucionDeErlang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DistribucionesDistribucionDeErlangState extends State<DistribucionesDistri
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionDeErlang,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionDeErlang,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionDeErlang,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionDeErlang,
                         widgetName: kWidgetDistribucionesDistribucionDeErlang,
                       ),
                     );
@@ -44,15 +50,21 @@ class DistribucionesDistribucionDeErlangState extends State<DistribucionesDistri
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeErlang,
-                                widgetName: kWidgetDistribucionesDistribucionDeErlang,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeErlang,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeErlang,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionDeErlang,
-                                widgetName: kWidgetDistribucionesDistribucionDeErlang,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionDeErlang,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionDeErlang,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class DistribucionesDistribucionDeErlangState extends State<DistribucionesDistri
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"f_x(X_0) = \begin{cases} \dfrac{a^{n}\, X_0^{\,n-1}\, e^{-a X_0}}{(n-1)!} & X_0 > 0 \\ 0 & \text{cualquier otro caso} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"f_x(X_0) = \begin{cases} \dfrac{a^{n}\, X_0^{\,n-1}\, e^{-a X_0}}{(n-1)!} & X_0 > 0 \\ 0 & \text{cualquier otro caso} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = \dfrac{n}{a}"),
                   SizedBox(height: kEspacioEntreBotones),

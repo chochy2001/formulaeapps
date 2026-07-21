@@ -6,10 +6,12 @@ class EcuacionCuadraticaFormaMonicaVieta extends StatefulWidget {
   const EcuacionCuadraticaFormaMonicaVieta({super.key});
 
   @override
-  EcuacionCuadraticaFormaMonicaVietaState createState() => EcuacionCuadraticaFormaMonicaVietaState();
+  EcuacionCuadraticaFormaMonicaVietaState createState() =>
+      EcuacionCuadraticaFormaMonicaVietaState();
 }
 
-class EcuacionCuadraticaFormaMonicaVietaState extends State<EcuacionCuadraticaFormaMonicaVieta> {
+class EcuacionCuadraticaFormaMonicaVietaState
+    extends State<EcuacionCuadraticaFormaMonicaVieta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class EcuacionCuadraticaFormaMonicaVietaState extends State<EcuacionCuadraticaFo
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta,
+                    AppLocalizations.of(
+                      context,
+                    )!.ecuacionCuadraticaFormaMonicaVieta,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.ecuacionCuadraticaFormaMonicaVieta,
                         widgetName: kWidgetEcuacionCuadraticaFormaMonicaVieta,
                       ),
                     );
@@ -44,15 +50,21 @@ class EcuacionCuadraticaFormaMonicaVietaState extends State<EcuacionCuadraticaFo
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta,
-                                widgetName: kWidgetEcuacionCuadraticaFormaMonicaVieta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionCuadraticaFormaMonicaVieta,
+                                widgetName:
+                                    kWidgetEcuacionCuadraticaFormaMonicaVieta,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.ecuacionCuadraticaFormaMonicaVieta,
-                                widgetName: kWidgetEcuacionCuadraticaFormaMonicaVieta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.ecuacionCuadraticaFormaMonicaVieta,
+                                widgetName:
+                                    kWidgetEcuacionCuadraticaFormaMonicaVieta,
                               ),
                             );
                           }
@@ -69,11 +81,20 @@ class EcuacionCuadraticaFormaMonicaVietaState extends State<EcuacionCuadraticaFo
                 children: [
                   Latex(formulaText: r"x^{2} + px + q = 0"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x_{1},\, x_{2} = -\frac{p}{2} \pm \sqrt{\frac{p^{2}}{4} - q}"),
+                  Latex(
+                    formulaText:
+                        r"x_{1},\, x_{2} = -\frac{p}{2} \pm \sqrt{\frac{p^{2}}{4} - q}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"p = -(x_{1} + x_{2}); \quad q = x_{1}\cdot x_{2}"),
+                  Latex(
+                    formulaText:
+                        r"p = -(x_{1} + x_{2}); \quad q = x_{1}\cdot x_{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x_{1}+x_{2}=-\frac{b}{a}\qquad x_{1}x_{2}=\frac{c}{a}"),
+                  Latex(
+                    formulaText:
+                        r"x_{1}+x_{2}=-\frac{b}{a}\qquad x_{1}x_{2}=\frac{c}{a}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

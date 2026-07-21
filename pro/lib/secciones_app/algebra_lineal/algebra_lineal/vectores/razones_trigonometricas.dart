@@ -6,10 +6,12 @@ class AlgebraLinealVectoresRazonesTrigonometricas extends StatefulWidget {
   const AlgebraLinealVectoresRazonesTrigonometricas({super.key});
 
   @override
-  AlgebraLinealVectoresRazonesTrigonometricasState createState() => AlgebraLinealVectoresRazonesTrigonometricasState();
+  AlgebraLinealVectoresRazonesTrigonometricasState createState() =>
+      AlgebraLinealVectoresRazonesTrigonometricasState();
 }
 
-class AlgebraLinealVectoresRazonesTrigonometricasState extends State<AlgebraLinealVectoresRazonesTrigonometricas> {
+class AlgebraLinealVectoresRazonesTrigonometricasState
+    extends State<AlgebraLinealVectoresRazonesTrigonometricas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +25,20 @@ class AlgebraLinealVectoresRazonesTrigonometricasState extends State<AlgebraLine
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas,
+                    AppLocalizations.of(
+                      context,
+                    )!.algebraLinealVectoresRazonesTrigonometricas,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas,
-                        widgetName: kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.algebraLinealVectoresRazonesTrigonometricas,
+                        widgetName:
+                            kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
                       ),
                     );
                     return IconButton(
@@ -44,15 +51,21 @@ class AlgebraLinealVectoresRazonesTrigonometricasState extends State<AlgebraLine
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas,
-                                widgetName: kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresRazonesTrigonometricas,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.algebraLinealVectoresRazonesTrigonometricas,
-                                widgetName: kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.algebraLinealVectoresRazonesTrigonometricas,
+                                widgetName:
+                                    kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
                               ),
                             );
                           }
@@ -67,24 +80,46 @@ class AlgebraLinealVectoresRazonesTrigonometricasState extends State<AlgebraLine
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\operatorname{sen}\theta = \frac{\text{Cateto opuesto}}{\text{Hipotenusa}}"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen}\theta = \frac{\text{Cateto opuesto}}{\text{Hipotenusa}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos\theta = \frac{\text{Cateto adyacente}}{\text{Hipotenusa}}"),
+                  Latex(
+                    formulaText:
+                        r"\cos\theta = \frac{\text{Cateto adyacente}}{\text{Hipotenusa}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\tan\theta = \frac{\text{Cateto opuesto}}{\text{Cateto adyacente}}"),
+                  Latex(
+                    formulaText:
+                        r"\tan\theta = \frac{\text{Cateto opuesto}}{\text{Cateto adyacente}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cot\theta = \frac{\text{Cateto adyacente}}{\text{Cateto opuesto}}"),
+                  Latex(
+                    formulaText:
+                        r"\cot\theta = \frac{\text{Cateto adyacente}}{\text{Cateto opuesto}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sec\theta = \frac{\text{Hipotenusa}}{\text{Cateto adyacente}}"),
+                  Latex(
+                    formulaText:
+                        r"\sec\theta = \frac{\text{Hipotenusa}}{\text{Cateto adyacente}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\csc\theta = \frac{\text{Hipotenusa}}{\text{Cateto opuesto}}"),
+                  Latex(
+                    formulaText:
+                        r"\csc\theta = \frac{\text{Hipotenusa}}{\text{Cateto opuesto}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),
             const SizedBox(height: kEspacioEntreBotones),
-            const VerPDF(url: kWidgetAlgebraLinealVectoresRazonesTrigonometricas),
-            const DescargarPDF(url: kWidgetAlgebraLinealVectoresRazonesTrigonometricas),
+            const VerPDF(
+              url: kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
+            ),
+            const DescargarPDF(
+              url: kWidgetAlgebraLinealVectoresRazonesTrigonometricas,
+            ),
             const SizedBox(height: 20.0),
           ],
         ),

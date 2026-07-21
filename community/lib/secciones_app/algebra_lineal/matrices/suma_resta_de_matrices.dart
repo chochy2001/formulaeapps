@@ -14,9 +14,12 @@ class _SumaRestaDeMatricesState extends State<SumaRestaDeMatrices> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _SumaRestaDeMatricesState extends State<SumaRestaDeMatrices> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .sumaYRestaDeMatrices,
-                            widgetName: kWidgetSumaRestaDeMatrices),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.sumaYRestaDeMatrices,
+                          widgetName: kWidgetSumaRestaDeMatrices,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _SumaRestaDeMatricesState extends State<SumaRestaDeMatrices> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .sumaYRestaDeMatrices,
-                                    widgetName: kWidgetSumaRestaDeMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.sumaYRestaDeMatrices,
+                                  widgetName: kWidgetSumaRestaDeMatrices,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .sumaYRestaDeMatrices,
-                                    widgetName: kWidgetSumaRestaDeMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.sumaYRestaDeMatrices,
+                                  widgetName: kWidgetSumaRestaDeMatrices,
+                                ),
                               );
                             }
                           });
@@ -77,63 +86,55 @@ class _SumaRestaDeMatricesState extends State<SumaRestaDeMatrices> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A = \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}"),
+                          formulaText:
+                              r"A = \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: 20),
                         const Latex(
-                            formulaText:
-                                r"B = \begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}"),
+                          formulaText:
+                              r"B = \begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: 40),
                         const Latex(
-                            formulaText:
-                                r"A\pm B =\begin{pmatrix}a\pm j & b\pm k & c\pm l\\d\pm m & e\pm n & f\pm o\\g\pm p & h\pm q & i\pm r\\\end{pmatrix}"),
+                          formulaText:
+                              r"A\pm B =\begin{pmatrix}a\pm j & b\pm k & c\pm l\\d\pm m & e\pm n & f\pm o\\g\pm p & h\pm q & i\pm r\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSumaRestaDeMatrices,
-                  ),
+                  const VerPDF(url: kWidgetSumaRestaDeMatrices),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSumaRestaDeMatrices,
-                  ),
+                  const DescargarPDF(url: kWidgetSumaRestaDeMatrices),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .condicionProductoMatrices,
+                          AppLocalizations.of(
+                            context,
+                          )!.condicionProductoMatrices,
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"m\times n \thinspace n\times v"),
+                          formulaText: r"m\times n \thinspace n\times v",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

@@ -14,9 +14,12 @@ class _CampoElectricoState extends State<CampoElectrico> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _CampoElectricoState extends State<CampoElectrico> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.campoElectrico,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.campoElectrico),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.campoElectrico,
-                      widgetName: kWidgetCampoElectrico),
+                    title: AppLocalizations.of(context)!.campoElectrico,
+                    widgetName: kWidgetCampoElectrico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +56,16 @@ class _CampoElectricoState extends State<CampoElectrico> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.campoElectrico,
-                              widgetName: kWidgetCampoElectrico),
+                            title: AppLocalizations.of(context)!.campoElectrico,
+                            widgetName: kWidgetCampoElectrico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.campoElectrico,
-                              widgetName: kWidgetCampoElectrico),
+                            title: AppLocalizations.of(context)!.campoElectrico,
+                            widgetName: kWidgetCampoElectrico,
+                          ),
                         );
                       }
                     });
@@ -84,13 +86,15 @@ class _CampoElectricoState extends State<CampoElectrico> {
             Column(
               children: <Widget>[
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .campoElectricoOriginadoCargaPuntual,
+                  AppLocalizations.of(
+                    context,
+                  )!.campoElectricoOriginadoCargaPuntual,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = \frac{\vec{F}_{q_0q}}{q_0} = \frac{k\frac{q_0q}{{r_{q_0q}}^2}\hat{r}_{q_0q}}{q_0} = k\frac{q}{{r_{q_0q}}^2}\hat{r}_{q_0q}"),
+                  formulaText:
+                      r"\vec{E} = \frac{\vec{F}_{q_0q}}{q_0} = \frac{k\frac{q_0q}{{r_{q_0q}}^2}\hat{r}_{q_0q}}{q_0} = k\frac{q}{{r_{q_0q}}^2}\hat{r}_{q_0q}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\vec{E} = k\frac{q}{r^2}\hat{r}"),
                 const SizedBox(height: 40.0),
@@ -99,15 +103,17 @@ class _CampoElectricoState extends State<CampoElectrico> {
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"[\vec{E}]_u = \left [ \frac{\text{N}}{\text{C}} \right ]"),
+                  formulaText:
+                      r"[\vec{E}]_u = \left [ \frac{\text{N}}{\text{C}} \right ]",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.principioSuperposicion,
                 ),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = k \sum_{i=1}^{n} \frac{q_i}{r_i^2}\hat{r}_i"),
+                  formulaText:
+                      r"\vec{E} = k \sum_{i=1}^{n} \frac{q_i}{r_i^2}\hat{r}_i",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.esquemasCampoElectrico,
@@ -141,13 +147,9 @@ class _CampoElectricoState extends State<CampoElectrico> {
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetCampoElectrico,
-            ),
+            const VerPDF(url: kWidgetCampoElectrico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetCampoElectrico,
-            ),
+            const DescargarPDF(url: kWidgetCampoElectrico),
           ],
         ),
       ),

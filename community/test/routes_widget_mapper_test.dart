@@ -17,9 +17,7 @@ import 'package:formulae/screens_personalizados/configuracion.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _routesRequiringPlatformChannels = <String>{
-  kRutaChatGPT,
-};
+const _routesRequiringPlatformChannels = <String>{kRutaChatGPT};
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -119,10 +117,7 @@ void main() {
           );
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 16));
-          _expectNoWidgetException(
-            tester,
-            'widget ${entry.key} initial mount',
-          );
+          _expectNoWidgetException(tester, 'widget ${entry.key} initial mount');
           await _interactWithMountedScreen(tester, 'widget ${entry.key}');
           _expectNoWidgetException(tester, 'widget ${entry.key} interactions');
           mountedWidgets.add(entry.key);
@@ -167,8 +162,11 @@ Future<void> _interactWithMountedScreen(
 }
 
 void _expectNoWidgetException(WidgetTester tester, String phase) {
-  expect(tester.takeException(), isNull,
-      reason: '$phase threw a widget exception');
+  expect(
+    tester.takeException(),
+    isNull,
+    reason: '$phase threw a widget exception',
+  );
 }
 
 Widget _buildHarness({
@@ -180,18 +178,10 @@ Widget _buildHarness({
       ChangeNotifierProvider<LocaleProvider>(
         create: (_) => LocaleProvider(const Locale('es')),
       ),
-      ChangeNotifierProvider<ModelsProvider>(
-        create: (_) => ModelsProvider(),
-      ),
-      ChangeNotifierProvider<ChatProvider>(
-        create: (_) => ChatProvider(),
-      ),
-      ChangeNotifierProvider<TaskData>(
-        create: (_) => TaskData(),
-      ),
-      ChangeNotifierProvider<FavoritesNotifier>.value(
-        value: favoritesNotifier,
-      ),
+      ChangeNotifierProvider<ModelsProvider>(create: (_) => ModelsProvider()),
+      ChangeNotifierProvider<ChatProvider>(create: (_) => ChatProvider()),
+      ChangeNotifierProvider<TaskData>(create: (_) => TaskData()),
+      ChangeNotifierProvider<FavoritesNotifier>.value(value: favoritesNotifier),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -212,8 +202,7 @@ class _TestInAppWebViewPlatform extends InAppWebViewPlatform {
   @override
   PlatformInAppWebViewWidget createPlatformInAppWebViewWidget(
     PlatformInAppWebViewWidgetCreationParams params,
-  ) =>
-      _TestInAppWebViewWidget(params);
+  ) => _TestInAppWebViewWidget(params);
 }
 
 class _TestInAppWebViewWidget extends PlatformInAppWebViewWidget {

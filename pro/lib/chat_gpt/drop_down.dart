@@ -22,9 +22,7 @@ class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
       future: modelsProvider.getAllModels(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: TextWidget(label: snapshot.error.toString()),
-          );
+          return Center(child: TextWidget(label: snapshot.error.toString()));
         }
         return snapshot.data == null || snapshot.data!.isEmpty
             ? const SizedBox.shrink()
@@ -32,10 +30,7 @@ class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
                 child: DropdownButton(
                   dropdownColor: kColorFondo,
                   iconEnabledColor: kColorBlanco,
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.white,
-                  ),
+                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
                   items: List<DropdownMenuItem<String>>.generate(
                     snapshot.data!.length,
                     (index) => DropdownMenuItem(
@@ -48,11 +43,9 @@ class _ModelsDropDownWidgetState extends State<ModelsDropDownWidget> {
                   ),
                   value: currentModel,
                   onChanged: (value) {
-                    setState(
-                      () {
-                        currentModel = value.toString();
-                      },
-                    );
+                    setState(() {
+                      currentModel = value.toString();
+                    });
                     modelsProvider.setCurrentModel(value.toString());
                   },
                 ),

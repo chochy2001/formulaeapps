@@ -30,7 +30,9 @@ class EntropiaYTeoriaCineticaState extends State<EntropiaYTeoriaCinetica> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.entropiaYTeoriaCinetica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.entropiaYTeoriaCinetica,
                         widgetName: kWidgetEntropiaYTeoriaCinetica,
                       ),
                     );
@@ -44,14 +46,18 @@ class EntropiaYTeoriaCineticaState extends State<EntropiaYTeoriaCinetica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.entropiaYTeoriaCinetica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.entropiaYTeoriaCinetica,
                                 widgetName: kWidgetEntropiaYTeoriaCinetica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.entropiaYTeoriaCinetica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.entropiaYTeoriaCinetica,
                                 widgetName: kWidgetEntropiaYTeoriaCinetica,
                               ),
                             );

@@ -193,7 +193,8 @@ class _FakeAdapter implements HttpClientAdapter {
     RequestOptions options,
     Stream<Uint8List>? requestStream,
     Future<void>? cancelFuture,
-  ) _handler;
+  )
+  _handler;
 
   @override
   void close({bool force = false}) {}

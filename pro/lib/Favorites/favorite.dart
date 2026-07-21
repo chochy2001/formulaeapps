@@ -11,16 +11,10 @@ class Favorite {
 
   Favorite({required this.title, required this.widgetName});
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'widgetName': widgetName,
-      };
+  Map<String, dynamic> toJson() => {'title': title, 'widgetName': widgetName};
 
   factory Favorite.fromJson(Map<String, dynamic> json) {
-    return Favorite(
-      title: json['title'],
-      widgetName: json['widgetName'],
-    );
+    return Favorite(title: json['title'], widgetName: json['widgetName']);
   }
 
   Widget getWidget(BuildContext context) {
@@ -51,10 +45,10 @@ class FavoriteFolder {
   }) : favorites = favorites ?? [];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'favorites': favorites.map((e) => e.toJson()).toList(),
-      };
+    'id': id,
+    'name': name,
+    'favorites': favorites.map((e) => e.toJson()).toList(),
+  };
 
   factory FavoriteFolder.fromJson(Map<String, dynamic> json) {
     final rawFavorites = json['favorites'];
@@ -64,9 +58,9 @@ class FavoriteFolder {
       name: json['name'] ?? FavoritesNotifier.defaultFolderName,
       favorites: rawFavorites is List
           ? rawFavorites
-              .whereType<Map<String, dynamic>>()
-              .map(Favorite.fromJson)
-              .toList()
+                .whereType<Map<String, dynamic>>()
+                .map(Favorite.fromJson)
+                .toList()
           : [],
     );
   }
@@ -217,9 +211,9 @@ class FavoritesNotifier extends ChangeNotifier {
       favoritesNotifier._folders
         ..clear()
         ..addAll(
-          jsonList
-              .whereType<Map<String, dynamic>>()
-              .map(FavoriteFolder.fromJson),
+          jsonList.whereType<Map<String, dynamic>>().map(
+            FavoriteFolder.fromJson,
+          ),
         );
     } else if (legacyJsonString != null) {
       final List<dynamic> jsonList = jsonDecode(legacyJsonString);
@@ -240,8 +234,9 @@ class FavoritesNotifier extends ChangeNotifier {
 
     favoritesNotifier._ensureDefaultFolder();
     if (activeFolderId != null &&
-        favoritesNotifier._folders
-            .any((folder) => folder.id == activeFolderId)) {
+        favoritesNotifier._folders.any(
+          (folder) => folder.id == activeFolderId,
+        )) {
       favoritesNotifier._activeFolderId = activeFolderId;
     }
 
@@ -250,10 +245,12 @@ class FavoritesNotifier extends ChangeNotifier {
 
   Future<void> _saveFavorites() async {
     final prefs = await SharedPreferences.getInstance();
-    final foldersJsonString =
-        jsonEncode(_folders.map((e) => e.toJson()).toList());
-    final legacyJsonString =
-        jsonEncode(favorites.map((e) => e.toJson()).toList());
+    final foldersJsonString = jsonEncode(
+      _folders.map((e) => e.toJson()).toList(),
+    );
+    final legacyJsonString = jsonEncode(
+      favorites.map((e) => e.toJson()).toList(),
+    );
     await prefs.setString(_foldersStorageKey, foldersJsonString);
     await prefs.setString(_legacyFavoritesKey, legacyJsonString);
     await prefs.setString(_activeFolderStorageKey, activeFolder.id);

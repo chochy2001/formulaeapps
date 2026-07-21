@@ -45,9 +45,9 @@ class PropiedadesLogaritmosGeneralesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.propiedadesLogaritmos,
-                      widgetName: kWidgetPropiedadesLogaritmosGenerales),
+                    title: AppLocalizations.of(context)!.propiedadesLogaritmos,
+                    widgetName: kWidgetPropiedadesLogaritmosGenerales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -59,18 +59,20 @@ class PropiedadesLogaritmosGeneralesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .propiedadesLogaritmos,
-                              widgetName:
-                                  kWidgetPropiedadesLogaritmosGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.propiedadesLogaritmos,
+                            widgetName: kWidgetPropiedadesLogaritmosGenerales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .propiedadesLogaritmos,
-                              widgetName:
-                                  kWidgetPropiedadesLogaritmosGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.propiedadesLogaritmos,
+                            widgetName: kWidgetPropiedadesLogaritmosGenerales,
+                          ),
                         );
                       }
                     });
@@ -78,9 +80,7 @@ class PropiedadesLogaritmosGeneralesState
                 );
               },
             ),
-            const SizedBox(
-              height: 30.0,
-            ),
+            const SizedBox(height: 30.0),
             Column(
               children: [
                 //Logaritmo igual a cero
@@ -117,8 +117,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoIgualACero,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoIgualACero,
                                 ),
                               ),
                               const Center(
@@ -136,8 +137,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoIgualACero,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoIgualACero,
                                 ),
                               ),
                               const Center(
@@ -160,13 +162,11 @@ class PropiedadesLogaritmosGeneralesState
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(formulaText: r"\log_{a}1=0"),
                       SizedBox(height: kEspacioEntreBotones),
-                      VideosYoutube(kVideoPropiedadesLogaritmoIgualACero)
+                      VideosYoutube(kVideoPropiedadesLogaritmoIgualACero),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
                 //Logaritmo con base diez
                 GestureDetector(
                   onTap: () {
@@ -201,8 +201,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoConBaseDiez,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoConBaseDiez,
                                 ),
                               ),
                               const Center(
@@ -220,8 +221,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoConBaseDiez,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoConBaseDiez,
                                 ),
                               ),
                               const Center(
@@ -248,9 +250,7 @@ class PropiedadesLogaritmosGeneralesState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Logaritmo de uno
                 GestureDetector(
@@ -330,9 +330,7 @@ class PropiedadesLogaritmosGeneralesState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Suma
                 GestureDetector(
@@ -356,17 +354,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoSuma ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoSuma ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoSuma,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .sumaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.sumaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -384,8 +381,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .sumaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.sumaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -412,9 +410,7 @@ class PropiedadesLogaritmosGeneralesState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Resta
                 GestureDetector(
@@ -438,17 +434,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoResta ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoResta ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoResta,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .restaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.restaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -466,8 +461,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .restaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.restaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -489,16 +485,15 @@ class PropiedadesLogaritmosGeneralesState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\log_aM-\log_aN = \log_a\left(\frac{M}{N}\right)"),
+                        formulaText:
+                            r"\log_aM-\log_aN = \log_a\left(\frac{M}{N}\right)",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(kVideoPropiedadesRestaLogaritmo),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Producto
                 GestureDetector(
@@ -522,17 +517,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoProducto ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoProducto ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoProducto,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .productoDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.productoDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -550,8 +544,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .productoDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.productoDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -573,16 +568,15 @@ class PropiedadesLogaritmosGeneralesState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\log_a{(M\cdot N)} = \log_{a}M+\log_{a}N"),
+                        formulaText:
+                            r"\log_a{(M\cdot N)} = \log_{a}M+\log_{a}N",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(kVideoPropiedadesProductoLogaritmo),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Cociente
                 GestureDetector(
@@ -606,17 +600,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoCociente ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoCociente ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoCociente,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .cocienteDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.cocienteDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -634,8 +627,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .cocienteDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.cocienteDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -657,16 +651,15 @@ class PropiedadesLogaritmosGeneralesState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\log_a\left(\frac {M}{N}\right) = \log_{a}M-\log_{a}N"),
+                        formulaText:
+                            r"\log_a\left(\frac {M}{N}\right) = \log_{a}M-\log_{a}N",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(kVideoPropiedadesCocienteLogaritmo),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Potencia
                 GestureDetector(
@@ -690,17 +683,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoPotencia ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoPotencia ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoPotencia,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .potenciaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.potenciaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -718,8 +710,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .potenciaDeLogaritmos,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.potenciaDeLogaritmos,
                                 ),
                               ),
                               const Center(
@@ -746,9 +739,7 @@ class PropiedadesLogaritmosGeneralesState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Logaritmo Natural
                 GestureDetector(
@@ -784,8 +775,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoNatural,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoNatural,
                                 ),
                               ),
                               const Center(
@@ -803,8 +795,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoNatural,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoNatural,
                                 ),
                               ),
                               const Center(
@@ -831,9 +824,7 @@ class PropiedadesLogaritmosGeneralesState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Cambio de Base
                 GestureDetector(
@@ -859,17 +850,16 @@ class PropiedadesLogaritmosGeneralesState
                     duration: const Duration(milliseconds: 600),
                     child: Wrap(
                       children: [
-                        SizedBox(
-                          width: seleccionadoCambioDeBase ? 5.0 : 10.0,
-                        ),
+                        SizedBox(width: seleccionadoCambioDeBase ? 5.0 : 10.0),
                         Visibility(
                           visible: !seleccionadoCambioDeBase,
                           child: Column(
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoConCambioDeBase,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoConCambioDeBase,
                                 ),
                               ),
                               const Center(
@@ -887,8 +877,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoConCambioDeBase,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoConCambioDeBase,
                                 ),
                               ),
                               const Center(
@@ -910,16 +901,15 @@ class PropiedadesLogaritmosGeneralesState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\log_{a}{N} = \frac{\log_{b}{N}}{\log_{b}{a}}=\frac{\ln{N}}{\ln{a}}"),
+                        formulaText:
+                            r"\log_{a}{N} = \frac{\log_{b}{N}}{\log_{b}{a}}=\frac{\ln{N}}{\ln{a}}",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(kVideoPropiedadesLogaritmoCambioDeBase),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Logaritmo de una raiz
                 GestureDetector(
@@ -955,8 +945,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoDeUnaRaiz,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoDeUnaRaiz,
                                 ),
                               ),
                               const Center(
@@ -974,8 +965,9 @@ class PropiedadesLogaritmosGeneralesState
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .logaritmoDeUnaRaiz,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.logaritmoDeUnaRaiz,
                                 ),
                               ),
                               const Center(
@@ -997,35 +989,25 @@ class PropiedadesLogaritmosGeneralesState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\log_a{\sqrt[n]{m}=\log_a{m}^\frac{1}{n}=\frac{1}{n}\cdot \log_a{m}}"),
+                        formulaText:
+                            r"\log_a{\sqrt[n]{m}=\log_a{m}^\frac{1}{n}=\frac{1}{n}\cdot \log_a{m}}",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(kVideoPropiedadesLogaritmoRaiz),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
-                const VerPDF(
-                  url: kWidgetPropiedadesLogaritmosGenerales,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
+                const VerPDF(url: kWidgetPropiedadesLogaritmosGenerales),
                 //Descargar PDF
-                const DescargarPDF(
-                  url: kWidgetPropiedadesLogaritmosGenerales,
-                ),
+                const DescargarPDF(url: kWidgetPropiedadesLogaritmosGenerales),
               ],
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -1034,18 +1016,15 @@ class PropiedadesLogaritmosGeneralesState
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.explicacionLogaritmo,
                   ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
+                  const SizedBox(height: 10.0),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.ejemplo,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.ejemplo),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\log_a{x} = y\rightarrow a^y = x"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText: r"3^2 = 9 \rightarrow \log_3{9} = 2"),
+                    formulaText: r"3^2 = 9 \rightarrow \log_3{9} = 2",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                   const CapdesisLatex(),

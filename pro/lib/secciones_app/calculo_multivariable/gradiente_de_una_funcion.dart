@@ -29,8 +29,9 @@ class GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.gradienteFuncion,
-                      widgetName: kWidgetGradienteDeUnaFuncion),
+                    title: AppLocalizations.of(context)!.gradienteFuncion,
+                    widgetName: kWidgetGradienteDeUnaFuncion,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,20 @@ class GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncion,
-                              widgetName: kWidgetGradienteDeUnaFuncion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncion,
+                            widgetName: kWidgetGradienteDeUnaFuncion,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncion,
-                              widgetName: kWidgetGradienteDeUnaFuncion),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncion,
+                            widgetName: kWidgetGradienteDeUnaFuncion,
+                          ),
                         );
                       }
                     });
@@ -60,16 +65,12 @@ class GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.sean,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.sean),
                   const Latex(formulaText: r"f(x,y)"),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.unafunciondedosvariables,
@@ -81,12 +82,14 @@ class GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} f(x,y) = f_x(x,y)\hat{i}+f_y(x,y)\hat{j}"),
+                    formulaText:
+                        r"\vec{\nabla} f(x,y) = f_x(x,y)\hat{i}+f_y(x,y)\hat{j}",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} f(x,y) =\left(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y}\right)"),
+                    formulaText:
+                        r"\vec{\nabla} f(x,y) =\left(\frac{\partial f(x,y)}{\partial x},\frac{\partial f(x,y)}{\partial y}\right)",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
@@ -94,19 +97,13 @@ class GradienteDeUnaFuncionState extends State<GradienteDeUnaFuncion> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetGradienteDeUnaFuncion,
-                ),
+                VerPDF(url: kWidgetGradienteDeUnaFuncion),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetGradienteDeUnaFuncion,
-                ),
+                DescargarPDF(url: kWidgetGradienteDeUnaFuncion),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

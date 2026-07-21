@@ -19,55 +19,58 @@ void main() {
 
   tearDown(AuthService.invalidate);
 
-  test('mints a token, persists client id, and reuses the cached token',
-      () async {
-    var requestCount = 0;
-    late Map<String, dynamic> requestBody;
+  test(
+    'mints a token, persists client id, and reuses the cached token',
+    () async {
+      var requestCount = 0;
+      late Map<String, dynamic> requestBody;
 
-    final client = MockClient((request) async {
-      requestCount++;
-      requestBody = jsonDecode(request.body) as Map<String, dynamic>;
+      final client = MockClient((request) async {
+        requestCount++;
+        requestBody = jsonDecode(request.body) as Map<String, dynamic>;
 
-      return http.Response(
-        jsonEncode({
-          'token': 'minted-token',
-          'expires_at': DateTime.now()
-              .toUtc()
-              .add(const Duration(hours: 1))
-              .toIso8601String(),
-        }),
-        200,
-        headers: const {'content-type': 'application/json'},
-      );
-    });
+        return http.Response(
+          jsonEncode({
+            'token': 'minted-token',
+            'expires_at': DateTime.now()
+                .toUtc()
+                .add(const Duration(hours: 1))
+                .toIso8601String(),
+          }),
+          200,
+          headers: const {'content-type': 'application/json'},
+        );
+      });
 
-    final first = await AuthService.getToken(client: client);
-    final second = await AuthService.getToken(client: client);
-    final prefs = await SharedPreferences.getInstance();
-    final storedClientId = prefs.getString('formulae_bff_client_id');
+      final first = await AuthService.getToken(client: client);
+      final second = await AuthService.getToken(client: client);
+      final prefs = await SharedPreferences.getInstance();
+      final storedClientId = prefs.getString('formulae_bff_client_id');
 
-    expect(first, 'minted-token');
-    expect(second, 'minted-token');
-    expect(requestCount, 1);
-    expect(storedClientId, isNotNull);
-    expect(
-      storedClientId,
-      matches(
-        RegExp(
-          r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+      expect(first, 'minted-token');
+      expect(second, 'minted-token');
+      expect(requestCount, 1);
+      expect(storedClientId, isNotNull);
+      expect(
+        storedClientId,
+        matches(
+          RegExp(
+            r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+          ),
         ),
-      ),
-    );
-    expect(requestBody['client_id'], storedClientId);
-    expect(
-      requestBody['client_proof'],
-      Hmac(sha256, utf8.encode(jwtSharedSecret))
-          .convert(utf8.encode('$storedClientId$buildNonce'))
-          .toString(),
-    );
-    expect(requestBody['build_nonce'], buildNonce);
-    expect(requestBody['app_version'], appVersion);
-  });
+      );
+      expect(requestBody['client_id'], storedClientId);
+      expect(
+        requestBody['client_proof'],
+        Hmac(
+          sha256,
+          utf8.encode(jwtSharedSecret),
+        ).convert(utf8.encode('$storedClientId$buildNonce')).toString(),
+      );
+      expect(requestBody['build_nonce'], buildNonce);
+      expect(requestBody['app_version'], appVersion);
+    },
+  );
 
   test('coalesces concurrent refreshes into a single auth request', () async {
     final responseCompleter = Completer<http.Response>();
@@ -163,11 +166,7 @@ void main() {
 String _jwtWithExp(DateTime expiresAt) {
   final header = base64Url.encode(utf8.encode('{"alg":"none","typ":"JWT"}'));
   final payload = base64Url.encode(
-    utf8.encode(
-      jsonEncode({
-        'exp': expiresAt.millisecondsSinceEpoch ~/ 1000,
-      }),
-    ),
+    utf8.encode(jsonEncode({'exp': expiresAt.millisecondsSinceEpoch ~/ 1000})),
   );
   return '$header.$payload.signature';
 }

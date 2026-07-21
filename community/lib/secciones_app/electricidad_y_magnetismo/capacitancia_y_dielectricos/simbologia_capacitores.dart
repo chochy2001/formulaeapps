@@ -15,9 +15,12 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,9 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.simbologiaCapacitores,
-                      widgetName: kWidgetSimbologiaCapacitores),
+                    title: AppLocalizations.of(context)!.simbologiaCapacitores,
+                    widgetName: kWidgetSimbologiaCapacitores,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +59,20 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .simbologiaCapacitores,
-                              widgetName: kWidgetSimbologiaCapacitores),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.simbologiaCapacitores,
+                            widgetName: kWidgetSimbologiaCapacitores,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .simbologiaCapacitores,
-                              widgetName: kWidgetSimbologiaCapacitores),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.simbologiaCapacitores,
+                            widgetName: kWidgetSimbologiaCapacitores,
+                          ),
                         );
                       }
                     });
@@ -77,18 +84,15 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
             const SizedBox(height: 20.0),
 
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenSimbologiaCapacitores) ??
-                        kUrlImagenSimbologiaCapacitores),
+              urlImagen:
+                  getImageUrlById(context, kImagenSimbologiaCapacitores) ??
+                  kUrlImagenSimbologiaCapacitores,
+            ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetSimbologiaCapacitores,
-            ),
+            const VerPDF(url: kWidgetSimbologiaCapacitores),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetSimbologiaCapacitores,
-            ),
+            const DescargarPDF(url: kWidgetSimbologiaCapacitores),
           ],
         ),
       ),

@@ -44,14 +44,18 @@ class LeyesDeLosGasesState extends State<LeyesDeLosGases> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyesDeLosGases,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyesDeLosGases,
                                 widgetName: kWidgetLeyesDeLosGases,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.leyesDeLosGases,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.leyesDeLosGases,
                                 widgetName: kWidgetLeyesDeLosGases,
                               ),
                             );
@@ -67,11 +71,16 @@ class LeyesDeLosGasesState extends State<LeyesDeLosGases> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{P_1 V_1}{T_1} = \frac{P_2 V_2}{T_2}"),
+                  Latex(
+                    formulaText: r"\frac{P_1 V_1}{T_1} = \frac{P_2 V_2}{T_2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\frac{V_1}{T_1} = \frac{V_2}{T_2}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{P_1 V_1}{m_1 T_1} = \frac{P_2 V_2}{m_2 T_2}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{P_1 V_1}{m_1 T_1} = \frac{P_2 V_2}{m_2 T_2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\frac{P_1}{T_1} = \frac{P_2}{T_2}"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -81,7 +90,9 @@ class LeyesDeLosGasesState extends State<LeyesDeLosGases> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"n = \frac{m}{M}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"R = 8.314\ \mathrm{J\,mol^{-1}\,K^{-1}}"),
+                  Latex(
+                    formulaText: r"R = 8.314\ \mathrm{J\,mol^{-1}\,K^{-1}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

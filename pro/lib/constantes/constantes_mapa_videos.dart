@@ -66,22 +66,13 @@ Map<String, Map<String, String>> urlVideoMap = {
     'es': kUrlVideoIdentidadesPitagoricas,
     'en': '',
   },
-  kVideoIdentidadesBasicas: {
-    'es': kUrlVideoIdentidadesBasicas,
-    'en': '',
-  },
-  kVideoIdentidadesReciprocas: {
-    'es': kUrlVideoIdentidadesReciprocas,
-    'en': '',
-  },
+  kVideoIdentidadesBasicas: {'es': kUrlVideoIdentidadesBasicas, 'en': ''},
+  kVideoIdentidadesReciprocas: {'es': kUrlVideoIdentidadesReciprocas, 'en': ''},
   kVideoIdentidadesPorCociente: {
     'es': kUrlVideoIdentidadesPorCociente,
     'en': '',
   },
-  kVideoIdentidadesParImpar: {
-    'es': kUrlVideoIdentidadesParImpar,
-    'en': '',
-  },
+  kVideoIdentidadesParImpar: {'es': kUrlVideoIdentidadesParImpar, 'en': ''},
   kVideoAngulosComplementariosSuplementarios: {
     'es': kUrlVideoAngulosComplementariosSuplementarios,
     'en': '',
@@ -91,18 +82,12 @@ Map<String, Map<String, String>> urlVideoMap = {
     'es': kUrlVideoDerivadaDeUnaConstante,
     'en': '',
   },
-  kVideoDerivadaDeUnaVariable: {
-    'es': kUrlVideoDerivadaDeUnaVariable,
-    'en': '',
-  },
+  kVideoDerivadaDeUnaVariable: {'es': kUrlVideoDerivadaDeUnaVariable, 'en': ''},
   kVideoDerivadaDeUnaConstantePorVariable: {
     'es': kUrlVideoDerivadaDeUnaConstantePorVariable,
     'en': '',
   },
-  kVideoDerivadaExponente: {
-    'es': kUrlVideoDerivadaExponente,
-    'en': '',
-  },
+  kVideoDerivadaExponente: {'es': kUrlVideoDerivadaExponente, 'en': ''},
   kVideoDerivadaConstantePorExponente: {
     'es': kUrlVideoDerivadaConstantePorExponente,
     'en': '',
@@ -128,10 +113,7 @@ Map<String, Map<String, String>> urlVideoMap = {
     'en': '',
   },
   //Integracion Basica
-  kVideoIntegralDeX: {
-    'es': kUrlVideoIntegralDeX,
-    'en': '',
-  },
+  kVideoIntegralDeX: {'es': kUrlVideoIntegralDeX, 'en': ''},
   kVideoIntegralDeConstantePorX: {
     'es': kUrlVideoIntegralDeConstantePorX,
     'en': '',
@@ -148,10 +130,7 @@ Map<String, Map<String, String>> urlVideoMap = {
     'es': kUrlVideoIntegralDeVariableConExponenteMenosN,
     'en': '',
   },
-  kVideoIntegralDeUnCociente: {
-    'es': kUrlVideoIntegralDeUnCociente,
-    'en': '',
-  },
+  kVideoIntegralDeUnCociente: {'es': kUrlVideoIntegralDeUnCociente, 'en': ''},
   kVideoIntegralDeExponenteFraccionario: {
     'es': kUrlVideoIntegralDeExponenteFraccionario,
     'en': '',
@@ -164,14 +143,13 @@ Map<String, Map<String, String>> urlVideoMap = {
     'es': kUrlVideoIntegralDeProductoConstanteYFuncion,
     'en': '',
   },
-  kVideoIntegralPorPartes: {
-    'es': kUrlVideoIntegralPorPartes,
-    'en': '',
-  },
+  kVideoIntegralPorPartes: {'es': kUrlVideoIntegralPorPartes, 'en': ''},
 };
 
 String? getUrlVideoById(BuildContext context, String id) {
-  Locale currentLocale =
-      Provider.of<LocaleProvider>(context, listen: false).locale;
+  Locale currentLocale = Provider.of<LocaleProvider>(
+    context,
+    listen: false,
+  ).locale;
   return urlVideoMap[id]?[currentLocale.languageCode];
 }

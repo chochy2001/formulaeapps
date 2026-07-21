@@ -16,9 +16,12 @@ class _CondicionalMatematicasDiscretasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,8 +50,9 @@ class _CondicionalMatematicasDiscretasState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.condicional,
-                            widgetName: kWidgetCondicional),
+                          title: AppLocalizations.of(context)!.condicional,
+                          widgetName: kWidgetCondicional,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +64,20 @@ class _CondicionalMatematicasDiscretasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .condicional,
-                                    widgetName: kWidgetCondicional),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.condicional,
+                                  widgetName: kWidgetCondicional,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .condicional,
-                                    widgetName: kWidgetCondicional),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.condicional,
+                                  widgetName: kWidgetCondicional,
+                                ),
                               );
                             }
                           });
@@ -78,26 +86,18 @@ class _CondicionalMatematicasDiscretasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.implica,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.implica),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolo,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolo),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{p \rightarrow q}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -105,26 +105,20 @@ class _CondicionalMatematicasDiscretasState
                       ],
                     ),
                   ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.tablaVerdad,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.tablaVerdad),
 
                   const SizedBox(height: kEspacioEntreBotones),
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(context, kImagenCondicional) ??
-                          kUrlImagenCondicional),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(context, kImagenCondicional) ??
+                        kUrlImagenCondicional,
                   ),
+                  const SizedBox(height: 30.0),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetCondicional,
-                  ),
+                  const VerPDF(url: kWidgetCondicional),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetCondicional,
-                  ),
+                  const DescargarPDF(url: kWidgetCondicional),
                 ],
               ),
             ),

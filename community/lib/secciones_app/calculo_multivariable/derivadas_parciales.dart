@@ -16,9 +16,12 @@ class _DerivadasParcialesState extends State<DerivadasParciales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,8 +46,9 @@ class _DerivadasParcialesState extends State<DerivadasParciales> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.derivadasParciales,
-                      widgetName: kWidgetDerivadasParciales),
+                    title: AppLocalizations.of(context)!.derivadasParciales,
+                    widgetName: kWidgetDerivadasParciales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +60,20 @@ class _DerivadasParcialesState extends State<DerivadasParciales> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasParciales,
-                              widgetName: kWidgetDerivadasParciales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasParciales,
+                            widgetName: kWidgetDerivadasParciales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasParciales,
-                              widgetName: kWidgetDerivadasParciales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasParciales,
+                            widgetName: kWidgetDerivadasParciales,
+                          ),
                         );
                       }
                     });
@@ -74,9 +82,7 @@ class _DerivadasParcialesState extends State<DerivadasParciales> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
@@ -86,80 +92,66 @@ class _DerivadasParcialesState extends State<DerivadasParciales> {
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"f_x(x,y,z) = \lim_{h \to 0}\frac{f(x+h,y,z)-f(x,y,z)}{h}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"f_y(x,y,z) = \lim_{h \to 0}\frac{f(x,y+h,z)-f(x,y,z)}{h}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"f_z(x,y,z) = \lim_{h \to 0}\frac{f(x,y,z+h)-f(x,y,z)}{h}"),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.notacion,
+                    formulaText:
+                        r"f_x(x,y,z) = \lim_{h \to 0}\frac{f(x+h,y,z)-f(x,y,z)}{h}",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"f_{x} = \frac{\partial f(x,y,z)}{\partial x}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"f_{y} = \frac{\partial f(x,y,z)}{\partial y}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"f_{z} = \frac{\partial f(x,y,z)}{\partial z}"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                    formulaText:
+                        r"f_y(x,y,z) = \lim_{h \to 0}\frac{f(x,y+h,z)-f(x,y,z)}{h}",
                   ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"f_z(x,y,z) = \lim_{h \to 0}\frac{f(x,y,z+h)-f(x,y,z)}{h}",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.notacion),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"f_{x} = \frac{\partial f(x,y,z)}{\partial x}",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"f_{y} = \frac{\partial f(x,y,z)}{\partial y}",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"f_{z} = \frac{\partial f(x,y,z)}{\partial z}",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Padding(padding: EdgeInsets.only(top: 10.0)),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetDerivadasParciales,
-            ),
+            const VerPDF(url: kWidgetDerivadasParciales),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetDerivadasParciales,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetDerivadasParciales),
+            const SizedBox(height: 20.0),
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
                   const Notas(),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   Center(
                     child: TextoEcuaciones(
-                      AppLocalizations.of(context)!
-                          .elsubindiceindicarespectodequevariablesevaaderivar,
+                      AppLocalizations.of(
+                        context,
+                      )!.elsubindiceindicarespectodequevariablesevaaderivar,
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   const CapdesisLatex(),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
             ),

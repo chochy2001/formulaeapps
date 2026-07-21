@@ -6,10 +6,12 @@ class DistribucionesDistribucionUniforme extends StatefulWidget {
   const DistribucionesDistribucionUniforme({super.key});
 
   @override
-  DistribucionesDistribucionUniformeState createState() => DistribucionesDistribucionUniformeState();
+  DistribucionesDistribucionUniformeState createState() =>
+      DistribucionesDistribucionUniformeState();
 }
 
-class DistribucionesDistribucionUniformeState extends State<DistribucionesDistribucionUniforme> {
+class DistribucionesDistribucionUniformeState
+    extends State<DistribucionesDistribucionUniforme> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DistribucionesDistribucionUniformeState extends State<DistribucionesDistri
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionUniforme,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionUniforme,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionUniforme,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionUniforme,
                         widgetName: kWidgetDistribucionesDistribucionUniforme,
                       ),
                     );
@@ -44,15 +50,21 @@ class DistribucionesDistribucionUniformeState extends State<DistribucionesDistri
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionUniforme,
-                                widgetName: kWidgetDistribucionesDistribucionUniforme,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionUniforme,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionUniforme,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionUniforme,
-                                widgetName: kWidgetDistribucionesDistribucionUniforme,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionUniforme,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionUniforme,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class DistribucionesDistribucionUniformeState extends State<DistribucionesDistri
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"f_x(X_0) = \begin{cases} \dfrac{1}{b-a} & a \le X_0 \le b \\ 0 & \text{cualquier otro caso} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"f_x(X_0) = \begin{cases} \dfrac{1}{b-a} & a \le X_0 \le b \\ 0 & \text{cualquier otro caso} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = \dfrac{a+b}{2}"),
                   SizedBox(height: kEspacioEntreBotones),

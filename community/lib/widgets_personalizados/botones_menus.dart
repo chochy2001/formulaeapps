@@ -44,11 +44,7 @@ class BotonesMenu extends StatelessWidget {
   final String ruta;
   final String textoBoton;
 
-  const BotonesMenu({
-    super.key,
-    required this.ruta,
-    required this.textoBoton,
-  });
+  const BotonesMenu({super.key, required this.ruta, required this.textoBoton});
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +70,8 @@ class BotonesMenu extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         constraints: BoxConstraints(
-                            minHeight:
-                                MediaQuery.of(context).size.height * 0.07),
+                          minHeight: MediaQuery.of(context).size.height * 0.07,
+                        ),
                         child: Text(
                           textoBoton,
                           style: kTextoMostrarOcultar,

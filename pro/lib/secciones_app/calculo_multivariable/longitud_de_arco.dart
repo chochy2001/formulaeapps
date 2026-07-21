@@ -29,8 +29,9 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.longitudArco,
-                      widgetName: kWidgetLongitudDeArco),
+                    title: AppLocalizations.of(context)!.longitudArco,
+                    widgetName: kWidgetLongitudDeArco,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,14 +43,16 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.longitudArco,
-                              widgetName: kWidgetLongitudDeArco),
+                            title: AppLocalizations.of(context)!.longitudArco,
+                            widgetName: kWidgetLongitudDeArco,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.longitudArco,
-                              widgetName: kWidgetLongitudDeArco),
+                            title: AppLocalizations.of(context)!.longitudArco,
+                            widgetName: kWidgetLongitudDeArco,
+                          ),
                         );
                       }
                     });
@@ -58,9 +61,7 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
@@ -69,8 +70,8 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
                     AppLocalizations.of(context)!.curvaDeDosDimensiones,
                   ),
                   const Latex(
-                      formulaText:
-                          r"L = \int_a^b \sqrt{|f'(t)|^2 + |g'(t)|^2}dt"),
+                    formulaText: r"L = \int_a^b \sqrt{|f'(t)|^2 + |g'(t)|^2}dt",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
@@ -78,8 +79,9 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
                   ),
                   const SizedBox(height: 10),
                   const Latex(
-                      formulaText:
-                          r"L = \int_a^b \sqrt{|f'(t)|^2 + |g'(t)|^2 +|h'(t)|^2}dt"),
+                    formulaText:
+                        r"L = \int_a^b \sqrt{|f'(t)|^2 + |g'(t)|^2 +|h'(t)|^2}dt",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const SizedBox(height: kEspacioEntreBotones),
                 ],
@@ -88,19 +90,13 @@ class LongitudDeArcoState extends State<LongitudDeArco> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLongitudDeArco,
-                ),
+                VerPDF(url: kWidgetLongitudDeArco),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLongitudDeArco,
-                ),
+                DescargarPDF(url: kWidgetLongitudDeArco),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

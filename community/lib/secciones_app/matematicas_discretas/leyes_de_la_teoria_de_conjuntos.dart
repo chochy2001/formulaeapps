@@ -16,9 +16,12 @@ class _LeyesDeLaTeoriaDeConjuntosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _LeyesDeLaTeoriaDeConjuntosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .leyesDeLaTeoriaDeConjuntos,
-                            widgetName: kWidgetLeyesDeLaTeoriaDeConjuntos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.leyesDeLaTeoriaDeConjuntos,
+                          widgetName: kWidgetLeyesDeLaTeoriaDeConjuntos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,20 @@ class _LeyesDeLaTeoriaDeConjuntosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDeLaTeoriaDeConjuntos,
-                                    widgetName:
-                                        kWidgetLeyesDeLaTeoriaDeConjuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDeLaTeoriaDeConjuntos,
+                                  widgetName: kWidgetLeyesDeLaTeoriaDeConjuntos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDeLaTeoriaDeConjuntos,
-                                    widgetName:
-                                        kWidgetLeyesDeLaTeoriaDeConjuntos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDeLaTeoriaDeConjuntos,
+                                  widgetName: kWidgetLeyesDeLaTeoriaDeConjuntos,
+                                ),
                               );
                             }
                           });
@@ -81,9 +88,7 @@ class _LeyesDeLaTeoriaDeConjuntosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -105,20 +110,21 @@ class _LeyesDeLaTeoriaDeConjuntosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\overline{\overline{A}} = A"),
+                          formulaText: r"\overline{\overline{A}} = A",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.deMorgan,
+                        TextoEcuaciones(AppLocalizations.of(context)!.deMorgan),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"\overline{A\cup B}\equiv \overline{A}\cap\overline{B}",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\overline{A\cup B}\equiv \overline{A}\cap\overline{B}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"\overline{A\cap B}\equiv \overline{A}\cup\overline{B}"),
+                          formulaText:
+                              r"\overline{A\cap B}\equiv \overline{A}\cup\overline{B}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -135,10 +141,12 @@ class _LeyesDeLaTeoriaDeConjuntosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(A \cup B)\cup C = A\cup (B\cup C)"),
+                          formulaText: r"(A \cup B)\cup C = A\cup (B\cup C)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(A \cap B)\cap C = A\cap (B\cap C)"),
+                          formulaText: r"(A \cap B)\cap C = A\cap (B\cap C)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -146,12 +154,14 @@ class _LeyesDeLaTeoriaDeConjuntosState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A\cap (B\cup C) = (A\cap B)\cup(A\cap C)"),
+                          formulaText:
+                              r"A\cap (B\cup C) = (A\cap B)\cup(A\cap C)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A\cup (B\cap C) = (A\cup B)\cap (A\cup C)"),
+                          formulaText:
+                              r"A\cup (B\cap C) = (A\cup B)\cap (A\cup C)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -163,9 +173,7 @@ class _LeyesDeLaTeoriaDeConjuntosState
                         const Latex(formulaText: r"A \cap A = A"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.neutros,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.neutros),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"A\cup \varnothing = A"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -179,17 +187,17 @@ class _LeyesDeLaTeoriaDeConjuntosState
                         const Latex(formulaText: r"A \cup X = X"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"A \cap \varnothing = \varnothing"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.inversos,
+                          formulaText: r"A \cap \varnothing = \varnothing",
                         ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.inversos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"A \cup \overline{A} = X"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"A\cap \overline{A} = \varnothing"),
+                          formulaText: r"A\cap \overline{A} = \varnothing",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -204,21 +212,14 @@ class _LeyesDeLaTeoriaDeConjuntosState
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetLeyesDeLaTeoriaDeConjuntos,
-                  ),
+                  const VerPDF(url: kWidgetLeyesDeLaTeoriaDeConjuntos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetLeyesDeLaTeoriaDeConjuntos,
-                  ),
+                  const DescargarPDF(url: kWidgetLeyesDeLaTeoriaDeConjuntos),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

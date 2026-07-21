@@ -16,15 +16,9 @@ const kColorBlanco = Colors.white;
 // Contraste 4.84:1 sobre kColorFondo; apto para navegación no seleccionada.
 const kColorNavInactivo = Color(0xFF8A93C4);
 
-const kEstiloTextoMenus = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 30,
-);
+const kEstiloTextoMenus = TextStyle(color: Color(0xFFE9E9E9), fontSize: 30);
 
-const kEstiloSubMenu = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 10,
-);
+const kEstiloSubMenu = TextStyle(color: Color(0xFFE9E9E9), fontSize: 10);
 
 const kEstiloBotones = TextStyle(
   color: kColorBlanco,
@@ -32,25 +26,16 @@ const kEstiloBotones = TextStyle(
   fontWeight: FontWeight.w100,
 );
 
-const kTextoBotones = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 20.0,
-);
+const kTextoBotones = TextStyle(color: Color(0xFFE9E9E9), fontSize: 20.0);
 
 const kTextoBotonesDelgado = TextStyle(
   color: Color(0xFFE9E9E9),
   fontSize: 15.0,
 );
 
-const kTextoBotones2 = TextStyle(
-  color: Color(0xFFE9E9E9),
-  fontSize: 15.0,
-);
+const kTextoBotones2 = TextStyle(color: Color(0xFFE9E9E9), fontSize: 15.0);
 
-const kTextoCerrar = TextStyle(
-  color: Colors.red,
-  fontSize: 15.0,
-);
+const kTextoCerrar = TextStyle(color: Colors.red, fontSize: 15.0);
 
 const kTexto = TextStyle(
   color: Color(0xFFE9E9E9),
@@ -64,10 +49,7 @@ const kTextoEcuaciones = TextStyle(
   decorationColor: kColorBotones,
 );
 
-const kHintStyle = TextStyle(
-  color: Color(0xFFA9A9A9),
-  fontSize: 15.0,
-);
+const kHintStyle = TextStyle(color: Color(0xFFA9A9A9), fontSize: 15.0);
 
 const kTextoMostrarOcultar = TextStyle(
   color: Color(0xFFE9E9E9),
@@ -113,9 +95,7 @@ const String kFormularioMejoraFormulae = "https://forms.gle/cqTWNp9rZr7zEQDp8";
 const kBannerAdAndroidProduccion = String.fromEnvironment(
   'ADMOB_ANDROID_BANNER_ID',
 );
-const kBannerAdIOSProduccion = String.fromEnvironment(
-  'ADMOB_IOS_BANNER_ID',
-);
+const kBannerAdIOSProduccion = String.fromEnvironment('ADMOB_IOS_BANNER_ID');
 const kIntersticialAndroidProduccion = String.fromEnvironment(
   'ADMOB_ANDROID_INTERSTITIAL_ID',
 );

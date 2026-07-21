@@ -16,9 +16,12 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .nomenclaturaBasicaCircuitos,
-                      widgetName: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.nomenclaturaBasicaCircuitos,
+                    widgetName: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,22 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .nomenclaturaBasicaCircuitos,
-                              widgetName:
-                                  kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.nomenclaturaBasicaCircuitos,
+                            widgetName:
+                                kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .nomenclaturaBasicaCircuitos,
-                              widgetName:
-                                  kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.nomenclaturaBasicaCircuitos,
+                            widgetName:
+                                kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
+                          ),
                         );
                       }
                     });
@@ -81,21 +90,21 @@ class _NomenclaturaBasicaEmpleadaEnCircuitosState
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenNomenclaturaBasica1) ??
-                            kUrlImagenNomenclaturaBasica1),
+                  urlImagen:
+                      getImageUrlById(context, kImagenNomenclaturaBasica1) ??
+                      kUrlImagenNomenclaturaBasica1,
+                ),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenNomenclaturaBasica2) ??
-                            kUrlImagenNomenclaturaBasica2),
+                  urlImagen:
+                      getImageUrlById(context, kImagenNomenclaturaBasica2) ??
+                      kUrlImagenNomenclaturaBasica2,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,
-            ),
+            const VerPDF(url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos),
             //Descargar PDF
             const DescargarPDF(
               url: kWidgetNomenclaturaBasicaEmpleadaEnCircuitos,

@@ -41,14 +41,16 @@ class _EfectoJouleState extends State<EfectoJoule> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.efectoJoule,
-                              widgetName: kWidgetEfectoJoule),
+                            title: AppLocalizations.of(context)!.efectoJoule,
+                            widgetName: kWidgetEfectoJoule,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.efectoJoule,
-                              widgetName: kWidgetEfectoJoule),
+                            title: AppLocalizations.of(context)!.efectoJoule,
+                            widgetName: kWidgetEfectoJoule,
+                          ),
                         );
                       }
                     });
@@ -73,19 +75,13 @@ class _EfectoJouleState extends State<EfectoJoule> {
                 const Latex(formulaText: r"[P]_u = [W]: Watt"),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeJoule,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeJoule),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.resistor,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.resistor),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule2),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule1),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.resistorPuro,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.resistorPuro),
                 const SizedBox(height: 20.0),
               ],
             ),
@@ -93,15 +89,11 @@ class _EfectoJouleState extends State<EfectoJoule> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetEfectoJoule,
-                ),
+                VerPDF(url: kWidgetEfectoJoule),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetEfectoJoule,
-                ),
+                DescargarPDF(url: kWidgetEfectoJoule),
               ],
-            )
+            ),
           ],
         ),
       ),

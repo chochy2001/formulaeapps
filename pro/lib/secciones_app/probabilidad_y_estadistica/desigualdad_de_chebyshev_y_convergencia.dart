@@ -6,10 +6,12 @@ class DesigualdadDeChebyshevYConvergencia extends StatefulWidget {
   const DesigualdadDeChebyshevYConvergencia({super.key});
 
   @override
-  DesigualdadDeChebyshevYConvergenciaState createState() => DesigualdadDeChebyshevYConvergenciaState();
+  DesigualdadDeChebyshevYConvergenciaState createState() =>
+      DesigualdadDeChebyshevYConvergenciaState();
 }
 
-class DesigualdadDeChebyshevYConvergenciaState extends State<DesigualdadDeChebyshevYConvergencia> {
+class DesigualdadDeChebyshevYConvergenciaState
+    extends State<DesigualdadDeChebyshevYConvergencia> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DesigualdadDeChebyshevYConvergenciaState extends State<DesigualdadDeChebys
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia,
+                    AppLocalizations.of(
+                      context,
+                    )!.desigualdadDeChebyshevYConvergencia,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.desigualdadDeChebyshevYConvergencia,
                         widgetName: kWidgetDesigualdadDeChebyshevYConvergencia,
                       ),
                     );
@@ -44,15 +50,21 @@ class DesigualdadDeChebyshevYConvergenciaState extends State<DesigualdadDeChebys
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia,
-                                widgetName: kWidgetDesigualdadDeChebyshevYConvergencia,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.desigualdadDeChebyshevYConvergencia,
+                                widgetName:
+                                    kWidgetDesigualdadDeChebyshevYConvergencia,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.desigualdadDeChebyshevYConvergencia,
-                                widgetName: kWidgetDesigualdadDeChebyshevYConvergencia,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.desigualdadDeChebyshevYConvergencia,
+                                widgetName:
+                                    kWidgetDesigualdadDeChebyshevYConvergencia,
                               ),
                             );
                           }
@@ -67,11 +79,17 @@ class DesigualdadDeChebyshevYConvergenciaState extends State<DesigualdadDeChebys
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"P\bigl( |X - E(X)| \geq t \bigr) \leq \left( \frac{\sigma_x}{t} \right)^{2}"),
+                  Latex(
+                    formulaText:
+                        r"P\bigl( |X - E(X)| \geq t \bigr) \leq \left( \frac{\sigma_x}{t} \right)^{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"X_n = X_1, X_2, \ldots"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{n \to \infty} P\bigl( |X_n - L| > \epsilon \bigr) = 0"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{n \to \infty} P\bigl( |X_n - L| > \epsilon \bigr) = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

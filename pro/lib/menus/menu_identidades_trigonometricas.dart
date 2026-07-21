@@ -24,9 +24,7 @@ class MenuIdentidadesTrigonometricasState
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -35,23 +33,24 @@ class MenuIdentidadesTrigonometricasState
                     AppLocalizations.of(context)!.identidadesTrigonometricas,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.deAnguloDobleYMedio,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.deAnguloDobleYMedio,
                     ruta: kRutaIdentidadesTrigonometricasDeAnguloDobleYMedio,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.deSumaAProductoYViceversa,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.deSumaAProductoYViceversa,
                     ruta:
                         kRutaIdentidadesTrigonometricasDeSumaAProductoYViceversa,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.deSumaYRestaDeAngulos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.deSumaYRestaDeAngulos,
                     ruta: kRutaIdentidadesTrigonometricasDeSumaYRestaDeAngulos,
                   ),
                   BotonesMenu(

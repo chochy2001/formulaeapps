@@ -14,9 +14,12 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .leyesDelAlgebraDeBoole,
-                            widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.leyesDelAlgebraDeBoole,
+                          widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDelAlgebraDeBoole,
-                                    widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDelAlgebraDeBoole,
+                                  widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyesDelAlgebraDeBoole,
-                                    widgetName: kWidgetLeyesDelAlgebraDeBoole),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyesDelAlgebraDeBoole,
+                                  widgetName: kWidgetLeyesDelAlgebraDeBoole,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -92,9 +99,7 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                         const Latex(formulaText: r"(x')' = x"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.deMorgan,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.deMorgan),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(x+y)'=x'\times y'"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -117,8 +122,9 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                         const Latex(formulaText: r"(x+y)+z=x+(y+z)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(x\times y)\times z=x\times (y\times z)"),
+                          formulaText:
+                              r"(x\times y)\times z=x\times (y\times z)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -126,12 +132,14 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"x\times (y+z) = (x\times y)+(x \times z)"),
+                          formulaText:
+                              r"x\times (y+z) = (x\times y)+(x \times z)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"x+ (y\times z) = (x + y)\times (x + z)"),
+                          formulaText:
+                              r"x+ (y\times z) = (x + y)\times (x + z)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -143,9 +151,7 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                         const Latex(formulaText: r"x \times x = x"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.neutros,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.neutros),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"x+0=x"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -161,9 +167,7 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                         const Latex(formulaText: r"x\times 0 = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.inversos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.inversos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"x+x' = 1"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -183,13 +187,9 @@ class _LeyesDelAlgebraDeBooleState extends State<LeyesDelAlgebraDeBoole> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetLeyesDelAlgebraDeBoole,
-                  ),
+                  const VerPDF(url: kWidgetLeyesDelAlgebraDeBoole),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetLeyesDelAlgebraDeBoole,
-                  ),
+                  const DescargarPDF(url: kWidgetLeyesDelAlgebraDeBoole),
                 ],
               ),
             ),

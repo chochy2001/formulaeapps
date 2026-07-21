@@ -30,7 +30,9 @@ class ConjuntosEIntervalosState extends State<ConjuntosEIntervalos> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.conjuntosEIntervalos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.conjuntosEIntervalos,
                         widgetName: kWidgetConjuntosEIntervalos,
                       ),
                     );
@@ -44,14 +46,18 @@ class ConjuntosEIntervalosState extends State<ConjuntosEIntervalos> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.conjuntosEIntervalos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.conjuntosEIntervalos,
                                 widgetName: kWidgetConjuntosEIntervalos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.conjuntosEIntervalos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.conjuntosEIntervalos,
                                 widgetName: kWidgetConjuntosEIntervalos,
                               ),
                             );
@@ -67,15 +73,25 @@ class ConjuntosEIntervalosState extends State<ConjuntosEIntervalos> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"A \subset B \iff \forall x \in A,\ x \in B"),
+                  Latex(
+                    formulaText: r"A \subset B \iff \forall x \in A,\ x \in B",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x \in A \cap B \iff x \in A \ \text{y}\ x \in B"),
+                  Latex(
+                    formulaText:
+                        r"x \in A \cap B \iff x \in A \ \text{y}\ x \in B",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x \in A \cup B \iff x \in A \ \text{o}\ x \in B"),
+                  Latex(
+                    formulaText:
+                        r"x \in A \cup B \iff x \in A \ \text{o}\ x \in B",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"(a, b) = \{\, x \mid a < x < b \,\}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"[a, b] = \{\, x \mid a \le x \le b \,\}"),
+                  Latex(
+                    formulaText: r"[a, b] = \{\, x \mid a \le x \le b \,\}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

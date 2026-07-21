@@ -31,8 +31,9 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.teoremaDelSeno,
-                            widgetName: kWidgetTeoremaDelSeno),
+                          title: AppLocalizations.of(context)!.teoremaDelSeno,
+                          widgetName: kWidgetTeoremaDelSeno,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelSeno,
-                                    widgetName: kWidgetTeoremaDelSeno),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelSeno,
+                                  widgetName: kWidgetTeoremaDelSeno,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelSeno,
-                                    widgetName: kWidgetTeoremaDelSeno),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelSeno,
+                                  widgetName: kWidgetTeoremaDelSeno,
+                                ),
                               );
                             }
                           });
@@ -62,17 +67,16 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\frac{\sin a}{\sin \alpha} = \frac{\sin b}{\sin \beta} = \frac{\sin c}{\sin \gamma}"),
+                          formulaText:
+                              r"\frac{\sin a}{\sin \alpha} = \frac{\sin b}{\sin \beta} = \frac{\sin c}{\sin \gamma}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -82,13 +86,9 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetTeoremaDelSeno,
-                      ),
+                      VerPDF(url: kWidgetTeoremaDelSeno),
                       //Descargar PDF
-                      DescargarPDF(
-                        url: kWidgetTeoremaDelSeno,
-                      ),
+                      DescargarPDF(url: kWidgetTeoremaDelSeno),
                     ],
                   ),
 
@@ -96,10 +96,7 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -114,8 +111,9 @@ class TeoremaDelSenoState extends State<TeoremaDelSeno> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

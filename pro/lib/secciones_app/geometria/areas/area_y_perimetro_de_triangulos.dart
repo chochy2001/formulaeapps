@@ -41,9 +41,11 @@ class AreaYPerimetroDeTriangulosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .areaPerimetroTriangulos,
-                            widgetName: kWidgetAreaYPerimetroDeTriangulos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.areaPerimetroTriangulos,
+                          widgetName: kWidgetAreaYPerimetroDeTriangulos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -55,18 +57,20 @@ class AreaYPerimetroDeTriangulosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroTriangulos,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDeTriangulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroTriangulos,
+                                  widgetName: kWidgetAreaYPerimetroDeTriangulos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .areaPerimetroTriangulos,
-                                    widgetName:
-                                        kWidgetAreaYPerimetroDeTriangulos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.areaPerimetroTriangulos,
+                                  widgetName: kWidgetAreaYPerimetroDeTriangulos,
+                                ),
                               );
                             }
                           });
@@ -75,24 +79,16 @@ class AreaYPerimetroDeTriangulosState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Column(
                     children: [
                       const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.isosceles,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.isosceles),
                       const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.area,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.area),
                       const Latex(formulaText: r"\frac{bh}{2}"),
                       const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.perimetro,
-                      ),
+                      TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                       const Latex(formulaText: r"2a+b"),
                       const SizedBox(height: kEspacioEntreBotones),
                     ],
@@ -104,16 +100,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -121,7 +114,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -148,16 +143,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -165,7 +157,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -192,16 +186,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -209,7 +200,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -230,23 +223,20 @@ class AreaYPerimetroDeTriangulosState
                     ),
                   ),
                   _solucionIsoceles(
-                      baseIsosceles, ladoAIsosceles, alturaIsosceles),
-                  const SizedBox(height: kEspacioEntreBotones * 2),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.equilatero,
+                    baseIsosceles,
+                    ladoAIsosceles,
+                    alturaIsosceles,
                   ),
+                  const SizedBox(height: kEspacioEntreBotones * 2),
+                  TextoEcuaciones(AppLocalizations.of(context)!.equilatero),
 
                   const SizedBox(height: kEspacioEntreBotones),
 
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"\frac{bh}{2}"),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"3l"),
 
                   const SizedBox(height: kEspacioEntreBotones),
@@ -257,16 +247,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -274,7 +261,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -301,16 +290,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -318,7 +304,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -345,16 +333,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -362,7 +347,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -384,24 +371,21 @@ class AreaYPerimetroDeTriangulosState
                   ),
 
                   _solucionEquilatero(
-                      baseEquilatero, ladoEquilatero, alturaEquilatero),
+                    baseEquilatero,
+                    ladoEquilatero,
+                    alturaEquilatero,
+                  ),
                   const SizedBox(height: kEspacioEntreBotones * 2),
 
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.escaleno,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.escaleno),
 
                   const SizedBox(height: kEspacioEntreBotones),
 
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.area,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.area),
                   const Latex(formulaText: r"\frac{bh}{2}"),
 
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.perimetro,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.perimetro),
                   const Latex(formulaText: r"a+b+c"),
 
                   const SizedBox(height: kEspacioEntreBotones),
@@ -412,16 +396,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -429,7 +410,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -456,16 +439,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -473,7 +453,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -500,16 +482,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -517,7 +496,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -544,16 +525,13 @@ class AreaYPerimetroDeTriangulosState
                       primaryColorDark: Colors.white,
                       hintColor: Colors.white,
                       inputDecorationTheme: const InputDecorationTheme(
-                        hintStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
                       ),
                     ),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
+                      height:
+                          MediaQuery.of(context).size.height *
                           interactiveHeight,
                       width:
                           MediaQuery.of(context).size.width * interactiveWidth,
@@ -561,7 +539,9 @@ class AreaYPerimetroDeTriangulosState
                         style: kTextoBotones,
                         cursorColor: Colors.white,
                         keyboardType: const TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
+                          signed: true,
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
                           hintText: "5",
                           hintStyle: const TextStyle(color: Colors.grey),
@@ -581,43 +561,34 @@ class AreaYPerimetroDeTriangulosState
                       ),
                     ),
                   ),
-                  _solucionEscaleno(baseEscaleno, ladoAEscaleno, alturaEscaleno,
-                      ladoCEscaleno),
+                  _solucionEscaleno(
+                    baseEscaleno,
+                    ladoAEscaleno,
+                    alturaEscaleno,
+                    ladoCEscaleno,
+                  ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAreaYPerimetroDeTriangulos,
-                  ),
+                  const VerPDF(url: kWidgetAreaYPerimetroDeTriangulos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAreaYPerimetroDeTriangulos,
-                  ),
+                  const DescargarPDF(url: kWidgetAreaYPerimetroDeTriangulos),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.lado,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.lado),
                         const Latex(formulaText: r"l"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.base,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.base),
                         const Latex(formulaText: r"b"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.altura,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.altura),
                         const Latex(formulaText: r"h"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
@@ -641,10 +612,7 @@ class AreaYPerimetroDeTriangulosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -662,10 +630,7 @@ class AreaYPerimetroDeTriangulosState
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(
@@ -677,17 +642,18 @@ class AreaYPerimetroDeTriangulosState
   }
 
   Widget _solucionEscaleno(
-      baseEscaleno, ladoAEscaleno, alturaEscaleno, ladoCEscaleno) {
+    baseEscaleno,
+    ladoAEscaleno,
+    alturaEscaleno,
+    ladoCEscaleno,
+  ) {
     double areaEscaleno = (baseEscaleno * alturaEscaleno) / 2;
     double perimetroEscaleno = ladoAEscaleno + ladoCEscaleno + baseEscaleno;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: kColorBotones,
-        border: Border.all(
-          width: 10.0,
-          color: kColorFondo,
-        ),
+        border: Border.all(width: 10.0, color: kColorFondo),
       ),
       child: ListTile(
         title: Text(

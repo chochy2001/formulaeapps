@@ -26,18 +26,20 @@ class ElipseConCentroDiferenteDelOrigenState
                 children: [
                   ChatGPTButton(
                     child: TituloPersonalizado(
-                      AppLocalizations.of(context)!
-                          .elipseConCentroDiferenteDelOrigen,
+                      AppLocalizations.of(
+                        context,
+                      )!.elipseConCentroDiferenteDelOrigen,
                     ),
                   ),
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .elipseConCentroDiferenteDelOrigen,
-                            widgetName:
-                                kWidgetElipseConCentroDiferenteDelOrigen),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.elipseConCentroDiferenteDelOrigen,
+                          widgetName: kWidgetElipseConCentroDiferenteDelOrigen,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -49,18 +51,22 @@ class ElipseConCentroDiferenteDelOrigenState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .elipseConCentroDiferenteDelOrigen,
-                                    widgetName:
-                                        kWidgetElipseConCentroDiferenteDelOrigen),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.elipseConCentroDiferenteDelOrigen,
+                                  widgetName:
+                                      kWidgetElipseConCentroDiferenteDelOrigen,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .elipseConCentroDiferenteDelOrigen,
-                                    widgetName:
-                                        kWidgetElipseConCentroDiferenteDelOrigen),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.elipseConCentroDiferenteDelOrigen,
+                                  widgetName:
+                                      kWidgetElipseConCentroDiferenteDelOrigen,
+                                ),
                               );
                             }
                           });
@@ -69,22 +75,22 @@ class ElipseConCentroDiferenteDelOrigenState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .centroDiferenteOrigenEjeFocalX,
+                          AppLocalizations.of(
+                            context,
+                          )!.centroDiferenteOrigenEjeFocalX,
                         ),
                         const SizedBox(height: 10),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2} = 1"),
+                          formulaText:
+                              r"\frac{(x-h)^2}{a^2}+\frac{(y-k)^2}{b^2} = 1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"F(h+c,k)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -116,8 +122,9 @@ class ElipseConCentroDiferenteDelOrigenState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{(x-h)^2}{b^2}+\frac{(y-k)^2}{a^2} = 1"),
+                          formulaText:
+                              r"\frac{(x-h)^2}{b^2}+\frac{(y-k)^2}{a^2} = 1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"F(h,k+c)"),
@@ -149,9 +156,7 @@ class ElipseConCentroDiferenteDelOrigenState
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetElipseConCentroDiferenteDelOrigen,
-                  ),
+                  const VerPDF(url: kWidgetElipseConCentroDiferenteDelOrigen),
                   //Descargar PDF
                   const DescargarPDF(
                     url: kWidgetElipseConCentroDiferenteDelOrigen,

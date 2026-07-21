@@ -16,9 +16,12 @@ class _VectorDeDesplazamientoElectricoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _VectorDeDesplazamientoElectricoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .vectorDesplazamientoElectrico,
-                      widgetName: kWidgetVectorDeDesplazamientoElectrico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.vectorDesplazamientoElectrico,
+                    widgetName: kWidgetVectorDeDesplazamientoElectrico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,20 @@ class _VectorDeDesplazamientoElectricoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .vectorDesplazamientoElectrico,
-                              widgetName:
-                                  kWidgetVectorDeDesplazamientoElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.vectorDesplazamientoElectrico,
+                            widgetName: kWidgetVectorDeDesplazamientoElectrico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .vectorDesplazamientoElectrico,
-                              widgetName:
-                                  kWidgetVectorDeDesplazamientoElectrico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.vectorDesplazamientoElectrico,
+                            widgetName: kWidgetVectorDeDesplazamientoElectrico,
+                          ),
                         );
                       }
                     });
@@ -89,34 +96,41 @@ class _VectorDeDesplazamientoElectricoState
                   const Latex(formulaText: r"\vec{D} = \varepsilon \vec{E}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{D} = \varepsilon \vec{E} = k_e \varepsilon_0 \vec{E}= (1+ \chi_e) \varepsilon_0 \vec{E} + \varepsilon_0 \chi_e \vec{E}"),
+                    formulaText:
+                        r"\vec{D} = \varepsilon \vec{E} = k_e \varepsilon_0 \vec{E}= (1+ \chi_e) \varepsilon_0 \vec{E} + \varepsilon_0 \chi_e \vec{E}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\vec{D} = \varepsilon_0 \vec{E} +\vec{P}"),
+                    formulaText: r"\vec{D} = \varepsilon_0 \vec{E} +\vec{P}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.leyDeGaussGeneralizada,
                   ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\oiint \vec{E}\cdot d\vec{A} = \frac{q_{enc}}{\varepsilon_0}"),
+                    formulaText:
+                        r"\oiint \vec{E}\cdot d\vec{A} = \frac{q_{enc}}{\varepsilon_0}",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\left| \vec{E} \right|= \frac{q_l}{\varepsilon A}"),
+                    formulaText:
+                        r"\left| \vec{E} \right|= \frac{q_l}{\varepsilon A}",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\left| \vec{E} \right|= \frac{\sigma_l}{\varepsilon}"),
+                    formulaText:
+                        r"\left| \vec{E} \right|= \frac{\sigma_l}{\varepsilon}",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText: r"\oiint \vec{D}\cdot d\vec{A} = q_l"),
+                    formulaText: r"\oiint \vec{D}\cdot d\vec{A} = q_l",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"\oiint \vec{D}\cdot d\vec{A} = DA = \varepsilon EA"),
+                    formulaText:
+                        r"\oiint \vec{D}\cdot d\vec{A} = DA = \varepsilon EA",
+                  ),
                   const SizedBox(height: 30.0),
                   const Latex(formulaText: r"\left| \vec{D} \right|= \sigma_l"),
                   const SizedBox(height: 30.0),
@@ -125,13 +139,9 @@ class _VectorDeDesplazamientoElectricoState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetVectorDeDesplazamientoElectrico,
-            ),
+            const VerPDF(url: kWidgetVectorDeDesplazamientoElectrico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetVectorDeDesplazamientoElectrico,
-            ),
+            const DescargarPDF(url: kWidgetVectorDeDesplazamientoElectrico),
           ],
         ),
       ),

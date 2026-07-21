@@ -16,9 +16,12 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -35,16 +38,15 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.teoremaFubini,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.teoremaFubini),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.teoremaFubini,
-                      widgetName: kWidgetTeoremaDeFubini),
+                    title: AppLocalizations.of(context)!.teoremaFubini,
+                    widgetName: kWidgetTeoremaDeFubini,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +58,16 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoremaFubini,
-                              widgetName: kWidgetTeoremaDeFubini),
+                            title: AppLocalizations.of(context)!.teoremaFubini,
+                            widgetName: kWidgetTeoremaDeFubini,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.teoremaFubini,
-                              widgetName: kWidgetTeoremaDeFubini),
+                            title: AppLocalizations.of(context)!.teoremaFubini,
+                            widgetName: kWidgetTeoremaDeFubini,
+                          ),
                         );
                       }
                     });
@@ -74,9 +76,7 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             const ZoomPersonalizado(
               child: Column(
                 children: [
@@ -86,12 +86,12 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
                   Latex(formulaText: r"\iint_{|a,b|\times |c,d|}f(x,y)dxdy"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"= \int_a^b\left(\int_c^d f(x,y)dy\right)dx"),
+                    formulaText: r"= \int_a^b\left(\int_c^d f(x,y)dy\right)dx",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"= \int_c^d\left(\int_a^b f(x,y)dx\right)dy"),
+                    formulaText: r"= \int_c^d\left(\int_a^b f(x,y)dx\right)dy",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   SizedBox(height: kEspacioEntreBotones),
                   SizedBox(height: kEspacioEntreBotones),
@@ -99,16 +99,10 @@ class _TeoremaDeFubiniState extends State<TeoremaDeFubini> {
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetTeoremaDeFubini,
-            ),
+            const VerPDF(url: kWidgetTeoremaDeFubini),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetTeoremaDeFubini,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetTeoremaDeFubini),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

@@ -6,10 +6,12 @@ class CapacitoresCilindricoYEsferico extends StatefulWidget {
   const CapacitoresCilindricoYEsferico({super.key});
 
   @override
-  CapacitoresCilindricoYEsfericoState createState() => CapacitoresCilindricoYEsfericoState();
+  CapacitoresCilindricoYEsfericoState createState() =>
+      CapacitoresCilindricoYEsfericoState();
 }
 
-class CapacitoresCilindricoYEsfericoState extends State<CapacitoresCilindricoYEsferico> {
+class CapacitoresCilindricoYEsfericoState
+    extends State<CapacitoresCilindricoYEsferico> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class CapacitoresCilindricoYEsfericoState extends State<CapacitoresCilindricoYEs
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.capacitoresCilindricoYEsferico,
+                    AppLocalizations.of(
+                      context,
+                    )!.capacitoresCilindricoYEsferico,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.capacitoresCilindricoYEsferico,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.capacitoresCilindricoYEsferico,
                         widgetName: kWidgetCapacitoresCilindricoYEsferico,
                       ),
                     );
@@ -44,15 +50,21 @@ class CapacitoresCilindricoYEsfericoState extends State<CapacitoresCilindricoYEs
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.capacitoresCilindricoYEsferico,
-                                widgetName: kWidgetCapacitoresCilindricoYEsferico,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.capacitoresCilindricoYEsferico,
+                                widgetName:
+                                    kWidgetCapacitoresCilindricoYEsferico,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.capacitoresCilindricoYEsferico,
-                                widgetName: kWidgetCapacitoresCilindricoYEsferico,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.capacitoresCilindricoYEsferico,
+                                widgetName:
+                                    kWidgetCapacitoresCilindricoYEsferico,
                               ),
                             );
                           }
@@ -67,7 +79,10 @@ class CapacitoresCilindricoYEsfericoState extends State<CapacitoresCilindricoYEs
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"C = \frac{2\pi\,\varepsilon_{0}\,L}{\ln\!\left(R_{2}/R_{1}\right)}"),
+                  Latex(
+                    formulaText:
+                        r"C = \frac{2\pi\,\varepsilon_{0}\,L}{\ln\!\left(R_{2}/R_{1}\right)}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"C = 4\pi\,\varepsilon\,r"),
                   SizedBox(height: kEspacioEntreBotones),

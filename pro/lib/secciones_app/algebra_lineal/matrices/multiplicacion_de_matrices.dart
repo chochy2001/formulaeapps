@@ -32,9 +32,11 @@ class MultiplicacionDeMatricesState extends State<MultiplicacionDeMatrices> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .multiplicacionDeMatrices,
-                            widgetName: kWidgetMultiplicacionDeMatrices),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.multiplicacionDeMatrices,
+                          widgetName: kWidgetMultiplicacionDeMatrices,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -46,18 +48,20 @@ class MultiplicacionDeMatricesState extends State<MultiplicacionDeMatrices> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .multiplicacionDeMatrices,
-                                    widgetName:
-                                        kWidgetMultiplicacionDeMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.multiplicacionDeMatrices,
+                                  widgetName: kWidgetMultiplicacionDeMatrices,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .multiplicacionDeMatrices,
-                                    widgetName:
-                                        kWidgetMultiplicacionDeMatrices),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.multiplicacionDeMatrices,
+                                  widgetName: kWidgetMultiplicacionDeMatrices,
+                                ),
                               );
                             }
                           });
@@ -66,70 +70,65 @@ class MultiplicacionDeMatricesState extends State<MultiplicacionDeMatrices> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sea,
+                        TextoEcuaciones(AppLocalizations.of(context)!.sea),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"A = \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A = \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"B = \begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}"),
+                          formulaText:
+                              r"B = \begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.multiplicacionEscalar,
                         ),
                         const Latex(
-                            formulaText:
-                                r"kA = k\cdot \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}  =\begin{pmatrix}ka & kb & kc\\kd & ke & kf\\kg & kh & ki\\\end{pmatrix}"),
+                          formulaText:
+                              r"kA = k\cdot \begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}  =\begin{pmatrix}ka & kb & kc\\kd & ke & kf\\kg & kh & ki\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.productoMatrices,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A\cdot B =\begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}\cdot\begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}= \begin{pmatrix}aj+bm+cp & ak+bn+cq & al+bo+cr\\dj+em+fp & dk+en+fq & dl+eo+fr\\gj+hm+ip & gk+hn+iq & gl+ho+ir\\\end{pmatrix}"),
+                          formulaText:
+                              r"A\cdot B =\begin{pmatrix}a & b & c\\d & e & f\\g & h & i\\\end{pmatrix}\cdot\begin{pmatrix}j & k & l\\m & n & o\\p & q & r\\\end{pmatrix}= \begin{pmatrix}aj+bm+cp & ak+bn+cq & al+bo+cr\\dj+em+fp & dk+en+fq & dl+eo+fr\\gj+hm+ip & gk+hn+iq & gl+ho+ir\\\end{pmatrix}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMultiplicacionDeMatrices,
-                  ),
+                  const VerPDF(url: kWidgetMultiplicacionDeMatrices),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMultiplicacionDeMatrices,
-                  ),
+                  const DescargarPDF(url: kWidgetMultiplicacionDeMatrices),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .condicionProductoMatrices,
+                          AppLocalizations.of(
+                            context,
+                          )!.condicionProductoMatrices,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"m\times n \thinspace n\times v"),
+                          formulaText: r"m\times n \thinspace n\times v",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

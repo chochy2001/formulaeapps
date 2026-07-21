@@ -52,11 +52,13 @@ void main() {
   });
 
   group('bootstrapPostHog', () {
-    test('no-ops when ENABLE_POSTHOG is unset (default; no key configured)',
-        () async {
-      await bootstrapPostHog();
-      // No exception thrown, no PostHog SDK call attempted without a key.
-    });
+    test(
+      'no-ops when ENABLE_POSTHOG is unset (default; no key configured)',
+      () async {
+        await bootstrapPostHog();
+        // No exception thrown, no PostHog SDK call attempted without a key.
+      },
+    );
   });
 
   group('bootstrapObservability', () {

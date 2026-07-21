@@ -31,8 +31,9 @@ class MatrizInversaState extends State<MatrizInversa> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.matrizInversa,
-                            widgetName: kWidgetMatrizInversa),
+                          title: AppLocalizations.of(context)!.matrizInversa,
+                          widgetName: kWidgetMatrizInversa,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class MatrizInversaState extends State<MatrizInversa> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizInversa,
-                                    widgetName: kWidgetMatrizInversa),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizInversa,
+                                  widgetName: kWidgetMatrizInversa,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .matrizInversa,
-                                    widgetName: kWidgetMatrizInversa),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.matrizInversa,
+                                  widgetName: kWidgetMatrizInversa,
+                                ),
                               );
                             }
                           });
@@ -62,38 +67,41 @@ class MatrizInversaState extends State<MatrizInversa> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Latex(
-                            formulaText:
-                                r"{A = \begin{pmatrix}1 & 0 & 3\\0 & 1 & -2\\1 & 1 & 2\end{pmatrix} }"),
+                          formulaText:
+                              r"{A = \begin{pmatrix}1 & 0 & 3\\0 & 1 & -2\\1 & 1 & 2\end{pmatrix} }",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"{A^{-1} = \begin{pmatrix}4 & 3 & -3\\-2 & -1 & 2\\-1 & -1 & 1\end{pmatrix} }"),
+                          formulaText:
+                              r"{A^{-1} = \begin{pmatrix}4 & 3 & -3\\-2 & -1 & 2\\-1 & -1 & 1\end{pmatrix} }",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.maneraDeObtenerla,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"A^{-1}= \frac{1}{\det A}\cdot adj \space A"),
+                          formulaText:
+                              r"A^{-1}= \frac{1}{\det A}\cdot adj \space A",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadesDeLaMatrizInversa,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadesDeLaMatrizInversa,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"x = A^{-1}\cdot b"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"(A\cdot B)^{-1}=B^{-1}\cdot A^{-1}"),
+                          formulaText: r"(A\cdot B)^{-1}=B^{-1}\cdot A^{-1}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"(A^{-1})^{-1}=A"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -104,32 +112,24 @@ class MatrizInversaState extends State<MatrizInversa> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMatrizInversa,
-                  ),
+                  const VerPDF(url: kWidgetMatrizInversa),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMatrizInversa,
-                  ),
+                  const DescargarPDF(url: kWidgetMatrizInversa),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .laDiagonalPrincipalEstaCompuestaPorUnos,
+                          AppLocalizations.of(
+                            context,
+                          )!.laDiagonalPrincipalEstaCompuestaPorUnos,
                         ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
+                        const SizedBox(height: 10.0),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),
                         const SizedBox(height: kEspacioEntreBotones),

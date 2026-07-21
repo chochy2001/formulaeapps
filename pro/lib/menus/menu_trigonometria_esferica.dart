@@ -23,9 +23,7 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -34,12 +32,11 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
                     AppLocalizations.of(context)!.trigonometriaEsferica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.analogiasDeGaussDelambre,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.analogiasDeGaussDelambre,
                     ruta: kRutaAnalogiasDeGaussDelambre,
                   ),
                   BotonesMenu(
@@ -47,8 +44,9 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
                     ruta: kRutaAnalogiasDeNeper,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesDelAnguloMitad,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesDelAnguloMitad,
                     ruta: kRutaFuncionesDelAnguloMitad,
                   ),
                 ],

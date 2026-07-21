@@ -27,9 +27,9 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.simbologiaCapacitores,
-                      widgetName: kWidgetSimbologiaCapacitores),
+                    title: AppLocalizations.of(context)!.simbologiaCapacitores,
+                    widgetName: kWidgetSimbologiaCapacitores,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -41,16 +41,20 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .simbologiaCapacitores,
-                              widgetName: kWidgetSimbologiaCapacitores),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.simbologiaCapacitores,
+                            widgetName: kWidgetSimbologiaCapacitores,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .simbologiaCapacitores,
-                              widgetName: kWidgetSimbologiaCapacitores),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.simbologiaCapacitores,
+                            widgetName: kWidgetSimbologiaCapacitores,
+                          ),
                         );
                       }
                     });
@@ -62,22 +66,19 @@ class _SimbologiaCapacitoresState extends State<SimbologiaCapacitores> {
             const SizedBox(height: 20.0),
 
             ZoomImagePersonalizado(
-                urlImagen:
-                    getImageUrlById(context, kImagenSimbologiaCapacitores) ??
-                        kUrlImagenSimbologiaCapacitores),
+              urlImagen:
+                  getImageUrlById(context, kImagenSimbologiaCapacitores) ??
+                  kUrlImagenSimbologiaCapacitores,
+            ),
 
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetSimbologiaCapacitores,
-                ),
+                VerPDF(url: kWidgetSimbologiaCapacitores),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetSimbologiaCapacitores,
-                ),
+                DescargarPDF(url: kWidgetSimbologiaCapacitores),
               ],
-            )
+            ),
           ],
         ),
       ),

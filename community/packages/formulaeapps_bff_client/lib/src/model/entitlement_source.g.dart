@@ -7,14 +7,15 @@ part of 'entitlement_source.dart';
 // **************************************************************************
 
 const EntitlementSourcePaymentSourceEnum
-    _$entitlementSourcePaymentSourceEnum_appStore =
+_$entitlementSourcePaymentSourceEnum_appStore =
     const EntitlementSourcePaymentSourceEnum._('appStore');
 const EntitlementSourcePaymentSourceEnum
-    _$entitlementSourcePaymentSourceEnum_playStore =
+_$entitlementSourcePaymentSourceEnum_playStore =
     const EntitlementSourcePaymentSourceEnum._('playStore');
 
 EntitlementSourcePaymentSourceEnum _$entitlementSourcePaymentSourceEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'appStore':
       return _$entitlementSourcePaymentSourceEnum_appStore;
@@ -26,14 +27,16 @@ EntitlementSourcePaymentSourceEnum _$entitlementSourcePaymentSourceEnumValueOf(
 }
 
 final BuiltSet<EntitlementSourcePaymentSourceEnum>
-    _$entitlementSourcePaymentSourceEnumValues = BuiltSet<
-        EntitlementSourcePaymentSourceEnum>(const <EntitlementSourcePaymentSourceEnum>[
-  _$entitlementSourcePaymentSourceEnum_appStore,
-  _$entitlementSourcePaymentSourceEnum_playStore,
-]);
+_$entitlementSourcePaymentSourceEnumValues =
+    BuiltSet<EntitlementSourcePaymentSourceEnum>(
+      const <EntitlementSourcePaymentSourceEnum>[
+        _$entitlementSourcePaymentSourceEnum_appStore,
+        _$entitlementSourcePaymentSourceEnum_playStore,
+      ],
+    );
 
 Serializer<EntitlementSourcePaymentSourceEnum>
-    _$entitlementSourcePaymentSourceEnumSerializer =
+_$entitlementSourcePaymentSourceEnumSerializer =
     _$EntitlementSourcePaymentSourceEnumSerializer();
 
 class _$EntitlementSourcePaymentSourceEnumSerializer
@@ -54,16 +57,19 @@ class _$EntitlementSourcePaymentSourceEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, EntitlementSourcePaymentSourceEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    EntitlementSourcePaymentSourceEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   EntitlementSourcePaymentSourceEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      EntitlementSourcePaymentSourceEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => EntitlementSourcePaymentSourceEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$EntitlementSource extends EntitlementSource {
@@ -74,15 +80,15 @@ class _$EntitlementSource extends EntitlementSource {
   @override
   final DateTime grantedAt;
 
-  factory _$EntitlementSource(
-          [void Function(EntitlementSourceBuilder)? updates]) =>
-      (EntitlementSourceBuilder()..update(updates))._build();
+  factory _$EntitlementSource([
+    void Function(EntitlementSourceBuilder)? updates,
+  ]) => (EntitlementSourceBuilder()..update(updates))._build();
 
-  _$EntitlementSource._(
-      {required this.paymentSource,
-      required this.productId,
-      required this.grantedAt})
-      : super._();
+  _$EntitlementSource._({
+    required this.paymentSource,
+    required this.productId,
+    required this.grantedAt,
+  }) : super._();
   @override
   EntitlementSource rebuild(void Function(EntitlementSourceBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -167,14 +173,24 @@ class EntitlementSourceBuilder
   EntitlementSource build() => _build();
 
   _$EntitlementSource _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$EntitlementSource._(
           paymentSource: BuiltValueNullFieldError.checkNotNull(
-              paymentSource, r'EntitlementSource', 'paymentSource'),
+            paymentSource,
+            r'EntitlementSource',
+            'paymentSource',
+          ),
           productId: BuiltValueNullFieldError.checkNotNull(
-              productId, r'EntitlementSource', 'productId'),
+            productId,
+            r'EntitlementSource',
+            'productId',
+          ),
           grantedAt: BuiltValueNullFieldError.checkNotNull(
-              grantedAt, r'EntitlementSource', 'grantedAt'),
+            grantedAt,
+            r'EntitlementSource',
+            'grantedAt',
+          ),
         );
     replace(_$result);
     return _$result;

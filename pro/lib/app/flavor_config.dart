@@ -1,7 +1,4 @@
-enum FormulaeFlavor {
-  pro,
-  community,
-}
+enum FormulaeFlavor { pro, community }
 
 class FormulaeConfig {
   const FormulaeConfig({
@@ -33,11 +30,8 @@ class FormulaeConfig {
     paidFeaturesEnabled: false,
   );
 
-  static const current = String.fromEnvironment(
-            'FLAVOR',
-            defaultValue: 'pro',
-          ) ==
-          'community'
+  static const current =
+      String.fromEnvironment('FLAVOR', defaultValue: 'pro') == 'community'
       ? community
       : pro;
 }

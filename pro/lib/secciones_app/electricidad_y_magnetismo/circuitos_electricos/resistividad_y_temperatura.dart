@@ -28,9 +28,11 @@ class _ResistividadYTemperaturaState extends State<ResistividadYTemperatura> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.resistividadTemperatura,
-                      widgetName: kWidgetResistividadYTemperatura),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.resistividadTemperatura,
+                    widgetName: kWidgetResistividadYTemperatura,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +44,20 @@ class _ResistividadYTemperaturaState extends State<ResistividadYTemperatura> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistividadTemperatura,
-                              widgetName: kWidgetResistividadYTemperatura),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistividadTemperatura,
+                            widgetName: kWidgetResistividadYTemperatura,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .resistividadTemperatura,
-                              widgetName: kWidgetResistividadYTemperatura),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.resistividadTemperatura,
+                            widgetName: kWidgetResistividadYTemperatura,
+                          ),
                         );
                       }
                     });
@@ -75,14 +81,16 @@ class _ResistividadYTemperaturaState extends State<ResistividadYTemperatura> {
                   ),
                   const SizedBox(height: 40.0),
                   const Latex(
-                      formulaText:
-                          r"\rho = \rho_0(1+a(T-T_0)+b(T-T_0)^2+c(T-T_0)^3)"),
+                    formulaText:
+                        r"\rho = \rho_0(1+a(T-T_0)+b(T-T_0)^2+c(T-T_0)^3)",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\rho = \rho_0(1+a(T-T_0)"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"R = R_0(1+\alpha(T-T_0)+\beta(T-T_0)^2+\gamma(T-T_0)^3)"),
+                    formulaText:
+                        r"R = R_0(1+\alpha(T-T_0)+\beta(T-T_0)^2+\gamma(T-T_0)^3)",
+                  ),
                   const SizedBox(height: 20.0),
                 ],
               ),
@@ -91,15 +99,11 @@ class _ResistividadYTemperaturaState extends State<ResistividadYTemperatura> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetResistividadYTemperatura,
-                ),
+                VerPDF(url: kWidgetResistividadYTemperatura),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetResistividadYTemperatura,
-                ),
+                DescargarPDF(url: kWidgetResistividadYTemperatura),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -14,9 +14,12 @@ class _HiperbolaState extends State<Hiperbola> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -37,16 +40,15 @@ class _HiperbolaState extends State<Hiperbola> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TituloPersonalizado(
-                    AppLocalizations.of(context)!.hiperbola,
-                  ),
+                  TituloPersonalizado(AppLocalizations.of(context)!.hiperbola),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.hiperbola,
-                            widgetName: kWidgetHiperbola),
+                          title: AppLocalizations.of(context)!.hiperbola,
+                          widgetName: kWidgetHiperbola,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +60,20 @@ class _HiperbolaState extends State<Hiperbola> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title:
-                                        AppLocalizations.of(context)!.hiperbola,
-                                    widgetName: kWidgetHiperbola),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.hiperbola,
+                                  widgetName: kWidgetHiperbola,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title:
-                                        AppLocalizations.of(context)!.hiperbola,
-                                    widgetName: kWidgetHiperbola),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.hiperbola,
+                                  widgetName: kWidgetHiperbola,
+                                ),
                               );
                             }
                           });
@@ -76,17 +82,16 @@ class _HiperbolaState extends State<Hiperbola> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomImagePersonalizado(urlImagen: kUrlImagenHiperbola),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"C(h,k)\space\space\space\space\space\space\space\space F(c,0)\space\space\space\space\space\space\space\space V(a,0)"),
+                          formulaText:
+                              r"C(h,k)\space\space\space\space\space\space\space\space F(c,0)\space\space\space\space\space\space\space\space V(a,0)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         Row(
                           children: [
@@ -106,33 +111,33 @@ class _HiperbolaState extends State<Hiperbola> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{x^2}{a^2}-\frac{y^2}{b^2} = 1\space\space\space\space\space\space\space\space\space\space\space\space\space \frac{y^2}{a^2}-\frac{x^2}{b^2} = 1"),
+                          formulaText:
+                              r"\frac{x^2}{a^2}-\frac{y^2}{b^2} = 1\space\space\space\space\space\space\space\space\space\space\space\space\space \frac{y^2}{a^2}-\frac{x^2}{b^2} = 1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"c = \sqrt{a^2+b^2}\space\space\space\space\space\space\space\space\space\space\space\space\space c = \sqrt{a^2+b^2}"),
+                          formulaText:
+                              r"c = \sqrt{a^2+b^2}\space\space\space\space\space\space\space\space\space\space\space\space\space c = \sqrt{a^2+b^2}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"e = c/a\space\space\space\space\space\space\space\space\space\space\space\space\space e = c/a"),
+                          formulaText:
+                              r"e = c/a\space\space\space\space\space\space\space\space\space\space\space\space\space e = c/a",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\overline{LR} = 2b^2/a\space\space\space\space\space\space\space\space\space\space\space\space\space \overline{LR} = 2b^2/a"),
+                          formulaText:
+                              r"\overline{LR} = 2b^2/a\space\space\space\space\space\space\space\space\space\space\space\space\space \overline{LR} = 2b^2/a",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetHiperbola,
-                  ),
+                  const VerPDF(url: kWidgetHiperbola),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetHiperbola,
-                  ),
+                  const DescargarPDF(url: kWidgetHiperbola),
                 ],
               ),
             ),

@@ -18,9 +18,12 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -49,9 +52,11 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .operacionesPolinomios,
-                            widgetName: kWidgetOperacionesPolinomios),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.operacionesPolinomios,
+                          widgetName: kWidgetOperacionesPolinomios,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,16 +68,20 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesPolinomios,
-                                    widgetName: kWidgetOperacionesPolinomios),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesPolinomios,
+                                  widgetName: kWidgetOperacionesPolinomios,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesPolinomios,
-                                    widgetName: kWidgetOperacionesPolinomios),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesPolinomios,
+                                  widgetName: kWidgetOperacionesPolinomios,
+                                ),
                               );
                             }
                           });
@@ -81,20 +90,14 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         //Suma
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.adicion,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.adicion),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a+b"),
 
@@ -119,9 +122,7 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
 
                         const SizedBox(height: kEspacioEntreBotones),
                         //División
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.division,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.division),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\frac{a}{b}"),
 
@@ -130,13 +131,9 @@ class _OperacionesConPolinomiosState extends State<OperacionesConPolinomios> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetOperacionesPolinomios,
-                  ),
+                  const VerPDF(url: kWidgetOperacionesPolinomios),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetOperacionesPolinomios,
-                  ),
+                  const DescargarPDF(url: kWidgetOperacionesPolinomios),
                 ],
               ),
             ),

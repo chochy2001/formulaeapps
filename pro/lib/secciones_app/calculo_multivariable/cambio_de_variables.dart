@@ -29,8 +29,9 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.cambioVariable,
-                      widgetName: kWidgetCambioDeVariables),
+                    title: AppLocalizations.of(context)!.cambioVariable,
+                    widgetName: kWidgetCambioDeVariables,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +43,16 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cambioVariable,
-                              widgetName: kWidgetCambioDeVariables),
+                            title: AppLocalizations.of(context)!.cambioVariable,
+                            widgetName: kWidgetCambioDeVariables,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.cambioVariable,
-                              widgetName: kWidgetCambioDeVariables),
+                            title: AppLocalizations.of(context)!.cambioVariable,
+                            widgetName: kWidgetCambioDeVariables,
+                          ),
                         );
                       }
                     });
@@ -60,27 +61,26 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             ZoomPersonalizado(
               child: Column(
                 children: [
                   const Latex(formulaText: r"\iint_{D_{xy}}F(x,y)dxdy"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText: r"\iint_{D_{uv}}F(H(u,v),G(u,v))|J|dudv"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.jacobiano,
+                    formulaText: r"\iint_{D_{uv}}F(H(u,v),G(u,v))|J|dudv",
                   ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.jacobiano),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"J=\begin{vmatrix}\frac{\partial H}{\partial u} & \frac{\partial H}{\partial v} \\\frac{\partial G}{\partial u} & \frac{\partial G}{\partial v} \\\end{vmatrix}"),
+                    formulaText:
+                        r"J=\begin{vmatrix}\frac{\partial H}{\partial u} & \frac{\partial H}{\partial v} \\\frac{\partial G}{\partial u} & \frac{\partial G}{\partial v} \\\end{vmatrix}",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .coordenadasRectangularesapolares,
+                    AppLocalizations.of(
+                      context,
+                    )!.coordenadasRectangularesapolares,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"x= r\cos\theta"),
@@ -88,8 +88,9 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
                   const Latex(formulaText: r"y = r\sin\theta"),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .coordenadasCartesianaACilindricas,
+                    AppLocalizations.of(
+                      context,
+                    )!.coordenadasCartesianaACilindricas,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"x= r\cos\theta"),
@@ -108,27 +109,18 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCambioDeVariables,
-                ),
+                VerPDF(url: kWidgetCambioDeVariables),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCambioDeVariables,
-                ),
+                DescargarPDF(url: kWidgetCambioDeVariables),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             //Notas
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -139,8 +131,9 @@ class CambioDeVariablesState extends State<CambioDeVariables> {
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"x(r,\theta),\space y(r,\theta)\space \mathsf{es}\space r"),
+                    formulaText:
+                        r"x(r,\theta),\space y(r,\theta)\space \mathsf{es}\space r",
+                  ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const CapdesisLatex(),
                   const SizedBox(height: kEspacioEntreBotones),

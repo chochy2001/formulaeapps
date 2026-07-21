@@ -53,8 +53,10 @@ void main() {
   );
 
   test('unknown image IDs have no canonical route', () {
-    expect(imageUrlMap[kImagenPortadoresDeCargaLibre],
-        kUrlImagenPortadoresDeCargaLibre);
+    expect(
+      imageUrlMap[kImagenPortadoresDeCargaLibre],
+      kUrlImagenPortadoresDeCargaLibre,
+    );
     expect(imageUrlMap['unknown-image-id'], isNull);
   });
 }

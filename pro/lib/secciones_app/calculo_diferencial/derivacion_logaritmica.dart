@@ -30,7 +30,9 @@ class DerivacionLogaritmicaState extends State<DerivacionLogaritmica> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.derivacionLogaritmica,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.derivacionLogaritmica,
                         widgetName: kWidgetDerivacionLogaritmica,
                       ),
                     );
@@ -44,14 +46,18 @@ class DerivacionLogaritmicaState extends State<DerivacionLogaritmica> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivacionLogaritmica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivacionLogaritmica,
                                 widgetName: kWidgetDerivacionLogaritmica,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivacionLogaritmica,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivacionLogaritmica,
                                 widgetName: kWidgetDerivacionLogaritmica,
                               ),
                             );
@@ -67,9 +73,15 @@ class DerivacionLogaritmicaState extends State<DerivacionLogaritmica> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{d}{dx}\,x^{x} = x^{x}\left(1+\ln x\right)"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\,x^{x} = x^{x}\left(1+\ln x\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\,x^{\operatorname{sen} x} = x^{\operatorname{sen} x}\left(\cos x\cdot\ln x+\frac{\operatorname{sen} x}{x}\right)"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\,x^{\operatorname{sen} x} = x^{\operatorname{sen} x}\left(\cos x\cdot\ln x+\frac{\operatorname{sen} x}{x}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

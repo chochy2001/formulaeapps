@@ -27,8 +27,9 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.leyGauss,
-                      widgetName: kWidgetLeyDeGauss),
+                    title: AppLocalizations.of(context)!.leyGauss,
+                    widgetName: kWidgetLeyDeGauss,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.leyGauss,
-                              widgetName: kWidgetLeyDeGauss),
+                            title: AppLocalizations.of(context)!.leyGauss,
+                            widgetName: kWidgetLeyDeGauss,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.leyGauss,
-                              widgetName: kWidgetLeyDeGauss),
+                            title: AppLocalizations.of(context)!.leyGauss,
+                            widgetName: kWidgetLeyDeGauss,
+                          ),
                         );
                       }
                     });
@@ -61,49 +64,51 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
             Column(
               children: <Widget>[
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .flujoCampoElectricoSuperficieGaussiana,
+                  AppLocalizations.of(
+                    context,
+                  )!.flujoCampoElectricoSuperficieGaussiana,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\phi _E = \oiint \vec{E} \cdot d\vec{A}"),
+                  formulaText: r"\phi _E = \oiint \vec{E} \cdot d\vec{A}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.superficieGaussiana,
                 ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenSuperficieGaussiana),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyGauss,
+                  urlImagen: kUrlImagenSuperficieGaussiana,
                 ),
+                const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyGauss),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\epsilon _0 \phi _E = q_{enc}"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\oiint \vec{E} \cdot d\vec{A} = \frac{q_{enc}}{\epsilon _0}"),
+                  formulaText:
+                      r"\oiint \vec{E} \cdot d\vec{A} = \frac{q_{enc}}{\epsilon _0}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.leyDeGaussProporcional,
                 ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.notasImportantes,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.notasImportantes),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.flujoCampoElectricoCero,
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .flujoCampoElectricoPositivoNegativo,
+                  AppLocalizations.of(
+                    context,
+                  )!.flujoCampoElectricoPositivoNegativo,
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .distribucionCargasSuperficieGaussiana,
+                  AppLocalizations.of(
+                    context,
+                  )!.distribucionCargasSuperficieGaussiana,
                 ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
@@ -111,8 +116,9 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"[\phi_E]_u = \left[ \frac{N\cdot m^2}{C}\right]"),
+                  formulaText:
+                      r"[\phi_E]_u = \left[ \frac{N\cdot m^2}{C}\right]",
+                ),
                 const SizedBox(height: 50.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.aplicacionesLeyGauss,
@@ -123,21 +129,26 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"E = \frac{q}{4 \pi \varepsilon _0 r^2} = k \frac{q}{r^2}"),
+                  formulaText:
+                      r"E = \frac{q}{4 \pi \varepsilon _0 r^2} = k \frac{q}{r^2}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCampoElectricoDeUnaCargaPuntual),
+                  urlImagen: kUrlImagenCampoElectricoDeUnaCargaPuntual,
+                ),
                 const SizedBox(height: 50.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .campoElectricoLineaInfinitaCarga,
+                  AppLocalizations.of(
+                    context,
+                  )!.campoElectricoLineaInfinitaCarga,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"E = \frac{q}{2 \pi \varepsilon _0 h r} = \frac{\lambda}{2 \pi \varepsilon _0 r} = \frac{2k\lambda}{r}"),
+                  formulaText:
+                      r"E = \frac{q}{2 \pi \varepsilon _0 h r} = \frac{\lambda}{2 \pi \varepsilon _0 r} = \frac{2k\lambda}{r}",
+                ),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCampoElectricoDeUnaLineaInfinita),
+                  urlImagen: kUrlImagenCampoElectricoDeUnaLineaInfinita,
+                ),
                 const SizedBox(height: 20.0),
               ],
             ),
@@ -145,15 +156,11 @@ class _LeyDeGaussState extends State<LeyDeGauss> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeGauss,
-                ),
+                VerPDF(url: kWidgetLeyDeGauss),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeGauss,
-                ),
+                DescargarPDF(url: kWidgetLeyDeGauss),
               ],
-            )
+            ),
           ],
         ),
       ),

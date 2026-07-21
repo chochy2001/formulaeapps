@@ -17,9 +17,12 @@ class _EcuacionesLinealesState extends State<EcuacionesLineales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -48,9 +51,11 @@ class _EcuacionesLinealesState extends State<EcuacionesLineales> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionesLineales,
-                            widgetName: kWidgetEcuacionesLineales),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionesLineales,
+                          widgetName: kWidgetEcuacionesLineales,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,16 +67,20 @@ class _EcuacionesLinealesState extends State<EcuacionesLineales> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionesLineales,
-                                    widgetName: kWidgetEcuacionesLineales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesLineales,
+                                  widgetName: kWidgetEcuacionesLineales,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionesLineales,
-                                    widgetName: kWidgetEcuacionesLineales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionesLineales,
+                                  widgetName: kWidgetEcuacionesLineales,
+                                ),
                               );
                             }
                           });
@@ -80,35 +89,34 @@ class _EcuacionesLinealesState extends State<EcuacionesLineales> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadAditivaDeLaIgualdad,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadAditivaDeLaIgualdad,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a=b\rightarrow a+c=b+c"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .propiedadMultiplicativaDeLaIgualdad,
+                          AppLocalizations.of(
+                            context,
+                          )!.propiedadMultiplicativaDeLaIgualdad,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a=b\rightarrow ac=bc"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .ecuacionesConValorAbsoluto,
+                          AppLocalizations.of(
+                            context,
+                          )!.ecuacionesConValorAbsoluto,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Column(
@@ -126,13 +134,9 @@ class _EcuacionesLinealesState extends State<EcuacionesLineales> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetEcuacionesLineales,
-                  ),
+                  const VerPDF(url: kWidgetEcuacionesLineales),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetEcuacionesLineales,
-                  ),
+                  const DescargarPDF(url: kWidgetEcuacionesLineales),
                 ],
               ),
             ),

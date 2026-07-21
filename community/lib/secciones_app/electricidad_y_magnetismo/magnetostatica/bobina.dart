@@ -14,9 +14,12 @@ class _BobinaState extends State<Bobina> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _BobinaState extends State<Bobina> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.bobina,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.bobina),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.bobina,
-                      widgetName: kWidgetBobina),
+                    title: AppLocalizations.of(context)!.bobina,
+                    widgetName: kWidgetBobina,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -61,8 +63,9 @@ class _BobinaState extends State<Bobina> {
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.bobina,
-                              widgetName: kWidgetBobina),
+                            title: AppLocalizations.of(context)!.bobina,
+                            widgetName: kWidgetBobina,
+                          ),
                         );
                       }
                     });
@@ -74,49 +77,46 @@ class _BobinaState extends State<Bobina> {
             Column(
               children: <Widget>[
                 const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.bobinaTexto,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.bobinaTexto),
                 const SizedBox(height: 30.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenBobina),
                 const SizedBox(height: 20.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  AppLocalizations.of(
+                    context,
+                  )!.magnitudDelCampoMagneticoParaUnaEspira,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"B = \frac{\mu_0 i R^2}{2(R^2 + x^2)^{\frac{3}{2}}}",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .magnitudDelCampoMagneticoParaUnaEspira,
+                  AppLocalizations.of(
+                    context,
+                  )!.magnitudDelCampoMagneticoParaUnaBobina,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"B = \frac{\mu_0 i R^2}{2(R^2 + x^2)^{\frac{3}{2}}}"),
-                const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .magnitudDelCampoMagneticoParaUnaBobina,
+                  formulaText:
+                      r"B = \frac{\mu _0 i R_m ^2 N}{2(R_m^2 + x_m^2)^{\frac{3}{2}}}",
                 ),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"B = \frac{\mu _0 i R_m ^2 N}{2(R_m^2 + x_m^2)^{\frac{3}{2}}}"),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetBobina,
-            ),
+            const VerPDF(url: kWidgetBobina),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetBobina,
-            ),
+            const DescargarPDF(url: kWidgetBobina),
           ],
         ),
       ),

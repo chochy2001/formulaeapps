@@ -6,10 +6,12 @@ class ConstantesAtomicasMoleculares extends StatefulWidget {
   const ConstantesAtomicasMoleculares({super.key});
 
   @override
-  ConstantesAtomicasMolecularesState createState() => ConstantesAtomicasMolecularesState();
+  ConstantesAtomicasMolecularesState createState() =>
+      ConstantesAtomicasMolecularesState();
 }
 
-class ConstantesAtomicasMolecularesState extends State<ConstantesAtomicasMoleculares> {
+class ConstantesAtomicasMolecularesState
+    extends State<ConstantesAtomicasMoleculares> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class ConstantesAtomicasMolecularesState extends State<ConstantesAtomicasMolecul
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.constantesAtomicasMoleculares,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.constantesAtomicasMoleculares,
                         widgetName: kWidgetConstantesAtomicasMoleculares,
                       ),
                     );
@@ -44,15 +48,21 @@ class ConstantesAtomicasMolecularesState extends State<ConstantesAtomicasMolecul
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesAtomicasMoleculares,
-                                widgetName: kWidgetConstantesAtomicasMoleculares,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesAtomicasMoleculares,
+                                widgetName:
+                                    kWidgetConstantesAtomicasMoleculares,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesAtomicasMoleculares,
-                                widgetName: kWidgetConstantesAtomicasMoleculares,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesAtomicasMoleculares,
+                                widgetName:
+                                    kWidgetConstantesAtomicasMoleculares,
                               ),
                             );
                           }
@@ -67,15 +77,24 @@ class ConstantesAtomicasMolecularesState extends State<ConstantesAtomicasMolecul
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"m_e = 9.11 \times 10^{-31}\ \mathrm{kg}"),
+                  Latex(
+                    formulaText: r"m_e = 9.11 \times 10^{-31}\ \mathrm{kg}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"m_p = 1.673 \times 10^{-27}\ \mathrm{kg}"),
+                  Latex(
+                    formulaText: r"m_p = 1.673 \times 10^{-27}\ \mathrm{kg}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"a_0 = 5.29\,177 \times 10^{-11}\ \mathrm{m}"),
+                  Latex(
+                    formulaText: r"a_0 = 5.29\,177 \times 10^{-11}\ \mathrm{m}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"V_m = 0.0224141\ \mathrm{m^3/mol}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"N_A h = 3.990\,312 \times 10^{-10}\ \mathrm{J\cdot s\cdot mol^{-1}}"),
+                  Latex(
+                    formulaText:
+                        r"N_A h = 3.990\,312 \times 10^{-10}\ \mathrm{J\cdot s\cdot mol^{-1}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

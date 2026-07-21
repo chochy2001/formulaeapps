@@ -31,9 +31,11 @@ class DerivadaFuncionesVectorialesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .derivadasFuncionesVectoriales,
-                      widgetName: kWidgetDerivadaFuncionesVectoriales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.derivadasFuncionesVectoriales,
+                    widgetName: kWidgetDerivadaFuncionesVectoriales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -45,16 +47,20 @@ class DerivadaFuncionesVectorialesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasFuncionesVectoriales,
-                              widgetName: kWidgetDerivadaFuncionesVectoriales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasFuncionesVectoriales,
+                            widgetName: kWidgetDerivadaFuncionesVectoriales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivadasFuncionesVectoriales,
-                              widgetName: kWidgetDerivadaFuncionesVectoriales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivadasFuncionesVectoriales,
+                            widgetName: kWidgetDerivadaFuncionesVectoriales,
+                          ),
                         );
                       }
                     });
@@ -63,9 +69,7 @@ class DerivadaFuncionesVectorialesState
               },
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             const ZoomPersonalizado(
               child: Column(
                 children: [
@@ -73,28 +77,34 @@ class DerivadaFuncionesVectorialesState
                   Latex(formulaText: r"\frac{d}{dt}\mathbf{C} = 0"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[c\mathbf{u}(t)] = c\mathbf{u}'(t)"),
+                    formulaText:
+                        r"\frac{d}{dt}[c\mathbf{u}(t)] = c\mathbf{u}'(t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[f(t)\mathbf{u}(t)] = f'(t)\mathbf{u}(t)+f(t)\mathbf{u}'(t)"),
+                    formulaText:
+                        r"\frac{d}{dt}[f(t)\mathbf{u}(t)] = f'(t)\mathbf{u}(t)+f(t)\mathbf{u}'(t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[\mathbf{u}(t)\pm\mathbf{v}(t)] = \mathbf{u}'(t)\pm\mathbf{v}'(t)"),
+                    formulaText:
+                        r"\frac{d}{dt}[\mathbf{u}(t)\pm\mathbf{v}(t)] = \mathbf{u}'(t)\pm\mathbf{v}'(t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[\mathbf{u}(t)\cdot\mathbf{v}(t)] = \mathbf{u}'(t)\cdot\mathbf{v}(t)+\mathbf{u}(t)\cdot\mathbf{v}'(t)"),
+                    formulaText:
+                        r"\frac{d}{dt}[\mathbf{u}(t)\cdot\mathbf{v}(t)] = \mathbf{u}'(t)\cdot\mathbf{v}(t)+\mathbf{u}(t)\cdot\mathbf{v}'(t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[\mathbf{u}(t)\times\mathbf{v}(t)] = \mathbf{u}'(t)\times\mathbf{v}(t)+\mathbf{u}(t)\times\mathbf{v}'(t)"),
+                    formulaText:
+                        r"\frac{d}{dt}[\mathbf{u}(t)\times\mathbf{v}(t)] = \mathbf{u}'(t)\times\mathbf{v}(t)+\mathbf{u}(t)\times\mathbf{v}'(t)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\frac{d}{dt}[\mathbf{u}(f(t))] = f'(t)\mathbf{u}'(f(t))"),
+                    formulaText:
+                        r"\frac{d}{dt}[\mathbf{u}(f(t))] = f'(t)\mathbf{u}'(f(t))",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
@@ -102,27 +112,18 @@ class DerivadaFuncionesVectorialesState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetDerivadaFuncionesVectoriales,
-                ),
+                VerPDF(url: kWidgetDerivadaFuncionesVectoriales),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetDerivadaFuncionesVectoriales,
-                ),
+                DescargarPDF(url: kWidgetDerivadaFuncionesVectoriales),
               ],
             ),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             //Notas
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -131,21 +132,18 @@ class DerivadaFuncionesVectorialesState
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\mathbf{u}, \mathbf{v}"),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .funcionesVectorialesDiferenciablesDeT,
+                    AppLocalizations.of(
+                      context,
+                    )!.funcionesVectorialesDiferenciablesDeT,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\mathbf{C}"),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.unVectorConstante,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   const Latex(formulaText: r"c"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.escalar,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.escalar),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"f"),
                   TextoEcuaciones(

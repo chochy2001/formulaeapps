@@ -31,9 +31,11 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionNormal,
-                            widgetName: kWidgetDistribucionNormal),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionNormal,
+                          widgetName: kWidgetDistribucionNormal,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionNormal,
-                                    widgetName: kWidgetDistribucionNormal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionNormal,
+                                  widgetName: kWidgetDistribucionNormal,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionNormal,
-                                    widgetName: kWidgetDistribucionNormal),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionNormal,
+                                  widgetName: kWidgetDistribucionNormal,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -76,8 +80,9 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"P(x)= \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma ^2}}"),
+                          formulaText:
+                              r"P(x)= \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma ^2}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -87,9 +92,7 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                         const Latex(formulaText: r"\mu"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sigma ^2"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -98,21 +101,14 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionNormal,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionNormal),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionNormal,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionNormal),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -130,9 +126,7 @@ class DistribucionNormalState extends State<DistribucionNormal> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sigma^2"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mu"),
                         TextoEcuaciones(

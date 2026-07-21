@@ -6,10 +6,12 @@ class DerivadasAlgebraicasRadicales extends StatefulWidget {
   const DerivadasAlgebraicasRadicales({super.key});
 
   @override
-  DerivadasAlgebraicasRadicalesState createState() => DerivadasAlgebraicasRadicalesState();
+  DerivadasAlgebraicasRadicalesState createState() =>
+      DerivadasAlgebraicasRadicalesState();
 }
 
-class DerivadasAlgebraicasRadicalesState extends State<DerivadasAlgebraicasRadicales> {
+class DerivadasAlgebraicasRadicalesState
+    extends State<DerivadasAlgebraicasRadicales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class DerivadasAlgebraicasRadicalesState extends State<DerivadasAlgebraicasRadic
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.derivadasAlgebraicasRadicales,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.derivadasAlgebraicasRadicales,
                         widgetName: kWidgetDerivadasAlgebraicasRadicales,
                       ),
                     );
@@ -44,15 +48,21 @@ class DerivadasAlgebraicasRadicalesState extends State<DerivadasAlgebraicasRadic
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivadasAlgebraicasRadicales,
-                                widgetName: kWidgetDerivadasAlgebraicasRadicales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasAlgebraicasRadicales,
+                                widgetName:
+                                    kWidgetDerivadasAlgebraicasRadicales,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.derivadasAlgebraicasRadicales,
-                                widgetName: kWidgetDerivadasAlgebraicasRadicales,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.derivadasAlgebraicasRadicales,
+                                widgetName:
+                                    kWidgetDerivadasAlgebraicasRadicales,
                               ),
                             );
                           }
@@ -67,21 +77,44 @@ class DerivadasAlgebraicasRadicalesState extends State<DerivadasAlgebraicasRadic
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{d}{dx}\!\left(\frac{u}{c}\right) = \frac{1}{c}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\!\left(\frac{u}{c}\right) = \frac{1}{c}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\!\left(\frac{c}{u}\right) = -\frac{c}{u^{2}}\cdot\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\!\left(\frac{c}{u}\right) = -\frac{c}{u^{2}}\cdot\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}(u)^{-n} = -n\,u^{\,-n-1}\,\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}(u)^{-n} = -n\,u^{\,-n-1}\,\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\,c\,u^{n} = c\cdot n\cdot u^{\,n-1}\,\frac{du}{dx}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\,c\,u^{n} = c\cdot n\cdot u^{\,n-1}\,\frac{du}{dx}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\sqrt{u}=\frac{\dfrac{du}{dx}}{2\sqrt{u}}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\sqrt{u}=\frac{\dfrac{du}{dx}}{2\sqrt{u}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\sqrt{x}=\frac{1}{2\sqrt{x}}"),
+                  Latex(
+                    formulaText: r"\frac{d}{dx}\sqrt{x}=\frac{1}{2\sqrt{x}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{d}{dx}\sqrt[n]{x}=\frac{1}{n\sqrt[n]{x^{\,n-1}}}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{d}{dx}\sqrt[n]{x}=\frac{1}{n\sqrt[n]{x^{\,n-1}}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{\text{exp.}}{\text{ind.}\;\sqrt[\text{ind.}]{\text{fun.}^{\,\text{exp.}-1}}}"),
+                  Latex(
+                    formulaText:
+                        r"\frac{\text{exp.}}{\text{ind.}\;\sqrt[\text{ind.}]{\text{fun.}^{\,\text{exp.}-1}}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

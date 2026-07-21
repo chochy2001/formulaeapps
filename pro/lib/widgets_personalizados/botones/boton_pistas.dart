@@ -35,7 +35,7 @@ class VerPistas extends StatelessWidget {
               latex,
               SizedBox(height: MediaQuery.of(context).size.height * .05),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -58,9 +58,10 @@ class BotonVerPistas extends StatelessWidget {
       child: Text(AppLocalizations.of(context)!.pista, style: kTextoBotones),
       onPressed: () {
         showModalBottomSheet(
-            backgroundColor: Colors.transparent,
-            builder: (context) => VerPistas(latex),
-            context: context);
+          backgroundColor: Colors.transparent,
+          builder: (context) => VerPistas(latex),
+          context: context,
+        );
       },
     );
   }
@@ -79,13 +80,16 @@ class BotonVerRespuesta extends StatelessWidget {
         elevation: 20.0,
         shadowColor: kColorBotones,
       ),
-      child:
-          Text(AppLocalizations.of(context)!.respuesta, style: kTextoBotones),
+      child: Text(
+        AppLocalizations.of(context)!.respuesta,
+        style: kTextoBotones,
+      ),
       onPressed: () {
         showModalBottomSheet(
-            backgroundColor: Colors.transparent,
-            builder: (context) => VerPistas(latex),
-            context: context);
+          backgroundColor: Colors.transparent,
+          builder: (context) => VerPistas(latex),
+          context: context,
+        );
       },
     );
   }

@@ -14,9 +14,12 @@ class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.leyDeProyecciones,
-                            widgetName: kWidgetLeyDeProyecciones),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.leyDeProyecciones,
+                          widgetName: kWidgetLeyDeProyecciones,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyDeProyecciones,
-                                    widgetName: kWidgetLeyDeProyecciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyDeProyecciones,
+                                  widgetName: kWidgetLeyDeProyecciones,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .leyDeProyecciones,
-                                    widgetName: kWidgetLeyDeProyecciones),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.leyDeProyecciones,
+                                  widgetName: kWidgetLeyDeProyecciones,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -96,13 +103,9 @@ class _LeyDeProyeccionesState extends State<LeyDeProyecciones> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetLeyDeProyecciones,
-                  ),
+                  const VerPDF(url: kWidgetLeyDeProyecciones),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetLeyDeProyecciones,
-                  ),
+                  const DescargarPDF(url: kWidgetLeyDeProyecciones),
                 ],
               ),
             ),

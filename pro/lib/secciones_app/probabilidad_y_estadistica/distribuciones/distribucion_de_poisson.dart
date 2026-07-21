@@ -31,9 +31,11 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionPoisson,
-                            widgetName: kWidgetDistribucionDePoisson),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionPoisson,
+                          widgetName: kWidgetDistribucionDePoisson,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionPoisson,
-                                    widgetName: kWidgetDistribucionDePoisson),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionPoisson,
+                                  widgetName: kWidgetDistribucionDePoisson,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionPoisson,
-                                    widgetName: kWidgetDistribucionDePoisson),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionPoisson,
+                                  widgetName: kWidgetDistribucionDePoisson,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -75,8 +79,9 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"P(x)= \frac{e^{-\lambda}\lambda^x}{x!}"),
+                          formulaText:
+                              r"P(x)= \frac{e^{-\lambda}\lambda^x}{x!}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.valorEsperado,
@@ -84,9 +89,7 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\lambda"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\lambda"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -96,21 +99,14 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionDePoisson,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionDePoisson),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionDePoisson,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionDePoisson),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -119,8 +115,9 @@ class DistribucionDePoissonState extends State<DistribucionDePoisson> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\lambda"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .numeroExitosIntervaloTiempo,
+                          AppLocalizations.of(
+                            context,
+                          )!.numeroExitosIntervaloTiempo,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"x"),

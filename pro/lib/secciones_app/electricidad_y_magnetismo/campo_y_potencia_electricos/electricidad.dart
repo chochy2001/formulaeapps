@@ -27,8 +27,9 @@ class _ElectricidadState extends State<Electricidad> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.electricidad,
-                      widgetName: kWidgetElectricidad),
+                    title: AppLocalizations.of(context)!.electricidad,
+                    widgetName: kWidgetElectricidad,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _ElectricidadState extends State<Electricidad> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.electricidad,
-                              widgetName: kWidgetElectricidad),
+                            title: AppLocalizations.of(context)!.electricidad,
+                            widgetName: kWidgetElectricidad,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.electricidad,
-                              widgetName: kWidgetElectricidad),
+                            title: AppLocalizations.of(context)!.electricidad,
+                            widgetName: kWidgetElectricidad,
+                          ),
                         );
                       }
                     });
@@ -58,22 +61,16 @@ class _ElectricidadState extends State<Electricidad> {
 
             const SizedBox(height: 20.0),
 
-            TextoEcuaciones(
-              AppLocalizations.of(context)!.electricidad,
-            ),
+            TextoEcuaciones(AppLocalizations.of(context)!.electricidad),
             const SizedBox(height: 10.0),
             TextoBotonesDelgado(
               AppLocalizations.of(context)!.origenElectricidad,
             ),
             const SizedBox(height: 10.0),
-            TextoBotonesDelgado(
-              AppLocalizations.of(context)!.conceptoCarga,
-            ),
+            TextoBotonesDelgado(AppLocalizations.of(context)!.conceptoCarga),
 
             const SizedBox(height: 35.0),
-            TextoBotonesDelgado(
-              AppLocalizations.of(context)!.efectosAmbar,
-            ),
+            TextoBotonesDelgado(AppLocalizations.of(context)!.efectosAmbar),
 
             const SizedBox(height: 20.0),
             TextoBotonesDelgado(
@@ -81,9 +78,7 @@ class _ElectricidadState extends State<Electricidad> {
             ),
 
             const SizedBox(height: 20.0),
-            TextoBotonesDelgado(
-              AppLocalizations.of(context)!.tiposSustancia,
-            ),
+            TextoBotonesDelgado(AppLocalizations.of(context)!.tiposSustancia),
 
             const SizedBox(height: 20.0),
             TextoBotonesDelgado(
@@ -94,15 +89,11 @@ class _ElectricidadState extends State<Electricidad> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetElectricidad,
-                ),
+                VerPDF(url: kWidgetElectricidad),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetElectricidad,
-                ),
+                DescargarPDF(url: kWidgetElectricidad),
               ],
-            )
+            ),
           ],
         ),
       ),

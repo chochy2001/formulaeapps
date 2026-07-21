@@ -20,8 +20,9 @@ void main() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  testWidgets('Tasks screen fits mobile through desktop widths',
-      (tester) async {
+  testWidgets('Tasks screen fits mobile through desktop widths', (
+    tester,
+  ) async {
     addTearDown(() => tester.binding.setSurfaceSize(null));
 
     for (final width in [320.0, 600.0, 900.0, 1440.0]) {
@@ -37,10 +38,12 @@ void main() {
     }
   });
 
-  testWidgets('task PDF paginates a long list without dropping generation',
-      (tester) async {
-    final localizations =
-        await AppLocalizations.delegate.load(const Locale('en'));
+  testWidgets('task PDF paginates a long list without dropping generation', (
+    tester,
+  ) async {
+    final localizations = await AppLocalizations.delegate.load(
+      const Locale('en'),
+    );
     final tasks = List.generate(
       180,
       (index) => Task(

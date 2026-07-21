@@ -31,9 +31,11 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title:
-                                AppLocalizations.of(context)!.ecuacionDeLaRecta,
-                            widgetName: kWidgetEcuacionDeLaRecta),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionDeLaRecta,
+                          widgetName: kWidgetEcuacionDeLaRecta,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDeLaRecta,
-                                    widgetName: kWidgetEcuacionDeLaRecta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDeLaRecta,
+                                  widgetName: kWidgetEcuacionDeLaRecta,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDeLaRecta,
-                                    widgetName: kWidgetEcuacionDeLaRecta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDeLaRecta,
+                                  widgetName: kWidgetEcuacionDeLaRecta,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -76,8 +80,9 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"m = tan\theta = \frac{y_2-y_1}{x_2-x_1}"),
+                          formulaText:
+                              r"m = tan\theta = \frac{y_2-y_1}{x_2-x_1}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -99,8 +104,9 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .formaPendienteInterseccion,
+                          AppLocalizations.of(
+                            context,
+                          )!.formaPendienteInterseccion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"y = mx+b"),
@@ -125,28 +131,22 @@ class EcuacionDeLaRectaState extends State<EcuacionDeLaRecta> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\frac{x}{a}+\frac{y}{b} = 1"),
+                          formulaText: r"\frac{x}{a}+\frac{y}{b} = 1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetEcuacionDeLaRecta,
-                  ),
+                  const VerPDF(url: kWidgetEcuacionDeLaRecta),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetEcuacionDeLaRecta,
-                  ),
+                  const DescargarPDF(url: kWidgetEcuacionDeLaRecta),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

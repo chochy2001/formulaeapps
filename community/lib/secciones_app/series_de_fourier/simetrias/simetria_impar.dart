@@ -14,9 +14,12 @@ class _SimetriaImparState extends State<SimetriaImpar> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _SimetriaImparState extends State<SimetriaImpar> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.simetriaImpar,
-                            widgetName: kWidgetSimetriaImpar),
+                          title: AppLocalizations.of(context)!.simetriaImpar,
+                          widgetName: kWidgetSimetriaImpar,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _SimetriaImparState extends State<SimetriaImpar> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaImpar,
-                                    widgetName: kWidgetSimetriaImpar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaImpar,
+                                  widgetName: kWidgetSimetriaImpar,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .simetriaImpar,
-                                    widgetName: kWidgetSimetriaImpar),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.simetriaImpar,
+                                  widgetName: kWidgetSimetriaImpar,
+                                ),
                               );
                             }
                           });
@@ -76,9 +84,7 @@ class _SimetriaImparState extends State<SimetriaImpar> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -95,13 +101,15 @@ class _SimetriaImparState extends State<SimetriaImpar> {
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \sum_{n=1}^{\infty} b_{n}\sin(n\omega_0t)"),
+                          formulaText:
+                              r"f(t) = \sum_{n=1}^{\infty} b_{n}\sin(n\omega_0t)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .coeficientesSerieFourier,
+                          AppLocalizations.of(
+                            context,
+                          )!.coeficientesSerieFourier,
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"a_0 = 0"),
@@ -109,21 +117,18 @@ class _SimetriaImparState extends State<SimetriaImpar> {
                         const Latex(formulaText: r"a_n = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"b_n = \frac{4}{T}\int_{0}^{T/2}f(t)\sin(n\omega_0t)dt"),
+                          formulaText:
+                              r"b_n = \frac{4}{T}\int_{0}^{T/2}f(t)\sin(n\omega_0t)dt",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetSimetriaImpar,
-                  ),
+                  const VerPDF(url: kWidgetSimetriaImpar),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetSimetriaImpar,
-                  ),
+                  const DescargarPDF(url: kWidgetSimetriaImpar),
                 ],
               ),
             ),

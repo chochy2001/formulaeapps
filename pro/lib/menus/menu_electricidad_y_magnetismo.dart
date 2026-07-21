@@ -10,18 +10,14 @@ class MenuElectricidadYMagnetismo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -30,23 +26,24 @@ class MenuElectricidadYMagnetismo extends StatelessWidget {
                     AppLocalizations.of(context)!.electricidadMagnetismo,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
                     ruta: kRutaMenuCampoYPotencialElectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.campoYPotencialElectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.campoYPotencialElectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuCapacitanciaYDielectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.capacitanciaYDielectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.capacitanciaYDielectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuCircuitosElectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.circuitosElectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.circuitosElectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuMagnetostatica,
@@ -54,8 +51,9 @@ class MenuElectricidadYMagnetismo extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuInduccionElectromagnetica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.induccionElectromagnetica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.induccionElectromagnetica,
                   ),
                 ],
               ),

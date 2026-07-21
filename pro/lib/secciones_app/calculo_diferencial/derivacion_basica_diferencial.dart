@@ -45,8 +45,9 @@ class DerivacionBasicaDiferencialState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.derivacionBasica,
-                      widgetName: kWidgetDerivacionBasicaDiferencial),
+                    title: AppLocalizations.of(context)!.derivacionBasica,
+                    widgetName: kWidgetDerivacionBasicaDiferencial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -58,16 +59,20 @@ class DerivacionBasicaDiferencialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivacionBasica,
-                              widgetName: kWidgetDerivacionBasicaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivacionBasica,
+                            widgetName: kWidgetDerivacionBasicaDiferencial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .derivacionBasica,
-                              widgetName: kWidgetDerivacionBasicaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.derivacionBasica,
+                            widgetName: kWidgetDerivacionBasicaDiferencial,
+                          ),
                         );
                       }
                     });
@@ -79,9 +84,7 @@ class DerivacionBasicaDiferencialState
             //Derivación u
             Column(
               children: [
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
                 //Derivacion de una Constante
                 GestureDetector(
                   onTap: () {
@@ -111,13 +114,15 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivacionConstante,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivacionConstante,
                               ),
                             ),
                             SizedBox(
-                              width:
-                                  seleccionadoDerivacionConstante ? 5.0 : 10.0,
+                              width: seleccionadoDerivacionConstante
+                                  ? 5.0
+                                  : 10.0,
                             ),
                             Visibility(
                               visible: !seleccionadoDerivacionConstante,
@@ -154,9 +159,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion de una variable
                 GestureDetector(
@@ -227,9 +230,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion de una Constante Por una Variable
                 GestureDetector(
@@ -259,8 +260,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaConstanteVariable,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaConstanteVariable,
                               ),
                             ),
                             SizedBox(
@@ -301,9 +303,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion de Exponente
                 GestureDetector(
@@ -334,9 +334,7 @@ class DerivacionBasicaDiferencialState
                                 AppLocalizations.of(context)!.derivadaExponente,
                               ),
                             ),
-                            SizedBox(
-                              width: seleccionadoXaLaN ? 5.0 : 10.0,
-                            ),
+                            SizedBox(width: seleccionadoXaLaN ? 5.0 : 10.0),
                             Visibility(
                               visible: !seleccionadoXaLaN,
                               child: const Center(
@@ -372,9 +370,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion de Constante por Exponente
                 GestureDetector(
@@ -405,8 +401,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaConstanteExponente,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaConstanteExponente,
                               ),
                             ),
                             SizedBox(
@@ -447,9 +444,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion de Constante por Funcion Compuesta
                 GestureDetector(
@@ -484,8 +479,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaConstanteFuncionCompuesta,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaConstanteFuncionCompuesta,
                               ),
                             ),
                             SizedBox(
@@ -529,9 +525,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion una Funcion Compuesta con Exponente
                 GestureDetector(
@@ -562,13 +556,15 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaFuncionCompuestaExponente,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaFuncionCompuestaExponente,
                               ),
                             ),
                             SizedBox(
-                              width:
-                                  seleccionadoFuncionCompuestaaLaN ? 5.0 : 10.0,
+                              width: seleccionadoFuncionCompuestaaLaN
+                                  ? 5.0
+                                  : 10.0,
                             ),
                             Visibility(
                               visible: !seleccionadoFuncionCompuestaaLaN,
@@ -605,9 +601,7 @@ class DerivacionBasicaDiferencialState
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion una Funcion Compuesta por Función Compuesta
                 GestureDetector(
@@ -621,8 +615,8 @@ class DerivacionBasicaDiferencialState
                     curve: Curves.fastOutSlowIn,
                     alignment:
                         seleccionadoFuncionCompuestaPorUnaFuncionCompuesta
-                            ? Alignment.center
-                            : AlignmentDirectional.center,
+                        ? Alignment.center
+                        : AlignmentDirectional.center,
                     decoration: BoxDecoration(
                       border: Border.all(color: kColorBotones),
                       borderRadius: BorderRadius.circular(kBordeBotones),
@@ -641,15 +635,16 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaProductoFuncionesCompuestas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaProductoFuncionesCompuestas,
                               ),
                             ),
                             SizedBox(
                               width:
                                   seleccionadoFuncionCompuestaPorUnaFuncionCompuesta
-                                      ? 5.0
-                                      : 10.0,
+                                  ? 5.0
+                                  : 10.0,
                             ),
                             Visibility(
                               visible:
@@ -685,13 +680,12 @@ class DerivacionBasicaDiferencialState
                       Latex(formulaText: r"\frac{d}{dx}(uv) = uv'+vu'"),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(
-                          kVideoDerivadaDelProductoDeDosFuncionesCompuestas),
+                        kVideoDerivadaDelProductoDeDosFuncionesCompuestas,
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion una Funcion Compuesta Entre Función Compuesta
                 GestureDetector(
@@ -724,8 +718,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaCocienteFuncionesCompuestas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaCocienteFuncionesCompuestas,
                               ),
                             ),
                             SizedBox(
@@ -765,17 +760,17 @@ class DerivacionBasicaDiferencialState
                     children: [
                       SizedBox(height: kEspacioEntreBotones),
                       Latex(
-                          formulaText:
-                              r"\frac{d}{dx}\left(\frac{u}{v}\right) = \frac{vu'-uv'}{v^2}"),
+                        formulaText:
+                            r"\frac{d}{dx}\left(\frac{u}{v}\right) = \frac{vu'-uv'}{v^2}",
+                      ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(
-                          kVideoDerivadaDelCocienteDeDosFuncionesCompuestas),
+                        kVideoDerivadaDelCocienteDeDosFuncionesCompuestas,
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion una Funcion Compuesta por Función Compuesta Tres
                 GestureDetector(
@@ -808,8 +803,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaProductoNFuncionesCompuestas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaProductoNFuncionesCompuestas,
                               ),
                             ),
                             SizedBox(
@@ -851,13 +847,12 @@ class DerivacionBasicaDiferencialState
                       Latex(formulaText: r"\frac{d}{dx}(uvw) = uvw'+uwv'+vwu'"),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(
-                          kVideoDerivadaDelProductoDeNFuncionesCompuestas),
+                        kVideoDerivadaDelProductoDeNFuncionesCompuestas,
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
 
                 //Derivacion la Suma de Funciones Compuestas
                 GestureDetector(
@@ -879,10 +874,12 @@ class DerivacionBasicaDiferencialState
                           ? kColorFondo
                           : kColorBotones,
                     ),
-                    width:
-                        seleccionadoSumaDeFuncionesCompuestas ? 260.0 : 300.0,
-                    height:
-                        seleccionadoSumaDeFuncionesCompuestas ? 100.0 : 100.0,
+                    width: seleccionadoSumaDeFuncionesCompuestas
+                        ? 260.0
+                        : 300.0,
+                    height: seleccionadoSumaDeFuncionesCompuestas
+                        ? 100.0
+                        : 100.0,
                     duration: const Duration(milliseconds: 600),
                     child: Column(
                       children: [
@@ -890,8 +887,9 @@ class DerivacionBasicaDiferencialState
                           children: [
                             Center(
                               child: TextoBotonesDelgado(
-                                AppLocalizations.of(context)!
-                                    .derivadaSumaFuncionesCompuestas,
+                                AppLocalizations.of(
+                                  context,
+                                )!.derivadaSumaFuncionesCompuestas,
                               ),
                             ),
                             SizedBox(
@@ -931,48 +929,35 @@ class DerivacionBasicaDiferencialState
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Latex(
-                            formulaText:
-                                r"\frac{d}{dx}(u\pm v\pm w\pm \dotsm ) = u'\pm v'\pm w'\pm\dotsm"),
+                          formulaText:
+                              r"\frac{d}{dx}(u\pm v\pm w\pm \dotsm ) = u'\pm v'\pm w'\pm\dotsm",
+                        ),
                       ),
                       SizedBox(height: kEspacioEntreBotones),
                       VideosYoutube(
-                          kVideoDerivadaDeLaSumaDeFuncionesCompuestas),
+                        kVideoDerivadaDeLaSumaDeFuncionesCompuestas,
+                      ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: kEspacioEntreBotones,
-                ),
+                const SizedBox(height: kEspacioEntreBotones),
                 //Todo hacer opcion para que los usuarios pongan su polinomio y se resuelva su derivada
 
                 //Boton para acceder al formulario en PDF
-                const VerPDF(
-                  url: kWidgetDerivacionBasicaDiferencial,
-                ),
+                const VerPDF(url: kWidgetDerivacionBasicaDiferencial),
                 //Descargar PDF
-                const DescargarPDF(
-                  url: kWidgetDerivacionBasicaDiferencial,
-                ),
+                const DescargarPDF(url: kWidgetDerivacionBasicaDiferencial),
               ],
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
 
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0),
-            ),
+            const Padding(padding: EdgeInsets.only(top: 10.0)),
 
-            const SizedBox(
-              height: 20.0,
-            ),
+            const SizedBox(height: 20.0),
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -980,14 +965,10 @@ class DerivacionBasicaDiferencialState
                   const Notas(),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"c"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.constante,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.constante),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"x"),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.variable,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.variable),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"u"),
                   TextoEcuaciones(

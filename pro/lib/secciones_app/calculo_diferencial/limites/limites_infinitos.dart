@@ -30,7 +30,9 @@ class LimitesLimitesInfinitosState extends State<LimitesLimitesInfinitos> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.limitesLimitesInfinitos,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.limitesLimitesInfinitos,
                         widgetName: kWidgetLimitesLimitesInfinitos,
                       ),
                     );
@@ -44,14 +46,18 @@ class LimitesLimitesInfinitosState extends State<LimitesLimitesInfinitos> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesLimitesInfinitos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesLimitesInfinitos,
                                 widgetName: kWidgetLimitesLimitesInfinitos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.limitesLimitesInfinitos,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.limitesLimitesInfinitos,
                                 widgetName: kWidgetLimitesLimitesInfinitos,
                               ),
                             );
@@ -67,17 +73,31 @@ class LimitesLimitesInfinitosState extends State<LimitesLimitesInfinitos> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\lim_{x \to 0^{+}} \frac{1}{x^{r}} = +\infty"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to 0^{+}} \frac{1}{x^{r}} = +\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to 0^{-}} \frac{1}{x^{r}} = \begin{cases} -\infty & \text{si } r \text{ es impar} \\ +\infty & \text{si } r \text{ es par} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to 0^{-}} \frac{1}{x^{r}} = \begin{cases} -\infty & \text{si } r \text{ es impar} \\ +\infty & \text{si } r \text{ es par} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = +\infty"),
+                  Latex(
+                    formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = +\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = -\infty"),
+                  Latex(
+                    formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = -\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = -\infty"),
+                  Latex(
+                    formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = -\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = +\infty"),
+                  Latex(
+                    formulaText: r"\lim_{x \to a} \frac{g(x)}{f(x)} = +\infty",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

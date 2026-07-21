@@ -110,9 +110,9 @@ class VerPDFState extends State<VerPDF> {
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.mensajeError)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.mensajeError)));
     } finally {
       if (mounted) {
         setState(() {
@@ -206,8 +206,8 @@ class _VerPDFGeneradoState extends State<VerPDFGenerado> {
     final localizations = AppLocalizations.of(context)!;
     final resolvedTitle =
         (widget.title != null && widget.title!.trim().isNotEmpty)
-            ? widget.title!.trim()
-            : localizations.formulaePDF;
+        ? widget.title!.trim()
+        : localizations.formulaePDF;
 
     return Scaffold(
       appBar: AppBar(
@@ -441,11 +441,7 @@ class FormulaePdfPreview extends StatelessWidget {
     } else {
       child = Text(
         block.text.trim(),
-        style: const TextStyle(
-          color: _inkColor,
-          fontSize: 13,
-          height: 1.4,
-        ),
+        style: const TextStyle(color: _inkColor, fontSize: 13, height: 1.4),
       );
     }
 
@@ -529,18 +525,18 @@ class DescargarPDFState extends State<DescargarPDF> {
         return;
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.pdfGenerado)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.pdfGenerado)));
     } catch (error, stackTrace) {
       debugPrint('Formulae PDF export failed: $error');
       debugPrintStack(stackTrace: stackTrace);
       if (!context.mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(localizations.mensajeError)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.mensajeError)));
     } finally {
       if (mounted) {
         setState(() {
@@ -567,21 +563,23 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
   @override
   void initState() {
     super.initState();
-    _downloadPDF(widget.pdfUrl).then((data) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        _pdfData = data;
-      });
-    }).catchError((error) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        _errorMessage = AppLocalizations.of(context)!.mensajeError;
-      });
-    });
+    _downloadPDF(widget.pdfUrl)
+        .then((data) {
+          if (!mounted) {
+            return;
+          }
+          setState(() {
+            _pdfData = data;
+          });
+        })
+        .catchError((error) {
+          if (!mounted) {
+            return;
+          }
+          setState(() {
+            _errorMessage = AppLocalizations.of(context)!.mensajeError;
+          });
+        });
   }
 
   Future<Uint8List> _downloadPDF(String url) async {
@@ -597,7 +595,8 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
         return response.bodyBytes;
       } else {
         throw Exception(
-            'Error al descargar el archivo PDF: ${response.statusCode}');
+          'Error al descargar el archivo PDF: ${response.statusCode}',
+        );
       }
     } catch (e) {
       throw Exception('Error al descargar el archivo PDF: $e');
@@ -607,62 +606,61 @@ class VerPDFNuevoState extends State<VerPDFNuevo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.formulaePDF,
-        ),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.formulaePDF)),
       body: _pdfData == null
           ? _errorMessage == null
-              //todo cambiar por indicador de chat
-              ? const Center(
-                  child: SpinKitSpinningLines(
-                    color: Colors.white,
-                    size: 100.0,
-                  ),
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/icono_app_nuevo.png',
-                        width: 90,
-                        height: 90,
-                      ),
-                      const SizedBox(height: 20),
-                      Center(
-                        child: Text(
-                          _errorMessage!,
-                          style: kTextoBotonesDelgado,
-                          textAlign: TextAlign.center,
+                //todo cambiar por indicador de chat
+                ? const Center(
+                    child: SpinKitSpinningLines(
+                      color: Colors.white,
+                      size: 100.0,
+                    ),
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/icono_app_nuevo.png',
+                          width: 90,
+                          height: 90,
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          _downloadPDF(widget.pdfUrl).then((data) {
-                            setState(() {
-                              _pdfData = data;
-                              _errorMessage = null;
-                            });
-                          }).catchError((error) {
-                            setState(() {
-                              _errorMessage =
-                                  AppLocalizations.of(context)!.mensajeError;
-                            });
-                          });
-                        },
-                        child: Column(
-                          children: [
-                            Text(AppLocalizations.of(context)!.reintentar),
-                          ],
+                        const SizedBox(height: 20),
+                        Center(
+                          child: Text(
+                            _errorMessage!,
+                            style: kTextoBotonesDelgado,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            _downloadPDF(widget.pdfUrl)
+                                .then((data) {
+                                  setState(() {
+                                    _pdfData = data;
+                                    _errorMessage = null;
+                                  });
+                                })
+                                .catchError((error) {
+                                  setState(() {
+                                    _errorMessage = AppLocalizations.of(
+                                      context,
+                                    )!.mensajeError;
+                                  });
+                                });
+                          },
+                          child: Column(
+                            children: [
+                              Text(AppLocalizations.of(context)!.reintentar),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
           : buildPdfInlineViewer(_pdfData!),
     );
   }

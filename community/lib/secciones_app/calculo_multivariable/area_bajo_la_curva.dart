@@ -16,9 +16,12 @@ class _AreaBajoLaCurvaState extends State<AreaBajoLaCurva> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -35,16 +38,15 @@ class _AreaBajoLaCurvaState extends State<AreaBajoLaCurva> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.areaBajoCurva,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.areaBajoCurva),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.areaBajoCurva,
-                      widgetName: kWidgetAreaBajoLaCurva),
+                    title: AppLocalizations.of(context)!.areaBajoCurva,
+                    widgetName: kWidgetAreaBajoLaCurva,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +58,16 @@ class _AreaBajoLaCurvaState extends State<AreaBajoLaCurva> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.areaBajoCurva,
-                              widgetName: kWidgetAreaBajoLaCurva),
+                            title: AppLocalizations.of(context)!.areaBajoCurva,
+                            widgetName: kWidgetAreaBajoLaCurva,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.areaBajoCurva,
-                              widgetName: kWidgetAreaBajoLaCurva),
+                            title: AppLocalizations.of(context)!.areaBajoCurva,
+                            widgetName: kWidgetAreaBajoLaCurva,
+                          ),
                         );
                       }
                     });
@@ -77,59 +79,50 @@ class _AreaBajoLaCurvaState extends State<AreaBajoLaCurva> {
             ZoomPersonalizado(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   const SizedBox(height: kEspacioEntreBotones),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .silacurvaestadadaporlasecuacionesparametricas,
+                    AppLocalizations.of(
+                      context,
+                    )!.silacurvaestadadaporlasecuacionesparametricas,
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"x=f(t),\space y=g(t)"),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(formulaText: r"\alpha \leq t \leq \beta"),
                   const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.paraYIgualFdeX,
+                  TextoEcuaciones(AppLocalizations.of(context)!.paraYIgualFdeX),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  const Latex(
+                    formulaText:
+                        r"A=\int_{a}^b F(x)dx = \int_{a}^b y\thinspace dx",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"A=\int_{a}^b F(x)dx = \int_{a}^b y\thinspace dx"),
+                    formulaText:
+                        r"\left| A= \int_{\alpha}^\beta g(t) f'(t) \thinspace dt\right|",
+                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
+                  TextoEcuaciones(AppLocalizations.of(context)!.paraXIgualGdeY),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"\left| A= \int_{\alpha}^\beta g(t) f'(t) \thinspace dt\right|"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.paraXIgualGdeY,
+                    formulaText:
+                        r"A=\int_{a}^b G(y)dy = \int_{a}^b x\thinspace dy",
                   ),
                   const SizedBox(height: kEspacioEntreBotones),
                   const Latex(
-                      formulaText:
-                          r"A=\int_{a}^b G(y)dy = \int_{a}^b x\thinspace dy"),
-                  const SizedBox(height: kEspacioEntreBotones),
-                  const Latex(
-                      formulaText:
-                          r"\left| A= \int_{\alpha}^\beta f(t) g'(t) \thinspace dt\right|"),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0),
+                    formulaText:
+                        r"\left| A= \int_{\alpha}^\beta f(t) g'(t) \thinspace dt\right|",
                   ),
+                  const Padding(padding: EdgeInsets.only(top: 10.0)),
                 ],
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetAreaBajoLaCurva,
-            ),
+            const VerPDF(url: kWidgetAreaBajoLaCurva),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetAreaBajoLaCurva,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
+            const DescargarPDF(url: kWidgetAreaBajoLaCurva),
+            const SizedBox(height: 20.0),
           ],
         ),
       ),

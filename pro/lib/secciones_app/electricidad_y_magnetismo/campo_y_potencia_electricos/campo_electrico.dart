@@ -27,8 +27,9 @@ class _CampoElectricoState extends State<CampoElectrico> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.campoElectrico,
-                      widgetName: kWidgetCampoElectrico),
+                    title: AppLocalizations.of(context)!.campoElectrico,
+                    widgetName: kWidgetCampoElectrico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,16 @@ class _CampoElectricoState extends State<CampoElectrico> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.campoElectrico,
-                              widgetName: kWidgetCampoElectrico),
+                            title: AppLocalizations.of(context)!.campoElectrico,
+                            widgetName: kWidgetCampoElectrico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.campoElectrico,
-                              widgetName: kWidgetCampoElectrico),
+                            title: AppLocalizations.of(context)!.campoElectrico,
+                            widgetName: kWidgetCampoElectrico,
+                          ),
                         );
                       }
                     });
@@ -70,13 +71,15 @@ class _CampoElectricoState extends State<CampoElectrico> {
             Column(
               children: <Widget>[
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .campoElectricoOriginadoCargaPuntual,
+                  AppLocalizations.of(
+                    context,
+                  )!.campoElectricoOriginadoCargaPuntual,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = \frac{\vec{F}_{q_0q}}{q_0} = \frac{k\frac{q_0q}{{r_{q_0q}}^2}\hat{r}_{q_0q}}{q_0} = k\frac{q}{{r_{q_0q}}^2}\hat{r}_{q_0q}"),
+                  formulaText:
+                      r"\vec{E} = \frac{\vec{F}_{q_0q}}{q_0} = \frac{k\frac{q_0q}{{r_{q_0q}}^2}\hat{r}_{q_0q}}{q_0} = k\frac{q}{{r_{q_0q}}^2}\hat{r}_{q_0q}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\vec{E} = k\frac{q}{r^2}\hat{r}"),
                 const SizedBox(height: 40.0),
@@ -85,15 +88,17 @@ class _CampoElectricoState extends State<CampoElectrico> {
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"[\vec{E}]_u = \left [ \frac{\text{N}}{\text{C}} \right ]"),
+                  formulaText:
+                      r"[\vec{E}]_u = \left [ \frac{\text{N}}{\text{C}} \right ]",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.principioSuperposicion,
                 ),
                 const Latex(
-                    formulaText:
-                        r"\vec{E} = k \sum_{i=1}^{n} \frac{q_i}{r_i^2}\hat{r}_i"),
+                  formulaText:
+                      r"\vec{E} = k \sum_{i=1}^{n} \frac{q_i}{r_i^2}\hat{r}_i",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.esquemasCampoElectrico,
@@ -129,15 +134,11 @@ class _CampoElectricoState extends State<CampoElectrico> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCampoElectrico,
-                ),
+                VerPDF(url: kWidgetCampoElectrico),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCampoElectrico,
-                ),
+                DescargarPDF(url: kWidgetCampoElectrico),
               ],
-            )
+            ),
           ],
         ),
       ),

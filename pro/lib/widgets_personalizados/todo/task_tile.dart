@@ -37,10 +37,7 @@ class TaskTile extends StatelessWidget {
         ),
         trailing: Checkbox(
           checkColor: kColorBlanco,
-          side: const BorderSide(
-            width: 2,
-            color: kColorBlanco,
-          ),
+          side: const BorderSide(width: 2, color: kColorBlanco),
           activeColor: kColorBotones,
           value: isChecked,
           onChanged: checkboxCallback,

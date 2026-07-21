@@ -28,9 +28,12 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -56,8 +59,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                 builder: (context, favoritesNotifier, child) {
                   bool isFavorite = favoritesNotifier.isFavorite(
                     Favorite(
-                        title: AppLocalizations.of(context)!.integracionBasica,
-                        widgetName: kWidgetIntegracionBasica),
+                      title: AppLocalizations.of(context)!.integracionBasica,
+                      widgetName: kWidgetIntegracionBasica,
+                    ),
                   );
                   return IconButton(
                     icon: isFavorite
@@ -69,16 +73,20 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                         if (isFavorite) {
                           favoritesNotifier.removeFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integracionBasica,
-                                widgetName: kWidgetIntegracionBasica),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integracionBasica,
+                              widgetName: kWidgetIntegracionBasica,
+                            ),
                           );
                         } else {
                           favoritesNotifier.addFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .integracionBasica,
-                                widgetName: kWidgetIntegracionBasica),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.integracionBasica,
+                              widgetName: kWidgetIntegracionBasica,
+                            ),
                           );
                         }
                       });
@@ -87,9 +95,7 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                 },
               ),
 
-              const SizedBox(
-                height: 40.0,
-              ),
+              const SizedBox(height: 40.0),
               //Integracion
               Column(
                 children: [
@@ -155,20 +161,14 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                     visible: seleccionadoIntegralDx,
                     child: const Column(
                       children: [
-                        SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\int dx = x + C"),
-                        SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeX),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de constante por una Variable
                   GestureDetector(
@@ -199,8 +199,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .integraldeconstanteporx,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.integraldeconstanteporx,
                                 ),
                               ),
                               SizedBox(
@@ -234,20 +235,14 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                     visible: seleccionadoConstantePorDx,
                     child: const Column(
                       children: [
-                        SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\int adx = ax + C"),
-                        SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeConstantePorX),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de x con exponente
                   GestureDetector(
@@ -282,8 +277,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .variableconexponenten,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.variableconexponenten,
                                 ),
                               ),
                               SizedBox(
@@ -321,22 +317,17 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                     visible: seleccionadoVariableElevadoAUnExponente,
                     child: const Column(
                       children: [
-                        SizedBox(
-                          height: kEspacioEntreBotones,
-                        ),
+                        SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\int x^n dx = \frac{1}{n+1} x^{n+1}+C, \space n\neq -1"),
-                        SizedBox(
-                          height: kEspacioEntreBotones,
+                          formulaText:
+                              r"\int x^n dx = \frac{1}{n+1} x^{n+1}+C, \space n\neq -1",
                         ),
+                        SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeVariableConExponenteN),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de x con exponente a la menos 1
                   GestureDetector(
@@ -361,8 +352,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                       width: seleccionadoVariableElevadoAlaMenosUno
                           ? 250.0
                           : 300.0,
-                      height:
-                          seleccionadoVariableElevadoAlaMenosUno ? 80.0 : 100.0,
+                      height: seleccionadoVariableElevadoAlaMenosUno
+                          ? 80.0
+                          : 100.0,
                       duration: const Duration(milliseconds: 600),
                       child: Column(
                         children: [
@@ -370,8 +362,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .varibaleconexponentemenos1,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.varibaleconexponentemenos1,
                                 ),
                               ),
                               SizedBox(
@@ -412,13 +405,12 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                         Latex(formulaText: r"\int x^{-1}dx = ln|x|+C"),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(
-                            kVideoIntegralDeVariableConExponenteMenosUno),
+                          kVideoIntegralDeVariableConExponenteMenosUno,
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de x con exponente negativo
                   GestureDetector(
@@ -440,10 +432,12 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             ? kColorFondo
                             : kColorBotones,
                       ),
-                      width:
-                          seleccionadoVariableElevadoAlaMenosN ? 250.0 : 300.0,
-                      height:
-                          seleccionadoVariableElevadoAlaMenosN ? 80.0 : 100.0,
+                      width: seleccionadoVariableElevadoAlaMenosN
+                          ? 250.0
+                          : 300.0,
+                      height: seleccionadoVariableElevadoAlaMenosN
+                          ? 80.0
+                          : 100.0,
                       duration: const Duration(milliseconds: 600),
                       child: Column(
                         children: [
@@ -451,8 +445,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .variableconexponentemenosn,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.variableconexponentemenosn,
                                 ),
                               ),
                               SizedBox(
@@ -492,18 +487,18 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Latex(
-                              formulaText:
-                                  r"\int x^{-n}dx = \frac{1}{-n+1} x^{-n+1}+C, \space n\neq 1"),
+                            formulaText:
+                                r"\int x^{-n}dx = \frac{1}{-n+1} x^{-n+1}+C, \space n\neq 1",
+                          ),
                         ),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(
-                            kVideoIntegralDeVariableConExponenteMenosN),
+                          kVideoIntegralDeVariableConExponenteMenosN,
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de una fracción
                   GestureDetector(
@@ -534,13 +529,15 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .integraldeuncociente,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.integraldeuncociente,
                                 ),
                               ),
                               SizedBox(
-                                width:
-                                    seleccionadoCocienteDeAxMasB ? 5.0 : 10.0,
+                                width: seleccionadoCocienteDeAxMasB
+                                    ? 5.0
+                                    : 10.0,
                               ),
                               Visibility(
                                 visible: !seleccionadoCocienteDeAxMasB,
@@ -572,16 +569,15 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\int \frac{1}{ax+b}dx = \frac{1}{a}ln|ax+b|+C"),
+                          formulaText:
+                              r"\int \frac{1}{ax+b}dx = \frac{1}{a}ln|ax+b|+C",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeUnCociente),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de x con exponente fraccionario
                   GestureDetector(
@@ -606,8 +602,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                       width: seleccionadoVariableElevadoAUnCociente
                           ? 250.0
                           : 300.0,
-                      height:
-                          seleccionadoVariableElevadoAUnCociente ? 80.0 : 100.0,
+                      height: seleccionadoVariableElevadoAUnCociente
+                          ? 80.0
+                          : 100.0,
                       duration: const Duration(milliseconds: 600),
                       child: Column(
                         children: [
@@ -615,8 +612,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .exponentefraccionario,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.exponentefraccionario,
                                 ),
                               ),
                               SizedBox(
@@ -655,16 +653,15 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\int x^{(\frac{p}{q})}dx = \frac{1}{\frac{p}{q}+1}x^{(\frac{p}{q}+1)}+C"),
+                          formulaText:
+                              r"\int x^{(\frac{p}{q})}dx = \frac{1}{\frac{p}{q}+1}x^{(\frac{p}{q}+1)}+C",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeExponenteFraccionario),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de suma de funciones
                   GestureDetector(
@@ -686,10 +683,12 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             ? kColorFondo
                             : kColorBotones,
                       ),
-                      width:
-                          seleccionadoSumaDeFuncionesCompuestas ? 250.0 : 300.0,
-                      height:
-                          seleccionadoSumaDeFuncionesCompuestas ? 80.0 : 100.0,
+                      width: seleccionadoSumaDeFuncionesCompuestas
+                          ? 250.0
+                          : 300.0,
+                      height: seleccionadoSumaDeFuncionesCompuestas
+                          ? 80.0
+                          : 100.0,
                       duration: const Duration(milliseconds: 600),
                       child: Column(
                         children: [
@@ -737,17 +736,16 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Latex(
-                              formulaText:
-                                  r"\int (u\pm v\pm w\pm\dotsm)dx = \int udx\pm\int vdx\pm\int wdx\pm\dotsm"),
+                            formulaText:
+                                r"\int (u\pm v\pm w\pm\dotsm)dx = \int udx\pm\int vdx\pm\int wdx\pm\dotsm",
+                          ),
                         ),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(kVideoIntegralDeSumaDeFunciones),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integral de constantes por funciones
                   GestureDetector(
@@ -778,8 +776,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .productoconstanteyfuncion,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.productoconstanteyfuncion,
                                 ),
                               ),
                               SizedBox(
@@ -819,13 +818,12 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                         Latex(formulaText: r"\int af(x)dx = a\int f(x)dx+ C"),
                         SizedBox(height: kEspacioEntreBotones),
                         VideosYoutube(
-                            kVideoIntegralDeProductoConstanteYFuncion),
+                          kVideoIntegralDeProductoConstanteYFuncion,
+                        ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
 
                   //Integracion por partes
                   GestureDetector(
@@ -856,8 +854,9 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                             children: [
                               Center(
                                 child: TextoBotonesDelgado(
-                                  AppLocalizations.of(context)!
-                                      .integracionporpartes,
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.integracionporpartes,
                                 ),
                               ),
                               SizedBox(
@@ -900,37 +899,22 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                 ],
               ),
 
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SizedBox(height: 20.0),
 
-              const Padding(
-                padding: EdgeInsets.only(top: 10.0),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const Padding(padding: EdgeInsets.only(top: 10.0)),
+              const SizedBox(height: 20.0),
               //Boton para acceder al formulario en PDF
-              const VerPDF(
-                url: kWidgetIntegracionBasica,
-              ),
+              const VerPDF(url: kWidgetIntegracionBasica),
               //Descargar PDF
-              const DescargarPDF(
-                url: kWidgetIntegracionBasica,
-              ),
+              const DescargarPDF(url: kWidgetIntegracionBasica),
               Container(
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -938,24 +922,23 @@ class _IntegracionBasicaIntegralState extends State<IntegracionBasicaIntegral> {
                     const Notas(),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\int u\cdot dv = u\cdot v -\int v\cdot du"),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    Text(AppLocalizations.of(context)!.dondeUVValores,
-                        style: kTextoNotas),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.logaritmicas,
+                      formulaText: r"\int u\cdot dv = u\cdot v -\int v\cdot du",
                     ),
                     const SizedBox(height: kEspacioEntreBotones),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!
-                          .trigonometricasInversasNumero,
+                    Text(
+                      AppLocalizations.of(context)!.dondeUVValores,
+                      style: kTextoNotas,
                     ),
                     const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.logaritmicas),
+                    const SizedBox(height: kEspacioEntreBotones),
                     TextoEcuaciones(
-                      AppLocalizations.of(context)!.algebraicas,
+                      AppLocalizations.of(
+                        context,
+                      )!.trigonometricasInversasNumero,
                     ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    TextoEcuaciones(AppLocalizations.of(context)!.algebraicas),
                     const SizedBox(height: kEspacioEntreBotones),
                     TextoEcuaciones(
                       AppLocalizations.of(context)!.trigonometricas,

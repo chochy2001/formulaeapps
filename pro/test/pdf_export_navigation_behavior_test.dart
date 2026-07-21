@@ -142,42 +142,41 @@ void main() {
     },
   );
 
-  testWidgets(
-    'task export options return every selected field to the caller',
-    (tester) async {
-      late Future<ExportOptions?> result;
-      await tester.pumpWidget(
-        _app(
-          child: Builder(
-            builder: (context) => TextButton(
-              onPressed: () {
-                result = showDialog<ExportOptions>(
-                  context: context,
-                  builder: (_) => const ExportOptionsDialog(),
-                );
-              },
-              child: const Text('Configure export'),
-            ),
+  testWidgets('task export options return every selected field to the caller', (
+    tester,
+  ) async {
+    late Future<ExportOptions?> result;
+    await tester.pumpWidget(
+      _app(
+        child: Builder(
+          builder: (context) => TextButton(
+            onPressed: () {
+              result = showDialog<ExportOptions>(
+                context: context,
+                builder: (_) => const ExportOptionsDialog(),
+              );
+            },
+            child: const Text('Configure export'),
           ),
         ),
-      );
+      ),
+    );
 
-      await tester.tap(find.text('Configure export'));
-      await tester.pumpAndSettle();
-      for (final checkbox in find.byType(CheckboxListTile).evaluate()) {
-        await tester.tap(find.byWidget(checkbox.widget));
-        await tester.pump();
-      }
-      await tester.tap(find.text('Aceptar'));
-      await tester.pumpAndSettle();
+    await tester.tap(find.text('Configure export'));
+    await tester.pumpAndSettle();
+    for (final checkbox in find.byType(CheckboxListTile).evaluate()) {
+      await tester.tap(find.byWidget(checkbox.widget));
+      await tester.pump();
+    }
+    await tester.tap(find.text('Aceptar'));
+    await tester.pumpAndSettle();
 
-      final options = await result;
-      expect(options, isNotNull);
-      expect(options!.includeDueDate, isTrue);
-      expect(options.includeReminderDate, isTrue);
-      expect(options.includeTaskStatus, isTrue);
-    },
-  );
+    final options = await result;
+    expect(options, isNotNull);
+    expect(options!.includeDueDate, isTrue);
+    expect(options.includeReminderDate, isTrue);
+    expect(options.includeTaskStatus, isTrue);
+  });
 
   testWidgets(
     'task screen opens the add-task sheet and export dialog from user actions',
@@ -207,34 +206,33 @@ void main() {
     },
   );
 
-  testWidgets(
-    'task screen confirms before clearing every existing task',
-    (tester) async {
-      final taskData = TaskData();
-      taskData.addTask(Task(name: 'Preparar parcial'));
-      taskData.addTask(Task(name: 'Repasar derivadas'));
-      final expectedTaskCount = taskData.taskCount;
+  testWidgets('task screen confirms before clearing every existing task', (
+    tester,
+  ) async {
+    final taskData = TaskData();
+    taskData.addTask(Task(name: 'Preparar parcial'));
+    taskData.addTask(Task(name: 'Repasar derivadas'));
+    final expectedTaskCount = taskData.taskCount;
 
-      await tester.pumpWidget(
-        ChangeNotifierProvider<TaskData>.value(
-          value: taskData,
-          child: _app(child: const TasksScreen()),
-        ),
-      );
+    await tester.pumpWidget(
+      ChangeNotifierProvider<TaskData>.value(
+        value: taskData,
+        child: _app(child: const TasksScreen()),
+      ),
+    );
 
-      await tester.longPress(find.byIcon(Icons.add));
-      await tester.pumpAndSettle();
-      expect(find.byType(AlertDialog), findsOneWidget);
-      expect(expectedTaskCount, greaterThan(0));
-      expect(taskData.taskCount, expectedTaskCount);
+    await tester.longPress(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(expectedTaskCount, greaterThan(0));
+    expect(taskData.taskCount, expectedTaskCount);
 
-      await tester.tap(find.text('Eliminar'));
-      await tester.pumpAndSettle();
+    await tester.tap(find.text('Eliminar'));
+    await tester.pumpAndSettle();
 
-      expect(find.byType(AlertDialog), findsNothing);
-      expect(taskData.taskCount, 0);
-    },
-  );
+    expect(find.byType(AlertDialog), findsNothing);
+    expect(taskData.taskCount, 0);
+  });
 
   testWidgets(
     'favorites creates a folder, moves a saved formula, and opens it',
@@ -273,32 +271,28 @@ void main() {
     },
   );
 
-  testWidgets(
-    'favorites explains why moving requires another folder',
-    (tester) async {
-      final favorites = FavoritesNotifier();
-      favorites.addFavorite(
-        Favorite(
-          title: 'Ley de Gauss',
-          widgetName: kWidgetTeoremaDelRotacional,
-        ),
-      );
+  testWidgets('favorites explains why moving requires another folder', (
+    tester,
+  ) async {
+    final favorites = FavoritesNotifier();
+    favorites.addFavorite(
+      Favorite(title: 'Ley de Gauss', widgetName: kWidgetTeoremaDelRotacional),
+    );
 
-      await tester.pumpWidget(
-        ChangeNotifierProvider<FavoritesNotifier>.value(
-          value: favorites,
-          child: _app(child: const FavoritesScreen()),
-        ),
-      );
+    await tester.pumpWidget(
+      ChangeNotifierProvider<FavoritesNotifier>.value(
+        value: favorites,
+        child: _app(child: const FavoritesScreen()),
+      ),
+    );
 
-      await tester.tap(find.byIcon(Icons.drive_file_move_rounded));
-      await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.drive_file_move_rounded));
+    await tester.pumpAndSettle();
 
-      expect(find.byType(SnackBar), findsOneWidget);
-      expect(find.byType(AlertDialog), findsNothing);
-      expect(favorites.activeFolder.favorites, hasLength(1));
-    },
-  );
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(find.byType(AlertDialog), findsNothing);
+    expect(favorites.activeFolder.favorites, hasLength(1));
+  });
 
   testWidgets(
     'favorites only clear after the destructive action is confirmed',

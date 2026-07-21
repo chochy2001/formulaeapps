@@ -9,7 +9,7 @@ Future<void> downloadCommunityPdf(Uint8List bytes, String fileName) async {
   // Downloads directory there, matching the working Formulae Pro behavior.
   final output = io.Platform.isLinux
       ? await getDownloadsDirectory() ??
-          await getApplicationDocumentsDirectory()
+            await getApplicationDocumentsDirectory()
       : await getTemporaryDirectory();
   final file = io.File('${output.path}/$fileName');
   await file.writeAsBytes(bytes, flush: true);
@@ -18,8 +18,10 @@ Future<void> downloadCommunityPdf(Uint8List bytes, String fileName) async {
     return;
   }
 
-  await Share.shareXFiles(
-    [XFile(file.path, mimeType: 'application/pdf')],
-    subject: fileName,
+  await SharePlus.instance.share(
+    ShareParams(
+      files: [XFile(file.path, mimeType: 'application/pdf')],
+      subject: fileName,
+    ),
   );
 }

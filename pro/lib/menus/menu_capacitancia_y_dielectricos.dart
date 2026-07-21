@@ -17,9 +17,7 @@ class MenuCapacitanciaYDielectricos extends StatelessWidget {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -28,9 +26,7 @@ class MenuCapacitanciaYDielectricos extends StatelessWidget {
                     AppLocalizations.of(context)!.capacitanciaDielectricos,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
                     ruta: kRutaCapacitor,
                     textoBoton: AppLocalizations.of(context)!.capacitor,
@@ -41,43 +37,51 @@ class MenuCapacitanciaYDielectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaDefinicionDeCapacitancia,
-                    textoBoton:
-                        AppLocalizations.of(context)!.definicionCapacitancia,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.definicionCapacitancia,
                   ),
                   BotonesMenu(
                     ruta: kRutaGraficaDeCapacitancia,
-                    textoBoton:
-                        AppLocalizations.of(context)!.graficaCapacitancia,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.graficaCapacitancia,
                   ),
                   BotonesMenu(
                     ruta: kRutaSimbologiaCapacitores,
-                    textoBoton:
-                        AppLocalizations.of(context)!.simbologiaCapacitores,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.simbologiaCapacitores,
                   ),
                   BotonesMenu(
                     ruta: kRutaCapacitorDePlacasPlanasYParalelas,
-                    textoBoton: AppLocalizations.of(context)!
-                        .capacitorPlacasPlanasParalelas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.capacitorPlacasPlanasParalelas,
                   ),
                   BotonesMenu(
                     ruta: kRutaEnergiaYCapacitancia,
-                    textoBoton:
-                        AppLocalizations.of(context)!.energiaCapacitancia,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.energiaCapacitancia,
                   ),
                   BotonesMenu(
                     ruta: kRutaEnergiaAlmacenadaPorUnCapacitor,
-                    textoBoton: AppLocalizations.of(context)!
-                        .energiaAlmacenadaCapacitor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.energiaAlmacenadaCapacitor,
                   ),
                   BotonesMenu(
                     ruta: kRutaConexionEnSerieCapacitor,
-                    textoBoton:
-                        AppLocalizations.of(context)!.conexionSerieCapacitor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conexionSerieCapacitor,
                   ),
                   BotonesMenu(
                     ruta: kRutaConexionEnParaleloCapacitor,
-                    textoBoton:
-                        AppLocalizations.of(context)!.conexionParaleloCapacitor,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.conexionParaleloCapacitor,
                   ),
                   BotonesMenu(
                     ruta: kRutaPolarizacion,
@@ -85,28 +89,33 @@ class MenuCapacitanciaYDielectricos extends StatelessWidget {
                   ),
                   BotonesMenu(
                     ruta: kRutaPolarizacionYCargaInducida,
-                    textoBoton:
-                        AppLocalizations.of(context)!.polarizacionCargaInducida,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.polarizacionCargaInducida,
                   ),
                   BotonesMenu(
                     ruta: kRutaConstantesDielectricas,
-                    textoBoton:
-                        AppLocalizations.of(context)!.constantesDielectricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.constantesDielectricas,
                   ),
                   BotonesMenu(
                     ruta: kRutaRigidezDielectrica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.rigidezDielectrica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.rigidezDielectrica,
                   ),
                   BotonesMenu(
                     ruta: kRutaVectorDeDesplazamientoElectrico,
-                    textoBoton: AppLocalizations.of(context)!
-                        .vectorDesplazamientoElectrico,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.vectorDesplazamientoElectrico,
                   ),
                   BotonesMenu(
                     ruta: kRutaRepresentacionDeLosVectoresElectricos,
-                    textoBoton: AppLocalizations.of(context)!
-                        .representacionVectoresElectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.representacionVectoresElectricos,
                   ),
                 ],
               ),

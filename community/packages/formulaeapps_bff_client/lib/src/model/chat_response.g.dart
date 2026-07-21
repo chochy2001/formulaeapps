@@ -21,13 +21,13 @@ class _$ChatResponse extends ChatResponse {
   factory _$ChatResponse([void Function(ChatResponseBuilder)? updates]) =>
       (ChatResponseBuilder()..update(updates))._build();
 
-  _$ChatResponse._(
-      {required this.message,
-      required this.modelId,
-      required this.usage,
-      this.conversationId,
-      required this.promptsVersion})
-      : super._();
+  _$ChatResponse._({
+    required this.message,
+    required this.modelId,
+    required this.usage,
+    this.conversationId,
+    required this.promptsVersion,
+  }) : super._();
   @override
   ChatResponse rebuild(void Function(ChatResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -129,16 +129,26 @@ class ChatResponseBuilder
   _$ChatResponse _build() {
     _$ChatResponse _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$ChatResponse._(
             message: BuiltValueNullFieldError.checkNotNull(
-                message, r'ChatResponse', 'message'),
+              message,
+              r'ChatResponse',
+              'message',
+            ),
             modelId: BuiltValueNullFieldError.checkNotNull(
-                modelId, r'ChatResponse', 'modelId'),
+              modelId,
+              r'ChatResponse',
+              'modelId',
+            ),
             usage: usage.build(),
             conversationId: conversationId,
             promptsVersion: BuiltValueNullFieldError.checkNotNull(
-                promptsVersion, r'ChatResponse', 'promptsVersion'),
+              promptsVersion,
+              r'ChatResponse',
+              'promptsVersion',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -147,7 +157,10 @@ class ChatResponseBuilder
         usage.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'ChatResponse', _$failedField, e.toString());
+          r'ChatResponse',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

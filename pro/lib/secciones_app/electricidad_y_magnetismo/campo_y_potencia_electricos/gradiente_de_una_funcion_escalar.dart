@@ -29,9 +29,11 @@ class _GradienteDeUnaFuncionEscalarState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.gradienteFuncionEscalar,
-                      widgetName: kWidgetGradienteDeUnaFuncionEscalar),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.gradienteFuncionEscalar,
+                    widgetName: kWidgetGradienteDeUnaFuncionEscalar,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _GradienteDeUnaFuncionEscalarState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncionEscalar,
-                              widgetName: kWidgetGradienteDeUnaFuncionEscalar),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncionEscalar,
+                            widgetName: kWidgetGradienteDeUnaFuncionEscalar,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .gradienteFuncionEscalar,
-                              widgetName: kWidgetGradienteDeUnaFuncionEscalar),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.gradienteFuncionEscalar,
+                            widgetName: kWidgetGradienteDeUnaFuncionEscalar,
+                          ),
                         );
                       }
                     });
@@ -66,8 +72,9 @@ class _GradienteDeUnaFuncionEscalarState
                 children: <Widget>[
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .campoElectrostaticoConservativo,
+                    AppLocalizations.of(
+                      context,
+                    )!.campoElectrostaticoConservativo,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"\vec{\nabla} \times \vec{E} = 0"),
@@ -77,8 +84,9 @@ class _GradienteDeUnaFuncionEscalarState
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \times \vec{\nabla}\varphi = \left(-\vec{\nabla}\varphi\right) = 0"),
+                    formulaText:
+                        r"\vec{\nabla} \times \vec{\nabla}\varphi = \left(-\vec{\nabla}\varphi\right) = 0",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.campoElectricoGradiente,
@@ -93,15 +101,11 @@ class _GradienteDeUnaFuncionEscalarState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetGradienteDeUnaFuncionEscalar,
-                ),
+                VerPDF(url: kWidgetGradienteDeUnaFuncionEscalar),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetGradienteDeUnaFuncionEscalar,
-                ),
+                DescargarPDF(url: kWidgetGradienteDeUnaFuncionEscalar),
               ],
-            )
+            ),
           ],
         ),
       ),

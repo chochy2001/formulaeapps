@@ -14,9 +14,12 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .intervalosDeConfianza,
-                            widgetName: kWidgetIntervalosDeConfianza),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.intervalosDeConfianza,
+                          widgetName: kWidgetIntervalosDeConfianza,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .intervalosDeConfianza,
-                                    widgetName: kWidgetIntervalosDeConfianza),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.intervalosDeConfianza,
+                                  widgetName: kWidgetIntervalosDeConfianza,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .intervalosDeConfianza,
-                                    widgetName: kWidgetIntervalosDeConfianza),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.intervalosDeConfianza,
+                                  widgetName: kWidgetIntervalosDeConfianza,
+                                ),
                               );
                             }
                           });
@@ -77,16 +86,15 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .intervaloConfianzaMediaPoblacional,
+                          AppLocalizations.of(
+                            context,
+                          )!.intervaloConfianzaMediaPoblacional,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -102,8 +110,9 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                         const Latex(formulaText: r"\bar{X}+z\sigma_{\bar{X}}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .intervaloConfianzaProporcionPoblacional,
+                          AppLocalizations.of(
+                            context,
+                          )!.intervaloConfianzaProporcionPoblacional,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -122,21 +131,14 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetIntervalosDeConfianza,
-                  ),
+                  const VerPDF(url: kWidgetIntervalosDeConfianza),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetIntervalosDeConfianza,
-                  ),
+                  const DescargarPDF(url: kWidgetIntervalosDeConfianza),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -160,8 +162,9 @@ class _IntervalosDeConfianzaState extends State<IntervalosDeConfianza> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\bar{P}"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .promedioMuestralProporcion,
+                          AppLocalizations.of(
+                            context,
+                          )!.promedioMuestralProporcion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\sigma_{\bar{P}}"),

@@ -16,9 +16,12 @@ class _DisyuncionMatematicasDiscretasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -39,16 +42,15 @@ class _DisyuncionMatematicasDiscretasState
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TituloPersonalizado(
-                    AppLocalizations.of(context)!.disyuncion,
-                  ),
+                  TituloPersonalizado(AppLocalizations.of(context)!.disyuncion),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.disyuncion,
-                            widgetName: kWidgetDisyuncion),
+                          title: AppLocalizations.of(context)!.disyuncion,
+                          widgetName: kWidgetDisyuncion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +62,20 @@ class _DisyuncionMatematicasDiscretasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .disyuncion,
-                                    widgetName: kWidgetDisyuncion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.disyuncion,
+                                  widgetName: kWidgetDisyuncion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .disyuncion,
-                                    widgetName: kWidgetDisyuncion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.disyuncion,
+                                  widgetName: kWidgetDisyuncion,
+                                ),
                               );
                             }
                           });
@@ -78,28 +84,23 @@ class _DisyuncionMatematicasDiscretasState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.conector,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
                         const SizedBox(height: kEspacioEntreBotones),
                         //todo poner el conector or
                         const Latex(formulaText: r"\mathsf{o}"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.simbolos,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolos),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\mathsf{ p\lor q}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{ p\space \| \space  q}"),
+                          formulaText: r"\mathsf{ p\space \| \space  q}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.tablaVerdad,
@@ -109,51 +110,48 @@ class _DisyuncionMatematicasDiscretasState
                   ),
 
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(
-                              context, kImagenTablaDeVerdadDisyuncion1) ??
-                          kUrlImagenTablaDeVerdadDisyuncion1),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(
+                          context,
+                          kImagenTablaDeVerdadDisyuncion1,
+                        ) ??
+                        kUrlImagenTablaDeVerdadDisyuncion1,
                   ),
+                  const SizedBox(height: 30.0),
                   ZoomPersonalizado(
-                      child: Column(
-                    children: [
-                      const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.conector,
-                      ),
-                      const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.oExclusivo,
-                      ),
-                      const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.simbolo,
-                      ),
-                      const SizedBox(height: kEspacioEntreBotones),
-                      const Latex(formulaText: r"\mathsf{ p\oplus q}"),
-                      const SizedBox(height: kEspacioEntreBotones),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.tablaVerdad,
-                      ),
-                      const SizedBox(height: kEspacioEntreBotones),
-                    ],
-                  )),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.conector),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(
+                          AppLocalizations.of(context)!.oExclusivo,
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.simbolo),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(formulaText: r"\mathsf{ p\oplus q}"),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(
+                          AppLocalizations.of(context)!.tablaVerdad,
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                      ],
+                    ),
+                  ),
                   ZoomImagePersonalizado(
-                      urlImagen: getImageUrlById(
-                              context, kImagenTablaDeVerdadDisyuncion2) ??
-                          kUrlImagenTablaDeVerdadDisyuncion2),
-                  const SizedBox(
-                    height: 30.0,
+                    urlImagen:
+                        getImageUrlById(
+                          context,
+                          kImagenTablaDeVerdadDisyuncion2,
+                        ) ??
+                        kUrlImagenTablaDeVerdadDisyuncion2,
                   ),
+                  const SizedBox(height: 30.0),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDisyuncion,
-                  ),
+                  const VerPDF(url: kWidgetDisyuncion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDisyuncion,
-                  ),
+                  const DescargarPDF(url: kWidgetDisyuncion),
                 ],
               ),
             ),

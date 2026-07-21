@@ -16,9 +16,12 @@ class _AnualidadVencidaSimpleYCiertaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _AnualidadVencidaSimpleYCiertaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .anualidadVencidaSimpleYCierta,
-                            widgetName: kWidgetAnualidadVencidaSimpleyCierta),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.anualidadVencidaSimpleYCierta,
+                          widgetName: kWidgetAnualidadVencidaSimpleyCierta,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _AnualidadVencidaSimpleYCiertaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anualidadVencidaSimpleYCierta,
-                                    widgetName:
-                                        kWidgetAnualidadVencidaSimpleyCierta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anualidadVencidaSimpleYCierta,
+                                  widgetName:
+                                      kWidgetAnualidadVencidaSimpleyCierta,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .anualidadVencidaSimpleYCierta,
-                                    widgetName:
-                                        kWidgetAnualidadVencidaSimpleyCierta),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.anualidadVencidaSimpleYCierta,
+                                  widgetName:
+                                      kWidgetAnualidadVencidaSimpleyCierta,
+                                ),
                               );
                             }
                           });
@@ -81,9 +90,7 @@ class _AnualidadVencidaSimpleYCiertaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -94,37 +101,32 @@ class _AnualidadVencidaSimpleYCiertaState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"C = R\left[\frac{1-\left(1+\frac{i}{p}\right)^{-np}}{\left(\frac{i}{p}\right)}\right]"),
+                          formulaText:
+                              r"C = R\left[\frac{1-\left(1+\frac{i}{p}\right)^{-np}}{\left(\frac{i}{p}\right)}\right]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.montoAcumulado,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"M=R\left[\frac{\left(1+\frac{i}{p}\right)^{np}-1}{\left(\frac{i}{p}\right)}\right]"),
+                          formulaText:
+                              r"M=R\left[\frac{\left(1+\frac{i}{p}\right)^{np}-1}{\left(\frac{i}{p}\right)}\right]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAnualidadVencidaSimpleyCierta,
-                  ),
+                  const VerPDF(url: kWidgetAnualidadVencidaSimpleyCierta),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAnualidadVencidaSimpleyCierta,
-                  ),
+                  const DescargarPDF(url: kWidgetAnualidadVencidaSimpleyCierta),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -156,8 +158,9 @@ class _AnualidadVencidaSimpleYCiertaState
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"p"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .frecuenciaCapitalizacion,
+                                AppLocalizations.of(
+                                  context,
+                                )!.frecuenciaCapitalizacion,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"R"),

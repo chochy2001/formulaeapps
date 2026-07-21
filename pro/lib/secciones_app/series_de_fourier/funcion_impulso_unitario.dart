@@ -31,9 +31,11 @@ class FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .funcionImpulsoUnitario,
-                            widgetName: kWidgetFuncionImpulsoUnitario),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.funcionImpulsoUnitario,
+                          widgetName: kWidgetFuncionImpulsoUnitario,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionImpulsoUnitario,
-                                    widgetName: kWidgetFuncionImpulsoUnitario),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionImpulsoUnitario,
+                                  widgetName: kWidgetFuncionImpulsoUnitario,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionImpulsoUnitario,
-                                    widgetName: kWidgetFuncionImpulsoUnitario),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionImpulsoUnitario,
+                                  widgetName: kWidgetFuncionImpulsoUnitario,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -75,29 +79,34 @@ class FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\delta(t) = \left\{\begin{aligned}0 \space\space\space\space & \mathsf{Si\space}a\\\infty \space\space\space\space & \mathsf{Si\space}b\end{aligned}\right."),
+                          formulaText:
+                              r"\delta(t) = \left\{\begin{aligned}0 \space\space\space\space & \mathsf{Si\space}a\\\infty \space\space\space\space & \mathsf{Si\space}b\end{aligned}\right.",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\int_{-\infty}^{\infty}\delta(t)dt = 1"),
+                          formulaText:
+                              r"\int_{-\infty}^{\infty}\delta(t)dt = 1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\int_{-\infty}^{\infty}\delta(t)\phi (t)dt = \phi(0)"),
+                          formulaText:
+                              r"\int_{-\infty}^{\infty}\delta(t)\phi (t)dt = \phi(0)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"a\rightarrow t\not = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"b\rightarrow t = 0"),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .serieTrenPeriodicoImpulsosUnitarios,
+                          AppLocalizations.of(
+                            context,
+                          )!.serieTrenPeriodicoImpulsosUnitarios,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sum_{n=-\infty}^{\infty}\delta(t-nT) = \frac{1}{T}+\frac{2}{T}\sum_{n=1}^{\infty}\cos(n\omega_0t)"),
+                          formulaText:
+                              r"\sum_{n=-\infty}^{\infty}\delta(t-nT) = \frac{1}{T}+\frac{2}{T}\sum_{n=1}^{\infty}\cos(n\omega_0t)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -105,13 +114,9 @@ class FuncionImpulsoUnitarioState extends State<FuncionImpulsoUnitario> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetFuncionImpulsoUnitario,
-                  ),
+                  const VerPDF(url: kWidgetFuncionImpulsoUnitario),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetFuncionImpulsoUnitario,
-                  ),
+                  const DescargarPDF(url: kWidgetFuncionImpulsoUnitario),
                 ],
               ),
             ),

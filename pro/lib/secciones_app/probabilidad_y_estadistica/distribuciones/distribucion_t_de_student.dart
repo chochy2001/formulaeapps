@@ -31,9 +31,11 @@ class DistribucionTDeStudentState extends State<DistribucionTDeStudent> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionTStudent,
-                            widgetName: kWidgetDistribucionTDeStudent),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionTStudent,
+                          widgetName: kWidgetDistribucionTDeStudent,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class DistribucionTDeStudentState extends State<DistribucionTDeStudent> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionTStudent,
-                                    widgetName: kWidgetDistribucionTDeStudent),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionTStudent,
+                                  widgetName: kWidgetDistribucionTDeStudent,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionTStudent,
-                                    widgetName: kWidgetDistribucionTDeStudent),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionTStudent,
+                                  widgetName: kWidgetDistribucionTDeStudent,
+                                ),
                               );
                             }
                           });
@@ -63,15 +69,11 @@ class DistribucionTDeStudentState extends State<DistribucionTDeStudent> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -79,8 +81,9 @@ class DistribucionTDeStudentState extends State<DistribucionTDeStudent> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"t = \frac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}}"),
+                          formulaText:
+                              r"t = \frac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -88,21 +91,14 @@ class DistribucionTDeStudentState extends State<DistribucionTDeStudent> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionTDeStudent,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionTDeStudent),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionTDeStudent,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionTDeStudent),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

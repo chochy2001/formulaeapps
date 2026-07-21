@@ -14,9 +14,12 @@ class _ProductoPuntoState extends State<ProductoPunto> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,8 +48,9 @@ class _ProductoPuntoState extends State<ProductoPunto> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.productoPunto,
-                            widgetName: kWidgetProductoPunto),
+                          title: AppLocalizations.of(context)!.productoPunto,
+                          widgetName: kWidgetProductoPunto,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -58,16 +62,20 @@ class _ProductoPuntoState extends State<ProductoPunto> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .productoPunto,
-                                    widgetName: kWidgetProductoPunto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.productoPunto,
+                                  widgetName: kWidgetProductoPunto,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .productoPunto,
-                                    widgetName: kWidgetProductoPunto),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.productoPunto,
+                                  widgetName: kWidgetProductoPunto,
+                                ),
                               );
                             }
                           });
@@ -76,60 +84,57 @@ class _ProductoPuntoState extends State<ProductoPunto> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   ZoomPersonalizado(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        const Latex(
+                          formulaText:
+                              r"\mathrm{u} = \langle u_1,u_2,u_3 \rangle,\space \mathrm{v} = \langle v_1,v_2,v_3 \rangle",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u} = \langle u_1,u_2,u_3 \rangle,\space \mathrm{v} = \langle v_1,v_2,v_3 \rangle"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                            formulaText:
-                                r"\mathrm{u}\cdot\mathrm{v} = u_1v_1+\thinspace  u_2v_2\thinspace + u_3v_3"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
+                          formulaText:
+                              r"\mathrm{u}\cdot\mathrm{v} = u_1v_1+\thinspace  u_2v_2\thinspace + u_3v_3",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
+                        const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u},\space\mathrm{v},\space\mathrm{w}"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.vectores,
+                          formulaText:
+                              r"\mathrm{u},\space\mathrm{v},\space\mathrm{w}",
                         ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.vectores),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"c"),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.escalar,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.escalar),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.propiedades,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}\cdot\mathrm{v}=\mathrm{v}\cdot\mathrm{u}"),
+                          formulaText:
+                              r"\mathrm{u}\cdot\mathrm{v}=\mathrm{v}\cdot\mathrm{u}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"(c\mathrm{u})\cdot\mathrm{v}=\mathrm{u}\cdot(c\mathrm{v})=c(\mathrm{u}\cdot\mathrm{v})"),
+                          formulaText:
+                              r"(c\mathrm{u})\cdot\mathrm{v}=\mathrm{u}\cdot(c\mathrm{v})=c(\mathrm{u}\cdot\mathrm{v})",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}(\mathrm{v}+\mathrm{w})=\mathrm{u}\cdot\mathrm{v}+\mathrm{u}\cdot\mathrm{w}"),
+                          formulaText:
+                              r"\mathrm{u}(\mathrm{v}+\mathrm{w})=\mathrm{u}\cdot\mathrm{v}+\mathrm{u}\cdot\mathrm{w}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{u}\cdot\mathrm{u}=|\mathrm{u}|^2"),
+                          formulaText:
+                              r"\mathrm{u}\cdot\mathrm{u}=|\mathrm{u}|^2",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"0\cdot\mathrm{u}=0"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -137,28 +142,19 @@ class _ProductoPuntoState extends State<ProductoPunto> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetProductoPunto,
-                  ),
+                  const VerPDF(url: kWidgetProductoPunto),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetProductoPunto,
-                  ),
+                  const DescargarPDF(url: kWidgetProductoPunto),
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.vectoresOrtogonales,
                         ),

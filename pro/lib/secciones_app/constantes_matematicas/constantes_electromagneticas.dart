@@ -6,10 +6,12 @@ class ConstantesElectromagneticas extends StatefulWidget {
   const ConstantesElectromagneticas({super.key});
 
   @override
-  ConstantesElectromagneticasState createState() => ConstantesElectromagneticasState();
+  ConstantesElectromagneticasState createState() =>
+      ConstantesElectromagneticasState();
 }
 
-class ConstantesElectromagneticasState extends State<ConstantesElectromagneticas> {
+class ConstantesElectromagneticasState
+    extends State<ConstantesElectromagneticas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class ConstantesElectromagneticasState extends State<ConstantesElectromagneticas
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.constantesElectromagneticas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.constantesElectromagneticas,
                         widgetName: kWidgetConstantesElectromagneticas,
                       ),
                     );
@@ -44,14 +48,18 @@ class ConstantesElectromagneticasState extends State<ConstantesElectromagneticas
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesElectromagneticas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesElectromagneticas,
                                 widgetName: kWidgetConstantesElectromagneticas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.constantesElectromagneticas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.constantesElectromagneticas,
                                 widgetName: kWidgetConstantesElectromagneticas,
                               ),
                             );
@@ -69,15 +77,25 @@ class ConstantesElectromagneticasState extends State<ConstantesElectromagneticas
                 children: [
                   Latex(formulaText: r"e = 1.602 \times 10^{-19}\ \mathrm{C}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\varepsilon_0 = 8.854\,187 \times 10^{-12}\ \mathrm{F/m}"),
+                  Latex(
+                    formulaText:
+                        r"\varepsilon_0 = 8.854\,187 \times 10^{-12}\ \mathrm{F/m}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\mu_0 = 1.26 \times 10^{-6}\ \mathrm{H/m}"),
+                  Latex(
+                    formulaText: r"\mu_0 = 1.26 \times 10^{-6}\ \mathrm{H/m}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"F = 96\,485.3\ \mathrm{C/mol}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\mu_B = 927.400 \times 10^{-26}\ \mathrm{J/T}"),
+                  Latex(
+                    formulaText:
+                        r"\mu_B = 927.400 \times 10^{-26}\ \mathrm{J/T}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\mu_N = 5.05 \times 10^{-27}\ \mathrm{J/T}"),
+                  Latex(
+                    formulaText: r"\mu_N = 5.05 \times 10^{-27}\ \mathrm{J/T}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

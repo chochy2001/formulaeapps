@@ -16,9 +16,12 @@ class GeneralesState extends State<Generales> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -31,18 +34,14 @@ class GeneralesState extends State<Generales> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -51,38 +50,41 @@ class GeneralesState extends State<Generales> {
                     AppLocalizations.of(context)!.generales,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   //Propiedades Logaritmos
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.propiedadesLogaritmos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.propiedadesLogaritmos,
                     ruta: kRutaPropiedadesLogaritmos,
                   ),
                   //Funciones Trigonometricas
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesTrigonometricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesTrigonometricas,
                     ruta: kRutaFuncionesTrigonometricasGenerales,
                   ),
                   //Identidades Trigonometricas
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .identidadesTrigonometricas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.identidadesTrigonometricas,
                     ruta: kRutaIdentidadesTrigonometricas,
                   ),
                   //Trigonometricas Hiperbolicas
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .trigonometricasHiperbolicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.trigonometricasHiperbolicas,
                     ruta: kRutaTrigonometricasHiperbolicas,
                   ),
                   //Identidades Hiperbolicas
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.identidadesHiperbolicas,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.identidadesHiperbolicas,
                     ruta: kRutaIdentidadesHiperbolicas,
                   ),
                 ],

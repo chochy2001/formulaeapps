@@ -69,7 +69,9 @@ Future<bool> bootstrapCrashlytics() async {
   if (!_kEnableCrashlytics) return false;
   if (kIsWeb) {
     // Crashlytics has no web SDK; skip rather than fail at runtime.
-    debugPrint('[Observability] Crashlytics is not supported on web; skipping.');
+    debugPrint(
+      '[Observability] Crashlytics is not supported on web; skipping.',
+    );
     return false;
   }
   if (!hasFirebaseCredentials()) {

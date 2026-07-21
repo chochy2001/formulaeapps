@@ -46,13 +46,14 @@ class _ChatScreenState extends State<ChatScreen>
       return hasValidPurchase;
     }
 
-    bool validated =
-        await _inAppPurchaseManager.checkValidPurchase().catchError((error) {
-      if (kDebugMode) {
-        print('Error al validar la compra: $error');
-      }
-      return false;
-    });
+    bool validated = await _inAppPurchaseManager
+        .checkValidPurchase()
+        .catchError((error) {
+          if (kDebugMode) {
+            print('Error al validar la compra: $error');
+          }
+          return false;
+        });
     _inAppPurchaseManager.hasValidPurchase = validated;
     _storePurchaseState(validated);
     return validated;
@@ -86,28 +87,32 @@ class _ChatScreenState extends State<ChatScreen>
       return Future.value(false);
     });
 
-    _purchaseValidated!.then((value) {
-      if (kDebugMode) {
-        print('Validación de compra completada, valor: $value');
-      }
-      _storePurchaseState(value);
-      _validationTimer = Timer.periodic(
-          const Duration(hours: 1), (Timer t) => _getPurchaseValidation());
-    }).catchError((error) {
-      if (kDebugMode) {
-        print('Error después de la validación de compra: $error');
-      }
-    });
+    _purchaseValidated!
+        .then((value) {
+          if (kDebugMode) {
+            print('Validación de compra completada, valor: $value');
+          }
+          _storePurchaseState(value);
+          _validationTimer = Timer.periodic(
+            const Duration(hours: 1),
+            (Timer t) => _getPurchaseValidation(),
+          );
+        })
+        .catchError((error) {
+          if (kDebugMode) {
+            print('Error después de la validación de compra: $error');
+          }
+        });
   }
 
   void _initializePurchaseDetails() {
     // Use the public alias (not @visibleForTesting `platform`) so production
     // UI can refresh on purchase updates without analyzer warnings.
-    purchaseSubscription =
-        _inAppPurchaseManager.inAppPurchase.purchaseStream.listen((purchases) {
-      _inAppPurchaseManager.handlePurchaseUpdates(purchases);
-      setState(() {});
-    });
+    purchaseSubscription = _inAppPurchaseManager.inAppPurchase.purchaseStream
+        .listen((purchases) {
+          _inAppPurchaseManager.handlePurchaseUpdates(purchases);
+          setState(() {});
+        });
     WidgetsBinding.instance.addObserver(this);
     _inAppPurchaseManager.checkValidPurchase();
   }
@@ -119,15 +124,13 @@ class _ChatScreenState extends State<ChatScreen>
     );
     _animationController.repeat(reverse: true);
 
-    _animation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, 0.2),
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
-    );
+    _animation = Tween<Offset>(begin: Offset.zero, end: const Offset(0, 0.2))
+        .animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
   }
 
   void _initializeChatInputs() {
@@ -200,9 +203,7 @@ class _ChatScreenState extends State<ChatScreen>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: kColorBotones,
-            content: TextWidget(
-              label: e.toString(),
-            ),
+            content: TextWidget(label: e.toString()),
           ),
         );
       }
@@ -259,15 +260,14 @@ class _ChatScreenState extends State<ChatScreen>
                     child: IconButton(
                       icon: Animate(
                         effects: const [
-                          ShakeEffect(
-                            duration: Duration(seconds: 1),
-                          ),
+                          ShakeEffect(duration: Duration(seconds: 1)),
                         ],
-                        child: Icon(Icons.shopping_cart,
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : kColorFondo),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : kColorFondo,
+                        ),
                       ),
                       onPressed: () {
                         _animationController.stop();
@@ -277,10 +277,12 @@ class _ChatScreenState extends State<ChatScreen>
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : kColorFondo),
+                  icon: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : kColorFondo,
+                  ),
                   onPressed: () {
                     setState(() {
                       chatProvider.clearChat();
@@ -300,9 +302,11 @@ class _ChatScreenState extends State<ChatScreen>
                                 chatProvider.chatList.length, //chatList.length,
                             itemBuilder: (context, index) {
                               return ChatWidget(
-                                msg: chatProvider.getChatList[index]
+                                msg: chatProvider
+                                    .getChatList[index]
                                     .msg, //chatList[index].msg,
-                                chatIndex: chatProvider.getChatList[index]
+                                chatIndex: chatProvider
+                                    .getChatList[index]
                                     .chatIndex, //chatList[index].chatIndex,
                               );
                             },
@@ -313,9 +317,7 @@ class _ChatScreenState extends State<ChatScreen>
                             color: kColorBlanco,
                             size: 30.0,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10),
                         ],
                         Material(
                           color: kColorBotones,
@@ -340,10 +342,12 @@ class _ChatScreenState extends State<ChatScreen>
                                     style: kTextoBotonesDelgado,
                                     decoration: InputDecoration(
                                       hintText: hasValidPurchase
-                                          ? AppLocalizations.of(context)!
-                                              .comoPuedoAyudarte
-                                          : AppLocalizations.of(context)!
-                                              .suscribeteParaAcceder,
+                                          ? AppLocalizations.of(
+                                              context,
+                                            )!.comoPuedoAyudarte
+                                          : AppLocalizations.of(
+                                              context,
+                                            )!.suscribeteParaAcceder,
                                       hintStyle: kTextoBotonesDelgado,
                                       border: InputBorder.none,
                                     ),
@@ -358,20 +362,23 @@ class _ChatScreenState extends State<ChatScreen>
                                           );
                                         }
                                       : null,
-                                  icon: const Icon(Icons.send,
-                                      color: kColorBlanco),
+                                  icon: const Icon(
+                                    Icons.send,
+                                    color: kColorBlanco,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     )
                   : Center(
                       child: ImagenRemotaRobusta(
                         height: MediaQuery.of(context).size.height * 0.5,
                         width: double.infinity,
-                        urlImagen: getImageUrlById(context, kImagenChat) ??
+                        urlImagen:
+                            getImageUrlById(context, kImagenChat) ??
                             kUrlImagenChat,
                       ),
                     ),

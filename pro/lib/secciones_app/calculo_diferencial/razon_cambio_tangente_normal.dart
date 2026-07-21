@@ -31,8 +31,9 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!
-                            .razonCambioTangenteNormal,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.razonCambioTangenteNormal,
                         widgetName: kWidgetRazonCambioTangenteNormal,
                       ),
                     );
@@ -46,16 +47,18 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .razonCambioTangenteNormal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.razonCambioTangenteNormal,
                                 widgetName: kWidgetRazonCambioTangenteNormal,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .razonCambioTangenteNormal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.razonCambioTangenteNormal,
                                 widgetName: kWidgetRazonCambioTangenteNormal,
                               ),
                             );
@@ -86,15 +89,18 @@ class RazonCambioTangenteNormalState extends State<RazonCambioTangenteNormal> {
                   Latex(formulaText: r"y - f(x_1) = f'(x_1)\,(x - x_1)"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText: r"y - y_1 = -\frac{1}{f'(x_1)}\,(x - x_1)"),
+                    formulaText: r"y - y_1 = -\frac{1}{f'(x_1)}\,(x - x_1)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\tan \theta = \frac{m_2 - m_1}{1 + m_2\cdot m_1}"),
+                    formulaText:
+                        r"\tan \theta = \frac{m_2 - m_1}{1 + m_2\cdot m_1}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(
-                      formulaText:
-                          r"\text{area} = \frac{1}{2}\left[(x_2 - x_1)(y_3 - y_1) - (x_3 - x_1)(y_2 - y_1)\right]"),
+                    formulaText:
+                        r"\text{area} = \frac{1}{2}\left[(x_2 - x_1)(y_3 - y_1) - (x_3 - x_1)(y_2 - y_1)\right]",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

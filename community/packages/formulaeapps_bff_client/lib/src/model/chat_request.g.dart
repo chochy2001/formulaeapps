@@ -18,7 +18,7 @@ class _$ChatRequest extends ChatRequest {
       (ChatRequestBuilder()..update(updates))._build();
 
   _$ChatRequest._({required this.message, this.modelId, this.conversationId})
-      : super._();
+    : super._();
   @override
   ChatRequest rebuild(void Function(ChatRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -100,10 +100,14 @@ class ChatRequestBuilder implements Builder<ChatRequest, ChatRequestBuilder> {
   ChatRequest build() => _build();
 
   _$ChatRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$ChatRequest._(
           message: BuiltValueNullFieldError.checkNotNull(
-              message, r'ChatRequest', 'message'),
+            message,
+            r'ChatRequest',
+            'message',
+          ),
           modelId: modelId,
           conversationId: conversationId,
         );

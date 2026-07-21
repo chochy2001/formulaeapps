@@ -6,10 +6,12 @@ class AsintotasHorizontalesOblicuas extends StatefulWidget {
   const AsintotasHorizontalesOblicuas({super.key});
 
   @override
-  AsintotasHorizontalesOblicuasState createState() => AsintotasHorizontalesOblicuasState();
+  AsintotasHorizontalesOblicuasState createState() =>
+      AsintotasHorizontalesOblicuasState();
 }
 
-class AsintotasHorizontalesOblicuasState extends State<AsintotasHorizontalesOblicuas> {
+class AsintotasHorizontalesOblicuasState
+    extends State<AsintotasHorizontalesOblicuas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class AsintotasHorizontalesOblicuasState extends State<AsintotasHorizontalesObli
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.asintotasHorizontalesOblicuas,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.asintotasHorizontalesOblicuas,
                         widgetName: kWidgetAsintotasHorizontalesOblicuas,
                       ),
                     );
@@ -44,15 +48,21 @@ class AsintotasHorizontalesOblicuasState extends State<AsintotasHorizontalesObli
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.asintotasHorizontalesOblicuas,
-                                widgetName: kWidgetAsintotasHorizontalesOblicuas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.asintotasHorizontalesOblicuas,
+                                widgetName:
+                                    kWidgetAsintotasHorizontalesOblicuas,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.asintotasHorizontalesOblicuas,
-                                widgetName: kWidgetAsintotasHorizontalesOblicuas,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.asintotasHorizontalesOblicuas,
+                                widgetName:
+                                    kWidgetAsintotasHorizontalesOblicuas,
                               ),
                             );
                           }
@@ -73,7 +83,10 @@ class AsintotasHorizontalesOblicuasState extends State<AsintotasHorizontalesObli
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"y = m x + b"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\lim_{x \to \infty} \left[ f(x) - (m x + b) \right] = 0"),
+                  Latex(
+                    formulaText:
+                        r"\lim_{x \to \infty} \left[ f(x) - (m x + b) \right] = 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

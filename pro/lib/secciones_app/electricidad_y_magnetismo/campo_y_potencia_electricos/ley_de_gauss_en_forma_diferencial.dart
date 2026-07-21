@@ -29,9 +29,11 @@ class _LeyDeGaussEnFormaDiferencialState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .leyGaussFormaDiferencial,
-                      widgetName: kWidgetLeyDeGaussEnFormaDiferencial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.leyGaussFormaDiferencial,
+                    widgetName: kWidgetLeyDeGaussEnFormaDiferencial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _LeyDeGaussEnFormaDiferencialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyGaussFormaDiferencial,
-                              widgetName: kWidgetLeyDeGaussEnFormaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyGaussFormaDiferencial,
+                            widgetName: kWidgetLeyDeGaussEnFormaDiferencial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyGaussFormaDiferencial,
-                              widgetName: kWidgetLeyDeGaussEnFormaDiferencial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyGaussFormaDiferencial,
+                            widgetName: kWidgetLeyDeGaussEnFormaDiferencial,
+                          ),
                         );
                       }
                     });
@@ -70,41 +76,49 @@ class _LeyDeGaussEnFormaDiferencialState
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\oiint \vec{E} \cdot d\vec{A} = \frac{q_{enc}}{\epsilon _0}"),
+                    formulaText:
+                        r"\oiint \vec{E} \cdot d\vec{A} = \frac{q_{enc}}{\epsilon _0}",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .teoremaDivergenciaDensidadVolumetricaCarga,
+                    AppLocalizations.of(
+                      context,
+                    )!.teoremaDivergenciaDensidadVolumetricaCarga,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\iint \vec{F} \cdot \widehat{n}dS = \iiint \vec{\nabla} \cdot \vec{F} dV'"),
+                    formulaText:
+                        r"\iint \vec{F} \cdot \widehat{n}dS = \iiint \vec{\nabla} \cdot \vec{F} dV'",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\rho = \frac{dq}{dV'} \Rightarrow q = \iiint \rho dV'"),
+                    formulaText:
+                        r"\rho = \frac{dq}{dV'} \Rightarrow q = \iiint \rho dV'",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\oiint \vec{E} \cdot d \vec{A} = \iiint \vec{\nabla} \cdot \vec{E} dV'"),
+                    formulaText:
+                        r"\oiint \vec{E} \cdot d \vec{A} = \iiint \vec{\nabla} \cdot \vec{E} dV'",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\frac{q}{\varepsilon _0} = \frac{1}{\varepsilon _0}\iiint \rho dV'"),
+                    formulaText:
+                        r"\frac{q}{\varepsilon _0} = \frac{1}{\varepsilon _0}\iiint \rho dV'",
+                  ),
                   const SizedBox(height: 40.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.leyGaussFormaDiferencial,
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\iiint \vec{\nabla} \cdot \vec{E} dV' =\iiint \frac{1}{\varepsilon _0} \rho dV'"),
+                    formulaText:
+                        r"\iiint \vec{\nabla} \cdot \vec{E} dV' =\iiint \frac{1}{\varepsilon _0} \rho dV'",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"\vec{\nabla} \cdot \vec{E} = \frac{\rho}{\varepsilon _0}"),
+                    formulaText:
+                        r"\vec{\nabla} \cdot \vec{E} = \frac{\rho}{\varepsilon _0}",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.leyGaussPrimeraLeyMaxwell,
@@ -117,15 +131,11 @@ class _LeyDeGaussEnFormaDiferencialState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeGaussEnFormaDiferencial,
-                ),
+                VerPDF(url: kWidgetLeyDeGaussEnFormaDiferencial),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeGaussEnFormaDiferencial,
-                ),
+                DescargarPDF(url: kWidgetLeyDeGaussEnFormaDiferencial),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -6,7 +6,8 @@ class ReglaCadenaFuncionInversa extends StatefulWidget {
   const ReglaCadenaFuncionInversa({super.key});
 
   @override
-  ReglaCadenaFuncionInversaState createState() => ReglaCadenaFuncionInversaState();
+  ReglaCadenaFuncionInversaState createState() =>
+      ReglaCadenaFuncionInversaState();
 }
 
 class ReglaCadenaFuncionInversaState extends State<ReglaCadenaFuncionInversa> {
@@ -30,7 +31,9 @@ class ReglaCadenaFuncionInversaState extends State<ReglaCadenaFuncionInversa> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.reglaCadenaFuncionInversa,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.reglaCadenaFuncionInversa,
                         widgetName: kWidgetReglaCadenaFuncionInversa,
                       ),
                     );
@@ -44,14 +47,18 @@ class ReglaCadenaFuncionInversaState extends State<ReglaCadenaFuncionInversa> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reglaCadenaFuncionInversa,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reglaCadenaFuncionInversa,
                                 widgetName: kWidgetReglaCadenaFuncionInversa,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.reglaCadenaFuncionInversa,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.reglaCadenaFuncionInversa,
                                 widgetName: kWidgetReglaCadenaFuncionInversa,
                               ),
                             );
@@ -67,9 +74,15 @@ class ReglaCadenaFuncionInversaState extends State<ReglaCadenaFuncionInversa> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx},\quad du\neq 0"),
+                  Latex(
+                    formulaText:
+                        r"\frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx},\quad du\neq 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\frac{dy}{dx}=\frac{1}{\dfrac{dx}{dy}},\quad \frac{dx}{dy}\neq 0"),
+                  Latex(
+                    formulaText:
+                        r"\frac{dy}{dx}=\frac{1}{\dfrac{dx}{dy}},\quad \frac{dx}{dy}\neq 0",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -16,9 +16,12 @@ class _IdentidadesTrigonometricasFundamentalesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,10 +50,12 @@ class _IdentidadesTrigonometricasFundamentalesState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .identidadesTrigonometricas,
-                            widgetName:
-                                kWidgetIdentidadesTrigonometricasFundamentales),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricas,
+                          widgetName:
+                              kWidgetIdentidadesTrigonometricasFundamentales,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -62,18 +67,22 @@ class _IdentidadesTrigonometricasFundamentalesState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .identidadesTrigonometricas,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasFundamentales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.identidadesTrigonometricas,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasFundamentales,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .identidadesTrigonometricas,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasFundamentales),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.identidadesTrigonometricas,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasFundamentales,
+                                ),
                               );
                             }
                           });
@@ -82,33 +91,37 @@ class _IdentidadesTrigonometricasFundamentalesState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\sin\alpha = \frac{1}{\csc \alpha}"),
+                          formulaText: r"\sin\alpha = \frac{1}{\csc \alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\csc\alpha = \frac{1}{\sin\alpha}"),
+                          formulaText: r"\csc\alpha = \frac{1}{\sin\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\cos\alpha = \frac{1}{\sec\alpha}"),
+                          formulaText: r"\cos\alpha = \frac{1}{\sec\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\sec\alpha = \frac{1}{\cos\alpha}"),
+                          formulaText: r"\sec\alpha = \frac{1}{\cos\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan\alpha = \frac{\sin\alpha}{\cos\alpha} = \frac{1}{\cot\alpha}"),
+                          formulaText:
+                              r"\tan\alpha = \frac{\sin\alpha}{\cos\alpha} = \frac{1}{\cot\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot \alpha = \frac{\cos\alpha}{\sin\alpha} = \frac{1}{\tan\alpha}"),
+                          formulaText:
+                              r"\cot \alpha = \frac{\cos\alpha}{\sin\alpha} = \frac{1}{\tan\alpha}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\sin^2\alpha+\cos^2\alpha = 1"),

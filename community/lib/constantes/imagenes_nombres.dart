@@ -37,10 +37,10 @@ const String kImagenCirculacionParaUnaCargaPuntual =
     'circulacion_para_una_carga_puntual';
 const String kImagenConductividadYResistividad = 'conductividad_y_resistividad';
 const String
-    kImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente =
+kImagenConexionEnParaleloCargaDiferenciaDePotencialCapacitanciaEquivalente =
     'conexion_en_paralelo_carga_diferencia_de_potencial_capacitancia_equivalente';
 const String
-    kImagenConexionEnParaleloCorrienteDiferrenciaDePotencialResistenciaEquivalente =
+kImagenConexionEnParaleloCorrienteDiferrenciaDePotencialResistenciaEquivalente =
     'conexion_en_paralelo_corriente_diferencia_de_potencial_resistencia_equivalente';
 const String kImagenConexionEnParaleloFisico = 'conexion_en_paralelo_fisico';
 const String kImagenConexionEnParaleloInductor =
@@ -50,10 +50,10 @@ const String kImagenConexionEnParaleloResistor =
 const String kImagenConexionEnParaleloSimbologia =
     'conexion_en_paralelo_simbologia';
 const String
-    kImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente =
+kImagenConexionEnSerieCargaDiferenciaDePotencialCapacitanciaEquivalente =
     'conexion_en_serie_carga_diferencia_de_potencial_capacitancia_equivalente';
 const String
-    kImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente =
+kImagenConexionEnSerieCorrienteDiferenciaDePotencialYResistenciaEquivalente =
     'conexion_en_serie_corriente_diferencia_de_potencial_y_resistencia_equivalente';
 const String kImagenCapacitorConexionEnSerieFisico = 'conexion_en_serie_fisico';
 const String kImagenConexionEnSerieResistor = 'conexion_en_serie_resistor';

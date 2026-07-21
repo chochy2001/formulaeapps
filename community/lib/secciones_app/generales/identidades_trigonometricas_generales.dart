@@ -28,9 +28,12 @@ class _IdentidadesTrigonometricasGeneralesState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -55,9 +58,11 @@ class _IdentidadesTrigonometricasGeneralesState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .identidadesTrigonometricas,
-                      widgetName: kWidgetIdentidadesTrigonometricasGenerales),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.identidadesTrigonometricas,
+                    widgetName: kWidgetIdentidadesTrigonometricasGenerales,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -69,18 +74,22 @@ class _IdentidadesTrigonometricasGeneralesState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .identidadesTrigonometricas,
-                              widgetName:
-                                  kWidgetIdentidadesTrigonometricasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.identidadesTrigonometricas,
+                            widgetName:
+                                kWidgetIdentidadesTrigonometricasGenerales,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .identidadesTrigonometricas,
-                              widgetName:
-                                  kWidgetIdentidadesTrigonometricasGenerales),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.identidadesTrigonometricas,
+                            widgetName:
+                                kWidgetIdentidadesTrigonometricasGenerales,
+                          ),
                         );
                       }
                     });
@@ -89,9 +98,7 @@ class _IdentidadesTrigonometricasGeneralesState
               },
             ),
 
-            const SizedBox(
-              height: 30.0,
-            ),
+            const SizedBox(height: 30.0),
             //Apoyar al creador
             //Identidades Básicas
             GestureDetector(
@@ -150,37 +157,41 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\sin\thinspace x = \frac{1}{\csc\thinspace x}"),
+                      formulaText:
+                          r"\sin\thinspace x = \frac{1}{\csc\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\cos\thinspace x = \frac{1}{\sec\thinspace x}"),
+                      formulaText:
+                          r"\cos\thinspace x = \frac{1}{\sec\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\tan\thinspace x = \frac{\sin\thinspace x}{\cos\thinspace x} = \frac{1}{\cot\thinspace x}"),
+                      formulaText:
+                          r"\tan\thinspace x = \frac{\sin\thinspace x}{\cos\thinspace x} = \frac{1}{\cot\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\csc\thinspace x = \frac{1}{\sin\thinspace x}"),
+                      formulaText:
+                          r"\csc\thinspace x = \frac{1}{\sin\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\sec\thinspace x = \frac{1}{\cos\thinspace x}"),
+                      formulaText:
+                          r"\sec\thinspace x = \frac{1}{\cos\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\cot\thinspace x = \frac{\cos\thinspace x}{\sin\thinspace x} = \frac{1}{\tan\thinspace x}"),
+                      formulaText:
+                          r"\cot\thinspace x = \frac{\cos\thinspace x}{\sin\thinspace x} = \frac{1}{\tan\thinspace x}",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     VideosYoutube(kVideoIdentidadesBasicas),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Identidades Pitagoricas
             GestureDetector(
               onTap: () {
@@ -238,25 +249,23 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\sin^2\thinspace x+\cos^2\thinspace x = 1"),
+                      formulaText: r"\sin^2\thinspace x+\cos^2\thinspace x = 1",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\csc^2\thinspace x = \cot^2\thinspace x+1"),
+                      formulaText: r"\csc^2\thinspace x = \cot^2\thinspace x+1",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\sec^2\thinspace x=\tan^2\thinspace x+1"),
+                      formulaText: r"\sec^2\thinspace x=\tan^2\thinspace x+1",
+                    ),
                     SizedBox(height: kEspacioEntreBotones),
                     VideosYoutube(kVideoIdentidadesPitagoricas),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Identidades Reciprocas
             GestureDetector(
               onTap: () {
@@ -316,33 +325,40 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin\thinspace x\cdot \csc\thinspace x = 1"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin\thinspace x\cdot \csc\thinspace x = 1",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cos\thinspace x\cdot \sec\thinspace x = 1"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\cos\thinspace x\cdot \sec\thinspace x = 1",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan\thinspace x\cdot \cot\thinspace x = 1"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan\thinspace x\cdot \cot\thinspace x = 1",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Identidades Por Cociente
             GestureDetector(
               onTap: () {
@@ -400,26 +416,30 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan\thinspace x = \frac{\sin\thinspace x}{\cos\thinspace x}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan\thinspace x = \frac{\sin\thinspace x}{\cos\thinspace x}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cot\thinspace x = \frac{\cos\thinspace x}{\sin\thinspace x}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\cot\thinspace x = \frac{\cos\thinspace x}{\sin\thinspace x}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Par e Impar
             GestureDetector(
               onTap: () {
@@ -443,12 +463,8 @@ class _IdentidadesTrigonometricasGeneralesState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.parEImpar,
-                    ),
-                    SizedBox(
-                      width: seleccionadoParImpar ? 5.0 : 10.0,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.parEImpar),
+                    SizedBox(width: seleccionadoParImpar ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoParImpar,
                       child: const Icon(
@@ -474,37 +490,45 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\sin(-\theta) = -\sin\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cos(-\theta) = -\cos\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\tan(-\theta) = -\tan\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\csc(-\theta) = -\csc\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cot(-\theta) = -\cot\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Suplemento, Complemento
             GestureDetector(
               onTap: () {
@@ -562,38 +586,46 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText: r"\sin(\pi\pm\theta) = \mp \sin\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\sin(\pi\pm\theta) = \mp \sin\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin(\frac{\pi}{2}-\theta) = \cos\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\sin(\frac{\pi}{2}-\theta) = \cos\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText: r"\cos(\pi\pm\theta) = - \cos\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\cos(\pi\pm\theta) = - \cos\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cos(\frac{\pi}{2}-\theta) = \sin\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\cos(\frac{\pi}{2}-\theta) = \sin\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Angulo Doble y medio
             GestureDetector(
               onTap: () {
@@ -623,9 +655,7 @@ class _IdentidadesTrigonometricasGeneralesState
                     TextoEcuaciones(
                       AppLocalizations.of(context)!.anguloDobleYMedio,
                     ),
-                    SizedBox(
-                      width: seleccionadoAnguloDobleyMedio ? 5.0 : 10.0,
-                    ),
+                    SizedBox(width: seleccionadoAnguloDobleyMedio ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoAnguloDobleyMedio,
                       child: const Icon(
@@ -652,73 +682,98 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin(2\theta) = 2\sin\theta\cdot cos\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin(2\theta) = 2\sin\theta\cdot cos\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cos(2\theta) = cos^2\theta - \sin^2\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\cos(2\theta) = cos^2\theta - \sin^2\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText: r"\cos(2\theta) = 1 - 2\sin^2\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\cos(2\theta) = 1 - 2\sin^2\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText: r"\cos(2\theta) = 2\cos^2\theta - 1"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"\cos(2\theta) = 2\cos^2\theta - 1",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan(2\theta) = \frac{2\tan\theta}{1-\tan^2\theta}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan(2\theta) = \frac{2\tan\theta}{1-\tan^2\theta}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin\frac{\theta}{2} = \pm \sqrt{\frac{1-\cos\theta}{2}}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin\frac{\theta}{2} = \pm \sqrt{\frac{1-\cos\theta}{2}}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cos\frac{\theta}{2} = \pm \sqrt{\frac{1+\cos\theta}{2}}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\cos\frac{\theta}{2} = \pm \sqrt{\frac{1+\cos\theta}{2}}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan\frac{\theta}{2} = \pm \sqrt{\frac{1-\cos\theta}{1+\cos\theta}}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan\frac{\theta}{2} = \pm \sqrt{\frac{1-\cos\theta}{1+\cos\theta}}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan\frac{\theta}{2} = \frac{1-\cos\theta}{\sin\theta} =\frac{\sin\theta}{1+\cos\theta}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan\frac{\theta}{2} = \frac{1-\cos\theta}{\sin\theta} =\frac{\sin\theta}{1+\cos\theta}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Suma y Resta
             GestureDetector(
               onTap: () {
@@ -742,12 +797,8 @@ class _IdentidadesTrigonometricasGeneralesState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.sumaYResta,
-                    ),
-                    SizedBox(
-                      width: seleccionadoSumayResta ? 5.0 : 10.0,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.sumaYResta),
+                    SizedBox(width: seleccionadoSumayResta ? 5.0 : 10.0),
                     Visibility(
                       visible: !seleccionadoSumayResta,
                       child: const Icon(
@@ -773,47 +824,58 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"1+\tan^2\thinspace x = \sec^2\thinspace x"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"1+\tan^2\thinspace x = \sec^2\thinspace x",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"1+\cot^2\thinspace x = \csc^2\thinspace x"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText: r"1+\cot^2\thinspace x = \csc^2\thinspace x",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin(\theta\pm\beta) = \sin\theta \cdot \cos\beta\pm \sin\beta\cdot\cos\theta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin(\theta\pm\beta) = \sin\theta \cdot \cos\beta\pm \sin\beta\cdot\cos\theta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\cos(\theta\pm\beta) = \cos\theta \cdot \cos\beta\mp \sin\theta\cdot\cos\beta"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\cos(\theta\pm\beta) = \cos\theta \cdot \cos\beta\mp \sin\theta\cdot\cos\beta",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\tan(\theta\pm\beta) = \frac{\tan\theta\pm \tan\beta}{1\mp \tan\theta\cdot tan\beta}"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\tan(\theta\pm\beta) = \frac{\tan\theta\pm \tan\beta}{1\mp \tan\theta\cdot tan\beta}",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Suma a Producto
             GestureDetector(
               onTap: () {
@@ -843,8 +905,9 @@ class _IdentidadesTrigonometricasGeneralesState
                       AppLocalizations.of(context)!.sumaAProductoYViceversa,
                     ),
                     SizedBox(
-                      width:
-                          seleccionadoProductoaSumaSumaaProducto ? 5.0 : 10.0,
+                      width: seleccionadoProductoaSumaSumaaProducto
+                          ? 5.0
+                          : 10.0,
                     ),
                     Visibility(
                       visible: !seleccionadoProductoaSumaSumaaProducto,
@@ -876,76 +939,86 @@ class _IdentidadesTrigonometricasGeneralesState
                   children: [
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin\theta+ \sin\beta = 2\sin\left(\frac{\theta+\beta}{2}\right)\cos\left(\frac{\theta-\beta}{2}\right)"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    const Latex(
-                        formulaText:
-                            r"\sin\theta- \sin\beta = 2\sin\left(\frac{\theta-\beta}{2}\right)\cos\left(\frac{\theta+\beta}{2}\right)"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    const Latex(
-                        formulaText:
-                            r"\cos\theta+ \cos\beta = 2\cos\left(\frac{\theta+\beta}{2}\right)\cos\left(\frac{\theta-\beta}{2}\right)"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
-                    const SizedBox(height: kEspacioEntreBotones),
-                    const SafeArea(
-                      child: Latex(
-                          formulaText:
-                              r"\cos\theta- \cos\beta = -2\sin\left(\frac{\theta+\beta}{2}\right)\sin\left(\frac{\theta-\beta}{2}\right)"),
+                      formulaText:
+                          r"\sin\theta+ \sin\beta = 2\sin\left(\frac{\theta+\beta}{2}\right)\cos\left(\frac{\theta-\beta}{2}\right)",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
                     ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin\theta \cdot sin\beta = \frac{1}{2}[\cos(\theta-\beta)-\cos(\theta+\beta)]"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin\theta- \sin\beta = 2\sin\left(\frac{\theta-\beta}{2}\right)\cos\left(\frac{\theta+\beta}{2}\right)",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
+                      formulaText:
+                          r"\cos\theta+ \cos\beta = 2\cos\left(\frac{\theta+\beta}{2}\right)\cos\left(\frac{\theta-\beta}{2}\right)",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    const SafeArea(
+                      child: Latex(
                         formulaText:
-                            r"\cos\theta \cdot \cos\beta = \frac{1}{2}[\cos(\theta-\beta)+\cos(\theta+\beta)]"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                            r"\cos\theta- \cos\beta = -2\sin\left(\frac{\theta+\beta}{2}\right)\sin\left(\frac{\theta-\beta}{2}\right)",
+                      ),
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(
-                        formulaText:
-                            r"\sin\theta \cdot \cos\beta = \frac{1}{2}[\sin(\theta+\beta)+\sin(\theta-\beta)]"),
-                    Math.tex(r"",
-                        mathStyle: MathStyle.display,
-                        textStyle: kTextoLatexFormulas),
+                      formulaText:
+                          r"\sin\theta \cdot sin\beta = \frac{1}{2}[\cos(\theta-\beta)-\cos(\theta+\beta)]",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    const Latex(
+                      formulaText:
+                          r"\cos\theta \cdot \cos\beta = \frac{1}{2}[\cos(\theta-\beta)+\cos(\theta+\beta)]",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
+                    const SizedBox(height: kEspacioEntreBotones),
+                    const Latex(
+                      formulaText:
+                          r"\sin\theta \cdot \cos\beta = \frac{1}{2}[\sin(\theta+\beta)+\sin(\theta-\beta)]",
+                    ),
+                    Math.tex(
+                      r"",
+                      mathStyle: MathStyle.display,
+                      textStyle: kTextoLatexFormulas,
+                    ),
                     const SizedBox(height: kEspacioEntreBotones),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: kEspacioEntreBotones,
-            ),
+            const SizedBox(height: kEspacioEntreBotones),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetIdentidadesTrigonometricasGenerales,
-            ),
+            const VerPDF(url: kWidgetIdentidadesTrigonometricasGenerales),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetIdentidadesTrigonometricasGenerales,
-            ),
+            const DescargarPDF(url: kWidgetIdentidadesTrigonometricasGenerales),
             //Notas
             Container(
               decoration: BoxDecoration(
                 color: kColorBotones,
-                border: Border.all(
-                  color: kColorFondo,
-                  width: 8,
-                ),
+                border: Border.all(color: kColorFondo, width: 8),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -955,60 +1028,60 @@ class _IdentidadesTrigonometricasGeneralesState
                     children: [
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\sin"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.seno,
+                      TextoEcuaciones(AppLocalizations.of(context)!.seno),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\cos"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.coseno,
+                      TextoEcuaciones(AppLocalizations.of(context)!.coseno),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\tan"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.tangente,
+                      TextoEcuaciones(AppLocalizations.of(context)!.tangente),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\csc"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.cosecante,
+                      TextoEcuaciones(AppLocalizations.of(context)!.cosecante),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\sec"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.secante,
+                      TextoEcuaciones(AppLocalizations.of(context)!.secante),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\cot"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.cotangente,
+                      TextoEcuaciones(AppLocalizations.of(context)!.cotangente),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       const Latex(formulaText: r"\pm"),
-                      TextoEcuaciones(
-                        AppLocalizations.of(context)!.masMenos,
+                      TextoEcuaciones(AppLocalizations.of(context)!.masMenos),
+                      Math.tex(
+                        r"",
+                        mathStyle: MathStyle.display,
+                        textStyle: kTextoLatexFormulas,
                       ),
-                      Math.tex(r"",
-                          mathStyle: MathStyle.display,
-                          textStyle: kTextoLatexFormulas),
                       const SizedBox(height: kEspacioEntreBotones),
                       TextoEcuaciones(
                         AppLocalizations.of(context)!.interpretacionMasMenos,

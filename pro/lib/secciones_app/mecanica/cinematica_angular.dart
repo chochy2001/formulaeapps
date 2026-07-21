@@ -44,14 +44,18 @@ class CinematicaAngularState extends State<CinematicaAngular> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cinematicaAngular,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cinematicaAngular,
                                 widgetName: kWidgetCinematicaAngular,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.cinematicaAngular,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.cinematicaAngular,
                                 widgetName: kWidgetCinematicaAngular,
                               ),
                             );
@@ -71,9 +75,15 @@ class CinematicaAngularState extends State<CinematicaAngular> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\omega_f = \omega_0 + \alpha t"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\theta = \omega_0 t + \frac{\alpha t^{2}}{2}"),
+                  Latex(
+                    formulaText:
+                        r"\theta = \omega_0 t + \frac{\alpha t^{2}}{2}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\omega_f^{2} = \omega_0^{2} + 2 \alpha \theta"),
+                  Latex(
+                    formulaText:
+                        r"\omega_f^{2} = \omega_0^{2} + 2 \alpha \theta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

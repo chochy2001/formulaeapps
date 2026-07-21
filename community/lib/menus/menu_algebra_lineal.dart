@@ -16,9 +16,12 @@ class AlgebraLinealMenuState extends State<AlgebraLinealMenu> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -31,26 +34,19 @@ class AlgebraLinealMenuState extends State<AlgebraLinealMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const ImagenLogoFormulae(),
-              ),
+              TextButton(onPressed: () {}, child: const ImagenLogoFormulae()),
               Center(
                 child: Text(
                   AppLocalizations.of(context)!.algebraLineal,
                   style: kTextoBotones,
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               adContainer,
               Center(
                 child: Column(

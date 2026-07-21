@@ -22,18 +22,21 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
           children: [
             ChatGPTButton(
               child: TituloPersonalizado(
-                AppLocalizations.of(context)!
-                    .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                AppLocalizations.of(
+                  context,
+                )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
               ),
             ),
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
-                      widgetName:
-                          kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                    widgetName:
+                        kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -45,18 +48,22 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
-                              widgetName:
-                                  kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                            widgetName:
+                                kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
-                              widgetName:
-                                  kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.fuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                            widgetName:
+                                kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
+                          ),
                         );
                       }
                     });
@@ -73,14 +80,16 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
                 ),
                 const SizedBox(height: 40.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenAnalogiaConCampoElectrico1),
+                  urlImagen: kUrlImagenAnalogiaConCampoElectrico1,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.elEfectoDeUnCampoElectrico,
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenAnalogiaConCampoElectrico2),
+                  urlImagen: kUrlImagenAnalogiaConCampoElectrico2,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.elEfectoDeUnCampoMagnetico,
@@ -91,28 +100,28 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{F}_{em} = \vec{F}_e + \vec{F}_m"),
-                const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.fuerzaDeLorentz,
+                  formulaText: r"\vec{F}_{em} = \vec{F}_e + \vec{F}_m",
                 ),
+                const SizedBox(height: 40.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.fuerzaDeLorentz),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{F}_{em} = q \vec{E} + q\vec{v} \times \vec{B}"),
-                const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.fuerzaMagnetica,
+                  formulaText:
+                      r"\vec{F}_{em} = q \vec{E} + q\vec{v} \times \vec{B}",
                 ),
+                const SizedBox(height: 40.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.fuerzaMagnetica),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\vec{F}_m = q \vec{v} \times \vec{B}"),
+                  formulaText: r"\vec{F}_m = q \vec{v} \times \vec{B}",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"B=\frac{F_m}{qv\sin{\theta}}"),
                 const SizedBox(height: 30.0),
                 const Latex(
-                    formulaText:
-                        r"[B]_u=\left[\frac{N}{C\cdot\frac{m}{s}}\right]= [ T ]"),
+                  formulaText:
+                      r"[B]_u=\left[\frac{N}{C\cdot\frac{m}{s}}\right]= [ T ]",
+                ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.magnitudDeLaFuerzaMagnetica,
@@ -125,27 +134,32 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{v}\times\vec{B} =\begin{Vmatrix}\vec{i} & \vec{j} & \vec{k}\\v_x & v_y & v_z\\B_x & B_y & B_z\end{Vmatrix}"),
+                  formulaText:
+                      r"\vec{v}\times\vec{B} =\begin{Vmatrix}\vec{i} & \vec{j} & \vec{k}\\v_x & v_y & v_z\\B_x & B_y & B_z\end{Vmatrix}",
+                ),
                 const SizedBox(height: 20.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenReglaDeLaManoDerecha) ??
-                            kUrlImagenReglaDeLaManoDerecha),
-                const SizedBox(height: 40.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laFuerzaMagneticaEsSiemprePerpendicular,
+                  urlImagen:
+                      getImageUrlById(context, kImagenReglaDeLaManoDerecha) ??
+                      kUrlImagenReglaDeLaManoDerecha,
                 ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laFuerzaMagneticaNoRealizaTrabajo,
+                  AppLocalizations.of(
+                    context,
+                  )!.laFuerzaMagneticaEsSiemprePerpendicular,
                 ),
                 const SizedBox(height: 40.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laDireccionDeLaFuerzaDependeDelSigno,
+                  AppLocalizations.of(
+                    context,
+                  )!.laFuerzaMagneticaNoRealizaTrabajo,
+                ),
+                const SizedBox(height: 40.0),
+                TextoEcuaciones(
+                  AppLocalizations.of(
+                    context,
+                  )!.laDireccionDeLaFuerzaDependeDelSigno,
                 ),
                 const SizedBox(height: 40.0),
               ],
@@ -162,7 +176,7 @@ class _FuerzaMagneticaComoVectorSobreCargasEnMovimientoState
                   url: kWidgetFuerzaMagneticaComoVectorSobreCargasEnMovimiento,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

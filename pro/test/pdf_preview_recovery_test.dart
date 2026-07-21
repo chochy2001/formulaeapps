@@ -64,21 +64,21 @@ void main() {
     },
   );
 
-  testWidgets('PDF preview supplies the localized title when no title is given',
-      (tester) async {
-    await tester.pumpWidget(
-      _app(
-        const VerPDFGenerado(
-          previewContents: [
-            FavoriteFormulaContent(title: '', blocks: []),
-          ],
+  testWidgets(
+    'PDF preview supplies the localized title when no title is given',
+    (tester) async {
+      await tester.pumpWidget(
+        _app(
+          const VerPDFGenerado(
+            previewContents: [FavoriteFormulaContent(title: '', blocks: [])],
+          ),
         ),
-      ),
-    );
+      );
 
-    expect(find.text('Formulae PDF'), findsOneWidget);
-    expect(find.byType(FormulaePdfPreview), findsOneWidget);
-  });
+      expect(find.text('Formulae PDF'), findsOneWidget);
+      expect(find.byType(FormulaePdfPreview), findsOneWidget);
+    },
+  );
 
   testWidgets(
     'PDF preview renders every block type across multiple extracted formula pages',
@@ -137,11 +137,7 @@ void main() {
     'PDF size selector remains absent when the viewer cannot reflow or rebuild',
     (tester) async {
       await tester.pumpWidget(
-        _app(
-          const VerPDFGenerado(
-            title: 'Documento estático',
-          ),
-        ),
+        _app(const VerPDFGenerado(title: 'Documento estático')),
       );
 
       expect(find.byIcon(Icons.format_size_rounded), findsNothing);

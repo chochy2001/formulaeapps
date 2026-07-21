@@ -14,9 +14,12 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDeLaCotangente,
-                            widgetName: kWidgetTeoremaDeLaCotangente),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDeLaCotangente,
+                          widgetName: kWidgetTeoremaDeLaCotangente,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDeLaCotangente,
-                                    widgetName: kWidgetTeoremaDeLaCotangente),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDeLaCotangente,
+                                  widgetName: kWidgetTeoremaDeLaCotangente,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDeLaCotangente,
-                                    widgetName: kWidgetTeoremaDeLaCotangente),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDeLaCotangente,
+                                  widgetName: kWidgetTeoremaDeLaCotangente,
+                                ),
                               );
                             }
                           });
@@ -77,9 +86,7 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -87,28 +94,34 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot a \sin b  = \cos b \cos \gamma + \sin \gamma \cot \alpha"),
+                          formulaText:
+                              r"\cot a \sin b  = \cos b \cos \gamma + \sin \gamma \cot \alpha",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot a \sin c  = \cos c \cos \beta + \sin \beta \cot \alpha"),
+                          formulaText:
+                              r"\cot a \sin c  = \cos c \cos \beta + \sin \beta \cot \alpha",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot b \sin a  = \cos a \cos \gamma + \sin \gamma\cot \beta"),
+                          formulaText:
+                              r"\cot b \sin a  = \cos a \cos \gamma + \sin \gamma\cot \beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot b \sin c  = \cos c \cos \alpha + \sin \alpha\cot \beta"),
+                          formulaText:
+                              r"\cot b \sin c  = \cos c \cos \alpha + \sin \alpha\cot \beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot c \sin a  = \cos a \cos \beta + \sin \beta\cot \gamma"),
+                          formulaText:
+                              r"\cot c \sin a  = \cos a \cos \beta + \sin \beta\cot \gamma",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cot c \sin b  = \cos b \cos \alpha + \sin \alpha\cot \gamma"),
+                          formulaText:
+                              r"\cot c \sin b  = \cos b \cos \alpha + \sin \alpha\cot \gamma",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
@@ -117,21 +130,14 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTeoremaDeLaCotangente,
-                  ),
+                  const VerPDF(url: kWidgetTeoremaDeLaCotangente),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTeoremaDeLaCotangente,
-                  ),
+                  const DescargarPDF(url: kWidgetTeoremaDeLaCotangente),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -145,8 +151,9 @@ class _TeoremaDeLaCotangenteState extends State<TeoremaDeLaCotangente> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

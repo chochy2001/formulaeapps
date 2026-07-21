@@ -6,10 +6,12 @@ class SustitucionTrigonometricaIntegral extends StatefulWidget {
   const SustitucionTrigonometricaIntegral({super.key});
 
   @override
-  SustitucionTrigonometricaIntegralState createState() => SustitucionTrigonometricaIntegralState();
+  SustitucionTrigonometricaIntegralState createState() =>
+      SustitucionTrigonometricaIntegralState();
 }
 
-class SustitucionTrigonometricaIntegralState extends State<SustitucionTrigonometricaIntegral> {
+class SustitucionTrigonometricaIntegralState
+    extends State<SustitucionTrigonometricaIntegral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class SustitucionTrigonometricaIntegralState extends State<SustitucionTrigonomet
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral,
+                    AppLocalizations.of(
+                      context,
+                    )!.sustitucionTrigonometricaIntegral,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.sustitucionTrigonometricaIntegral,
                         widgetName: kWidgetSustitucionTrigonometricaIntegral,
                       ),
                     );
@@ -44,15 +50,21 @@ class SustitucionTrigonometricaIntegralState extends State<SustitucionTrigonomet
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral,
-                                widgetName: kWidgetSustitucionTrigonometricaIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.sustitucionTrigonometricaIntegral,
+                                widgetName:
+                                    kWidgetSustitucionTrigonometricaIntegral,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.sustitucionTrigonometricaIntegral,
-                                widgetName: kWidgetSustitucionTrigonometricaIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.sustitucionTrigonometricaIntegral,
+                                widgetName:
+                                    kWidgetSustitucionTrigonometricaIntegral,
                               ),
                             );
                           }
@@ -67,11 +79,20 @@ class SustitucionTrigonometricaIntegralState extends State<SustitucionTrigonomet
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"u = a\tan\theta, \quad du = a\sec^{2}\theta\,d\theta, \quad \sqrt{u^{2}+a^{2}} = a\sec\theta"),
+                  Latex(
+                    formulaText:
+                        r"u = a\tan\theta, \quad du = a\sec^{2}\theta\,d\theta, \quad \sqrt{u^{2}+a^{2}} = a\sec\theta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"u = a\sec\theta, \quad du = a\sec\theta\tan\theta\,d\theta, \quad \sqrt{u^{2}-a^{2}} = a\tan\theta"),
+                  Latex(
+                    formulaText:
+                        r"u = a\sec\theta, \quad du = a\sec\theta\tan\theta\,d\theta, \quad \sqrt{u^{2}-a^{2}} = a\tan\theta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"u = a\sin\theta, \quad du = a\cos\theta\,d\theta, \quad \sqrt{a^{2}-u^{2}} = a\cos\theta"),
+                  Latex(
+                    formulaText:
+                        r"u = a\sin\theta, \quad du = a\cos\theta\,d\theta, \quad \sqrt{a^{2}-u^{2}} = a\cos\theta",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

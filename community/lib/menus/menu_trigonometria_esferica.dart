@@ -17,9 +17,12 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -39,9 +42,7 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -50,13 +51,12 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
                     AppLocalizations.of(context)!.trigonometriaEsferica,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.analogiasDeGaussDelambre,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.analogiasDeGaussDelambre,
                     ruta: kRutaAnalogiasDeGaussDelambre,
                   ),
                   BotonesMenu(
@@ -64,8 +64,9 @@ class MenuTrigonometriaEsfericaState extends State<MenuTrigonometriaEsferica> {
                     ruta: kRutaAnalogiasDeNeper,
                   ),
                   BotonesMenu(
-                    textoBoton:
-                        AppLocalizations.of(context)!.funcionesDelAnguloMitad,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.funcionesDelAnguloMitad,
                     ruta: kRutaFuncionesDelAnguloMitad,
                   ),
                 ],

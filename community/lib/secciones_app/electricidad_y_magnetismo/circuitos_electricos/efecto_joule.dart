@@ -14,9 +14,12 @@ class _EfectoJouleState extends State<EfectoJoule> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,9 +36,7 @@ class _EfectoJouleState extends State<EfectoJoule> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.efectoJoule,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.efectoJoule),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
@@ -55,14 +56,16 @@ class _EfectoJouleState extends State<EfectoJoule> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.efectoJoule,
-                              widgetName: kWidgetEfectoJoule),
+                            title: AppLocalizations.of(context)!.efectoJoule,
+                            widgetName: kWidgetEfectoJoule,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.efectoJoule,
-                              widgetName: kWidgetEfectoJoule),
+                            title: AppLocalizations.of(context)!.efectoJoule,
+                            widgetName: kWidgetEfectoJoule,
+                          ),
                         );
                       }
                     });
@@ -87,31 +90,21 @@ class _EfectoJouleState extends State<EfectoJoule> {
                 const Latex(formulaText: r"[P]_u = [W]: Watt"),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeJoule,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeJoule),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.resistor,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.resistor),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule2),
                 const ZoomImagePersonalizado(urlImagen: kUrlImagenEfectoJoule1),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.resistorPuro,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.resistorPuro),
                 const SizedBox(height: 20.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetEfectoJoule,
-            ),
+            const VerPDF(url: kWidgetEfectoJoule),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetEfectoJoule,
-            ),
+            const DescargarPDF(url: kWidgetEfectoJoule),
           ],
         ),
       ),

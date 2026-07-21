@@ -44,14 +44,18 @@ class RegresionLinealState extends State<RegresionLineal> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.regresionLineal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.regresionLineal,
                                 widgetName: kWidgetRegresionLineal,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.regresionLineal,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.regresionLineal,
                                 widgetName: kWidgetRegresionLineal,
                               ),
                             );
@@ -69,17 +73,30 @@ class RegresionLinealState extends State<RegresionLineal> {
                 children: [
                   Latex(formulaText: r"y = m x + b"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"m = \left( \dfrac{\sum X_i \sum Y_i}{N} - \sum X_i Y_i \right) \Big/ \left( \dfrac{\left(\sum X_i\right)^{2}}{N} - \sum X_i^{2} \right)"),
+                  Latex(
+                    formulaText:
+                        r"m = \left( \dfrac{\sum X_i \sum Y_i}{N} - \sum X_i Y_i \right) \Big/ \left( \dfrac{\left(\sum X_i\right)^{2}}{N} - \sum X_i^{2} \right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"b = \bar{Y} - m\,\bar{X}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\bar{X} = \frac{1}{N} \sum_{i=1}^{N} X_i"),
+                  Latex(
+                    formulaText: r"\bar{X} = \frac{1}{N} \sum_{i=1}^{N} X_i",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\bar{Y} = \frac{1}{N} \sum_{i=1}^{N} Y_i"),
+                  Latex(
+                    formulaText: r"\bar{Y} = \frac{1}{N} \sum_{i=1}^{N} Y_i",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma_x^{2} = \frac{1}{N} \sum_{i=1}^{N} \left( X_i^{2} - \bar{X}^{2} \right)"),
+                  Latex(
+                    formulaText:
+                        r"\sigma_x^{2} = \frac{1}{N} \sum_{i=1}^{N} \left( X_i^{2} - \bar{X}^{2} \right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma_Y^{2} = \frac{1}{N} \sum_{i=1}^{N} \left( Y_i^{2} - \bar{Y}^{2} \right)"),
+                  Latex(
+                    formulaText:
+                        r"\sigma_Y^{2} = \frac{1}{N} \sum_{i=1}^{N} \left( Y_i^{2} - \bar{Y}^{2} \right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"r = m\,\sigma_x / \sigma_y"),
                   SizedBox(height: kEspacioEntreBotones),

@@ -27,8 +27,9 @@ class _InductorState extends State<Inductor> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.inductor,
-                      widgetName: kWidgetInductor),
+                    title: AppLocalizations.of(context)!.inductor,
+                    widgetName: kWidgetInductor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,14 +41,16 @@ class _InductorState extends State<Inductor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.inductor,
-                              widgetName: kWidgetInductor),
+                            title: AppLocalizations.of(context)!.inductor,
+                            widgetName: kWidgetInductor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.inductor,
-                              widgetName: kWidgetInductor),
+                            title: AppLocalizations.of(context)!.inductor,
+                            widgetName: kWidgetInductor,
+                          ),
                         );
                       }
                     });
@@ -60,17 +63,15 @@ class _InductorState extends State<Inductor> {
 
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.sentidoFisico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.sentidoFisico),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide),
+                  urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide,
+                ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.simbologia,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.simbologia),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenInductorSimbologiaBasica),
+                  urlImagen: kUrlImagenInductorSimbologiaBasica,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -78,15 +79,11 @@ class _InductorState extends State<Inductor> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetInductor,
-                ),
+                VerPDF(url: kWidgetInductor),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetInductor,
-                ),
+                DescargarPDF(url: kWidgetInductor),
               ],
-            )
+            ),
           ],
         ),
       ),

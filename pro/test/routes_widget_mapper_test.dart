@@ -18,9 +18,7 @@ import 'package:formulae/widgets_personalizados/textos_personalizados.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _routesRequiringPlatformChannels = <String>{
-  kRutaChatGPT,
-};
+const _routesRequiringPlatformChannels = <String>{kRutaChatGPT};
 
 // Commit ad9e863 expanded the route table from 300 to 427 entries and the
 // favorites table from 261 to 382. This explicit ledger is intentionally not
@@ -378,7 +376,9 @@ void main() {
         await tester.pumpWidget(const SizedBox.shrink());
         await tester.pump(const Duration(seconds: 1));
         expect(
-            rendered, routes.length - _routesRequiringPlatformChannels.length);
+          rendered,
+          routes.length - _routesRequiringPlatformChannels.length,
+        );
       },
       timeout: const Timeout(Duration(minutes: 45)),
     );
@@ -424,7 +424,9 @@ void main() {
         await tester.pumpWidget(const SizedBox.shrink());
         await tester.pump(const Duration(seconds: 1));
         expect(
-            rendered, routes.length - _routesRequiringPlatformChannels.length);
+          rendered,
+          routes.length - _routesRequiringPlatformChannels.length,
+        );
       },
       timeout: const Timeout(Duration(minutes: 45)),
     );
@@ -562,18 +564,10 @@ Widget _buildHarness({
       ChangeNotifierProvider<LocaleProvider>(
         create: (_) => LocaleProvider(locale),
       ),
-      ChangeNotifierProvider<ModelsProvider>(
-        create: (_) => ModelsProvider(),
-      ),
-      ChangeNotifierProvider<ChatProvider>(
-        create: (_) => ChatProvider(),
-      ),
-      ChangeNotifierProvider<TaskData>(
-        create: (_) => TaskData(),
-      ),
-      ChangeNotifierProvider<FavoritesNotifier>.value(
-        value: favoritesNotifier,
-      ),
+      ChangeNotifierProvider<ModelsProvider>(create: (_) => ModelsProvider()),
+      ChangeNotifierProvider<ChatProvider>(create: (_) => ChatProvider()),
+      ChangeNotifierProvider<TaskData>(create: (_) => TaskData()),
+      ChangeNotifierProvider<FavoritesNotifier>.value(value: favoritesNotifier),
     ],
     child: PdfCaptureScope(
       isCapturing: true,

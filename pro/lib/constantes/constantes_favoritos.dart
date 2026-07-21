@@ -606,17 +606,26 @@ const kWidgetValoresDeSenoYCoseno = 'ValoresDeSenoYCoseno';
 const kWidgetCoeficientesBinomiales = 'CoeficientesBinomiales';
 const kWidgetPotenciasNEsimas = 'PotenciasNEsimas';
 const kWidgetEcuacionCubica = 'EcuacionCubica';
-const kWidgetEcuacionCuadraticaFormaMonicaVieta = 'EcuacionCuadraticaFormaMonicaVieta';
-const kWidgetNumerosComplejosFormaExponencialNumeroComplejo = 'NumerosComplejosFormaExponencialNumeroComplejo';
-const kWidgetNumerosComplejosRaicesEIgualdadNumerosComplejos = 'NumerosComplejosRaicesEIgualdadNumerosComplejos';
+const kWidgetEcuacionCuadraticaFormaMonicaVieta =
+    'EcuacionCuadraticaFormaMonicaVieta';
+const kWidgetNumerosComplejosFormaExponencialNumeroComplejo =
+    'NumerosComplejosFormaExponencialNumeroComplejo';
+const kWidgetNumerosComplejosRaicesEIgualdadNumerosComplejos =
+    'NumerosComplejosRaicesEIgualdadNumerosComplejos';
 const kWidgetPropiedadesLogaritmos = 'PropiedadesLogaritmos';
 const kWidgetDeterminantesCramerSarrus = 'DeterminantesCramerSarrus';
-const kWidgetAlgebraLinealMatricesTiposDeMatrices = 'AlgebraLinealMatricesTiposDeMatrices';
-const kWidgetAlgebraLinealVectoresProductosBaseCanonica = 'AlgebraLinealVectoresProductosBaseCanonica';
-const kWidgetAlgebraLinealVectoresProductoEscalarTriple = 'AlgebraLinealVectoresProductoEscalarTriple';
-const kWidgetAlgebraLinealVectoresSumaVectoresComponentes = 'AlgebraLinealVectoresSumaVectoresComponentes';
-const kWidgetAlgebraLinealVectoresLeySenosCosenos = 'AlgebraLinealVectoresLeySenosCosenos';
-const kWidgetAlgebraLinealVectoresRazonesTrigonometricas = 'AlgebraLinealVectoresRazonesTrigonometricas';
+const kWidgetAlgebraLinealMatricesTiposDeMatrices =
+    'AlgebraLinealMatricesTiposDeMatrices';
+const kWidgetAlgebraLinealVectoresProductosBaseCanonica =
+    'AlgebraLinealVectoresProductosBaseCanonica';
+const kWidgetAlgebraLinealVectoresProductoEscalarTriple =
+    'AlgebraLinealVectoresProductoEscalarTriple';
+const kWidgetAlgebraLinealVectoresSumaVectoresComponentes =
+    'AlgebraLinealVectoresSumaVectoresComponentes';
+const kWidgetAlgebraLinealVectoresLeySenosCosenos =
+    'AlgebraLinealVectoresLeySenosCosenos';
+const kWidgetAlgebraLinealVectoresRazonesTrigonometricas =
+    'AlgebraLinealVectoresRazonesTrigonometricas';
 const kWidgetLimitesTeoremasLimites = 'LimitesTeoremasLimites';
 const kWidgetLimitesLimitesInfinitos = 'LimitesLimitesInfinitos';
 const kWidgetLimitesLimitesImportantes = 'LimitesLimitesImportantes';
@@ -626,26 +635,34 @@ const kWidgetReglaLhopital = 'ReglaLhopital';
 const kWidgetDiferenciales = 'Diferenciales';
 const kWidgetDerivadasAlgebraicasRadicales = 'DerivadasAlgebraicasRadicales';
 const kWidgetReglaCadenaFuncionInversa = 'ReglaCadenaFuncionInversa';
-const kWidgetDerivadasTrigonometricasComplementarias = 'DerivadasTrigonometricasComplementarias';
+const kWidgetDerivadasTrigonometricasComplementarias =
+    'DerivadasTrigonometricasComplementarias';
 const kWidgetDerivadasHiperbolicasInversas = 'DerivadasHiperbolicasInversas';
 const kWidgetDerivacionLogaritmica = 'DerivacionLogaritmica';
 const kWidgetRazonCambioTangenteNormal = 'RazonCambioTangenteNormal';
 const kWidgetAplicacionFisicaDerivada = 'AplicacionFisicaDerivada';
-const kWidgetIntegralesInmediatasAdicionalesIntegral = 'IntegralesInmediatasAdicionalesIntegral';
-const kWidgetPotenciasReduccionTrigonometricasIntegral = 'PotenciasReduccionTrigonometricasIntegral';
-const kWidgetTrigonometricasRacionalesProductosIntegral = 'TrigonometricasRacionalesProductosIntegral';
-const kWidgetPotenciasReduccionHiperbolicasIntegral = 'PotenciasReduccionHiperbolicasIntegral';
+const kWidgetIntegralesInmediatasAdicionalesIntegral =
+    'IntegralesInmediatasAdicionalesIntegral';
+const kWidgetPotenciasReduccionTrigonometricasIntegral =
+    'PotenciasReduccionTrigonometricasIntegral';
+const kWidgetTrigonometricasRacionalesProductosIntegral =
+    'TrigonometricasRacionalesProductosIntegral';
+const kWidgetPotenciasReduccionHiperbolicasIntegral =
+    'PotenciasReduccionHiperbolicasIntegral';
 const kWidgetHiperbolicasInversasIntegral = 'HiperbolicasInversasIntegral';
-const kWidgetIntegralDefinidaPropiedadesIntegral = 'IntegralDefinidaPropiedadesIntegral';
+const kWidgetIntegralDefinidaPropiedadesIntegral =
+    'IntegralDefinidaPropiedadesIntegral';
 const kWidgetIntegracionNumericaIntegral = 'IntegracionNumericaIntegral';
-const kWidgetSustitucionTrigonometricaIntegral = 'SustitucionTrigonometricaIntegral';
+const kWidgetSustitucionTrigonometricaIntegral =
+    'SustitucionTrigonometricaIntegral';
 const kWidgetAreaLongitudArcoIntegral = 'AreaLongitudArcoIntegral';
 const kWidgetFraccionesParcialesIntegral = 'FraccionesParcialesIntegral';
 const kWidgetConstantesMatematicas = 'ConstantesMatematicas';
 const kWidgetConstantesFisicasUniversales = 'ConstantesFisicasUniversales';
 const kWidgetConstantesElectromagneticas = 'ConstantesElectromagneticas';
 const kWidgetConstantesAtomicasMoleculares = 'ConstantesAtomicasMoleculares';
-const kWidgetConstantesTerrestresAstronomicas = 'ConstantesTerrestresAstronomicas';
+const kWidgetConstantesTerrestresAstronomicas =
+    'ConstantesTerrestresAstronomicas';
 const kWidgetLongitudConversion = 'LongitudConversion';
 const kWidgetSuperficieConversion = 'SuperficieConversion';
 const kWidgetVolumenConversion = 'VolumenConversion';
@@ -656,14 +673,17 @@ const kWidgetEnergiaConversion = 'EnergiaConversion';
 const kWidgetPotenciaConversion = 'PotenciaConversion';
 const kWidgetPotenciaYReactanciasEnCa = 'PotenciaYReactanciasEnCa';
 const kWidgetCaValoresEficacesTransformador = 'CaValoresEficacesTransformador';
-const kWidgetInstrumentosDeMedicionElectrica = 'InstrumentosDeMedicionElectrica';
+const kWidgetInstrumentosDeMedicionElectrica =
+    'InstrumentosDeMedicionElectrica';
 const kWidgetCircuitoLrEnSerie = 'CircuitoLrEnSerie';
 const kWidgetFuerzaYTorcaMagnetica = 'FuerzaYTorcaMagnetica';
 const kWidgetCapacitoresCilindricoYEsferico = 'CapacitoresCilindricoYEsferico';
-const kWidgetPermeabilidadMagneticaEnMateriales = 'PermeabilidadMagneticaEnMateriales';
+const kWidgetPermeabilidadMagneticaEnMateriales =
+    'PermeabilidadMagneticaEnMateriales';
 const kWidgetBateriaRealVoltajeEnTerminales = 'BateriaRealVoltajeEnTerminales';
 const kWidgetLaRectaYElTriangulo = 'LaRectaYElTriangulo';
-const kWidgetTangentesYPropiedadesDeLasConicas = 'TangentesYPropiedadesDeLasConicas';
+const kWidgetTangentesYPropiedadesDeLasConicas =
+    'TangentesYPropiedadesDeLasConicas';
 const kWidgetHiperbolaEquilatera = 'HiperbolaEquilatera';
 const kWidgetLaCurvaExponencial = 'LaCurvaExponencial';
 const kWidgetAceleracionYMrua = 'AceleracionYMrua';
@@ -689,38 +709,56 @@ const kWidgetDesigualdadesTeoremasDeOrden = 'DesigualdadesTeoremasDeOrden';
 const kWidgetConjuntosEIntervalos = 'ConjuntosEIntervalos';
 const kWidgetValorAbsoluto = 'ValorAbsoluto';
 const kWidgetLeyDeLaIluminacion = 'LeyDeLaIluminacion';
-const kWidgetReflexionYAumentoFormaNewtoniana = 'ReflexionYAumentoFormaNewtoniana';
-const kWidgetEcuacionDeLasLentesFormaGaussiana = 'EcuacionDeLasLentesFormaGaussiana';
+const kWidgetReflexionYAumentoFormaNewtoniana =
+    'ReflexionYAumentoFormaNewtoniana';
+const kWidgetEcuacionDeLasLentesFormaGaussiana =
+    'EcuacionDeLasLentesFormaGaussiana';
 const kWidgetRefraccionDeLaLuzLeyDeSnell = 'RefraccionDeLaLuzLeyDeSnell';
 const kWidgetTiposDeLentesYMarchaDeRayos = 'TiposDeLentesYMarchaDeRayos';
 const kWidgetAxiomasDeProbabilidad = 'AxiomasDeProbabilidad';
-const kWidgetFuncionesDeMasaDensidadYAcumulada = 'FuncionesDeMasaDensidadYAcumulada';
-const kWidgetFuncionesDeProbabilidadConjuntasYCondicionales = 'FuncionesDeProbabilidadConjuntasYCondicionales';
+const kWidgetFuncionesDeMasaDensidadYAcumulada =
+    'FuncionesDeMasaDensidadYAcumulada';
+const kWidgetFuncionesDeProbabilidadConjuntasYCondicionales =
+    'FuncionesDeProbabilidadConjuntasYCondicionales';
 const kWidgetEsperanzaMediaYVarianza = 'EsperanzaMediaYVarianza';
-const kWidgetDistribucionesDistribucionDeBernoulli = 'DistribucionesDistribucionDeBernoulli';
-const kWidgetDistribucionesDistribucionDePascal = 'DistribucionesDistribucionDePascal';
+const kWidgetDistribucionesDistribucionDeBernoulli =
+    'DistribucionesDistribucionDeBernoulli';
+const kWidgetDistribucionesDistribucionDePascal =
+    'DistribucionesDistribucionDePascal';
 const kWidgetDistribucionesDistribucionBeta = 'DistribucionesDistribucionBeta';
-const kWidgetDistribucionesDistribucionDeCauchy = 'DistribucionesDistribucionDeCauchy';
-const kWidgetDistribucionesDistribucionDeErlang = 'DistribucionesDistribucionDeErlang';
-const kWidgetDistribucionesDistribucionUniforme = 'DistribucionesDistribucionUniforme';
+const kWidgetDistribucionesDistribucionDeCauchy =
+    'DistribucionesDistribucionDeCauchy';
+const kWidgetDistribucionesDistribucionDeErlang =
+    'DistribucionesDistribucionDeErlang';
+const kWidgetDistribucionesDistribucionUniforme =
+    'DistribucionesDistribucionUniforme';
 const kWidgetRegresionLineal = 'RegresionLineal';
-const kWidgetDesigualdadDeChebyshevYConvergencia = 'DesigualdadDeChebyshevYConvergencia';
+const kWidgetDesigualdadDeChebyshevYConvergencia =
+    'DesigualdadDeChebyshevYConvergencia';
 const kWidgetTransferenciaDeCalor = 'TransferenciaDeCalor';
-const kWidgetCapacidadCalorificaYCalorLatente = 'CapacidadCalorificaYCalorLatente';
+const kWidgetCapacidadCalorificaYCalorLatente =
+    'CapacidadCalorificaYCalorLatente';
 const kWidgetLeyesDeLosGases = 'LeyesDeLosGases';
-const kWidgetCicloDeCarnotYLeyesDeLaTermodinamica = 'CicloDeCarnotYLeyesDeLaTermodinamica';
+const kWidgetCicloDeCarnotYLeyesDeLaTermodinamica =
+    'CicloDeCarnotYLeyesDeLaTermodinamica';
 const kWidgetTrabajoTermodinamico = 'TrabajoTermodinamico';
 const kWidgetEntalpiaYEnergiaInterna = 'EntalpiaYEnergiaInterna';
 const kWidgetDilatacionLineal = 'DilatacionLineal';
-const kWidgetDilatacionSuperficialYVolumetrica = 'DilatacionSuperficialYVolumetrica';
+const kWidgetDilatacionSuperficialYVolumetrica =
+    'DilatacionSuperficialYVolumetrica';
 const kWidgetEntropiaYTeoriaCinetica = 'EntropiaYTeoriaCinetica';
 const kWidgetProcesosTermodinamicos = 'ProcesosTermodinamicos';
 const kWidgetCirculoUnitario = 'CirculoUnitario';
 const kWidgetSignosDeFuncionesPorCuadrante = 'SignosDeFuncionesPorCuadrante';
 const kWidgetAngulosNotablesGradosRadianes = 'AngulosNotablesGradosRadianes';
-const kWidgetRelacionEntreFuncionesTrigonometricas = 'RelacionEntreFuncionesTrigonometricas';
-const kWidgetIdentidadesDeAnguloTripleYCuadruple = 'IdentidadesDeAnguloTripleYCuadruple';
-const kWidgetIdentidadesDeReduccionDePotencias = 'IdentidadesDeReduccionDePotencias';
-const kWidgetIdentidadesFundamentalesFormasDerivadas = 'IdentidadesFundamentalesFormasDerivadas';
-const kWidgetCotangenteDeSumaYRestaDeAngulos = 'CotangenteDeSumaYRestaDeAngulos';
+const kWidgetRelacionEntreFuncionesTrigonometricas =
+    'RelacionEntreFuncionesTrigonometricas';
+const kWidgetIdentidadesDeAnguloTripleYCuadruple =
+    'IdentidadesDeAnguloTripleYCuadruple';
+const kWidgetIdentidadesDeReduccionDePotencias =
+    'IdentidadesDeReduccionDePotencias';
+const kWidgetIdentidadesFundamentalesFormasDerivadas =
+    'IdentidadesFundamentalesFormasDerivadas';
+const kWidgetCotangenteDeSumaYRestaDeAngulos =
+    'CotangenteDeSumaYRestaDeAngulos';
 const kWidgetProductoDeCosenoPorSeno = 'ProductoDeCosenoPorSeno';

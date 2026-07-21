@@ -19,9 +19,12 @@ class _OperacionesNumerosComplejosState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -50,9 +53,11 @@ class _OperacionesNumerosComplejosState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .operacionesDeNumerosComplejos,
-                            widgetName: kWidgetOperacionesDeNumerosComplejos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.operacionesDeNumerosComplejos,
+                          widgetName: kWidgetOperacionesDeNumerosComplejos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -64,18 +69,22 @@ class _OperacionesNumerosComplejosState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesDeNumerosComplejos,
-                                    widgetName:
-                                        kWidgetOperacionesDeNumerosComplejos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesDeNumerosComplejos,
+                                  widgetName:
+                                      kWidgetOperacionesDeNumerosComplejos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .operacionesDeNumerosComplejos,
-                                    widgetName:
-                                        kWidgetOperacionesDeNumerosComplejos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.operacionesDeNumerosComplejos,
+                                  widgetName:
+                                      kWidgetOperacionesDeNumerosComplejos,
+                                ),
                               );
                             }
                           });
@@ -83,147 +92,140 @@ class _OperacionesNumerosComplejosState
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: kEspacioEntreBotones,
-                  ),
+                  const SizedBox(height: kEspacioEntreBotones),
                   Column(
                     children: [
                       TextoEcuaciones(
                         AppLocalizations.of(context)!.enFormaBinomica,
                       ),
-                      const SizedBox(
-                        height: kEspacioEntreBotones,
-                      ),
+                      const SizedBox(height: kEspacioEntreBotones),
                       ZoomPersonalizado(
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                              ),
-                              //Adición
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.adicion,
-                              ),
-                              const Column(
-                                children: [
-                                  Latex(
-                                      formulaText:
-                                          r"(a+bi)+(c+di)=(a+c)+(b+d)i"),
-                                  SizedBox(height: kEspacioEntreBotones),
-                                ],
-                              ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: MediaQuery.of(context).size.width),
+                            //Adición
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.adicion,
+                            ),
+                            const Column(
+                              children: [
+                                Latex(
+                                  formulaText: r"(a+bi)+(c+di)=(a+c)+(b+d)i",
+                                ),
+                                SizedBox(height: kEspacioEntreBotones),
+                              ],
+                            ),
 
-                              //Sustracción
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.sustraccion,
-                              ),
-                              const Column(
-                                children: [
-                                  Latex(
-                                      formulaText:
-                                          r"(a+bi)-(c+di)=(a-c)+(b-d)i"),
-                                  SizedBox(height: kEspacioEntreBotones),
-                                ],
-                              ),
+                            //Sustracción
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.sustraccion,
+                            ),
+                            const Column(
+                              children: [
+                                Latex(
+                                  formulaText: r"(a+bi)-(c+di)=(a-c)+(b-d)i",
+                                ),
+                                SizedBox(height: kEspacioEntreBotones),
+                              ],
+                            ),
 
-                              //Multiplicación
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.multiplicacion,
-                              ),
-                              const Column(
-                                children: [
-                                  Latex(
-                                      formulaText:
-                                          r"(a+bi)(c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i"),
-                                  SizedBox(height: kEspacioEntreBotones),
-                                ],
-                              ),
-
-                              //División
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.division,
-                              ),
-                              const Column(
-                                children: [
-                                  Latex(
-                                      formulaText:
-                                          r"\frac{(a+bi)}{(c+di)}=\frac{(a+bi)(c-di)}{(c+di)(c-di)}=\frac{ac-adi+bci-bdi^2}{c^2-d^2i^2}=\frac{(ac+bd)+(bc-ad)i}{c^2+d^2}"),
-                                  SizedBox(
-                                    height: kEspacioEntreBotones,
-                                  ),
-                                ],
-                              ),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.enFormaPolar,
-                              ),
-                              const SizedBox(
-                                height: kEspacioEntreBotones,
-                              ),
-                              //Multiplicación
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.multiplicacion,
-                              ),
-                              const Latex(
+                            //Multiplicación
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.multiplicacion,
+                            ),
+                            const Column(
+                              children: [
+                                Latex(
                                   formulaText:
-                                      r"z_\alpha \cdot z_\alpha ' = zz_{\alpha +' \alpha}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                                      r"(a+bi)(c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i",
+                                ),
+                                SizedBox(height: kEspacioEntreBotones),
+                              ],
+                            ),
 
-                              //División
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.division,
-                              ),
-                              const Latex(
+                            //División
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.division,
+                            ),
+                            const Column(
+                              children: [
+                                Latex(
                                   formulaText:
-                                      r"\frac{z_\alpha}{z_\alpha '}=\frac{z}{z_{\alpha -'\alpha}}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                                      r"\frac{(a+bi)}{(c+di)}=\frac{(a+bi)(c-di)}{(c+di)(c-di)}=\frac{ac-adi+bci-bdi^2}{c^2-d^2i^2}=\frac{(ac+bd)+(bc-ad)i}{c^2+d^2}",
+                                ),
+                                SizedBox(height: kEspacioEntreBotones),
+                              ],
+                            ),
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.enFormaPolar,
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
+                            //Multiplicación
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.multiplicacion,
+                            ),
+                            const Latex(
+                              formulaText:
+                                  r"z_\alpha \cdot z_\alpha ' = zz_{\alpha +' \alpha}",
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              //Potencia
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.potencia,
-                              ),
-                              const Latex(
-                                  formulaText:
-                                      r"(z_\alpha)^n=z_{\alpha\cdot n}^{\space\thinspace n}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                            //División
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.division,
+                            ),
+                            const Latex(
+                              formulaText:
+                                  r"\frac{z_\alpha}{z_\alpha '}=\frac{z}{z_{\alpha -'\alpha}}",
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              //Raices
+                            //Potencia
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.potencia,
+                            ),
+                            const Latex(
+                              formulaText:
+                                  r"(z_\alpha)^n=z_{\alpha\cdot n}^{\space\thinspace n}",
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.raices,
-                              ),
-                              const Latex(formulaText: r"\sqrt[n]{R_\beta}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                            //Raices
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.raices,
+                            ),
+                            const Latex(formulaText: r"\sqrt[n]{R_\beta}"),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              //Módulo de las raíces
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.moduloDeLasRaices,
-                              ),
-                              const Latex(formulaText: r"r=\sqrt[n]{R}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                            //Módulo de las raíces
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.moduloDeLasRaices,
+                            ),
+                            const Latex(formulaText: r"r=\sqrt[n]{R}"),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              //Argumentos de las raíces
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .argumentosDeLasRaices,
-                              ),
-                              const Latex(
-                                  formulaText:
-                                      r"\alpha = \frac{\beta +360^\circ \cdot k}{n}"),
-                              const SizedBox(height: kEspacioEntreBotones),
+                            //Argumentos de las raíces
+                            TextoEcuaciones(
+                              AppLocalizations.of(
+                                context,
+                              )!.argumentosDeLasRaices,
+                            ),
+                            const Latex(
+                              formulaText:
+                                  r"\alpha = \frac{\beta +360^\circ \cdot k}{n}",
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
 
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.desdeKHastaN,
-                              ),
-                              const SizedBox(
-                                height: kEspacioEntreBotones,
-                              ),
-                            ]),
+                            TextoEcuaciones(
+                              AppLocalizations.of(context)!.desdeKHastaN,
+                            ),
+                            const SizedBox(height: kEspacioEntreBotones),
+                          ],
+                        ),
                       ),
                       //Boton para acceder al formulario en PDF
-                      const VerPDF(
-                        url: kWidgetOperacionesDeNumerosComplejos,
-                      ),
+                      const VerPDF(url: kWidgetOperacionesDeNumerosComplejos),
                       //Descargar PDF
                       const DescargarPDF(
                         url: kWidgetOperacionesDeNumerosComplejos,
@@ -231,10 +233,7 @@ class _OperacionesNumerosComplejosState
                       Container(
                         decoration: BoxDecoration(
                           color: kColorBotones,
-                          border: Border.all(
-                            color: kColorFondo,
-                            width: 8,
-                          ),
+                          border: Border.all(color: kColorFondo, width: 8),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(

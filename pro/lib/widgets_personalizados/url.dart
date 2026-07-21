@@ -12,16 +12,16 @@ openURL(String url) {
 }
 
 void openURLNuevo1(BuildContext context, String id) {
-  Locale currentLocale =
-      Provider.of<LocaleProvider>(context, listen: false).locale;
+  Locale currentLocale = Provider.of<LocaleProvider>(
+    context,
+    listen: false,
+  ).locale;
   Map<String, String>? urlMap = urlPdfMap[id];
 
   if (urlMap != null) {
     String? url = urlMap[currentLocale.languageCode];
     if (url != null) {
-      launchUrl(
-        Uri.parse(url).removeFragment(),
-      );
+      launchUrl(Uri.parse(url).removeFragment());
     } else {
       // manejar el caso cuando no hay URL para el idioma del dispositivo
     }
@@ -31,7 +31,5 @@ void openURLNuevo1(BuildContext context, String id) {
 }
 
 openURLNuevo(String url) {
-  launchUrl(
-    Uri.parse(url).removeFragment(),
-  );
+  launchUrl(Uri.parse(url).removeFragment());
 }

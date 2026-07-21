@@ -30,7 +30,9 @@ class PropiedadesLogaritmosState extends State<PropiedadesLogaritmos> {
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.propiedadesLogaritmos2,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.propiedadesLogaritmos2,
                         widgetName: kWidgetPropiedadesLogaritmos,
                       ),
                     );
@@ -44,14 +46,18 @@ class PropiedadesLogaritmosState extends State<PropiedadesLogaritmos> {
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.propiedadesLogaritmos2,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesLogaritmos2,
                                 widgetName: kWidgetPropiedadesLogaritmos,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.propiedadesLogaritmos2,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.propiedadesLogaritmos2,
                                 widgetName: kWidgetPropiedadesLogaritmos,
                               ),
                             );
@@ -67,7 +73,10 @@ class PropiedadesLogaritmosState extends State<PropiedadesLogaritmos> {
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\log_{10}=\log,\qquad \log_{e}=\ln,\qquad \log_{2}=\operatorname{lb}"),
+                  Latex(
+                    formulaText:
+                        r"\log_{10}=\log,\qquad \log_{e}=\ln,\qquad \log_{2}=\operatorname{lb}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"\log_{a}x=b"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -83,11 +92,19 @@ class PropiedadesLogaritmosState extends State<PropiedadesLogaritmos> {
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"a^{x}=b=e^{x\ln a}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"x=\frac{\log b}{\log a}\qquad a=\sqrt[x]{b}"),
+                  Latex(
+                    formulaText: r"x=\frac{\log b}{\log a}\qquad a=\sqrt[x]{b}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\log_{10}x=\log_{10}e\cdot\ln x=0.434294\cdot\ln x"),
+                  Latex(
+                    formulaText:
+                        r"\log_{10}x=\log_{10}e\cdot\ln x=0.434294\cdot\ln x",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\ln x=\frac{\log_{10}x}{\log_{10}e}=2.302585\cdot\log_{10}x"),
+                  Latex(
+                    formulaText:
+                        r"\ln x=\frac{\log_{10}x}{\log_{10}e}=2.302585\cdot\log_{10}x",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"e=2.71828183\ldots"),
                   SizedBox(height: kEspacioEntreBotones),

@@ -16,9 +16,12 @@ class _LeyDeCorrientesDeKirchhoffState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,9 @@ class _LeyDeCorrientesDeKirchhoffState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.leyCorrientesKirchhoff,
-                      widgetName: kWidgetLeyDeCorrienteDeKirchhoff),
+                    title: AppLocalizations.of(context)!.leyCorrientesKirchhoff,
+                    widgetName: kWidgetLeyDeCorrienteDeKirchhoff,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,16 +60,20 @@ class _LeyDeCorrientesDeKirchhoffState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyCorrientesKirchhoff,
-                              widgetName: kWidgetLeyDeCorrienteDeKirchhoff),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyCorrientesKirchhoff,
+                            widgetName: kWidgetLeyDeCorrienteDeKirchhoff,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .leyCorrientesKirchhoff,
-                              widgetName: kWidgetLeyDeCorrienteDeKirchhoff),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyCorrientesKirchhoff,
+                            widgetName: kWidgetLeyDeCorrienteDeKirchhoff,
+                          ),
                         );
                       }
                     });
@@ -83,7 +90,8 @@ class _LeyDeCorrientesDeKirchhoffState
                 ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenLeyDeCorrienteDeKirchhoff),
+                  urlImagen: kUrlImagenLeyDeCorrienteDeKirchhoff,
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(formulaText: r"\sum_{k=1}^n i_k = 0"),
                 const SizedBox(height: 20.0),
@@ -96,8 +104,8 @@ class _LeyDeCorrientesDeKirchhoffState
                 const Latex(formulaText: r"\Delta q = 0"),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\Delta q_t = \Delta q_1 + \Delta q_2 + \cdots"),
+                  formulaText: r"\Delta q_t = \Delta q_1 + \Delta q_2 + \cdots",
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.energiaTotalConservada,
@@ -109,13 +117,9 @@ class _LeyDeCorrientesDeKirchhoffState
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetLeyDeCorrienteDeKirchhoff,
-            ),
+            const VerPDF(url: kWidgetLeyDeCorrienteDeKirchhoff),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetLeyDeCorrienteDeKirchhoff,
-            ),
+            const DescargarPDF(url: kWidgetLeyDeCorrienteDeKirchhoff),
           ],
         ),
       ),

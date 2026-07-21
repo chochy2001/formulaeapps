@@ -31,9 +31,11 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .momentosEstadisticos,
-                            widgetName: kWidgetMomentosEstadisticos),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.momentosEstadisticos,
+                          widgetName: kWidgetMomentosEstadisticos,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .momentosEstadisticos,
-                                    widgetName: kWidgetMomentosEstadisticos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.momentosEstadisticos,
+                                  widgetName: kWidgetMomentosEstadisticos,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .momentosEstadisticos,
-                                    widgetName: kWidgetMomentosEstadisticos),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.momentosEstadisticos,
+                                  widgetName: kWidgetMomentosEstadisticos,
+                                ),
                               );
                             }
                           });
@@ -63,61 +69,68 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .diferenciaMarcaClaseMedia,
+                          AppLocalizations.of(
+                            context,
+                          )!.diferenciaMarcaClaseMedia,
                         ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"Y = MC -\bar{X}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .momentoEstadisticoPrimerGrado,
+                          AppLocalizations.of(
+                            context,
+                          )!.momentoEstadisticoPrimerGrado,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"ME_1 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i}{n} = 0"),
+                          formulaText:
+                              r"ME_1 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i}{n} = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .momentoEstadisticoSegundoGrado,
+                          AppLocalizations.of(
+                            context,
+                          )!.momentoEstadisticoSegundoGrado,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"ME_2 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^2}{n} = S^2"),
+                          formulaText:
+                              r"ME_2 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^2}{n} = S^2",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .momentoEstadisticoTercerGrado,
+                          AppLocalizations.of(
+                            context,
+                          )!.momentoEstadisticoTercerGrado,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"ME_3 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^3}{n}"),
+                          formulaText:
+                              r"ME_3 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^3}{n}",
+                        ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"k_3 = \frac{ME_3}{S^3}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .momentoEstadisticoCuartoGrado,
+                          AppLocalizations.of(
+                            context,
+                          )!.momentoEstadisticoCuartoGrado,
                         ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"ME_4 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^4}{n} = 0"),
+                          formulaText:
+                              r"ME_4 = \frac{\sum_{i=1}^{n}f_i\cdot Y_i^4}{n} = 0",
+                        ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"k_4 = \frac{ME_4}{S^4}"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -125,21 +138,14 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetMomentosEstadisticos,
-                  ),
+                  const VerPDF(url: kWidgetMomentosEstadisticos),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetMomentosEstadisticos,
-                  ),
+                  const DescargarPDF(url: kWidgetMomentosEstadisticos),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -161,14 +167,16 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"ME"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .momentoEstadistico,
+                                AppLocalizations.of(
+                                  context,
+                                )!.momentoEstadistico,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"f_i"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .frecuenciaIntervaloi,
+                                AppLocalizations.of(
+                                  context,
+                                )!.frecuenciaIntervaloi,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"n"),
@@ -178,74 +186,69 @@ class MomentosEstadisticosState extends State<MomentosEstadisticos> {
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"S"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .desviacionEstandar,
+                                AppLocalizations.of(
+                                  context,
+                                )!.desviacionEstandar,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"Y_i"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .diferenciaMarcaClaseMedida,
+                                AppLocalizations.of(
+                                  context,
+                                )!.diferenciaMarcaClaseMedida,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"k_3"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .coeficienteAsimetria,
+                                AppLocalizations.of(
+                                  context,
+                                )!.coeficienteAsimetria,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_3 > 0 "),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .curvaAsimetriaDerecha,
+                                AppLocalizations.of(
+                                  context,
+                                )!.curvaAsimetriaDerecha,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_3 = 0 "),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .curvaDistribucionSimetrica,
+                                AppLocalizations.of(
+                                  context,
+                                )!.curvaDistribucionSimetrica,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_3 < 0"),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .curvaAsimetriaIzquierda,
+                                AppLocalizations.of(
+                                  context,
+                                )!.curvaAsimetriaIzquierda,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
                               const Latex(formulaText: r"k_4 "),
                               TextoEcuaciones(
-                                AppLocalizations.of(context)!
-                                    .coeficienteApuntamiento,
+                                AppLocalizations.of(
+                                  context,
+                                )!.coeficienteApuntamiento,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_4 -3 >0"),
                               TextoEcuaciones(
                                 AppLocalizations.of(context)!.curvaLeptocurtica,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_4 -3 =0"),
                               TextoEcuaciones(
                                 AppLocalizations.of(context)!.curvaMesocurtica,
                               ),
                               const SizedBox(height: kEspacioEntreBotones),
-                              TextoEcuaciones(
-                                AppLocalizations.of(context)!.si,
-                              ),
+                              TextoEcuaciones(AppLocalizations.of(context)!.si),
                               const Latex(formulaText: r"k_4 -3 <0 "),
                               TextoEcuaciones(
                                 AppLocalizations.of(context)!.curvaPlatocurtica,

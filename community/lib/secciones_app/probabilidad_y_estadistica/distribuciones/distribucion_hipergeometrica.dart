@@ -16,9 +16,12 @@ class _DistribucionHipergeometricaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -47,9 +50,11 @@ class _DistribucionHipergeometricaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .distribucionHipergeometrica,
-                            widgetName: kWidgetDistribucionHipergeometrica),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.distribucionHipergeometrica,
+                          widgetName: kWidgetDistribucionHipergeometrica,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -61,18 +66,22 @@ class _DistribucionHipergeometricaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionHipergeometrica,
-                                    widgetName:
-                                        kWidgetDistribucionHipergeometrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionHipergeometrica,
+                                  widgetName:
+                                      kWidgetDistribucionHipergeometrica,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .distribucionHipergeometrica,
-                                    widgetName:
-                                        kWidgetDistribucionHipergeometrica),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.distribucionHipergeometrica,
+                                  widgetName:
+                                      kWidgetDistribucionHipergeometrica,
+                                ),
                               );
                             }
                           });
@@ -81,21 +90,21 @@ class _DistribucionHipergeometricaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .distribucionHipergeometrica,
+                          AppLocalizations.of(
+                            context,
+                          )!.distribucionHipergeometrica,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"P(x)= \frac{\frac{k!}{n!(n-k)!}\cdot \frac{(N-k)!}{(n-x)!(N-k-n+x)!}}{\frac{N!}{n!(N-n)!}}"),
+                          formulaText:
+                              r"P(x)= \frac{\frac{k!}{n!(n-k)!}\cdot \frac{(N-k)!}{(n-x)!(N-k-n+x)!}}{\frac{N!}{n!(N-n)!}}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.valorEsperado,
@@ -103,34 +112,26 @@ class _DistribucionHipergeometricaState
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\frac{nk}{N}"),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.varianza,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.varianza),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\frac{nk}{N}\left(1-\frac{k}{N}\right)\left(\frac{N-n}{N-1}\right)"),
+                          formulaText:
+                              r"\frac{nk}{N}\left(1-\frac{k}{N}\right)\left(\frac{N-n}{N-1}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetDistribucionHipergeometrica,
-                  ),
+                  const VerPDF(url: kWidgetDistribucionHipergeometrica),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetDistribucionHipergeometrica,
-                  ),
+                  const DescargarPDF(url: kWidgetDistribucionHipergeometrica),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(

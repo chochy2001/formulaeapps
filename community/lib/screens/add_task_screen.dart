@@ -40,28 +40,18 @@ class AddTaskScreenState extends State<AddTaskScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .05,
-          ),
-          const Text(
-            "Nueva Tarea",
-            style: kTextoBotones,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .05),
+          const Text("Nueva Tarea", style: kTextoBotones),
           TextField(
             controller: _taskController,
             autofocus: true,
             textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
-              color: kColorBlanco,
-              fontSize: 20,
-            ),
+            style: GoogleFonts.roboto(color: kColorBlanco, fontSize: 20),
             onSubmitted: (newTaskTitle) {
               _addTask(context, newTaskTitle);
             },
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .04,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * .04),
           TextButton(
             onPressed: () {
               _addTask(context, _taskController.text);
@@ -79,9 +69,7 @@ class AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                 ],
                 color: kColorFondo,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(15),
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
               ),
               child: const Center(
                 child: Text(

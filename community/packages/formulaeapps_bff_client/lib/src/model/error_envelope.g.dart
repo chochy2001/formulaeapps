@@ -37,8 +37,9 @@ class _$ErrorEnvelope extends ErrorEnvelope {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'ErrorEnvelope')..add('error', error))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'ErrorEnvelope',
+    )..add('error', error)).toString();
   }
 }
 
@@ -80,10 +81,7 @@ class ErrorEnvelopeBuilder
   _$ErrorEnvelope _build() {
     _$ErrorEnvelope _$result;
     try {
-      _$result = _$v ??
-          _$ErrorEnvelope._(
-            error: error.build(),
-          );
+      _$result = _$v ?? _$ErrorEnvelope._(error: error.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -91,7 +89,10 @@ class ErrorEnvelopeBuilder
         error.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'ErrorEnvelope', _$failedField, e.toString());
+          r'ErrorEnvelope',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

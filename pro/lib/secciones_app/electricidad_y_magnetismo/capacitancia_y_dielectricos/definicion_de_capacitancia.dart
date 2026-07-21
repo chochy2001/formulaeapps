@@ -28,9 +28,9 @@ class _DefinicionDeCapacitanciaState extends State<DefinicionDeCapacitancia> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title:
-                          AppLocalizations.of(context)!.definicionCapacitancia,
-                      widgetName: kWidgetDefinicionDeCapacitancia),
+                    title: AppLocalizations.of(context)!.definicionCapacitancia,
+                    widgetName: kWidgetDefinicionDeCapacitancia,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -42,16 +42,20 @@ class _DefinicionDeCapacitanciaState extends State<DefinicionDeCapacitancia> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .definicionCapacitancia,
-                              widgetName: kWidgetDefinicionDeCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.definicionCapacitancia,
+                            widgetName: kWidgetDefinicionDeCapacitancia,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .definicionCapacitancia,
-                              widgetName: kWidgetDefinicionDeCapacitancia),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.definicionCapacitancia,
+                            widgetName: kWidgetDefinicionDeCapacitancia,
+                          ),
                         );
                       }
                     });
@@ -76,8 +80,9 @@ class _DefinicionDeCapacitanciaState extends State<DefinicionDeCapacitancia> {
                   const Latex(formulaText: r"C = \frac{Q}{V}"),
                   const SizedBox(height: 30.0),
                   const Latex(
-                      formulaText:
-                          r"[C]_u = \left [ \frac{\text{C}}{\text{V}} \right ] = [F]: Farad"),
+                    formulaText:
+                        r"[C]_u = \left [ \frac{\text{C}}{\text{V}} \right ] = [F]: Farad",
+                  ),
                   const SizedBox(height: 40.0),
                 ],
               ),
@@ -86,15 +91,11 @@ class _DefinicionDeCapacitanciaState extends State<DefinicionDeCapacitancia> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetDefinicionDeCapacitancia,
-                ),
+                VerPDF(url: kWidgetDefinicionDeCapacitancia),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetDefinicionDeCapacitancia,
-                ),
+                DescargarPDF(url: kWidgetDefinicionDeCapacitancia),
               ],
-            )
+            ),
           ],
         ),
       ),

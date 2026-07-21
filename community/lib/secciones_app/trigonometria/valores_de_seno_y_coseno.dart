@@ -14,9 +14,12 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .valoresDeSenoYCoseno,
-                            widgetName: kWidgetValoresDeSenoYCoseno),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.valoresDeSenoYCoseno,
+                          widgetName: kWidgetValoresDeSenoYCoseno,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .valoresDeSenoYCoseno,
-                                    widgetName: kWidgetValoresDeSenoYCoseno),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.valoresDeSenoYCoseno,
+                                  widgetName: kWidgetValoresDeSenoYCoseno,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .valoresDeSenoYCoseno,
-                                    widgetName: kWidgetValoresDeSenoYCoseno),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.valoresDeSenoYCoseno,
+                                  widgetName: kWidgetValoresDeSenoYCoseno,
+                                ),
                               );
                             }
                           });
@@ -76,9 +85,7 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -86,15 +93,17 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                         Latex(formulaText: r"\sin(0) = 0"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin \left[(2n\pm 1)\frac{\pi}{2}\right] = -(-1)^n = (-1)^{n+1}"),
+                          formulaText:
+                              r"\sin \left[(2n\pm 1)\frac{\pi}{2}\right] = -(-1)^n = (-1)^{n+1}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\sin(\pi) = 0"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos\left[(2n\pm 1)\frac{\pi}{2}\right] = 0"),
+                          formulaText:
+                              r"\cos\left[(2n\pm 1)\frac{\pi}{2}\right] = 0",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\sin(2\pi) = 0"),
@@ -105,39 +114,45 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                         Latex(formulaText: r"\sin(n\pi) = 0"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\cos(-n\pi) = \cos(n\pi) = (-1)^n"),
+                          formulaText: r"\cos(-n\pi) = \cos(n\pi) = (-1)^n",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\sin\left(\frac{\pi}{2}\right) = 1"),
+                          formulaText: r"\sin\left(\frac{\pi}{2}\right) = 1",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin\left[(1\pm 4n)\frac{\pi}{2}\right] = 1"),
-                        SizedBox(height: kEspacioEntreBotones),
-                        SizedBox(height: kEspacioEntreBotones),
-                        Latex(
-                            formulaText:
-                                r"\sin\left(\frac{3\pi}{2}\right) = -1"),
-                        SizedBox(height: kEspacioEntreBotones),
-                        Latex(
-                            formulaText:
-                                r"\cos\left[(1\pm 4n)\frac{\pi}{2}\right] = 0"),
+                          formulaText:
+                              r"\sin\left[(1\pm 4n)\frac{\pi}{2}\right] = 1",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText: r"\cos\left(\frac{\pi}{2}\right) = 0"),
+                          formulaText: r"\sin\left(\frac{3\pi}{2}\right) = -1",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin(t) = \frac{1}{2j}(e^{jt}-e^{-jt})"),
+                          formulaText:
+                              r"\cos\left[(1\pm 4n)\frac{\pi}{2}\right] = 0",
+                        ),
+                        SizedBox(height: kEspacioEntreBotones),
+                        SizedBox(height: kEspacioEntreBotones),
+                        Latex(
+                          formulaText: r"\cos\left(\frac{\pi}{2}\right) = 0",
+                        ),
+                        SizedBox(height: kEspacioEntreBotones),
+                        Latex(
+                          formulaText:
+                              r"\sin(t) = \frac{1}{2j}(e^{jt}-e^{-jt})",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r""),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos(t) = \frac{1}{2}(e^{jt}+e^{-jt})"),
+                          formulaText: r"\cos(t) = \frac{1}{2}(e^{jt}+e^{-jt})",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(formulaText: r"\cos(0) = 1"),
@@ -165,13 +180,9 @@ class _ValoresDeSenoYCosenoState extends State<ValoresDeSenoYCoseno> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetValoresDeSenoYCoseno,
-                  ),
+                  const VerPDF(url: kWidgetValoresDeSenoYCoseno),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetValoresDeSenoYCoseno,
-                  ),
+                  const DescargarPDF(url: kWidgetValoresDeSenoYCoseno),
                 ],
               ),
             ),

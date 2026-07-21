@@ -31,9 +31,11 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .angulosEnUnPoligono,
-                            widgetName: kWidgetAngulosEnUnPoligono),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.angulosEnUnPoligono,
+                          widgetName: kWidgetAngulosEnUnPoligono,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .angulosEnUnPoligono,
-                                    widgetName: kWidgetAngulosEnUnPoligono),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.angulosEnUnPoligono,
+                                  widgetName: kWidgetAngulosEnUnPoligono,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .angulosEnUnPoligono,
-                                    widgetName: kWidgetAngulosEnUnPoligono),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.angulosEnUnPoligono,
+                                  widgetName: kWidgetAngulosEnUnPoligono,
+                                ),
                               );
                             }
                           });
@@ -63,17 +69,16 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"n"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .representaNumeroLadosPoligono,
+                          AppLocalizations.of(
+                            context,
+                          )!.representaNumeroLadosPoligono,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -81,20 +86,17 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                           AppLocalizations.of(context)!.sumaAngulosInteriores,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sai,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sai),
                         const Latex(formulaText: r"180^\circ (n-2)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .medidasCadaAnguloInterior,
+                          AppLocalizations.of(
+                            context,
+                          )!.medidasCadaAnguloInterior,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.ai,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.ai),
                         const Latex(formulaText: r"\frac{180^\circ(n-2)}{n}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -102,20 +104,17 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                           AppLocalizations.of(context)!.sumaAngulosExteriores,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sea,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sea),
                         const Latex(formulaText: r"\mathsf{(n) }= 360^\circ"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .medidaCadaAnguloExterior,
+                          AppLocalizations.of(
+                            context,
+                          )!.medidaCadaAnguloExterior,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.ae,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.ae),
                         const Latex(formulaText: r"\frac{360^\circ}{n}"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -124,7 +123,8 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"\mathsf{d}= \frac{n(n-3)}{2}"),
+                          formulaText: r"\mathsf{d}= \frac{n(n-3)}{2}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
@@ -132,21 +132,18 @@ class AngulosEnUnPoligonoState extends State<AngulosEnUnPoligono> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathsf{\theta (n)}=\frac{360^\circ}{n}"),
+                          formulaText:
+                              r"\mathsf{\theta (n)}=\frac{360^\circ}{n}",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetAngulosEnUnPoligono,
-                  ),
+                  const VerPDF(url: kWidgetAngulosEnUnPoligono),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetAngulosEnUnPoligono,
-                  ),
+                  const DescargarPDF(url: kWidgetAngulosEnUnPoligono),
                 ],
               ),
             ),

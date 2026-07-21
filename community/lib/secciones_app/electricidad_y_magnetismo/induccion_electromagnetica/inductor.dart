@@ -14,9 +14,12 @@ class _InductorState extends State<Inductor> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _InductorState extends State<Inductor> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.inductor,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.inductor),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.inductor,
-                      widgetName: kWidgetInductor),
+                    title: AppLocalizations.of(context)!.inductor,
+                    widgetName: kWidgetInductor,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,14 +56,16 @@ class _InductorState extends State<Inductor> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.inductor,
-                              widgetName: kWidgetInductor),
+                            title: AppLocalizations.of(context)!.inductor,
+                            widgetName: kWidgetInductor,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!.inductor,
-                              widgetName: kWidgetInductor),
+                            title: AppLocalizations.of(context)!.inductor,
+                            widgetName: kWidgetInductor,
+                          ),
                         );
                       }
                     });
@@ -74,29 +78,23 @@ class _InductorState extends State<Inductor> {
 
             Column(
               children: <Widget>[
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.sentidoFisico,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.sentidoFisico),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide),
+                  urlImagen: kUrlImagenInductanciaPropiaDeUnSolenoide,
+                ),
                 const SizedBox(height: 20.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.simbologia,
-                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.simbologia),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenInductorSimbologiaBasica),
+                  urlImagen: kUrlImagenInductorSimbologiaBasica,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetInductor,
-            ),
+            const VerPDF(url: kWidgetInductor),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetInductor,
-            ),
+            const DescargarPDF(url: kWidgetInductor),
           ],
         ),
       ),

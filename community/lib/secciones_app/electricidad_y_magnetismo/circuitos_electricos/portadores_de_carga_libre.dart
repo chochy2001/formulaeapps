@@ -14,9 +14,12 @@ class _PortadoresDeCargaLibreState extends State<PortadoresDeCargaLibre> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -41,8 +44,9 @@ class _PortadoresDeCargaLibreState extends State<PortadoresDeCargaLibre> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.portadoresCargaLibre,
-                      widgetName: kWidgetPortadoresDeCargaLibre),
+                    title: AppLocalizations.of(context)!.portadoresCargaLibre,
+                    widgetName: kWidgetPortadoresDeCargaLibre,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +58,20 @@ class _PortadoresDeCargaLibreState extends State<PortadoresDeCargaLibre> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .portadoresCargaLibre,
-                              widgetName: kWidgetPortadoresDeCargaLibre),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.portadoresCargaLibre,
+                            widgetName: kWidgetPortadoresDeCargaLibre,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .portadoresCargaLibre,
-                              widgetName: kWidgetPortadoresDeCargaLibre),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.portadoresCargaLibre,
+                            widgetName: kWidgetPortadoresDeCargaLibre,
+                          ),
                         );
                       }
                     });
@@ -80,26 +88,24 @@ class _PortadoresDeCargaLibreState extends State<PortadoresDeCargaLibre> {
                   AppLocalizations.of(context)!.portadorDeCargaLibre,
                 ),
                 ZoomImagePersonalizado(
-                    urlImagen: getImageUrlById(
-                            context, kImagenPortadoresDeCargaLibre) ??
-                        kUrlImagenPortadoresDeCargaLibre),
+                  urlImagen:
+                      getImageUrlById(context, kImagenPortadoresDeCargaLibre) ??
+                      kUrlImagenPortadoresDeCargaLibre,
+                ),
                 const SizedBox(height: 20.0),
                 TextoEcuaciones(
-                  AppLocalizations.of(context)!
-                      .laPresenciaDeLaDiferenciaDePotencial,
+                  AppLocalizations.of(
+                    context,
+                  )!.laPresenciaDeLaDiferenciaDePotencial,
                 ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetPortadoresDeCargaLibre,
-            ),
+            const VerPDF(url: kWidgetPortadoresDeCargaLibre),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetPortadoresDeCargaLibre,
-            ),
+            const DescargarPDF(url: kWidgetPortadoresDeCargaLibre),
           ],
         ),
       ),

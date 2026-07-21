@@ -18,18 +18,10 @@ class ScaffoldScreen extends StatelessWidget {
     return ResponsiveBuilder(
       builder: (BuildContext context, SizingInformation sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-          return Scaffold(
-            appBar: appBar,
-            drawer: drawer,
-            body: body,
-          );
+          return Scaffold(appBar: appBar, drawer: drawer, body: body);
         } else if (sizingInformation.deviceScreenType ==
             DeviceScreenType.tablet) {
-          return Scaffold(
-            appBar: appBar,
-            drawer: drawer,
-            body: body,
-          );
+          return Scaffold(appBar: appBar, drawer: drawer, body: body);
         } else if (sizingInformation.deviceScreenType ==
             DeviceScreenType.desktop) {
           return Scaffold(
@@ -42,11 +34,7 @@ class ScaffoldScreen extends StatelessWidget {
             ),
           );
         } else {
-          return Scaffold(
-            appBar: appBar,
-            drawer: drawer,
-            body: body,
-          );
+          return Scaffold(appBar: appBar, drawer: drawer, body: body);
         }
       },
     );
@@ -67,10 +55,6 @@ class ScaffoldScreen1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar,
-      drawer: drawer,
-      body: body,
-    );
+    return Scaffold(appBar: appBar, drawer: drawer, body: body);
   }
 }

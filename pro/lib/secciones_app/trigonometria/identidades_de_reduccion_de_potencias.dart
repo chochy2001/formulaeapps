@@ -6,10 +6,12 @@ class IdentidadesDeReduccionDePotencias extends StatefulWidget {
   const IdentidadesDeReduccionDePotencias({super.key});
 
   @override
-  IdentidadesDeReduccionDePotenciasState createState() => IdentidadesDeReduccionDePotenciasState();
+  IdentidadesDeReduccionDePotenciasState createState() =>
+      IdentidadesDeReduccionDePotenciasState();
 }
 
-class IdentidadesDeReduccionDePotenciasState extends State<IdentidadesDeReduccionDePotencias> {
+class IdentidadesDeReduccionDePotenciasState
+    extends State<IdentidadesDeReduccionDePotencias> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class IdentidadesDeReduccionDePotenciasState extends State<IdentidadesDeReduccio
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.identidadesDeReduccionDePotencias,
+                    AppLocalizations.of(
+                      context,
+                    )!.identidadesDeReduccionDePotencias,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.identidadesDeReduccionDePotencias,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.identidadesDeReduccionDePotencias,
                         widgetName: kWidgetIdentidadesDeReduccionDePotencias,
                       ),
                     );
@@ -44,15 +50,21 @@ class IdentidadesDeReduccionDePotenciasState extends State<IdentidadesDeReduccio
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesDeReduccionDePotencias,
-                                widgetName: kWidgetIdentidadesDeReduccionDePotencias,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesDeReduccionDePotencias,
+                                widgetName:
+                                    kWidgetIdentidadesDeReduccionDePotencias,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.identidadesDeReduccionDePotencias,
-                                widgetName: kWidgetIdentidadesDeReduccionDePotencias,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.identidadesDeReduccionDePotencias,
+                                widgetName:
+                                    kWidgetIdentidadesDeReduccionDePotencias,
                               ),
                             );
                           }
@@ -67,17 +79,35 @@ class IdentidadesDeReduccionDePotenciasState extends State<IdentidadesDeReduccio
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\operatorname{sen}^{2}A = \dfrac{1}{2} - \dfrac{1}{2}\cos 2A"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen}^{2}A = \dfrac{1}{2} - \dfrac{1}{2}\cos 2A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos^{2}A = \dfrac{1}{2} + \dfrac{1}{2}\cos 2A"),
+                  Latex(
+                    formulaText:
+                        r"\cos^{2}A = \dfrac{1}{2} + \dfrac{1}{2}\cos 2A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen}^{3}A = \dfrac{3}{4}\operatorname{sen} A - \dfrac{1}{4}\operatorname{sen} 3A"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen}^{3}A = \dfrac{3}{4}\operatorname{sen} A - \dfrac{1}{4}\operatorname{sen} 3A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos^{3}A = \dfrac{3}{4}\cos A + \dfrac{1}{4}\cos 3A"),
+                  Latex(
+                    formulaText:
+                        r"\cos^{3}A = \dfrac{3}{4}\cos A + \dfrac{1}{4}\cos 3A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\operatorname{sen}^{4}A = \dfrac{3}{8} - \dfrac{1}{2}\cos 2A + \dfrac{1}{8}\cos 4A"),
+                  Latex(
+                    formulaText:
+                        r"\operatorname{sen}^{4}A = \dfrac{3}{8} - \dfrac{1}{2}\cos 2A + \dfrac{1}{8}\cos 4A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\cos^{4}A = \dfrac{3}{8} + \dfrac{1}{2}\cos 2A + \dfrac{1}{8}\cos 4A"),
+                  Latex(
+                    formulaText:
+                        r"\cos^{4}A = \dfrac{3}{8} + \dfrac{1}{2}\cos 2A + \dfrac{1}{8}\cos 4A",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -15,9 +15,12 @@ class _CargaProtonElectronState extends State<CargaProtonElectron> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,11 @@ class _CargaProtonElectronState extends State<CargaProtonElectron> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .cargaElectricaProtonElectron,
-                      widgetName: kWidgetCargaProtonyElectron),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.cargaElectricaProtonElectron,
+                    widgetName: kWidgetCargaProtonyElectron,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +61,20 @@ class _CargaProtonElectronState extends State<CargaProtonElectron> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .cargaElectricaProtonElectron,
-                              widgetName: kWidgetCargaProtonyElectron),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.cargaElectricaProtonElectron,
+                            widgetName: kWidgetCargaProtonyElectron,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .cargaElectricaProtonElectron,
-                              widgetName: kWidgetCargaProtonyElectron),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.cargaElectricaProtonElectron,
+                            widgetName: kWidgetCargaProtonyElectron,
+                          ),
                         );
                       }
                     });
@@ -80,24 +89,19 @@ class _CargaProtonElectronState extends State<CargaProtonElectron> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cargaElectron,
-                  ),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cargaElectron),
                   const SizedBox(height: 10.0),
                   const Latex(
-                      formulaText:
-                          r"q_e = -1.60218 \times 10^{-19} \space [C]"),
-                  const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.cargaProton,
+                    formulaText: r"q_e = -1.60218 \times 10^{-19} \space [C]",
                   ),
+                  const SizedBox(height: 20.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.cargaProton),
                   const SizedBox(height: 10.0),
                   const Latex(
-                      formulaText: r"q_e = 1.60218 \times 10^{-19} \space [C]"),
-                  const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!.unidadCarga,
+                    formulaText: r"q_e = 1.60218 \times 10^{-19} \space [C]",
                   ),
+                  const SizedBox(height: 20.0),
+                  TextoEcuaciones(AppLocalizations.of(context)!.unidadCarga),
                   const SizedBox(height: 10.0),
                   const Latex(formulaText: r"[C] = Coulomb"),
                   const SizedBox(height: 20.0),
@@ -105,13 +109,9 @@ class _CargaProtonElectronState extends State<CargaProtonElectron> {
               ),
             ),
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetCargaProtonyElectron,
-            ),
+            const VerPDF(url: kWidgetCargaProtonyElectron),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetCargaProtonyElectron,
-            ),
+            const DescargarPDF(url: kWidgetCargaProtonyElectron),
           ],
         ),
       ),

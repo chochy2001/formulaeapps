@@ -16,9 +16,12 @@ class NumerosComplejosState extends State<NumerosComplejos> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -50,38 +53,41 @@ class NumerosComplejosState extends State<NumerosComplejos> {
                         style: kTextoBotones,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const SizedBox(height: 30),
                     adContainer,
                     //Conjugados de numeros complejos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .conjugadoDeUnNumeroComplejo,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.conjugadoDeUnNumeroComplejo,
                       ruta: kRutaConjugadoNumerosComplejos,
                     ),
                     //Modulo y Argumento numeros complejos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .moduloYArgumentoDeUnNumeroComplejo,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.moduloYArgumentoDeUnNumeroComplejo,
                       ruta: kRutaModuloyArgumentoNumerosComplejos,
                     ),
                     //Operaciones de Numeros complejos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .operacionesDeNumerosComplejos,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.operacionesDeNumerosComplejos,
                       ruta: kRutaOperacionesNumerosComplejos,
                     ),
                     //Propiedades Números Complejos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .propiedadesDeLosNumerosComplejos,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.propiedadesDeLosNumerosComplejos,
                       ruta: kRutaPropiedadesNumerosComplejos,
                     ),
                     //Representaciones de Numeros complejos
                     BotonesMenu(
-                      textoBoton: AppLocalizations.of(context)!
-                          .representacionesDeUnNumeroComplejo,
+                      textoBoton: AppLocalizations.of(
+                        context,
+                      )!.representacionesDeUnNumeroComplejo,
                       ruta: kRutaRepresentacionesDeNumerosComplejos,
                     ),
                   ],

@@ -16,9 +16,12 @@ class _EcuacionDiferencialDeRectasParalelasState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -40,18 +43,21 @@ class _EcuacionDiferencialDeRectasParalelasState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TituloPersonalizado(
-                    AppLocalizations.of(context)!
-                        .ecuacionDiferencialRectasParalelas,
+                    AppLocalizations.of(
+                      context,
+                    )!.ecuacionDiferencialRectasParalelas,
                   ),
                   adContainer,
                   Consumer<FavoritesNotifier>(
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .ecuacionDiferencialRectasParalelas,
-                            widgetName:
-                                kWidgetEcuacionDiferencialDeRectasParalelas),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.ecuacionDiferencialRectasParalelas,
+                          widgetName:
+                              kWidgetEcuacionDiferencialDeRectasParalelas,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +69,22 @@ class _EcuacionDiferencialDeRectasParalelasState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialRectasParalelas,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialDeRectasParalelas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialRectasParalelas,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialDeRectasParalelas,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .ecuacionDiferencialRectasParalelas,
-                                    widgetName:
-                                        kWidgetEcuacionDiferencialDeRectasParalelas),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.ecuacionDiferencialRectasParalelas,
+                                  widgetName:
+                                      kWidgetEcuacionDiferencialDeRectasParalelas,
+                                ),
                               );
                             }
                           });
@@ -93,35 +103,41 @@ class _EcuacionDiferencialDeRectasParalelasState
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"1. \space (ax+by+c)dx+(ax+by+f)dy=0"),
+                          formulaText: r"1. \space (ax+by+c)dx+(ax+by+f)dy=0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"2. \space (ax+by+c)dx+(nax+mby+j)dy=0"),
+                          formulaText: r"2. \space (ax+by+c)dx+(nax+mby+j)dy=0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"3. \space(ax^2+by^2+c)xdx+(ax^2+by^2+f)ydy=0"),
+                          formulaText:
+                              r"3. \space(ax^2+by^2+c)xdx+(ax^2+by^2+f)ydy=0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"4. \space(ax^2+by^2+c)xdx+(nax^2+mby^2+j)ydy=0"),
+                          formulaText:
+                              r"4. \space(ax^2+by^2+c)xdx+(nax^2+mby^2+j)ydy=0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"5. \space(ax+by+c)dx+kdy = 0"),
+                          formulaText: r"5. \space(ax+by+c)dx+kdy = 0",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"6. \space(ax^2+by^2+c)xdx+kdy = 0"),
-                        const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .yaHechaLaSustitucionDeLasVariablesAsiComoDelDiferencial,
+                          formulaText: r"6. \space(ax^2+by^2+c)xdx+kdy = 0",
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales,
+                          AppLocalizations.of(
+                            context,
+                          )!.yaHechaLaSustitucionDeLasVariablesAsiComoDelDiferencial,
+                        ),
+                        const SizedBox(height: kEspacioEntreBotones),
+                        TextoEcuaciones(
+                          AppLocalizations.of(
+                            context,
+                          )!.seResuelvePorVariablesSeparablesYAlFinalSeRegresanSusValoresOriginales,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -139,38 +155,37 @@ class _EcuacionDiferencialDeRectasParalelasState
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
                       children: [
                         const Notas(),
                         const SizedBox(height: kEspacioEntreBotones),
-                        const Latex(
-                          formulaText: r"k ",
-                        ),
+                        const Latex(formulaText: r"k "),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.constanteCualquiera,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathsf{Ec.} \space 3, 4\space  \mathsf{y}\space 6"),
+                          formulaText:
+                              r"\mathsf{Ec.} \space 3, 4\space  \mathsf{y}\space 6",
+                        ),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seHacenDeLaFormaDeLasRestantesUtilizandolaSustitucion,
+                          AppLocalizations.of(
+                            context,
+                          )!.seHacenDeLaFormaDeLasRestantesUtilizandolaSustitucion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"r = x^2, w=y^2,dr = 2xdx \space \mathrm{y} \space dw = 2ydy"),
+                          formulaText:
+                              r"r = x^2, w=y^2,dr = 2xdx \space \mathrm{y} \space dw = 2ydy",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .seUsaLaSustitucionDelDiferencialEnElCoeficienteMasSencillo,
+                          AppLocalizations.of(
+                            context,
+                          )!.seUsaLaSustitucionDelDiferencialEnElCoeficienteMasSencillo,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

@@ -15,9 +15,12 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .funcionesDelAnguloMitad,
-                            widgetName: kWidgetFuncionesDelAnguloMitad),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.funcionesDelAnguloMitad,
+                          widgetName: kWidgetFuncionesDelAnguloMitad,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,16 +65,20 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesDelAnguloMitad,
-                                    widgetName: kWidgetFuncionesDelAnguloMitad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesDelAnguloMitad,
+                                  widgetName: kWidgetFuncionesDelAnguloMitad,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .funcionesDelAnguloMitad,
-                                    widgetName: kWidgetFuncionesDelAnguloMitad),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.funcionesDelAnguloMitad,
+                                  widgetName: kWidgetFuncionesDelAnguloMitad,
+                                ),
                               );
                             }
                           });
@@ -78,9 +87,7 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -89,16 +96,19 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                         Latex(formulaText: r"p = \frac{a+b+c}{2}"),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\sin\frac{\alpha}{2} = \sqrt{\frac{\sin(p-b)\sin(p-c)}{\sin b\sin c}}"),
+                          formulaText:
+                              r"\sin\frac{\alpha}{2} = \sqrt{\frac{\sin(p-b)\sin(p-c)}{\sin b\sin c}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos\frac{\alpha}{2} = \sqrt{\frac{\sin p \sin(p-a)}{\sin b \sin c}}"),
+                          formulaText:
+                              r"\cos\frac{\alpha}{2} = \sqrt{\frac{\sin p \sin(p-a)}{\sin b \sin c}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\tan\frac{\alpha}{2} = \sqrt{\frac{\sin (p-b) \sin(p-c)}{\sin p \sin (p-a)}}"),
+                          formulaText:
+                              r"\tan\frac{\alpha}{2} = \sqrt{\frac{\sin (p-b) \sin(p-c)}{\sin p \sin (p-a)}}",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
@@ -106,22 +116,15 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetFuncionesDelAnguloMitad,
-                  ),
+                  const VerPDF(url: kWidgetFuncionesDelAnguloMitad),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetFuncionesDelAnguloMitad,
-                  ),
+                  const DescargarPDF(url: kWidgetFuncionesDelAnguloMitad),
 
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -135,8 +138,9 @@ class _FuncionesDelAnguloMitadState extends State<FuncionesDelAnguloMitad> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

@@ -53,15 +53,19 @@ void main() {
   testWidgets('TasksScreen and AddTaskScreen mount', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final tasks = TaskData();
-    await tester
-        .pumpWidget(_harness(taskData: tasks, home: const TasksScreen()));
+    await tester.pumpWidget(
+      _harness(taskData: tasks, home: const TasksScreen()),
+    );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
     _expectNoWidgetException(tester, 'TasksScreen initial mount');
     expect(find.byType(TasksScreen), findsOneWidget);
 
     await tester.pumpWidget(
-      _harness(taskData: tasks, home: const Scaffold(body: AddTaskScreen())),
+      _harness(
+        taskData: tasks,
+        home: const Scaffold(body: AddTaskScreen()),
+      ),
     );
     await tester.pump();
     _expectNoWidgetException(tester, 'AddTaskScreen initial mount');
@@ -73,8 +77,9 @@ void main() {
     }
   });
 
-  testWidgets('FavoritesScreen with favorites and clear dialog',
-      (tester) async {
+  testWidgets('FavoritesScreen with favorites and clear dialog', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 1600));
     final favs = FavoritesNotifier();
     favs.addFavorite(
@@ -122,8 +127,9 @@ void main() {
     expect(find.byType(ListView), findsWidgets);
   });
 
-  testWidgets('PuntoMedio calculator fields and favorite toggle',
-      (tester) async {
+  testWidgets('PuntoMedio calculator fields and favorite toggle', (
+    tester,
+  ) async {
     await tester.binding.setSurfaceSize(const Size(900, 2000));
     await tester.pumpWidget(
       _harness(home: const PuntoMedioEntreDosPuntosGeometria()),
@@ -178,7 +184,9 @@ void main() {
         await tester.tap(fav.first);
         await tester.pump();
         _expectNoWidgetException(
-            tester, '${screen.runtimeType} favorite toggle');
+          tester,
+          '${screen.runtimeType} favorite toggle',
+        );
       }
 
       final list = find.byType(Scrollable);
@@ -194,14 +202,18 @@ void main() {
         await tester.tap(tiles.at(i));
         await tester.pump();
         _expectNoWidgetException(
-            tester, '${screen.runtimeType} expansion tile $i');
+          tester,
+          '${screen.runtimeType} expansion tile $i',
+        );
       }
     }
   });
 
   testWidgets('VerPDF with known widget id shows button', (tester) async {
     await tester.pumpWidget(
-      _harness(home: const Scaffold(body: VerPDF(url: kWidgetFormulaGeneral))),
+      _harness(
+        home: const Scaffold(body: VerPDF(url: kWidgetFormulaGeneral)),
+      ),
     );
     await tester.pump();
     _expectNoWidgetException(tester, 'VerPDF known widget id');
@@ -210,8 +222,11 @@ void main() {
 }
 
 void _expectNoWidgetException(WidgetTester tester, String phase) {
-  expect(tester.takeException(), isNull,
-      reason: '$phase threw a widget exception');
+  expect(
+    tester.takeException(),
+    isNull,
+    reason: '$phase threw a widget exception',
+  );
 }
 
 Widget _harness({

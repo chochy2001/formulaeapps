@@ -6,10 +6,12 @@ class AngulosNotablesGradosRadianes extends StatefulWidget {
   const AngulosNotablesGradosRadianes({super.key});
 
   @override
-  AngulosNotablesGradosRadianesState createState() => AngulosNotablesGradosRadianesState();
+  AngulosNotablesGradosRadianesState createState() =>
+      AngulosNotablesGradosRadianesState();
 }
 
-class AngulosNotablesGradosRadianesState extends State<AngulosNotablesGradosRadianes> {
+class AngulosNotablesGradosRadianesState
+    extends State<AngulosNotablesGradosRadianes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class AngulosNotablesGradosRadianesState extends State<AngulosNotablesGradosRadi
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.angulosNotablesGradosRadianes,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.angulosNotablesGradosRadianes,
                         widgetName: kWidgetAngulosNotablesGradosRadianes,
                       ),
                     );
@@ -44,15 +48,21 @@ class AngulosNotablesGradosRadianesState extends State<AngulosNotablesGradosRadi
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.angulosNotablesGradosRadianes,
-                                widgetName: kWidgetAngulosNotablesGradosRadianes,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.angulosNotablesGradosRadianes,
+                                widgetName:
+                                    kWidgetAngulosNotablesGradosRadianes,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.angulosNotablesGradosRadianes,
-                                widgetName: kWidgetAngulosNotablesGradosRadianes,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.angulosNotablesGradosRadianes,
+                                widgetName:
+                                    kWidgetAngulosNotablesGradosRadianes,
                               ),
                             );
                           }
@@ -69,15 +79,25 @@ class AngulosNotablesGradosRadianesState extends State<AngulosNotablesGradosRadi
                 children: [
                   Latex(formulaText: r"0^{\circ} = 0 \ \text{rad} = 0"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"15^{\circ} = \dfrac{\pi}{12} \approx 0.26"),
+                  Latex(
+                    formulaText: r"15^{\circ} = \dfrac{\pi}{12} \approx 0.26",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"30^{\circ} = \dfrac{\pi}{6} \approx 0.52"),
+                  Latex(
+                    formulaText: r"30^{\circ} = \dfrac{\pi}{6} \approx 0.52",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"45^{\circ} = \dfrac{\pi}{4} \approx 0.78"),
+                  Latex(
+                    formulaText: r"45^{\circ} = \dfrac{\pi}{4} \approx 0.78",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"60^{\circ} = \dfrac{\pi}{3} \approx 1.05"),
+                  Latex(
+                    formulaText: r"60^{\circ} = \dfrac{\pi}{3} \approx 1.05",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"90^{\circ} = \dfrac{\pi}{2} \approx 1.57"),
+                  Latex(
+                    formulaText: r"90^{\circ} = \dfrac{\pi}{2} \approx 1.57",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"120^{\circ} = \dfrac{2\pi}{3}"),
                   SizedBox(height: kEspacioEntreBotones),
@@ -93,7 +113,9 @@ class AngulosNotablesGradosRadianesState extends State<AngulosNotablesGradosRadi
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"240^{\circ} = \dfrac{4\pi}{3}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"270^{\circ} = \dfrac{3\pi}{2} \approx 4.71"),
+                  Latex(
+                    formulaText: r"270^{\circ} = \dfrac{3\pi}{2} \approx 4.71",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"300^{\circ} = \dfrac{5\pi}{3}"),
                   SizedBox(height: kEspacioEntreBotones),

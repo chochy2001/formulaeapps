@@ -14,9 +14,12 @@ class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -45,9 +48,11 @@ class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .vectoresYSuMagnitud,
-                            widgetName: kWidgetVectoresYSuMagnitud),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.vectoresYSuMagnitud,
+                          widgetName: kWidgetVectoresYSuMagnitud,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -59,16 +64,20 @@ class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .vectoresYSuMagnitud,
-                                    widgetName: kWidgetVectoresYSuMagnitud),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.vectoresYSuMagnitud,
+                                  widgetName: kWidgetVectoresYSuMagnitud,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .vectoresYSuMagnitud,
-                                    widgetName: kWidgetVectoresYSuMagnitud),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.vectoresYSuMagnitud,
+                                  widgetName: kWidgetVectoresYSuMagnitud,
+                                ),
                               );
                             }
                           });
@@ -87,8 +96,8 @@ class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\mathrm{v}=\langle v_1,v_2,v_3\rangle"),
+                          formulaText: r"\mathrm{v}=\langle v_1,v_2,v_3\rangle",
+                        ),
                         const SizedBox(height: 50),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.magnitudVector,
@@ -105,19 +114,16 @@ class _VectoresYSuMagnitudState extends State<VectoresYSuMagnitud> {
                         const Latex(formulaText: r"Q(x_2,y_2,z_2)"),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText: r"|v|=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}"),
+                          formulaText: r"|v|=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}",
+                        ),
                       ],
                     ),
                   ),
 
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetVectoresYSuMagnitud,
-                  ),
+                  const VerPDF(url: kWidgetVectoresYSuMagnitud),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetVectoresYSuMagnitud,
-                  ),
+                  const DescargarPDF(url: kWidgetVectoresYSuMagnitud),
                 ],
               ),
             ),

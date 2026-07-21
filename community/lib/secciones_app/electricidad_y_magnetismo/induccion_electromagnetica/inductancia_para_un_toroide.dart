@@ -15,9 +15,12 @@ class _InductanciaParaUnToroideState extends State<InductanciaParaUnToroide> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -42,9 +45,11 @@ class _InductanciaParaUnToroideState extends State<InductanciaParaUnToroide> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .inductanciaParaUnToroide,
-                      widgetName: kWidgetInductanciaParaUnToroide),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.inductanciaParaUnToroide,
+                    widgetName: kWidgetInductanciaParaUnToroide,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -56,16 +61,20 @@ class _InductanciaParaUnToroideState extends State<InductanciaParaUnToroide> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaParaUnToroide,
-                              widgetName: kWidgetInductanciaParaUnToroide),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaParaUnToroide,
+                            widgetName: kWidgetInductanciaParaUnToroide,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .inductanciaParaUnToroide,
-                              widgetName: kWidgetInductanciaParaUnToroide),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.inductanciaParaUnToroide,
+                            widgetName: kWidgetInductanciaParaUnToroide,
+                          ),
                         );
                       }
                     });
@@ -78,42 +87,38 @@ class _InductanciaParaUnToroideState extends State<InductanciaParaUnToroide> {
             Column(
               children: <Widget>[
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenFlujoMagneticoEnUnToroide),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.flujoMagnetico,
+                  urlImagen: kUrlImagenFlujoMagneticoEnUnToroide,
                 ),
+                TextoEcuaciones(AppLocalizations.of(context)!.flujoMagnetico),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\Phi = \iint \vec{B}\cdot d\vec{A} = \frac{\mu_0NIe}{2\pi} \ln \left(\frac{r_e}{r_i}\right)"),
+                  formulaText:
+                      r"\Phi = \iint \vec{B}\cdot d\vec{A} = \frac{\mu_0NIe}{2\pi} \ln \left(\frac{r_e}{r_i}\right)",
+                ),
                 const SizedBox(height: 30.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.flujoTotalConcatenado,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\lambda = N\Phi_B = \frac{\mu_0N^2Ie}{2\pi}\ln \left(\frac{r_e}{r_i}\right)"),
-                const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.laInductancia,
+                  formulaText:
+                      r"\lambda = N\Phi_B = \frac{\mu_0N^2Ie}{2\pi}\ln \left(\frac{r_e}{r_i}\right)",
                 ),
+                const SizedBox(height: 30.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.laInductancia),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"L = \frac{\lambda}{I} = \frac{\mu_0N^2e}{2\pi}\ln \left(\frac{r_e}{r_i}\right)"),
+                  formulaText:
+                      r"L = \frac{\lambda}{I} = \frac{\mu_0N^2e}{2\pi}\ln \left(\frac{r_e}{r_i}\right)",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetInductanciaParaUnToroide,
-            ),
+            const VerPDF(url: kWidgetInductanciaParaUnToroide),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetInductanciaParaUnToroide,
-            ),
+            const DescargarPDF(url: kWidgetInductanciaParaUnToroide),
           ],
         ),
       ),

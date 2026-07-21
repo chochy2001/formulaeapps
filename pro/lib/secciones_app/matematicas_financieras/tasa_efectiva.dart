@@ -31,8 +31,9 @@ class TasaEfectivaState extends State<TasaEfectiva> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.tasaEfectiva,
-                            widgetName: kWidgetTasaEfectiva),
+                          title: AppLocalizations.of(context)!.tasaEfectiva,
+                          widgetName: kWidgetTasaEfectiva,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class TasaEfectivaState extends State<TasaEfectiva> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tasaEfectiva,
-                                    widgetName: kWidgetTasaEfectiva),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tasaEfectiva,
+                                  widgetName: kWidgetTasaEfectiva,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .tasaEfectiva,
-                                    widgetName: kWidgetTasaEfectiva),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.tasaEfectiva,
+                                  widgetName: kWidgetTasaEfectiva,
+                                ),
                               );
                             }
                           });
@@ -62,9 +67,7 @@ class TasaEfectivaState extends State<TasaEfectiva> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -74,29 +77,22 @@ class TasaEfectivaState extends State<TasaEfectiva> {
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"e = \left(1+\frac{i}{p}\right)^p -1"),
+                          formulaText: r"e = \left(1+\frac{i}{p}\right)^p -1",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTasaEfectiva,
-                  ),
+                  const VerPDF(url: kWidgetTasaEfectiva),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTasaEfectiva,
-                  ),
+                  const DescargarPDF(url: kWidgetTasaEfectiva),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -115,8 +111,9 @@ class TasaEfectivaState extends State<TasaEfectiva> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"p"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .frecuenciaCapitalizacion,
+                          AppLocalizations.of(
+                            context,
+                          )!.frecuenciaCapitalizacion,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

@@ -6,10 +6,12 @@ class RefraccionDeLaLuzLeyDeSnell extends StatefulWidget {
   const RefraccionDeLaLuzLeyDeSnell({super.key});
 
   @override
-  RefraccionDeLaLuzLeyDeSnellState createState() => RefraccionDeLaLuzLeyDeSnellState();
+  RefraccionDeLaLuzLeyDeSnellState createState() =>
+      RefraccionDeLaLuzLeyDeSnellState();
 }
 
-class RefraccionDeLaLuzLeyDeSnellState extends State<RefraccionDeLaLuzLeyDeSnell> {
+class RefraccionDeLaLuzLeyDeSnellState
+    extends State<RefraccionDeLaLuzLeyDeSnell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class RefraccionDeLaLuzLeyDeSnellState extends State<RefraccionDeLaLuzLeyDeSnell
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.refraccionDeLaLuzLeyDeSnell,
                         widgetName: kWidgetRefraccionDeLaLuzLeyDeSnell,
                       ),
                     );
@@ -44,14 +48,18 @@ class RefraccionDeLaLuzLeyDeSnellState extends State<RefraccionDeLaLuzLeyDeSnell
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.refraccionDeLaLuzLeyDeSnell,
                                 widgetName: kWidgetRefraccionDeLaLuzLeyDeSnell,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.refraccionDeLaLuzLeyDeSnell,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.refraccionDeLaLuzLeyDeSnell,
                                 widgetName: kWidgetRefraccionDeLaLuzLeyDeSnell,
                               ),
                             );
@@ -67,9 +75,15 @@ class RefraccionDeLaLuzLeyDeSnellState extends State<RefraccionDeLaLuzLeyDeSnell
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\mu = \frac{\operatorname{sen} i}{\operatorname{sen} r}"),
+                  Latex(
+                    formulaText:
+                        r"\mu = \frac{\operatorname{sen} i}{\operatorname{sen} r}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\mu = \frac{\operatorname{sen} i}{\operatorname{sen} r} = \frac{V_{1}}{V_{2}}"),
+                  Latex(
+                    formulaText:
+                        r"\mu = \frac{\operatorname{sen} i}{\operatorname{sen} r} = \frac{V_{1}}{V_{2}}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -31,9 +31,11 @@ class TeoremaDePitagorasState extends State<TeoremaDePitagoras> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDePitagoras,
-                            widgetName: kWidgetTeoremaDePitagoras),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDePitagoras,
+                          widgetName: kWidgetTeoremaDePitagoras,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -45,16 +47,20 @@ class TeoremaDePitagorasState extends State<TeoremaDePitagoras> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDePitagoras,
-                                    widgetName: kWidgetTeoremaDePitagoras),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDePitagoras,
+                                  widgetName: kWidgetTeoremaDePitagoras,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDePitagoras,
-                                    widgetName: kWidgetTeoremaDePitagoras),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDePitagoras,
+                                  widgetName: kWidgetTeoremaDePitagoras,
+                                ),
                               );
                             }
                           });
@@ -63,9 +69,7 @@ class TeoremaDePitagorasState extends State<TeoremaDePitagoras> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
@@ -80,13 +84,9 @@ class TeoremaDePitagorasState extends State<TeoremaDePitagoras> {
                   //Boton para acceder al formulario en PDF
                   const Column(
                     children: [
-                      VerPDF(
-                        url: kWidgetTeoremaDePitagoras,
-                      ),
+                      VerPDF(url: kWidgetTeoremaDePitagoras),
                       //Descargar PDF
-                      DescargarPDF(
-                        url: kWidgetTeoremaDePitagoras,
-                      ),
+                      DescargarPDF(url: kWidgetTeoremaDePitagoras),
                     ],
                   ),
                 ],

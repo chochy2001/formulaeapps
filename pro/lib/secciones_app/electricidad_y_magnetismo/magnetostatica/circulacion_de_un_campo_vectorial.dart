@@ -29,9 +29,11 @@ class _CirculacionDeUnCampoVectorialState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .circulacionDeUnCampoVectorial,
-                      widgetName: kWidgetCirculacionDeUnCampoVectorial),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.circulacionDeUnCampoVectorial,
+                    widgetName: kWidgetCirculacionDeUnCampoVectorial,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -43,16 +45,20 @@ class _CirculacionDeUnCampoVectorialState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circulacionDeUnCampoVectorial,
-                              widgetName: kWidgetCirculacionDeUnCampoVectorial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circulacionDeUnCampoVectorial,
+                            widgetName: kWidgetCirculacionDeUnCampoVectorial,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .circulacionDeUnCampoVectorial,
-                              widgetName: kWidgetCirculacionDeUnCampoVectorial),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.circulacionDeUnCampoVectorial,
+                            widgetName: kWidgetCirculacionDeUnCampoVectorial,
+                          ),
                         );
                       }
                     });
@@ -68,35 +74,38 @@ class _CirculacionDeUnCampoVectorialState
                   AppLocalizations.of(context)!.circulacionDelCampoElectrico,
                 ),
                 const Latex(
-                    formulaText: r"C_e = \oint \vec{E} \cdot d \vec{l} = 0"),
+                  formulaText: r"C_e = \oint \vec{E} \cdot d \vec{l} = 0",
+                ),
                 const SizedBox(height: 30.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.circulacionDelCampoMagnetico,
                 ),
                 const Latex(
-                    formulaText: r"C_b = \oint \vec{B} \cdot d \vec{l} \neq 0"),
+                  formulaText: r"C_b = \oint \vec{B} \cdot d \vec{l} \neq 0",
+                ),
                 const SizedBox(height: 30.0),
                 TextoEcuaciones(
                   AppLocalizations.of(context)!.enElCasoDeUnConductorRecto,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"C_b = \oint \vec{B} \cdot d \vec{l} = B2\pi r"),
+                  formulaText: r"C_b = \oint \vec{B} \cdot d \vec{l} = B2\pi r",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\oint \vec{B} \cdot d \vec{l} = \frac{\mu _0 i}{2\pi r}2\pi r"),
+                  formulaText:
+                      r"\oint \vec{B} \cdot d \vec{l} = \frac{\mu _0 i}{2\pi r}2\pi r",
+                ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu _0 i"),
+                  formulaText: r"\oint \vec{B} \cdot d \vec{l} = \mu _0 i",
+                ),
                 const SizedBox(height: 20.0),
                 const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenCirculacionDeUnCampoVectorial),
-                const SizedBox(height: 30.0),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeAmpere,
+                  urlImagen: kUrlImagenCirculacionDeUnCampoVectorial,
                 ),
+                const SizedBox(height: 30.0),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeAmpere),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -104,15 +113,11 @@ class _CirculacionDeUnCampoVectorialState
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetCirculacionDeUnCampoVectorial,
-                ),
+                VerPDF(url: kWidgetCirculacionDeUnCampoVectorial),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetCirculacionDeUnCampoVectorial,
-                ),
+                DescargarPDF(url: kWidgetCirculacionDeUnCampoVectorial),
               ],
-            )
+            ),
           ],
         ),
       ),

@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../../constantes/export_constantes.dart';
 
 class BotonMenu extends StatefulWidget {
-  const BotonMenu({super.key, required this.onPress, this.color, this.cardChild});
+  const BotonMenu({
+    super.key,
+    required this.onPress,
+    this.color,
+    this.cardChild,
+  });
 
   final Color? color;
   final Widget? cardChild;

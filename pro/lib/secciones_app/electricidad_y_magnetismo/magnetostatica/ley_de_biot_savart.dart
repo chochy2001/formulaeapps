@@ -27,8 +27,9 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.leyDeBiotSavart,
-                      widgetName: kWidgetLeyDeBiotSavart),
+                    title: AppLocalizations.of(context)!.leyDeBiotSavart,
+                    widgetName: kWidgetLeyDeBiotSavart,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -40,16 +41,20 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.leyDeBiotSavart,
-                              widgetName: kWidgetLeyDeBiotSavart),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeBiotSavart,
+                            widgetName: kWidgetLeyDeBiotSavart,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.leyDeBiotSavart,
-                              widgetName: kWidgetLeyDeBiotSavart),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.leyDeBiotSavart,
+                            widgetName: kWidgetLeyDeBiotSavart,
+                          ),
                         );
                       }
                     });
@@ -62,27 +67,30 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
               children: <Widget>[
                 const SizedBox(height: 30.0),
                 ZoomImagePersonalizado(
-                    urlImagen:
-                        getImageUrlById(context, kImagenLeyDeBiotSavart1) ??
-                            kUrlImagenLeyDeBiotSavart1),
-                const SizedBox(height: 20.0),
-                const Latex(
-                    formulaText:
-                        r"\vec{B}= \frac{\mu_0}{4\pi}\frac{q\vec{v}\times \bar{r}}{r^3}"),
-                const SizedBox(height: 50.0),
-                const ZoomImagePersonalizado(
-                    urlImagen: kUrlImagenLeyDeBiotSavart2),
-                TextoEcuaciones(
-                  AppLocalizations.of(context)!.leyDeBiotSavart,
+                  urlImagen:
+                      getImageUrlById(context, kImagenLeyDeBiotSavart1) ??
+                      kUrlImagenLeyDeBiotSavart1,
                 ),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"\vec{B}= \frac{\mu_0}{4\pi}\frac{i\vec{L}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"\vec{B}= \frac{\mu_0}{4\pi}\frac{q\vec{v}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 50.0),
+                const ZoomImagePersonalizado(
+                  urlImagen: kUrlImagenLeyDeBiotSavart2,
+                ),
+                TextoEcuaciones(AppLocalizations.of(context)!.leyDeBiotSavart),
                 const SizedBox(height: 20.0),
                 const Latex(
-                    formulaText:
-                        r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}"),
+                  formulaText:
+                      r"\vec{B}= \frac{\mu_0}{4\pi}\frac{i\vec{L}\times \bar{r}}{r^3}",
+                ),
+                const SizedBox(height: 20.0),
+                const Latex(
+                  formulaText:
+                      r"d\vec{B}= \frac{\mu_0}{4\pi}\frac{id\vec{l}\times \bar{r}}{r^3}",
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),
@@ -90,15 +98,11 @@ class _LeyDeBiotSavartState extends State<LeyDeBiotSavart> {
             //Boton para acceder al formulario en PDF
             const Column(
               children: [
-                VerPDF(
-                  url: kWidgetLeyDeBiotSavart,
-                ),
+                VerPDF(url: kWidgetLeyDeBiotSavart),
                 //Descargar PDF
-                DescargarPDF(
-                  url: kWidgetLeyDeBiotSavart,
-                ),
+                DescargarPDF(url: kWidgetLeyDeBiotSavart),
               ],
-            )
+            ),
           ],
         ),
       ),

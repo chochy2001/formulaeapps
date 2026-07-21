@@ -22,9 +22,7 @@ class MenuMedidasState extends State<MenuMedidas> {
             children: [
               MenuColumn(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -33,27 +31,29 @@ class MenuMedidasState extends State<MenuMedidas> {
                     AppLocalizations.of(context)!.medidas,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .dispersionParaDatosNoAgrupados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.dispersionParaDatosNoAgrupados,
                     ruta: kRutaMedidasDeDispersionParaDatosNoAgrupados,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .posicionParaDatosNoAgrupados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.posicionParaDatosNoAgrupados,
                     ruta: kRutaMedidasDePosicionParaDatosNoAgrupados,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .tendenciaCentralParaDatosAgrupados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.tendenciaCentralParaDatosAgrupados,
                     ruta: kRutaMedidasDeTendenciaCentralParaDatosAgrupados,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!
-                        .tendenciaCentralParaDatosNoAgrupados,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.tendenciaCentralParaDatosNoAgrupados,
                     ruta: kRutaMedidasDeTendenciaCentralParaDatosNoAgrupados,
                   ),
                 ],

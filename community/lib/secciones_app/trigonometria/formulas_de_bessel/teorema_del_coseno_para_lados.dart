@@ -15,9 +15,12 @@ class _TeoremaDelCosenoParaLadosState extends State<TeoremaDelCosenoParaLados> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -46,9 +49,11 @@ class _TeoremaDelCosenoParaLadosState extends State<TeoremaDelCosenoParaLados> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .teoremaDelCosenoParaLados,
-                            widgetName: kWidgetTeoremaDelCosenoParaLados),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.teoremaDelCosenoParaLados,
+                          widgetName: kWidgetTeoremaDelCosenoParaLados,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -60,18 +65,20 @@ class _TeoremaDelCosenoParaLadosState extends State<TeoremaDelCosenoParaLados> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaLados,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaLados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaLados,
+                                  widgetName: kWidgetTeoremaDelCosenoParaLados,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .teoremaDelCosenoParaLados,
-                                    widgetName:
-                                        kWidgetTeoremaDelCosenoParaLados),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.teoremaDelCosenoParaLados,
+                                  widgetName: kWidgetTeoremaDelCosenoParaLados,
+                                ),
                               );
                             }
                           });
@@ -80,44 +87,38 @@ class _TeoremaDelCosenoParaLadosState extends State<TeoremaDelCosenoParaLados> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   const ZoomPersonalizado(
                     child: Column(
                       children: [
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos a = \cos b \cos c + \sin b \sin c \cos \alpha"),
+                          formulaText:
+                              r"\cos a = \cos b \cos c + \sin b \sin c \cos \alpha",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos b = \cos a \cos c + \sin a \sin c \cos \beta"),
+                          formulaText:
+                              r"\cos b = \cos a \cos c + \sin a \sin c \cos \beta",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                         Latex(
-                            formulaText:
-                                r"\cos c = \cos a \cos b + \sin a \sin b \cos \gamma"),
+                          formulaText:
+                              r"\cos c = \cos a \cos b + \sin a \sin b \cos \gamma",
+                        ),
                         SizedBox(height: kEspacioEntreBotones),
                       ],
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetTeoremaDelCosenoParaLados,
-                  ),
+                  const VerPDF(url: kWidgetTeoremaDelCosenoParaLados),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetTeoremaDelCosenoParaLados,
-                  ),
+                  const DescargarPDF(url: kWidgetTeoremaDelCosenoParaLados),
                   //Notas
                   Container(
                     decoration: BoxDecoration(
                       color: kColorBotones,
-                      border: Border.all(
-                        color: kColorFondo,
-                        width: 8,
-                      ),
+                      border: Border.all(color: kColorFondo, width: 8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -131,8 +132,9 @@ class _TeoremaDelCosenoParaLadosState extends State<TeoremaDelCosenoParaLados> {
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(formulaText: r"\alpha,\beta,\gamma"),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .angulosTrianguloEsferico,
+                          AppLocalizations.of(
+                            context,
+                          )!.angulosTrianguloEsferico,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const CapdesisLatex(),

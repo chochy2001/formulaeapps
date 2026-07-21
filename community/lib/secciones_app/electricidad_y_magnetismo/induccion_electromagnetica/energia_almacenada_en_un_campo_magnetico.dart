@@ -16,9 +16,12 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -43,9 +46,11 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!
-                          .energiaAlmacenadaEnUnCampoMagnetico,
-                      widgetName: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico),
+                    title: AppLocalizations.of(
+                      context,
+                    )!.energiaAlmacenadaEnUnCampoMagnetico,
+                    widgetName: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -57,18 +62,22 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaAlmacenadaEnUnCampoMagnetico,
-                              widgetName:
-                                  kWidgetEnergiaAlmacenadaEnUnCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaAlmacenadaEnUnCampoMagnetico,
+                            widgetName:
+                                kWidgetEnergiaAlmacenadaEnUnCampoMagnetico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title: AppLocalizations.of(context)!
-                                  .energiaAlmacenadaEnUnCampoMagnetico,
-                              widgetName:
-                                  kWidgetEnergiaAlmacenadaEnUnCampoMagnetico),
+                            title: AppLocalizations.of(
+                              context,
+                            )!.energiaAlmacenadaEnUnCampoMagnetico,
+                            widgetName:
+                                kWidgetEnergiaAlmacenadaEnUnCampoMagnetico,
+                          ),
                         );
                       }
                     });
@@ -88,8 +97,9 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
                   const Latex(formulaText: r"L = \frac{\mu_0N^2A}{l}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText:
-                          r"U = \frac{1}{2}LI^2 = \frac{1}{2}\frac{\mu_0N^2A}{l}I^2"),
+                    formulaText:
+                        r"U = \frac{1}{2}LI^2 = \frac{1}{2}\frac{\mu_0N^2A}{l}I^2",
+                  ),
                   const SizedBox(height: 20.0),
                   TextoEcuaciones(
                     AppLocalizations.of(context)!.enFuncionDelCampoMagnetico,
@@ -98,7 +108,8 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
                   const Latex(formulaText: r"B= \frac{\mu_0NI}{I}"),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"U = \frac{1}{2}B^2 \frac{Al}{\mu_0}"),
+                    formulaText: r"U = \frac{1}{2}B^2 \frac{Al}{\mu_0}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"U = \frac{1}{2\mu_0}B^2V'"),
                   const SizedBox(height: 20.0),
@@ -107,31 +118,31 @@ class _EnergiaAlmacenadaEnUnCampoMagneticoState
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"u = \frac{U}{V'} = \frac{B^2}{2\mu_0}"),
-                  const SizedBox(height: 20.0),
-                  const Latex(
-                      formulaText: r"[u]_u = \left[\frac{J}{m^3}\right]"),
-                  const SizedBox(height: 20.0),
-                  TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .energiaDeUnCampoMagneticoNoHomogeneo,
+                    formulaText: r"u = \frac{U}{V'} = \frac{B^2}{2\mu_0}",
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"U = \frac{1}{2\mu_0}\iiint B^2 dV'"),
+                    formulaText: r"[u]_u = \left[\frac{J}{m^3}\right]",
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextoEcuaciones(
+                    AppLocalizations.of(
+                      context,
+                    )!.energiaDeUnCampoMagneticoNoHomogeneo,
+                  ),
+                  const SizedBox(height: 20.0),
+                  const Latex(
+                    formulaText: r"U = \frac{1}{2\mu_0}\iiint B^2 dV'",
+                  ),
                   const SizedBox(height: 40.0),
                 ],
               ),
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico,
-            ),
+            const VerPDF(url: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico,
-            ),
+            const DescargarPDF(url: kWidgetEnergiaAlmacenadaEnUnCampoMagnetico),
           ],
         ),
       ),

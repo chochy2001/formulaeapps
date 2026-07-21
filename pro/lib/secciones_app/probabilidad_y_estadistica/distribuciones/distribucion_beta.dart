@@ -6,10 +6,12 @@ class DistribucionesDistribucionBeta extends StatefulWidget {
   const DistribucionesDistribucionBeta({super.key});
 
   @override
-  DistribucionesDistribucionBetaState createState() => DistribucionesDistribucionBetaState();
+  DistribucionesDistribucionBetaState createState() =>
+      DistribucionesDistribucionBetaState();
 }
 
-class DistribucionesDistribucionBetaState extends State<DistribucionesDistribucionBeta> {
+class DistribucionesDistribucionBetaState
+    extends State<DistribucionesDistribucionBeta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +25,18 @@ class DistribucionesDistribucionBetaState extends State<DistribucionesDistribuci
               children: [
                 ChatGPTButton(
                   child: TituloPersonalizado(
-                    AppLocalizations.of(context)!.distribucionesDistribucionBeta,
+                    AppLocalizations.of(
+                      context,
+                    )!.distribucionesDistribucionBeta,
                   ),
                 ),
                 Consumer<FavoritesNotifier>(
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.distribucionesDistribucionBeta,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.distribucionesDistribucionBeta,
                         widgetName: kWidgetDistribucionesDistribucionBeta,
                       ),
                     );
@@ -44,15 +50,21 @@ class DistribucionesDistribucionBetaState extends State<DistribucionesDistribuci
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionBeta,
-                                widgetName: kWidgetDistribucionesDistribucionBeta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionBeta,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionBeta,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.distribucionesDistribucionBeta,
-                                widgetName: kWidgetDistribucionesDistribucionBeta,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.distribucionesDistribucionBeta,
+                                widgetName:
+                                    kWidgetDistribucionesDistribucionBeta,
                               ),
                             );
                           }
@@ -67,13 +79,19 @@ class DistribucionesDistribucionBetaState extends State<DistribucionesDistribuci
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"f_x(X_0) = \begin{cases} \dfrac{1}{B}\, X_0^{\,r-1}\,(1-X_0)^{\,t-r-1} & 0 \le X_0 \le 1 \\ 0 & \text{cualquier otro caso} \end{cases}"),
+                  Latex(
+                    formulaText:
+                        r"f_x(X_0) = \begin{cases} \dfrac{1}{B}\, X_0^{\,r-1}\,(1-X_0)^{\,t-r-1} & 0 \le X_0 \le 1 \\ 0 & \text{cualquier otro caso} \end{cases}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"B = \dfrac{(r-1)!\,(t-r-1)!}{(t-1)!}"),
                   SizedBox(height: kEspacioEntreBotones),
                   Latex(formulaText: r"E(X) = \dfrac{r}{t}"),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\sigma_x^{2} = \dfrac{r\,(t-r)}{t^{2}\,(t+1)}"),
+                  Latex(
+                    formulaText:
+                        r"\sigma_x^{2} = \dfrac{r\,(t-r)}{t^{2}\,(t+1)}",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

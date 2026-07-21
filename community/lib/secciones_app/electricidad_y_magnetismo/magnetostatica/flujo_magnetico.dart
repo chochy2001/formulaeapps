@@ -14,9 +14,12 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -33,16 +36,15 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
       body: SafeArea(
         child: ListView(
           children: [
-            TituloPersonalizado(
-              AppLocalizations.of(context)!.flujoMagnetico,
-            ),
+            TituloPersonalizado(AppLocalizations.of(context)!.flujoMagnetico),
             adContainer,
             Consumer<FavoritesNotifier>(
               builder: (context, favoritesNotifier, child) {
                 bool isFavorite = favoritesNotifier.isFavorite(
                   Favorite(
-                      title: AppLocalizations.of(context)!.flujoMagnetico,
-                      widgetName: kWidgetFlujoMagnetico),
+                    title: AppLocalizations.of(context)!.flujoMagnetico,
+                    widgetName: kWidgetFlujoMagnetico,
+                  ),
                 );
                 return IconButton(
                   icon: isFavorite
@@ -54,16 +56,16 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
                       if (isFavorite) {
                         favoritesNotifier.removeFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.flujoMagnetico,
-                              widgetName: kWidgetFlujoMagnetico),
+                            title: AppLocalizations.of(context)!.flujoMagnetico,
+                            widgetName: kWidgetFlujoMagnetico,
+                          ),
                         );
                       } else {
                         favoritesNotifier.addFavorite(
                           Favorite(
-                              title:
-                                  AppLocalizations.of(context)!.flujoMagnetico,
-                              widgetName: kWidgetFlujoMagnetico),
+                            title: AppLocalizations.of(context)!.flujoMagnetico,
+                            widgetName: kWidgetFlujoMagnetico,
+                          ),
                         );
                       }
                     });
@@ -81,15 +83,17 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
                   ),
                   const SizedBox(height: 20.0),
                   const Latex(
-                      formulaText: r"\Phi = \iint \vec{B} \cdot d\vec{A}"),
+                    formulaText: r"\Phi = \iint \vec{B} \cdot d\vec{A}",
+                  ),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"[\Phi_B]_u = [Wb]"),
                   const SizedBox(height: 20.0),
                   const Latex(formulaText: r"[Wb] = Weber"),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
-                    AppLocalizations.of(context)!
-                        .elFlujoDeCampoMagneticoEsUnaMedida,
+                    AppLocalizations.of(
+                      context,
+                    )!.elFlujoDeCampoMagneticoEsUnaMedida,
                   ),
                   const SizedBox(height: 30.0),
                   TextoEcuaciones(
@@ -101,13 +105,9 @@ class _FlujoMagneticoState extends State<FlujoMagnetico> {
             ),
 
             //Boton para acceder al formulario en PDF
-            const VerPDF(
-              url: kWidgetFlujoMagnetico,
-            ),
+            const VerPDF(url: kWidgetFlujoMagnetico),
             //Descargar PDF
-            const DescargarPDF(
-              url: kWidgetFlujoMagnetico,
-            ),
+            const DescargarPDF(url: kWidgetFlujoMagnetico),
           ],
         ),
       ),

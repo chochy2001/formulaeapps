@@ -23,12 +23,9 @@ HealthStatus _$valueOf(String name) {
   }
 }
 
-final BuiltSet<HealthStatus> _$values =
-    BuiltSet<HealthStatus>(const <HealthStatus>[
-  _$ok,
-  _$degraded,
-  _$unhealthy,
-]);
+final BuiltSet<HealthStatus> _$values = BuiltSet<HealthStatus>(
+  const <HealthStatus>[_$ok, _$degraded, _$unhealthy],
+);
 
 class _$HealthStatusMeta {
   const _$HealthStatusMeta();
@@ -39,7 +36,7 @@ class _$HealthStatusMeta {
   BuiltSet<HealthStatus> get values => _$values;
 }
 
-abstract class _$HealthStatusMixin {
+mixin _$HealthStatusMixin {
   // ignore: non_constant_identifier_names
   _$HealthStatusMeta get HealthStatus => const _$HealthStatusMeta();
 }
@@ -64,15 +61,20 @@ class _$HealthStatusSerializer implements PrimitiveSerializer<HealthStatus> {
   final String wireName = 'HealthStatus';
 
   @override
-  Object serialize(Serializers serializers, HealthStatus object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    HealthStatus object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
-  HealthStatus deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      HealthStatus.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+  HealthStatus deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => HealthStatus.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

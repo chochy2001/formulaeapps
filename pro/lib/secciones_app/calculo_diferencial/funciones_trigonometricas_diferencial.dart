@@ -26,17 +26,20 @@ class FuncionesTrigonometricasDiferencialState
             children: [
               ChatGPTButton(
                 child: TituloPersonalizado(
-                  AppLocalizations.of(context)!
-                      .derivadasDeFuncionesTrigonometricas,
+                  AppLocalizations.of(
+                    context,
+                  )!.derivadasDeFuncionesTrigonometricas,
                 ),
               ),
               Consumer<FavoritesNotifier>(
                 builder: (context, favoritesNotifier, child) {
                   bool isFavorite = favoritesNotifier.isFavorite(
                     Favorite(
-                        title: AppLocalizations.of(context)!
-                            .derivadasDeFuncionesTrigonometricas,
-                        widgetName: kWidgetFuncionesTrigonometricasDiferencial),
+                      title: AppLocalizations.of(
+                        context,
+                      )!.derivadasDeFuncionesTrigonometricas,
+                      widgetName: kWidgetFuncionesTrigonometricasDiferencial,
+                    ),
                   );
                   return IconButton(
                     icon: isFavorite
@@ -48,18 +51,22 @@ class FuncionesTrigonometricasDiferencialState
                         if (isFavorite) {
                           favoritesNotifier.removeFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasDeFuncionesTrigonometricas,
-                                widgetName:
-                                    kWidgetFuncionesTrigonometricasDiferencial),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.derivadasDeFuncionesTrigonometricas,
+                              widgetName:
+                                  kWidgetFuncionesTrigonometricasDiferencial,
+                            ),
                           );
                         } else {
                           favoritesNotifier.addFavorite(
                             Favorite(
-                                title: AppLocalizations.of(context)!
-                                    .derivadasDeFuncionesTrigonometricas,
-                                widgetName:
-                                    kWidgetFuncionesTrigonometricasDiferencial),
+                              title: AppLocalizations.of(
+                                context,
+                              )!.derivadasDeFuncionesTrigonometricas,
+                              widgetName:
+                                  kWidgetFuncionesTrigonometricasDiferencial,
+                            ),
                           );
                         }
                       });
@@ -74,40 +81,44 @@ class FuncionesTrigonometricasDiferencialState
                   children: [
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\sin\thinspace u) = \cos\thinspace u \cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\sin\thinspace u) = \cos\thinspace u \cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\cos\thinspace u) = -\sin\thinspace u \cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\cos\thinspace u) = -\sin\thinspace u \cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\tan\thinspace u) = \sec^2\thinspace u \cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\tan\thinspace u) = \sec^2\thinspace u \cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\csc\thinspace u) = -\csc\thinspace u\cdot \cot\thinspace u\cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\csc\thinspace u) = -\csc\thinspace u\cdot \cot\thinspace u\cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\sec\thinspace u) = \sec\thinspace u\cdot \tan\thinspace u\cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\sec\thinspace u) = \sec\thinspace u\cdot \tan\thinspace u\cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
                     Latex(
-                        formulaText:
-                            r"\frac{d}{dx}(\cot\thinspace u) = -\csc^2\thinspace u \cdot u'"),
+                      formulaText:
+                          r"\frac{d}{dx}(\cot\thinspace u) = -\csc^2\thinspace u \cdot u'",
+                    ),
 
                     SizedBox(height: kEspacioEntreBotones),
 
                     //Boton para acceder al formulario en PDF
-                    VerPDF(
-                      url: kWidgetFuncionesTrigonometricasDiferencial,
-                    ),
+                    VerPDF(url: kWidgetFuncionesTrigonometricasDiferencial),
                     //Descargar PDF
                     DescargarPDF(
                       url: kWidgetFuncionesTrigonometricasDiferencial,
@@ -115,23 +126,14 @@ class FuncionesTrigonometricasDiferencialState
                   ],
                 ),
               ),
-              const SizedBox(
-                height: kEspacioEntreBotones,
-              ),
+              const SizedBox(height: kEspacioEntreBotones),
 
-              const Padding(
-                padding: EdgeInsets.only(top: 10.0),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const Padding(padding: EdgeInsets.only(top: 10.0)),
+              const SizedBox(height: 20.0),
               Container(
                 decoration: BoxDecoration(
                   color: kColorBotones,
-                  border: Border.all(
-                    color: kColorFondo,
-                    width: 8,
-                  ),
+                  border: Border.all(color: kColorFondo, width: 8),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -139,34 +141,22 @@ class FuncionesTrigonometricasDiferencialState
                     const Notas(),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\sin"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.seno,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.seno),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cos"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.coseno,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.coseno),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\tan"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.tangente,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.tangente),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\csc"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.cosecante,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.cosecante),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\sec"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.secante,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.secante),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\cot"),
-                    TextoEcuaciones(
-                      AppLocalizations.of(context)!.cotangente,
-                    ),
+                    TextoEcuaciones(AppLocalizations.of(context)!.cotangente),
                     const SizedBox(height: kEspacioEntreBotones),
                     const Latex(formulaText: r"\frac{du}{dx} = u^{'}"),
                     const SizedBox(height: kEspacioEntreBotones),

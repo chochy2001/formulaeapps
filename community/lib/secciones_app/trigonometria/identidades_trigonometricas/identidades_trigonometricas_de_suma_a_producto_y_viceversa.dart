@@ -17,9 +17,12 @@ class _IdentidadesTrigonometricasDeSumaAProductoYViceversaState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -48,10 +51,12 @@ class _IdentidadesTrigonometricasDeSumaAProductoYViceversaState
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!
-                                .deSumaAProductoYViceversa,
-                            widgetName:
-                                kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa),
+                          title: AppLocalizations.of(
+                            context,
+                          )!.deSumaAProductoYViceversa,
+                          widgetName:
+                              kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -63,18 +68,22 @@ class _IdentidadesTrigonometricasDeSumaAProductoYViceversaState
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deSumaAProductoYViceversa,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deSumaAProductoYViceversa,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .deSumaAProductoYViceversa,
-                                    widgetName:
-                                        kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.deSumaAProductoYViceversa,
+                                  widgetName:
+                                      kWidgetIdentidadesTrigonometricasDeSumaAProductoYViceversa,
+                                ),
                               );
                             }
                           });
@@ -83,51 +92,58 @@ class _IdentidadesTrigonometricasDeSumaAProductoYViceversaState
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .identidadesTrigonometricasSumaProducto,
+                          AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricasSumaProducto,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sin\alpha+\sin\beta = 2\sin\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha - \beta}{2}\right)"),
+                          formulaText:
+                              r"\sin\alpha+\sin\beta = 2\sin\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha - \beta}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sin\alpha-\sin\beta = 2\sin\left(\frac{\alpha - \beta}{2}\right)\cos\left(\frac{\alpha + \beta}{2}\right)"),
+                          formulaText:
+                              r"\sin\alpha-\sin\beta = 2\sin\left(\frac{\alpha - \beta}{2}\right)\cos\left(\frac{\alpha + \beta}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\cos\alpha+\sin\beta = 2\cos\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha - \beta}{2}\right)"),
+                          formulaText:
+                              r"\cos\alpha+\sin\beta = 2\cos\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha - \beta}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\cos\alpha-\sin\beta = -2\sin\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha - \beta}{2}\right)"),
+                          formulaText:
+                              r"\cos\alpha-\sin\beta = -2\sin\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha - \beta}{2}\right)",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                         TextoEcuaciones(
-                          AppLocalizations.of(context)!
-                              .identidadesTrigonometricasProductoSuma,
+                          AppLocalizations.of(
+                            context,
+                          )!.identidadesTrigonometricasProductoSuma,
                         ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sin\alpha\sin\beta = \frac{1}{2}[\cos(\alpha-\beta)-\cos(\alpha+\beta)]"),
+                          formulaText:
+                              r"\sin\alpha\sin\beta = \frac{1}{2}[\cos(\alpha-\beta)-\cos(\alpha+\beta)]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\cos\alpha\cos\beta = \frac{1}{2}[\cos(\alpha-\beta)+\cos(\alpha+\beta)]"),
+                          formulaText:
+                              r"\cos\alpha\cos\beta = \frac{1}{2}[\cos(\alpha-\beta)+\cos(\alpha+\beta)]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const Latex(
-                            formulaText:
-                                r"\sin\alpha\cos\beta = \frac{1}{2}[\sin(\alpha+\beta)+\sin(\alpha-\beta)]"),
+                          formulaText:
+                              r"\sin\alpha\cos\beta = \frac{1}{2}[\sin(\alpha+\beta)+\sin(\alpha-\beta)]",
+                        ),
                         const SizedBox(height: kEspacioEntreBotones),
                         const SizedBox(height: kEspacioEntreBotones),
                       ],

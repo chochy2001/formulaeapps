@@ -6,10 +6,7 @@ import 'package:formulae/widgets_personalizados/boton_pistas.dart';
 import 'package:formulae/widgets_personalizados/task_tile.dart';
 
 void main() {
-  Widget localizedHarness({
-    required Locale locale,
-    required Widget child,
-  }) {
+  Widget localizedHarness({required Locale locale, required Widget child}) {
     return MaterialApp(
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -18,16 +15,14 @@ void main() {
     );
   }
 
-  testWidgets('hint and answer buttons follow the active locale',
-      (tester) async {
+  testWidgets('hint and answer buttons follow the active locale', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       localizedHarness(
         locale: const Locale('en'),
         child: const Column(
-          children: [
-            BotonVerPistas(SizedBox()),
-            BotonVerRespuesta(SizedBox()),
-          ],
+          children: [BotonVerPistas(SizedBox()), BotonVerRespuesta(SizedBox())],
         ),
       ),
     );
@@ -40,10 +35,7 @@ void main() {
       localizedHarness(
         locale: const Locale('es'),
         child: const Column(
-          children: [
-            BotonVerPistas(SizedBox()),
-            BotonVerRespuesta(SizedBox()),
-          ],
+          children: [BotonVerPistas(SizedBox()), BotonVerRespuesta(SizedBox())],
         ),
       ),
     );
@@ -53,8 +45,9 @@ void main() {
     expect(find.widgetWithText(ElevatedButton, 'Respuesta'), findsOneWidget);
   });
 
-  testWidgets('task deletion dialog uses English labels and keeps deletion',
-      (tester) async {
+  testWidgets('task deletion dialog uses English labels and keeps deletion', (
+    tester,
+  ) async {
     var deleted = false;
     await tester.pumpWidget(
       localizedHarness(

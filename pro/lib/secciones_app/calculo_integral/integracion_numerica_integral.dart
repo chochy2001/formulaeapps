@@ -6,10 +6,12 @@ class IntegracionNumericaIntegral extends StatefulWidget {
   const IntegracionNumericaIntegral({super.key});
 
   @override
-  IntegracionNumericaIntegralState createState() => IntegracionNumericaIntegralState();
+  IntegracionNumericaIntegralState createState() =>
+      IntegracionNumericaIntegralState();
 }
 
-class IntegracionNumericaIntegralState extends State<IntegracionNumericaIntegral> {
+class IntegracionNumericaIntegralState
+    extends State<IntegracionNumericaIntegral> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,9 @@ class IntegracionNumericaIntegralState extends State<IntegracionNumericaIntegral
                   builder: (context, favoritesNotifier, child) {
                     bool isFavorite = favoritesNotifier.isFavorite(
                       Favorite(
-                        title: AppLocalizations.of(context)!.integracionNumericaIntegral,
+                        title: AppLocalizations.of(
+                          context,
+                        )!.integracionNumericaIntegral,
                         widgetName: kWidgetIntegracionNumericaIntegral,
                       ),
                     );
@@ -44,14 +48,18 @@ class IntegracionNumericaIntegralState extends State<IntegracionNumericaIntegral
                           if (isFavorite) {
                             favoritesNotifier.removeFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.integracionNumericaIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.integracionNumericaIntegral,
                                 widgetName: kWidgetIntegracionNumericaIntegral,
                               ),
                             );
                           } else {
                             favoritesNotifier.addFavorite(
                               Favorite(
-                                title: AppLocalizations.of(context)!.integracionNumericaIntegral,
+                                title: AppLocalizations.of(
+                                  context,
+                                )!.integracionNumericaIntegral,
                                 widgetName: kWidgetIntegracionNumericaIntegral,
                               ),
                             );
@@ -67,11 +75,20 @@ class IntegracionNumericaIntegralState extends State<IntegracionNumericaIntegral
             const ZoomPersonalizado(
               child: Column(
                 children: [
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx \approx h\left(y_{0} + y_{1} + \cdots + y_{n-1}\right)"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx \approx h\left(y_{0} + y_{1} + \cdots + y_{n-1}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx \approx \frac{h}{2}\left(y_{0} + 2y_{1} + 2y_{2} + \cdots + 2y_{n-1} + y_{n}\right)"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx \approx \frac{h}{2}\left(y_{0} + 2y_{1} + 2y_{2} + \cdots + 2y_{n-1} + y_{n}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
-                  Latex(formulaText: r"\int_{a}^{b} f(x)\,dx \approx \frac{h}{3}\left(y_{0} + 4y_{1} + 2y_{2} + 4y_{3} + \cdots + y_{n}\right)"),
+                  Latex(
+                    formulaText:
+                        r"\int_{a}^{b} f(x)\,dx \approx \frac{h}{3}\left(y_{0} + 4y_{1} + 2y_{2} + 4y_{3} + \cdots + y_{n}\right)",
+                  ),
                   SizedBox(height: kEspacioEntreBotones),
                 ],
               ),

@@ -31,8 +31,9 @@ class ConvolucionState extends State<Convolucion> {
                     builder: (context, favoritesNotifier, child) {
                       bool isFavorite = favoritesNotifier.isFavorite(
                         Favorite(
-                            title: AppLocalizations.of(context)!.convolucion,
-                            widgetName: kWidgetConvolucion),
+                          title: AppLocalizations.of(context)!.convolucion,
+                          widgetName: kWidgetConvolucion,
+                        ),
                       );
                       return IconButton(
                         icon: isFavorite
@@ -44,16 +45,20 @@ class ConvolucionState extends State<Convolucion> {
                             if (isFavorite) {
                               favoritesNotifier.removeFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .convolucion,
-                                    widgetName: kWidgetConvolucion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.convolucion,
+                                  widgetName: kWidgetConvolucion,
+                                ),
                               );
                             } else {
                               favoritesNotifier.addFavorite(
                                 Favorite(
-                                    title: AppLocalizations.of(context)!
-                                        .convolucion,
-                                    widgetName: kWidgetConvolucion),
+                                  title: AppLocalizations.of(
+                                    context,
+                                  )!.convolucion,
+                                  widgetName: kWidgetConvolucion,
+                                ),
                               );
                             }
                           });
@@ -62,19 +67,16 @@ class ConvolucionState extends State<Convolucion> {
                     },
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   ZoomPersonalizado(
                     child: Column(
                       children: [
                         const SizedBox(height: kEspacioEntreBotones),
-                        TextoEcuaciones(
-                          AppLocalizations.of(context)!.sean,
-                        ),
+                        TextoEcuaciones(AppLocalizations.of(context)!.sean),
                         const Latex(
-                            formulaText:
-                                r"f_1(t)\space\mathsf{y\space}f_2(t)\space"),
+                          formulaText:
+                              r"f_1(t)\space\mathsf{y\space}f_2(t)\space",
+                        ),
                         const SizedBox(height: 10),
                         TextoEcuaciones(
                           AppLocalizations.of(context)!.dosFuncionesDadas,
@@ -85,12 +87,14 @@ class ConvolucionState extends State<Convolucion> {
                           AppLocalizations.of(context)!.convolucionDe,
                         ),
                         const Latex(
-                            formulaText:
-                                r"f_1(t)\space\mathsf{y\space}f_2(t)\space"),
+                          formulaText:
+                              r"f_1(t)\space\mathsf{y\space}f_2(t)\space",
+                        ),
                         const SizedBox(height: 10),
                         const Latex(
-                            formulaText:
-                                r"f(t) = \int_{-\infty}^{\infty}f_1(x)f_2(t-x)dx"),
+                          formulaText:
+                              r"f(t) = \int_{-\infty}^{\infty}f_1(x)f_2(t-x)dx",
+                        ),
                         const SizedBox(height: 10),
                         const Latex(formulaText: r"f(t) = f_1(t)*f_2(t)"),
                         const SizedBox(height: kEspacioEntreBotones),
@@ -98,13 +102,9 @@ class ConvolucionState extends State<Convolucion> {
                     ),
                   ),
                   //Boton para acceder al formulario en PDF
-                  const VerPDF(
-                    url: kWidgetConvolucion,
-                  ),
+                  const VerPDF(url: kWidgetConvolucion),
                   //Descargar PDF
-                  const DescargarPDF(
-                    url: kWidgetConvolucion,
-                  ),
+                  const DescargarPDF(url: kWidgetConvolucion),
                 ],
               ),
             ),

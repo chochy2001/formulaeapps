@@ -20,9 +20,12 @@ class _MenuElectricidadYMagnetismoState
   @override
   void initState() {
     super.initState();
-    _ads.start(onBannerReady: () { if (mounted) setState(() {}); });
+    _ads.start(
+      onBannerReady: () {
+        if (mounted) setState(() {});
+      },
+    );
   }
-
 
   Widget get adContainer => _ads.banner;
 
@@ -35,18 +38,14 @@ class _MenuElectricidadYMagnetismoState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
             children: [
               Column(
                 children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  const SizedBox(height: 20.0),
                   TextButton(
                     onPressed: () {},
                     child: const ImagenLogoFormulae(),
@@ -55,24 +54,25 @@ class _MenuElectricidadYMagnetismoState
                     AppLocalizations.of(context)!.electricidadMagnetismo,
                     style: kTextoBotones,
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: 30.0),
                   adContainer,
                   BotonesMenu(
                     ruta: kRutaMenuCampoYPotencialElectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.campoYPotencialElectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.campoYPotencialElectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuCapacitanciaYDielectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.capacitanciaYDielectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.capacitanciaYDielectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuCircuitosElectricos,
-                    textoBoton:
-                        AppLocalizations.of(context)!.circuitosElectricos,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.circuitosElectricos,
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuMagnetostatica,
@@ -80,8 +80,9 @@ class _MenuElectricidadYMagnetismoState
                   ),
                   BotonesMenu(
                     ruta: kRutaMenuInduccionElectromagnetica,
-                    textoBoton:
-                        AppLocalizations.of(context)!.induccionElectromagnetica,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.induccionElectromagnetica,
                   ),
                 ],
               ),

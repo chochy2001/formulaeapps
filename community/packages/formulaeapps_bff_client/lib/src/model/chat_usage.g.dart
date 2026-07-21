@@ -17,11 +17,11 @@ class _$ChatUsage extends ChatUsage {
   factory _$ChatUsage([void Function(ChatUsageBuilder)? updates]) =>
       (ChatUsageBuilder()..update(updates))._build();
 
-  _$ChatUsage._(
-      {required this.promptTokens,
-      required this.completionTokens,
-      required this.totalTokens})
-      : super._();
+  _$ChatUsage._({
+    required this.promptTokens,
+    required this.completionTokens,
+    required this.totalTokens,
+  }) : super._();
   @override
   ChatUsage rebuild(void Function(ChatUsageBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -103,14 +103,24 @@ class ChatUsageBuilder implements Builder<ChatUsage, ChatUsageBuilder> {
   ChatUsage build() => _build();
 
   _$ChatUsage _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$ChatUsage._(
           promptTokens: BuiltValueNullFieldError.checkNotNull(
-              promptTokens, r'ChatUsage', 'promptTokens'),
+            promptTokens,
+            r'ChatUsage',
+            'promptTokens',
+          ),
           completionTokens: BuiltValueNullFieldError.checkNotNull(
-              completionTokens, r'ChatUsage', 'completionTokens'),
+            completionTokens,
+            r'ChatUsage',
+            'completionTokens',
+          ),
           totalTokens: BuiltValueNullFieldError.checkNotNull(
-              totalTokens, r'ChatUsage', 'totalTokens'),
+            totalTokens,
+            r'ChatUsage',
+            'totalTokens',
+          ),
         );
     replace(_$result);
     return _$result;

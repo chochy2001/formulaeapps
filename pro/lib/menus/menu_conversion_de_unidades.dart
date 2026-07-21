@@ -7,16 +7,15 @@ class MenuConversionDeUnidades extends StatefulWidget {
   const MenuConversionDeUnidades({super.key});
 
   @override
-  MenuConversionDeUnidadesState createState() => MenuConversionDeUnidadesState();
+  MenuConversionDeUnidadesState createState() =>
+      MenuConversionDeUnidadesState();
 }
 
 class MenuConversionDeUnidadesState extends State<MenuConversionDeUnidades> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarHome(
-        visible: false,
-      ),
+      appBar: const AppBarHome(visible: false),
       body: SafeArea(
         child: FondoDegradado(
           child: ListView(
@@ -34,11 +33,15 @@ class MenuConversionDeUnidadesState extends State<MenuConversionDeUnidades> {
                   ),
                   const SizedBox(height: 30.0),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.longitudConversion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.longitudConversion,
                     ruta: kRutaLongitudConversion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.superficieConversion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.superficieConversion,
                     ruta: kRutaSuperficieConversion,
                   ),
                   BotonesMenu(
@@ -50,7 +53,9 @@ class MenuConversionDeUnidadesState extends State<MenuConversionDeUnidades> {
                     ruta: kRutaMasaConversion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.densidadConversion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.densidadConversion,
                     ruta: kRutaDensidadConversion,
                   ),
                   BotonesMenu(
@@ -62,7 +67,9 @@ class MenuConversionDeUnidadesState extends State<MenuConversionDeUnidades> {
                     ruta: kRutaEnergiaConversion,
                   ),
                   BotonesMenu(
-                    textoBoton: AppLocalizations.of(context)!.potenciaConversion,
+                    textoBoton: AppLocalizations.of(
+                      context,
+                    )!.potenciaConversion,
                     ruta: kRutaPotenciaConversion,
                   ),
                 ],
