@@ -9,9 +9,11 @@ that may lag.
 | --- | --- |
 | Live status (this file) | `docs/STATUS.md` |
 | Ticket board (FML-*) | [`docs/TICKETS.md`](TICKETS.md) |
+| Improvement roadmap (features + CI plan) | [`docs/IMPROVEMENT_ROADMAP.md`](IMPROVEMENT_ROADMAP.md) |
 | Web deploy / FTPS | [`docs/DEPLOY_CI_WEB.md`](DEPLOY_CI_WEB.md) |
 | Session changelog (append-only) | [`../SESSION_STATUS.md`](../SESSION_STATUS.md) |
 | Local audit handoff (not in git) | `Formulae/audits/2026-07-21-revision-integral/` |
+| Local improvement plans (not in git) | `Formulae/audits/2026-07-21-mejora-continua/` |
 | Folder map (outside monorepo git) | `Formulae/README.md` |
 
 Audit tickets T\* live only under `/Apps/Formulae/audits/` (not pushed to
@@ -23,7 +25,7 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `67f7ef4` | Coverage **#120**; STATUS index **#122**–**#125**. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `4a01e40` | Tip after staging-DNS docs **#127**; re-check: `git rev-parse origin/main`. |
 | [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `df8d022` | Analyze **#29**; README→STATUS **#30**/#31. CI still missing `flutter test` step (follow-up PR). |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:

@@ -7,6 +7,7 @@ al día.
 **Estado vivo (LLMs / agentes):** [`docs/STATUS.md`](docs/STATUS.md) — SHAs,
 hecho vs bloqueado, cobertura, validación vía CI.  
 Tablero FML-*: [`docs/TICKETS.md`](docs/TICKETS.md).  
+Roadmap de mejora (features + CI): [`docs/IMPROVEMENT_ROADMAP.md`](docs/IMPROVEMENT_ROADMAP.md).  
 Auditoría funcional histórica: [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md) (números pueden estar stale; STATUS gana).
 
 ## Componentes
