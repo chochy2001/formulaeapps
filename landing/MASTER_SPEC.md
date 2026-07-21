@@ -131,7 +131,7 @@ Landing does NOT have:
 
 ## Known Limits and Risks
 
-- **No automated test coverage**: Landing has no test directory. Visual / functional QA is manual against the production site.
+- **Automated tests exist; coverage scope is narrow**: Vitest suite under `src/lib/__tests__/` (`bun run test` / `bun run test:coverage`). Coverage include is intentionally limited to `src/consts.ts` + `src/i18n/**` (not the full Astro UI). CI soft-reports that include-set % and uploads `landing-lcov`. Visual QA of Astro pages remains manual against the production site.
 - **Hostinger deploy is FTP-based**: GitHub Actions CI/CD for landing is intentionally NOT in this repo (per workspace pattern — Hostinger billing issues drove manual `lftp` deploy). A future workflow could automate this if Hostinger stabilizes.
 - **i18n routing is path-based**: `/` (ES) ↔ `/en/` (EN) with manual mapping in `LanguageSwitcher`. Misalignment of a localized path requires updating the switcher manually.
 

@@ -1,36 +1,39 @@
-# FormulaeCommunity test coverage roadmap
+# FormulaeCommunity (monorepo copy) test coverage roadmap
 
-Bootstrap landed in issue #17 with five smoke tests and a CI gate. Coverage is
-intentionally low today; ratchet the floor as new tests land.
+Play Store source of truth is **`CAPDESIS/FormulaeCommunity`**
+(`Formulae/community-app/`). This `community/` tree is a vendored copy used by
+monorepo CI.
 
-## Measure coverage locally
+## Measured coverage (do not invent)
+
+| When | RAW LF/LH | Source |
+|------|-----------|--------|
+| 2026-07-17 (local lcov) | **85.44%** (21 138 / 24 739) | `community/coverage/lcov.info` |
+| CI (after line-coverage PR) | printed in job summary + `community-monorepo-lcov` artifact | `.github/workflows/ci.yml` `community-test` |
+
+`COVERAGE_TODO` previously claimed ~0.3% from the issue #17 bootstrap — that
+figure is **obsolete** after the large monorepo community suite landed.
+
+## Measure locally (prefer CI when the laptop is constrained)
 
 ```sh
 cd community
 flutter pub get
-flutter test --coverage
-awk -F: '/^LF:/{lf+=$2} /^LH:/{lh+=$2} END{ printf "%.2f%%\n", (lh*100)/lf }' coverage/lcov.info
+FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage \
+  --dart-define=JWT_SHARED_SECRET=test-shared-secret \
+  --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
+  --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+bash ../scripts/coverage-summary.sh coverage/lcov.info "Community (monorepo)"
 ```
-
-## Next 10 tests (priority order)
-
-1. `test/chat_model_test.dart` — `ChatModel.fromJson` happy path + missing key.
-2. `test/models_model_test.dart` — `ModelsModel.fromJson` and snapshot helpers.
-3. `test/task_data_test.dart` — `TaskData` CRUD with mocked SharedPreferences.
-4. `test/favorites_notifier_load_test.dart` — `FavoritesNotifier.loadFavorites`.
-5. `test/chats_provider_test.dart` — `ChatProvider` listener mutations (no live API).
-6. `test/fraccion_repeating_branch_test.dart` — repeating-decimal branch coverage.
-7. `test/tasks_list_widget_test.dart` — `TasksList` for 0 / 1 / N tasks.
-8. `test/scaffold_screen_widget_test.dart` — shared scaffold wrapper widget.
-9. `test/locale_provider_test.dart` — locale switching notifies listeners.
-10. `test/favorite_type_name_test.dart` — `TypeNameExtension` edge cases.
 
 ## Ratchet plan
 
-| Stage      | Coverage | Notes                              |
-|------------|----------|------------------------------------|
-| Bootstrap  | ~0.3%    | 5 smoke tests (issue #17)          |
-| Foundation | 5%       | Models + notifiers + repositories  |
-| Stable     | 30%      | Common widgets and key screens     |
-| Mature     | 60%      | Navigation flows                   |
-| Target     | 85%      | Golden + integration tests         |
+| Stage | Coverage | Notes |
+|-------|----------|-------|
+| Current (2026-07-17 local) | ~85.4% RAW | Needs runner remasure after post-7/17 churn |
+| Soft CI report | informational | Upload lcov; no hard gate until runner confirms |
+| Hard gate | RAW ≥85% | Only after CI summary matches or exceeds |
+
+Largest residual misses historically: generated l10n, drawer, IAP, chat,
+favorites, tasks screens — prefer high-leverage unit/widget tests over
+excluding production code from the denominator.

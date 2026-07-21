@@ -18,6 +18,11 @@ env:
 #   - Principle VIII (Build Integrity):          bff-test + pro-test + community-test jobs below.
 #   - Principle IX  (Multi-App Infra):           infra-validate job added in US5 T126
 #                                                under .github/workflows/release.yml.
+#
+# Line coverage (soft report): pro / community / bff / landing collect LCOV,
+# print RAW LF/LH % to the job summary, and upload artifacts. No hard 85% gate
+# until runner-confirmed floors are recorded (honest denominator; no exclusions
+# of under-test production code to fake-green).
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -27,7 +32,7 @@ jobs:
   bff-test:
     name: BFF — typecheck + test
     runs-on: [self-hosted, ci-runner-node, test-light]
-    timeout-minutes: 10
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: bff
@@ -53,8 +58,22 @@ jobs:
         run: bun install --frozen-lockfile
       - name: Typecheck
         run: bun run typecheck
-      - name: Unit + integration tests
-        run: bun test
+      # Soft-report: last fleet measure was 93.54% on src/ (2026-07-03); suite
+      # grew — remasure here, do not hard-gate until runner confirms a floor.
+      - name: Unit + integration tests (with coverage)
+        run: bun test --coverage --coverage-reporter=lcov --coverage-dir=coverage
+      - name: Summarize BFF line coverage (soft report)
+        if: always()
+        working-directory: .
+        run: bash scripts/coverage-summary.sh bff/coverage/lcov.info "BFF"
+      - name: Upload BFF lcov
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bff-lcov
+          path: bff/coverage/lcov.info
+          if-no-files-found: warn
+          retention-days: 30
 
   verify-parity:
     name: Contract ↔ Dart parity (Principle VII)
@@ -121,7 +140,7 @@ jobs:
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
     runs-on: [self-hosted, ci-runner-node, build-heavy]
-    timeout-minutes: 45
+    timeout-minutes: 55
     defaults:
       run:
         working-directory: pro
@@ -148,12 +167,26 @@ jobs:
       # exercise the real token-minting path and require a non-empty value via
       # --dart-define, mirroring pro/Dockerfile and pro/build_web.sh. The value
       # here is a non-secret CI test constant that only gates these unit tests.
-      - name: test
+      # Soft-report coverage: local evidence is 87.18% RAW after #120; soft
+      # report first so the runner becomes source of truth (no hard gate yet).
+      - name: test (with coverage)
         run: |
-          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
+          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
             --dart-define=JWT_SHARED_SECRET=test-shared-secret \
             --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
             --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+      - name: Summarize Pro line coverage (soft report)
+        if: always()
+        working-directory: .
+        run: bash scripts/coverage-summary.sh pro/coverage/lcov.info "Pro Flutter"
+      - name: Upload Pro lcov
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pro-lcov
+          path: pro/coverage/lcov.info
+          if-no-files-found: warn
+          retention-days: 30
       - name: BFF client contract tests
         working-directory: pro/packages/formulaeapps_bff_client
         run: |
@@ -164,7 +197,7 @@ jobs:
     name: Community — flutter analyze + test (Principle VIII)
     needs: [pro-test]
     runs-on: [self-hosted, ci-runner-node, build-heavy]
-    timeout-minutes: 45
+    timeout-minutes: 55
     defaults:
       run:
         working-directory: community
@@ -183,12 +216,26 @@ jobs:
       - name: analyze
         run: flutter analyze --no-pub --fatal-infos --fatal-warnings
       # Same dart-defines as pro-test: auth minting path needs JWT_SHARED_SECRET.
-      - name: test
+      # Soft-report: local lcov was 85.44% (2026-07-17) and is stale vs post-7/17
+      # churn — remasure on the runner; do not hard-gate until confirmed.
+      - name: test (with coverage)
         run: |
-          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --reporter compact \
+          FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
             --dart-define=JWT_SHARED_SECRET=test-shared-secret \
             --dart-define=FORMULAE_BUILD_NONCE=ci-test-build-nonce \
             --dart-define=FORMULAE_APP_VERSION=0.0.0-ci
+      - name: Summarize Community (monorepo) line coverage (soft report)
+        if: always()
+        working-directory: .
+        run: bash scripts/coverage-summary.sh community/coverage/lcov.info "Community Flutter (monorepo)"
+      - name: Upload Community lcov
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: community-monorepo-lcov
+          path: community/coverage/lcov.info
+          if-no-files-found: warn
+          retention-days: 30
       - name: BFF client contract tests
         working-directory: community/packages/formulaeapps_bff_client
         run: |
@@ -216,8 +263,23 @@ jobs:
           no-cache: true
       - name: Install deps
         run: bun install --frozen-lockfile
-      - name: Unit tests
-        run: bun run test
+      # Soft-report: vitest coverage include is intentionally narrow
+      # (consts.ts + src/i18n/**). Printed % is honest for that include set —
+      # not a claim over the full Astro UI surface.
+      - name: Unit tests (with coverage)
+        run: bun run test:coverage
+      - name: Summarize Landing line coverage (soft report)
+        if: always()
+        working-directory: .
+        run: bash scripts/coverage-summary.sh landing/coverage/lcov.info "Landing (vitest include set)"
+      - name: Upload Landing lcov
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: landing-lcov
+          path: landing/coverage/lcov.info
+          if-no-files-found: warn
+          retention-days: 30
       - name: Lint
         run: bun run lint
       - name: Validate canonical Formulae images

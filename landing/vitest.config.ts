@@ -11,6 +11,10 @@ export default defineConfig({
     include: ['src/lib/__tests__/**/*.test.ts'],
     coverage: {
       provider: 'v8',
+      // Narrow include: marketing consts + i18n only (not full Astro UI).
+      // CI prints honest LF/LH for this set — do not treat as whole-app %.
+      reporter: ['text', 'lcov'],
+      reportsDirectory: './coverage',
       include: ['src/consts.ts', 'src/i18n/**/*.ts'],
       exclude: ['src/lib/__tests__/**'],
     },

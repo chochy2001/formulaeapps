@@ -40,8 +40,9 @@ Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
 | formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
 | formulaeapps **CI** on HEAD | Prefer `git rev-parse origin/main` + Actions for tip | Do not promote from stale schedule SHA alone |
 | formulaeapps **Deploy to stores** | Failures on recent pushes ([29865725314](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865725314), [29865190240](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865190240)) | **Expected**: kill switch `STORE_AUTODEPLOY` unset / ≠ `true` — guard aborts before any store publish |
-| FormulaeCommunity **Formulae Flutter CI** | Schedule **success**; historically analyze + debug APK only (no `flutter test`) | Gap fixed in follow-up PR (add test step) |
+| FormulaeCommunity **Formulae Flutter CI** | Schedule **success**; historically analyze + debug APK only | Line-coverage PR adds `flutter test --coverage` + soft LF/LH summary + `community-app-lcov` artifact |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
+| formulaeapps **line coverage** (this change) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Informational — no hard 85% gate until runner confirms floors |
 
 `gh variable list` showed **no** repo variables (including `STORE_AUTODEPLOY`) —
 disarmed by design until store secrets are provisioned and the var is set to
@@ -57,9 +58,11 @@ disarmed by design until store secrets are provisioned and the var is set to
 | Landing | **64/64** tests; Astro **7** + Vite **8** + Tailwind **4.3**; Bun **1.3.14** + Node **24** |
 | Contract gates | `scripts/verify-parity.sh` + `scripts/route-coverage.sh` PASS on `main` |
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
-| Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Fleet **≥85% met**. Hotspots T10–T14 met earlier (#116/#117) |
-| Community (monorepo copy) | analyze 0; **115/115** tests |
-| Community standalone | analyze 0 strict; **89/89** tests (local/session evidence); `flutter_lints ^4.0.0` |
+| Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Local ≥85% met; CI soft-reports RAW + uploads `pro-lcov` for runner remasure |
+| Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale) — CI soft-reports + `community-monorepo-lcov` |
+| Community standalone | analyze 0 strict; **89/89** tests (local/session); CI test+coverage in FormulaeCommunity PR (Play Store SoT; % UNKNOWN until runner) |
+| BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03) |
+| Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI) |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
 | Audit T02/T03/T05/T10–T14/T20–T25/T30/T31 | Done (see audit README / HANDOFF locally) |
 
