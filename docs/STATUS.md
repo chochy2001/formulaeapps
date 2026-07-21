@@ -23,8 +23,8 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1f8cceb` | Includes Pro coverage PR **#120** (`9f84046`) + docs note **#121** |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `83f3f7f` | Strict analyze via PR **#29**; README→STATUS via **#30** |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `4080330` | Coverage **#120**; STATUS index **#122**–**#124**. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `df8d022` | Analyze **#29**; README→STATUS **#30**/#31. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
 **0** open issues.
@@ -36,7 +36,7 @@ Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
 | Workflow | Latest signal | Verdict |
 | --- | --- | --- |
 | formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
-| formulaeapps **CI** on HEAD `1f8cceb` | No completed run yet at triage; `workflow_dispatch` queued to catch up | Prefer exact-SHA green before store/web promote |
+| formulaeapps **CI** on HEAD | Prefer `git rev-parse origin/main` + Actions for tip | Do not promote from stale schedule SHA alone |
 | formulaeapps **Deploy to stores** | Failures on recent pushes ([29865725314](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865725314), [29865190240](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865190240)) | **Expected**: kill switch `STORE_AUTODEPLOY` unset / ≠ `true` — guard aborts before any store publish |
 | FormulaeCommunity **Formulae Flutter CI** | Schedule **success**; historically analyze + debug APK only (no `flutter test`) | Gap fixed in follow-up PR (add test step) |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
