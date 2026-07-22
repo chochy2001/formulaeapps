@@ -51,7 +51,7 @@ Usar STATUS para el panorama; este archivo para el detalle por ticket.
 > formulaeapps `1be799f` (**#134**/#133/#130/#131/#126–#129; **#122–#125**
 > superseded); FormulaeCommunity `64e9bc5` (**#35**; prior **#32**/#33).
 > Community CI ya corre `flutter test` + soft coverage. Bloqueados sin
-> cambio: T04, #9/#13, FML-101/116/117/129, T40–T42. PR abierto: **#132**
+> cambio: T04, #9/#13, FML-101/116/117/129, T40–T42. Deps **#132** merged (`1179035`); open PRs: **0**
 > (deps).
 
 

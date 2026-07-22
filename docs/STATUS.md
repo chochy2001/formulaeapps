@@ -25,16 +25,15 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `c3a31a6` | Tip after STATUS sync **#135** (also **#134**/#133/#130/#131/#126–#129). Open deps PR **#132**. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1179035` | Tip after deps/nginx/app versions **#132** (also STATUS **#135**/#134/#133, kill-switch **#130**, coverage **#126**, staging **#129**). Re-check: `git rev-parse origin/main`. |
 | [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `64e9bc5` | Tip after version bump **#35** (`2.3.0+75`). Prior: coverage **#33**, workflow name **#32** (`a6ec118`), `flutter test` + soft coverage on `main`. |
 
-Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. Open monorepo PR:
-**#132** (deps/nginx/app versions). FormulaeCommunity: **0** open issues / PRs.
+Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
+**0** open issues / PRs. Monorepo open PRs: **0** after **#132** merge.
 
 Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
 merged local feature branches pruned when idle. Formulae worktrees under
-`/Apps/worktrees` should be removed after PR merge (open **#132** may still
-leave an active worktree until that PR lands).
+`/Apps/worktrees` should be removed after PR merge (prune idle worktrees after merged session PRs).
 
 ---
 
@@ -43,7 +42,7 @@ leave an active worktree until that PR lands).
 Inventory verified against Bun/npm/pub.dev/Docker Hub on this date.
 Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
 
-| Surface | Current (this PR) | Recommended / latest | Action |
+| Surface | Current (on `main`) | Recommended / latest | Action |
 | --- | --- | --- | --- |
 | Flutter / Dart | **3.44.7** / **3.12.2** | same (stable) | Keep — already current |
 | Bun | **1.3.14** (CI/Docker) | **1.3.14** | Keep; fixed leftover probe workflow pin **1.3.9→1.3.14** |
