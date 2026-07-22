@@ -1,9 +1,9 @@
 # Formulae — canonical status (LLM index)
 
 **Single source of truth for “what’s done / blocked / how to validate.”**
-Verified against `origin/main` + GitHub on **2026-07-21** (docs tip refresh after
-parallel session). Prefer this file over scattered READMEs, old SESSION_STATUS
-sections, or audit notes that may lag.
+Verified against `origin/main` + GitHub on **2026-07-21** (coverage wrap-up after
+**#126**/#137 and Community coverage PR). Prefer this file over scattered READMEs,
+old SESSION_STATUS sections, or audit notes that may lag.
 
 | Surface | Canonical doc |
 | --- | --- |
@@ -25,11 +25,14 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1179035` | Tip after deps/nginx/app versions **#132** (also STATUS **#135**/#134/#133, kill-switch **#130**, coverage **#126**, staging **#129**). Re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `64e9bc5` | Tip after version bump **#35** (`2.3.0+75`). Prior: coverage **#33**, workflow name **#32** (`a6ec118`), `flutter test` + soft coverage on `main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `252855f` | Tip after store soft-skip **#137** (also deps **#132**, STATUS **#136**/#135/#134, kill-switch **#130**, coverage soft-report **#126**, staging **#129**). Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `64e9bc5` | Tip after version bump **#35** (`2.3.0+75`). Prior: coverage leverage **#33**, workflow name **#32** (`a6ec118`), `flutter test` + soft coverage on `main`. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
-**0** open issues / PRs. Monorepo open PRs: **0** after **#132** merge.
+**#34** (ratchet Play Store SoT RAW ≥85%). Coverage-maps PR in flight (branch
+`test/2026-07-21-coverage-maps-ci-runners`, SHA `f8a25c9`) — merge when
+test-light CI green. Monorepo open PRs: **0** on tip after **#137** (docs PR may
+follow for this STATUS bump).
 
 Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
 merged local feature branches pruned when idle. Formulae worktrees under
@@ -64,12 +67,12 @@ Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
 | Workflow | Latest signal | Verdict |
 | --- | --- | --- |
 | formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
-| formulaeapps **CI** on HEAD | Prefer `git rev-parse origin/main` + Actions for tip | Do not promote from stale schedule SHA alone |
-| formulaeapps **Deploy to stores** | Failures on recent pushes ([29865725314](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865725314), [29865190240](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865190240)) | **Expected**: kill switch `STORE_AUTODEPLOY` unset / ≠ `true` — guard aborts before any store publish |
-| FormulaeCommunity **Formulae Flutter CI** | On `main` after **#32**/#33: analyze + **`flutter test --coverage`** + soft LF/LH summary + `community-app-lcov` artifact | % UNKNOWN until runner job summary sampled (API rate-limit at doc sync) |
+| formulaeapps **CI** on HEAD (`252855f`) | Soft-report live (**#126**); Flutter Pro/Community jobs still on **`build-heavy`** | **Blocked for remasure** while `ci-runner-node-build-1` offline — BFF/landing/routes on `test-light` can still run. Do not invent CI % |
+| formulaeapps **Deploy to stores** | Red / soft-skip while kill switch disarmed (**#130**/#137) | **Expected**: `STORE_AUTODEPLOY` unset / ≠ `true` — ignore as a merge blocker |
+| FormulaeCommunity **Formulae Flutter CI** | Soft-report + `community-app-lcov` on `main` (**#32**/#33). Coverage-maps branch moves analyze/test to **`test-light`**; APK optional on `build-heavy` | Runner RAW % still **UNKNOWN** until a completed test-light job summary is sampled |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
-| formulaeapps **line coverage** (**#126** on `main`) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Informational — no hard 85% gate until runner confirms floors |
-| formulaeapps **Deploy to stores** UX (**#130** on `main`) | Soft-skip when kill switch disarmed | Merged; does not change “red = expected while disarmed” until `STORE_AUTODEPLOY=true` |
+| formulaeapps **line coverage** (**#126** on `main`) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Institutionalized; no hard 85% gate until runner confirms floors |
+| formulaeapps **Deploy to stores** UX (**#130**/#137 on `main`) | Soft-skip when kill switch disarmed | Merged; red while disarmed is expected |
 
 `gh variable list` showed **no** repo variables (including `STORE_AUTODEPLOY`) —
 disarmed by design until store secrets are provisioned and the var is set to
@@ -87,7 +90,7 @@ disarmed by design until store secrets are provisioned and the var is set to
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
 | Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Local ≥85% met; CI soft-reports RAW + uploads `pro-lcov` for runner remasure |
 | Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale) — CI soft-reports + `community-monorepo-lcov` |
-| Community standalone | analyze 0 strict; **89/89** tests (local/session); CI on `main` runs `flutter test --coverage` + soft report + `community-app-lcov` (**#32**/#33; Play Store SoT; % UNKNOWN until runner) |
+| Community standalone | analyze 0 strict; **89/89** on `main` tip; coverage-maps PR adds PDF/image map + search/barrel/ModelsProvider/Task error tests (targeted local green). CI soft-report + `community-app-lcov` (**#32**/#33; Play Store SoT). **Honest:** still far below ≥85% RAW until CI prints LF/LH — do not claim 85% (**#34**) |
 | BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03) |
 | Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI) |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
