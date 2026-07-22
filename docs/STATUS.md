@@ -25,7 +25,7 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `4a01e40` | Tip after staging-DNS docs **#127**; re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `656c2ad` | Tip after staging role/proxy **#129** (JWT light preflight green); re-check: `git rev-parse origin/main`. |
 | [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `df8d022` | Analyze **#29**; README→STATUS **#30**/#31. CI still missing `flutter test` step (follow-up PR). |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
@@ -117,7 +117,7 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | **FML-101** | 176 public `/imagenes/` URLs still 404 | Authorized FTPS promote + remote smoke |
 | **FML-129** | Historical OpenAI credential rotation | Secret-manager rotation + old clone cleanup |
 | **FML-116** | Runners / promotion / staging controls | Staging + protected production env + FTPS/VPS evidence |
-| **Staging BFF host** | `staging.api.formulaeapps.com` NXDOMAIN; no app tree on `staging-node` | Create CF A (DNS only) → `144.126.159.214`; provision Traefik network + `.env.staging` + `STAGING_SSH_*`; then smoke `/health` |
+| **Staging BFF host** | `staging.api.formulaeapps.com` NXDOMAIN; no app tree / `.env.staging` on `staging-node` | Create CF A (DNS only) → `144.126.159.214`; bootstrap `/opt/staging/apps/formulaeapps` + `.env.staging` + GitHub `STAGING_SSH_*`; then `workflow_dispatch` + smoke `/health`. Traefik attach is **code-fixed** in **#129** (`staging_proxy`) — do not create a separate `staging_web_proxy` |
 | **FML-117** | IAP entitlement / account-device product decision | Product + Apple/Google sandbox validators |
 | **T40** | AdMob / OAuth / OpenAI ops | Console access |
 | **T41** | Staging, VPS volume, backups, image hosting | VPS / GitHub settings |
