@@ -9,7 +9,7 @@ on:
     - cron: '10 8 * * *'
 jobs:
   release-policy:
-    uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@main
+    uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@cd8a06f413626c4665f7b4cdf94cc27e2a4b424c
     with:
       enforce: false
       runner-label: policy-light
