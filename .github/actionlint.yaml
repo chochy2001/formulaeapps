@@ -11,5 +11,10 @@ self-hosted-runner:
     - laptop-policy-pilot
     - pc-escritorio
     - ci-flutter-fast
+    - ci-flutter-portable
     - ci-jwt-preload
     - ci-jwt-tools
+    - ci-web-tools
+    - macbook-air-cicd
+    - macos-persistent
+    - windows-desktop-on-demand

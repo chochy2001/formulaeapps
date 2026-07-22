@@ -35,7 +35,16 @@ if [[ ! -f "$LCOV" ]]; then
   exit 1
 fi
 
-python3 - "$LCOV" "$LABEL" "$GATE" <<'PY'
+python_bin="${PYTHON3_BIN:-python3}"
+if ! command -v "$python_bin" >/dev/null 2>&1; then
+  python_bin="python"
+fi
+if ! command -v "$python_bin" >/dev/null 2>&1; then
+  echo "Python 3 is required to summarize coverage" >&2
+  exit 127
+fi
+
+"$python_bin" - "$LCOV" "$LABEL" "$GATE" <<'PY'
 import sys
 from pathlib import Path
 

@@ -13,8 +13,20 @@ case "$mode" in
   install | --verify-only) ;;
   *) echo "::error::Unknown mode: $mode"; exit 2 ;;
 esac
-export BUN_INSTALL="${BUN_INSTALL:-${HOME}/.bun}"
-bun_bin="${BUN_INSTALL}/bin/bun"
+if [[ "$(uname -s)" == MINGW* || "$(uname -s)" == MSYS* || "$(uname -s)" == CYGWIN* ]]; then
+  if [[ -z "${BUN_INSTALL:-}" ]]; then
+    command -v cygpath >/dev/null || {
+      echo "::error::cygpath is required to activate preloaded Bun on Windows"
+      exit 1
+    }
+    BUN_INSTALL="$(cygpath -u "${USERPROFILE:?USERPROFILE is required on Windows}")/.bun"
+  fi
+  bun_bin="${BUN_INSTALL}/bin/bun.exe"
+else
+  BUN_INSTALL="${BUN_INSTALL:-${HOME}/.bun}"
+  bun_bin="${BUN_INSTALL}/bin/bun"
+fi
+export BUN_INSTALL
 export PATH="${BUN_INSTALL}/bin:${PATH}"
 
 if [ -x "$bun_bin" ] && [ "$("$bun_bin" --version)" = "$expected_version" ]; then
@@ -35,11 +47,21 @@ if [ "$mode" = "--verify-only" ]; then
   exit 1
 fi
 
-case "$(uname -m)" in
-  x86_64 | amd64) arch=x64 ;;
-  aarch64 | arm64) arch=aarch64 ;;
+case "$(uname -s)/$(uname -m)" in
+  Linux/x86_64 | Linux/amd64)
+    platform=linux-x64
+    release_sha256=951ee2aee855f08595aeec6225226a298d3fea83a3dcd6465c09cbccdf7e848f
+    ;;
+  Linux/aarch64 | Linux/arm64)
+    platform=linux-aarch64
+    release_sha256=a27ffb63a8310375836e0d6f668ae17fa8d8d18b88c37c821c65331973a19a3b
+    ;;
+  Darwin/arm64)
+    platform=darwin-aarch64
+    release_sha256=d8b96221828ad6f97ac7ac0ab7e95872341af763001e8803e8267652c2652620
+    ;;
   *)
-    echo "::error::Unsupported arch $(uname -m) for Bun preload"
+    echo "::error::Unsupported platform $(uname -s)/$(uname -m) for Bun preload"
     exit 1
     ;;
 esac
@@ -53,16 +75,28 @@ done
 
 tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
-archive="$tmp_dir/bun-linux-${arch}.zip"
+archive="$tmp_dir/bun-${platform}.zip"
 curl -fsSL \
-  "https://github.com/oven-sh/bun/releases/download/bun-v${expected_version}/bun-linux-${arch}.zip" \
+  "https://github.com/oven-sh/bun/releases/download/bun-v${expected_version}/bun-${platform}.zip" \
   -o "$archive"
 
-# Optional checksum lock for the known x64 release used by Formulae CI.
-if [ "$expected_version" = "1.3.14" ] && [ "$arch" = "x64" ] && command -v sha256sum >/dev/null; then
-  echo '951ee2aee855f08595aeec6225226a298d3fea83a3dcd6465c09cbccdf7e848f  '"$archive" \
-    | sha256sum -c -
+# Refuse unknown versions instead of downloading an unverified archive in a
+# maintenance job. Digests come from the upstream GitHub release API.
+if [ "$expected_version" != "1.3.14" ]; then
+  echo "::error::No checksum lock recorded for Bun $expected_version"
+  exit 1
 fi
+python3 - "$archive" "$release_sha256" <<'PY'
+import hashlib
+from pathlib import Path
+import sys
+
+archive = Path(sys.argv[1])
+expected = sys.argv[2]
+actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+if actual != expected:
+    raise SystemExit(f"checksum mismatch for {archive.name}: {actual} != {expected}")
+PY
 
 python3 -m zipfile -e "$archive" "$tmp_dir/extracted"
 # Zip members are often non-executable until chmod; test -f not -x.

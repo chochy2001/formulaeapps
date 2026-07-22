@@ -16,7 +16,16 @@ if [[ -z "$start" || -z "$cutoff" ]]; then
 fi
 
 script_dir="$(cd "$(dirname "$0")" && pwd)"
-python3 - "$start" "$cutoff" "$max_window_ms" "$script_dir" <<'PY'
+python_bin="${PYTHON3_BIN:-python3}"
+if ! command -v "$python_bin" >/dev/null 2>&1; then
+  python_bin="python"
+fi
+if ! command -v "$python_bin" >/dev/null 2>&1; then
+  echo 'legacy window: Python 3 is required' >&2
+  exit 127
+fi
+
+"$python_bin" - "$start" "$cutoff" "$max_window_ms" "$script_dir" <<'PY'
 import sys
 from pathlib import Path
 
