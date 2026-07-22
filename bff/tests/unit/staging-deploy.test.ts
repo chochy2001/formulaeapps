@@ -168,6 +168,8 @@ describe('staging deploy hardening', () => {
     expect(preloadText).toContain('readonly SHELLCHECK_VERSION="0.10.0"');
     expect(preloadText).toContain('readonly GITLEAKS_VERSION="8.30.1"');
     expect(preloadText).toContain('readonly SHELLCHECK_SHA256="6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87"');
+    expect(preloadText).toContain("rg --version 2>/dev/null | sed -n '1s/^ripgrep");
+    expect(preloadText).toContain('[0-9][0-9.]*');
   });
 
   shellcheckTest('shellcheck-clean staging scripts', () => {

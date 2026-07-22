@@ -32,7 +32,7 @@ publish_path() {
 
 tool_version() {
   case "$1" in
-    rg) rg --version 2>/dev/null | sed -n '1s/^ripgrep //p' ;;
+    rg) rg --version 2>/dev/null | sed -n '1s/^ripgrep \([0-9][0-9.]*\).*/\1/p' ;;
     gitleaks) gitleaks version 2>/dev/null | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n 1 ;;
     shellcheck) shellcheck --version 2>/dev/null | sed -n 's/^version: //p' ;;
   esac
