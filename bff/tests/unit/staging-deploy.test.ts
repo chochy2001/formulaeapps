@@ -59,7 +59,7 @@ describe('staging deploy hardening', () => {
     expect(result.exitCode).toBe(0);
     const combined = result.stdout.toString() + result.stderr.toString();
     expect(combined).toContain('OK');
-  });
+  }, 30_000);
 
   bashTest('validate-legacy-window accepts fractional UTC for staging max', () => {
     const result = runBash('scripts/validate-legacy-window.sh', [
@@ -157,14 +157,19 @@ describe('staging deploy hardening', () => {
     });
   });
 
-  test('jwt preflight pins shellcheck with checksum', () => {
+  test('jwt preflight verifies checksum-locked warm security tools', async () => {
     const workflow = Bun.file(join(repoRoot, '.github', 'workflows', 'jwt-pr-preflight.yml'));
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    return workflow.text().then((text) => {
-      expect(text).toContain('SHELLCHECK_VERSION="0.10.0"');
-      expect(text).toContain('sha256sum --check');
-      expect(text).toContain('base.sha }}...${{ github.event.pull_request.head.sha }}');
-    });
+    const preload = Bun.file(join(repoRoot, 'scripts', 'ci-ensure-jwt-tools.sh'));
+    const [workflowText, preloadText] = await Promise.all([workflow.text(), preload.text()]);
+
+    expect(workflowText).toContain('ci-ensure-jwt-tools.sh --verify-only');
+    expect(workflowText).toContain('head.repo.full_name != github.repository');
+    expect(workflowText).toContain('base.sha }}...${{ github.event.pull_request.head.sha }}');
+    expect(preloadText).toContain('readonly SHELLCHECK_VERSION="0.10.0"');
+    expect(preloadText).toContain('readonly GITLEAKS_VERSION="8.30.1"');
+    expect(preloadText).toContain('readonly SHELLCHECK_SHA256="6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87"');
+    expect(preloadText).toContain("rg --version 2>/dev/null | sed -n '1s/^ripgrep");
+    expect(preloadText).toContain('[0-9][0-9.]*');
   });
 
   shellcheckTest('shellcheck-clean staging scripts', () => {

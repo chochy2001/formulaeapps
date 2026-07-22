@@ -2,6 +2,17 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Run normal CI or reconcile a persistent JWT tool pool
+        required: false
+        default: ci
+        type: choice
+        options:
+          - ci
+          - flutter-only
+          - preload-wsl-bun
+          - preload-jwt-pool
   schedule:
     # Local-first policy: PR/push validation runs on the developer machine.
     # Remote CI is manual or staggered daily (validation only — no production deploy).
@@ -11,6 +22,12 @@ permissions:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # Prefer warm toolcache on ci-runner-node (fleet 54). Node 24.x is not yet
+  # preloaded under shared `_work/_tool` and setup-node mkdir of 24.18.0 hit
+  # EACCES on test-light (2026-07-22). Pin the known-warm patch until ops
+  # preloads Node 24 or fixes `_tool` ownership; JS actions still use Node 24
+  # via FORCE_JAVASCRIPT_ACTIONS_TO_NODE24 above.
+  NODE_VERSION: '22.22.3'
 
 # Constitution gates:
 #   - Principle VI  (Backend↔FE Route Coverage): verify-routes job below.
@@ -25,12 +42,61 @@ env:
 # of under-test production code to fake-green).
 
 concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # Keep normal remasure and short preload maintenance in separate groups so
+  # one cannot cancel or serialize the other. Repeated normal remasures still
+  # queue rather than killing long Flutter coverage jobs.
+  group: ci-${{ github.ref }}-${{ inputs.mode || 'ci' }}
+  cancel-in-progress: false
 
 jobs:
+  preload-wsl-bun:
+    name: Preload WSL CI tools
+    if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'preload-wsl-bun' || inputs.mode == 'preload-jwt-pool')
+    runs-on: [self-hosted, Linux, X64, pc-escritorio, ci-flutter-fast]
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Reconcile checksum-locked Bun outside product CI
+        run: bash scripts/ci-ensure-bun.sh 1.3.14
+      - name: Reconcile checksum-locked JWT tools outside product CI
+        run: bash scripts/ci-ensure-jwt-tools.sh
+
+  preload-vps-jwt-tools:
+    name: Preload VPS test JWT tools
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
+    runs-on: [self-hosted, Linux, X64, ci-jwt-preload]
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Reconcile checksum-locked Bun outside product CI
+        run: bash scripts/ci-ensure-bun.sh 1.3.14
+      - name: Reconcile checksum-locked JWT tools outside product CI
+        run: bash scripts/ci-ensure-jwt-tools.sh
+
+  preload-laptop-jwt-tools:
+    name: Preload Linux laptop JWT tools
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
+    runs-on: [self-hosted, Linux, X64, laptop-policy-pilot]
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Reconcile checksum-locked Bun outside product CI
+        run: bash scripts/ci-ensure-bun.sh 1.3.14
+      - name: Reconcile checksum-locked JWT tools outside product CI
+        run: bash scripts/ci-ensure-jwt-tools.sh
+
   bff-test:
     name: BFF — typecheck + test
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     defaults:
@@ -48,12 +114,10 @@ jobs:
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Ensure Bun 1.3.14
+        working-directory: .
+        run: bash scripts/ci-ensure-bun.sh 1.3.14 --verify-only
       - name: Install deps
         run: bun install --frozen-lockfile
       - name: Typecheck
@@ -77,24 +141,35 @@ jobs:
 
   verify-parity:
     name: Contract ↔ Dart parity (Principle VII)
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
+    # OpenAPI regen + Dart diff (Java). Not APK/Docker — stay on test-light so
+    # CI is not blocked when the dedicated build-heavy runner is offline.
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Ensure Bun 1.3.14
+        run: bash scripts/ci-ensure-bun.sh 1.3.14 --verify-only
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: ${{ env.NODE_VERSION }}
       - name: Setup Java (required by openapi-generator-cli)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+      # generate-bff-types.sh runs build_runner for the generated built_value
+      # clients. The WSL runner already has this exact Flutter release in the
+      # Actions toolcache, but it is not on PATH until flutter-action exports
+      # it. Without this step the script skips build_runner and parity reports
+      # every committed .g.dart file as deleted (a false 6k-line drift).
+      - name: Activate preloaded Flutter for Dart codegen
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.7'
+          channel: stable
+          cache: false
       - name: Install BFF deps
         run: cd bff && bun install --frozen-lockfile
       - name: Re-export OpenAPI + regenerate Dart + diff
@@ -102,19 +177,17 @@ jobs:
 
   verify-routes:
     name: Backend ↔ FE route coverage (Principle VI)
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Ensure Bun 1.3.14
+        run: bash scripts/ci-ensure-bun.sh 1.3.14 --verify-only
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version: ${{ env.NODE_VERSION }}
       - name: Install BFF deps (route-coverage.ts imports `yaml`)
         run: cd bff && bun install --frozen-lockfile
       - name: Scan for orphan routes / dead calls
@@ -133,13 +206,15 @@ jobs:
           path: coverage.json
           retention-days: 30
 
-  # Flutter analyze+test is CPU/RAM heavy. Keep Pro and Community on build-heavy
-  # and serialize Community after Pro so parallel suites cannot starve the shared
-  # host (recent main failures: runner lost communication mid-test while analyze
-  # had already passed).
+  # Flutter analyze+test+coverage on test-light so remasure is not blocked when
+  # the dedicated build-heavy runner is offline (2026-07-21 queue stall; mirrors
+  # FormulaeCommunity). Serialize Community after Pro so parallel Flutter suites
+  # cannot starve the shared test-light host. APK/Docker stays on build-heavy
+  # in deploy/store workflows.
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci' || inputs.mode == 'flutter-only'
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
       run:
@@ -195,8 +270,9 @@ jobs:
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci' || inputs.mode == 'flutter-only'
     needs: [pro-test]
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
       run:
@@ -244,6 +320,7 @@ jobs:
 
   landing-test:
     name: Landing — vitest (Principle VIII)
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     defaults:
@@ -251,16 +328,14 @@ jobs:
         working-directory: landing
     steps:
       - uses: actions/checkout@v4
-      # Astro `astro check` requires a current Node LTS; the runner default is Node 20.
+      # Astro check needs a current LTS; pin via NODE_VERSION (warm toolcache).
       - name: Setup Node (required by astro check)
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Ensure Bun 1.3.14
+        working-directory: .
+        run: bash scripts/ci-ensure-bun.sh 1.3.14 --verify-only
       - name: Install deps
         run: bun install --frozen-lockfile
       # Soft-report: vitest coverage include is intentionally narrow

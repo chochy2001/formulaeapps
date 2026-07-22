@@ -7,3 +7,9 @@ self-hosted-runner:
     - policy-light
     - public-only
     - test-light
+    - global
+    - laptop-policy-pilot
+    - pc-escritorio
+    - ci-flutter-fast
+    - ci-jwt-preload
+    - ci-jwt-tools
