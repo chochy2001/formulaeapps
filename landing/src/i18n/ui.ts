@@ -27,15 +27,16 @@ export const ui = {
       'Ofrecemos dos aplicaciones, Formulae Pro y Formulae Community, diseñadas para ayudarte en tus estudios. Ambas ofrecen una lista de tareas para que no se te olvide lo que debes hacer, un buscador de fórmulas para encontrar rápidamente lo que necesitas y más.',
     'hero.cta.primary': '¡Descarga la App!',
     'hero.cta.secondary': 'Ver Formulae Pro',
-    'hero.imageAlt': 'Vista visual de Formulae con símbolos matemáticos universales',
+    'hero.imageAlt':
+      'Captura de Formulae mostrando un catálogo de fórmulas matemáticas en pantalla móvil',
 
     'video.eyebrow': 'En 60 segundos',
     'video.title': 'Mira Formulae en acción',
 
-    'screenshots.eyebrow': 'Funciones visuales',
-    'screenshots.title': 'Explora Formulae',
+    'screenshots.eyebrow': 'Capturas reales',
+    'screenshots.title': 'Mira Formulae por dentro',
     'screenshots.subtitle':
-      'Símbolos visuales de las funciones: fórmulas, búsquedas, tareas, PDFs, práctica y más.',
+      'Vistas de la app: catálogo de fórmulas, imágenes explicativas, vídeos, ejercicios resueltos y más.',
     'screenshots.scrollHint': '← Desliza para ver más →',
 
     'features.eyebrow': 'Funcionalidades',
@@ -164,15 +165,15 @@ export const ui = {
       'We offer two applications, Formulae Pro and Formulae Community, designed to assist you in your studies. Both include a task list so you never forget what you have to do, a formula searcher to quickly find what you need and more.',
     'hero.cta.primary': 'Download the App!',
     'hero.cta.secondary': 'See Formulae Pro',
-    'hero.imageAlt': 'Formulae visual preview with universal mathematical symbols',
+    'hero.imageAlt': 'Formulae screenshot showing the math formulas catalog on a mobile screen',
 
     'video.eyebrow': 'In 60 seconds',
     'video.title': 'See Formulae in action',
 
-    'screenshots.eyebrow': 'Feature previews',
-    'screenshots.title': 'Explore Formulae',
+    'screenshots.eyebrow': 'Real screenshots',
+    'screenshots.title': 'Take a look inside Formulae',
     'screenshots.subtitle':
-      'Visual symbols for the features: formulas, search, tasks, PDFs, practice and more.',
+      'App views: formula catalog, explanatory images, videos, solved exercises and more.',
     'screenshots.scrollHint': '← Swipe to see more →',
 
     'features.eyebrow': 'Features',

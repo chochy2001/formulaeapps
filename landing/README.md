@@ -95,7 +95,7 @@ formulae-landing/
 │   │   │   └── LanguageSwitcher.astro
 │   │   ├── home/
 │   │   │   ├── Hero.astro
-│   │   │   ├── FormulaePreview.astro # Preview matemático neutral reutilizable
+│   │   │   ├── FormulaePreview.astro # Preview SVG language-neutral (respaldo)
 │   │   │   ├── AppScreenshots.astro  # Galería de previews neutrales
 │   │   │   ├── Features.astro
 │   │   │   ├── FeatureCard.astro
@@ -140,12 +140,11 @@ Todas las URLs y copy provienen del landing actual en producción **excepto las 
 
 ### Capturas y previews
 
-Las capturas históricas de `src/assets/images/screenshots/` se conservan como
-material fuente, pero no se renderizan en la landing: incorporan cadenas de una
-sola lengua. `Hero.astro` y `AppScreenshots.astro` usan
-`FormulaePreview.astro`, un preview SVG de fórmulas y símbolos universales. De
-este modo ES y EN comparten el mismo recurso visual y el texto accesible vive
-en el diccionario de i18n.
+`Hero.astro` y `AppScreenshots.astro` renderizan las capturas reales de
+`src/assets/images/screenshots/screenshot-01..10.png` (marketing assets
+recuperados del sitio Zyrosite). El copy accesible (alt / títulos de sección)
+vive en `src/i18n/ui.ts`. `FormulaePreview.astro` queda disponible como preview
+SVG language-neutral de respaldo, pero ya no alimenta la galería principal.
 
 ### Imágenes OG
 

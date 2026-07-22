@@ -1,6 +1,6 @@
 /**
- * Checks the built landing, not source text, for locale-independent marketing
- * visuals and translated English navigation/structured data.
+ * Checks the built landing, not source text, for translated English
+ * navigation/structured data and that the home gallery ships real app screenshots.
  */
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -31,7 +31,7 @@ for (const [name, html] of [
   ['es home', spanishHome],
   ['en home', englishHome],
 ]) {
-  assert(!html.includes('screenshot-'), `${name} still ships a localized screenshot asset.`);
+  assert(html.includes('screenshot-'), `${name} is missing real screenshot assets.`);
 }
 
 assert(englishHome.includes('href="/en/support"'), 'English home is missing the /en/support link.');
@@ -44,8 +44,8 @@ assert(
   'English home embeds the Spanish-language video.'
 );
 assert(
-  (englishHome.match(/Formulae visual preview:/g) ?? []).length === 10,
-  'English home must render ten locale-independent feature previews.'
+  (englishHome.match(/Formulae screenshot:/g) ?? []).length === 10,
+  'English home must render ten real feature screenshots.'
 );
 assert(
   englishPro.includes('An ad-free app for studying mathematics and science'),
