@@ -48,11 +48,11 @@ Usar STATUS para el panorama; este archivo para el detalle por ticket.
 > register/login). Matriz pendiente/bloqueado y auth: `docs/STATUS.md`.
 >
 > **Docs tip refresh 2026-07-21 (noche)**: SHAs vivos en STATUS —
-> formulaeapps `80e627f` (**#126**/#127/#128/#129/#131; **#122–#125**
+> formulaeapps `64ee6c6` (**#133**/#130/#131/#126–#129; **#122–#125**
 > superseded); FormulaeCommunity `1c075d7` (**#32** `a6ec118`, **#33**).
 > Community CI ya corre `flutter test` + soft coverage. Bloqueados sin
-> cambio: T04, #9/#13, FML-101/116/117/129, T40–T42. PRs abiertos:
-> **#130** (store soft-skip), **#132** (deps).
+> cambio: T04, #9/#13, FML-101/116/117/129, T40–T42. PR abierto: **#132**
+> (deps).
 
 
 ## Orden de ejecución
