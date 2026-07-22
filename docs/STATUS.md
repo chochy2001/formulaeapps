@@ -25,8 +25,8 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `64ee6c6` | Tip after STATUS community-CI refresh **#133** (+ store soft-skip **#130**). Also on `main`: **#131**/#129/#128/#127/#126. Docs index **#122–#125** superseded. Re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `1c075d7` | Tip after coverage leverage **#33**. Analyze **#29**; README→STATUS **#30**/#31; `flutter test` + soft coverage on `main` (`f826c15`); workflow name restore **#32** (`a6ec118`). |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1be799f` | Tip after STATUS tip-bump **#134** (also **#133**/#130/#131/#126–#129). Docs index **#122–#125** superseded. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `64e9bc5` | Tip after version bump **#35** (`2.3.0+75`). Prior: coverage **#33**, workflow name **#32** (`a6ec118`), `flutter test` + soft coverage on `main`. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. Open monorepo PR:
 **#132** (deps/nginx/app versions). FormulaeCommunity: **0** open issues / PRs.
