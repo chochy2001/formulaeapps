@@ -7,3 +7,5 @@ self-hosted-runner:
     - policy-light
     - public-only
     - test-light
+    - pc-escritorio
+    - ci-flutter-fast

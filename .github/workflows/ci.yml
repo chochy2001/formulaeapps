@@ -2,6 +2,15 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Run normal CI or reconcile the WSL Bun preload
+        required: true
+        default: ci
+        type: choice
+        options:
+          - ci
+          - preload-wsl-bun
   schedule:
     # Local-first policy: PR/push validation runs on the developer machine.
     # Remote CI is manual or staggered daily (validation only — no production deploy).
@@ -35,8 +44,60 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  preload-wsl-bun:
+    name: Preload WSL Bun 1.3.14
+    if: inputs.mode == 'preload-wsl-bun'
+    runs-on: [self-hosted, Linux, X64, pc-escritorio, ci-flutter-fast]
+    timeout-minutes: 5
+    steps:
+      - name: Reconcile checksum-locked Bun outside product CI
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected_version='1.3.14'
+          bun_bin="$HOME/.bun/bin/bun"
+          if [ -x "$bun_bin" ] && [ "$($bun_bin --version)" = "$expected_version" ]; then
+            echo "Bun $expected_version already preloaded; no download required."
+            exit 0
+          fi
+
+          case "$(uname -m)" in
+            x86_64|amd64) ;;
+            *) echo "::error::This preload is locked to Linux x64"; exit 1 ;;
+          esac
+          for command_name in curl python3 sha256sum install; do
+            command -v "$command_name" >/dev/null || {
+              echo "::error::$command_name is required by the maintenance lane"
+              exit 1
+            }
+          done
+
+          tmp_dir="$(mktemp -d)"
+          trap 'rm -rf "$tmp_dir"' EXIT
+          archive="$tmp_dir/bun-linux-x64.zip"
+          curl -fsSL \
+            'https://github.com/oven-sh/bun/releases/download/bun-v1.3.14/bun-linux-x64.zip' \
+            -o "$archive"
+          echo '951ee2aee855f08595aeec6225226a298d3fea83a3dcd6465c09cbccdf7e848f  '"$archive" \
+            | sha256sum -c -
+          python3 -m zipfile -e "$archive" "$tmp_dir/extracted"
+          source_bin="$tmp_dir/extracted/bun-linux-x64/bun"
+          [ -x "$source_bin" ] || {
+            echo "::error::Verified Bun archive did not contain the expected binary"
+            exit 1
+          }
+          mkdir -p "$(dirname "$bun_bin")"
+          install -m 0755 "$source_bin" "$bun_bin"
+          actual="$($bun_bin --version)"
+          [ "$actual" = "$expected_version" ] || {
+            echo "::error::Bun version drift after preload: $actual"
+            exit 1
+          }
+          echo "Bun $actual preloaded at $bun_bin."
+
   bff-test:
     name: BFF — typecheck + test
+    if: inputs.mode != 'preload-wsl-bun'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     defaults:
@@ -55,11 +116,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Verify preloaded Bun
+        run: |
+          actual="$(bun --version)"
+          [ "$actual" = '1.3.14' ] || {
+            echo "::error::Expected preloaded Bun 1.3.14, got $actual"
+            exit 1
+          }
       - name: Install deps
         run: bun install --frozen-lockfile
       - name: Typecheck
@@ -83,17 +146,20 @@ jobs:
 
   verify-parity:
     name: Contract ↔ Dart parity (Principle VII)
+    if: inputs.mode != 'preload-wsl-bun'
     # OpenAPI regen + Dart diff (Java). Not APK/Docker — stay on test-light so
     # CI is not blocked when the dedicated build-heavy runner is offline.
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Verify preloaded Bun
+        run: |
+          actual="$(bun --version)"
+          [ "$actual" = '1.3.14' ] || {
+            echo "::error::Expected preloaded Bun 1.3.14, got $actual"
+            exit 1
+          }
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
@@ -110,15 +176,18 @@ jobs:
 
   verify-routes:
     name: Backend ↔ FE route coverage (Principle VI)
+    if: inputs.mode != 'preload-wsl-bun'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Verify preloaded Bun
+        run: |
+          actual="$(bun --version)"
+          [ "$actual" = '1.3.14' ] || {
+            echo "::error::Expected preloaded Bun 1.3.14, got $actual"
+            exit 1
+          }
       - name: Setup Node (bunx/tsc on self-hosted runners)
         uses: actions/setup-node@v4
         with:
@@ -148,6 +217,7 @@ jobs:
   # in deploy/store workflows.
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
+    if: inputs.mode != 'preload-wsl-bun'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
@@ -204,6 +274,7 @@ jobs:
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
+    if: inputs.mode != 'preload-wsl-bun'
     needs: [pro-test]
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
@@ -253,6 +324,7 @@ jobs:
 
   landing-test:
     name: Landing — vitest (Principle VIII)
+    if: inputs.mode != 'preload-wsl-bun'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     defaults:
@@ -265,11 +337,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.14
-          no-cache: true
+      - name: Verify preloaded Bun
+        run: |
+          actual="$(bun --version)"
+          [ "$actual" = '1.3.14' ] || {
+            echo "::error::Expected preloaded Bun 1.3.14, got $actual"
+            exit 1
+          }
       - name: Install deps
         run: bun install --frozen-lockfile
       # Soft-report: vitest coverage include is intentionally narrow
