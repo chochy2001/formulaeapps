@@ -1,6 +1,9 @@
 # Formulae Apps
 
 Monorepo de Formulae Pro, Formulae Community, la landing pública y el BFF.
+
+Arquitectura del meta-repositorio y contrato de actualización:
+[`docs/META_REPOSITORY.md`](docs/META_REPOSITORY.md).
 Este archivo describe el checkout; **no** afirma que hosting o tiendas estén
 al día.
 

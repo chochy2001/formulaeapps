@@ -107,6 +107,17 @@ jobs:
           echo "armed=true" >> "$GITHUB_OUTPUT"
           echo "STORE_AUTODEPLOY=true: pipeline armed."
 
+      - name: Enforce production release window
+        if: steps.kill_switch.outputs.armed == 'true'
+        run: |
+          set -euo pipefail
+          weekday="$(TZ=America/Mexico_City date +%u)"
+          case "$weekday" in
+            1|2|3|4) ;;
+            *) echo "::error::Production store releases are allowed Monday through Thursday in America/Mexico_City only."; exit 1 ;;
+          esac
+          echo "Monday–Thursday production window confirmed (America/Mexico_City)."
+
   resolve:
     name: Resolve exact main SHA, apps and versions
     needs: guard

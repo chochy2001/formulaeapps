@@ -9,8 +9,8 @@ on:
     - cron: '10 8 * * *'
 jobs:
   release-policy:
-    uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@cd8a06f413626c4665f7b4cdf94cc27e2a4b424c
+    uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@e3b3d8bdb7524aa29dbc55edb6558b5646dde61f
     with:
       enforce: false
       runner-label: policy-light
-      production-day: any
+      production-day: mon-thu
