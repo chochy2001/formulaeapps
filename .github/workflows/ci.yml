@@ -122,6 +122,17 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      # generate-bff-types.sh runs build_runner for the generated built_value
+      # clients. The WSL runner already has this exact Flutter release in the
+      # Actions toolcache, but it is not on PATH until flutter-action exports
+      # it. Without this step the script skips build_runner and parity reports
+      # every committed .g.dart file as deleted (a false 6k-line drift).
+      - name: Activate preloaded Flutter for Dart codegen
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.7'
+          channel: stable
+          cache: false
       - name: Install BFF deps
         run: cd bff && bun install --frozen-lockfile
       - name: Re-export OpenAPI + regenerate Dart + diff
