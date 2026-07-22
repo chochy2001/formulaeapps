@@ -4,10 +4,15 @@
 # Prefer a warm host install. If missing/wrong, download the official zip and
 # extract with python3 (no `unzip` binary — WSL runners may lack it).
 #
-# Usage: bash scripts/ci-ensure-bun.sh [version]
+# Usage: bash scripts/ci-ensure-bun.sh [version] [--verify-only]
 set -euo pipefail
 
 expected_version="${1:-1.3.14}"
+mode="${2:-install}"
+case "$mode" in
+  install | --verify-only) ;;
+  *) echo "::error::Unknown mode: $mode"; exit 2 ;;
+esac
 export BUN_INSTALL="${BUN_INSTALL:-${HOME}/.bun}"
 bun_bin="${BUN_INSTALL}/bin/bun"
 export PATH="${BUN_INSTALL}/bin:${PATH}"
@@ -23,6 +28,11 @@ fi
 if command -v bun >/dev/null 2>&1 && [ "$(bun --version)" = "$expected_version" ]; then
   echo "Using PATH Bun $expected_version ($(command -v bun))"
   exit 0
+fi
+
+if [ "$mode" = "--verify-only" ]; then
+  echo "::error::Bun $expected_version is not preloaded. Run the preload-wsl-bun maintenance lane before product CI."
+  exit 1
 fi
 
 case "$(uname -m)" in
