@@ -12,8 +12,8 @@ Companion live index: [`STATUS.md`](STATUS.md). Re-check SHAs with
 
 | Repo | `origin/main` tip (this checklist) |
 | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `0065da7` (**#141** merged) |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `81b732e` (**#38**) |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `b26e49a` (**#145** tip; prior **#144**/#141) |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `99708a9` (**#39** README tip; prior **#38**/#37) |
 
 ---
 

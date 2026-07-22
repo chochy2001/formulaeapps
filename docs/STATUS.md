@@ -36,7 +36,7 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `73d2e14` | Tip after docs audit **#144** (+ **#141** test-light). Coverage soft-report **#126** live. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `b26e49a` | Tip after tip-refresh **#145** (+ audit **#144**, **#141** test-light). Coverage soft-report **#126** live. Re-check: `git rev-parse origin/main`. |
 | [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `99708a9` | Tip after README docs **#39**; coverage evidence **#37** (`bc67d81`). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**. Issue **#34** closed. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
