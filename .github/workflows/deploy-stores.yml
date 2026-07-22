@@ -5,8 +5,9 @@ name: Deploy to stores
 # main. Un push a main que toca community/pubspec.yaml o pro/pubspec.yaml
 # publica esa app; workflow_dispatch permite el disparo manual por app.
 #
-# Kill switch: el pipeline se entrega DESARMADO. El job `guard` aborta hasta
-# que la variable de repositorio STORE_AUTODEPLOY sea 'true'.
+# Kill switch: el pipeline se entrega DESARMADO. El job `guard` hace soft-skip
+# (exit 0) hasta que la variable de repositorio STORE_AUTODEPLOY sea 'true',
+# para no pintar main de rojo mientras está desarmado.
 #
 # Secrets a provisionar antes de activar el kill switch (nombres por app; el
 # keystore formulae-upload.jks es compartido, así que ambos set ANDROID_*
@@ -83,8 +84,11 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: read
+    outputs:
+      armed: ${{ steps.check.outputs.armed }}
     steps:
-      - name: Require explicit STORE_AUTODEPLOY opt-in
+      - name: Require explicit STORE_AUTODEPLOY opt-in (soft-skip when disarmed)
+        id: check
         env:
           STORE_AUTODEPLOY: ${{ vars.STORE_AUTODEPLOY }}
         run: |
@@ -96,15 +100,19 @@ jobs:
               echo "- This pipeline publishes to the Play production track and submits to App Store review automatically."
               echo "- It stays disarmed until the repository variable \`STORE_AUTODEPLOY\` is set to \`true\`."
               echo "- Provision the store secrets first (see header comments in this workflow), then arm the kill switch."
+              echo "- Soft-skip: job exits 0 so main is not painted red while disarmed."
             } >> "$GITHUB_STEP_SUMMARY"
-            echo "::error::Store auto-deploy is disarmed: set the STORE_AUTODEPLOY repository variable to 'true' to arm it."
-            exit 1
+            echo "::notice::Store auto-deploy is disarmed (soft-skip). Set STORE_AUTODEPLOY=true to arm."
+            echo "armed=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "armed=true" >> "$GITHUB_OUTPUT"
           echo "STORE_AUTODEPLOY=true: pipeline armed."
 
   resolve:
     name: Resolve exact main SHA, apps and versions
     needs: guard
+    if: needs.guard.outputs.armed == 'true'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     permissions:
@@ -191,7 +199,8 @@ jobs:
 
   ci-gate:
     name: Require green CI for the exact SHA
-    needs: resolve
+    needs: [guard, resolve]
+    if: needs.guard.outputs.armed == 'true'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     permissions:
@@ -219,8 +228,8 @@ jobs:
 
   android-community:
     name: Community — build signed AAB + publish to Play production
-    needs: [resolve, ci-gate]
-    if: needs.resolve.outputs.community == 'true'
+    needs: [guard, resolve, ci-gate]
+    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.community == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 90
     permissions:
@@ -462,8 +471,8 @@ jobs:
 
   android-pro:
     name: Pro — build signed AAB + publish to Play production
-    needs: [resolve, ci-gate]
-    if: needs.resolve.outputs.pro == 'true'
+    needs: [guard, resolve, ci-gate]
+    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.pro == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 90
     permissions:
@@ -669,8 +678,8 @@ jobs:
 
   ios-community:
     name: Community — build signed IPA + submit to App Store review
-    needs: [resolve, ci-gate]
-    if: needs.resolve.outputs.community == 'true'
+    needs: [guard, resolve, ci-gate]
+    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.community == 'true'
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
@@ -830,8 +839,8 @@ jobs:
 
   ios-pro:
     name: Pro — build signed IPA + submit to App Store review
-    needs: [resolve, ci-gate]
-    if: needs.resolve.outputs.pro == 'true'
+    needs: [guard, resolve, ci-gate]
+    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.pro == 'true'
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
@@ -945,8 +954,8 @@ jobs:
 
   summary:
     name: Store deploy summary
-    needs: [resolve, android-community, android-pro, ios-community, ios-pro]
-    if: always() && needs.resolve.result == 'success'
+    needs: [guard, resolve, android-community, android-pro, ios-community, ios-pro]
+    if: always() && needs.guard.result == 'success'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 5
     permissions:
@@ -954,6 +963,7 @@ jobs:
     steps:
       - name: Write store deploy summary
         env:
+          ARMED: ${{ needs.guard.outputs.armed }}
           RESOLVED_SHA: ${{ needs.resolve.outputs.sha }}
           DEPLOY_COMMUNITY: ${{ needs.resolve.outputs.community }}
           DEPLOY_PRO: ${{ needs.resolve.outputs.pro }}
@@ -965,6 +975,14 @@ jobs:
           IOS_PRO_RESULT: ${{ needs.ios-pro.result }}
         run: |
           set -euo pipefail
+          if [ "${ARMED:-}" != "true" ]; then
+            {
+              echo "## Store auto-deploy soft-skipped"
+              echo
+              echo "Kill switch disarmed (\`STORE_AUTODEPLOY\` != true). No store was touched."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           fail=0
           {
             echo "## Store deploy"
