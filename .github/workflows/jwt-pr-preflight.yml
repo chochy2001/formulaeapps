@@ -49,7 +49,7 @@ jobs:
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           # 22.22.3 is warm on private JWT lanes. Forks use the isolated hosted image.
-          node-version: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository && '24' || '22.22.3' }}
+          node-version: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository && '24.18.0' || '22.22.3' }}
 
       - name: Setup Bun on isolated fork worker
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
