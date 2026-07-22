@@ -1,9 +1,11 @@
 # Formulae — canonical status (LLM index)
 
 **Single source of truth for “what’s done / blocked / how to validate.”**
-Verified against `origin/main` + GitHub on **2026-07-21** (coverage wrap-up after
-**#126**/#137 and Community coverage PR). Prefer this file over scattered READMEs,
-old SESSION_STATUS sections, or audit notes that may lag.
+Verified against `origin/main` + GitHub on **2026-07-22** (FormulaeCommunity
+Play Store SoT coverage **#37** closed issue **#34** at RAW ≥85%; monorepo
+Pro/Community **runner remasure UNKNOWN** — self-hosted CI bottleneck). Prefer
+this file over scattered READMEs, old SESSION_STATUS sections, or audit notes
+that may lag.
 
 | Surface | Canonical doc |
 | --- | --- |
@@ -21,16 +23,17 @@ GitHub). Critical status is **mirrored here**.
 
 ---
 
-## Current SHAs (2026-07-21)
+## Current SHAs (2026-07-22)
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `9ddfae0` | Tip after STATUS **#139**/#138 + store soft-skip **#137**; coverage soft-report **#126** live. Re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `ac95c70` | Tip after coverage-maps **#36** (PDF/image maps + test-light CI). Soft-report **RAW 3.08%** (`1023/33176`). Prior **#35**/#33/#32. Issue **#34** remains open (≪85%). |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `e4163aa` | Tip after Community STATUS sync on main; coverage soft-report **#126** live. Open **#141** moves Pro/Community/parity Flutter soft-report onto `test-light`. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `bc67d81` | Tip after coverage **#37** (ads seam + route/widget mounts). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**. Issue **#34** closed. |
 
-Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
-**#34** (ratchet Play Store SoT RAW ≥85% — measured **3.08%**, not closed). Monorepo
-open PRs: **0** after **#139** (post-#36 tip bump may follow).
+Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
+issue **#34** closed (Play Store SoT RAW ≥85% met). Monorepo open PR:
+[**#141**](https://github.com/CAPDESIS/formulaeapps/pull/141) (test-light remasure
+unblocking) — light PR checks green; full self-hosted remasure **not** claimed.
 
 Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
 merged local feature branches pruned when idle. Formulae worktrees under
@@ -64,12 +67,12 @@ Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
 
 | Workflow | Latest signal | Verdict |
 | --- | --- | --- |
-| formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
-| formulaeapps **CI** on HEAD (`252855f`) | Soft-report live (**#126**); Flutter Pro/Community jobs still on **`build-heavy`** | **Blocked for remasure** while `ci-runner-node-build-1` offline — BFF/landing/routes on `test-light` can still run. Do not invent CI % |
+| formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Older SHA gates healthy; not a remasure of current HEAD |
+| formulaeapps **CI** remasure (**#141**) | Workflow move: Pro/Community/parity → **`test-light`** (APK/Docker stay **`build-heavy`**). Self-hosted queue/cancel bottleneck — agents must **not** poll Actions | **Runner remasure UNKNOWN** for monorepo Pro / Community / BFF / Landing. Do **not** invent CI % until a terminal green soft-report on recovered runners |
 | formulaeapps **Deploy to stores** | Red / soft-skip while kill switch disarmed (**#130**/#137) | **Expected**: `STORE_AUTODEPLOY` unset / ≠ `true` — ignore as a merge blocker |
-| FormulaeCommunity **Formulae Flutter CI** | Soft-report + `community-app-lcov` live on `test-light` (**#36**). Runner: **RAW 3.08%** (`1023/33176`), NO_GENERATED **3.24%** (`986/30438`) — green remasure [29882892388](https://github.com/CAPDESIS/FormulaeCommunity/actions/runs/29882892388) (103/103) | Far below ≥85% (**#34**). Do not hard-gate yet |
+| FormulaeCommunity **Formulae Flutter CI** | Soft-report + `community-app-lcov` on `test-light` (**#37**). Runner: **RAW 85.31%** (`21218/24873`), NO_GENERATED **85.11%** (`18838/22135`) — green [29886251914](https://github.com/CAPDESIS/FormulaeCommunity/actions/runs/29886251914) (129/129) | ≥85% RAW **met**; issue **#34** closed. Optional hard gate later. **Not** a substitute for monorepo `community/` remasure |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
-| formulaeapps **line coverage** (**#126** on `main`) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Institutionalized; no hard 85% gate until runner confirms floors |
+| formulaeapps **line coverage** (**#126** on `main`; runner labels in **#141**) | Soft-report machinery live; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Soft-report institutionalized; **floors UNKNOWN** until self-hosted remasure completes |
 | formulaeapps **Deploy to stores** UX (**#130**/#137 on `main`) | Soft-skip when kill switch disarmed | Merged; red while disarmed is expected |
 
 `gh variable list` showed **no** repo variables (including `STORE_AUTODEPLOY`) —
@@ -86,11 +89,11 @@ disarmed by design until store secrets are provisioned and the var is set to
 | Landing | **64/64** tests; Astro **7** + Vite **8** + Tailwind **4.3**; Bun **1.3.14** + Node **24** |
 | Contract gates | `scripts/verify-parity.sh` + `scripts/route-coverage.sh` PASS on `main` |
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
-| Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Local ≥85% met; CI soft-reports RAW + uploads `pro-lcov` for runner remasure |
-| Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale) — CI soft-reports + `community-monorepo-lcov` |
-| Community standalone | analyze 0 strict; **#36** on `main` (`ac95c70`). CI soft-report **RAW 3.08%** (`1023/33176`) / NO_GENERATED **3.24%** (Play Store SoT). **Honest:** far below ≥85% (**#34**) — do not claim 85% |
-| BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03) |
-| Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI) |
+| Pro tests + coverage | Suite **215/215**; local raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. **Runner remasure UNKNOWN** (self-hosted bottleneck); soft-report + `pro-lcov` wired in **#126**/#141 |
+| Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale). **Runner remasure UNKNOWN**; soft-report + `community-monorepo-lcov` wired — do not treat Play Store SoT % as monorepo copy % |
+| Community standalone | analyze 0 strict; **#37** on `main` (`bc67d81`). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%** (Play Store SoT). Issue **#34** closed |
+| BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03). **Current runner remasure UNKNOWN** |
+| Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI). **Current runner remasure UNKNOWN** |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
 | Audit T02/T03/T05/T10–T14/T20–T25/T30/T31 | Done (see audit README / HANDOFF locally) |
 
@@ -129,6 +132,7 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Role+network **code fixed** (accept `staging`/`staging-node`; compose → `staging_proxy`). Remaining: Cloudflare A `staging.api` → staging-node IP (DNS only) + `/opt/staging/apps/formulaeapps` + `.env.staging` + `STAGING_SSH_*` — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
+| **Monorepo coverage remasure** | CI / runners | **BLOCKED** (ops) | Self-hosted `test-light`/`build-heavy` bottleneck; **#141** moves Pro/Community/parity soft-report to `test-light`. **Do not poll Actions.** Runner % = **UNKNOWN** until recovered remasure |
 | **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
 | Store auto-deploy failures | Expected guard | **Not a bug** | Keep disarmed until secrets exist; then set `STORE_AUTODEPLOY=true`. Soft-skip UX merged (**#130**) |
 
