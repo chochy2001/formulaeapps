@@ -6,8 +6,8 @@ name: Deploy to stores
 # publica esa app; workflow_dispatch permite el disparo manual por app.
 #
 # Kill switch: el pipeline se entrega DESARMADO. El job `guard` hace soft-skip
-# (exit 0) hasta que la variable de repositorio STORE_AUTODEPLOY sea 'true',
-# para no pintar main de rojo mientras está desarmado.
+# (exit 0, doc 56 / CapLiving) hasta que STORE_AUTODEPLOY sea 'true'; main
+# no queda rojo cuando el autodeploy está desarmado.
 #
 # Secrets a provisionar antes de activar el kill switch (nombres por app; el
 # keystore formulae-upload.jks es compartido, así que ambos set ANDROID_*
@@ -80,30 +80,28 @@ concurrency:
 jobs:
   guard:
     name: Store auto-deploy kill switch
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: [self-hosted, ci-runner-node, policy-light]
     timeout-minutes: 5
     permissions:
       contents: read
     outputs:
-      armed: ${{ steps.check.outputs.armed }}
+      armed: ${{ steps.kill_switch.outputs.armed }}
     steps:
-      - name: Require explicit STORE_AUTODEPLOY opt-in (soft-skip when disarmed)
-        id: check
+      - name: Require explicit STORE_AUTODEPLOY opt-in
+        id: kill_switch
         env:
           STORE_AUTODEPLOY: ${{ vars.STORE_AUTODEPLOY }}
         run: |
           set -euo pipefail
-          if [ "$STORE_AUTODEPLOY" != "true" ]; then
+          if [ "${STORE_AUTODEPLOY:-}" != "true" ]; then
+            echo "armed=false" >> "$GITHUB_OUTPUT"
             {
               echo "## Store auto-deploy disarmed"
               echo
-              echo "- This pipeline publishes to the Play production track and submits to App Store review automatically."
-              echo "- It stays disarmed until the repository variable \`STORE_AUTODEPLOY\` is set to \`true\`."
-              echo "- Provision the store secrets first (see header comments in this workflow), then arm the kill switch."
-              echo "- Soft-skip: job exits 0 so main is not painted red while disarmed."
+              echo "- Soft-skip per fleet doc 56 / CapLiving: workflow stays green; nothing is published."
+              echo "- Arm with repository variable \`STORE_AUTODEPLOY=true\` after store secrets exist."
             } >> "$GITHUB_STEP_SUMMARY"
-            echo "::notice::Store auto-deploy is disarmed (soft-skip). Set STORE_AUTODEPLOY=true to arm."
-            echo "armed=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Store auto-deploy disarmed — soft-skip; no stores touched."
             exit 0
           fi
           echo "armed=true" >> "$GITHUB_OUTPUT"
@@ -113,7 +111,7 @@ jobs:
     name: Resolve exact main SHA, apps and versions
     needs: guard
     if: needs.guard.outputs.armed == 'true'
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: [self-hosted, ci-runner-node, policy-light]
     timeout-minutes: 10
     permissions:
       contents: read
@@ -199,8 +197,7 @@ jobs:
 
   ci-gate:
     name: Require green CI for the exact SHA
-    needs: [guard, resolve]
-    if: needs.guard.outputs.armed == 'true'
+    needs: resolve
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 10
     permissions:
@@ -228,8 +225,8 @@ jobs:
 
   android-community:
     name: Community — build signed AAB + publish to Play production
-    needs: [guard, resolve, ci-gate]
-    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.community == 'true'
+    needs: [resolve, ci-gate]
+    if: needs.resolve.outputs.community == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 90
     permissions:
@@ -471,8 +468,8 @@ jobs:
 
   android-pro:
     name: Pro — build signed AAB + publish to Play production
-    needs: [guard, resolve, ci-gate]
-    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.pro == 'true'
+    needs: [resolve, ci-gate]
+    if: needs.resolve.outputs.pro == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
     timeout-minutes: 90
     permissions:
@@ -678,8 +675,8 @@ jobs:
 
   ios-community:
     name: Community — build signed IPA + submit to App Store review
-    needs: [guard, resolve, ci-gate]
-    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.community == 'true'
+    needs: [resolve, ci-gate]
+    if: needs.resolve.outputs.community == 'true'
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
@@ -839,8 +836,8 @@ jobs:
 
   ios-pro:
     name: Pro — build signed IPA + submit to App Store review
-    needs: [guard, resolve, ci-gate]
-    if: needs.guard.outputs.armed == 'true' && needs.resolve.outputs.pro == 'true'
+    needs: [resolve, ci-gate]
+    if: needs.resolve.outputs.pro == 'true'
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
@@ -954,8 +951,8 @@ jobs:
 
   summary:
     name: Store deploy summary
-    needs: [guard, resolve, android-community, android-pro, ios-community, ios-pro]
-    if: always() && needs.guard.result == 'success'
+    needs: [resolve, android-community, android-pro, ios-community, ios-pro]
+    if: always() && needs.resolve.result == 'success'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 5
     permissions:
@@ -963,7 +960,6 @@ jobs:
     steps:
       - name: Write store deploy summary
         env:
-          ARMED: ${{ needs.guard.outputs.armed }}
           RESOLVED_SHA: ${{ needs.resolve.outputs.sha }}
           DEPLOY_COMMUNITY: ${{ needs.resolve.outputs.community }}
           DEPLOY_PRO: ${{ needs.resolve.outputs.pro }}
@@ -975,14 +971,6 @@ jobs:
           IOS_PRO_RESULT: ${{ needs.ios-pro.result }}
         run: |
           set -euo pipefail
-          if [ "${ARMED:-}" != "true" ]; then
-            {
-              echo "## Store auto-deploy soft-skipped"
-              echo
-              echo "Kill switch disarmed (\`STORE_AUTODEPLOY\` != true). No store was touched."
-            } >> "$GITHUB_STEP_SUMMARY"
-            exit 0
-          fi
           fail=0
           {
             echo "## Store deploy"
