@@ -61,6 +61,11 @@ Future<void> bootstrap(FormulaeConfig config) async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  // Android 16 (targetSdk 36): edge-to-edge is mandatory and the former
+  // windowOptOutEdgeToEdgeEnforcement opt-out is ignored. Flutter screens
+  // already wrap content in SafeArea; enable the system UI mode explicitly
+  // so status/nav bars stay transparent consistently on API 35+.
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   //todo cambiar icono de android
   const AndroidInitializationSettings initializationSettingsAndroid =

@@ -1,0 +1,36 @@
+name: Pro Play Compliance
+
+# Lightweight gate for Google Play targetSdk 36 + Billing Library 8+ (2026-08-31).
+# No Flutter build — text/lock checks only.
+
+on:
+  pull_request:
+    paths:
+      - 'pro/android/**'
+      - 'pro/pubspec.yaml'
+      - 'pro/pubspec.lock'
+      - 'pro/lib/main.dart'
+      - 'pro/docs/ANDROID_16_PLAY_COMPLIANCE.md'
+      - 'scripts/verify-pro-play-compliance.sh'
+      - '.github/workflows/pro-play-compliance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pro-play-compliance-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify-pro-play-compliance
+    runs-on: [self-hosted, ci-runner-node, policy-light]
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Verify Pro Play API 36 + Billing 8 pins
+        run: bash scripts/verify-pro-play-compliance.sh

@@ -3,9 +3,10 @@ title: Formulae Pro
 description: formulario sin anuncios
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-# 3.4.0+61: dependency/runtime audit (Firebase pin lift to match Community
-# Play Store SoT + flutter_lints 6). Continues versionCode after 3.3.9+60.
-version: 3.4.0+61
+# 3.4.1+62: Play Console compliance — targetSdk/compileSdk 36 + Play Billing
+# Library 8 via in_app_purchase_android ≥0.5 (deadline 2026-08-31).
+# Continues versionCode after 3.4.0+61.
+version: 3.4.1+62
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
@@ -32,8 +33,12 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^34.1.32
   http: ^1.1.0
   animated_widgets: ^1.1.0
-  in_app_purchase: ^3.1.8
-  # Direct import in lib + tests (FakeIapPlatform); keep aligned with lock 1.4.0.
+  # ^3.3.0 pulls in_app_purchase_android ≥0.5 → Google Play Billing Library 8.0.0
+  # (required for new uploads after 2026-08-31 when Billing Library 7 is rejected).
+  in_app_purchase: ^3.3.0
+  # Direct pin so Billing 8 cannot regress to the 0.4.x / billing:7.1.1 line.
+  in_app_purchase_android: ^0.5.0
+  # Direct import in lib + tests (FakeIapPlatform); keep aligned with lock ≥1.4.0.
   in_app_purchase_platform_interface: ^1.4.0
   flutter_animate: ^4.2.0+1
   responsive_builder: ^0.7.0

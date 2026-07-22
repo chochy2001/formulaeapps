@@ -113,3 +113,23 @@ dependencies {
     // For AGP 4.0 to 7.2
     // coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.9")
 }
+
+// Google Play rejects updates built against Billing Library 7 after 2026-08-31.
+// in_app_purchase_android ≥0.5 already depends on billing:8.0.0; this floor
+// blocks any transitive downgrade back to 7.x without waiting for a full rebuild.
+configurations.configureEach {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == "com.android.billingclient") {
+            def requested = details.requested.version ?: "0"
+            def majorToken = requested.tokenize('.')[0]
+            def major = majorToken.isInteger() ? majorToken.toInteger() : 0
+            if (major < 8) {
+                details.useVersion("8.0.0")
+                details.because(
+                    "Play Console requires Google Play Billing Library 8+ " +
+                    "(Billing Library 7 deadline 2026-08-31)"
+                )
+            }
+        }
+    }
+}

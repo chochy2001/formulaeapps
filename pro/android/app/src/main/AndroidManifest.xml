@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Android 13+ (API 33): runtime notification permission. Merged from
+         flutter_local_notifications; declared here so Play Console / merges
+         stay explicit when targeting API 36. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- usesCleartextTraffic explícito en false: la app solo habla HTTPS en
          producción (api.formulaeapps.com / formulaeapps.com). El override HTTP
