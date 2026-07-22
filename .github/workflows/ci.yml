@@ -67,7 +67,7 @@ jobs:
   preload-vps-jwt-tools:
     name: Preload VPS test JWT tools
     if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, Linux, X64, ci-runner-node, test-light, global]
+    runs-on: [self-hosted, Linux, X64, ci-jwt-preload]
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
