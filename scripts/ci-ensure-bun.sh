@@ -31,7 +31,7 @@ if command -v bun >/dev/null 2>&1 && [ "$(bun --version)" = "$expected_version" 
 fi
 
 if [ "$mode" = "--verify-only" ]; then
-  echo "::error::Bun $expected_version is not preloaded. Run the preload-wsl-bun maintenance lane before product CI."
+  echo "::error::Bun $expected_version is not preloaded. Run the preload-jwt-pool maintenance lane before product CI."
   exit 1
 fi
 

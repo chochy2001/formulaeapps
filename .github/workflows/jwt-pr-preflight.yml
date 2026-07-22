@@ -29,10 +29,10 @@ concurrency:
 jobs:
   jwt-preflight:
     name: JWT light preflight (no secrets)
-    # Same-repository PRs are trusted and use the warmed WSL capability lane.
+    # Same-repository PRs are trusted and use any verified warmed JWT lane.
     # Forks remain isolated on GitHub-hosted infrastructure and never execute
     # untrusted code on a persistent private host.
-    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository && '["ubuntu-latest"]' || '["self-hosted","Linux","X64","pc-escritorio","ci-flutter-fast"]') }}
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository && '["ubuntu-latest"]' || '["self-hosted","Linux","X64","ci-jwt-tools"]') }}
     timeout-minutes: 15
     steps:
       - name: Verify approved self-hosted test runner
@@ -48,7 +48,7 @@ jobs:
       - name: Setup Node (required by bunx tsc)
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          # 22.22.3 is warm on WSL. Forks use the isolated hosted image.
+          # 22.22.3 is warm on private JWT lanes. Forks use the isolated hosted image.
           node-version: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository && '24' || '22.22.3' }}
 
       - name: Setup Bun on isolated fork worker

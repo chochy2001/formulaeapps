@@ -21,7 +21,9 @@ readonly RIPGREP_SHA256="4cf9f2741e6c465ffdb7c26f38056a59e2a2544b51f7cc128ef2833
 readonly GITLEAKS_SHA256="551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
 readonly SHELLCHECK_SHA256="6c881ab0698e4e6ea235245f22832860544f17ba386442fe7e9d629f8cbedf87"
 
-bin_dir="${CI_PRELOAD_BIN_DIR:-${HOME}/.local/bin}"
+# Keep Formulae's exact pins isolated from fleet-wide tools that may require a
+# different patch version (for example ShellCheck 0.11.0 on policy runners).
+bin_dir="${CI_PRELOAD_BIN_DIR:-${HOME}/.formulae-ci/bin}"
 export PATH="${bin_dir}:${PATH}"
 
 publish_path() {
@@ -65,7 +67,7 @@ if tools_are_exact; then
 fi
 
 if [ "$mode" = "--verify-only" ]; then
-  echo "::error::JWT tools are not preloaded. Run CI mode preload-wsl-bun before product CI." >&2
+  echo "::error::JWT tools are not preloaded. Run CI mode preload-jwt-pool before product CI." >&2
   exit 1
 fi
 
