@@ -1,9 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { useTranslations } from '../../i18n/ui';
 import { SITE, LINKTREE, type Locale } from '../../consts';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Container from '../ui/Container.astro';
-import FormulaePreview from './FormulaePreview.astro';
+import heroShot from '../../assets/images/screenshots/screenshot-01.png';
 
 const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
 const t = useTranslations(locale);
@@ -47,10 +48,14 @@ const t = useTranslations(locale);
         aria-hidden="true"
       >
       </div>
-      <FormulaePreview
-        kind="formulas"
-        label={t('hero.imageAlt')}
-        class="shadow-glow relative aspect-[2/3] w-full rounded-[2rem]"
+      <Image
+        src={heroShot}
+        alt={t('hero.imageAlt')}
+        widths={[280, 380, 560, 760]}
+        sizes="(max-width: 1024px) 80vw, 380px"
+        loading="eager"
+        fetchpriority="high"
+        class="bg-ink-900 shadow-glow ring-ink-900/10 relative block w-full rounded-[2rem] ring-1"
       />
     </div>
   </div>

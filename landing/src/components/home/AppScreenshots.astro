@@ -1,35 +1,52 @@
 ---
 /**
- * Galería de previews visuales de las funcionalidades.
+ * Galería de capturas reales de la app.
  *
- * No usa capturas de una app localizada: el mismo SVG con notación matemática
- * y símbolos universales sirve para todos los idiomas de la landing.
+ * Las imágenes vienen de src/assets/images/screenshots/screenshot-01..10.png
+ * y son MARKETING ASSETS (ya traen título amarillo y composición de tarjetas
+ * inclinadas). Por eso NO las encerramos en marcos de teléfono — preservar
+ * la composición original es lo que las hace ricas visualmente.
  *
  * Layout:
  *   - mobile  : scroll horizontal con snap, una captura visible + peek
  *   - md+     : grid 2 columnas
- *   - lg+     : grid 5 columnas (2 filas de 5, perfecto para 10 capturas)
+ *   - lg+     : grid 5 columnas (2 filas de 5 — perfecto para 10 capturas)
  *
  * El orden 01..10 corresponde a las features en `FEATURES` (consts.ts):
  *   01 Fórmulas · 02 Buscador · 03 Tareas · 04 Favoritos · 05 Imágenes
  *   06 Vídeos   · 07 Ejercicios · 08 PDFs · 09 ChatGPT · 10 Practica
  */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import { FEATURES, SITE, type Locale } from '../../consts';
 import { useTranslations, type UIKey } from '../../i18n/ui';
 import Container from '../ui/Container.astro';
-import FormulaePreview from './FormulaePreview.astro';
 
-const previews = FEATURES;
+// Vite glob: importa todas las capturas de una vez con sus metadatos.
+// `import: 'default'` desempaqueta el default export de cada módulo,
+// por eso el tipo del glob es ImageMetadata directo (no { default: ... }).
+const all = import.meta.glob<ImageMetadata>('/src/assets/images/screenshots/screenshot-*.png', {
+  eager: true,
+  import: 'default',
+});
+
+const screenshots = Object.entries(all)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, img], index) => ({
+    img,
+    feature: FEATURES[index] ?? null,
+    path,
+  }));
 
 const locale = (Astro.currentLocale ?? SITE.defaultLocale) as Locale;
 const t = useTranslations(locale);
 
 function altFor(featureId: string | undefined): string {
-  if (!featureId) return locale === 'es' ? 'Vista visual de Formulae' : 'Formulae visual preview';
+  if (!featureId) return locale === 'es' ? 'Captura de la app Formulae' : 'Formulae app screenshot';
   const title = t(`features.${featureId}.title` as UIKey);
   return locale === 'es'
-    ? `Vista visual de Formulae: ${title.toLowerCase()}`
-    : `Formulae visual preview: ${title.toLowerCase()}`;
+    ? `Captura de Formulae: ${title.toLowerCase()}`
+    : `Formulae screenshot: ${title.toLowerCase()}`;
 }
 ---
 
@@ -47,22 +64,28 @@ function altFor(featureId: string | undefined): string {
   </div>
 
   <div
-    class="-mx-4 [scrollbar-width:none] overflow-x-auto pb-6 [-ms-overflow-style:none] md:mx-0 md:overflow-visible [&::-webkit-scrollbar]:hidden"
+    class="-mx-4 overflow-x-auto pb-6 [-ms-overflow-style:none] [scrollbar-width:none] md:mx-0 md:overflow-visible [&::-webkit-scrollbar]:hidden"
   >
     <ul
       class="flex snap-x snap-mandatory gap-4 px-4 md:grid md:snap-none md:grid-cols-2 md:gap-5 md:px-0 lg:grid-cols-5 lg:gap-6"
       role="list"
     >
       {
-        previews.map((feature) => (
+        screenshots.map(({ img, feature }, i) => (
           <li class="w-60 shrink-0 snap-center sm:w-64 md:w-auto">
             <figure class="group relative">
               <div class="from-primary-300/50 via-primary-200/30 to-accent-400/30 absolute inset-0 -z-10 rounded-[1.75rem] bg-gradient-to-br opacity-0 blur-2xl transition duration-500 group-hover:opacity-70" />
-              <FormulaePreview
-                kind={feature.id}
-                label={altFor(feature.id)}
-                class="aspect-[9/16] w-full transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_18px_42px_rgba(79,70,229,0.28)]"
-              />
+              <div class="bg-ink-900 shadow-soft ring-ink-900/10 group-hover:shadow-glow overflow-hidden rounded-[1.5rem] ring-1 transition-all duration-300 group-hover:-translate-y-1">
+                <Image
+                  src={img}
+                  alt={altFor(feature?.id)}
+                  widths={[240, 360, 480, 640]}
+                  sizes="(max-width: 768px) 60vw, (max-width: 1024px) 45vw, 220px"
+                  class="block aspect-[9/16] w-full object-cover"
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </div>
             </figure>
           </li>
         ))
