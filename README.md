@@ -27,11 +27,11 @@ producto, pero se construyen y validan por separado.
 
 ## Estado (resumen — detalle en STATUS.md)
 
-Verificado en `main` **2026-07-22** (`0065da7`, post-**#141**): BFF **186/186**,
+Verificado en `main` **2026-07-22** (`73d2e14`, post-**#144**): BFF **186/186**,
 landing **64/64**, Pro **215/215** + cobertura local **87.18%** (≥85%, #120;
 runner remasure **UNKNOWN**), Community monorepo **115/115**, gates
 paridad/rutas PASS. Play Store Community SoT (`FormulaeCommunity`) CI **RAW
-85.31%** (#37; tip `81b732e`). Toolchain: Flutter **3.44.7**, Bun **1.3.14**,
+85.31%** (#37; tip `99708a9`). Toolchain: Flutter **3.44.7**, Bun **1.3.14**,
 Node **24**, Astro **7**; solo `landing/bun.lock`.
 
 **Bloqueado (usuario/externo):** T04 FTPS, issues **#9**/**#13**, FML-101

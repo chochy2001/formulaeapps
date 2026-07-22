@@ -6,16 +6,18 @@
 
 ---
 
-## 2026-07-22 (Markdown audit — tip SHAs + false claims)
+## 2026-07-22 (cleanup + production readiness)
 
-- Exhaustive MD audit: tip SHAs → formulaeapps **`0065da7`** (#141 merged),
-  FormulaeCommunity **`81b732e`** (#38). Play Store SoT CI **RAW 85.31%** (#37);
-  issue **#34** closed. Pro local **87.18%** (#120) unchanged.
-- Corrected stale claims that Community coverage was still **3.08%** / #34 open
-  (HANDOFF / scattered READMEs). Pending-for-production stays centralized in
-  `docs/STATUS.md` (T04, #9/#13, FML-101/116/117/129, T40–T42, staging DNS,
-  monorepo runner remasure UNKNOWN).
-- Do **not** wait on self-hosted remasure; do **not** invent monorepo CI %.
+- Worktrees pruned (killswitch, softskip, staging-dns/role, community-ci,
+  fleet-formulae staging docs). Ancestor local branches deleted; kept
+  `archive/*` / `recover/*` / `pilot/*`. Local `main` == `origin/main` both
+  repos. Open session PR **#141** merged; conflicting tip PR **#143** closed.
+- Docs: tip SHAs → formulaeapps **`0065da7`**, FormulaeCommunity **`81b732e`**.
+  Added [`docs/PRODUCTION_READINESS.md`](docs/PRODUCTION_READINESS.md) —
+  verdict **NOT production-ready** (T04/#9/#13/FML-101/staging/secrets).
+  Monorepo runner remasure still **UNKNOWN** — do not poll Actions.
+- No critical incomplete TODO/FIXME bugs fixed in auth/BFF/store paths this
+  pass (OAuth stub + IAP placeholder fail-closed are intentional).
 
 ## 2026-07-21 (docs reorganization + coverage on main)
 
