@@ -2,7 +2,7 @@
 
 `CAPDESIS/formulaeapps` es el meta-repositorio canónico de Formulae. El SHA
 verificado de `origin/main` el 2026-07-22 es
-`1bd67426930a64d954d02bc3a44a0134263526f0`.
+`7250dc2c151d318e3fc94f8f84b32196d89478aa`.
 
 | Directorio | Responsabilidad | Validación mínima |
 |---|---|---|
