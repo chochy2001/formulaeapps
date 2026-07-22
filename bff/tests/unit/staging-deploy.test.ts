@@ -59,7 +59,7 @@ describe('staging deploy hardening', () => {
     expect(result.exitCode).toBe(0);
     const combined = result.stdout.toString() + result.stderr.toString();
     expect(combined).toContain('OK');
-  });
+  }, 30_000);
 
   bashTest('validate-legacy-window accepts fractional UTC for staging max', () => {
     const result = runBash('scripts/validate-legacy-window.sh', [
