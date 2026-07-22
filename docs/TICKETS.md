@@ -47,12 +47,12 @@ Usar STATUS para el panorama; este archivo para el detalle por ticket.
 > HEAD exacto antes de promover. Prod BFF OpenAPI **1.0.0** (sin
 > register/login). Matriz pendiente/bloqueado y auth: `docs/STATUS.md`.
 >
-> **Docs tip refresh 2026-07-21 (noche)**: SHAs vivos en STATUS —
-> formulaeapps `1be799f` (**#134**/#133/#130/#131/#126–#129; **#122–#125**
-> superseded); FormulaeCommunity `64e9bc5` (**#35**; prior **#32**/#33).
-> Community CI ya corre `flutter test` + soft coverage. Bloqueados sin
-> cambio: T04, #9/#13, FML-101/116/117/129, T40–T42. Deps **#132** merged (`1179035`); open PRs: **0**
-> (deps).
+> **Docs tip refresh 2026-07-22**: SHAs vivos **solo** en [`STATUS.md`](STATUS.md)
+> (re-check `git rev-parse origin/main`). FormulaeCommunity Play Store SoT
+> **RAW 85.31%** (#37; tip `#38` `81b732e`); issue **#34** closed. Pro local
+> **87.18%** (#120); monorepo runner remasure **UNKNOWN**. Bloqueados: T04,
+> #9/#13, FML-101/116/117/129, T40–T42, staging DNS/secrets. **#141** merged
+> (`test-light` for soft-report) — do not invent monorepo CI %.
 
 
 ## Orden de ejecución

@@ -6,6 +6,7 @@ al día.
 
 **Estado vivo (LLMs / agentes):** [`docs/STATUS.md`](docs/STATUS.md) — SHAs,
 hecho vs bloqueado, cobertura, validación vía CI.  
+**Production readiness:** [`docs/PRODUCTION_READINESS.md`](docs/PRODUCTION_READINESS.md).  
 Tablero FML-*: [`docs/TICKETS.md`](docs/TICKETS.md).  
 Roadmap de mejora (features + CI): [`docs/IMPROVEMENT_ROADMAP.md`](docs/IMPROVEMENT_ROADMAP.md).  
 Auditoría funcional histórica: [`docs/AUDITORIA_FUNCIONAL_2026-07-13.md`](docs/AUDITORIA_FUNCIONAL_2026-07-13.md) (números pueden estar stale; STATUS gana).
@@ -26,14 +27,16 @@ producto, pero se construyen y validan por separado.
 
 ## Estado (resumen — detalle en STATUS.md)
 
-Verificado en `main` **2026-07-21** (`9facda3`): BFF **186/186**, landing
-**64/64**, Pro **215/215** + cobertura cruda **87.18%** (≥85%), Community
-monorepo **115/115**, gates de paridad/rutas PASS. Toolchain: Flutter
-**3.44.7**, Bun **1.3.14**, Node **24**, Astro **7**; solo `landing/bun.lock`.
+Verificado en `main` **2026-07-22** (`0065da7`, post-**#141**): BFF **186/186**,
+landing **64/64**, Pro **215/215** + cobertura local **87.18%** (≥85%, #120;
+runner remasure **UNKNOWN**), Community monorepo **115/115**, gates
+paridad/rutas PASS. Play Store Community SoT (`FormulaeCommunity`) CI **RAW
+85.31%** (#37; tip `81b732e`). Toolchain: Flutter **3.44.7**, Bun **1.3.14**,
+Node **24**, Astro **7**; solo `landing/bun.lock`.
 
 **Bloqueado (usuario/externo):** T04 FTPS, issues **#9**/**#13**, FML-101
-imágenes 404, FML-129, FML-116, FML-117, T40–T42. IAP sigue fail-closed fuera
-de desarrollo.
+imágenes 404, FML-129, FML-116, FML-117, T40–T42, staging DNS/secrets,
+monorepo runner remasure. IAP sigue fail-closed fuera de desarrollo.
 
 ## Desarrollo local
 

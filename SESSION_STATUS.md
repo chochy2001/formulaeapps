@@ -6,6 +6,17 @@
 
 ---
 
+## 2026-07-22 (Markdown audit — tip SHAs + false claims)
+
+- Exhaustive MD audit: tip SHAs → formulaeapps **`0065da7`** (#141 merged),
+  FormulaeCommunity **`81b732e`** (#38). Play Store SoT CI **RAW 85.31%** (#37);
+  issue **#34** closed. Pro local **87.18%** (#120) unchanged.
+- Corrected stale claims that Community coverage was still **3.08%** / #34 open
+  (HANDOFF / scattered READMEs). Pending-for-production stays centralized in
+  `docs/STATUS.md` (T04, #9/#13, FML-101/116/117/129, T40–T42, staging DNS,
+  monorepo runner remasure UNKNOWN).
+- Do **not** wait on self-hosted remasure; do **not** invent monorepo CI %.
+
 ## 2026-07-21 (docs reorganization + coverage on main)
 
 - Canonical LLM index added: `docs/STATUS.md` (SHAs, done vs blocked, CI-first

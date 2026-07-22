@@ -10,6 +10,7 @@ that may lag.
 | Surface | Canonical doc |
 | --- | --- |
 | Live status (this file) | `docs/STATUS.md` |
+| Production readiness checklist | [`docs/PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md) |
 | Ticket board (FML-*) | [`docs/TICKETS.md`](TICKETS.md) |
 | Improvement roadmap (features + CI plan) | [`docs/IMPROVEMENT_ROADMAP.md`](IMPROVEMENT_ROADMAP.md) |
 | Web deploy / FTPS | [`docs/DEPLOY_CI_WEB.md`](DEPLOY_CI_WEB.md) |
@@ -17,6 +18,14 @@ that may lag.
 | Local audit handoff (not in git) | `Formulae/audits/2026-07-21-revision-integral/` |
 | Local improvement plans (not in git) | `Formulae/audits/2026-07-21-mejora-continua/` |
 | Folder map (outside monorepo git) | `Formulae/README.md` |
+
+### Production readiness verdict (2026-07-22)
+
+**Not production-ready for full ship.** Code on `main` is in good shape for
+local/GitHub evidence (tests, contracts, Play Store SoT coverage), but **T04 /
+#9 / #13 / FML-101 / staging DNS+secrets / store secrets** remain user-ops
+blockers. Monorepo runner remasure is **UNKNOWN** (CI labels fixed in **#141**;
+do not wait on self-hosted). Details: [`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
 
 Audit tickets T\* live only under `/Apps/Formulae/audits/` (not pushed to
 GitHub). Critical status is **mirrored here**.
@@ -27,13 +36,13 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `e4163aa` | Tip after Community STATUS sync on main; coverage soft-report **#126** live. Open **#141** moves Pro/Community/parity Flutter soft-report onto `test-light`. Re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `bc67d81` | Tip after coverage **#37** (ads seam + route/widget mounts). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**. Issue **#34** closed. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `0065da7` | Tip after **#141** merge (Pro/Community/parity soft-report → `test-light`). Coverage soft-report **#126** live. Re-check: `git rev-parse origin/main` (advances after docs PRs). |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `81b732e` | Tip after CI fork isolation **#38**; coverage evidence **#37** (`bc67d81`). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**. Issue **#34** closed. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
-issue **#34** closed (Play Store SoT RAW ≥85% met). Monorepo open PR:
-[**#141**](https://github.com/CAPDESIS/formulaeapps/pull/141) (test-light remasure
-unblocking) — light PR checks green; full self-hosted remasure **not** claimed.
+issue **#34** closed (Play Store SoT RAW ≥85% met). **#141** is **merged** —
+workflow labels updated; monorepo runner remasure still **UNKNOWN** (do not poll
+Actions / invent %). Open docs PRs: re-check `gh pr list`.
 
 Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
 merged local feature branches pruned when idle. Formulae worktrees under
@@ -68,7 +77,7 @@ Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
 | Workflow | Latest signal | Verdict |
 | --- | --- | --- |
 | formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Older SHA gates healthy; not a remasure of current HEAD |
-| formulaeapps **CI** remasure (**#141**) | Workflow move: Pro/Community/parity → **`test-light`** (APK/Docker stay **`build-heavy`**). Self-hosted queue/cancel bottleneck — agents must **not** poll Actions | **Runner remasure UNKNOWN** for monorepo Pro / Community / BFF / Landing. Do **not** invent CI % until a terminal green soft-report on recovered runners |
+| formulaeapps **CI** remasure (**#141** on `main`) | **#141** merged: Pro/Community/parity → **`test-light`** (APK/Docker stay **`build-heavy`**). Self-hosted queue/cancel bottleneck — agents must **not** poll Actions | **Runner remasure UNKNOWN** for monorepo Pro / Community / BFF / Landing. Do **not** invent CI % until a terminal green soft-report on recovered runners |
 | formulaeapps **Deploy to stores** | Red / soft-skip while kill switch disarmed (**#130**/#137) | **Expected**: `STORE_AUTODEPLOY` unset / ≠ `true` — ignore as a merge blocker |
 | FormulaeCommunity **Formulae Flutter CI** | Soft-report + `community-app-lcov` on `test-light` (**#37**). Runner: **RAW 85.31%** (`21218/24873`), NO_GENERATED **85.11%** (`18838/22135`) — green [29886251914](https://github.com/CAPDESIS/FormulaeCommunity/actions/runs/29886251914) (129/129) | ≥85% RAW **met**; issue **#34** closed. Optional hard gate later. **Not** a substitute for monorepo `community/` remasure |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
@@ -91,7 +100,7 @@ disarmed by design until store secrets are provisioned and the var is set to
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
 | Pro tests + coverage | Suite **215/215**; local raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. **Runner remasure UNKNOWN** (self-hosted bottleneck); soft-report + `pro-lcov` wired in **#126**/#141 |
 | Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale). **Runner remasure UNKNOWN**; soft-report + `community-monorepo-lcov` wired — do not treat Play Store SoT % as monorepo copy % |
-| Community standalone | analyze 0 strict; **#37** on `main` (`bc67d81`). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%** (Play Store SoT). Issue **#34** closed |
+| Community standalone | analyze 0 strict; tip **`81b732e`** (**#38**); coverage **#37** CI **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**; suite **129/129** on that run. Issue **#34** closed |
 | BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03). **Current runner remasure UNKNOWN** |
 | Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI). **Current runner remasure UNKNOWN** |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
@@ -132,7 +141,7 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Role+network **code fixed** (accept `staging`/`staging-node`; compose → `staging_proxy`). Remaining: Cloudflare A `staging.api` → staging-node IP (DNS only) + `/opt/staging/apps/formulaeapps` + `.env.staging` + `STAGING_SSH_*` — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
-| **Monorepo coverage remasure** | CI / runners | **BLOCKED** (ops) | Self-hosted `test-light`/`build-heavy` bottleneck; **#141** moves Pro/Community/parity soft-report to `test-light`. **Do not poll Actions.** Runner % = **UNKNOWN** until recovered remasure |
+| **Monorepo coverage remasure** | CI / runners | **BLOCKED** (ops) | Self-hosted bottleneck; **#141** already on `main` (`test-light` for soft-report). **Do not poll Actions.** Runner % = **UNKNOWN** until recovered remasure |
 | **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
 | Store auto-deploy failures | Expected guard | **Not a bug** | Keep disarmed until secrets exist; then set `STORE_AUTODEPLOY=true`. Soft-skip UX merged (**#130**) |
 
@@ -186,6 +195,7 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | T04 / images / VPS “terminado” | Still **blocked** (#9/#13, FML-101, T04) |
 | T31 dual lockfile still open | **Cleared** — only `landing/bun.lock` |
 | Community standalone analyze broken | Fixed in **#29** (`b133e55`) |
+| Community CI still **3.08%** / #34 open / “far from 85%” | **Superseded** — **#37** RAW **85.31%**; **#34** closed; tip **`81b732e`** (#38) |
 | T10–T14 still pending | **Done** (#116/#117); next work is blocked externals, not those hotspots |
 | Deploy-to-stores red = release broken | Kill switch disarmed (`STORE_AUTODEPLOY`); expected until armed |
 | Prod account login available | Live BFF lacks `/auth/register|login` (404); flag-off 403 only exists after cutover |

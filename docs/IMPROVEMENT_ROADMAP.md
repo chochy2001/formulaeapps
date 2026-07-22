@@ -1,7 +1,7 @@
 # Formulae — improvement roadmap (planning index)
 
 **Planning-only index** for continuous product and CI/CD improvement.
-Verified against code + `docs/STATUS.md` on **2026-07-21**. Does **not**
+Verified against code + `docs/STATUS.md` on **2026-07-22**. Does **not**
 authorize deploys, flag flips, store publishes, or VPS changes.
 
 | Doc | Role |
@@ -26,8 +26,11 @@ in the local audit folder (mirrors critical conclusions here).
 | **BFF (prod live)** | OpenAPI **1.0.0**: health + token + chat + iap only — account/entitlement routes **absent** (cutover blocked) |
 | **Landing** | Astro marketing ES/EN; canonical 176 image assets; FTPS deploy path exists |
 
-Unknowns (do not invent): exact prod Flutter web SHA vs `main`; Community
-standalone coverage % on runner until remasured.
+Unknowns (do not invent): exact prod Flutter web SHA vs `main`. Community
+Play Store SoT coverage is **measured**: CI **RAW 85.31%** / NO_GENERATED
+**85.11%** on FormulaeCommunity **#37** (issue **#34** closed). Monorepo Pro
+CI remasure still **UNKNOWN** on runners (**#141** merged → soft-report on
+`test-light`; do not invent %).
 
 ---
 
@@ -55,7 +58,7 @@ until blockers clear.
 | **0** | User: T04 hostname, FML-101 promote, FML-129 key rotate, runners (FML-116) |
 | **1** | Required branch checks; exact-SHA green (FML-127); post-FTPS remote image smoke |
 | **2** | Staging BFF continuous (`staging.api` + Traefik + JWT smoke runbook) |
-| **3** | Runner-confirmed LCOV floors → honest hard gates (Pro already ≥85% local) |
+| **3** | Runner-confirmed LCOV floors → honest hard gates (Pro ≥85% local; Community SoT ≥85% CI) |
 | **4** | Store secrets + optional `STORE_AUTODEPLOY` after staging + IAP policy |
 
 **Always:** `verify-parity.sh` + `route-coverage.sh` on contract/route changes;
