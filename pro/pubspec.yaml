@@ -3,9 +3,9 @@ title: Formulae Pro
 description: formulario sin anuncios
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-# 3.3.9+60 continua la secuencia del versionCode/versionName que el build.gradle
-# de Android tenia hardcodeado (3.3.8+59) por si Play ya conoce esos numeros.
-version: 3.3.9+60
+# 3.4.0+61: dependency/runtime audit (Firebase pin lift to match Community
+# Play Store SoT + flutter_lints 6). Continues versionCode after 3.3.9+60.
+version: 3.4.0+61
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
@@ -56,11 +56,10 @@ dependencies:
   pdf: ^3.10.4
   timezone: ^0.11.1
   screenshot: ^3.0.0
-  # Pinned (not caret) to match CapGym#79 / CapLiving known-good combo:
-  # newer firebase_crashlytics resolves a firebase_core_platform_interface
-  # missing FirebasePlugin and fails to compile.
-  firebase_core: 4.4.0
-  firebase_crashlytics: 5.0.7
+  # Pins lifted 2026-07-21: FormulaeCommunity validated 4.12.1/5.2.6 on
+  # Flutter 3.44.7 (analyze + test + debug APK). CapGym#79 combo retired here.
+  firebase_core: ^4.12.1
+  firebase_crashlytics: ^5.2.6
   posthog_flutter: ^5.23.2
 
 flutter_native_splash:

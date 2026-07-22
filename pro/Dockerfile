@@ -39,7 +39,7 @@ RUN if [ -z "${JWT_SHARED_SECRET}" ] || [ -z "${FORMULAE_BFF_BASE_URL}" ] || [ -
       exit 1; \
     fi
 
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:1.30-alpine AS runtime
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build/web /usr/share/nginx/html

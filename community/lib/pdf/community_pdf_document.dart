@@ -45,7 +45,7 @@ class CommunityPdfDocument {
           children: [
             pw.Text(
               content.appTitle,
-              style: pw.TextStyle(
+              style: const pw.TextStyle(
                 color: PdfColors.blue900,
                 fontSize: 18,
                 fontWeight: pw.FontWeight.bold,
@@ -66,7 +66,7 @@ class CommunityPdfDocument {
           pw.SizedBox(height: 24),
           pw.Text(
             content.title,
-            style: pw.TextStyle(fontSize: 21, fontWeight: pw.FontWeight.bold),
+            style: const pw.TextStyle(fontSize: 21, fontWeight: pw.FontWeight.bold),
           ),
           pw.SizedBox(height: 20),
           pw.Container(

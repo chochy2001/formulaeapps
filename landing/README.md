@@ -195,8 +195,8 @@ docker run --rm -p 8080:80 formulae-landing:latest
 
 El build histórico hace dos stages:
 
-1. `oven/bun:1.3.9-alpine` → instala deps (con cache de capas), `astro build`.
-2. `nginx:1.27-alpine` → copia `dist/` a `/usr/share/nginx/html` y monta nuestro `nginx.conf`.
+1. `oven/bun:1.3.14-alpine` → instala deps (con cache de capas), `astro build`.
+2. `nginx:1.30-alpine` → copia `dist/` a `/usr/share/nginx/html` y monta nuestro `nginx.conf`.
 
 Imagen final ~50-60 MB.
 

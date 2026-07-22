@@ -48,7 +48,7 @@ RUN bun run check \
 
 
 # ──────────── Stage 2 — runtime ────────────
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:1.30-alpine AS runtime
 
 LABEL org.opencontainers.image.title="formulae-landing" \
       org.opencontainers.image.description="Landing oficial de formulaeapps.com (Astro 7 + nginx)" \

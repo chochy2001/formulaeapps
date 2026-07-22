@@ -1,7 +1,7 @@
 {
   "name": "formulae-landing",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Landing page oficial de Formulae Apps (Pro y Community)",
   "scripts": {

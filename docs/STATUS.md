@@ -25,7 +25,7 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `1be799f` | Tip after STATUS tip-bump **#134** (also **#133**/#130/#131/#126–#129). Docs index **#122–#125** superseded. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `c3a31a6` | Tip after STATUS sync **#135** (also **#134**/#133/#130/#131/#126–#129). Open deps PR **#132**. Re-check: `git rev-parse origin/main`. |
 | [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `64e9bc5` | Tip after version bump **#35** (`2.3.0+75`). Prior: coverage **#33**, workflow name **#32** (`a6ec118`), `flutter test` + soft coverage on `main`. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. Open monorepo PR:
@@ -35,6 +35,28 @@ Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
 merged local feature branches pruned when idle. Formulae worktrees under
 `/Apps/worktrees` should be removed after PR merge (open **#132** may still
 leave an active worktree until that PR lands).
+
+---
+
+## Dependency / runtime audit (2026-07-21)
+
+Inventory verified against Bun/npm/pub.dev/Docker Hub on this date.
+Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
+
+| Surface | Current (this PR) | Recommended / latest | Action |
+| --- | --- | --- | --- |
+| Flutter / Dart | **3.44.7** / **3.12.2** | same (stable) | Keep — already current |
+| Bun | **1.3.14** (CI/Docker) | **1.3.14** | Keep; fixed leftover probe workflow pin **1.3.9→1.3.14** |
+| Node | **24** (LTS Krypton) | **24.x** LTS | Keep |
+| BFF deps | hono/zod/googleapis exact latest; jose **6.2.4** | same | Bumped jose; package **0.1.0→0.1.1** |
+| Landing | Astro **7.1.3**, Vite **8.1.5**, Tailwind **4.3.3**, TS **6.0.3** | same | Keep TS 6 — `@astrojs/check` peers `^5 \|\| ^6` (not 7). Package **1.0.0→1.0.1** |
+| nginx runtime | **1.30-alpine** (= `stable-alpine`) | stable 1.30 | Bumped from **1.27** in landing + Pro Dockerfiles |
+| Pro Firebase | **^4.12.1 / ^5.2.6** | 4.12.1 / 5.2.6 | Lifted CapGym#79 pins (validated on FormulaeCommunity) |
+| Monorepo Community | share_plus **13**, Syncfusion **34**, Firebase **4.12/5.2**, pdf **3.13** | align Play Store SoT | Aligned with FormulaeCommunity / Pro |
+| `flutter_lints` | **^4.0.0** | 6.0.0 available | **Left alone** — v6 enables `strict_top_level_inference` / `unnecessary_underscores` and fails `--fatal-infos` (~50–66 infos). Follow-up cleanup PR |
+| App versions | Pro **3.4.0+61**, Community **2.3.0+75** | — | Manifest bumps for store/release sequence |
+
+**Release tags:** repo convention is rare (`v1.0.0-bff` only). Do **not** auto-tag; after merge + green CI, optional manual tags: `v0.1.1-bff`, and Play/App Store builds from Pro `3.4.0+61` / Community `2.3.0+75`.
 
 ---
 
