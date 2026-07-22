@@ -13,4 +13,4 @@ jobs:
     with:
       enforce: false
       runner-label: policy-light
-      production-day: monday
+      production-day: any
