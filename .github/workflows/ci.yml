@@ -77,7 +77,9 @@ jobs:
 
   verify-parity:
     name: Contract ↔ Dart parity (Principle VII)
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    # OpenAPI regen + Dart diff (Java). Not APK/Docker — stay on test-light so
+    # CI is not blocked when the dedicated build-heavy runner is offline.
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -133,13 +135,14 @@ jobs:
           path: coverage.json
           retention-days: 30
 
-  # Flutter analyze+test is CPU/RAM heavy. Keep Pro and Community on build-heavy
-  # and serialize Community after Pro so parallel suites cannot starve the shared
-  # host (recent main failures: runner lost communication mid-test while analyze
-  # had already passed).
+  # Flutter analyze+test+coverage on test-light so remasure is not blocked when
+  # the dedicated build-heavy runner is offline (2026-07-21 queue stall; mirrors
+  # FormulaeCommunity). Serialize Community after Pro so parallel Flutter suites
+  # cannot starve the shared test-light host. APK/Docker stays on build-heavy
+  # in deploy/store workflows.
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
       run:
@@ -196,7 +199,7 @@ jobs:
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
     needs: [pro-test]
-    runs-on: [self-hosted, ci-runner-node, build-heavy]
+    runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
       run:
