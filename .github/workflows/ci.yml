@@ -40,10 +40,10 @@ env:
 # of under-test production code to fake-green).
 
 concurrency:
-  # Do not cancel in-progress remasure when another dispatch lands on the same
-  # ref (observed 2026-07-22: Pro/Community cancelled mid-suite by a follow-up
-  # workflow_dispatch). Prefer queueing over killing long Flutter coverage jobs.
-  group: ci-${{ github.ref }}
+  # Keep normal remasure and short preload maintenance in separate groups so
+  # one cannot cancel or serialize the other. Repeated normal remasures still
+  # queue rather than killing long Flutter coverage jobs.
+  group: ci-${{ github.ref }}-${{ inputs.mode || 'ci' }}
   cancel-in-progress: false
 
 jobs:
