@@ -6,6 +6,9 @@ name: Flutter coverage remasure
 # Keep APK/Docker on build-heavy in deploy/store workflows.
 
 on:
+  # PR event works from the feature branch without requiring the workflow on main.
+  # workflow_dispatch also listed for later (needs file on default branch to dispatch via API).
+  pull_request:
   workflow_dispatch:
 
 permissions:

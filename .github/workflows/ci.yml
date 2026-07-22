@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - ci
+          - flutter-only
           - preload-wsl-bun
           - preload-jwt-pool
   schedule:
@@ -212,7 +213,7 @@ jobs:
   # in deploy/store workflows.
   pro-test:
     name: Pro — flutter analyze + test (Principle VIII)
-    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci' || inputs.mode == 'flutter-only'
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
     defaults:
@@ -269,7 +270,7 @@ jobs:
 
   community-test:
     name: Community — flutter analyze + test (Principle VIII)
-    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
+    if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci' || inputs.mode == 'flutter-only'
     needs: [pro-test]
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 55
