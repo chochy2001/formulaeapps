@@ -11,6 +11,6 @@ jobs:
   release-policy:
     uses: CAPDESIS/.github/.github/workflows/release-policy-check.yml@e3b3d8bdb7524aa29dbc55edb6558b5646dde61f
     with:
-      enforce: false
+      enforce: true
       runner-label: policy-light
       production-day: mon-thu
