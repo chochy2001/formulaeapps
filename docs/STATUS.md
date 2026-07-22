@@ -1,9 +1,9 @@
 # Formulae — canonical status (LLM index)
 
 **Single source of truth for “what’s done / blocked / how to validate.”**
-Verified against `origin/main` + GitHub on **2026-07-21** (triage refresh). Prefer
-this file over scattered READMEs, old SESSION_STATUS sections, or audit notes
-that may lag.
+Verified against `origin/main` + GitHub on **2026-07-21** (docs tip refresh after
+parallel session). Prefer this file over scattered READMEs, old SESSION_STATUS
+sections, or audit notes that may lag.
 
 | Surface | Canonical doc |
 | --- | --- |
@@ -25,11 +25,17 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `656c2ad` | Tip after staging role/proxy **#129** (JWT light preflight green); re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `df8d022` | Analyze **#29**; README→STATUS **#30**/#31. CI still missing `flutter test` step (follow-up PR). |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `80e627f` | Tip after STATUS post-#129 docs **#131**. Also on `main`: staging role+proxy **#129**, coverage soft-report **#126**, staging-DNS docs **#127**, roadmap **#128**. Docs index **#122–#125** superseded. Re-check: `git rev-parse origin/main`. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `1c075d7` | Tip after coverage leverage **#33**. Analyze **#29**; README→STATUS **#30**/#31; `flutter test` + soft coverage on `main` (`f826c15`); workflow name restore **#32** (`a6ec118`). |
 
-Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity:
-**0** open issues.
+Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. Open monorepo PRs:
+**#130** (store kill-switch soft-skip), **#132** (deps/nginx/app versions). FormulaeCommunity:
+**0** open issues / PRs.
+
+Local hygiene (not in git): `archive/*` / `recover/*` / `pilot/*` branches kept;
+merged local feature branches pruned when idle. Formulae worktrees under
+`/Apps/worktrees` should be removed after PR merge (open **#130**/#132 may still
+leave active worktrees until those PRs land).
 
 ---
 
@@ -40,9 +46,10 @@ Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
 | formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Code gates healthy on that SHA |
 | formulaeapps **CI** on HEAD | Prefer `git rev-parse origin/main` + Actions for tip | Do not promote from stale schedule SHA alone |
 | formulaeapps **Deploy to stores** | Failures on recent pushes ([29865725314](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865725314), [29865190240](https://github.com/CAPDESIS/formulaeapps/actions/runs/29865190240)) | **Expected**: kill switch `STORE_AUTODEPLOY` unset / ≠ `true` — guard aborts before any store publish |
-| FormulaeCommunity **Formulae Flutter CI** | Schedule **success**; historically analyze + debug APK only | Line-coverage PR adds `flutter test --coverage` + soft LF/LH summary + `community-app-lcov` artifact |
+| FormulaeCommunity **Formulae Flutter CI** | On `main` after **#32**/#33: analyze + **`flutter test --coverage`** + soft LF/LH summary + `community-app-lcov` artifact | % UNKNOWN until runner job summary sampled (API rate-limit at doc sync) |
 | Older CI failures (Jul 18–19) | BFF staging-hardening timeout / shellcheck | Superseded by Jul 21 schedule green |
-| formulaeapps **line coverage** (this change) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Informational — no hard 85% gate until runner confirms floors |
+| formulaeapps **line coverage** (**#126** on `main`) | Soft-report RAW LF/LH in job summary; artifacts `pro-lcov`, `community-monorepo-lcov`, `bff-lcov`, `landing-lcov` | Informational — no hard 85% gate until runner confirms floors |
+| formulaeapps **Deploy to stores** UX (**#130** open) | Soft-skip when kill switch disarmed | Optional; does not change “red = expected while disarmed” |
 
 `gh variable list` showed **no** repo variables (including `STORE_AUTODEPLOY`) —
 disarmed by design until store secrets are provisioned and the var is set to
@@ -60,7 +67,7 @@ disarmed by design until store secrets are provisioned and the var is set to
 | Pro analyze | 0 issues (`--fatal-infos --fatal-warnings`) |
 | Pro tests + coverage | Suite **215/215**; raw lcov **87.18%** (**24 851 / 28 507**) — PR **#120**. Local ≥85% met; CI soft-reports RAW + uploads `pro-lcov` for runner remasure |
 | Community (monorepo copy) | analyze 0; **115/115** tests; last local RAW **85.44%** (2026-07-17, stale) — CI soft-reports + `community-monorepo-lcov` |
-| Community standalone | analyze 0 strict; **89/89** tests (local/session); CI test+coverage in FormulaeCommunity PR (Play Store SoT; % UNKNOWN until runner) |
+| Community standalone | analyze 0 strict; **89/89** tests (local/session); CI on `main` runs `flutter test --coverage` + soft report + `community-app-lcov` (**#32**/#33; Play Store SoT; % UNKNOWN until runner) |
 | BFF coverage | Soft-report `bun test --coverage` → `bff-lcov`; last fleet measure **93.54%** on `src/` (2026-07-03) |
 | Landing coverage | Soft-report `bun run test:coverage` → `landing-lcov`; include = consts + i18n only (not full Astro UI) |
 | T31 toolchain | Bun **1.3.14**, Node **24**, Astro **7** on `main`. Dual lockfile cleared: only `landing/bun.lock` (no `package-lock.json`) |
@@ -102,7 +109,7 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
 | **T40–T42** | Ops / product | **BLOCKED** | AdMob/OAuth secrets, VPS volume/backups, `STORE_AUTODEPLOY` arm decision, Polar/PDFs |
-| Store auto-deploy failures | Expected guard | **Not a bug** | Keep disarmed until secrets exist; then set `STORE_AUTODEPLOY=true` |
+| Store auto-deploy failures | Expected guard | **Not a bug** | Keep disarmed until secrets exist; then set `STORE_AUTODEPLOY=true`. Optional soft-skip UX: open **#130** |
 
 ---
 
