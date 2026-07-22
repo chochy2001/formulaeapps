@@ -40,8 +40,11 @@ env:
 # of under-test production code to fake-green).
 
 concurrency:
+  # Do not cancel in-progress remasure when another dispatch lands on the same
+  # ref (observed 2026-07-22: Pro/Community cancelled mid-suite by a follow-up
+  # workflow_dispatch). Prefer queueing over killing long Flutter coverage jobs.
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   preload-wsl-bun:
