@@ -25,9 +25,19 @@ concurrency:
 jobs:
   verify:
     name: verify-pro-play-compliance
-    runs-on: [self-hosted, ci-runner-node, policy-light]
+    # PRs stay on the hosted isolation path; trusted manual validation uses the
+    # preloaded policy runner without exposing secrets to fork code.
+    runs-on: ${{ fromJSON(github.event_name == 'pull_request' && '["ubuntu-latest"]' || '["self-hosted","ci-runner-node","policy-light"]') }}
     timeout-minutes: 5
     steps:
+      - name: Validate self-hosted runner for trusted events
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ "${{ runner.environment }}" != "self-hosted" ]; then
+            echo "::error::Trusted compliance validation must run on a self-hosted runner"
+            exit 1
+          fi
+
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 1
