@@ -1,8 +1,13 @@
-# FormulaeApps BFF — JWT dual-key staging runbook (draft)
+# ARCHIVED — FormulaeApps BFF JWT dual-key staging runbook
 
-Operator procedure for validating the dual-key JWT migration on `staging-node`
-before any production promotion. This does **not** provision production secrets
-or enable daily production deploys.
+> Public staging/preview is retired from the Formulae release path. This file
+> is retained as historical evidence only; do not create staging DNS, staging
+> credentials, or a staging deployment from it. Production promotion is
+> weekly, manual, and allowed only for the exact `main` SHA after every
+> required check, backup, smoke, and rollback control is green.
+
+The historical operator procedure below is no longer a release prerequisite.
+It does **not** provision production secrets or enable production deploys.
 
 ## Verified gap (2026-07-21, code fix follow-up) — do not claim staging healthy
 

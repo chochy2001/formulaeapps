@@ -16,11 +16,10 @@ verificado de `origin/main` el 2026-07-22 es
 Cada directorio forma parte de una sola entrega coherente: los contratos se
 generan desde el BFF, los clientes se validan contra ellos y los builds de web
 usan el mismo SHA. El deploy de producción sigue el workflow del meta-repo,
-con CI verde, SHA exacto de `main`, ventana lunes–jueves en
-`America/Mexico_City`, environment `production`, smoke y rollback. La
-migración JWT/BFF que aún conserva workflow técnico de staging queda como
-excepción documentada hasta completar su cutover y no se considera evidencia
-de producción.
+con CI verde, SHA exacto de `main`, cadencia semanal manual, environment
+`production`, smoke y rollback. El workflow técnico de staging/JWT queda
+archivado y no participa en la ruta de release ni debe usarse para provisionar
+dominios o credenciales.
 
 No se agregan submódulos internos: Formulae ya es un monorepo real y cambiar
 su layout rompería los contratos de build y los paths de los clientes.

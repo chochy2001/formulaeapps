@@ -1,12 +1,12 @@
 name: Deploy Web (landing + Pro)
 
-# Manual production promotion to Hostinger FTPS.
+# Manual weekly production promotion to Hostinger FTPS.
 # Builds immutable candidates from the exact origin/main SHA, then uploads
 # landing + Pro web (including /imagenes/) when FTP_PASSWORD and
 # FORMULAE_JWT_SHARED_SECRET are set.
 #
 # Safety:
-#   - workflow_dispatch only (no auto-deploy on push)
+#   - workflow_dispatch only (no auto-deploy on push; operator chooses the weekly window)
 #   - exact-main SHA preflight
 #   - landing lint+test+build and Pro web build gates before upload
 #   - FTPS forced; certificate CA-chain verified
@@ -151,16 +151,6 @@ jobs:
       FTP_HOST: '31.170.161.105'
       FTP_USER: 'u226095507.formulaeapps.com'
     steps:
-      - name: Enforce production release window
-        run: |
-          set -euo pipefail
-          weekday="$(TZ=America/Mexico_City date +%u)"
-          case "$weekday" in
-            1|2|3|4) ;;
-            *) echo "::error::Production deploys are allowed Monday through Thursday in America/Mexico_City only."; exit 1 ;;
-          esac
-          echo "Monday–Thursday production window confirmed (America/Mexico_City)."
-
       - name: Download landing candidate
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:

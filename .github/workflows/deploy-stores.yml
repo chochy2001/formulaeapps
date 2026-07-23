@@ -1,9 +1,8 @@
 name: Deploy to stores
 
-# Auto-deploy a PRODUCCIÓN (Play production track + App Store con
-# submit_for_review y automatic_release) disparado por bumps de versión en
-# main. Un push a main que toca community/pubspec.yaml o pro/pubspec.yaml
-# publica esa app; workflow_dispatch permite el disparo manual por app.
+# Manual weekly promotion to PRODUCCIÓN (Play production track + App Store
+# con submit_for_review y automatic_release). Production is dispatched by the
+# operator for an exact `main` SHA after all required checks are green.
 #
 # Kill switch: el pipeline se entrega DESARMADO. El job `guard` hace soft-skip
 # (exit 0, doc 56 / CapLiving) hasta que STORE_AUTODEPLOY sea 'true'; main
@@ -46,11 +45,6 @@ name: Deploy to stores
 # rechaza CFBundleVersion duplicados en la subida.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'community/pubspec.yaml'
-      - 'pro/pubspec.yaml'
   workflow_dispatch:
     inputs:
       app:
@@ -107,17 +101,6 @@ jobs:
           echo "armed=true" >> "$GITHUB_OUTPUT"
           echo "STORE_AUTODEPLOY=true: pipeline armed."
 
-      - name: Enforce production release window
-        if: steps.kill_switch.outputs.armed == 'true'
-        run: |
-          set -euo pipefail
-          weekday="$(TZ=America/Mexico_City date +%u)"
-          case "$weekday" in
-            1|2|3|4) ;;
-            *) echo "::error::Production store releases are allowed Monday through Thursday in America/Mexico_City only."; exit 1 ;;
-          esac
-          echo "Monday–Thursday production window confirmed (America/Mexico_City)."
-
   resolve:
     name: Resolve exact main SHA, apps and versions
     needs: guard
@@ -144,9 +127,7 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ github.token }}
-          EVENT_NAME: ${{ github.event_name }}
           DISPATCH_APP: ${{ inputs.app || '' }}
-          PUSH_BEFORE: ${{ github.event.before || '' }}
         run: |
           set -euo pipefail
           candidate_sha="$(git rev-parse HEAD)"
@@ -163,27 +144,14 @@ jobs:
 
           deploy_community=false
           deploy_pro=false
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            if [ "$DISPATCH_APP" = "community" ] || [ "$DISPATCH_APP" = "both" ]; then
-              deploy_community=true
-            fi
-            if [ "$DISPATCH_APP" = "pro" ] || [ "$DISPATCH_APP" = "both" ]; then
-              deploy_pro=true
-            fi
-          else
-            before="$PUSH_BEFORE"
-            if [ -z "$before" ] || [[ "$before" =~ ^0+$ ]]; then
-              before="$(git rev-parse HEAD~1)"
-            fi
-            if git diff --name-only "$before" HEAD | grep -qx 'community/pubspec.yaml'; then
-              deploy_community=true
-            fi
-            if git diff --name-only "$before" HEAD | grep -qx 'pro/pubspec.yaml'; then
-              deploy_pro=true
-            fi
+          if [ "$DISPATCH_APP" = "community" ] || [ "$DISPATCH_APP" = "both" ]; then
+            deploy_community=true
+          fi
+          if [ "$DISPATCH_APP" = "pro" ] || [ "$DISPATCH_APP" = "both" ]; then
+            deploy_pro=true
           fi
           if [ "$deploy_community" != "true" ] && [ "$deploy_pro" != "true" ]; then
-            echo "::error::No app selected: the push did not bump a pubspec version and no dispatch app was chosen."
+            echo "::error::No app selected: choose community, pro, or both in workflow_dispatch."
             exit 1
           fi
 
@@ -239,6 +207,8 @@ jobs:
     needs: [resolve, ci-gate]
     if: needs.resolve.outputs.community == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
+    environment:
+      name: production
     timeout-minutes: 90
     permissions:
       contents: read
@@ -482,6 +452,8 @@ jobs:
     needs: [resolve, ci-gate]
     if: needs.resolve.outputs.pro == 'true'
     runs-on: [self-hosted, ci-runner-node, build-heavy]
+    environment:
+      name: production
     timeout-minutes: 90
     permissions:
       contents: read
@@ -691,6 +663,8 @@ jobs:
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
+    environment:
+      name: production
     timeout-minutes: 60
     permissions:
       contents: read
@@ -852,6 +826,8 @@ jobs:
     # iOS builds require Xcode + macOS: they stay on GitHub-hosted
     # macos-latest until the fleet provisions a macOS self-hosted runner.
     runs-on: macos-latest
+    environment:
+      name: production
     timeout-minutes: 60
     permissions:
       contents: read

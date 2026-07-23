@@ -23,7 +23,7 @@ that may lag.
 
 **Not production-ready for full ship.** Code on `main` is in good shape for
 local/GitHub evidence (tests, contracts, Play Store SoT coverage), but **T04 /
-#9 / #13 / FML-101 / staging DNS+secrets / store secrets** remain user-ops
+#9 / #13 / FML-101 / production controls / store secrets** remain user-ops
 blockers. Monorepo runner remasure is **UNKNOWN** (CI labels fixed in **#141**;
 do not wait on self-hosted). Details: [`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
 
@@ -36,8 +36,8 @@ GitHub). Critical status is **mirrored here**.
 
 | Repo | `main` SHA | Notes |
 | --- | --- | --- |
-| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `b26e49a` | Tip after tip-refresh **#145** (+ audit **#144**, **#141** test-light). Coverage soft-report **#126** live. Re-check: `git rev-parse origin/main`. |
-| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `99708a9` | Tip after README docs **#39**; coverage evidence **#37** (`bc67d81`). CI soft-report **RAW 85.31%** (`21218/24873`) / NO_GENERATED **85.11%**. Issue **#34** closed. |
+| [`CAPDESIS/formulaeapps`](https://github.com/CAPDESIS/formulaeapps) | `b8bac70` | Exact `origin/main` tip verified in the current audit; coverage soft-report **#126** remains historical/runner-dependent. |
+| [`CAPDESIS/FormulaeCommunity`](https://github.com/CAPDESIS/FormulaeCommunity) | `bc560ba` | Exact `origin/main` tip verified in the current audit; coverage evidence **#37** remains RAW **85.31%** / NO_GENERATED **85.11%**. Issue **#34** closed. |
 
 Open monorepo issues (deploy/infra Spec Kit): **#9**, **#13**. FormulaeCommunity
 issue **#34** closed (Play Store SoT RAW ≥85% met). **#141** is **merged** —
@@ -76,7 +76,7 @@ Prefer CI (`workflow_dispatch` / schedule) over heavy local suites.
 
 | Workflow | Latest signal | Verdict |
 | --- | --- | --- |
-| formulaeapps **CI** (schedule) | [29822650313](https://github.com/CAPDESIS/formulaeapps/actions/runs/29822650313) **success** on `26c97ba` (all 6 jobs) | Older SHA gates healthy; not a remasure of current HEAD |
+| formulaeapps **CI** (schedule) | [29965676311](https://github.com/CAPDESIS/formulaeapps/actions/runs/29965676311) **success** on `b8bac70` | Exact current `origin/main` evidence at this audit cut; keep runner-dependent coverage floors marked UNKNOWN |
 | formulaeapps **CI** remasure (**#141** on `main`) | **#141** merged: Pro/Community/parity → **`test-light`** (APK/Docker stay **`build-heavy`**). Self-hosted queue/cancel bottleneck — agents must **not** poll Actions | **Runner remasure UNKNOWN** for monorepo Pro / Community / BFF / Landing. Do **not** invent CI % until a terminal green soft-report on recovered runners |
 | formulaeapps **Deploy to stores** | Red / soft-skip while kill switch disarmed (**#130**/#137) | **Expected**: `STORE_AUTODEPLOY` unset / ≠ `true` — ignore as a merge blocker |
 | FormulaeCommunity **Formulae Flutter CI** | Soft-report + `community-app-lcov` on `test-light` (**#37**). Runner: **RAW 85.31%** (`21218/24873`), NO_GENERATED **85.11%** (`18838/22135`) — green [29886251914](https://github.com/CAPDESIS/FormulaeCommunity/actions/runs/29886251914) (129/129) | ≥85% RAW **met**; issue **#34** closed. Optional hard gate later. **Not** a substitute for monorepo `community/` remasure |
@@ -122,10 +122,10 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 
 | Layer | Behavior | CI / prod |
 | --- | --- | --- |
-| Device JWT | `POST /auth/token` (HMAC `client_proof` + build nonce) | Staging smoke mints **ephemeral** device tokens from staging `.env` secrets — **does not** create email/password users |
-| Account register/login | Implemented behind `ENABLE_USER_ACCOUNT_AUTH` (default **off** → **403** in current monorepo code) | Unit/integration tests create users **in-process SQLite only** (`account-auth-stub.test.ts`, `users-store.test.ts`). **No workflow seeds prod/staging accounts** |
+| Device JWT | `POST /auth/token` (HMAC `client_proof` + build nonce) | Local/in-process tests cover token issuance; no production credential is inferred from that evidence |
+| Account register/login | Implemented behind `ENABLE_USER_ACCOUNT_AUTH` (default **off** → **403** in current monorepo code) | Unit/integration tests create users **in-process SQLite only** (`account-auth-stub.test.ts`, `users-store.test.ts`). No workflow seeds production accounts |
 | Production `api.formulaeapps.com` | OpenAPI **1.0.0** exposes only `/health`, `/auth/token`, `/openai/chat`, `/iap/validate` | `POST /auth/register` / `/auth/login` → **404** (routes not on live build). Contract in git is **2.1.0**. Health **200**. Drift = blocked VPS cutover (**#9**), not a missing CI user |
-| Flutter apps | Account UI / flag remain off until product + staging evidence | Do not invent production credentials |
+| Flutter apps | Account UI / flag remain off until product + production cutover evidence | Do not invent production credentials |
 
 ---
 
@@ -137,8 +137,8 @@ FLUTTER_TEST_CONCURRENCY=1 flutter test --no-pub --coverage --reporter compact \
 | GitHub **#9** / **#13** | Ops / Spec Kit | **BLOCKED** | Contabo/VPS deploy + multi-app infra validation (prod BFF still contract **1.0.0**) |
 | **FML-101** | Ops | **BLOCKED** | FTPS promote of `landing/public/imagenes/` — sample remote smoke still **404** `text/html` |
 | **FML-129** | Security ops | **BLOCKED** | Rotate historical OpenAI key in secret manager; clean old clones |
-| **FML-116** | Ops / GitHub | **BLOCKED** | Protected envs, required checks, staging SHA, FTPS/VPS backup/rollback evidence |
-| **Staging BFF DNS** | Ops / DNS | **BLOCKED** | Role+network **code fixed** (accept `staging`/`staging-node`; compose → `staging_proxy`). Remaining: Cloudflare A `staging.api` → staging-node IP (DNS only) + `/opt/staging/apps/formulaeapps` + `.env.staging` + `STAGING_SSH_*` — hoy **NXDOMAIN** (2026-07-21); prod `api.formulaeapps.com/health` = 200 |
+| **FML-116** | Ops / GitHub | **BLOCKED** | Protected production envs, required checks, exact-main evidence, FTPS/VPS backup/rollback evidence |
+| **Historical staging BFF path** | Retired by direct-production policy | **SUPERSEDED** | Do not provision public staging DNS, staging secrets, or a staging deploy; keep the archived runbook only as historical evidence |
 | **FML-117** | Product | **BLOCKED** | Entitlement authority + Apple/Google sandbox validators |
 | **FML-127** | CI exact-SHA | **PENDING** (partial) | Latest schedule CI green on older SHA; need terminal green on exact HEAD before promote |
 | **Monorepo coverage remasure** | CI / runners | **BLOCKED** (ops) | Self-hosted bottleneck; **#141** already on `main` (`test-light` for soft-report). **Do not poll Actions.** Runner % = **UNKNOWN** until recovered remasure |
@@ -157,8 +157,8 @@ Do **not** mark these HECHO. They require secrets, hostnames, VPS, or product de
 | GitHub **#9** / **#13** | Spec Kit VPS / multi-app infra issues still OPEN | Contabo/VPS + deploy validation |
 | **FML-101** | 176 public `/imagenes/` URLs still 404 | Authorized FTPS promote + remote smoke |
 | **FML-129** | Historical OpenAI credential rotation | Secret-manager rotation + old clone cleanup |
-| **FML-116** | Runners / promotion / staging controls | Staging + protected production env + FTPS/VPS evidence |
-| **Staging BFF host** | `staging.api.formulaeapps.com` NXDOMAIN; no app tree / `.env.staging` on `staging-node` | Create CF A (DNS only) → `144.126.159.214`; bootstrap `/opt/staging/apps/formulaeapps` + `.env.staging` + GitHub `STAGING_SSH_*`; then `workflow_dispatch` + smoke `/health`. Traefik attach is **code-fixed** in **#129** (`staging_proxy`) — do not create a separate `staging_web_proxy` |
+| **FML-116** | Runners / promotion / direct-production controls | Protected production env + exact-main checks + FTPS/VPS backup/rollback evidence |
+| **Historical staging BFF host** | `staging.api.formulaeapps.com` was NXDOMAIN and has no role in the current release path | No action; do not create a public staging host or provision `STAGING_SSH_*` for Formulae |
 | **FML-117** | IAP entitlement / account-device product decision | Product + Apple/Google sandbox validators |
 | **T40** | AdMob / OAuth / OpenAI ops | Console access |
 | **T41** | Staging, VPS volume, backups, image hosting | VPS / GitHub settings |

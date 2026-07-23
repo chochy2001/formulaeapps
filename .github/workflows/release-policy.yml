@@ -13,4 +13,3 @@ jobs:
     with:
       enforce: true
       runner-label: policy-light
-      production-day: mon-thu
