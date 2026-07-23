@@ -1,7 +1,10 @@
-# FormulaeApps BFF — staging deploy + JWT migration smokes (draft)
+# FormulaeApps BFF — retired staging deploy + JWT migration fixtures
 #
-# Targets staging-node over SSH. Does NOT deploy production.
-# Required GitHub secrets in the `staging` environment:
+# RETIRED: public staging/preview delivery was removed from the fleet policy.
+# This historical workflow is retained only so its fixtures and rollback logic
+# remain reviewable; every job is permanently disabled and no SSH/Docker action
+# may run from it. Production uses the direct weekly workflow instead.
+# Historical required GitHub secrets in the `staging` environment:
 #   STAGING_SSH_HOST, STAGING_SSH_USER, STAGING_SSH_KEY, STAGING_SSH_KNOWN_HOSTS
 # Optional: STAGING_SSH_PORT (default 2222)
 # Optional repository variable: STAGING_APP_PATH (default /opt/staging/apps/formulaeapps)
@@ -9,7 +12,7 @@
 # Host must provide persistent .env.staging outside immutable releases and
 # /etc/capdesis-role in {staging, staging-node}. The workflow checks presence/format only.
 
-name: Deploy Staging BFF (JWT)
+name: Retired Staging BFF (JWT fixtures only)
 
 on:
   workflow_dispatch:
@@ -51,6 +54,9 @@ env:
 jobs:
   preflight:
     name: Preflight (gate + tests + build)
+    # No schedule trigger exists; this condition is permanently false for
+    # every supported event and keeps the historical job non-executable.
+    if: ${{ github.event_name == 'schedule' }}
     runs-on: [self-hosted, ci-runner-node, test-light]
     timeout-minutes: 20
     outputs:
@@ -161,6 +167,7 @@ jobs:
 
   deploy:
     name: SSH deploy + secret presence + smokes
+    if: ${{ github.event_name == 'schedule' }}
     needs: preflight
     runs-on: [self-hosted, ci-runner-node, deploy-only]
     environment: staging
