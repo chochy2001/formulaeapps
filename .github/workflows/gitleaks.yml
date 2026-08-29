@@ -29,8 +29,10 @@ jobs:
           set -euo pipefail
           go install github.com/zricethezav/gitleaks/v8@v8.30.1
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-          actual="$(gitleaks version)"
-          test "$actual" = "8.30.1" || { echo "::error::gitleaks drift: ${actual:-missing}"; exit 1; }
+          binary="$(command -v gitleaks)"
+          go version -m "$binary"
+          go version -m "$binary" | grep -Eq \
+            '[[:space:]]mod[[:space:]]+github.com/zricethezav/gitleaks/v8[[:space:]]+v8\.30\.1[[:space:]]'
       - name: Run gitleaks
         run: gitleaks detect --source . --config .gitleaks.toml --redact --no-banner --report-format sarif --report-path gitleaks.sarif --exit-code 1
       - name: Upload SARIF
