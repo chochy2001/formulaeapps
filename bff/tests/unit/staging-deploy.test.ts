@@ -143,17 +143,17 @@ describe('staging deploy hardening', () => {
     expect(payload.control_sha).toBe('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
   });
 
-  test('deploy workflow uses control scripts path not candidate release scripts', () => {
+  test('retired staging workflow is fail-closed and secret-free in the public mirror', () => {
     const workflow = Bun.file(join(repoRoot, '.github', 'workflows', 'deploy-staging-bff.yml'));
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     return workflow.text().then((text) => {
-      expect(text).toContain('remote_control_dir}/staging_deploy_remote.py');
-      expect(text).toContain('remote_control_dir}/staging-check-env.py');
-      expect(text).toContain('cfg[\\"control_dir\\"] + \\"/jwt-staging-smoke.sh\\"');
-      expect(text).not.toMatch(/\$\{RELEASE_PATH\}\/scripts\/staging_deploy_remote\.py/);
-      expect(text).not.toMatch(/current\/scripts\/jwt-staging-smoke\.sh/);
-      expect(text).toContain('candidate-tree');
-      expect(text).toContain('control_sha');
+      expect(text).toContain('Retired Staging BFF');
+      expect(text).toContain('public mirror');
+      expect(text).toContain('runs-on: ubuntu-latest');
+      expect(text).not.toContain('self-hosted');
+      expect(text).not.toMatch(/\$\{\{\s*secrets\./);
+      expect(text).not.toMatch(/\bssh\b.+@/);
+      expect(text).not.toContain('scp ');
     });
   });
 
@@ -162,8 +162,10 @@ describe('staging deploy hardening', () => {
     const preload = Bun.file(join(repoRoot, 'scripts', 'ci-ensure-jwt-tools.sh'));
     const [workflowText, preloadText] = await Promise.all([workflow.text(), preload.text()]);
 
-    expect(workflowText).toContain('ci-ensure-jwt-tools.sh --verify-only');
-    expect(workflowText).toContain('head.repo.full_name != github.repository');
+    expect(workflowText).toContain('runs-on: ubuntu-latest');
+    expect(workflowText).toContain('oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76');
+    expect(workflowText).toContain('ci-ensure-jwt-tools.sh');
+    expect(workflowText).not.toContain('self-hosted');
     expect(workflowText).toContain('base.sha }}...${{ github.event.pull_request.head.sha }}');
     expect(preloadText).toContain('readonly SHELLCHECK_VERSION="0.10.0"');
     expect(preloadText).toContain('readonly GITLEAKS_VERSION="8.30.1"');

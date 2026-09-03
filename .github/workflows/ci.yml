@@ -4,15 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Run normal CI or reconcile a persistent JWT tool pool
+        description: Run the public hosted CI profile
         required: false
         default: ci
         type: choice
         options:
           - ci
           - flutter-only
-          - preload-wsl-bun
-          - preload-jwt-pool
   schedule:
     # Local-first policy: PR/push validation runs on the developer machine.
     # Remote CI is manual or staggered daily (validation only — no production deploy).
@@ -39,105 +37,12 @@ env:
 # of under-test production code to fake-green).
 
 concurrency:
-  # Keep normal remasure and short preload maintenance in separate groups so
-  # one cannot cancel or serialize the other. Repeated normal remasures still
-  # queue rather than killing long Flutter coverage jobs.
+  # Keep the two public CI modes isolated so a manual Flutter-only remasure
+  # cannot cancel the broader hosted validation run.
   group: ci-${{ github.ref }}-${{ inputs.mode || 'ci' }}
   cancel-in-progress: false
 
 jobs:
-  preload-wsl-bun:
-    name: Preload WSL CI tools
-    if: github.event_name == 'workflow_dispatch' && (inputs.mode == 'preload-wsl-bun' || inputs.mode == 'preload-jwt-pool')
-    runs-on: [self-hosted, Linux, X64, pc-escritorio, ci-flutter-fast]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Reconcile checksum-locked Bun outside product CI
-        run: bash scripts/ci-ensure-bun.sh 1.3.14
-      - name: Reconcile checksum-locked JWT tools outside product CI
-        run: bash scripts/ci-ensure-jwt-tools.sh
-
-  preload-vps-jwt-tools:
-    name: Preload VPS test JWT tools
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, Linux, X64, ci-jwt-preload]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Reconcile checksum-locked Bun outside product CI
-        run: bash scripts/ci-ensure-bun.sh 1.3.14
-      - name: Reconcile checksum-locked JWT tools outside product CI
-        run: bash scripts/ci-ensure-jwt-tools.sh
-
-  preload-build-web-tools:
-    name: Preload VPS build web tools
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, Linux, X64, build-heavy, global]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Reconcile checksum-locked Bun outside product CI
-        run: bash scripts/ci-ensure-bun.sh 1.3.14
-      - name: Reconcile checksum-locked JWT tools outside product CI
-        run: bash scripts/ci-ensure-jwt-tools.sh
-
-  preload-macos-web-tools:
-    name: Preload macOS web tools
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, macOS, ARM64, macbook-air-cicd, macos-persistent]
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Reconcile checksum-locked Bun outside product CI
-        shell: bash
-        run: bash scripts/ci-ensure-bun.sh 1.3.14
-
-  preload-windows-web-tools:
-    name: Preload Windows web tools
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, Windows, X64, windows-desktop-on-demand]
-    timeout-minutes: 8
-    defaults:
-      run:
-        shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Verify Git Bash
-        run: .\scripts\ci-activate-git-bash.ps1
-      - name: Reconcile checksum-locked Bun outside product CI
-        run: .\scripts\ci-ensure-bun.ps1 -Version 1.3.14
-
-  preload-laptop-jwt-tools:
-    name: Preload Linux laptop JWT tools
-    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preload-jwt-pool'
-    runs-on: [self-hosted, Linux, X64, laptop-policy-pilot]
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Reconcile checksum-locked Bun outside product CI
-        run: bash scripts/ci-ensure-bun.sh 1.3.14
-      - name: Reconcile checksum-locked JWT tools outside product CI
-        run: bash scripts/ci-ensure-jwt-tools.sh
-
   bff-test:
     name: BFF — typecheck + test
     if: github.event_name != 'workflow_dispatch' || inputs.mode == 'ci'
@@ -167,7 +72,7 @@ jobs:
         shell: powershell -NoProfile -ExecutionPolicy Bypass -File {0}
         working-directory: .
         run: .\scripts\ci-activate-git-bash.ps1
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: '1.3.14'
       - name: Ensure Bun 1.3.14
@@ -202,7 +107,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: '1.3.14'
       - name: Ensure Bun 1.3.14
@@ -216,12 +121,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      # generate-bff-types.sh runs build_runner for the generated built_value
-      # clients. The WSL runner already has this exact Flutter release in the
-      # Actions toolcache, but it is not on PATH until flutter-action exports
-      # it. Without this step the script skips build_runner and parity reports
-      # every committed .g.dart file as deleted (a false 6k-line drift).
-      - name: Activate preloaded Flutter for Dart codegen
+      # verify-parity.sh runs build_runner for the generated built_value
+      # clients, so flutter-action must export the exact toolchain before the
+      # script regenerates Dart sources and diffs committed artifacts.
+      - name: Activate Flutter for Dart codegen
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           flutter-version: '3.44.7'
@@ -242,7 +145,7 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: '1.3.14'
       - name: Activate Git Bash on Windows
@@ -403,7 +306,7 @@ jobs:
         working-directory: landing
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: '1.3.14'
       # Astro check needs a current LTS; pin its patch for reproducibility.

@@ -54,17 +54,36 @@ jobs:
                 ;;
             esac
 
+            if workflow_has "$file" 'self-hosted'; then
+              fail "$base still references self-hosted runners; public mirror workflows must stay GitHub-hosted"
+            fi
+
+            if workflow_has "$file" '\$\{\{[[:space:]]*secrets\.'; then
+              fail "$base still references GitHub secrets; public mirror workflows must stay secret-free"
+            fi
+
+            retired=false
+            if workflow_has "$file" 'name:[[:space:]]*Retired'; then
+              retired=true
+            fi
+
             deploy_like=false
             if [[ "$base" =~ [Dd]eploy ]] || workflow_has "$file" 'docker compose|rsync|ssh .+@|scp |kubectl|fly deploy|vercel|hostinger'; then
               deploy_like=true
             fi
-            if [ "$deploy_like" != true ] || workflow_has "$file" 'name:[[:space:]]*Retired'; then
+            if [ "$deploy_like" != true ] && [ "$retired" != true ]; then
               continue
             fi
 
             if ! grep -Eq '^concurrency:' "$file"; then
               fail "$base is deploy-like but has no top-level concurrency guard"
             fi
+
+            if [ "$retired" = true ]; then
+              continue
+            fi
+
+            fail "$base remains deploy-capable in the public mirror; retire it in YAML or move it to the private repository"
 
             if workflow_has "$file" 'environment:[[:space:]]*production|deploy-prod|production|PRODUCTION_|web-app-proxy|ancare'; then
               if ! grep -Eq '^[[:space:]]*name:[[:space:]]*production[[:space:]]*$' "$file"; then
@@ -79,4 +98,4 @@ jobs:
           if ((findings > 0)); then
             exit 1
           fi
-          echo 'Release policy passed: deploy workflows are serialized and production paths require manual approval.'
+          echo 'Release policy passed: active public workflows stay hosted-only, and deploy-like paths are retired in YAML.'
