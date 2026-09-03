@@ -26,12 +26,26 @@ fail() {
   errors=$((errors + 1))
 }
 
+extract_first_capture() {
+  local file="$1"
+  local pattern="$2"
+  python3 - "$file" "$pattern" <<'PY'
+import pathlib
+import re
+import sys
+
+text = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8")
+match = re.search(sys.argv[2], text, re.MULTILINE)
+print(match.group(1) if match else "")
+PY
+}
+
 [[ -f "$GRADLE" ]] || { echo "ERROR: missing $GRADLE" >&2; exit 2; }
 [[ -f "$PUBSPEC" ]] || { echo "ERROR: missing $PUBSPEC" >&2; exit 2; }
 [[ -f "$LOCK" ]] || { echo "ERROR: missing $LOCK" >&2; exit 2; }
 
-compile_sdk="$(rg -oN 'compileSdkVersion\s+(\d+)' -r '$1' "$GRADLE" | head -1 || true)"
-target_sdk="$(rg -oN 'targetSdkVersion\s+(\d+)' -r '$1' "$GRADLE" | head -1 || true)"
+compile_sdk="$(extract_first_capture "$GRADLE" 'compileSdkVersion\s+(\d+)')"
+target_sdk="$(extract_first_capture "$GRADLE" 'targetSdkVersion\s+(\d+)')"
 
 if [[ "$compile_sdk" != "36" ]]; then
   fail "compileSdkVersion must be 36 (found: ${compile_sdk:-missing})"
@@ -40,11 +54,11 @@ if [[ "$target_sdk" != "36" ]]; then
   fail "targetSdkVersion must be 36 (found: ${target_sdk:-missing})"
 fi
 
-if ! rg -q 'in_app_purchase_android:\s*\^0\.5' "$PUBSPEC"; then
+if ! grep -Eq '^[[:space:]]*in_app_purchase_android:[[:space:]]*\^0\.5' "$PUBSPEC"; then
   fail "pro/pubspec.yaml must pin in_app_purchase_android: ^0.5.0 (Billing Library 8+)"
 fi
 
-if ! rg -q 'in_app_purchase:\s*\^3\.3' "$PUBSPEC"; then
+if ! grep -Eq '^[[:space:]]*in_app_purchase:[[:space:]]*\^3\.3' "$PUBSPEC"; then
   fail "pro/pubspec.yaml must pin in_app_purchase: ^3.3.0 or newer"
 fi
 
@@ -77,11 +91,11 @@ PY
   fi
 fi
 
-if ! rg -q 'com\.android\.billingclient' "$GRADLE"; then
+if ! grep -Eq 'com\.android\.billingclient' "$GRADLE"; then
   fail "android/app/build.gradle must keep a Billing Library 8+ resolution floor"
 fi
 
-if rg -q 'windowOptOutEdgeToEdgeEnforcement' "$STYLES_DIR" --glob '*.xml'; then
+if find "$STYLES_DIR" -type f -name '*.xml' -exec grep -Eq 'windowOptOutEdgeToEdgeEnforcement' {} +; then
   fail "Android themes must not opt out of edge-to-edge (ignored/disabled on API 36)"
 fi
 

@@ -1,8 +1,8 @@
 # Formulae web release candidates
 
-The workflow `.github/workflows/deploy-web.yml` builds the landing and Pro web
-artifacts manually from the exact current `main` SHA and then promotes them to
-production through a dedicated FTPS job.
+As of 2026-09-03, the public mirror keeps `.github/workflows/deploy-web.yml`
+only as a fail-closed historical stub. Live FTPS promotion remains private
+CAPDESIS automation and is not runnable from this repository.
 
 **Live status index:** [`STATUS.md`](STATUS.md). FTPS hostname verification
 (**T04**) remains **blocked** until the real hostname replaces the interim IP
@@ -37,16 +37,10 @@ cancelled. There is no candidate for the newer documentation-only `main`
 state. The older `081aa889` dispatches `29301504493` and `29301504487` were
 cancelled and are not current evidence. No production system changed.
 
-The FTPS promotion job now exists in `.github/workflows/deploy-web.yml` and
-runs on a dedicated `deploy-only` runner inside a protected `production`
-environment. It connects to Hostinger IP `31.170.161.105` with
-`ssl:check-hostname false` while we wait for the real hostname from the user.
-That interim configuration validates the server certificate chain but does not
-verify the hostname; the target remains hostname-verified FTPS as soon as the
-real hostname is provisioned. The upload uses `mirror --reverse` without
-`--delete`, so a failed run cannot wipe the live site, and a post-deploy smoke
-checks landing, app, sample images, and release markers. A failed build must
-never become a partial production update.
+Historical note: the former FTPS promotion job connected to Hostinger IP
+`31.170.161.105` with `ssl:check-hostname false` while waiting for a real
+hostname. That deploy path is retired in the public mirror and must not be
+treated as live production automation here.
 
 ## What the workflow does
 
@@ -56,11 +50,11 @@ never become a partial production update.
 3. Builds the Pro web application only when the required build configuration is
    present.
 4. Uploads SHA-named GitHub artifacts with a 14-day retention period.
-5. Promotes the validated artifacts to production through the FTPS job when the
-   required secrets and environment are present.
+5. In the private CAPDESIS repo, the validated artifacts may then be promoted
+   through the FTPS job with the required credentials and release controls.
 
-The two build jobs may run in parallel after the exact-main preflight. Only the
-`deploy` job receives production FTPS credentials.
+The two build jobs may run in parallel after the exact-main preflight. The
+public mirror does not receive production FTPS credentials.
 
 ## Current build blockers
 

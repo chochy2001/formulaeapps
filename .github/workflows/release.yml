@@ -53,7 +53,7 @@ env:
 jobs:
   jwt-artifact-validate:
     name: JWT dual-key artifact gate
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout workflow ref (gate script source)
@@ -98,7 +98,7 @@ jobs:
   infra-validate-production:
     name: Multi-App Infra Validation (Principle IX)
     needs: jwt-artifact-validate
-    runs-on: [self-hosted, ci-runner-node, test-light]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout same candidate as JWT gate
